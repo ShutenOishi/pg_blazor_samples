@@ -4,6 +4,8 @@
 
 | 用途 | ドキュメント |
 | --- | --- |
+| DIを初めて学ぶ人へ | [DI入門・サービスライフタイム](di-for-beginners.md) |
+| Windows Server 2025での構築 | [IIS・Windows認証・Kerberos・gMSA・PostgreSQL](windows-server-2025-iis.md) |
 | 学習順序と到達目標 | [学習ロードマップ](learning-path.md) |
 | 60ステップの具体的な題材と進捗 | [サンプル一覧](sample-catalog.md) |
 | 1サンプルの記述方法 | [サンプル作成テンプレート](sample-specification.md) |

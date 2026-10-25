@@ -12,6 +12,8 @@
 
 ## 前提
 - 直前に理解しておきたいステップ：
+- 必要なプロジェクト（Web/Application/Domain/Infrastructure等）：
+- 導入する新しいDI登録・寿命（該当時）：
 - 開発環境：
 - PostgreSQLが必要か：
 - AD接続が必要か：
@@ -51,3 +53,11 @@
 - **要修正**：回帰や環境差による失敗が確認された。
 
 状態更新と教材へのリンクは[サンプル一覧](sample-catalog.md)へ反映します。PRで検証できない場合は「検証済み」にしません。
+
+## DIを扱う教材に追加する説明
+
+インターフェイス、登録場所、解決方法、Scoped/Transient/Singletonの寿命、Blazor Interactive Serverのcircuit特性、プロジェクト参照方向、テストでの差し替えを必ず解説する。初学者用サンプルからいきなりInfrastructureを要求しない。
+
+## サーバー配備を扱う教材に追加する説明
+
+Windows Server 2025のドメイン参加、IIS、Hosting Bundle、Windows認証、SPN、HTTPS、SignalR、gMSA（必要時）、PostgreSQLの最小権限、異常時の拒否を扱う。実環境未確認なら「検証済み」にしない。

@@ -1,74 +1,92 @@
-# アーキテクチャ方針
+# アーキテクチャ方針と段階的なプロジェクト分割
 
-## 達成したいこと
+## 方針
 
-- **学びやすい**：01から60へ1機能ずつ増やす。既存の共通設定・画面を再利用する。
-- **実務に近い**：UI、業務処理、データアクセス、認証と認可の責務を区別する。
-- **増やしやすい**：ステップを追加しても大量の複製プロジェクトや設定ファイルを増やさない。
-- **安全**：Windowsの本人認証だけで業務操作を許可しない。
+**単一のBlazor Webアプリを中心に、必要なタイミングでクラスライブラリへ責務を切り出す方式**を採用します。60個の独立アプリを複製しません。ただし学習用のコードと本番相当の業務機能は名前空間・ルーティングと権限で分離します。
 
-## 想定するディレクトリ
+DIを初めて学ぶ人にも適した順序にします。最初から4層構成を暗記させず、部品の入れ替えやテストを体験してから層を切り出します。
+
+## ステップごとのプロジェクト導入
+
+| 導入時点 | プロジェクト | 追加する理由 |
+| --- | --- | --- |
+| Step01 | `PgBlazorSamples.Web` | Razor、画面、イベントから始める |
+| Step11〜12 | Web内の`Services/` | DIとインターフェイスを最小構成で体験する |
+| Step18 | `PgBlazorSamples.UnitTests` | Fake実装を使い、画面なしのテストを学ぶ |
+| Step19 | `PgBlazorSamples.Application` | 業務処理と抽象インターフェイスを画面から分離 |
+| Step31 | `PgBlazorSamples.Domain` | Entity、値オブジェクト、業務ルールを隔離 |
+| Step33 | `PgBlazorSamples.Infrastructure` | linq2db/Npgsqlなど外部環境の具象実装を隔離 |
+| Step40 | `PgBlazorSamples.IntegrationTests` | PostgreSQL 18を使った再現可能な結合試験 |
+| Step50以降 | `PgBlazorSamples.WebTests` | 認証、IIS、Web画面の総合検証 |
+
+## 完成形のディレクトリ案
 
 ```text
-/
-  README.md
-  CONTRIBUTING.md
-  SECURITY.md
-  docs/
-    README.md
-    sample-catalog.md
-    learning-path.md
-    ...
-    decisions/
-  src/
-    PgBlazorSamples.Web/
-      Components/
-        Layout/
-        Pages/
-        Samples/
-          Step01/
-          Step02/
-          ...
-      Features/
-        Users/
-        Authorization/
-      Application/
-      Infrastructure/
-        Persistence/
-        Identity/
-  tests/
-    PgBlazorSamples.Tests/
-    PgBlazorSamples.IntegrationTests/
-  database/
-    schema/
-    seed/
+PgBlazorSamples.slnx
+src/
+  PgBlazorSamples.Web/
+    Components/Layout/
+    Components/Samples/Step01/ ... Step60/
+    Features/Users/
+    Program.cs
+  PgBlazorSamples.Application/
+    Abstractions/
+    Users/
+  PgBlazorSamples.Domain/
+    Users/
+    Roles/
+  PgBlazorSamples.Infrastructure/
+    Persistence/
+    Identity/
+tests/
+  PgBlazorSamples.UnitTests/
+  PgBlazorSamples.IntegrationTests/
+  PgBlazorSamples.WebTests/
+database/
+  schema/
+  migrations/
+  seed/
+docs/
+  samples/
 ```
 
-これは**実装予定の配置**であり、まだ存在しないファイルを完成済みと主張するものではありません。最初は1つのWebプロジェクトと必要なテストプロジェクトで構成し、責務の分割が必要と確認できた場合のみクラスライブラリを切り出します。
+これは将来の**予定構成**です。現時点ではコードプロジェクト・DB・ADはまだ実装していません。
 
-## 責務分担
+## 依存関係の約束
 
-| 層 | 行うこと | 避けること |
-| --- | --- | --- |
-| Components | 画面表示、入力、イベント、状態表示 | SQL直書き、ADの資格情報操作 |
-| Application | 業務ルール、入力の正当性、操作単位の認可 | UI部品やSQL文字列への直接依存 |
-| Infrastructure/Persistence | linq2db・Npgsql・トランザクション | 画面状態の保持 |
-| Infrastructure/Identity | Windows主体の識別とDB利用者照合 | ADのパスワードをDBへ複製 |
-| Database | 業務データ・利用者・ロール・監査 | 本人認証そのものの代行 |
+```text
+Web ────────────────> Application ───────────────> Domain
+ |                         ^                          ^
+ |                         |                          |
+ +──> Infrastructure ──────+──────────────────────────+
+           |
+     linq2db / Npgsql
+           |
+     PostgreSQL 18
+```
 
-## Interactive Serverの注意点
+- WebがDIを登録する起動地点（Composition Root）。MudBlazor・Razor・IIS/ASP.NET Coreとの接点も担当。
+- ApplicationはユースケースやRepositoryインターフェイスを置く。Infrastructureの実装に直接依存しない。
+- Domainは業務ルール・値・不変条件を持ち、MudBlazorやNpgsqlに依存しない。
+- InfrastructureがApplicationのRepositoryインターフェイスを実装し、DB/外部基盤を扱う。
+- WebからInfrastructureの参照は**DI構成のためのみ**。ページ内から具象Repositoryを直接利用しない。
+- DTOと画面モデルは目的に応じて置き、理由のない共有プロジェクトを増やさない。
 
-サーバー上でコンポーネントのイベントが実行され、ブラウザーとの接続に回線状態が影響します。切断・再接続・二重操作・コンポーネント破棄を考慮します。
+## Blazor Interactive Server固有の注意点
 
-- DB接続やlinq2dbのデータコンテキストは**操作単位**で生成・破棄し、アプリ全体のSingletonにしない。
-- Interactive ServerのScoped寿命は一般的なHTTPリクエストとは異なるため、接続の競合や長時間保持に注意する。
-- `NpgsqlDataSource`の共有と、接続・トランザクション単位の分離を区別する。
-- ページ表示の非表示制御は**認可の代用にしない**。業務処理の入口でも認可する。
-- 読み取り操作と更新操作を区別し、必要に応じ中断・冪等化・楽観排他を実装する。
-- 事前描画と初期化処理の二重実行を検証する。
+- DIのScopedサービスは通常のHTTPリクエスト単位ではなく、対話型の**circuit**に紐づいて生存し得る。
+- ユーザー固有情報をSingletonへ格納しない。
+- NpgsqlDataSourceの安全な共有と、操作ごとに生成・破棄する接続/linq2db DataConnectionを区別する。
+- 同時イベント、切断・再接続、二重送信、描画時の二重初期化を教材に含める。
+- 画面のAuthorizeViewは表示制御であり、業務サービスの認可の代用ではない。
+- AD Windows統合認証はIISで実施。PostgreSQL側の利用者・権限確認はサーバー側で毎回適切に行う。
 
-## 追加プロジェクトを作る条件
+## 標準配備先
 
-次のいずれかが明確になったときにだけ追加します。自動テストの分離が必要、ドメイン層を複数ホストで再利用する、学習ステップの前提を独立させないと壊れる、といった場合です。無条件に大規模なクリーンアーキテクチャのひな形を持ち込むことは避けます。
+イントラネット、ADドメイン参加済み**Windows Server 2025 + IIS + .NET 10 Hosting Bundle**。TLS、Windows認証、内部DNS、SPN、Kerberos、SignalR/WebSocket、アプリプールID（必要に応じgMSA）とPostgreSQL 18接続を扱います。詳しくは[Windows Server 2025 + IIS](windows-server-2025-iis.md)。
 
-この判断の記録は[ADR-0001](decisions/0001-learning-app-structure.md)に残します。
+## さらに読む
+
+- [DI入門](di-for-beginners.md)
+- [サンプル60ステップ](sample-catalog.md)
+- [ADR-0001](decisions/0001-learning-app-structure.md)

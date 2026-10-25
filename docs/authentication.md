@@ -48,3 +48,7 @@
 - [Windows認証の公式Blazorガイド](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/security/blazor-web-app-with-windows-authentication?view=aspnetcore-10.0)
 - [ASP.NET Core Windows認証](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/windowsauth?view=aspnetcore-10.0)
 - [テーブル設計案](database.md)
+
+## 本番相当ホスト
+
+Windows Server 2025のドメイン参加済みメンバーサーバーにIISを構成する。Windows認証の終端位置、匿名認証の無効化、IISアプリプールID、HTTPS、HTTP SPNとKerberos/NTLMの実態、SignalRの再接続を検証する。Windows Serverの運用上の詳細は[構築計画](windows-server-2025-iis.md)。
