@@ -31,11 +31,21 @@ Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazo
 
 **NuGetの具体的な安定版は[バージョン管理方針](docs/versions.md)を参照してください。** 将来の最新版採用と、教材の再現性を両立するため、リポジトリの依存関係は検証済みのバージョンに固定します。
 
+## 標準配備先と段階的なプロジェクト分割
+
+本教材の最終的な配備先は**ドメイン参加済みWindows Server 2025上のIIS**です。アプリはBlazor Web App（Interactive Server）で動作し、Windows統合認証でAD利用者を特定した後、PostgreSQL 18の利用者・権限テーブルで認可します。
+
+最初はWebプロジェクトだけ。DIを学ぶ段階でApplication、DBを学ぶ段階でDomain/Infrastructureを追加します。**プロジェクトを増やす理由も各教材で解説**します。
+
+- [DIを初めて学ぶ人のためのガイド](docs/di-for-beginners.md)
+- [Windows Server 2025 + IIS の構築計画](docs/windows-server-2025-iis.md)
+- [プロジェクト分割と依存関係](docs/architecture.md)
+
 ## 全体像
 
 1. **基礎（01～10）**：Razor、画面遷移、状態、フォーム。
-2. **UI（11～20）**：MudBlazor、表、ダイアログ、検証、アクセシビリティ。
-3. **設計（21～30）**：DI、非同期、状態管理、例外、単体テスト。
+2. **DIとサービス設計（11～20）**：インターフェイス、ライフタイム、非同期、テスト、Application分離。
+3. **MudBlazor UI（21～30）**：表、ダイアログ、検証、アクセシビリティ。
 4. **DB（31～40）**：PostgreSQLとlinq2db、検索、CRUD、トランザクション。
 5. **認証・認可（41～50）**：AD、SID照合、業務ロール、監査。
 6. **応用・運用（51～60）**：大量データ、競合、テスト、配布、監視。
