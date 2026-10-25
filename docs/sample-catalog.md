@@ -53,8 +53,7 @@
 | 29 | テーマ・操作性 | ダークモード、フォーカス、読み上げ | 計画中 |
 | 30 | UI総合演習 | モックの利用者管理画面を組み立てる | 計画中 |
 
-## Lv.4 DB：
-PostgreSQLとlinq2db
+## Lv.4 DB：PostgreSQLとlinq2db
 
 **基本実行条件：** PostgreSQL 18
 
