@@ -7,6 +7,10 @@
 - Active Directoryの検証用ドメイン、Windows認証を利用できるブラウザー・開発端末（41以降）。
 - PostgreSQL管理用のツールは任意。SQLを実行できる`psql`だけでもよい。
 
+## 1.1 本番相当のサーバー環境
+
+**Windows Server 2025（ADドメインに参加したメンバーサーバー）+ IIS + .NET 10 Hosting Bundle**を標準ターゲットとします。Webサーバー上へVisual Studioをインストールする必要はありません。内部DNS、HTTPS、Windows認証、Kerberos/SPN、WebSocket、PostgreSQL 18の疎通を専用の検証環境で確認します。詳細は[Windows Server 2025 + IIS構築計画](windows-server-2025-iis.md)。
+
 ## 2. 開発者が最初に確認すること
 
 ```powershell
@@ -28,6 +32,10 @@ dotnet sln PgBlazorSamples.slnx add src/PgBlazorSamples.Web/PgBlazorSamples.Web.
 
 上記は予定する配置に沿ったコマンド例です。.NET 10の`dotnet new sln`は既定で`.slnx`を作成します。実装段階では`dotnet new blazor --help`を含め実行・検証し、必要があれば修正します。
 
+## 3.1 プロジェクトは必要に応じて追加する
+
+最初はWeb単独でRazorを学びます。ステップ11でDI、18でUnitTests、19でApplication、31〜33でDomain/Infrastructure、40でIntegrationTestsを追加する構成です。初学者に最初から複数層を要求しません。詳細は[DI入門](di-for-beginners.md)と[設計](architecture.md)。
+
 ## 4. 実行環境の区分
 
 | 区分 | 目的 | データ | 認証 |
@@ -35,7 +43,7 @@ dotnet sln PgBlazorSamples.slnx add src/PgBlazorSamples.Web/PgBlazorSamples.Web.
 | 基本学習 | 01～30のUI・C#概念 | 固定された架空データ | 公開してよい教材のみ匿名可能 |
 | DB開発 | 31～40のSQL検証 | 専用DBと架空利用者 | 実業務利用者の資格情報を使わない |
 | AD検証 | 41～50の本人確認・権限 | 専用DBとテスト用AD主体 | 実際のWindows認証が必須 |
-| 統合検証 | 51～60の運用品質 | 分離したテスト環境 | AD認証とDB認可を両方確認 |
+| 統合検証 | 51～60の運用品質 | Windows Server 2025 + IIS / 分離したDB | AD認証とDB認可を両方確認 |
 
 最初の段階ではADやPostgreSQLに接続せず、ダミーデータで学べる教材を優先します。認証不要ページは無害な教材のみに限定し、**本番業務画面への認証回避設定は一切用意しません**。
 
