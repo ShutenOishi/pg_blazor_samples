@@ -22,11 +22,11 @@ dotnet --list-sdks
 
 ```powershell
 dotnet new sln -n PgBlazorSamples
-dotnet new blazor -n PgBlazorSamples.Web -f net10.0 -int Server -ai
-dotnet sln PgBlazorSamples.sln add PgBlazorSamples.Web/PgBlazorSamples.Web.csproj
+dotnet new blazor -n PgBlazorSamples.Web -o src/PgBlazorSamples.Web -f net10.0 -int Server -ai
+dotnet sln PgBlazorSamples.slnx add src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj
 ```
 
-実際の配置は`src/PgBlazorSamples.Web`を想定します。上記コマンドは概念説明用であり、テンプレートのオプションや`.slnx`の採用は実装段階で`dotnet new blazor --help`を確認して固定します。
+上記は予定する配置に沿ったコマンド例です。.NET 10の`dotnet new sln`は既定で`.slnx`を作成します。実装段階では`dotnet new blazor --help`を含め実行・検証し、必要があれば修正します。
 
 ## 4. 実行環境の区分
 
