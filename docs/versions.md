@@ -9,10 +9,14 @@
 | ASP.NET Core | .NET 10付属 | ランタイムとパッチを揃える |
 | PostgreSQL | 18系 | セキュリティ修正を含む18系最新パッチ |
 | MudBlazor | 9.11.0 | UI部品 |
-| linq2db | 6.5.0 | LINQによるDB操作 |
+| linq2db | 6.5.1 | LINQによるDB操作 |
 | linq2db.PostgreSQL | 6.5.0 | PostgreSQL用プロバイダー |
 | Npgsql | 10.0.3 | PostgreSQLドライバー |
 | Microsoft.AspNetCore.Authentication.Negotiate | 10.0.13 | Windows統合認証 |
+
+**注意:** linq2db 6.5.1は2026-10-23公開の安定版として確認できました。`linq2db.PostgreSQL`は6.5.0まで確認済みのため、合わせて6.5.1が存在すると決めつけず、必要性・依存関係・実接続を実装時に再評価します。
+
+**配備先:** Windows Server 2025 + IIS + .NET 10 Hosting Bundle。開発端末のVisual Studioバージョンと、サーバー側の実行ランタイム/Hosting Bundleは区別します。
 
 リポジトリ内で参照する実装パッケージの組み合わせは、NuGet依存関係と結合テストを確認して初めて確定します。上記は調査時点の**採用候補の基準値**であり、現時点でビルド済みの保証ではありません。
 
@@ -27,7 +31,7 @@
 
 ## 互換性の未検証項目
 
-- linq2db 6.5.0とNpgsql 10.0.3を組み合わせた実接続、トランザクションと型変換。
+- linq2db 6.5.1とNpgsql 10.0.3を組み合わせた実接続、トランザクションと型変換。
 - MudBlazor 9.11.0と.NET 10の画面・イベント・事前描画の動作。
 - IIS/NegotiateとWindows認証の構成、アプリ内の認可処理。
 - PostgreSQL 18の日時、日本語ソート、ページング。
