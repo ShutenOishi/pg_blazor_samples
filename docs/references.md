@@ -16,3 +16,13 @@
 | NuGet一元管理 | [Central Package Management](https://learn.microsoft.com/ja-jp/nuget/consume-packages/central-package-management) |
 
 非公式ブログだけを根拠に認証・セキュリティ仕様を決定しません。
+
+## 今回の追加参照先
+
+- [Blazor DI（ASP.NET Core 10）](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-10.0)
+- [Windows/IISでのASP.NET Coreホスト](https://learn.microsoft.com/ja-jp/aspnet/core/host-and-deploy/iis/?view=aspnetcore-10.0)
+- [ASP.NET Core Windows認証](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/windowsauth?view=aspnetcore-10.0)
+- [Blazor Web AppのWindows認証](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/blazor-web-app-with-windows-authentication?view=aspnetcore-10.0)
+- [Windows Server 2025のgMSA](https://learn.microsoft.com/ja-jp/windows-server/identity/ad-ds/manage/group-managed-service-accounts/group-managed-service-accounts/manage-group-managed-service-accounts)
+- [linq2db 6.5.1（NuGet）](https://www.nuget.org/packages/linq2db/6.5.1)
+- [linq2db.PostgreSQL（NuGet）](https://www.nuget.org/packages/linq2db.PostgreSQL/)
