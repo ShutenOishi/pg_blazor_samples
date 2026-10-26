@@ -2,7 +2,7 @@
 
 ## 現在の達成状況
 
-新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜2組001〜010のCI受入済み10/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
+新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜3組001〜015のCI受入済み15/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
 
 ## 最終成果物と受入条件
 
@@ -32,7 +32,7 @@
 | --- | --- | --- | --- | --- |
 | 01（受入済み） | 第1段階 Web開発の前提 | 001〜005 | WinFormsとWebの処理場所を比較する／URL・HTTPと要求／応答を理解する／HTML・CSS・フォームの基礎／開発者ツールでDOM・Network・Consoleを見る／Visual Studio 2026でWebアプリを起動・デバッグする、復習第1組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 02 | 第2段階 Blazorの基本と実行原理 | 006〜010 | 最初のBlazor画面を表示する／URLと画面遷移を理解する／RazorでC#の値を表示する／Static SSRとInteractive Serverの違い／ボタンのイベントを扱う、復習第2組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
-| 03 | 第2段階 Blazorの基本と実行原理 | 011〜015 | 入力値を双方向に結び付ける／条件分岐と繰り返しで表示する／親から子へ値を渡す／子から親へ通知する／SignalR・circuit・再接続、復習第3組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
+| 03（受入済み） | 第2段階 Blazorの基本と実行原理 | 011〜015 | 入力値を双方向に結び付ける／条件分岐と繰り返しで表示する／親から子へ値を渡す／子から親へ通知する／SignalR・circuit・再接続、復習第3組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 04 | 第2段階 Blazorの基本と実行原理 | 016〜020 | 初期化・更新・破棄を理解する／事前レンダリングと初期化の実行回数／入力フォームを日本語で検証する／URL・履歴・再読込と画面状態／circuit・ブラウザー・DBの状態保存の選択、復習第4組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 05 | 第3段階 DI・サービスと単体テスト | 021〜025 | DI（依存性注入）の基本／インターフェイスで部品を交換する／Singleton・Scoped・Transient／BlazorのScopedと対話回線／injectとコンストラクター注入、復習第5組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 06 | 第3段階 DI・サービスと単体テスト | 026〜030 | Optionsで設定を受け取る／非同期処理とログ／DIによる単体テスト／Applicationへ処理を分離／DIで課題管理を作る、復習第6組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
@@ -95,3 +95,13 @@
 学習順006〜010、概要・復習、Razor導線、品質CI、Chrome E2Eを同時改稿。実装HEAD `d87ee9a96b7fb790645e5ef7d624008009f92980` のWin2025/Linux/Chrome/xUnit/PG18 App Run 40409325752、PDF Run 40409325725は全SUCCESS。単体PDF 1,079,388バイト、Preview Releaseにおける生成元SHA一致を認証済みGETで確認。**最終全面改稿10/110・通常復習2/22・段階概要2/9**。第2段階の残り10本は未受入。
 
 次は **011〜015（旧Step05:双方向入力、旧Step06:条件と繰り返し、旧Step07:親から子、旧Step08:子から親、runtime-02:SignalR・circuit・再接続）と第3組復習**を改稿する。第2段階概要は全体説明として維持し、概要の学習順・前後導線・Web/PDF目次・Chrome操作を確認する。全文を読んでコードに一致させ、3,300文字以上、2コード・比較表・診断表・手順・失敗と復旧・演習と詳しい解答を守る。全CIとPreview PDFのSHA一致後のみ次の受入15/110を計上する。
+
+### 第3組受入証跡と次の作業
+
+- [x] 旧Step05〜08およびruntime-02を実際のRazor/C#と照合して全文改稿。本文は4,231〜4,780文字で、WinForms＋Dapper比較、実コード2ブロック以上、比較・診断表、操作手順、故障の切り分け、演習と詳しい解答を追加。第3組復習は4,990文字。
+- [x] 第2段階概要とRazorの学習順表示・前後リンク、Web目次の復習位置、PDF章順、第3組復習のRazor表・確認問題を同期。品質ゲートは3300文字以上・比較表・診断表・実コード・用語・前後リンクを検証。Chrome実操作で文字入力・4→2→4件絞り込み・親子カード・EventCallback・対話回数・第3組復習への遷移を確認。
+- [x] **実装HEAD `dcae9e218569f09b0749f94d53228f1d837396c3`** の[アプリCI Run 40412865629](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40412865629)がWindows Server 2025/Linux・xUnit・Chrome実操作・PostgreSQL 18実DB結合の全ジョブSUCCESS。[PDF CI Run 40412865704](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40412865704)もSUCCESS。
+- [x] [学習テキストv3プレビュー](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview)の日本語PDF単体は**1,141,020バイト**、Asset SHA256 `b646ebc7af8e8cf01c57ca043965fe5b238c5f2d8af006e8d754db34668ef99e`。Release notesの生成元SHAと上記実装HEADが認証済みGETで一致。ZIP配布なし、main正式版は変更なし。
+- [x] **確定進捗：新規初稿30/30、最終全面改稿15/110、通常復習3/22、段階概要2/9。** 実AD/IIS/Kerberos/FDWの実機受入とは区別。
+- [ ] **次は学習順016〜020（旧Step09・runtime-03・旧Step10・runtime-04・runtime-05）と第4組復習を全面改稿。** 第2段階概要・Razor・学習順・前後リンク・Web目次・PDF・品質ゲート・Chrome操作を合わせる。全CIとPreviewの同一HEADが確認できた場合だけ20/110へ進める。
+

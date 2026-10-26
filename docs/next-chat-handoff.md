@@ -2,7 +2,15 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 学習順006〜010の全面改稿・第2組受入（最新）
+## 2026-10-27 学習順011〜015の全面改稿・第3組受入（最新）
+- **確定進捗：新規初稿30/30、最終全面改稿15/110、通常復習3/22、段階概要2/9。** 第2段階の残り016〜020は未改稿。
+- 第3組の5教材を実Razor/C#と照合してそれぞれ4,231〜4,780文字へ全面改稿。第3組復習4,990文字、比較表・診断表・実コード・演習/詳しい解答を収録。第2段階概要、Razor導線、Web目次内の復習位置、PDF章順、Chrome試験と品質ゲートを同期した。
+- 実装HEAD `dcae9e218569f09b0749f94d53228f1d837396c3` の[App Run 40412865629](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40412865629)と[PDF Run 40412865704](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40412865704)は共にSUCCESS。Win2025/Linux/xUnit/Chrome/PG18を受入。日本語PDF単体1,141,020バイト、Asset SHA256 `b646ebc7af8e8cf01c57ca043965fe5b238c5f2d8af006e8d754db34668ef99e` は[Preview Release](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview)で生成元SHAが実装HEADと一致。
+- 進捗記録を更新したあとの**最新PR HEAD・同一HEADの新CI・Previewの生成元SHAは必ず認証済みGETで照合する**。前のCI成功を別HEADの成功と混同しない。成功済みRunは再実行しない。
+- **次は学習順016〜020（旧Step09・runtime-03・旧Step10・runtime-04・runtime-05）と第4組復習の全面改稿。** 第2段階概要・Razor画面・前後リンク・Web/PDF目次・品質ゲート・Chrome E2Eを同期。全CIとPDFのSHAが一致したら20/110、復習4/22、概要2/9へ更新する。
+- 正本は`docs/course-v3/progress.md`、`docs/course-v3/full-rewrite-roadmap.md`、`docs/course-v3/curriculum.json`、PR #36の最新コメント。旧80URL、Draft、正式main版、AD本人認証と既存DB台帳認可・監査・安全拒否を保持。実AD/IIS/FDWの実機未確認を成功扱いしない。次回も引き継ぎ用プロンプトのコピーボタンを設ける。
+
+## 2026-10-27 学習順006〜010の全面改稿・第2組受入（履歴）
 - **確定実績：新規30/30初稿、最終全面改稿10/110、通常復習2/22、段階概要2/9。** 第2段階の残り011〜020は未改稿。
 - 第2組（旧Step01/02/03、runtime-01、旧Step04）の長文本文5本、段階概要、復習、Razorの学習順と前後リンク・Web目次を実コードに合わせて改稿。品質CIは比較/診断表・2個以上のコード・演習/解答・PDF章順・リンクを検査。Chrome E2Eの学習順と0未満防止を追加。
 - 実装最終HEAD `d87ee9a96b7fb790645e5ef7d624008009f92980` のApp Run [40409325752](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40409325752)（Win2025/Linux/Chrome/xUnit/PG18）とPDF Run [40409325725](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40409325725)が全SUCCESS。初回PlaywrightのForm曖昧検索のFAILを完全一致で修復。成功Runの再実行は不要。

@@ -128,7 +128,7 @@
       "source": "docs/samples/step05.md",
       "url": "/learn/05",
       "implementation": "existing",
-      "rewrite": "rewritten-ci-pending"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 12,
@@ -139,7 +139,7 @@
       "source": "docs/samples/step06.md",
       "url": "/learn/06",
       "implementation": "existing",
-      "rewrite": "rewritten-ci-pending"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 13,
@@ -150,7 +150,7 @@
       "source": "docs/samples/step07.md",
       "url": "/learn/07",
       "implementation": "existing",
-      "rewrite": "rewritten-ci-pending"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 14,
@@ -161,7 +161,7 @@
       "source": "docs/samples/step08.md",
       "url": "/learn/08",
       "implementation": "existing",
-      "rewrite": "rewritten-ci-pending"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 15,
@@ -172,7 +172,7 @@
       "source": "docs/course-v3/lessons/runtime-02.md",
       "url": "/learn/runtime-02",
       "implementation": "implemented-ci-passed",
-      "rewrite": "rewritten-ci-pending"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 16,
