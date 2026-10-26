@@ -58,9 +58,10 @@ if max(steps) >= 40:
     if not page.is_file():
         missing.append(str(page.relative_to(ROOT)))
 
-# 段階概要は各段階の先頭に必ず収録し、学習者が目次から先に読めるようにする。
-stage_starts = (1, 11, 21, 31, 41, 61, 71)
-for stage, start in enumerate(stage_starts, start=1):
+# 旧第1段階はv3の第2段階へ統合済み。旧第2〜7段階のURL・本文は移行中も保持する。
+# v3の第1・第2段階は別検査で先頭配置を照合し、旧第1段階概要のPDF重複を要求しない。
+stage_starts = (11, 21, 31, 41, 61, 71)
+for stage, start in enumerate(stage_starts, start=2):
     if max(steps) < start:
         continue
     page = f"docs/stages/stage{stage:02d}.md"
