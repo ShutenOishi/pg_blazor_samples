@@ -19,9 +19,9 @@
     <MudDataGrid T="LearningTaskRow" @ref="_grid" ServerData="LoadAsync"
                  RowsPerPage="10" Dense="true" Filterable="false" SortMode="SortMode.Single">
         <Columns>
-            <PropertyColumn Property="x => x.Id" Title="番号"/>
-            <PropertyColumn Property="x => x.Title" Title="課題名"/>
-            <PropertyColumn Property="x => x.IsDone" Title="完了"/>
+            <PropertyColumn Property="x => x.Id" Title="番号" Sortable="false"/>
+            <PropertyColumn Property="x => x.Title" Title="課題名" Sortable="false"/>
+            <PropertyColumn Property="x => x.IsDone" Title="完了" Sortable="false"/>
         </Columns>
         <NoRecordsContent><MudText>条件に合う課題はありません。</MudText></NoRecordsContent>
         <PagerContent><MudDataGridPager T="LearningTaskRow" PageSizeOptions="@(new int[] {10, 20, 50})"/></PagerContent>
