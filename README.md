@@ -131,3 +131,7 @@ MudDateRangePickerとdaterangeの重なり検索、架空利用者A/BのScoped�
 ## Step61〜65：Windows認証とDB利用者・ロール（CI検証中）
 
 認証済みPrincipalのSIDをPostgreSQLのapp_userで照合し、未登録・無効・権限なし・DB失敗では拒否する学習画面を追加しました。[コラム14](docs/columns/column61-65.md)で復習できます。本番用の認可はStep66〜70まで未完成です。
+
+## 実務向け特別コラム：1万人以上のAD認証と既存台帳
+
+[1万人規模の認証・外部テーブル・ログインCookie・監査の設計](docs/authentication-at-scale.md)と[特別コラム](docs/columns/column-auth-at-scale.md)をStep65の直後に追加しました。ADは認証とドメイン付きユーザー名取得だけに使用し、既存テーブル・外部テーブルの権限を読み取り専用ビューで照合します。利用者登録やSID照合は前提としません。実業務サービスに対する全面的な認可はStep66〜70で実装します。
