@@ -28,8 +28,8 @@
         DateOnly date = DateOnly.FromDateTime(_day.Value);
         if (date == DateOnly.MaxValue) { _result = "終了日の翌日を作れません。"; return; }
         var period = new NpgsqlRange<DateTime>(
-            date.ToDateTime(TimeOnly.MinValue),
-            date.AddDays(1).ToDateTime(TimeOnly.MinValue));
+            date.ToDateTime(TimeOnly.MinValue), true,
+            date.AddDays(1).ToDateTime(TimeOnly.MinValue), false);
         _result = $"DateOnly：{date:yyyy/MM/dd} ／ daterange：[ {period.LowerBound:yyyy/MM/dd}, {period.UpperBound:yyyy/MM/dd} )";
     }
 }

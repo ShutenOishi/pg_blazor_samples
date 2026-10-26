@@ -11,13 +11,13 @@
 | MudBlazor | 9.11.0 | UI部品（Step21〜25に参照追加） |
 | MudBlazor.Translations | 3.6.0 | MudBlazor 9系用コミュニティ翻訳（ja-JP） |
 | MudBlazor.Templates | 4.3.0 | .NET 10向け生成テンプレート（学習時にCLIで別アプリを生成） |
-| EF Core | 10系安定版 | Step31以降の標準ORM。実装時に正確なパッチを固定 |
+| EF Core | 10系 | プロバイダー10.0.3の互換する依存版をNuGetから復元 |
 | Npgsql.EntityFrameworkCore.PostgreSQL | **10.0.3** | Webへ導入したEF Core 10向けの安定版プロバイダー |
 | Npgsql | 10.0.3（調査時候補） | PostgreSQLドライバー。プロバイダーとの互換を優先 |
 | linq2db / linq2db.PostgreSQL | 標準採用しない | 上級編で比較する場合のみバージョンを選定 |
 | Microsoft.AspNetCore.Authentication.Negotiate | 10.0.13 | Windows統合認証 |
 
-**注意:** この表のEF Core/プロバイダーは採用系列であり、まだ実装・復元・ビルドによって確定したパッケージではありません。Step31〜40の実装PRで両者の安定版パッチを揃え、依存関係と実DBの型マッピングを検証して固定します。
+**注意:** プロバイダー10.0.3をWebに追加しました。NuGetから解決されたEF Coreの10系依存バージョンを使用します。CIによるRestore/Buildと実PostgreSQL 18の型検証を区別して記録します。
 
 **配備先:** Windows Server 2025 + IIS + .NET 10 Hosting Bundle。開発端末のVisual Studioバージョンと、サーバー側の実行ランタイム/Hosting Bundleは区別します。
 

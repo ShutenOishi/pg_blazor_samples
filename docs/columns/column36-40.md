@@ -20,3 +20,7 @@ MudDatePickerはDateTime?を扱います。PostgreSQL dateではDateOnly、dater
 **Q. これからMudDataGridを選ぶ判断は？** A. 次の「用途から選ぶMudBlazor特別コラム」で、一覧・入力・階層・通知・描画方式を比較します。
 
 次：MudBlazor用途別特別コラム → Step41。
+
+## 実DBで発見したRangeの注意
+
+NpgsqlRangeの2引数コンストラクターは両端を含みます。daterangeの上限を含まないようにする場合は4引数で下限true・上限falseを明示します。DBの正規化による終了日のずれを統合テストで検出します。

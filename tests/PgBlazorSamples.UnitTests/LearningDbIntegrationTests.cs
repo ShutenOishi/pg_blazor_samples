@@ -32,7 +32,7 @@ public sealed class LearningDbIntegrationTests
                 Title = "統合試験用の架空課題",
                 DueDate = new DateOnly(2026, 10, 26),
                 StartTime = new TimeOnly(13, 45),
-                AvailableDates = new NpgsqlRange<DateTime>(start, end)
+                AvailableDates = new NpgsqlRange<DateTime>(start, true, end, false)
             };
             db.Tasks.Add(task);
             await db.SaveChangesAsync();
@@ -48,6 +48,7 @@ public sealed class LearningDbIntegrationTests
             Assert.True(a.AvailableDates.HasValue);
             Assert.Equal(start, a.AvailableDates.Value.LowerBound);
             Assert.Equal(end, a.AvailableDates.Value.UpperBound);
+            Assert.False(a.AvailableDates.Value.UpperBoundIsInclusive);
             Assert.True(a.Version > 0);
 
             a.IsDone = true;

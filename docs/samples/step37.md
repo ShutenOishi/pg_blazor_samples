@@ -42,3 +42,7 @@ A. いいえ。明示的な接続・SQL・日付型・競合の実DB検証が必
 - [ ] DBの未設定・エラーと正常系を区別できる
 
 次：ステップ38
+
+## 実DBテストで確認した重要な違い
+
+NpgsqlRange<DateTime>の2引数コンストラクターは**上限も含む**ため、PostgreSQLのdaterangeが正規化されたときに終了日が翌日に進むことがあります。日付の半開区間には `new NpgsqlRange<DateTime>(start, true, endExclusive, false)` を使い、UpperBoundIsInclusiveがfalseであることを確認します。
