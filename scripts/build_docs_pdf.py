@@ -12,6 +12,8 @@ from weasyprint import HTML, CSS
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = [
     "README.md", "docs/implementation-handbook.md",
+    "docs/samples/step01.md", "docs/samples/step02.md",
+    "docs/samples/step03.md",
     "docs/learning-path.md", "docs/sample-catalog.md",
     "docs/di-for-beginners.md", "docs/architecture.md",
     "docs/environment.md", "docs/versions.md", "docs/database.md",
