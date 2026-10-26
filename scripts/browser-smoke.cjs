@@ -67,7 +67,10 @@ async function waitText(page, selector, expected) {
         mkdirSync(evidence, { recursive: true });
 
         await page.goto(base + "/learn/04");
+        // 初期のHTMLが表示されていても、対話型回線の準備前にはクリックが処理されない。
+        await page.waitForTimeout(1800);
         await page.getByRole("button", { name: "1増やす" }).click();
+        await waitText(page, '[data-testid="counter-value"]', "1");
         await page.getByRole("button", { name: "1増やす" }).click();
         await waitText(page, '[data-testid="counter-value"]', "2");
         await page.getByRole("button", { name: "1減らす" }).click();
@@ -81,6 +84,7 @@ async function waitText(page, selector, expected) {
         console.log("ステップ04：クリック・減算・初期化の動作に成功");
 
         await page.goto(base + "/learn/05");
+        await page.waitForTimeout(1200);
         await page.getByRole("textbox", { name: "表示する名前（架空の名前を入力）" }).fill("テスト太郎");
         await waitText(page, '[data-testid="name-preview"]', "こんにちは、テスト太郎 さん。");
         await page.getByRole("textbox", { name: "表示する名前（架空の名前を入力）" })
@@ -95,6 +99,7 @@ async function waitText(page, selector, expected) {
         console.log("ステップ05：日本語入力・双方向バインディング・HTMLエンコードに成功");
 
         await page.goto(base + "/learn/06");
+        await page.waitForTimeout(1200);
         await waitText(page, '[data-testid="visible-count"]', "4");
         await page.getByRole("checkbox", { name: "未完了の課題だけ表示する" }).check();
         await waitText(page, '[data-testid="visible-count"]', "2");
@@ -111,6 +116,17 @@ async function waitText(page, selector, expected) {
         console.log("日本語Blazor画面の実ブラウザー操作試験が完了しました。");
     } catch (error) {
         console.error("ブラウザー操作試験が失敗しました：", error);
+        // 失敗時に実際のページ状態を記録し、アプリ不具合とテスト誤判定を区別する。
+        if (browser) {
+            try {
+                const pages = browser.contexts().flatMap(context => context.pages());
+                const active = pages.at(-1);
+                if (active) {
+                    console.error("現在表示中の画面：", active.url());
+                    console.error("カウンターの表示：", await active.locator('[data-testid="counter-value"]').allTextContents());
+                }
+            } catch (inspectionError) { console.error("画面取得失敗：", inspectionError); }
+        }
         console.error(serverLog.slice(-12000));
         process.exitCode = 1;
     } finally {
