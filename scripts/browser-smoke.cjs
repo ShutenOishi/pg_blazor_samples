@@ -102,7 +102,7 @@ async function waitText(page, selector, expected) {
         await page.goto(base + "/learn/stage/runtime");
         await page.getByRole("heading", { name: "第2段階の概要：Blazorの基本と実行原理" }).waitFor();
         // 全面改稿した学習順006〜010の表示・遷移・正常/拒否操作を確認する。
-        await page.getByRole("table").first().getByText("Form").waitFor();
+        await page.getByRole("table").first().getByRole("cell", { name: "Form", exact: true }).waitFor();
         await page.goto(base + "/learn/01");
         await page.getByRole("heading", { name: "はじめてのBlazor画面" }).waitFor();
         await page.getByRole("link", { name: "次へ：学習順007" }).click();
