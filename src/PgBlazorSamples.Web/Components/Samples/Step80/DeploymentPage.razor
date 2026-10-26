@@ -1,0 +1,31 @@
+@page "/learn/80"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ80：IIS配布と復旧｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ80 / Windows Server 2025</p>
+<h1>Windows認証・業務権限・監査を守って配布する</h1>
+<MudPaper Class="pa-4">
+    <p>開発用Chrome CIが成功しても、ドメインのIIS本番受入が完了したことにはなりません。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">稼働後の業務認可ゲートを確認</MudButton>
+    <p role="status" data-testid="step80-state">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>配布・切り戻しの順序</h2>
+    <ol>
+        <li>Windows Server 2025に.NET 10 Hosting BundleとIISを準備し、HTTPS・証明書・SPNを確認する。</li>
+        <li>接続文字列とData Protection鍵保存先をサーバーの秘密設定に分離する。</li>
+        <li>既存台帳/FDW、ローカル更新の原子性、監査保存先とDB権限を確認する。</li>
+        <li>liveness・認可拒否・永続監査の否定試験とSignalR再接続を実行する。</li>
+        <li>旧ビルドを保持し、監査DBや台帳構造を壊さないロールバック計画を検証してから切替える。</li>
+    </ol>
+    <p>CIではWindows/Linux・Chrome・PostgreSQL18・PDFを確認します。現地のWindows認証・TLS・FDW・高負荷は現地の記録が揃うまで未受入です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/79">前へ</a><a href="/learn/column/80">コラム17へ</a></div>
+@code {
+    private string _message = "実機受入は未確認です。";
+    private async Task CheckAsync()
+    {
+        var result = await Business.AuthorizeAsync();
+        _message = result.Message;
+    }
+}

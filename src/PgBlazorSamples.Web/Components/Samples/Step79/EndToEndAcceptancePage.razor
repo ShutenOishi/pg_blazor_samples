@@ -1,0 +1,26 @@
+@page "/learn/79"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ79：認可を含むE2E検証｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ79 / UI・PostgreSQL18・監査</p>
+<h1>正常系だけでなく拒否の経路を検証する</h1>
+<MudPaper Class="pa-4">
+    <p>受入試験では画面操作と同じサービス経路から、本人の部署に限定された一覧と永続監査を確認します。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">監査付き一覧のE2E経路を確認</MudButton>
+    <p role="status" data-testid="step79-state">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>検証を分ける</h2>
+    <p>単体：キャッシュ失効と入力境界。実DB結合：2ユーザー競合・権限剥奪・他部署拒否・監査故障時のロールバック。Chrome：画面操作と匿名拒否。Windows Server実機：Kerberos/SPN/HTTPS/SignalRと多ノード復旧。</p>
+    <p>CIで生成した架空PrincipalはAD認証の実証ではありません。試験用DBは毎回初期化し、架空データのみを使い、本番の既存台帳にはINSERTしません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/78">前へ</a><a href="/learn/80">次へ</a></div>
+@code {
+    private string _message = "E2E経路は未確認です。";
+    private async Task CheckAsync()
+    {
+        var result = await Business.LoadPageAsync(new LearningPageQuery(0, 1));
+        _message = result.Message;
+    }
+}
