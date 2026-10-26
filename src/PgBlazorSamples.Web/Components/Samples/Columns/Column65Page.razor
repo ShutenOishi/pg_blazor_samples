@@ -1,18 +1,18 @@
 @page "/learn/column/65"
-<PageTitle>学習コラム14：AD認証とDB認可｜Blazor ステップアップ学習</PageTitle>
+<PageTitle>学習コラム14：Windows認証とDB認可｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">学習コラム14 / Step61〜65</p>
 <h1>本人認証と業務権限は別々に確認する</h1>
 <section class="lesson-details">
     <h2>5ステップを一連の流れで考える</h2>
     <table><thead><tr><th>ステップ</th><th>入力</th><th>拒否する条件</th></tr></thead><tbody>
         <tr><td>61</td><td>Windows認証</td><td>未認証・認証ハンドラーなし</td></tr>
-        <tr><td>62</td><td>認証済みPrincipal</td><td>SIDなし・不正形式・名前への代替</td></tr>
-        <tr><td>63</td><td>SID → app_user</td><td>DB未登録・重複・接続障害</td></tr>
+        <tr><td>62</td><td>認証済みPrincipal</td><td>ドメイン付きユーザー名なし・不正形式・名前への代替</td></tr>
+        <tr><td>63</td><td>ドメイン付きユーザー名 → 既存利用者台帳</td><td>DB未既存台帳の収録・重複・接続障害</td></tr>
         <tr><td>64</td><td>is_active</td><td>無効化・権限なし</td></tr>
-        <tr><td>65</td><td>ロール → 許可</td><td>無効なロール・必要な権限なし</td></tr>
+        <tr><td>65</td><td>権限 → 許可</td><td>無効な権限・必要な権限なし</td></tr>
     </tbody></table>
     <details><summary>Q1：Windows認証に成功したらすべての操作を許可する？</summary><p>いいえ。DBの利用者有効性と操作権限が必要です。</p></details>
-    <details><summary>Q2：画面でSIDを入力してDBの利用者を選べる？</summary><p>できません。認証済みの主体からサーバーで確定する必要があります。</p></details>
+    <details><summary>Q2：画面でドメイン付きユーザー名を入力してDBの利用者を選べる？</summary><p>できません。認証済みの主体からサーバーで確定する必要があります。</p></details>
     <details><summary>Q3：ボタンを非表示にすれば権限制御が完成する？</summary><p>いいえ。Step66〜70で画面とサービス両方を保護し、監査します。</p></details>
     <p>AD/IISの実機認証はCIでは代用できません。Windows Server 2025の検証環境でStep70として確認します。</p>
 </section>
