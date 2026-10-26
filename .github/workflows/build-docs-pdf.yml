@@ -49,8 +49,13 @@ jobs:
             fi
           done
           if (( ${#packages[@]} > 0 )); then
-            sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update
-            sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 install -y "${packages[@]}"
+            # GitHub-hosted UbuntuのAzureミラーが少容量のフォントでも固まる場合がある。
+            # 公開のUbuntu公式ミラーへ切り替え、転送に上限を設ける。
+            if [[ -f /etc/apt/apt-mirrors.txt ]]; then
+              sudo sed -i 's#http://azure.archive.ubuntu.com/ubuntu#https://archive.ubuntu.com/ubuntu#g' /etc/apt/apt-mirrors.txt
+            fi
+            sudo timeout 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 update
+            sudo timeout 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y "${packages[@]}"
           fi
           fc-list :lang=ja family | grep -Ei 'Noto.*CJK|IPA'
       - name: PDF生成ライブラリを導入
