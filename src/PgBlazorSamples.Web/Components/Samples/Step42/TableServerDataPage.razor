@@ -49,7 +49,9 @@
     private async Task SearchAsync()
     {
         if (_table is null) return;
-        _table.CurrentPage = 0;
-        await _table.ReloadServerData();
+        if (_table.CurrentPage == 0)
+            await _table.ReloadServerData();
+        else
+            _table.NavigateTo(0); // ページ遷移時にMudTableが自動再検索する
     }
 }
