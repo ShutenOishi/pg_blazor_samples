@@ -11,6 +11,7 @@ on:
       - "docs/samples/**"
       - "scripts/smoke-test.sh"
       - "scripts/check-learning-materials.py"
+      - "scripts/check-learning-materials.py"
       - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
@@ -21,7 +22,6 @@ on:
       - "src/**"
       - "docs/samples/**"
       - "scripts/smoke-test.sh"
-      - "scripts/check-learning-materials.py"
       - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   workflow_dispatch:

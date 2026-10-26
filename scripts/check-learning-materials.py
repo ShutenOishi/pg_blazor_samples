@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """実装済みステップ・5ステップごとのコラム・PDF索引の整合性を検査する。"""
+import sys
 from pathlib import Path
+
+# Windowsランナーがcp1252で起動した場合も日本語の診断を出力できるようにする。
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES = ROOT / "src" / "PgBlazorSamples.Web" / "Components" / "Samples"
