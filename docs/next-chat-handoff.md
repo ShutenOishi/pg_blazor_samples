@@ -1,19 +1,14 @@
-# 引き継ぎ：EF Core 10のWeb内実装とMudBlazor用途別コラム
+# 次のチャット引き継ぎ：Step41〜45のEF Core・MudBlazor一覧連携
 
-## 最重要決定
-- EF CoreはWeb/Data、Web/Services、Program.csのみ。追加のDomain/Infrastructure/Repositoryプロジェクト不要。
-- Npgsql.EntityFrameworkCore.PostgreSQL 10.0.3でStep31〜40の教材コードとDDL、DBなし時の案内を追加。
-- Step40とStep41の間に用途別MudBlazor特別コラムを追加。MudSimpleTable、MudTable、MudDataGrid、各種入力、階層、通知、配置を比較。
-- コラムは通常16本＋特別2本＝18本。PDFもStep40とコラム09直後に配置。
-- Step41〜60はDB側の検索・ページング・編集・集計・大量データ連携。新プロジェクトでなく同じWebのサービスを拡張する。
+## 必須方針
+- EF CoreはWeb内のData/LearningPageQuery.csとServices/Learning/LearningPageService.csで完結し、Domain/Infrastructure等の層別プロジェクトは作らない。
+- Step41は小規模Items。Step42 MudTable ServerData、Step43 MudDataGrid ServerData、Step44複数列ソートの許可リスト、Step45日付/状態/文字列の複合検索。
+- ServerDataはCancellationTokenをEFのCountAsync/ToListAsyncまで伝え、クエリはDTOへ射影。最大50件/ページ、ソート最大3列、最終主キーを追加。
+- PostgreSQL 18のCI結合テストでページ境界、Count、ソート・検索、異常条件、キャンセルを確認する。
+- コラム10と日本語PDFをコードに対応させる。既存のStep40→MudBlazor用途別特別コラム→Step41の順序は変えない。
+- 画面のフィルターは業務認可ではない。AD/DB業務認可は後続のStep61〜70。実DBに認可条件を適用する際はCountとRowsの双方に適用する。
 
-## 未検証の区別
-- ビルド・画面/ブラウザー検証と本物のPostgreSQL 18への接続検証は別。
-- connection stringがないときは起動できるがDB操作は未実施。
-- 本番の資格情報はGitへ置かず、開発専用DBにだけDDL/Seedを適用する。
-
-## 次の自律作業
-1. 最新PR/CIを確認。ビルド失敗ならログに基づき修復。
-2. Linux/Windowsビルド、ブラウザー操作、資料索引、PDFの成功を確定させ正規マージ→main postmerge確認。
-3. PostgreSQL 18の専用環境でDateOnly/TimeOnly/Range/xmin/CRUD/トランザクションの統合テストを追加・検証する。
-4. Step41〜60のDataGrid ServerDataと大規模一覧の実装へ進む。
+## 続き
+1. 現在のPR・CIの最新headを確認し、不成立ならログから原因修復。
+2. Windows/Linux/Chrome/実PostgreSQL 18/PDFの受入後、保護マージとmainのpostmergeを確認。
+3. Step46〜50のDTO関連表、キーセットページング、仮想化、VirtualizeServerData、検索UXを実装する。

@@ -46,3 +46,7 @@ Scopedの寿命はcircuitと結び付いて長くなるため、標準はIDbCont
 [特別コラム：MudBlazor用途別ガイド](columns/column-mudblazor-by-purpose.md)で、TableとDataGrid、DatePicker、入力、階層、通知、ダイアログ等の使い分けを学び、Step41〜60の実DB一覧連携へ進みます。
 
 Windows Server 2025/IISへの配備、Windows統合認証は後続の教材で扱います。
+
+## Step41〜45のDB一覧連携
+
+Web/Services/Learning/LearningPageService.csで、EF Core 10とPostgreSQLへフィルター・Count・ソート・Skip/Takeを委譲します。MudBlazorのGridState/TableStateはWeb側の表示部品に閉じ、Serviceには単純なLearningPageQueryだけを渡します。従来のシンプルな構成を継続します。

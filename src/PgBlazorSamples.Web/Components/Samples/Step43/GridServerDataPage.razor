@@ -1,0 +1,51 @@
+@page "/learn/43"
+@using PgBlazorSamples.Web.Data
+@inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+
+<PageTitle>ステップ43：MudDataGridのServerData｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ43 / MudDataGrid ServerData</p>
+<h1>GridStateをEF Coreの検索条件へ変換する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudTextField T="string" Label="課題名の検索語" @bind-Value="_keyword"/>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SearchAsync">DBを検索する</MudButton>
+    <p role="status" data-testid="step43-state">@_message</p>
+    <MudDataGrid T="LearningTaskRow" @ref="_grid" ServerData="LoadAsync"
+                 SortMode="SortMode.Single" Filterable="false"
+                 RowsPerPage="5" Dense="true" Hover="true">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="番号"/>
+            <PropertyColumn Property="x => x.Title" Title="課題名"/>
+            <PropertyColumn Property="x => x.DueDate" Title="期限日" Format="yyyy/MM/dd"/>
+            <PropertyColumn Property="x => x.IsDone" Title="完了"/>
+        </Columns>
+        <PagerContent><MudDataGridPager T="LearningTaskRow" PageSizeOptions="@(new int[] {5, 10, 20})"/></PagerContent>
+    </MudDataGrid>
+</MudPaper>
+<section class="lesson-details">
+    <h2>GridからEF CoreへIQueryableを返さない</h2>
+    <p>GridStateのページ番号、取得件数、ソートだけをサービスのLearningPageQueryへ渡し、DTOの行と総件数だけ返します。取消も引き継ぎます。</p>
+    <p>Gridの組み込み列フィルターはまだ使いません。安全なソートと複数の検索条件はStep44〜45で扱います。</p>
+</section>
+<div class="page-navigation"><a href="/learn/42">前へ：ステップ42</a><a href="/learn/44">次へ：ステップ44</a></div>
+@code {
+    private MudDataGrid<LearningTaskRow>? _grid;
+    private string _keyword = "";
+    private string _message = "初期表示を読み込みます。";
+
+    private async Task<GridData<LearningTaskRow>> LoadAsync(GridState<LearningTaskRow> state, CancellationToken ct)
+    {
+        var sorts = state.SortDefinitions
+            .OrderBy(s => s.Index)
+            .Take(1)
+            .Select(s => new LearningSort(s.SortBy, s.Descending)).ToArray();
+        var result = await Pages.LoadAsync(
+            new(state.Page, state.PageSize, _keyword, Sorts: sorts), ct);
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+
+    private async Task SearchAsync()
+    {
+        if (_grid is not null) await _grid.ReloadServerData();
+    }
+}

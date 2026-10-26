@@ -58,3 +58,7 @@ Step26でDB不要のDataGridを学び、Step31〜40でEF Core 10とNpgsqlを身�
 ## Step40と41の間の特別コラム
 
 [用途別MudBlazorコンポーネント事典](columns/column-mudblazor-by-purpose.md)で、入力、表、検索、階層、ナビゲーション、通知、レイアウトの各コンポーネントを要件から選ぶ練習をします。
+
+## Step41〜45の学び
+
+小規模Items→MudTable ServerData→MudDataGrid ServerData→安全な複数ソート→複合検索の順に、実際のPostgreSQLとの連携を学びます。[コラム10](columns/column41-45.md)で選択基準を復習します。

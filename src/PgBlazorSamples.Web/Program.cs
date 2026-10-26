@@ -58,6 +58,8 @@ builder.Services.AddDbContextFactory<LearningDbContext>(options =>
         ? "Host=127.0.0.1;Database=pg_blazor_learning;Username=pg_blazor_learning;Timeout=2"
         : pgConnection));
 builder.Services.AddScoped<LearningDbService>();
+// Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
+builder.Services.AddScoped<LearningPageService>();
 
 var app = builder.Build();
 

@@ -427,6 +427,39 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "mudblazor-guide.png") });
         console.log("ステップ31〜40・コラム08/09・用途別特別コラムを確認");
 
+        // Step41〜45：DB未設定でも日本語のServerData画面を実際に操作する。
+        await page.goto(base + "/learn/41");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step41-count"]', "8 件");
+        await page.getByText("架空の課題01").waitFor();
+        await page.screenshot({ path: path.join(evidence, "step41.png") });
+        await page.goto(base + "/learn/42");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step42-state"]', "未設定");
+        await page.getByRole("textbox", { name: "課題名を検索" }).fill("研修");
+        await page.getByRole("button", { name: "検索する" }).click();
+        await waitText(page, '[data-testid="step42-state"]', "未設定");
+        await page.goto(base + "/learn/43");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step43-state"]', "未設定");
+        await page.getByRole("textbox", { name: "課題名の検索語" }).fill("検索");
+        await page.getByRole("button", { name: "DBを検索する" }).click();
+        await waitText(page, '[data-testid="step43-state"]', "未設定");
+        await page.goto(base + "/learn/44");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step44-state"]', "未設定");
+        await page.getByText("複数列ソートを安全にDBへ伝える").waitFor();
+        await page.goto(base + "/learn/45");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step45-state"]', "未設定");
+        await page.getByRole("textbox", { name: "課題名の部分一致" }).fill("業務");
+        await page.getByRole("button", { name: "条件を適用する" }).click();
+        await waitText(page, '[data-testid="step45-state"]', "未設定");
+        await page.screenshot({ path: path.join(evidence, "step45.png") });
+        await page.goto(base + "/learn/column/45");
+        await page.getByText("ItemsとServerDataを要件で使い分ける").waitFor();
+        console.log("ステップ41〜45の日本語UIとコラム10の画面操作に成功");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

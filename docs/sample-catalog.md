@@ -85,15 +85,15 @@
 
 ## Lv.5 一覧表示・EF Core連携（20ステップを追加）
 
-**実行条件：** PostgreSQL 18、Step26（Grid基本操作）、Step31〜40（EF Core）を修了。**以下はすべて計画中。** 選択の根拠は[一覧表示パターンガイド](data-grid-patterns.md)。
+**実行条件：** PostgreSQL 18、Step26（Grid基本操作）、Step31〜40（EF Core）を修了。**Step41〜45はWeb内で実装、Step46〜60は計画中。** 選択の根拠は[一覧表示パターンガイド](data-grid-patterns.md)。
 
 | 番号 | 題材 | 到達目標 | 状態 |
 | --- | --- | --- | --- |
-| 41 | Items全件取得の境界 | MudTable/MudDataGridの小規模一覧、上限・メモリとソートの意味 | 計画中 |
-| 42 | MudTable ServerData | シンプルなサーバーページングと総件数を実装 | 計画中 |
-| 43 | MudDataGrid ServerData | GridStateとCancellationTokenをサービスへつなぐ | 計画中 |
-| 44 | 安全な動的ソート | 複数列ソートを許可リスト化し一意順序を保証 | 計画中 |
-| 45 | 検索・フィルター | 部分一致・NULL・日本語・複合条件・Countの整合性 | 計画中 |
+| 41 | Items全件取得の境界 | MudTable/MudDataGridの小規模一覧、上限・メモリとソートの意味 | ソース・教材追加／CI確認中 |
+| 42 | MudTable ServerData | シンプルなサーバーページングと総件数を実装 | ソース・教材追加／CI確認中 |
+| 43 | MudDataGrid ServerData | GridStateとCancellationTokenをサービスへつなぐ | ソース・教材追加／CI確認中 |
+| 44 | 安全な動的ソート | 複数列ソートを許可リスト化し一意順序を保証 | ソース・教材追加／CI確認中 |
+| 45 | 検索・フィルター | 部分一致・NULL・日本語・複合条件・Countの整合性 | ソース・教材追加／CI確認中 |
 | 46 | DTO射影と関連テーブル | AsNoTracking、Select、JOIN・N+1・列選択 | 計画中 |
 | 47 | オフセットとキーセット | Skip/Takeの限界、連続取得・索引・安定ソート | 計画中 |
 | 48 | 描画仮想化 | VirtualizeとItemsの違い、行高・Height・操作性 | 計画中 |
@@ -109,6 +109,8 @@
 | 58 | 集約・統計・エクスポート | GroupBy/Count/CSV・大量出力の分離 | 計画中 |
 | 59 | 大量データの実測 | EXPLAIN、索引、P95/P99、プーリング、負荷試験 | 計画中 |
 | 60 | 一覧パターン選定演習 | 10方式から要件に合う構成を選び否定試験まで実施 | 計画中 |
+
+[コラム10：Items・MudTable/MudDataGrid ServerData・検索の選び方](columns/column41-45.md)
 
 ## Lv.6 認証・認可：ADとDB
 

@@ -37,3 +37,7 @@
 ## 参照
 
 [80ステップ一覧](sample-catalog.md)／[DataGrid選択ガイド](data-grid-patterns.md)／[EF Core 10](efcore10-data-access.md)／[MudBlazor用途別](columns/column-mudblazor-by-purpose.md)
+
+## Step41〜45実装
+
+Web内のData/LearningPageQuery.csとServices/Learning/LearningPageService.csを使用。MudTable・MudDataGridのServerDataからCancellationTokenを引き継ぎ、EF Coreでページング、Count、複数列ソート、日付・状態・文字列の絞り込みを実行します。新しいDomain/Infrastructureプロジェクトは追加しません。
