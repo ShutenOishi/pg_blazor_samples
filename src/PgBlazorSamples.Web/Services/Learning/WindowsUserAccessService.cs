@@ -44,7 +44,7 @@ public sealed class WindowsUserAccessService(
             return null;
 
         string? sid = principal.FindFirst(ClaimTypes.PrimarySid)?.Value;
-        if (identity is WindowsIdentity windowsIdentity)
+        if (OperatingSystem.IsWindows() && identity is WindowsIdentity windowsIdentity)
         {
             // WindowsIdentityのOS検証済みSIDを優先する。
             sid = windowsIdentity.User?.Value;
