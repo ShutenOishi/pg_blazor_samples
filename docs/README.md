@@ -26,7 +26,7 @@
 | コーディングと日本語方針 | [実装規約](conventions.md) |
 | テスト・CI・完成条件 | [品質管理](quality.md) |
 | 段階的な開発・マイルストーン | [実装計画](implementation-plan.md) |
-| 設計の判断記録 | [ADR-0001](decisions/0001-learning-app-structure.md) |
+| 設計の判断記録 | [ADR-0001：構成設計](decisions/0001-learning-app-structure.md)／[ADR-0002：EF Core 10と一覧方式](decisions/0002-efcore10-grid-patterns.md) |
 | 公式情報と調査先 | [参考資料](references.md) |
 
 まず[学習ロードマップ](learning-path.md)を読み、続いて[サンプル一覧](sample-catalog.md)を開いてください。
