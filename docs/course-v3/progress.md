@@ -5,13 +5,13 @@
 ## 既にある成果
 - 既存の実装：旧Step01〜80の80本。
 - v2で先行本文改稿済み：旧Step11〜30の20本とコラム5本。v3の最終照合は未実施。
-- 現行PR上のWeb目次・PDFには第1段階のWeb基礎5件と第2段階のruntime5件を挿入。新規15件と9段階の完全移行は未完了。mainのRelease PDFは別の既存80ステップ版。
+- 現行PR上のWeb目次・PDFには第1段階のWeb基礎5件と第2段階のruntime5件を挿入。新規10件と9段階の完全移行は未完了。mainのRelease PDFは別の既存80ステップ版。
 
-## 新規ステップ（初稿と画面追加済み 15 / 30、第4段階CI成功）
+## 新規ステップ（初稿と画面追加済み 20 / 30、第5段階CI確認中）
 - [x] web：5件のRazor・Markdown・復習・索引を追加、HEAD 9e12130のWindows/Linux・実ブラウザー・PG18・PDF CI成功（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] runtime：5件（HEAD 6f22c9dのWindows/Linux・Chrome・PG18・PDF CI成功）（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] browser：5件（初稿・画面・第9組復習・第4段階概要を追加。HEAD 9a9df7eのWindows/Linux・Chrome・PG18・PDF CI成功）
-- [ ] db-bridge：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
+- [x] db-bridge：5件（画面・教材初稿・第5段階概要・第10〜12組復習・Web/PDF目次・Chrome試験追加、CI受入待ち）
 - [ ] security：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [ ] capstone：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 
@@ -33,7 +33,7 @@
 - [ ] 1万人規模認証・既存DB認可特別コラム
 
 ## 段階概要（最終受入 0 / 9）
-- [x] 9段階の**計画用概要草稿**を作成し、第1・第2・第4段階をPRのPDFへ先行収録
+- [x] 9段階の**計画用概要草稿**を作成し、第1・第2・第4・第5段階をPRのPDFへ先行収録
 - [ ] 最終PDF/Webの段階先頭へ9ページを配置し、本文・演習と整合
 
 ## 5件単位の受入条件
@@ -68,3 +68,11 @@
 - [x] 同HEADの単体日本語PDF生成・学習内容検査 [Run 40353992474](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40353992474) が SUCCESS。Draft PRのため正式Releaseは行わず、既存公開PDFは更新していない。
 - [x] 学習順040→第8組の復習→041〜045→第9組の復習→次の既存学習画面のリンクを確認。db-bridge-01の実装後に後続導線を再度更新する。
 - [ ] browserの最終全面改稿受入は未実施。新規15/30初稿と全面改稿0/110の区別を維持。
+
+## 2026-10-27 第5段階追加の継続記録
+- [x] 前回HEAD c947980のアプリRun40354908903と日本語PDF Run40354908873は両方SUCCESS。
+- [x] db-bridge-01〜05を学習順046/052/053/058/059に追加。第5段階の概要、復習第10〜12組、Razor、Markdown、Web/PDF目次、教材チェック、Chrome試験を同期。
+- [x] DbContextFactoryによるSQL生成・追跡、Keylessモデル定義をDB非接続で練習。業務用の台帳や認可処理には触れない。
+- [x] PDFは既存の正式版と区別してReleasesの`learning-textbook-v3-preview`に公開。最初の検証済み版はcommit 1af26d95、PDF単体872186バイト。今回の新HEADは全CI完了後だけプレビューを更新する。
+- [ ] PostgreSQL18でFromSql/SqlQueryのSQLインジェクション否定検証を追加しCIを受入する。
+- [ ] 次はsecurity-01〜05および第7段階概要・復習、続いてcapstone-01〜05。30件配置後に最終全面改稿001〜110。

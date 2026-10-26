@@ -512,8 +512,8 @@
       "title": "DapperとEF Coreの役割・選定を比較する",
       "source": "docs/course-v3/lessons/db-bridge-01.md",
       "url": "/learn/db-bridge-01",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 47,
@@ -578,8 +578,8 @@
       "title": "SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL",
       "source": "docs/course-v3/lessons/db-bridge-02.md",
       "url": "/learn/db-bridge-02",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 53,
@@ -589,8 +589,8 @@
       "title": "Dapperの接続／ExecuteとDbContext・追跡・SaveChanges",
       "source": "docs/course-v3/lessons/db-bridge-03.md",
       "url": "/learn/db-bridge-03",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 54,
@@ -644,8 +644,8 @@
       "title": "既存DB・ビュー・キーなしモデル・FDWを扱う",
       "source": "docs/course-v3/lessons/db-bridge-04.md",
       "url": "/learn/db-bridge-04",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 59,
@@ -655,8 +655,8 @@
       "title": "FromSql／SqlQueryのパラメーターとDapper併用",
       "source": "docs/course-v3/lessons/db-bridge-05.md",
       "url": "/learn/db-bridge-05",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 60,
@@ -1398,21 +1398,21 @@
       "unit": 10,
       "after_sequence": 50,
       "path": "docs/course-v3/reviews/review-10.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {
       "unit": 11,
       "after_sequence": 55,
       "path": "docs/course-v3/reviews/review-11.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {
       "unit": 12,
       "after_sequence": 60,
       "path": "docs/course-v3/reviews/review-12.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {

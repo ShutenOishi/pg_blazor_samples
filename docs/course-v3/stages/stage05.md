@@ -1,6 +1,6 @@
 # 第5段階の概要：DapperからEF Core 10・PostgreSQL 18へ
 
-> 教材v3の**完成後の構成案**。この段階の新規項目が未実装の場合、現行教材へ実装済みとして掲載しません。
+> 新規db-bridge-01〜05の画面と本文初稿を実装済みです。既存の10ステップは全件の最終改稿対象です。
 
 ## この段階でできるようになること
 既存SQLとLINQ、Npgsqlの接続プール、DbContextFactory、CRUD、型、更新競合を対応付けられる。
@@ -12,20 +12,20 @@
 DapperのSQL/DTO/Executeに対してEF Coreのモデル・追跡・SaveChanges・生成SQLを実例で比較する。
 
 ## 学習の順番と到達点
-- 学習順046：DapperとEF Coreの役割・選定を比較する（新規実装予定：db-bridge-01）
+- 学習順046：DapperとEF Coreの役割・選定を比較する（新規初稿実装：db-bridge-01）
 - 学習順047：モデルとDTOを理解する（旧Step31に対応）
 - 学習順048：PostgreSQLで学習テーブルを定義する（旧Step32に対応）
 - 学習順049：EF Core 10をWebへ登録する（旧Step33に対応）
 - 学習順050：DbContextFactoryと接続プール（旧Step34に対応）
 - 学習順051：LINQ検索とAsNoTracking（旧Step35に対応）
-- 学習順052：SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL（新規実装予定：db-bridge-02）
-- 学習順053：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges（新規実装予定：db-bridge-03）
+- 学習順052：SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL（新規初稿実装：db-bridge-02）
+- 学習順053：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges（新規初稿実装：db-bridge-03）
 - 学習順054：EF Coreの登録・更新・削除（旧Step36に対応）
 - 学習順055：DateOnly・TimeOnly・Rangeの型変換（旧Step37に対応）
 - 学習順056：トランザクションを理解する（旧Step38に対応）
 - 学習順057：xmin楽観的排他を確認する（旧Step39に対応）
-- 学習順058：既存DB・ビュー・キーなしモデル・FDWを扱う（新規実装予定：db-bridge-04）
-- 学習順059：FromSql／SqlQueryのパラメーターとDapper併用（新規実装予定：db-bridge-05）
+- 学習順058：既存DB・ビュー・キーなしモデル・FDWを扱う（新規初稿実装：db-bridge-04）
+- 学習順059：FromSql／SqlQueryのパラメーターとDapper併用（新規初稿実装：db-bridge-05）
 - 学習順060：PostgreSQL 18の実接続確認（旧Step40に対応）
 
 ## 5ステップごとに確認すること

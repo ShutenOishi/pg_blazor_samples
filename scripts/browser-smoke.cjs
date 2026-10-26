@@ -189,6 +189,39 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "browser-review09.png") });
         console.log("第4段階browser-01〜05と第9組の復習を実ブラウザーで確認");
 
+        // 第5段階：生成SQLと変更追跡、KeylessモデルはDB未接続でも試す。
+        await page.goto(base + "/learn/stage/db-bridge");
+        await page.getByRole("heading", { name: "第5段階の概要：DapperからEF Core 10・PostgreSQL 18へ" }).waitFor();
+        await page.goto(base + "/learn/db-bridge-01");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "一般的なCRUD" }).click();
+        await waitText(page, '[data-testid="dbbridge01-result"]', "一般的なCRUD");
+        await page.goto(base + "/learn/db-bridge-02");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "LINQからSQLを生成する" }).click();
+        await waitText(page, '[data-testid="dbbridge02-state"]', "SQL生成のみ完了");
+        await waitText(page, '[data-testid="dbbridge02-sql"]', "SELECT");
+        await page.goto(base + "/learn/db-bridge-03");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "追跡状態を再現する" }).click();
+        await waitText(page, '[data-testid="dbbridge03-state"]', "Added");
+        await page.goto(base + "/learn/db-bridge-04");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "キーなしモデル定義を確認する" }).click();
+        await waitText(page, '[data-testid="dbbridge04-state"]', "キーなし");
+        await page.goto(base + "/learn/db-bridge-05");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "安全なSQLを生成する" }).click();
+        await waitText(page, '[data-testid="dbbridge05-state"]', "パラメーター化");
+        await waitText(page, '[data-testid="dbbridge05-fromsql"]', "@");
+        await waitText(page, '[data-testid="dbbridge05-sqlquery"]', "@");
+        for (const end of ["50", "55", "60"]) {
+            await page.goto(base + "/learn/column/db-bridge-" + end);
+            await page.getByRole("heading", { name: /第1[012]組の復習/ }).waitFor();
+        }
+        await page.screenshot({ path: path.join(evidence, "db-bridge-review.png") });
+        console.log("第5段階：db-bridge5画面と復習3件を確認");
+
         // Step66〜70は匿名環境で業務データを返さない。実AD認証の代用ではない。
         for (const [step, label] of [
             [66, "業務サービスに認可を問い合わせる"],

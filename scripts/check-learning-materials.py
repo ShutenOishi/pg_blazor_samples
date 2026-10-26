@@ -171,6 +171,38 @@ if f'"{review09}"' in PDF_SCRIPT and f'"{v3_stage4[-1]}"' in PDF_SCRIPT:
     if PDF_SCRIPT.index(f'"{review09}"') < PDF_SCRIPT.index(f'"{v3_stage4[-1]}"'):
         missing.append("第9組の復習は学習順045の後に収録してください")
 
+
+# 第5段階の新規5本は既存の10本の間に置く。PDFとRazorを学習順で照合する。
+for n, seq in enumerate((46, 52, 53, 58, 59), 1):
+    lesson_id = f"db-bridge-0{n}"
+    item = ordered[seq - 1]
+    page = SAMPLES / "DbBridge" / f"DbBridge0{n}Page.razor"
+    if item["id"] != lesson_id or not item["implementation"].startswith("implemented"):
+        missing.append(lesson_id + "：学習順または実装状態が不正")
+    if not page.is_file() or f'@page "/learn/{lesson_id}"' not in page.read_text(encoding="utf-8"):
+        missing.append(lesson_id + "：RazorとURLの不足")
+    if not (ROOT / item["source"]).is_file() or f'"{item["source"]}"' not in PDF_SCRIPT:
+        missing.append(lesson_id + "：本文・PDF索引不足")
+stage05 = "docs/course-v3/stages/stage05.md"
+if not (SAMPLES / "DbBridge" / "DbBridgeOverviewPage.razor").is_file() or f'"{stage05}"' not in PDF_SCRIPT:
+    missing.append("第5段階の概要画面・本文・PDF索引不足")
+for unit, end in ((10, 50), (11, 55), (12, 60)):
+    review = f"docs/course-v3/reviews/review-{unit}.md"
+    page = SAMPLES / "DbBridge" / f"DbBridgeReview{unit}Page.razor"
+    if not page.is_file() or not (ROOT / review).is_file() or f'"{review}"' not in PDF_SCRIPT:
+        missing.append(f"第{unit}組の復習本文・画面・PDF不足")
+expected_stage05 = [x["source"] for x in ordered[45:60]]
+actual_stage05 = [source for source in actual_v3_prefix if source in expected_stage05]
+if actual_stage05 != expected_stage05:
+    missing.append("第5段階の学習順046〜060とPDFのステップ順が不一致")
+if f'"{stage05}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{stage05}"') > PDF_SCRIPT.index(f'"{expected_stage05[0]}"'):
+    missing.append("第5段階の概要は先頭に置いてください")
+for unit, end in ((10, 50), (11, 55), (12, 60)):
+    a = f'"docs/course-v3/reviews/review-{unit}.md"'
+    b = f'"{ordered[end - 1]["source"]}"'
+    if a in PDF_SCRIPT and b in PDF_SCRIPT and PDF_SCRIPT.index(a) < PDF_SCRIPT.index(b):
+        missing.append(f"第{unit}組の復習が5ステップの末尾より前です")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

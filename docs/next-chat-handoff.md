@@ -2,7 +2,13 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 第4段階CI完了（再開時の正本）
+## 2026-10-27 新規20/30の第5段階実装（最新）
+- PR #36にdb-bridge-01〜05（学習順046/052/053/058/059）、第5段階概要、第10〜12組復習、Razor/教材/Web/PDF/E2Eを追加。新規初稿20/30、最終全面改稿0/110。
+- Releasesには正式mainと別タグ `learning-textbook-v3-preview` の単体PDFを公開済み。今後も同一HEADのアプリCI（Chrome/PG18/Win/Linux）とPDF成功の場合に限りPreview Assetを更新する。
+- 再開時は最新HEADのCIとPreview Releaseのbodyに記された生成元SHA・Assetを照合し、不整合があれば修復する。
+- 次はsecurity-01〜05を学習順に挿入し、概要・復習・安全境界・PDF・テストを同期。
+
+## 2026-10-27 第4段階CI完了（履歴）
 - PR #36：新規初稿15/30（web 5、runtime 5、browser 5）。最終全面改稿0/110、旧80画面維持。PRはDraftでmain未反映。
 - HEAD `9a9df7e9f9d4c0b763b979958614ff1880fe1072` のアプリ/Chrome/Win/Linux/PG18 CI Run 40353992330、単体日本語PDF Run 40353992474が全SUCCESS。成功済みRunを再実行しない。
 - browser-01〜05は学習順041〜045に追加済み。第4段階概要と第9組の復習、PDF、ブラウザーテスト、旧URL・前後リンクを同期し、CI受入済み。
