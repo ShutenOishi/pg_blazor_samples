@@ -1,6 +1,6 @@
 # 第7段階の概要：Webセキュリティ・AD認証とDB認可
 
-> 教材v3の**完成後の構成案**。この段階の新規項目が未実装の場合、現行教材へ実装済みとして掲載しません。
+> 新規security-01〜05のRazor画面と教材初稿を実装しました。AD/IISの実機受入および既存10ステップの最終改稿はこれから実施します。
 
 ## この段階でできるようになること
 HTTP/Cookie/CSRFとWindows統合認証を理解し、既存DB利用者台帳を権限の正本として拒否を保証する。
@@ -12,11 +12,11 @@ HTTP/Cookie/CSRFとWindows統合認証を理解し、既存DB利用者台帳を�
 Windowsログオン済みでも業務DBの全件が読めるわけではない。認証名と権限テーブルの照合を分ける。
 
 ## 学習の順番と到達点
-- 学習順081：Windows認証・Cookie・HTTP・circuit（新規実装予定：security-01）
-- 学習順082：Middlewareの順序・HTTPS・IISの経路（新規実装予定：security-02）
-- 学習順083：XSS・CSRF・SQL注入の防御境界（新規実装予定：security-03）
-- 学習順084：環境別設定・Secret・Data Protection鍵（新規実装予定：security-04）
-- 学習順085：接続切断・セッション失効・権限再検証（新規実装予定：security-05）
+- 学習順081：Windows認証・Cookie・HTTP・circuit（初稿実装：security-01）
+- 学習順082：Middlewareの順序・HTTPS・IISの経路（初稿実装：security-02）
+- 学習順083：XSS・CSRF・SQL注入の防御境界（初稿実装：security-03）
+- 学習順084：環境別設定・Secret・Data Protection鍵（初稿実装：security-04）
+- 学習順085：接続切断・セッション失効・権限再検証（初稿実装：security-05）
 - 学習順086：Windows統合認証を構成する（旧Step61に対応）
 - 学習順087：認証済みドメインユーザー名を扱う（旧Step62に対応）
 - 学習順088：認証済みユーザー名と既存台帳を結ぶ（旧Step63に対応）

@@ -897,8 +897,8 @@
       "title": "Windows認証・Cookie・HTTP・circuit",
       "source": "docs/course-v3/lessons/security-01.md",
       "url": "/learn/security-01",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 82,
@@ -908,8 +908,8 @@
       "title": "Middlewareの順序・HTTPS・IISの経路",
       "source": "docs/course-v3/lessons/security-02.md",
       "url": "/learn/security-02",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 83,
@@ -919,8 +919,8 @@
       "title": "XSS・CSRF・SQL注入の防御境界",
       "source": "docs/course-v3/lessons/security-03.md",
       "url": "/learn/security-03",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 84,
@@ -930,8 +930,8 @@
       "title": "環境別設定・Secret・Data Protection鍵",
       "source": "docs/course-v3/lessons/security-04.md",
       "url": "/learn/security-04",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 85,
@@ -941,8 +941,8 @@
       "title": "接続切断・セッション失効・権限再検証",
       "source": "docs/course-v3/lessons/security-05.md",
       "url": "/learn/security-05",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 86,
@@ -1447,7 +1447,7 @@
       "unit": 17,
       "after_sequence": 85,
       "path": "docs/course-v3/reviews/review-17.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {
