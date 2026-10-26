@@ -336,15 +336,6 @@ async function waitText(page, selector, expected) {
         await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
         console.log("ステップ21〜25とコラム06：MudBlazorの画面と対話を確認");
 
-        // コラムの末尾にはフォーカス可能な要素があるとは限らない。
-        // キーボード試験では、操作可能なボタンを起点にTabで移動できるか確認する。
-        await page.goto(base + "/learn/04");
-        const keyboardStart = page.getByRole("button", { name: "1増やす" });
-        await keyboardStart.waitFor();
-        await keyboardStart.focus();
-        if (!(await keyboardStart.evaluate(element => document.activeElement === element))) {
-            throw new Error("キーボード試験の起点となるボタンにフォーカスできません。");
-        }
         // Step26〜30：データベースを用いずUIの対話操作を検証する。
         await page.goto(base + "/learn/26");
         await page.waitForTimeout(1100);
@@ -399,10 +390,15 @@ async function waitText(page, selector, expected) {
         await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();
         console.log("ステップ30・コラム07：入力・検索・確認・追加を検証");
 
-        // Step26〜30の画面遷移後、キーボード試験の起点を再び表示してフォーカスする。
+        // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
+        await page.waitForTimeout(850);
+        const keyboardStart = page.getByRole("button", { name: "1増やす" });
         await keyboardStart.waitFor();
         await keyboardStart.focus();
+        if (!(await keyboardStart.evaluate(element => document.activeElement === element))) {
+            throw new Error("キーボード試験の起点となるボタンにフォーカスできません。");
+        }
         await page.keyboard.press("Tab");
         const tabMovedToControl = await page.evaluate(() => {
             const target = document.activeElement;
