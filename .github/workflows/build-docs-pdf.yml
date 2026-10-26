@@ -13,7 +13,6 @@ on:
       - "database/**"
       - "scripts/build_docs_pdf.py"
       - "scripts/check-learning-materials.py"
-      - "scripts/check-learning-materials.py"
       - ".github/workflows/build-docs-pdf.yml"
   pull_request:
     paths:
@@ -23,6 +22,7 @@ on:
       - "tests/**"
       - "database/**"
       - "scripts/build_docs_pdf.py"
+      - "scripts/check-learning-materials.py"
       - ".github/workflows/build-docs-pdf.yml"
   workflow_dispatch:
 
