@@ -1,0 +1,41 @@
+@page "/learn/22"
+
+<PageTitle>ステップ22：MudBlazorレイアウト｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ22 / レイアウト</p>
+<h1>AppBarとDrawerで画面を組み立てる</h1>
+<p>画面上部の操作領域と開閉できるメニューの役割を確認します。</p>
+<MudPaper Class="pa-2" Elevation="1">
+    @* 固定でないAppBarとDrawerをこのページ内の学習エリアへ置く。 *@
+    <MudLayout Style="min-height: 380px; position:relative;">
+        <MudAppBar Fixed="false" Color="Color.Primary">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                           aria-label="学習メニューを開閉" OnClick="ToggleMenu" />
+            <MudText Typo="Typo.h6">練習用管理画面</MudText>
+        </MudAppBar>
+        <MudDrawer @bind-Open="_menuOpen" Variant="DrawerVariant.Persistent" ClipMode="DrawerClipMode.Docked"
+                   Fixed="false" Overlay="false">
+            <MudNavMenu>
+                <MudNavLink Href="/learn/21">導入と翻訳</MudNavLink>
+                <MudNavLink Href="/learn/23">入力部品</MudNavLink>
+            </MudNavMenu>
+        </MudDrawer>
+        <MudMainContent Class="pa-3">
+            <p role="status" data-testid="step22-state">@(_menuOpen ? "メニューを表示しています。" : "メニューを閉じています。")</p>
+            <MudGrid Class="mt-3">
+                <MudItem xs="12" sm="6"><MudPaper Class="pa-3" Outlined="true">左側の業務情報</MudPaper></MudItem>
+                <MudItem xs="12" sm="6"><MudPaper Class="pa-3" Outlined="true">右側の補助情報</MudPaper></MudItem>
+            </MudGrid>
+        </MudMainContent>
+    </MudLayout>
+</MudPaper>
+<section class="lesson-details">
+    <h2>公式テンプレートとの関係</h2>
+    <p>公式テンプレートでは<code>MudLayout</code>、<code>MudAppBar</code>、<code>MudDrawer</code>を使ったアプリ全体のレイアウトも学べます。このページは既存の学習メニューを保持するため、部品単位で仕組みを練習します。</p>
+    <p>操作の状態はC#で保持し、Razorが表示を切り替えます。メニューの開閉もStep04のイベントの応用です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/21">前へ：ステップ21</a><a href="/learn/23">次へ：ステップ23</a></div>
+
+@code {
+    private bool _menuOpen = true;
+    private void ToggleMenu() => _menuOpen = !_menuOpen;
+}

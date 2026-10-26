@@ -1,0 +1,22 @@
+@page "/learn/column/25"
+<PageTitle>学習コラム06：MudBlazorの翻訳とDI｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム06 / ステップ21〜25</p>
+<h1>公式テンプレートから日本語業務UIへ</h1>
+<section class="lesson-details">
+    <h2>5ステップを結び付ける</h2>
+    <ol>
+        <li>Step21：MudBlazorのサービスと翻訳をDIへ登録した。</li>
+        <li>Step22：画面の構造と状態をコンポーネントとして整理した。</li>
+        <li>Step23：入力値をバインディングし、日付を日本語で表示した。</li>
+        <li>Step24：フォームの業務ルールを日本語で検証した。</li>
+        <li>Step25：固定データの一覧とソート、共通のページャー翻訳を確認した。</li>
+    </ol>
+</section>
+<section class="lesson-details">
+    <h2>ライブラリのDIの読み方を復習する</h2>
+    <p><code>AddMudServices()</code>で機能を登録し、<code>AddMudTranslations()</code>で共通翻訳を登録します。画面では通知サービスを<code>@@inject</code>で受け取り、Providerをレイアウトへ配置しました。</p>
+    <details><summary>確認問題：全部の文字を自作の辞書で翻訳する必要がある？</summary><p>いいえ。MudBlazorが提供する共通ラベルはMudBlazor.Translationsを優先します。業務固有の項目名とエラーはアプリケーション側が持ちます。</p></details>
+    <details><summary>確認問題：テンプレートで作ったコードを既存アプリへ丸ごと貼り付ける？</summary><p>いいえ。テンプレートの構造を読み、DI、Provider、静的資産と描画モードを理解して必要な部分だけ採用します。</p></details>
+    <details><summary>確認問題：日本語の画面なら入力検証だけで安全？</summary><p>いいえ。後続のDB編と認証編でサーバー側の認可とデータ検証も扱います。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/25">ステップ25へ戻る</a><a href="/">学習目次へ</a></div>

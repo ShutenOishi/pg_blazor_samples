@@ -13,7 +13,6 @@ on:
       - "database/**"
       - "scripts/build_docs_pdf.py"
       - "scripts/check-learning-materials.py"
-      - "scripts/check-learning-materials.py"
       - ".github/workflows/build-docs-pdf.yml"
   pull_request:
     paths:
@@ -69,6 +68,9 @@ jobs:
           assert "ステップ20：DIで課題管理を作る" in content
           assert "学習コラム04：設定とサービス分離" in content
           assert "特別コラム05：ライブラリが提供するDI" in content
+          assert "ステップ21：MudBlazorと日本語翻訳を導入する" in content
+          assert "ステップ25：MudTableで一覧とソート" in content
+          assert "学習コラム06：MudBlazorのDIと翻訳" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
       - name: PDFをダウンロード可能な成果物として保存

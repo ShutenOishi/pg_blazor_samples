@@ -13,7 +13,6 @@ on:
       - "docs/columns/**"
       - "scripts/smoke-test.sh"
       - "scripts/check-learning-materials.py"
-      - "scripts/check-learning-materials.py"
       - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
@@ -56,6 +55,13 @@ jobs:
         run: dotnet build PgBlazorSamples.slnx -c Release --no-restore
       - name: UnitTestsの単体テストを実行
         run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --no-build
+      - name: 公式テンプレートからInteractive Server練習アプリを生成してビルド
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          dotnet new install MudBlazor.Templates::4.3.0
+          dotnet new mudblazor --name MudBlazorPractice --output "$RUNNER_TEMP/mudblazor-practice" --interactivity Server --all-interactive --empty --no-restore
+          dotnet build "$RUNNER_TEMP/mudblazor-practice/MudBlazorPractice.csproj" -c Release
       - name: 日本語画面をHTTPで確認
         if: runner.os == 'Linux'
         shell: bash

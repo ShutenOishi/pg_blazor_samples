@@ -1,4 +1,7 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using MudBlazor.Services;
+using MudBlazor.Translations;
 using PgBlazorSamples.Web.Components;
 using PgBlazorSamples.Web.Services.Clock;
 using PgBlazorSamples.Web.Services.Lifetime;
@@ -12,6 +15,12 @@ CultureInfo.DefaultThreadCurrentCulture = japaneseCulture;
 CultureInfo.DefaultThreadCurrentUICulture = japaneseCulture;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// MudBlazorが提供するサービスとコミュニティ翻訳を利用する。
+// 独自のMudLocalizerを作り直さず、翻訳パッケージの登録を優先する。
+builder.Services.AddMudServices();
+builder.Services.AddLocalization();
+builder.Services.AddMudTranslations();
 
 // Step18でUnitTests、Step19でApplicationを段階的に追加する。
 // Step11からDIコンテナーへ時計サービスを登録する。
@@ -48,6 +57,11 @@ if (!app.Environment.IsDevelopment())
 
 // HTTPS終端・証明書などの本番設定は、Windows Server 2025の章で検証する。
 app.UseHttpsRedirection();
+// リクエスト単位でも日本語の文化と言語を確定する。
+app.UseRequestLocalization(new RequestLocalizationOptions()
+    .SetDefaultCulture("ja-JP")
+    .AddSupportedCultures("ja-JP")
+    .AddSupportedUICultures("ja-JP"));
 app.UseAntiforgery();
 
 // .NET 10の静的アセットを登録し、対話型サーバー側の描画を有効にする。
