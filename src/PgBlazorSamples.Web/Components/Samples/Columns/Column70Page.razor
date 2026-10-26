@@ -1,0 +1,18 @@
+@page "/learn/column/70"
+<PageTitle>学習コラム15：認可の共通化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム15 / Step66〜70</p>
+<h1>認証・認可・データ範囲・監査を分けて考える</h1>
+<section class="lesson-details">
+    <p>Windows認証済みであることと業務操作が許可されることは別です。権限は既存台帳の正本から操作のたびに確認し、部署を限定したSQLを実行します。</p>
+    <table><thead><tr><th>ステップ</th><th>最も大切な原則</th></tr></thead><tbody>
+        <tr><td>66</td><td>画面表示だけでなくサービスで拒否</td></tr>
+        <tr><td>67</td><td>件数と行データを同じ所属部署で制限</td></tr>
+        <tr><td>68</td><td>集計・CSVも認可条件を再使用</td></tr>
+        <tr><td>69</td><td>更新直前の権限再評価とxmin競合</td></tr>
+        <tr><td>70</td><td>CIとAD/IIS実機受入を混同しない</td></tr>
+    </tbody></table>
+    <details><summary>Q. 閲覧権限があれば更新も可能？</summary><p>いいえ。can_editを別に検査します。</p></details>
+    <details><summary>Q. 件数だけ部署条件を省略してよい？</summary><p>いいえ。他部署の情報が推測できます。</p></details>
+    <p>セキュリティ監査の永続化、明示ログインの専用HTTP経路、権限変更との競合・負荷試験は実務導入前の追加課題です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/70">ステップ70へ戻る</a><a href="/">目次へ</a></div>

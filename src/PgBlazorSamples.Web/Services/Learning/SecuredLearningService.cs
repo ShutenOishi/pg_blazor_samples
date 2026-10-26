@@ -205,8 +205,9 @@ public sealed class SecuredLearningService(
             await using var db = await factory.CreateDbContextAsync(ct);
             await using var tx = await db.Database.BeginTransactionAsync(ct);
             var expected = selections.ToDictionary(s => s.Id, s => s.Version);
+            var ids = expected.Keys.ToArray();
             var rows = await Visible(db, permit.Unit)
-                .Where(t => expected.Keys.Contains(t.Id)).ToListAsync(ct);
+                .Where(t => ids.Contains(t.Id)).ToListAsync(ct);
             if (rows.Count != selections.Count || rows.Any(t => expected[t.Id] != t.Version))
                 return new(LearningEditStatus.Conflict, "権限外・削除・競合があるため全件取り消しました。");
             if ((await AuthorizeAsync(forEdit: true, ct: ct)).Unit != permit.Unit)
