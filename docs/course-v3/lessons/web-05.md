@@ -22,7 +22,7 @@ WinFormsの`Form_Load`や`Button.Click`を調べるときは、通常、自分�
 
 ## 2. 起動前に確認する
 
-1. Visual Studio 2026でリポジトリのソリューションを開きます。
+1. Visual Studio 2026で学習用のソリューションを開きます。
 2. スタートアッププロジェクトとして`PgBlazorSamples.Web`が起動する設定になっていることを確認します。
 3. Webプロジェクトの`PgBlazorSamples.Web.csproj`が`net10.0`を対象としていることを確認します。
 4. デバッグ起動前にソリューションをビルドし、NuGetの復元やC#のコンパイルエラーがないことを確認します。

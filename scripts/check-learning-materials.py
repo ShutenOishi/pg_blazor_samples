@@ -263,6 +263,48 @@ if f'"{review22}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review22}"') < PDF_SCR
 if not (ROOT / "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs").is_file():
     missing.append("総合演習のPostgreSQL18否定試験が不足")
 
+
+# 学習順001〜005の全面改稿では、読み物としての分量・表・コード・演習・解答を必須にする。
+# この品質基準は次の5件単位の全面改稿にも同様に展開する。
+for n in range(1, 6):
+    item = ROOT / f"docs/course-v3/lessons/web-0{n}.md"
+    if not item.is_file():
+        missing.append(str(item.relative_to(ROOT)) + "：本文不足")
+        continue
+    body = item.read_text(encoding="utf-8")
+    if len(body) < 3300:
+        missing.append(item.name + "：長文解説が不足（最低3300文字）")
+    if body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(item.name + "：比較・切り分け表が不足")
+    if body.count("```") < 4 or body.count("```") % 2:
+        missing.append(item.name + "：実装に沿うコード例が2件以上必要")
+    if "演習" not in body or "解答" not in body or "失敗" not in body:
+        missing.append(item.name + "：演習・解答・失敗時の説明が不足")
+    if "src/PgBlazorSamples.Web" in body or "github.com" in body or "レポジトリ" in body:
+        missing.append(item.name + "：学習者に不要な管理情報を含んでいます")
+for path, minimum in [
+    ("docs/course-v3/stages/stage01.md", 2200),
+    ("docs/course-v3/reviews/review-01.md", 2300),
+]:
+    file = ROOT / path
+    if not file.is_file():
+        missing.append(path + "：段階概要・復習が不足")
+        continue
+    body = file.read_text(encoding="utf-8")
+    if len(body) < minimum or " | " not in body or "解答" not in body or "```" not in body:
+        missing.append(path + "：長文・表・コード・解答のいずれかが不足")
+# HTML画面、教材、PDF索引の実装を対応させる。
+web01 = SAMPLES / "WebFoundation"
+for n in range(1, 6):
+    page = web01 / f"Web0{n}Page.razor"
+    if not page.is_file() or f'@page "/learn/web-0{n}"' not in page.read_text(encoding="utf-8"):
+        missing.append(f"web-0{n}：Razor画面とURLの不一致")
+    marker = f'"docs/course-v3/lessons/web-0{n}.md"'
+    if marker not in PDF_SCRIPT:
+        missing.append(f"web-0{n}：PDF目次へ未収録")
+if not (web01 / "WebFoundationOverviewPage.razor").is_file() or not (web01 / "WebFoundationReviewPage.razor").is_file():
+    missing.append("第1段階概要・第1組復習画面の欠落")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

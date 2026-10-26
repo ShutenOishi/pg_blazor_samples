@@ -24,7 +24,7 @@ WinFormsでC#のイベント処理に慣れている人は、Blazorでも同じ`
 
 ## 2. ソースコード全体を読む
 
-実際の実装ファイルは`src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor`です。以下は、この画面で使っているRazorの主要部分をそのまま抜粋したものです。
+実際の画面の実装は`Web01Page.razor`です。以下は、この画面で使っているRazorの主要部分をそのまま抜粋したものです。
 
 ```razor
 @page "/learn/web-01"
@@ -67,7 +67,7 @@ WinFormsでC#のイベント処理に慣れている人は、Blazorでも同じ`
 
 ## 4. WinFormsのコードと比較する
 
-WinFormsなら、参考として次のようなイベントハンドラーを書くことがあります。このコードは**比較用**であり、Blazorのリポジトリには含まれていません。
+WinFormsなら、参考として次のようなイベントハンドラーを書くことがあります。このコードは**比較用**であり、Blazor側の画面には含まれていません。
 
 ```csharp
 private int count;
