@@ -66,6 +66,9 @@ jobs:
               assert phrase not in content, f"学習者向けPDFに開発情報が混在しています: {phrase}"
           assert "ステップ15：injectとコンストラクター注入" in content
           assert "学習コラム03：DIとサービスの寿命" in content
+          assert "ステップ20：DIで課題管理を作る" in content
+          assert "学習コラム04：設定とサービス分離" in content
+          assert "特別コラム05：ライブラリが提供するDI" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
       - name: PDFをダウンロード可能な成果物として保存

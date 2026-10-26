@@ -64,11 +64,16 @@ builder.Services.AddTransient<GreetingService>();
 | --- | --- | --- |
 | ステップ01 | `PgBlazorSamples.Web` | まず画面・イベント・状態を知る |
 | ステップ11〜12 | Web内の`Services`と`IClock` | DIとインターフェイスを体験する |
-| ステップ18〜20 | Applicationライブラリ＋単体テスト | 業務処理を画面から分ける理由を体験する |
+| ステップ18 | UnitTests | 偽時計を使い画面なしでテストする |
+| ステップ19〜20 | Applicationライブラリ | 業務処理を画面から分ける理由を体験する |
 | ステップ31〜33 | DomainとInfrastructure | 業務ルールとDB実装を分離する |
 | ステップ40以降 | DB結合テスト | 実環境依存の試験と単体テストを区別する |
 
 構成の目標は`Web → Application → Domain`、`Infrastructure → Application/Domain`です。Webが起動時にInfrastructureを登録し、ApplicationはInfrastructureの実装を参照しません。詳細は[アーキテクチャ](architecture.md)。
+
+## ライブラリのDIも理解する
+
+自作するDIだけでなく、既存ライブラリが提供する登録メソッドと注入方法を読むことが重要です。[特別コラム05](columns/column-library-di.md)で、ILogger・IOptions・MudBlazor・Npgsqlを比較します。MudBlazorとNpgsqlは後続のステップで実際に導入します。
 
 ## DIから学ぶセキュリティの注意
 
