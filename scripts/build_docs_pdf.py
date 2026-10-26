@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = [
     "README.md", "docs/implementation-handbook.md",
     "docs/first-code-implementation-plan.md",
+    "docs/samples/step01.md", "docs/samples/step02.md",
+    "docs/samples/step03.md",
     "docs/learning-path.md", "docs/sample-catalog.md",
     "docs/di-for-beginners.md", "docs/architecture.md",
     "docs/environment.md", "docs/versions.md", "docs/database.md",
@@ -23,7 +25,7 @@ DOCS = [
     "CONTRIBUTING.md", "SECURITY.md",
 ]
 OUTPUT = ROOT / "dist" / "pg_blazor_samples_technical_handbook.pdf"
-EXTS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets"}
+EXTS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets", ".css", ".js", ".json"}
 
 
 def digest(path):
@@ -39,7 +41,7 @@ def code_files():
                 if (path.is_file() and path.suffix.lower() in EXTS
                         and not {"bin", "obj", ".vs", ".git"} & set(path.parts)):
                     result.append(path)
-    result.extend(p for p in ROOT.iterdir() if p.is_file() and p.suffix in {".sln", ".slnx", ".props", ".targets"})
+    result.extend(p for p in ROOT.iterdir() if p.is_file() and (p.suffix in {".sln", ".slnx", ".props", ".targets"} or p.name == "global.json"))
     return sorted(set(result))
 
 

@@ -50,7 +50,7 @@ docs/
   samples/
 ```
 
-これは将来の**予定構成**です。現時点ではコードプロジェクト・DB・ADはまだ実装していません。
+この図は**完成時の予定構成**です。現在は `PgBlazorSamples.Web` のみ実装済みで、Application・Domain・Infrastructure、DB接続、AD認証は未実装です。ステップ別の実コードは `Components/Samples/Step01`〜`Step03` にあります。
 
 ## 依存関係の約束
 

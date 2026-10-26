@@ -20,17 +20,30 @@ dotnet --list-sdks
 
 出力から.NET 10 SDKを確認します。Visual Studioのターゲットに`.NET 10`が選べることを確認してください。
 
-## 3. 実装予定のソリューション作成手順
+## 3. 実際のソリューションを開いて起動する
 
-> ここに示すコマンドは**将来の初期実装方針**です。現時点ではソリューションやプロジェクトファイルを作成していません。
+Step01〜03のソースが実装されているため、**新たに `dotnet new` を実行する必要はありません**。リポジトリにある `PgBlazorSamples.slnx` をVisual Studio 2026で開いてください。
+
+```powershell
+dotnet restore PgBlazorSamples.slnx
+dotnet build PgBlazorSamples.slnx -c Release
+dotnet run --project src/PgBlazorSamples.Web
+```
+
+表示されたアドレスにアクセスし、目次から `/learn/01`、`/learn/02`、`/learn/03` に移動します。対応コードは `src/PgBlazorSamples.Web/Components/Samples/` にあります。実装の説明は[ステップ01](samples/step01.md)、[ステップ02](samples/step02.md)、[ステップ03](samples/step03.md)を参照してください。
+
+`Program.cs`ではサーバーとUIのカルチャーを`ja-JP`に設定します。`App.razor`ではHTMLの`lang="ja"`を使用し、接続エラーも日本語で表示します。
+
+### ゼロから作成するときの参考
+
+以下は学習用の**参考コマンド**であり、このリポジトリでは実行しません。既存ファイルを上書きすると教材が消える可能性があります。
 
 ```powershell
 dotnet new sln -n PgBlazorSamples
-dotnet new blazor -n PgBlazorSamples.Web -o src/PgBlazorSamples.Web -f net10.0 -int Server -ai
-dotnet sln PgBlazorSamples.slnx add src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj
+dotnet new blazor -n PgBlazorSamples.Web -f net10.0 -int Server -ai
 ```
 
-上記は予定する配置に沿ったコマンド例です。.NET 10の`dotnet new sln`は既定で`.slnx`を作成します。実装段階では`dotnet new blazor --help`を含め実行・検証し、必要があれば修正します。
+
 
 ## 3.1 プロジェクトは必要に応じて追加する
 

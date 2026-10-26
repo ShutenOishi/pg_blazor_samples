@@ -1,0 +1,52 @@
+name: 日本語Blazorアプリのビルドと画面疎通
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "PgBlazorSamples.slnx"
+      - "Directory.Build.props"
+      - "global.json"
+      - "src/**"
+      - "docs/samples/**"
+      - "scripts/smoke-test.sh"
+      - ".github/workflows/build.yml"
+  pull_request:
+    paths:
+      - "PgBlazorSamples.slnx"
+      - "Directory.Build.props"
+      - "global.json"
+      - "src/**"
+      - "docs/samples/**"
+      - "scripts/smoke-test.sh"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.os }} Releaseビルド
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v4
+      - name: .NET 10を用意
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: 依存関係を復元
+        run: dotnet restore PgBlazorSamples.slnx
+      - name: Releaseビルド
+        run: dotnet build PgBlazorSamples.slnx -c Release --no-restore
+      - name: 日本語画面をHTTPで確認
+        if: runner.os == 'Linux'
+        shell: bash
+        run: bash scripts/smoke-test.sh
+      - name: Release発行を確認
+        run: dotnet publish src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj -c Release --no-build -o publish-output

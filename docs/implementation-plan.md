@@ -8,16 +8,26 @@
 - [x] 環境、設計、認証、DB、品質、規約の基本ドキュメントを用意する。
 - [x] ドキュメントPRを受け入れ、mainに反映する。
 
+## 現在の実装進捗
+
+- [x] Step01〜03のWebプロジェクトと日本語Razor画面のソースを追加。
+- [x] Step01〜03のソースファイル対応の日本語教材を追加。
+- [x] Windows/Linux ReleaseビルドとHTTP疎通用CIを追加。
+- [x] CIのWindows/Linux ReleaseビルドとLinuxの日本語HTTP画面疎通が成功。
+- [ ] 実ブラウザーのキーボード操作と回線切断・復旧の受入確認を行う。
+- [ ] Step04〜10を実装する。
+
 ## 直近の実装作業
 
 [最初のソースコード実装計画](first-code-implementation-plan.md)を実行の正本とする。**最初のPRはStep01〜03とWebソリューション、ReleaseビルドCI、日本語教材3本**を一式で追加する。次に04〜06、07〜10を個別PRで実装する。まず各PRの合格を確認し、その後の教材をまとめて追加する。
 
 注意：Step31でDomain、Step33でInfrastructureを導入するよう[サンプル一覧](sample-catalog.md)のDB章も再編成した。
 
+
 ## フェーズ1：動く最小構成（01～10）
 
-- [ ] Visual Studio 2026 / .NET 10のソリューションを作成する。
-- [ ] Blazor Web AppをInteractive Serverで動かし、目次とナビゲーションを作る。
+- [x] Visual Studio 2026 / .NET 10向けのソリューションとWebプロジェクトを作成する。
+- [x] Interactive Serverを構成し、目次と日本語ナビゲーションを作成する（実ブラウザー接続の受入試験は別途）。
 - [ ] 最初の10件の独立した教材画面と日本語解説を作る。
 - [ ] ビルドと初歩的な単体テストをCIへ入れる。
 
