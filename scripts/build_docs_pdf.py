@@ -50,6 +50,8 @@ CHAPTERS = [
     ("ステップ24：MudFormの入力検証を学ぶ", "docs/samples/step24.md"),
     ("ステップ25：MudTableで一覧とソート", "docs/samples/step25.md"),
     ("学習コラム06：MudBlazorのDIと翻訳", "docs/columns/column21-25.md"),
+    ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
+    ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]
 
 EXTENSIONS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets", ".css", ".js", ".json"}
@@ -113,7 +115,7 @@ def main():
             raise SystemExit(f"学習者用の不要な開発情報が残っています: {relative_path}")
         chapters_html.append(
             f'<section class="chapter" id="lesson-{number}">'
-            f'<p class="chapter-kicker">{"学習コラム" if "学習コラム" in title else "ステップアップ学習"}</p>'
+            f'<p class="chapter-kicker">{"先取り学習（未実装の設計）" if "先取りガイド" in title else ("学習コラム" if "学習コラム" in title else "ステップアップ学習")}</p>'
             f'<h1>{html.escape(title)}</h1>'
             f'{markdown.render(content)}</section>'
         )
@@ -123,10 +125,10 @@ def main():
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから日本語UIまで<br>日本語で順番に学ぶ25ステップ</p>
+      <p class="lead">画面づくりから日本語UIまで<br>25ステップ＋EF Core 10の先取り学習</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜25／コラム01〜06</p>
+      <p class="version">学習範囲：ステップ01〜25／コラム01〜06／データ連携設計ガイド</p>
     </section>
     <section class="toc">
       <h1>目次</h1>
