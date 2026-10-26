@@ -1,0 +1,41 @@
+@page "/learn/61"
+@using PgBlazorSamples.Web.Services.Learning
+@inject WindowsUserAccessService UserAccess
+<PageTitle>ステップ61：Windows統合認証｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ61 / Windows認証と業務利用の境界</p>
+<h1>Windows統合認証</h1>
+<MudPaper Class="pa-4">
+    <h2>NegotiateとIISの担当を区別する</h2>
+    <p>Windows認証はブラウザーの自己申告ではなく、IISまたはASP.NET Coreの認証ハンドラーが成立させます。</p>
+    <MudButton Color="Color.Primary" OnClick="InspectAsync">現在の認証・DB照合状態を確認</MudButton>
+    <p role="status" data-testid="step61-state">@_snapshot.Message</p>
+    <p>認証状態：@_snapshot.SidHint</p>
+    @if (!string.IsNullOrWhiteSpace(_snapshot.DisplayName))
+    {
+        <p>DB上の表示名：@_snapshot.DisplayName</p>
+    }
+    @if (false && _snapshot.Roles is { Count: > 0 })
+    {
+        <h3>有効なロール</h3>
+        <ul>@foreach (var role in _snapshot.Roles) { <li>@role</li> }</ul>
+        <h3>許可コード</h3>
+        <ul>@foreach (var code in _snapshot.Permissions ?? Array.Empty<string>()) { <li>@code</li> }</ul>
+    }
+</MudPaper>
+<section class="lesson-details">
+    <h2>安全に確認する</h2>
+    <p>実際のAD・IISではWindows認証を有効にして匿名認証を無効にします。CIは実機ADの代替ではありません。</p>
+    <details><summary>確認問題：本人認証が成功したら業務データを参照できる？</summary>
+        <p>いいえ。アプリ利用者の有効性と、操作に対する権限をサーバー側で確認します。</p>
+    </details>
+    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・KerberosはStep70で実機検証します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/60">前のステップへ</a><a href="/learn/62">次へ進む</a></div>
+@code {
+    private WindowsAccessSnapshot _snapshot = new("initial", "ボタンを押すと認証とDB照合の状態を確認します。");
+
+    private async Task InspectAsync()
+    {
+        _snapshot = await UserAccess.ReadCurrentAsync();
+    }
+}
