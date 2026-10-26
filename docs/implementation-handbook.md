@@ -32,7 +32,7 @@ PgBlazorSamples.Web
 - Web：画面・ルーティング・MudBlazor・起動時のDI構成
 - Application：ユースケース、サービス契約、操作権限のチェック
 - Domain：業務規則、エンティティ、値オブジェクト
-- Infrastructure：linq2db、Npgsql、PostgreSQLアクセス、認証情報との対応
+- Infrastructure：EF Core 10、Npgsql、PostgreSQLアクセス、認証情報との対応
 - UnitTests：外部環境のない単体テスト
 - IntegrationTests：隔離したPostgreSQL 18を用いた結合テスト
 - WebTests：Windows認証、IIS、画面、接続切断の受入試験
@@ -70,20 +70,24 @@ public sealed class GreetingService(IClock clock)
 | Scoped | スコープ内 | HTTP要求ではなくcircuitに長く関連し得る |
 | Transient | 解決ごと | 短命な軽量サービス向け |
 
-誤解しやすい点：**Interactive ServerではScopedの寿命が通常のHTTP要求とは異なります。** DB接続やlinq2dbの変更可能なコンテキストは、原則として操作単位で生成・破棄します。既存ガイド：[DI入門](di-for-beginners.md)。
+誤解しやすい点：**Interactive ServerではScopedの寿命が通常のHTTP要求とは異なります。** DB接続やEF Core DbContextは、原則として操作単位で生成・破棄します。既存ガイド：[DI入門](di-for-beginners.md)。
 
 ## 4. PostgreSQL 18との役割分担
 
 - ユーザー本人の認証：Active Directory / Windows統合認証
 - アプリケーション内の利用可否・所属・ロール・権限：PostgreSQL 18
-- データアクセス：Npgsql + linq2db
+- データアクセス：EF Core 10 + Npgsql（PostgreSQL公式プロバイダー）
 - AD側パスワード・チケット・NTLMハッシュ：**PostgreSQLに格納しない**
 
 初期テーブル案：[データベース設計](database.md)。中心は `app_user`、`app_role`、`app_permission`、`app_user_role`、`app_role_permission`、`audit_event` です。Windows側の検証済みSIDを照合の主キーとして扱い、アカウント名は表示・補助情報に限定します。
 
 業務データを読み書きする際には、認可をUIだけで完結させません。Applicationのユースケース入口でも操作権限を確認します。ユーザー未登録、無効、権限なし、DB照合失敗では**既定拒否**です。
 
-## 5. AD・IIS・Windows Server 2025の構築観点
+## 5. MudBlazorとEF Coreの一覧表示の連携
+
+Step41〜60を新設し、[10パターンの選択ガイド](data-grid-patterns.md)に従ってItems、ServerData、VirtualizeServerData、キーセット、編集・集約・CSVを比較します。DbContextを対話画面へ長期間保持せず、`IDbContextFactory`から操作単位で生成します。EF Core 10とNpgsqlの詳細は[データアクセスガイド](efcore10-data-access.md)に分離しました。**ここは設計中であり、実DBのソース・統合テストは今後追加します。**
+
+## 6. AD・IIS・Windows Server 2025の構築観点
 
 標準配備先はドメインに参加した **Windows Server 2025メンバーサーバー + IIS + .NET 10 Hosting Bundle** です。Visual Studioを本番サーバーへインストールすることは想定しません。
 
@@ -114,7 +118,7 @@ public sealed class GreetingService(IClock clock)
 9. アプリケーションログ、DB監査、DBバックアップと復元を検証。
 10. 失敗経路の拒否、権限変更の反映、日本語表示とアクセシビリティを確認。
 
-## 6. 実装ごとの受入基準
+## 7. 実装ごとの受入基準
 
 | 項目 | 正常系 | 否定系 |
 | --- | --- | --- |
@@ -129,7 +133,7 @@ public sealed class GreetingService(IClock clock)
 
 検証対象と結果の詳細は[品質管理](quality.md)に記録します。「ソースがある」と「ビルドできる」と「AD・IISで検証した」は別々の状態として扱います。
 
-## 7. PDFとソースコードの同期ルール
+## 8. PDFとソースコードの同期ルール
 
 このPDFは `docs/` と `README.md` を参照し、**PDF生成時のGitコミット**、利用したMarkdown、検出したソースファイルとSHA-256を自動的に付録へ含めます。 `src/`・`tests/`・`database/`に変更があればPDFを再生成します。
 
@@ -141,10 +145,10 @@ public sealed class GreetingService(IClock clock)
 
 **ファイルとハッシュの自動照合は、説明文の意味まで機械的に保証するものではありません。** 実装とドキュメントの意味的な整合性はコードレビューとテストで担保します。
 
-## 8. 仕様・参考情報への入口
+## 9. 仕様・参考情報への入口
 
-- [60ステップの正本](sample-catalog.md)
-- [5ステップごとの学習コラム（全12回計画）](columns/README.md)
+- [80ステップの正本](sample-catalog.md)
+- [5ステップごとの学習コラム（通常16回＋特別編）](columns/README.md)
 - [学習ロードマップ](learning-path.md)
 - [プロジェクトと依存関係](architecture.md)
 - [DI入門](di-for-beginners.md)
