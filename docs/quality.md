@@ -23,6 +23,18 @@
 
 CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)／[PDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)。公開Runnerから社内ADへの接続は行いません。
 
+## Step04〜06の実ブラウザー試験
+
+`scripts/browser-smoke.cjs`で、GitHub ActionsのUbuntu上のChromeとPlaywright Coreを使用して、次の動作を検証します。
+
+- Step04：カウンターを2回増加、1回減少、初期値へ戻すこと。0で減算できないこと
+- Step05：日本語の名前入力、即時プレビュー、タグ文字列のHTMLエンコード、入力消去
+- Step06：全4件から未完了2件へ絞り込み、その後4件へ復帰
+- キーボードのフォーカスが移動すること（詳細なWCAG検証は別に行う）
+- 成功時に日本語画面のスクリーンショットをActionsのArtifactへ保存
+
+テストコードの存在だけでは「試験成功」ではありません。該当コミットのCI完了状態・ログを照合してください。
+
 ## 今後追加するGitHub Actions
 
 | 検証 | 条件 | 目的 |
