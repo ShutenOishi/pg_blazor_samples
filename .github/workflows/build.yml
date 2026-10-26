@@ -8,7 +8,9 @@ on:
       - "Directory.Build.props"
       - "global.json"
       - "src/**"
+      - "tests/**"
       - "docs/samples/**"
+      - "docs/columns/**"
       - "scripts/smoke-test.sh"
       - "scripts/check-learning-materials.py"
       - "scripts/check-learning-materials.py"
@@ -20,7 +22,9 @@ on:
       - "Directory.Build.props"
       - "global.json"
       - "src/**"
+      - "tests/**"
       - "docs/samples/**"
+      - "docs/columns/**"
       - "scripts/smoke-test.sh"
       - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
@@ -50,6 +54,8 @@ jobs:
         run: python scripts/check-learning-materials.py
       - name: Releaseビルド
         run: dotnet build PgBlazorSamples.slnx -c Release --no-restore
+      - name: UnitTestsの単体テストを実行
+        run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --no-build
       - name: 日本語画面をHTTPで確認
         if: runner.os == 'Linux'
         shell: bash
