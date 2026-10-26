@@ -8,7 +8,9 @@
 | .NET SDK / ターゲット | 10 / `net10.0` | SDKの修正パッチは最新の10系を優先 |
 | ASP.NET Core | .NET 10付属 | ランタイムとパッチを揃える |
 | PostgreSQL | 18系 | セキュリティ修正を含む18系最新パッチ |
-| MudBlazor | 9.11.0 | UI部品 |
+| MudBlazor | 9.11.0 | UI部品（Step21〜25に参照追加） |
+| MudBlazor.Translations | 3.6.0 | MudBlazor 9系用コミュニティ翻訳（ja-JP） |
+| MudBlazor.Templates | 4.3.0 | .NET 10向け生成テンプレート（学習時にCLIで別アプリを生成） |
 | linq2db | 6.5.1 | LINQによるDB操作 |
 | linq2db.PostgreSQL | 6.5.0 | PostgreSQL用プロバイダー |
 | Npgsql | 10.0.3 | PostgreSQLドライバー |
@@ -32,7 +34,7 @@
 ## 互換性の未検証項目
 
 - linq2db 6.5.1とNpgsql 10.0.3を組み合わせた実接続、トランザクションと型変換。
-- MudBlazor 9.11.0と.NET 10の画面・イベント・事前描画の動作。
+- MudBlazor 9.11.0とMudBlazor.Translations 3.6.0のCIビルド、ja-JP表示、UIのイベント・事前描画の動作（作業PRのCIで検証する）。
 - IIS/NegotiateとWindows認証の構成、アプリ内の認可処理。
 - PostgreSQL 18の日時、日本語ソート、ページング。
 
