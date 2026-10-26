@@ -1,8 +1,10 @@
 @page "/learn/45"
 @using PgBlazorSamples.Web.Data
 @using PgBlazorSamples.Web.Services.Learning
+@using PgBlazorSamples.Web.Services.Learning
 @using System.Globalization
 @inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+@inject LearningDbService DbSettings
 
 <PageTitle>ステップ45：検索と複合フィルター｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">ステップ45 / 検索・フィルター</p>
@@ -38,6 +40,12 @@
 </section>
 <div class="page-navigation"><a href="/learn/44">前へ：ステップ44</a><a href="/learn/column/45">コラム10：一覧検索の選び方</a></div>
 @code {
+    protected override void OnInitialized()
+    {
+        // ServerDataは子部品内のイベントなので、未設定を親画面で先に表示する。
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
     private static readonly CultureInfo Japanese = CultureInfo.GetCultureInfo("ja-JP");
     private MudDataGrid<LearningTaskRow>? _grid;
     private string _keyword = "";
@@ -67,6 +75,7 @@
         }
         var result = await Pages.LoadAsync(page, ct);
         _message = result.Message + $" 検索総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
         return new() { Items = result.Rows, TotalItems = result.TotalCount };
     }
 

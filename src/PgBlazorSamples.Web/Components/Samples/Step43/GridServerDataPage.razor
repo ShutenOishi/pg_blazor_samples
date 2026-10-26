@@ -1,6 +1,8 @@
 @page "/learn/43"
 @using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
 @inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+@inject LearningDbService DbSettings
 
 <PageTitle>ステップ43：MudDataGridのServerData｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">ステップ43 / MudDataGrid ServerData</p>
@@ -28,6 +30,12 @@
 </section>
 <div class="page-navigation"><a href="/learn/42">前へ：ステップ42</a><a href="/learn/44">次へ：ステップ44</a></div>
 @code {
+    protected override void OnInitialized()
+    {
+        // ServerDataは子部品内のイベントなので、未設定を親画面で先に表示する。
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
     private MudDataGrid<LearningTaskRow>? _grid;
     private string _keyword = "";
     private string _message = "初期表示を読み込みます。";
@@ -41,6 +49,7 @@
         var result = await Pages.LoadAsync(
             new(state.Page, state.PageSize, _keyword, Sorts: sorts), ct);
         _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
         return new() { Items = result.Rows, TotalItems = result.TotalCount };
     }
 

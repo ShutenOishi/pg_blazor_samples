@@ -1,6 +1,8 @@
 @page "/learn/44"
 @using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
 @inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+@inject LearningDbService DbSettings
 
 <PageTitle>ステップ44：許可リストと複数列ソート｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">ステップ44 / 安全な動的ソート</p>
@@ -26,6 +28,12 @@
 </section>
 <div class="page-navigation"><a href="/learn/43">前へ：ステップ43</a><a href="/learn/45">次へ：ステップ45</a></div>
 @code {
+    protected override void OnInitialized()
+    {
+        // ServerDataは子部品内のイベントなので、未設定を親画面で先に表示する。
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
     private string _message = "初期表示を読み込みます。";
 
     private async Task<GridData<LearningTaskRow>> LoadAsync(GridState<LearningTaskRow> state, CancellationToken ct)
@@ -34,6 +42,7 @@
             .Take(3).Select(x => new LearningSort(x.SortBy, x.Descending)).ToArray();
         var data = await Pages.LoadAsync(new(state.Page, state.PageSize, Sorts: sorts), ct);
         _message = data.Message + $" 総件数：{data.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
         return new() { Items = data.Rows, TotalItems = data.TotalCount };
     }
 }
