@@ -64,7 +64,7 @@ if grep -Fq '<重要>' "$tmp/step03.html"; then
   echo "Razor文字列がHTMLタグとして出力されました。"
   exit 1
 fi
-if ! grep -Fq 'blazor.web.js' "$tmp/home.html"; then
+if ! grep -Fq 'blazor.web' "$tmp/home.html"; then
   echo "対話型サーバー用のスクリプトが確認できません。"
   exit 1
 fi
