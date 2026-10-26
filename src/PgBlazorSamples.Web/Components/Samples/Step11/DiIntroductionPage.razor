@@ -30,7 +30,7 @@
         <thead><tr><th>方式・考え方</th><th>実装の要点</th><th>確認すること</th></tr></thead>
         <tbody>
             <tr><td>直接生成</td><td><code>new GreetingService(new SystemClock())</code></td><td>画面が具体的な時計の生成を選ぶ</td></tr>
-            <tr><td>DIから受け取る</td><td><code>@inject GreetingService Greeting</code></td><td>Program.csの登録を利用する</td></tr>
+            <tr><td>DIから受け取る</td><td><code>@@inject GreetingService Greeting</code></td><td>Program.csの登録を利用する</td></tr>
         </tbody>
     </table>
     <h2>実コードと障害の切り分け</h2>
