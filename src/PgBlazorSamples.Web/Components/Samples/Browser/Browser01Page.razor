@@ -1,0 +1,59 @@
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+@page "/learn/browser-01"
+<PageTitle>学習順041：JavaScript interopの利用判断｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第4段階 / 学習順041</p>
+<h1>JavaScript interopの利用判断</h1>
+
+<p>RazorとC#で済む画面操作はJSなしで実装します。ブラウザーのDOMなど、Web APIが必要な場合にだけJavaScriptへ依頼します。</p>
+<section class="lesson-details">
+    <h2>比較する2つの操作</h2>
+    <button type="button" @onclick="Increase">C#だけで回数を増やす</button>
+    <p>操作回数：<strong data-testid="browser01-count">@count</strong></p>
+    <button type="button" @onclick="ReadLanguage">JavaScriptでHTMLの言語設定を読む</button>
+    <p data-testid="browser01-language" role="status">@message</p>
+    <p>HTMLの言語設定はブラウザーのDOMにあります。この画面のイベントはサーバーで動くため、JSモジュールを経由して読みます。</p>
+</section>
+<section class="lesson-details">
+    <h2>選定の目安</h2>
+    <table><thead><tr><th scope="col">操作</th><th scope="col">推奨する手段</th></tr></thead><tbody>
+    <tr><td>フォーム入力や画面上の計算</td><td>Razor・C#</td></tr>
+    <tr><td>DOMの属性を読む</td><td>必要な範囲のJS interop</td></tr>
+    <tr><td>業務認可</td><td>サーバーの既存DB台帳を都度確認</td></tr>
+    </tbody></table>
+    <p>事前レンダリング中にJSを呼ばず、対話型イベントで実行します。回線切断とJS実行失敗は別に扱います。</p>
+</section>
+<div class="page-navigation"><a href="/learn/30">前へ</a><a href="/learn/browser-02">次へ</a></div>
+@code {
+    private int count;
+    private string message = "まだ取得していません。";
+    private IJSObjectReference? module;
+    // C#だけで完結する処理にJSは不要。
+    private void Increase() => count++;
+
+    private async Task ReadLanguage()
+    {
+        try
+        {
+            module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/browser-learning.js");
+            var language = await module.InvokeAsync<string>("readLanguage");
+            message = "HTMLの言語設定：" + language;
+        }
+        catch (JSDisconnectedException)
+        {
+            message = "サーバーとの接続が切れました。再接続してください。";
+        }
+        catch (JSException)
+        {
+            message = "ブラウザーの情報を取得できませんでした。";
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is null) return;
+        try { await module.DisposeAsync(); }
+        catch (JSDisconnectedException) { /* 回線切断後はJSモジュールを解放できない場合がある。 */ }
+    }
+}

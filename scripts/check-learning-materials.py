@@ -139,6 +139,38 @@ actual_v3_steps = [source for source in actual_v3_prefix if source in expected_v
 if actual_v3_steps != expected_v3_prefix:
     missing.append("第1〜2段階のPDF学習順001〜020が不正")
 
+# 第4段階のブラウザー新規5件と概要・復習を確認する。
+for n in range(1, 6):
+    lesson_id = f"browser-0{n}"
+    item = next((x for x in ordered if x["id"] == lesson_id), None)
+    page = SAMPLES / "Browser" / f"Browser0{n}Page.razor"
+    if not item or not item["implementation"].startswith("implemented"):
+        missing.append(lesson_id + "：未実装または学習順不正")
+        continue
+    if not page.is_file() or f'@page "/learn/{lesson_id}"' not in page.read_text(encoding="utf-8"):
+        missing.append(lesson_id + "：Razor画面とURL不足")
+    if not (ROOT / item["source"]).is_file() or f'"{item["source"]}"' not in PDF_SCRIPT:
+        missing.append(lesson_id + "：教材かPDF索引が不足")
+overview = 'docs/course-v3/stages/stage04.md'
+review09 = 'docs/course-v3/reviews/review-09.md'
+for path, view in [(overview, "BrowserOverviewPage.razor"), (review09, "BrowserReview09Page.razor")]:
+    if not (ROOT / path).is_file() or f'"{path}"' not in PDF_SCRIPT:
+        missing.append(path + "：第4段階の概要・復習がPDFに不足")
+    if not (SAMPLES / "Browser" / view).is_file():
+        missing.append(view + "：概要・復習画面なし")
+if not (ROOT / "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js").is_file():
+    missing.append("ブラウザーJSモジュールがありません")
+v3_stage4 = [x["source"] for x in ordered if 31 <= x["sequence"] <= 45]
+pdf_stage4 = [source for source in actual_v3_prefix if source in v3_stage4]
+if pdf_stage4 != v3_stage4:
+    missing.append("第4段階のPDF学習順031〜045と画面の並び順が一致しません")
+if f'"{overview}"' in PDF_SCRIPT and f'"{v3_stage4[0]}"' in PDF_SCRIPT:
+    if PDF_SCRIPT.index(f'"{overview}"') > PDF_SCRIPT.index(f'"{v3_stage4[0]}"'):
+        missing.append("第4段階の概要は学習順031より前に収録してください")
+if f'"{review09}"' in PDF_SCRIPT and f'"{v3_stage4[-1]}"' in PDF_SCRIPT:
+    if PDF_SCRIPT.index(f'"{review09}"') < PDF_SCRIPT.index(f'"{v3_stage4[-1]}"'):
+        missing.append("第9組の復習は学習順045の後に収録してください")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

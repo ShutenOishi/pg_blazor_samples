@@ -105,7 +105,7 @@
       "title": "Static SSRとInteractive Serverの違い",
       "source": "docs/course-v3/lessons/runtime-01.md",
       "url": "/learn/runtime-01",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -171,7 +171,7 @@
       "title": "SignalR・circuit・再接続",
       "source": "docs/course-v3/lessons/runtime-02.md",
       "url": "/learn/runtime-02",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -193,7 +193,7 @@
       "title": "事前レンダリングと初期化の実行回数",
       "source": "docs/course-v3/lessons/runtime-03.md",
       "url": "/learn/runtime-03",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -215,7 +215,7 @@
       "title": "URL・履歴・再読込と画面状態",
       "source": "docs/course-v3/lessons/runtime-04.md",
       "url": "/learn/runtime-04",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -226,7 +226,7 @@
       "title": "circuit・ブラウザー・DBの状態保存の選択",
       "source": "docs/course-v3/lessons/runtime-05.md",
       "url": "/learn/runtime-05",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -457,8 +457,8 @@
       "title": "JavaScript interopの利用判断",
       "source": "docs/course-v3/lessons/browser-01.md",
       "url": "/learn/browser-01",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 42,
@@ -468,8 +468,8 @@
       "title": "ファイルアップロードと入力制約",
       "source": "docs/course-v3/lessons/browser-02.md",
       "url": "/learn/browser-02",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 43,
@@ -479,8 +479,8 @@
       "title": "CSV・PDFファイルのダウンロード",
       "source": "docs/course-v3/lessons/browser-03.md",
       "url": "/learn/browser-03",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 44,
@@ -490,8 +490,8 @@
       "title": "ErrorBoundary・取消・再試行",
       "source": "docs/course-v3/lessons/browser-04.md",
       "url": "/learn/browser-04",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 45,
@@ -501,8 +501,8 @@
       "title": "HTMLの意味・フォーカス・拡大表示の最終確認",
       "source": "docs/course-v3/lessons/browser-05.md",
       "url": "/learn/browser-05",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 46,
@@ -1391,7 +1391,7 @@
       "unit": 9,
       "after_sequence": 45,
       "path": "docs/course-v3/reviews/review-09.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {

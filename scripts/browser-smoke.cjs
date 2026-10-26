@@ -135,6 +135,60 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "runtime-review.png") });
         console.log("第2段階の新規実行原理5画面と復習3件を検証");
 
+        // 第4段階：JS interop、アップロード制限、実ファイル出力、例外復旧と入力操作。
+        await page.goto(base + "/learn/stage/browser");
+        await page.getByRole("heading", { name: "第4段階の概要：MudBlazorとブラウザーの業務UI" }).waitFor();
+        await page.goto(base + "/learn/browser-01");
+        await page.waitForTimeout(950);
+        await page.getByRole("button", { name: "C#だけで回数を増やす" }).click();
+        await waitText(page, '[data-testid="browser01-count"]', "1");
+        await page.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
+        await waitText(page, '[data-testid="browser01-language"]', "ja");
+
+        await page.goto(base + "/learn/browser-02");
+        await page.waitForTimeout(950);
+        const uploadInput = page.locator('#browser02-file');
+        await uploadInput.setInputFiles({ name: "練習.csv", mimeType: "text/csv", buffer: Buffer.from("番号,内容\\n1,テスト\\n") });
+        await waitText(page, '[data-testid="browser02-result"]', "検査完了");
+        await page.getByTestId("browser02-hash").waitFor();
+        await uploadInput.setInputFiles({ name: "拒否.png", mimeType: "image/png", buffer: Buffer.from("NG") });
+        await waitText(page, '[data-testid="browser02-result"]', "拒否");
+
+        await page.goto(base + "/learn/browser-03");
+        await page.waitForTimeout(950);
+        const csvDownload = page.waitForEvent("download");
+        await page.getByRole("button", { name: "学習用CSVを保存する" }).click();
+        const csvFile = await csvDownload;
+        if (csvFile.suggestedFilename() !== "blazor_practice.csv") throw new Error("CSVのファイル名が違います。");
+        const pdfDownload = page.waitForEvent("download");
+        await page.getByRole("button", { name: "学習用PDFを保存する" }).click();
+        const pdfFile = await pdfDownload;
+        if (pdfFile.suggestedFilename() !== "blazor_practice.pdf") throw new Error("PDFのファイル名が違います。");
+        await waitText(page, '[data-testid="browser03-result"]', "PDF");
+
+        await page.goto(base + "/learn/browser-04");
+        await page.waitForTimeout(950);
+        await page.getByRole("button", { name: "学習用の例外を発生させる" }).click();
+        await page.getByTestId("browser04-error").waitFor();
+        await page.getByRole("button", { name: "エラー表示を復旧する" }).click();
+        await page.getByRole("button", { name: "学習用の例外を発生させる" }).waitFor();
+        await page.getByRole("button", { name: "学習用の処理を開始する" }).click({ noWaitAfter: true });
+        await waitText(page, '[data-testid="browser04-state"]', "処理中");
+        await page.getByRole("button", { name: "進行中の処理を取り消す" }).click();
+        await waitText(page, '[data-testid="browser04-state"]', "取り消しました");
+
+        await page.goto(base + "/learn/browser-05");
+        await page.waitForTimeout(950);
+        await page.getByLabel("練習用の表示内容").fill("読み上げを確認");
+        await waitText(page, '[data-testid="browser05-preview"]', "読み上げを確認");
+        await page.getByRole("button", { name: "文字の大きさを切り替える" }).click();
+        await page.getByRole("button", { name: "表示のコントラストを切り替える" }).click();
+        await waitText(page, '[data-testid="browser05-settings"]', "高コントラスト");
+        await page.goto(base + "/learn/column/browser-45");
+        await page.getByRole("heading", { name: "第9組の復習：ブラウザー機能と安全な操作" }).waitFor();
+        await page.screenshot({ path: path.join(evidence, "browser-review09.png") });
+        console.log("第4段階browser-01〜05と第9組の復習を実ブラウザーで確認");
+
         // Step66〜70は匿名環境で業務データを返さない。実AD認証の代用ではない。
         for (const [step, label] of [
             [66, "業務サービスに認可を問い合わせる"],

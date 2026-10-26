@@ -2,7 +2,14 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 最新進捗（最優先）
+## 2026-10-27 browser実装後の最新状況（最優先）
+- PR #36 は新規15/30本のRazor/教材初稿、最終全面改稿0/110。browser-01〜05（学習順041〜045）、第4段階概要、第9組復習を追加。
+- HEAD 6f22c9d のCI：Chromeを含むアプリ Run 40351271699、PDF Run 40351271704が完全SUCCESS。成功済みRunは再実行しない。
+- browser追加後の最新HEADについてWindows/Linux、Chrome、PG18、PDFの実結果を確認し、失敗があれば修正する。browserをCI成功前に受入済みとしない。
+- 次は db-bridge-01〜05。学習順046/052/053/058/059に挿入し、第5段階概要・第10〜12組復習・画面・本文・PDF/テストを同期。その後security→capstone。
+- 新規30本配置後に全110ステップを学習順001から全面改稿する。最新記録は `docs/course-v3/progress.md`。
+
+## 2026-10-27 以前の進捗（履歴）
 - PR #36で新規 Web 5件と runtime 5件の初稿・Razorを整備済み。WebのCI成功はHEAD 9e12130のRun 40348357127／40348357519。runtimeの新HEADは必ずCI結果を確認する。
 - runtime-01〜05は学習順009/015/017/019/020に配置し、第2段階概要・復習第2〜4組・PDF・ブラウザー試験を同じ変更で同期。新規10/30の初稿実装であり、最終改稿0/110のまま。
 - 次は新HEADのCI結果確認・不整合修復。成功後に browser-01〜05を学習順041〜045へ実装し、その後db-bridge→security→capstoneへ進む。
