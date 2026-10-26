@@ -12,14 +12,14 @@ Step21のAddMudServices・Provider、Step15のDIを理解します。実DBは不
 3. 再度開き「実行する」を選び、保存を伴わない結果の表示を確認します。
 
 ## 重要なコード
-\`\`\`csharp
+```csharp
 bool? confirmed = await Dialogs.ShowMessageBoxAsync(
     "練習用の確認",
     "架空の処理を実行しますか？",
     yesText: "実行する",
     cancelText: "中止");
 _result = confirmed == true ? "実行を選びました（保存はしていません）。" : "中止しました。";
-\`\`\`
+```
 
 ## よくある間違い
 ダイアログ確認だけで保存してよいと考えること。Step51以降では画面の確認後にサーバー側入力検証・操作権限・競合確認を行います。閉じる/中止は変更しない動作を推奨します。

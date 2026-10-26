@@ -14,7 +14,7 @@ Step25でMudTableを操作済み。今回はDB/AD不要で、Webプロジェク�
 5. 列フィルターの操作とQuickFilterの検索が独立していることを確認します。
 
 ## 重要なコード
-\`\`\`razor
+```razor
 <MudDataGrid T="LearningItem" Items="@_rows"
              QuickFilter="@QuickFilter"
              Filterable="true"
@@ -25,13 +25,13 @@ Step25でMudTableを操作済み。今回はDB/AD不要で、Webプロジェク�
     </Columns>
     <PagerContent><MudDataGridPager T="LearningItem" /></PagerContent>
 </MudDataGrid>
-\`\`\`
-\`Items\`はすでにメモリにあるデータを渡すためのものです。画面側の検索・ページングを「PostgreSQLのサーバー側検索」と呼ばないでください。
+```
+`Items`はすでにメモリにあるデータを渡すためのものです。画面側の検索・ページングを「PostgreSQLのサーバー側検索」と呼ばないでください。
 
 ## よくある間違いと比較
-- 大量のDB行を\`ToListAsync\`で全件取得してItemsに渡すのは危険です。
+- 大量のDB行を`ToListAsync`で全件取得してItemsに渡すのは危険です。
 - 描画仮想化だけでは取得済みデータ量は減りません。
-- 並べ替え・絞り込みの条件をDBへ送る\`ServerData\`はStep43で扱います。
+- 並べ替え・絞り込みの条件をDBへ送る`ServerData`はStep43で扱います。
 - 日本語のページャー共通文言はMudBlazor.Translationsの登録済み翻訳を利用します。
 
 ## 演習

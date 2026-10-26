@@ -10,15 +10,15 @@
 4. 画面を拡大し、レイアウトの折り返しと焦点の視認性を確認。
 
 ## 重要なコード
-\`\`\`csharp
+```csharp
 // Circuitごとの状態。別の利用者の設定をSingletonへ入れない。
 builder.Services.AddScoped<ThemePreferenceService>();
-\`\`\`
+```
 
-\`\`\`razor
+```razor
 <MudThemeProvider IsDarkMode="@ThemePreference.IsDarkMode" />
-\`\`\`
-\`ThemePreferenceService.Changed\`を共通レイアウトが受け取って再描画します。実装は「画面→Scopedの設定サービス→レイアウト→MudThemeProvider」です。
+```
+`ThemePreferenceService.Changed`を共通レイアウトが受け取って再描画します。実装は「画面→Scopedの設定サービス→レイアウト→MudThemeProvider」です。
 
 ## よくある間違い
 ライト/ダークの変更だけでWCAG対応完了と思い込むこと。読み上げ、フォーカス、拡大、色以外の状態提示、キーボードの順番も確認が必要です。
