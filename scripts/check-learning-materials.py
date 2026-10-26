@@ -370,6 +370,66 @@ for path, target in [
         missing.append(path + "：学習順の前後リンク不一致")
 
 
+
+# 学習順011〜015と第3組を受入候補として品質検査する。
+third_group = [
+    ("docs/samples/step05.md", "/learn/05", "@bind"),
+    ("docs/samples/step06.md", "/learn/06", "@foreach"),
+    ("docs/samples/step07.md", "/learn/07", "[Parameter]"),
+    ("docs/samples/step08.md", "/learn/08", "EventCallback"),
+    ("docs/course-v3/lessons/runtime-02.md", "/learn/runtime-02", "SignalR"),
+]
+for filename, url, required in third_group:
+    body = (ROOT / filename).read_text(encoding="utf-8")
+    if len(body) < 3300:
+        missing.append(filename + "：第3組の本文が3300文字未満")
+    if body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(filename + "：比較表・診断表が不足")
+    if body.count("```") < 4 or body.count("```") % 2:
+        missing.append(filename + "：実コードが2ブロック未満")
+    if not all(token in body for token in ("WinForms", "演習", "解答", "切り分け", url, required)):
+        missing.append(filename + "：実装に対応した説明や問題が不足")
+    if any(token in body for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+        missing.append(filename + "：PDF本文に学習者向けではない管理用情報")
+    if f'"{filename}"' not in PDF_SCRIPT:
+        missing.append(filename + "：PDFの章順に存在しません")
+third_review = ROOT / "docs/course-v3/reviews/review-03.md"
+review_body = third_review.read_text(encoding="utf-8")
+if len(review_body) < 2600 or review_body.count("| ---") < 2 or review_body.count("```") < 4 or "解答" not in review_body:
+    missing.append("第3組の復習に比較表・コード・詳しい解答が不足")
+stage2_text = (ROOT / "docs/course-v3/stages/stage02.md").read_text(encoding="utf-8")
+if len(stage2_text) < 3000 or "011〜015" not in stage2_text or "第3組" not in stage2_text:
+    missing.append("第2段階の概要が第3組に未対応")
+if [ordered[i]["id"] for i in range(10, 15)] != ["step05", "step06", "step07", "step08", "runtime-02"]:
+    missing.append("第3組の学習順011〜015が不正")
+third_sources = [name for name, _, _ in third_group]
+third_pdf_indices = [PDF_SCRIPT.find(f'"{name}"') for name in third_sources]
+third_review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-03.md"')
+next_group_pos = PDF_SCRIPT.find('"docs/samples/step09.md"')
+if -1 in third_pdf_indices or third_pdf_indices != sorted(third_pdf_indices) or not(third_pdf_indices[-1] < third_review_pos < next_group_pos):
+    missing.append("第3組のPDF章順または復習位置が不正")
+home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
+for _, url, _ in third_group:
+    if url not in home:
+        missing.append(url + "：Web目次に不足")
+if not (
+    home.index('>学習順010を開く</a>') < home.index('>学習順006〜010の復習</a>')
+    < home.index('>学習順011を開く</a>') < home.index('>学習順015を開く</a>')
+    < home.index('>学習順011〜015の復習</a>') < home.index('>学習順016を開く</a>')
+):
+    missing.append("Web目次内の第2・第3組の復習位置が不正")
+for relative, target in [
+    ("Step05/BindingPage.razor", 'href="/learn/06"'),
+    ("Step06/ConditionsPage.razor", 'href="/learn/07"'),
+    ("Step07/ParametersPage.razor", 'href="/learn/08"'),
+    ("Step08/CallbackPage.razor", 'href="/learn/runtime-02"'),
+    ("Runtime/Runtime02Page.razor", 'href="/learn/column/runtime-15"'),
+    ("Runtime/RuntimeReview03Page.razor", 'href="/learn/09"'),
+]:
+    page = SAMPLES / relative
+    if not page.is_file() or target not in page.read_text(encoding="utf-8"):
+        missing.append(relative + "：第3組の前後リンクが不正")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
