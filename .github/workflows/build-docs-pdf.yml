@@ -100,6 +100,8 @@ jobs:
           assert "ステップ68：集計とCSVにも認可を適用" in content
           assert "ステップ69：保存直前の権限とxminを再確認" in content
           assert "ステップ70：Windows Server 2025の実機受入を分ける" in content
+          assert "ステップ71：既存台帳のキー正規化・重複拒否と索引" in content
+          assert "ステップ72：明示Windowsログインと短命Cookie" in content
           assert "学習コラム15：業務データを守る認可の強制" in content
           assert "特別コラム：1万人規模の認証・既存台帳認可・セッション・監査" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")

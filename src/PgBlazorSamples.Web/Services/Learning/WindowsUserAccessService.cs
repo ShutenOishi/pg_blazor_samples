@@ -32,6 +32,9 @@ public sealed class WindowsUserAccessService(
     ILogger<WindowsUserAccessService> logger)
 {
     public const string ReadPermission = "learning.read";
+    // ASP.NET Core Cookieハンドラーが復号・検証したCookieのスキームだけを許す。
+    public const string BrowserCookieScheme = "BusinessSession";
+    public const string BrowserCookieSourceClaim = "pgbs.windows.source";
 
     /// <summary>
     /// 信頼済みのWindows認証ハンドラーが作った主体だけから名前を取る。
@@ -44,9 +47,12 @@ public sealed class WindowsUserAccessService(
 
         // 別の任意Cookieや任意クレームでは本人を証明できない。
         var scheme = identity.AuthenticationType;
+        var signedCookie = string.Equals(scheme, BrowserCookieScheme, StringComparison.Ordinal) &&
+            principal.HasClaim(BrowserCookieSourceClaim, "Negotiate");
         if (identity is not WindowsIdentity &&
             !string.Equals(scheme, "Negotiate", StringComparison.OrdinalIgnoreCase) &&
-            !string.Equals(scheme, "Windows", StringComparison.OrdinalIgnoreCase))
+            !string.Equals(scheme, "Windows", StringComparison.OrdinalIgnoreCase) &&
+            !signedCookie)
             return null;
 
         var name = identity.Name;
