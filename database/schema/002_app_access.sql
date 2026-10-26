@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS learning_existing_user_ci
 INSERT INTO learning_existing_user_ci
     (login_name, display_name, is_active, can_read, can_edit, unit_code)
 SELECT
-    'TRAINING\\USER' || lpad(i::text, 5, '0'),
+    'TRAINING' || chr(92) || 'USER' || lpad(i::text, 5, '0'),
     '架空利用者' || i::text,
     TRUE, TRUE, FALSE, 'DEMO'
 FROM generate_series(1, 10001) AS i
