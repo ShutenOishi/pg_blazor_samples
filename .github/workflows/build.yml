@@ -20,6 +20,7 @@ on:
       - "src/**"
       - "docs/samples/**"
       - "scripts/smoke-test.sh"
+      - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   workflow_dispatch:
 
