@@ -1,0 +1,82 @@
+@page "/learn/30"
+@inject IDialogService Dialogs
+@inject ISnackbar Snackbar
+
+<PageTitle>ステップ30：日本語業務UI総合演習｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ30 / UI総合演習</p>
+<h1>検索・入力・確認・通知を組み合わせる</h1>
+<p>架空の利用者管理画面です。保存先はこの画面のメモリだけです。認証・DB・実在の利用者情報は使いません。</p>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudStack Spacing="3">
+        <MudTextField T="string" Label="利用者名を検索" @bind-Value="_keyword" Immediate="true" />
+        <p role="status" data-testid="step30-count">検索結果：@_users.Count(Matches) 件</p>
+        <MudDataGrid T="PracticeUser" Items="@_users" QuickFilter="@Filter"
+                     RowsPerPage="3" SortMode="SortMode.Single" Filterable="false">
+            <Columns>
+                <PropertyColumn Property="x => x.Id" Title="番号" />
+                <PropertyColumn Property="x => x.Name" Title="氏名（架空）" />
+                <PropertyColumn Property="x => x.Department" Title="部署（架空）" />
+            </Columns>
+            <PagerContent><MudDataGridPager T="PracticeUser" /></PagerContent>
+        </MudDataGrid>
+        <MudTextField T="string" Label="追加する架空の利用者名" @bind-Value="_newName" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary"
+                   Disabled="@_saving" OnClick="AddAsync">確認して追加する</MudButton>
+        <p role="status" aria-live="polite" data-testid="step30-state">@_state</p>
+    </MudStack>
+</MudPaper>
+<section class="lesson-details">
+    <h2>実業務へ接続する場合</h2>
+    <p>現段階はItemsに固定上限のある練習用の小規模データです。DB導入後は入力と検索条件をApplicationサービスへ渡し、EF Coreの操作単位DbContextとServerDataへ段階的に切り替えます。</p>
+    <p>確認ダイアログは操作補助であり、サーバー側認可・検証・楽観的排他の代わりではありません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/29">前へ：ステップ29</a><a href="/learn/column/30">コラム07：5ステップの復習</a></div>
+@code {
+    private sealed record PracticeUser(int Id, string Name, string Department);
+    private readonly List<PracticeUser> _users =
+    [
+        new(1, "架空 太郎", "総務"),
+        new(2, "練習 花子", "企画"),
+        new(3, "見本 一郎", "情報")
+    ];
+    private string _keyword = "";
+    private string _newName = "";
+    private string _state = "入力を待っています。";
+    private bool _saving;
+
+    private bool Matches(PracticeUser user) =>
+        string.IsNullOrWhiteSpace(_keyword)
+        || user.Name.Contains(_keyword.Trim(), StringComparison.OrdinalIgnoreCase);
+    private Func<PracticeUser, bool> Filter => Matches;
+
+    private async Task AddAsync()
+    {
+        if (_saving) return;
+        var name = _newName.Trim();
+        if (name.Length == 0 || name.Length > 30)
+        {
+            _state = "利用者名は1〜30文字で入力してください。";
+            return;
+        }
+        _saving = true;
+        try
+        {
+            var answer = await Dialogs.ShowMessageBoxAsync(
+                "追加内容の確認", $"架空の利用者「{name}」を追加しますか？",
+                yesText: "追加する", cancelText: "中止");
+            if (answer != true)
+            {
+                _state = "追加を中止しました。";
+                return;
+            }
+            _users.Add(new PracticeUser(_users.Max(x => x.Id) + 1, name, "研修"));
+            _newName = "";
+            _state = $"架空の利用者「{name}」を追加しました。";
+            Snackbar.Add("一覧を更新しました。", Severity.Success);
+        }
+        finally
+        {
+            _saving = false;
+        }
+    }
+}

@@ -9,6 +9,7 @@
 | PDFの生成・ソース整合性 | [PDFの生成と同期](pdf-generation.md) |
 | 技術ハンドブック | [実装対応ハンドブック](implementation-handbook.md) |
 | 実装済みの日本語教材 | [Step01](samples/step01.md)／[Step02](samples/step02.md)／[Step03](samples/step03.md)／[Step04](samples/step04.md)／[Step05](samples/step05.md)／[Step06](samples/step06.md)／[Step07](samples/step07.md)／[Step08](samples/step08.md)／[Step09](samples/step09.md)／[Step10](samples/step10.md)／[Step11](samples/step11.md)／[Step12](samples/step12.md)／[Step13](samples/step13.md)／[Step14](samples/step14.md)／[Step15](samples/step15.md)／[Step16](samples/step16.md)／[Step17](samples/step17.md)／[Step18](samples/step18.md)／[Step19](samples/step19.md)／[Step20](samples/step20.md) |
+| MudBlazor応用（26〜30） | [26：DataGrid](samples/step26.md)／[27：Dialog](samples/step27.md)／[28：Snackbar](samples/step28.md)／[29：テーマと操作性](samples/step29.md)／[30：総合演習](samples/step30.md)／[コラム07](columns/column26-30.md) |
 | MudBlazorのテンプレート・日本語化 | [ステップ21：導入](samples/step21.md)／[22：レイアウト](samples/step22.md)／[23：入力](samples/step23.md)／[24：フォーム検証](samples/step24.md)／[25：一覧表](samples/step25.md) |
 | 5ステップごとの理解を深めるコラム | [全17本の計画と実装済みコラム01〜05](columns/README.md) |
 | 一覧の方式を要件から選ぶ | [MudTable/MudDataGrid・ServerData・Virtualize・検索・編集・CSVの選択ガイド](data-grid-patterns.md) |

@@ -1,7 +1,9 @@
+@implements IDisposable
+@inject PgBlazorSamples.Web.Services.Learning.ThemePreferenceService ThemePreference
 @inherits LayoutComponentBase
 
 @* Providerはレイアウト全体の対話型回線で共有する。 *@
-<MudThemeProvider />
+<MudThemeProvider IsDarkMode="@ThemePreference.IsDarkMode" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -25,3 +27,13 @@
         <span>学習用のサンプルです。業務情報や実在する利用者の情報は扱いません。</span>
     </footer>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // 選択したテーマを共有レイアウトへ反映する。
+        ThemePreference.Changed += OnThemeChanged;
+    }
+    private void OnThemeChanged() => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => ThemePreference.Changed -= OnThemeChanged;
+}

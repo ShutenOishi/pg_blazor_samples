@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜25のBlazor Webアプリとコラム01〜06のソース・日本語教材を作成しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜15もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作を[Run 40267851541](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851541)で確認しました。学習PDF生成は[Run 40267851605](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851605)で成功しています。Step21〜25はMudBlazor本体・MudBlazor.Translations・公式テンプレートの教材を追加し、CI確認中です。Step26〜80、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+> **現在の状態：Step01〜30のBlazor Webアプリとコラム01〜07のソース・日本語教材を作成しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜15もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作を[Run 40267851541](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851541)で確認しました。学習PDF生成は[Run 40267851605](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851605)で成功しています。Step21〜25はMudBlazor本体・MudBlazor.Translations・公式テンプレートの教材を追加し、CI確認中です。Step31〜80、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
 
 ## Step01〜20を起動する
 
@@ -36,12 +36,12 @@ dotnet new mudblazor -n MudBlazorPractice -o MudBlazorPractice -int Server -ai -
 
 ## ソースコード実装の次工程
 
-Step01〜25の画面、UnitTests、Applicationの分割を追加しました。次はStep21〜25のCI受入を完了し、Step26〜30のMudDataGrid・対話画面などへ進み、その後Step31〜40のEF Core 10基礎、Step41〜60の一覧・データ連携、Step61〜80の認証・運用へ進みます。最初から80個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
+Step01〜30の画面、UnitTests、Applicationの分割を追加しました。Step26〜30にはDataGrid・Dialog・Snackbar・テーマ切替・総合演習を追加しました。CI成功後はStep31〜40のEF Core 10基礎、Step41〜60の一覧・データ連携、Step61〜80の認証・運用へ進みます。最初から80個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
 
 
 ## 5ステップごとの学習コラム
 
-Step05・10・15…80の節目ごとに、**通常16回と特別編1回、計17本**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)、[コラム04：設定とApplication分離](docs/columns/column16-20.md)、[特別コラム05：ライブラリのDI](docs/columns/column-library-di.md)、[コラム06：MudBlazorのDIと日本語化](docs/columns/column21-25.md)を掲載しています。後続のテーマは[全17本の一覧](docs/columns/README.md)を参照してください。
+Step05・10・15…80の節目ごとに、**通常16回と特別編1回、計17本**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)、[コラム04：設定とApplication分離](docs/columns/column16-20.md)、[特別コラム05：ライブラリのDI](docs/columns/column-library-di.md)、[コラム06：MudBlazorのDIと日本語化](docs/columns/column21-25.md)、[コラム07：UIとデータ連携](docs/columns/column26-30.md)を掲載しています。後続のテーマは[全17本の一覧](docs/columns/README.md)を参照してください。
 
 ## どこから始める？
 
@@ -60,7 +60,7 @@ Step05・10・15…80の節目ごとに、**通常16回と特別編1回、計17�
 | IDE | Visual Studio 2026 |
 | 言語 | C# 14 |
 | ランタイム | .NET 10（`net10.0`） |
-| UI | Blazor Web App / Interactive Server（Step01〜03で利用）／MudBlazor（Step21〜25で実装、CI確認中） |
+| UI | Blazor Web App / Interactive Server（Step01〜03で利用）／MudBlazor（Step21〜30で実装、CI確認中） |
 | DB | PostgreSQL 18 / EF Core 10（Npgsqlプロバイダー、Step31以降で導入予定） |
 | 認証 | Windows統合認証（Step61以降で導入予定） |
 | 認可 | PostgreSQLの利用者・ロール・操作権限 |
@@ -92,7 +92,7 @@ Step05・10・15…80の節目ごとに、**通常16回と特別編1回、計17�
 
 ## 学習者向けのPDFで読む
 
-学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜25とコラム01〜06を収録する構成へ更新しました（CI確認中）。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜30とコラム01〜07を収録する構成へ更新しました（CI確認中）。
 
 [日本語学習PDFの生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)の最新成功Runから、`blazor_learning_textbook_ja` を取得できます。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 

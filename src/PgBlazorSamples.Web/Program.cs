@@ -45,6 +45,8 @@ builder.Services.Configure<LearningOptions>(builder.Configuration.GetSection("Le
 // Step19〜20：Applicationの契約と実装、画面固有の保存方法を分離する。
 builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
+// Step29：利用者ごとのテーマ設定はcircuitごとに保持する。
+builder.Services.AddScoped<ThemePreferenceService>();
 
 var app = builder.Build();
 

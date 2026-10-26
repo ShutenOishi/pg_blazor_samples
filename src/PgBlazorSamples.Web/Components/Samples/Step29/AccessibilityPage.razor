@@ -1,0 +1,36 @@
+@page "/learn/29"
+@inject PgBlazorSamples.Web.Services.Learning.ThemePreferenceService ThemePreference
+
+<PageTitle>ステップ29：テーマと操作性｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ29 / アクセシビリティ</p>
+<h1>ダークモードとキーボード操作を確認する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudStack Spacing="3">
+        <MudSwitch T="bool" Value="@ThemePreference.IsDarkMode" ValueChanged="ChangeTheme"
+                   Color="Color.Primary" Label="ダークモードを有効にする" />
+        <p role="status" aria-live="polite" data-testid="step29-theme">
+            現在の表示：@(ThemePreference.IsDarkMode ? "ダークモード" : "ライトモード")
+        </p>
+        <MudTextField T="string" Label="操作確認の入力欄" @bind-Value="_name" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CheckKeyboard">
+            入力状態を確認する
+        </MudButton>
+        <p role="status" data-testid="step29-state">@_state</p>
+    </MudStack>
+</MudPaper>
+<section class="lesson-details">
+    <h2>視認性を含む操作確認</h2>
+    <p>Tab・Shift+Tab・Enter・スペースによる操作、焦点表示、読み上げ、コントラスト、拡大時のレイアウトを確認します。色だけで成功や失敗を知らせないことも重要です。</p>
+    <p>テーマはcircuitごとのScopedサービスから共通レイアウトのMudThemeProviderに反映します。OS全体のテーマ設定は変更しません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/28">前へ：ステップ28</a><a href="/learn/30">次へ：ステップ30</a></div>
+@code {
+    private string _name = "";
+    private string _state = "まだ操作していません。";
+
+    private void ChangeTheme(bool value) => ThemePreference.SetDarkMode(value);
+    private void CheckKeyboard() =>
+        _state = string.IsNullOrWhiteSpace(_name)
+            ? "入力が空です。"
+            : "入力された文字： " + _name.Trim();
+}

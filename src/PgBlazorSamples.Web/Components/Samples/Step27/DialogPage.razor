@@ -1,0 +1,31 @@
+@page "/learn/27"
+@inject IDialogService Dialogs
+
+<PageTitle>ステップ27：確認ダイアログ｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ27 / Dialog</p>
+<h1>実行と中止を確認ダイアログで分ける</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <p>この画面はデータベースを変更しません。ダイアログの結果だけを表示します。</p>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirmAsync">確認ダイアログを開く</MudButton>
+    <p role="status" data-testid="step27-result">@_result</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>ライブラリが提供するDIを使う</h2>
+    <p>IDialogServiceを注入し、共有レイアウトのMudDialogProviderへ表示を任せます。OKはtrue、中止はnullとして扱います。</p>
+    <p>確認ダイアログはサーバー側の認可や二重送信防止に代わりません。後続の業務処理では保存直前に権限・検証を実施します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/26">前へ：ステップ26</a><a href="/learn/28">次へ：ステップ28</a></div>
+@code {
+    private string _result = "まだ選択していません。";
+
+    private async Task ConfirmAsync()
+    {
+        // 明示的な確認結果のみ処理し、キャンセルや閉じる操作は変更しない。
+        bool? confirmed = await Dialogs.ShowMessageBoxAsync(
+            "練習用の確認",
+            "架空の処理を実行しますか？",
+            yesText: "実行する",
+            cancelText: "中止");
+        _result = confirmed == true ? "実行を選びました（保存はしていません）。" : "中止しました。";
+    }
+}

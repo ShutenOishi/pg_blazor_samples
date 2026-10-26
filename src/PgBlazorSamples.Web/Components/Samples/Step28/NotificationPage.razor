@@ -1,0 +1,44 @@
+@page "/learn/28"
+@inject ISnackbar Snackbar
+
+<PageTitle>ステップ28：日本語通知と進捗｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ28 / Snackbar・進捗</p>
+<h1>通知・処理中・完了を使い分ける</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudStack Spacing="3">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary"
+                   Disabled="@_running" OnClick="StartAsync">練習用の処理を開始</MudButton>
+        @if (_running)
+        {
+            <MudProgressLinear Indeterminate="true" Color="Color.Info" aria-label="処理を実行中" />
+        }
+        <p role="status" aria-live="polite" data-testid="step28-state">@_message</p>
+    </MudStack>
+</MudPaper>
+<section class="lesson-details">
+    <h2>Snackbarの役割</h2>
+    <p>処理完了の短い通知はSnackbar、現在の状態は読み上げ可能な本文、処理待ちには進捗表示を使います。</p>
+    <p>画面を閉じたあとも継続する重い業務処理は、この短いTask.Delayの模倣とは別にサーバー側ジョブとして設計します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/27">前へ：ステップ27</a><a href="/learn/29">次へ：ステップ29</a></div>
+@code {
+    private bool _running;
+    private string _message = "開始前です。";
+
+    private async Task StartAsync()
+    {
+        if (_running) return; // 二重押下を防ぐ
+        _running = true;
+        _message = "練習用の処理を実行中です。";
+        try
+        {
+            await Task.Delay(400);
+            _message = "練習用の処理が完了しました。";
+            Snackbar.Add("練習用の処理が完了しました。", Severity.Success);
+        }
+        finally
+        {
+            _running = false;
+        }
+    }
+}

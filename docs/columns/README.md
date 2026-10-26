@@ -11,7 +11,7 @@
 | 04 | 16〜20 | Options、ログ、テスト、Application分離 | [教材](column16-20.md) |
 | **05（特別編）** | 11〜20 | **ライブラリが提供するDIの読み方と使い方** | [教材](column-library-di.md) |
 | 06 | 21〜25 | MudBlazor公式テンプレート、DI、翻訳、フォーム、テーブル | [教材](column21-25.md) |
-| 07 | 26〜30 | UX、アクセシビリティ、総合UI設計 | 計画中 |
+| 07 | 26〜30 | UX、アクセシビリティ、総合UI設計 | [教材](column26-30.md)／ソース追加・CI確認中 |
 | 08 | 31〜35 | Domain/Infrastructure、DB接続、安全な検索 | 計画中 |
 | 09 | 36〜40 | CRUD、トランザクション、競合、DBテスト | 計画中 |
 | 10 | 41〜45 | Items・MudTable/MudDataGrid ServerData・ソート・検索の選び方 | 計画中 |
