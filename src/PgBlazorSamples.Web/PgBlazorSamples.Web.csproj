@@ -5,6 +5,11 @@
     <AssemblyName>PgBlazorSamples.Web</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <!-- 学習環境を再現できるよう検証対象のバージョンを固定する。 -->
+    <PackageReference Include="MudBlazor" Version="9.11.0" />
+    <PackageReference Include="MudBlazor.Translations" Version="3.6.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="../PgBlazorSamples.Application/PgBlazorSamples.Application.csproj" />
   </ItemGroup>
 </Project>
