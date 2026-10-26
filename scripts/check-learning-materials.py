@@ -430,6 +430,52 @@ for relative, target in [
     if not page.is_file() or target not in page.read_text(encoding="utf-8"):
         missing.append(relative + "：第3組の前後リンクが不正")
 
+# 学習順016〜020・第4組の全面改稿品質とPDF・Web画面の導線を検査する。
+fourth_group = [
+    ("docs/samples/step09.md", "/learn/09", "OnInitializedAsync"),
+    ("docs/course-v3/lessons/runtime-03.md", "/learn/runtime-03", "OnAfterRender"),
+    ("docs/samples/step10.md", "/learn/10", "OnValidSubmit"),
+    ("docs/course-v3/lessons/runtime-04.md", "/learn/runtime-04", "SupplyParameterFromQuery"),
+    ("docs/course-v3/lessons/runtime-05.md", "/learn/runtime-05", "Select"),
+]
+for filename, url, symbol in fourth_group:
+    body = (ROOT / filename).read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(filename + "：3300文字・比較表・診断表が不足")
+    if body.count("```") < 4 or body.count("```") % 2:
+        missing.append(filename + "：実コード2ブロック以上が必要")
+    if not all(word in body for word in ("WinForms", "演習", "解答", "切り分け", url, symbol)):
+        missing.append(filename + "：必須説明・学習順・実装構文が不足")
+    if any(word in body for word in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+        missing.append(filename + "：管理情報を学習者本文に記載しないこと")
+    if f'"{filename}"' not in PDF_SCRIPT:
+        missing.append(filename + "：PDF章順に不足")
+if [ordered[i]["id"] for i in range(15, 20)] != ["step09", "runtime-03", "step10", "runtime-04", "runtime-05"]:
+    missing.append("第4組の学習順が不一致")
+fourth_positions = [PDF_SCRIPT.find(f'"{name}"') for name, _, _ in fourth_group]
+fourth_review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-04.md"')
+next_position = PDF_SCRIPT.find('"docs/samples/step11.md"')
+if -1 in fourth_positions or fourth_positions != sorted(fourth_positions) or not (fourth_positions[-1] < fourth_review_pos < next_position):
+    missing.append("第4組PDF章順・復習位置が不正")
+review_four = (ROOT / "docs/course-v3/reviews/review-04.md").read_text(encoding="utf-8")
+if len(review_four) < 2600 or review_four.count("| ---") < 2 or review_four.count("```") < 4 or "解答" not in review_four:
+    missing.append("第4組の復習は長文・比較/診断表・コード・詳しい解答が必要")
+for relative, expected in [
+    ("Step09/LifecyclePage.razor", 'href="/learn/runtime-03"'),
+    ("Runtime/Runtime03Page.razor", 'href="/learn/10"'),
+    ("Step10/FormPage.razor", 'href="/learn/runtime-04"'),
+    ("Runtime/Runtime04Page.razor", 'href="/learn/runtime-05"'),
+    ("Runtime/Runtime05Page.razor", 'href="/learn/column/runtime-20"'),
+    ("Runtime/RuntimeReview04Page.razor", 'href="/learn/11"'),
+]:
+    if expected not in (SAMPLES / relative).read_text(encoding="utf-8"):
+        missing.append(relative + "：第4組の前後リンク不一致")
+for _, url, _ in fourth_group:
+    if url not in home:
+        missing.append(url + "：Web目次に第4組の学習URLが不足")
+if "016〜020" not in (ROOT / stage2).read_text(encoding="utf-8"):
+    missing.append("第2段階概要に第4組の学習順が不足")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
