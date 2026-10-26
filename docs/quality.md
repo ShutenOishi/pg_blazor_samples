@@ -118,3 +118,10 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - PDF：学習者向け日本語目次、章タイトル、不要な開発管理文言の不在を確認
 
 実AD・DB・IIS接続の確認ではありません。
+
+## Step31〜40と用途別MudBlazorの受入
+
+- [ ] Windows/LinuxのビルドとStep31〜40のDB未設定時の日本語画面
+- [ ] 開発専用PostgreSQL 18でDateOnly/TimeOnly/daterange/datemultirange/xmin/CRUD/トランザクションを検証
+- [ ] コラム08・09とStep40→用途別特別コラム→Step41の順序をPDF索引で確認
+- [ ] EF Core用の新規Domain/Infrastructure等の層別プロジェクトが追加されていないこと

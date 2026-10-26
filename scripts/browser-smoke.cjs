@@ -390,6 +390,43 @@ async function waitText(page, selector, expected) {
         await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();
         console.log("ステップ30・コラム07：入力・検索・確認・追加を検証");
 
+        // Step31〜40：DBがなくても学べるEF Core基本と型変換の画面を確認。
+        await page.goto(base + "/learn/31");
+        await waitText(page, '[data-testid="step31-model"]', "EF Coreのモデルを学ぶ");
+        await page.goto(base + "/learn/32");
+        await page.getByText("まず開発用のテーブルを作る").waitFor();
+        await page.goto(base + "/learn/33");
+        await waitText(page, '[data-testid="step33-config"]', "未設定");
+        await page.goto(base + "/learn/34");
+        await page.getByRole("button", { name: "接続して一覧を取得" }).click();
+        await waitText(page, '[data-testid="step34-result"]', "未設定");
+        await page.goto(base + "/learn/35");
+        await page.getByRole("button", { name: "DBを検索する" }).click();
+        await waitText(page, '[data-testid="step35-status"]', "未設定");
+        await page.goto(base + "/learn/36");
+        await page.getByRole("button", { name: "登録する" }).click();
+        await waitText(page, '[data-testid="step36-result"]', "未設定");
+        await page.goto(base + "/learn/37");
+        await page.getByRole("button", { name: "DB用に変換" }).click();
+        await waitText(page, '[data-testid="step37-result"]', "DateOnly");
+        await page.goto(base + "/learn/38");
+        await page.getByRole("button", { name: "開発用DBに2件登録する" }).click();
+        await waitText(page, '[data-testid="step38-result"]', "未設定");
+        await page.goto(base + "/learn/39");
+        await page.getByRole("button", { name: "DBの状態を読み直す" }).click();
+        await waitText(page, '[data-testid="step39-result"]', "未設定");
+        await page.goto(base + "/learn/40");
+        await page.getByRole("button", { name: "開発用DBへ接続して検索" }).click();
+        await waitText(page, '[data-testid="step40-result"]', "未設定");
+        await page.goto(base + "/learn/column/35");
+        await page.getByText("WebプロジェクトだけでEF Core 10を始める").waitFor();
+        await page.goto(base + "/learn/column/40");
+        await page.getByText("保存・競合・日付Range・DBテストを結び付ける").waitFor();
+        await page.goto(base + "/learn/column/mudblazor-guide");
+        await page.getByText("用途からMudBlazorのコンポーネントを選ぶ").waitFor();
+        await page.screenshot({ path: path.join(evidence, "mudblazor-guide.png") });
+        console.log("ステップ31〜40・コラム08/09・用途別特別コラムを確認");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

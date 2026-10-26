@@ -1,0 +1,22 @@
+@page "/learn/32"
+<PageTitle>ステップ32：PostgreSQLのDDL｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ32 / PostgreSQL 18のスキーマ</p>
+<h1>まず開発用のテーブルを作る</h1>
+<MudAlert Severity="Severity.Info">この画面だけではDBを作成しません。開発用DBへ自分で接続してSQLを適用します。</MudAlert>
+<MudPaper Class="pa-4 mt-3" Elevation="1">
+    <MudText Typo="Typo.h6">代表的な列</MudText>
+    <MudSimpleTable Dense="true" Hover="true">
+        <thead><tr><th>列</th><th>PostgreSQLの型</th></tr></thead>
+        <tbody>
+            <tr><td>id</td><td>bigint IDENTITY</td></tr>
+            <tr><td>title</td><td>varchar(100)</td></tr>
+            <tr><td>due_date</td><td>date</td></tr>
+            <tr><td>start_time</td><td>time</td></tr>
+            <tr><td>available_dates</td><td>daterange</td></tr>
+            <tr><td>is_done</td><td>boolean</td></tr>
+            <tr><td>xmin</td><td>自動管理されるシステム列</td></tr>
+        </tbody>
+    </MudSimpleTable>
+</MudPaper>
+<p class="mt-3">同梱のSQLでは学習用テーブルだけを作り、既存業務スキーマは変更しません。初期化をアプリ起動時に自動実行しない方針です。</p>
+<div class="page-navigation"><a href="/learn/31">前へ：ステップ31</a><a href="/learn/33">次へ：ステップ33</a></div>

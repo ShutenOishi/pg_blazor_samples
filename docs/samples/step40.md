@@ -1,0 +1,44 @@
+# ステップ40：PostgreSQL 18の結合確認
+
+## できるようになること
+
+開発専用DBへ接続したときの検索と、database/tests/001_learning_task_check.sqlでdate/time/daterange/datemultirange/xminを確認します。画面だけ表示できてもDB結合確認完了ではありません。
+
+## 実行前の準備
+
+Step31〜33は画面の基本をDBなしで学べます。Step34以降の実DBの操作には、開発専用のPostgreSQL 18、SQLスキーマの適用、接続文字列の環境変数設定が必要です。業務DB、実在利用者データ、資格情報のGit登録は禁止します。
+
+## 実際に操作する
+
+1. 学習画面 /learn/40 を開き、日本語で説明される対象機能を確認します。
+2. SQLとDbContextの実接続結果、未設定/停止時の表示を確認。
+3. 実行計画EXPLAINとプール、境界・競合・障害時の負荷を別途評価。
+
+## ソースコードとの対応
+
+すべて既存WebプロジェクトのData/LearningTask.cs、Data/LearningDbContext.cs、Services/Learning/LearningDbService.csを使います。必要になるまで別の層別プロジェクトやRepositoryの抽象化を追加しません。Razor側は画面と入力、Service側はEF Coreの1操作1DbContext、NpgsqlはPostgreSQL接続と型変換を担当します。
+
+## 失敗時・実務上の注意
+
+- 接続先が未設定なら日本語でその旨を表示し、DB操作が成功したとは扱いません。
+- 検索は件数上限と安定した並べ替えを持ち、保存処理は入力を検証します。
+- 保存時の競合、DB停止、タイムアウト、キャンセル、認可不足を同一視しません。
+- Range型はDBの半開期間と画面上の終了日を変換し、端点の解釈を検証します。
+
+## 確認問題
+
+**Q. EFを使うとDomain/Infrastructureの別プロジェクトを必ず作る必要がある？**
+
+A. いいえ。この教材ではWebのData/とServices/だけで十分です。
+
+**Q. 画面が表示できればPostgreSQL 18への接続試験も合格？**
+
+A. いいえ。明示的な接続・SQL・日付型・競合の実DB検証が必要です。
+
+## 完了条件
+
+- [ ] SQLとDbContextの実接続結果、未設定/停止時の表示を確認
+- [ ] 実行計画EXPLAINとプール、境界・競合・障害時の負荷を別途評価
+- [ ] DBの未設定・エラーと正常系を区別できる
+
+次：学習コラム09、MudBlazor用途別特別コラム、ステップ41

@@ -48,6 +48,15 @@ if max(steps) >= 20:
     if not page.is_file():
         missing.append(str(page.relative_to(ROOT)))
 
+# Step40の後・Step41の前に入れる用途別MudBlazor特別コラムを検査する。
+if max(steps) >= 40:
+    special = "docs/columns/column-mudblazor-by-purpose.md"
+    page = SAMPLES / "Columns" / "ColumnMudBlazorGuidePage.razor"
+    if not (ROOT / special).is_file() or f'"{special}"' not in PDF_SCRIPT:
+        missing.append(special + "：特別コラム未収録")
+    if not page.is_file():
+        missing.append(str(page.relative_to(ROOT)))
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
-print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0)}件。")
+print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0)}件。")

@@ -1,0 +1,35 @@
+@page "/learn/39"
+@inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
+@using PgBlazorSamples.Web.Data
+
+<PageTitle>ステップ39：楽観的排他制御｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ39 / xminと競合</p>
+<h1>他の利用者の変更を上書きしない</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudButton OnClick="ReloadAsync">DBの状態を読み直す</MudButton>
+    <p role="status" data-testid="step39-result">@_message</p>
+    <MudTable Items="@_data.Rows" Dense="true">
+        <HeaderContent><MudTh>課題名</MudTh><MudTh>バージョン</MudTh><MudTh>操作</MudTh></HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Title</MudTd><MudTd>@context.Version</MudTd>
+            <MudTd><MudButton OnClick="@(async () => await ToggleAsync(context))">状態を更新</MudButton></MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>
+<p>DB側のxminはPostgreSQLが更新します。画面は以前読み込んだVersionを保存要求に渡し、不一致やDbUpdateConcurrencyExceptionの場合は再読み込みを求めます。</p>
+<div class="page-navigation"><a href="/learn/38">前へ：ステップ38</a><a href="/learn/40">次へ：ステップ40</a></div>
+@code {
+    private LearningTaskResult _data = new("未読み込みです。", []);
+    private string _message = "操作待ちです。";
+    private async Task ReloadAsync()
+    {
+        _data = await Database.SearchAsync();
+        _message = _data.Message;
+    }
+    private async Task ToggleAsync(LearningTaskRow row)
+    {
+        _message = await Database.ToggleAsync(row.Id, row.Version);
+        // 競合時の古い行を黙って再利用しない。操作後は一覧を再取得する。
+        _data = await Database.SearchAsync();
+    }
+}

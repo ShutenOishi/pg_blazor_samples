@@ -69,17 +69,19 @@
 
 | 番号 | 題材 | 到達目標 | 状態 |
 | --- | --- | --- | --- |
-| 31 | Domainと業務モデル | Entity・DTO・業務ルールをWebから分ける | 計画中 |
-| 32 | PostgreSQL 18のDB設計 | DDL・制約・開発用スキーマと架空データを用意する | 計画中 |
-| 33 | InfrastructureとEF Core 10 | AppDbContext・Npgsqlプロバイダー・DI登録を分離する | 計画中 |
-| 34 | DbContextFactoryと接続プール | CircuitとDbContextの寿命、Npgsql物理接続プールを区別する | 計画中 |
-| 35 | EF Coreマッピングと検索 | Entity・DTO・AsNoTracking・非同期LINQ・射影を実装する | 計画中 |
-| 36 | 登録・更新・削除 | 変更追跡・DTO・入力検証から保存まで | 計画中 |
-| 37 | 日時・Range・画面型変換 | DateOnly/TimeOnly/Range/MultirangeとMudDatePickerを変換する | 計画中 |
-| 38 | トランザクションと大量更新 | 明示的トランザクション、更新件数、一括更新と監査を比較する | 計画中 |
-| 39 | 競合・プーリング・障害対策 | xmin楽観排他・DbContextプール・タイムアウト・中断を扱う | 計画中 |
-| 40 | PostgreSQL 18結合テスト | 専用DBで型・Range・競合・EXPLAIN・負荷を検証する | 計画中 |
+| 31 | EFモデルと画面DTO | WebのData内でEntityとDTOを区別する | ソース・教材追加／CI確認中 |
+| 32 | PostgreSQL 18のDB設計 | SQLのDDL・制約・開発用スキーマ・架空データ | ソース・教材追加／CI確認中 |
+| 33 | Web内でEF Core 10を導入 | LearningDbContext・NpgsqlとProgram.csのDI登録 | ソース・教材追加／CI確認中 |
+| 34 | DbContextFactoryと接続プール | CircuitとDbContextの寿命、Npgsql物理接続プールを区別する | ソース・教材追加／CI確認中 |
+| 35 | EF Coreマッピングと検索 | Entity・DTO・AsNoTracking・非同期LINQ・射影を実装する | ソース・教材追加／CI確認中 |
+| 36 | 登録・更新・削除 | 変更追跡・DTO・入力検証から保存まで | ソース・教材追加／CI確認中 |
+| 37 | 日時・Range・画面型変換 | DateOnly/TimeOnly/Range/MultirangeとMudDatePickerを変換する | ソース・教材追加／CI確認中 |
+| 38 | トランザクションと大量更新 | 明示的トランザクション、更新件数、一括更新と監査を比較する | ソース・教材追加／CI確認中 |
+| 39 | 競合・プーリング・障害対策 | xmin楽観排他・DbContextプール・タイムアウト・中断を扱う | ソース・教材追加／CI確認中 |
+| 40 | PostgreSQL 18結合テスト | 専用DBで型・Range・競合・EXPLAIN・負荷を検証する | ソース・教材追加／CI確認中 |
 
+
+**Step40終了後：[MudBlazor用途別コンポーネントの特別コラム](columns/column-mudblazor-by-purpose.md)を読んでからStep41へ進みます。**
 
 ## Lv.5 一覧表示・EF Core連携（20ステップを追加）
 

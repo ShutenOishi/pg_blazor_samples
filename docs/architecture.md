@@ -1,95 +1,48 @@
-# アーキテクチャ方針と段階的なプロジェクト分割
+# 構成方針：Webプロジェクト内でEF Core 10を学ぶ
 
-## 方針
+## 基本方針
 
-**単一のBlazor Webアプリを中心に、必要なタイミングでクラスライブラリへ責務を切り出す方式**を採用します。80個の独立アプリを複製しません。ただし学習用のコードと本番相当の業務機能は名前空間・ルーティングと権限で分離します。
+**EF CoreのためにDomain・Infrastructure・Repositoryなどの別プロジェクトを増やしません。** 初めてEF Coreを使う学習者が、Blazor/MudBlazor→サービス→DbContext→PostgreSQLの呼び出しを素直に追えることを優先します。
 
-DIを初めて学ぶ人にも適した順序にします。最初から4層構成を暗記させず、部品の入れ替えやテストを体験してから層を切り出します。
+Step19で既存のApplicationプロジェクトを使ったDIの練習を実装済みですが、**新しいDB教材ではその参照を必須にせず、既存Web内で完結**します。実務で分割が必要になれば、その段階で選択肢として説明します。
 
-## ステップごとのプロジェクト導入
+## 現在の実装
 
-| 導入時点 | プロジェクト | 追加する理由 |
+| 用途 | 置き場所 | 目的 |
 | --- | --- | --- |
-| Step01 | `PgBlazorSamples.Web` | Razor、画面、イベントから始める |
-| Step11〜12 | Web内の`Services/` | DIとインターフェイスを最小構成で体験する |
-| Step18 | `PgBlazorSamples.UnitTests` | Fake実装を使い、画面なしのテストを学ぶ |
-| Step19 | `PgBlazorSamples.Application` | 業務処理と抽象インターフェイスを画面から分離 |
-| Step31 | `PgBlazorSamples.Domain` | Entity、値オブジェクト、業務ルールを隔離 |
-| Step33 | `PgBlazorSamples.Infrastructure` | EF Core 10/Npgsqlなど外部環境の具象実装を隔離 |
-| Step40 | `PgBlazorSamples.IntegrationTests` | PostgreSQL 18を使った再現可能な結合試験 |
-| Step70以降 | `PgBlazorSamples.WebTests` | 認証、IIS、Web画面の総合検証 |
-
-## 完成形のディレクトリ案
+| 画面 | Web/Components/Samples/Step31〜40 | 日本語で動作と目的を確認 |
+| Entity・DTO | Web/Data/LearningTask.cs | PostgreSQLの列と画面表示を区別 |
+| EF Core DbContext | Web/Data/LearningDbContext.cs | PostgreSQLのテーブル型を設定 |
+| 業務用の小さなサービス | Web/Services/Learning/LearningDbService.cs | Factoryから操作単位にDbContextを生成 |
+| DIと構成 | Web/Program.cs | AddDbContextFactory・接続文字列 |
+| SQL | database/schema、seed、tests | 開発用DBを準備・検証 |
+| 日本語教材 | docs/samples と docs/columns | コードと画面に合わせた説明 |
+| 既存のテスト | tests/PgBlazorSamples.UnitTests | 従前のDI教材などをテスト |
 
 ```text
-PgBlazorSamples.slnx
-src/
-  PgBlazorSamples.Web/
-    Components/Layout/
-    Components/Samples/Step01/ ... Step80/
-    Features/Users/
-    Program.cs
-  PgBlazorSamples.Application/
-    Abstractions/
-    Users/
-  PgBlazorSamples.Domain/
-    Users/
-    Roles/
-  PgBlazorSamples.Infrastructure/
-    Persistence/
-    Identity/
-tests/
-  PgBlazorSamples.UnitTests/
-  PgBlazorSamples.IntegrationTests/
-  PgBlazorSamples.WebTests/
-database/
-  schema/
-  migrations/
-  seed/
-docs/
-  samples/
+Blazor / MudBlazor（Web）
+         ↓
+Web/Services/Learning/LearningDbService
+         ↓ IDbContextFactory<LearningDbContext>
+Web/Data/LearningDbContext（EF Core 10）
+         ↓ Npgsql
+PostgreSQL 18（開発専用DB）
 ```
 
-この図は**完成時の予定構成**です。現在は `PgBlazorSamples.Web`、`PgBlazorSamples.Application`、`PgBlazorSamples.UnitTests` を実装済みです。Domain・Infrastructure、DB接続、AD認証は未実装です。
+## あえてしないこと
 
-## 依存関係の約束
+- 新たなDomain、Infrastructure、Repositoryの各プロジェクトを作らない。
+- 画面ごとにRepositoryインターフェイスを増設しない。
+- 画面にDbContextやIQueryableを長期間保持しない。
+- 起動時に本番DBのスキーマ変更を自動実行しない。
+- DB未設定でも以前のStep01〜30を学べる状態を維持する。
 
-```text
-Web ────────────────> Application ───────────────> Domain
- |                         ^                          ^
- |                         |                          |
- +──> Infrastructure ──────+──────────────────────────+
-           |
-     EF Core 10 / Npgsql
-           |
-     PostgreSQL 18
-```
+## Blazor Interactive Server固有の注意
 
-- WebがDIを登録する起動地点（Composition Root）。MudBlazor・Razor・IIS/ASP.NET Coreとの接点も担当。
-- ApplicationはユースケースやRepositoryインターフェイスを置く。Infrastructureの実装に直接依存しない。
-- Domainは業務ルール・値・不変条件を持ち、MudBlazorやNpgsqlに依存しない。
-- InfrastructureがApplicationのRepositoryインターフェイスを実装し、DB/外部基盤を扱う。
-- WebからInfrastructureの参照は**DI構成のためのみ**。ページ内から具象Repositoryを直接利用しない。
-- DTOと画面モデルは目的に応じて置き、理由のない共有プロジェクトを増やさない。
+Scopedの寿命はcircuitと結び付いて長くなるため、標準はIDbContextFactoryで操作ごとにコンテキストを作り、await usingで閉じます。Npgsql物理接続プールとDbContextオブジェクトのプールは別です。読み取りはAsNoTracking＋DTO＋取得上限、更新はxminによる楽観的排他と日本語の競合案内を用います。認証/認可の本格実装はStep61以降の課題です。
 
-## Blazor Interactive Server固有の注意点
+## ステップ40と41の間
 
-- DIのScopedサービスは通常のHTTPリクエスト単位ではなく、対話型の**circuit**に紐づいて生存し得る。
-- ユーザー固有情報をSingletonへ格納しない。
-- NpgsqlDataSourceの安全な共有と、操作ごとに生成・破棄する接続/EF Core DbContextを区別する。
-- 標準は`IDbContextFactory<AppDbContext>`による**操作ごとのDbContext生成・破棄**。DbContextをcircuitに長期間共有しない。
-- Npgsqlの物理接続プールとEF CoreのDbContextプールは別物。初学者向けには前者のみを標準とする。
-- MudDataGridはサービス経由でDTOを取得する。全件`Items`、`ServerData`、`VirtualizeServerData`の選択根拠は[一覧パターン](data-grid-patterns.md)で説明する。
-- 同時イベント、切断・再接続、二重送信、描画時の二重初期化を教材に含める。
-- 画面のAuthorizeViewは表示制御であり、業務サービスの認可の代用ではない。
-- AD Windows統合認証はIISで実施。PostgreSQL側の利用者・権限確認はサーバー側で毎回適切に行う。
+[特別コラム：MudBlazor用途別ガイド](columns/column-mudblazor-by-purpose.md)で、TableとDataGrid、DatePicker、入力、階層、通知、ダイアログ等の使い分けを学び、Step41〜60の実DB一覧連携へ進みます。
 
-## 標準配備先
-
-イントラネット、ADドメイン参加済み**Windows Server 2025 + IIS + .NET 10 Hosting Bundle**。TLS、Windows認証、内部DNS、SPN、Kerberos、SignalR/WebSocket、アプリプールID（必要に応じgMSA）とPostgreSQL 18接続を扱います。詳しくは[Windows Server 2025 + IIS](windows-server-2025-iis.md)。
-
-## さらに読む
-
-- [DI入門](di-for-beginners.md)
-- [サンプル80ステップ](sample-catalog.md)
-- [ADR-0001](decisions/0001-learning-app-structure.md)
+Windows Server 2025/IISへの配備、Windows統合認証は後続の教材で扱います。

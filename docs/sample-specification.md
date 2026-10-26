@@ -89,3 +89,7 @@ Windows Server 2025のドメイン参加、IIS、Hosting Bundle、Windows認証�
 ## PDF本文の読者
 
 PDFは開発記録ではなく、学習者向けのテキストとして構成する。目次を「ステップNN：テーマ」の日本語で表記し、アプリ操作・実コード・演習に集中する。GitHub・PR・リポジトリの説明は学習者向け本文に収録せず、別の開発資料で管理する。
+
+## EF Core 10教材の簡素化
+
+Step31〜40はWeb/Data、Web/Servicesのみで完結します。Domain/Infrastructure/Repositoryの分割は必須ではありません。Step40後、Step41前に用途別MudBlazor特別コラムを置きます。

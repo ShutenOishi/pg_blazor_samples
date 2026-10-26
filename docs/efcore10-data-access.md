@@ -1,63 +1,66 @@
+> **簡素化方針：** Step31〜40はWebプロジェクトのData/とServices/だけで実装。新しいDomain、Infrastructure、Repositoryプロジェクトは不要です。実DB未設定時には日本語の案内を表示します。
+
 # EF Core 10・Npgsql・Blazor Interactive Server データアクセス学習ガイド
 
-> **位置付け：Step31〜40・Step41〜60の実装設計資料。2026-10-26時点でこの章のDB連携ソースと実接続は未実装です。** 以下のコードは教材化する際の設計例であり、現行サンプルで実行できることを意味しません。
+> **状態：Step31〜40のWeb内ソースは実装済み。** DB未設定でも画面は起動します。PostgreSQL 18への実接続は専用CIと開発環境で検証し、画面表示だけでは実DB動作成功とは扱いません。Step41〜60のServerData実装は後続です。
 
 ## この教材で目指すこと
 
-Web画面から直接データベースを操作するのではなく、MudBlazorのUI状態 → 検索・編集DTO → Applicationのサービス → EF Core 10（Npgsqlプロバイダー） → PostgreSQL 18、という境界を説明・実装・テストできるようにします。[一覧・グリッドの選択ガイド](data-grid-patterns.md)と一体で学びます。
+Web画面から直接データベースを操作するのではなく、MudBlazorのUI状態 → Web内のLearningDbService → EF Core 10（Npgsqlプロバイダー） → PostgreSQL 18、という境界を説明・実装・テストできるようにします。[一覧・グリッドの選択ガイド](data-grid-patterns.md)と一体で学びます。
 
 ## 1. EF Core・Npgsql・PostgreSQLの役割
 
 | 部品 | 担当 | 担当しないもの |
 | --- | --- | --- |
 | MudBlazor | 入力・表示・イベントとページ状態 | ORM、DB接続・権限判定 |
-| Application | 画面用DTO、ユースケース、入力・権限確認、検索条件、取引境界 | コンポーネント固有型、SQL接続の長期保管 |
+| WebのServices/Learning | 入力のチェック、一覧/CRUD、DbContextの操作単位の寿命 | Blazor部品を直接操作しない |
 | EF Core 10 | エンティティマッピング、LINQ→SQL、変更追跡、トランザクション、競合検出 | 物理接続プールの実体 |
 | Npgsql / EF Core PostgreSQL Provider | PostgreSQL型、SQLプロバイダー、物理接続・接続プール | 業務上の認可の判断 |
 | PostgreSQL 18 | 制約・索引・SQL実行・整合性・ロック | MudDataGrid上の画面状態 |
 
-NuGetの基本候補：`Npgsql.EntityFrameworkCore.PostgreSQL` の **10系**（EF Core 10と組み合わせる）。`Microsoft.EntityFrameworkCore.Design`はスキャフォールド/移行作業時に必要性を判断。`Npgsql`はプロバイダー依存版との整合を確認して決める。正確な採用パッチは実装PRで復元・ビルド・統合テストし、[バージョン表](versions.md)を確定更新します。linq2dbは**任意の上級比較**で、必須導入しません。
+Webプロジェクトの採用パッケージは `Npgsql.EntityFrameworkCore.PostgreSQL` **10.0.3** です。EF CoreとNpgsqlはこのプロバイダーの依存関係に沿って復元します。linq2dbは任意の上級比較であり、必須導入しません。
 
 ## 2. Blazor ServerでDbContextFactoryを使う理由
 
 Interactive ServerのDIの`Scoped`はHTTP 1要求で終わらずcircuit単位で存続します。DbContextはスレッドセーフではなく、別コンポーネント/イベントの同時利用に適しません。
 
-- 標準は`IDbContextFactory<AppDbContext>`で**1操作1DbContext**。`await using`で必ず破棄します。
+- 標準は`IDbContextFactory<LearningDbContext>`で**1操作1DbContext**。`await using`で必ず破棄します。
 - 読み取り画面では`AsNoTracking`＋必要列のみ`Select`でDTOに射影します。
 - 更新は**新しいDbContext**で対象を読み直し、入力値と権限を検証して`SaveChangesAsync`します。
 - DbContext、`IQueryable`、`DbDataReader`、遅延列挙をRazorコンポーネントへ返しません。コンポーネント内へ接続文字列を置きません。
 - キャンセルされたリクエスト・破棄された画面・二重クリックを学習し、保存系は二重実行防止や冪等性も確認します。
 
-### 実装予定の最小登録例
+### 現行ソースに一致する登録と検索
 
-```csharp
-// Program.cs（計画例、まだ導入していません）
-builder.Services.AddDbContextFactory<AppDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("PostgreSQL")
-        ?? throw new InvalidOperationException("PostgreSQLの接続設定が必要です。")));
-builder.Services.AddScoped<IEmployeeQueryService, EmployeeQueryService>();
-```
+WebのProgram.csで、構成から接続文字列を受け取ってFactoryと小さなサービスを登録します。学習画面をDBなしでも開けるように、未設定時は接続しない処理をサービス内で選びます。
 
-```csharp
-// Infrastructureのサービス内（計画例）
-public sealed class EmployeeQueryService(
-    IDbContextFactory<AppDbContext> factory) : IEmployeeQueryService
+~~~csharp
+// Web/Program.cs（抜粋）
+var pgConnection = builder.Configuration.GetConnectionString("PostgreSQL");
+builder.Services.AddDbContextFactory<LearningDbContext>(options =>
+    options.UseNpgsql(string.IsNullOrWhiteSpace(pgConnection)
+        ? "Host=127.0.0.1;Database=pg_blazor_learning;Username=pgblazor_learning;Timeout=2"
+        : pgConnection));
+builder.Services.AddScoped<LearningDbService>();
+~~~
+
+~~~csharp
+// Web/Services/Learning/LearningDbService.cs（検索の主要部分）
+await using var db = await factory.CreateDbContextAsync(cancellationToken);
+var query = db.Tasks.AsNoTracking();
+if (!string.IsNullOrWhiteSpace(keyword))
 {
-    public async Task<List<EmployeeRow>> GetRecentAsync(CancellationToken ct)
-    {
-        await using var db = await factory.CreateDbContextAsync(ct);
-        return await db.Employees
-            .AsNoTracking()
-            .OrderBy(x => x.Id) // 必ず安定した順序を指定する
-            .Take(20)
-            .Select(x => new EmployeeRow(x.Id, x.Name))
-            .ToListAsync(ct);
-    }
+    var term = keyword.Trim();
+    query = query.Where(t => t.Title.Contains(term));
 }
-```
+int count = await query.CountAsync(cancellationToken);
+var rows = await query.OrderBy(t => t.Id).Take(20)
+    .Select(t => new LearningTaskRow(
+        t.Id, t.Title, t.DueDate, t.StartTime, t.IsDone, t.Version))
+    .ToListAsync(cancellationToken);
+~~~
 
-例中の`EmployeeRow`などの型は後続ステップで定義します。サービス契約はApplication、EF Coreの具象実装はInfrastructureに置きます。説明のためにWebへEF Core依存を持ち込まず、DIの登録場所のみWebのComposition Rootに置きます。
+コードの全体はWeb内のData/LearningTask.cs、Data/LearningDbContext.cs、Services/Learning/LearningDbService.csにあります。**追加のDomain・Infrastructure・Repositoryプロジェクトは作りません。** 接続先未設定時の制御はLearningDbService.Configuredで判定します。WebのData/だけに実DBへのアクセス情報を公開しません。
 
 ## 3. 接続プールとDbContextプールは別
 
@@ -80,11 +83,11 @@ public sealed class EmployeeQueryService(
 | `time` | `TimeOnly` | 日付を持たない |
 | `timestamp without time zone` | `DateTime`（Unspecified） | 業務上の時間帯を別途説明 |
 | `timestamptz` | `DateTime`（UTC） | 地域のタイムゾーンは保存されない |
-| `daterange` | `NpgsqlRange<T>`（実採用Tとマッピングを統合試験で確定） | 境界・空範囲・無限端を検証 |
+| `daterange` | `NpgsqlRange<DateTime>`（今回のEntity） | 境界・空範囲・無限端を検証 |
 | `tstzrange` | `NpgsqlRange<DateTime>`（UTC） | 時刻と境界の解釈 |
 | `datemultirange`等 | NpgsqlのRange集合 | 集合演算・翻訳を実DBで確認 |
 
-Npgsql 10の通常の`date`/`time`読み取りの既定は`DateOnly`/`TimeOnly`です。**Range型の`T`は単独の`date`列と同じだと推測しない**こと。公式のRangeマッピングとバージョンを照合し、`daterange`と`tstzrange`をそれぞれ実行する教材にします。
+Npgsql 10では単独の`date`/`time`列に`DateOnly`/`TimeOnly`を使えます。今回の`daterange`には`NpgsqlRange<DateTime>`を使用します。Rangeの下限・上限、排他端点、空範囲を実DBで確認します。
 
 MudDatePickerは`DateTime?`で受け取り、サービス境界で`DateOnly?`と変換します。
 
@@ -142,4 +145,4 @@ SQL表現や一括処理に明確な利点があるとき、linq2dbとEF Coreの
 - [Npgsql: RangeとMultirange](https://www.npgsql.org/efcore/mapping/range.html)
 - [Npgsql: 接続プール](https://www.npgsql.org/doc/connection-string-parameters.html)
 
-この章の説明と後続ソースの違いは、各ステップ実装PRでテスト結果とともに修正します。
+Step40の直後に[用途別MudBlazor特別コラム](columns/column-mudblazor-by-purpose.md)を読み、Step41〜60では実DBを使うServerDataなどを実装します。

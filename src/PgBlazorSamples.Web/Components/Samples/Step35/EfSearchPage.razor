@@ -1,0 +1,24 @@
+@page "/learn/35"
+@inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
+@using PgBlazorSamples.Web.Data
+
+<PageTitle>ステップ35：AsNoTrackingと検索｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ35 / EF Coreの検索</p>
+<h1>LINQで絞り込み、必要な行だけ取得する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudTextField T="string" Label="課題名に含まれる文字" @bind-Value="_keyword" />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="LoadAsync">DBを検索する</MudButton>
+    <p role="status" data-testid="step35-status">@_data.Message</p>
+    <p>総件数：@_data.TotalCount 件／画面取得：@_data.Rows.Count 件</p>
+    <MudTable Items="@_data.Rows" Dense="true">
+        <HeaderContent><MudTh>番号</MudTh><MudTh>課題名</MudTh><MudTh>状態</MudTh></HeaderContent>
+        <RowTemplate><MudTd>@context.Id</MudTd><MudTd>@context.Title</MudTd><MudTd>@(context.IsDone ? "完了" : "未完了")</MudTd></RowTemplate>
+    </MudTable>
+</MudPaper>
+<p>検索条件をSQLへ文字列結合せずLINQを使い、AsNoTrackingでDTOを返します。取得は最大20件です。総件数は別クエリなので、その違いも確認してください。</p>
+<div class="page-navigation"><a href="/learn/34">前へ：ステップ34</a><a href="/learn/column/35">コラム08：EF Coreの入門まとめ</a><a href="/learn/36">次へ：ステップ36</a></div>
+@code {
+    private string _keyword = "";
+    private LearningTaskResult _data = new("検索前です。", []);
+    private async Task LoadAsync() => _data = await Database.SearchAsync(_keyword);
+}

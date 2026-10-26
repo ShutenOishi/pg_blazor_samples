@@ -1,0 +1,20 @@
+@page "/learn/34"
+@inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
+
+<PageTitle>ステップ34：DbContextFactory｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ34 / 寿命管理</p>
+<h1>1操作ごとにDbContextを作って閉じる</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="LoadAsync">接続して一覧を取得</MudButton>
+    <p role="status" data-testid="step34-result">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>使うDIとプールの仕組み</h2>
+    <p>Interactive ServerのScopedは画面を開いている間も存続します。スレッドセーフでないDbContextは共有せず、IDbContextFactoryから毎操作生成し、await usingで破棄します。</p>
+    <p>Npgsqlの物理接続プールとDbContextそのものを再利用するプールは別です。最初の教材は後者を使用しません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/33">前へ：ステップ33</a><a href="/learn/35">次へ：ステップ35</a></div>
+@code {
+    private string _message = "まだ実行していません。";
+    private async Task LoadAsync() => _message = (await Database.SearchAsync()).Message;
+}

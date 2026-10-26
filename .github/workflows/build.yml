@@ -9,6 +9,7 @@ on:
       - "global.json"
       - "src/**"
       - "tests/**"
+      - "database/**"
       - "docs/samples/**"
       - "docs/columns/**"
       - "scripts/smoke-test.sh"
@@ -22,6 +23,7 @@ on:
       - "global.json"
       - "src/**"
       - "tests/**"
+      - "database/**"
       - "docs/samples/**"
       - "docs/columns/**"
       - "scripts/smoke-test.sh"
@@ -100,3 +102,47 @@ jobs:
 
       - name: Release発行を確認
         run: dotnet publish src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj -c Release --no-build -o publish-output
+
+  postgres18:
+    name: PostgreSQL 18 実DB結合テスト
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: pg_blazor_learning
+          POSTGRES_USER: pgblazor_learning
+          POSTGRES_PASSWORD: local-ci-test-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pgblazor_learning -d pg_blazor_learning"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 8
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: pgblazor_learning
+      PGPASSWORD: local-ci-test-only
+      PGDATABASE: pg_blazor_learning
+      ConnectionStrings__PostgreSQL: Host=127.0.0.1;Port=5432;Database=pg_blazor_learning;Username=pgblazor_learning;Password=local-ci-test-only
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v4
+      - name: .NET 10を用意
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: PostgreSQLのクライアントを準備
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+      - name: 専用DBへDDLと架空データを適用
+        run: |
+          psql -v ON_ERROR_STOP=1 -f database/schema/001_learning_task.sql
+          psql -v ON_ERROR_STOP=1 -f database/seed/001_learning_task.sql
+      - name: date・time・daterange・multirange・xminのSQLを確認
+        run: psql -v ON_ERROR_STOP=1 -f database/tests/001_learning_task_check.sql
+      - name: PostgreSQL 18へのEF Core実接続・更新競合・ロールバック
+        run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --filter FullyQualifiedName~LearningDbIntegrationTests

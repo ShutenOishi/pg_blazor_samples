@@ -31,3 +31,7 @@
 | 公式情報と調査先 | [参考資料](references.md) |
 
 まず[学習ロードマップ](learning-path.md)を読み、続いて[サンプル一覧](sample-catalog.md)を開いてください。
+
+## DB編と用途別コンポーネント
+
+[Web内で完結するEF Core構成](architecture.md)／[Step31〜40の学習](sample-catalog.md)／[MudBlazor用途別特別コラム](columns/column-mudblazor-by-purpose.md)。
