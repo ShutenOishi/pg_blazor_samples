@@ -53,7 +53,7 @@ C#の基礎（変数、クラス、非同期の概念）が分かると進めや
 
 ## データ連携編の選択指針
 
-Step26でDB不要のDataGridを学び、Step31〜40でEF Core 10とNpgsqlを身に付け、Step41〜60で実DBを使う一覧表示・検索・編集の設計を段階的に完成させます。まず[EF Core・Npgsqlの基礎](efcore10-data-access.md)を読み、[一覧表示パターンの比較](data-grid-patterns.md)から要件別の最適な方式を選びます。Step41〜55はソース・教材を実装しています。Step56以降は計画中です。
+Step26でDB不要のDataGridを学び、Step31〜40でEF Core 10とNpgsqlを身に付け、Step41〜60で実DBを使う一覧表示・検索・編集の設計を段階的に完成させます。まず[EF Core・Npgsqlの基礎](efcore10-data-access.md)を読み、[一覧表示パターンの比較](data-grid-patterns.md)から要件別の最適な方式を選びます。Step41〜70の教材・ソースも実装し、実DB試験で検証します。Step66〜70の業務認可は開発用データでの学習用であり、実機AD/IISの受入は未実施です。
 
 ## Step40と41の間の特別コラム
 

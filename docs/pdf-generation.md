@@ -5,15 +5,17 @@
 学習者が読むのは **「Blazor 実践学習テキスト」**（`blazor_learning_textbook_ja.pdf`）です。
 
 - 日本語の学習タイトルを用いた目次
-- ステップ01〜50の日本語解説とコード例
-- 5ステップごとの復習コラム01〜11、DI特別コラムとMudBlazor用途別特別コラム
+- ステップ01〜70の日本語解説とコード例
+- 5ステップごとの復習コラム01〜15、DI特別コラムとMudBlazor用途別特別コラム
 - 次に学ぶこと、操作手順、よくある間違い、理解度チェック
 
 学習者に不要なリポジトリ、PR、Actions、ソースファイルハッシュなどの管理情報は本文に出しません。目次もファイル名ではなく「ステップ11：DI（依存性注入）の基本」など学習テーマを表示します。
 
 ## PDFの作成
 
-[GitHub ActionsのPDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で最新mainから自動作成します。成功したRunのArtifactsに`blazor_learning_textbook_ja`があります。
+[GitHub ActionsのPDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で最新mainから自動作成します。**mainの成功CIからGitHub ReleaseにPDF単体を公開します。標準Artifact（ZIP）は配布に使用しません。**
+
+[Blazor実践学習テキスト（PDF単体ダウンロード）](https://github.com/ShutenOishi/pg_blazor_samples/releases/download/learning-textbook/blazor_learning_textbook_ja.pdf) （mainの配布ジョブ成功後に有効）
 
 ローカルではPython 3.12、Noto CJKフォントと必要なネイティブ依存を導入した後、次のように生成します。
 
@@ -32,7 +34,7 @@ python scripts/build_docs_pdf.py
 
 ## EF Core 10と一覧連携の教材
 
-Step31〜40の日本語教材、コラム08・09を既存のStep30の後へ配置します。Step40と41の間にMudBlazor用途別特別コラムを収録し、その後ろにEF Core 10と一覧連携の参考ガイドを配置します。**Step41〜50の一覧・検索・仮想化は実装済みです。Step51〜60の編集・集約は未実装として扱います。**
+Step31〜40の日本語教材、コラム08・09を既存のStep30の後へ配置します。Step40と41の間にMudBlazor用途別特別コラムを収録し、その後ろにEF Core 10と一覧連携の参考ガイドを配置します。**Step41〜70の一覧・検索・編集・認証・認可を収録します。実AD/IISの検証は別途必要です。**
 
 ## Step40と41の間の特別コラム
 
