@@ -1,0 +1,46 @@
+@implements IDisposable
+
+<section class="lesson-details" data-testid="step09-tracker">
+    <h3>子コンポーネントの生存期間</h3>
+    <p>受け取ったテーマ：<strong data-testid="step09-topic">@Topic</strong></p>
+    <p><code>OnInitializedAsync</code> 実行回数：<strong data-testid="step09-init">@initializationCount</strong>回</p>
+    <p><code>OnParametersSetAsync</code> 実行回数：<strong data-testid="step09-params">@parameterSetCount</strong>回</p>
+</section>
+
+@code {
+    [Parameter]
+    public string Topic { get; set; } = "基礎";
+
+    private readonly CancellationTokenSource lifetimeCancellation = new();
+    private int initializationCount;
+    private int parameterSetCount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // インスタンスごとの初期化処理です。画面の値が変わっても繰り返しません。
+        initializationCount++;
+        try
+        {
+            // 実際の通信はせず、キャンセルできる短い非同期処理を練習します。
+            await Task.Delay(50, lifetimeCancellation.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            // ページ移動などによる破棄時のキャンセルは想定内です。
+        }
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        // 親からパラメーターが設定されると呼ばれます。回数は描画状況で変わります。
+        parameterSetCount++;
+        return Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        // 破棄時に残った非同期処理を中断し、所有する資源を解放します。
+        lifetimeCancellation.Cancel();
+        lifetimeCancellation.Dispose();
+    }
+}

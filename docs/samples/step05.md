@@ -52,4 +52,4 @@ private void ClearName() => learnerName = "";
 - [ ] 日本語文字列が正しく表示される
 - [ ] 入力の消去とHTMLエンコードを確認できる
 
-前：[ステップ04](step04.md)／次：[ステップ06](step06.md)
+前：[ステップ04](step04.md)／[学習コラム01：ステップ01〜05を復習](../columns/column01-05.md)／次：[ステップ06](step06.md)

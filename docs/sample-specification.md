@@ -61,3 +61,14 @@
 ## サーバー配備を扱う教材に追加する説明
 
 Windows Server 2025のドメイン参加、IIS、Hosting Bundle、Windows認証、SPN、HTTPS、SignalR、gMSA（必要時）、PostgreSQLの最小権限、異常時の拒否を扱う。実環境未確認なら「検証済み」にしない。
+
+## 5ステップごとの復習コラム（必須）
+
+実装がStep05・10・15など5の倍数へ到達した場合、そのPRには必ず同時に以下を追加します。
+
+- `docs/columns/columnNN-NN.md`：概念の関連、つまずき、実務応用、確認問題と解答
+- `src/PgBlazorSamples.Web/Components/Samples/Columns/ColumnNNPage.razor`：アプリ内から開ける日本語の復習画面
+- `docs/columns/README.md`の状態更新、およびホーム画面・メニューの導線
+- `scripts/build_docs_pdf.py`のPDF収録リストとブラウザーテスト
+
+`python scripts/check-learning-materials.py`で、実装済みの各ステップ・5ステップごとのコラム・PDF収録対象に欠落がないことを検査します。ソースと文章の意味が一致するかは、従来どおりレビューと動作試験で確認します。

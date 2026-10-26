@@ -109,6 +109,70 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="visible-count"]', "4");
         console.log("ステップ06：条件分岐・一覧絞り込みの動作に成功");
 
+        // 新規Step07〜10も、静的HTMLではなく実際の対話処理を検証する。
+        await page.goto(base + "/learn/07");
+        await page.waitForTimeout(1200);
+        if (await page.locator('[data-testid="greeting-card"]').count() !== 2) {
+            throw new Error("ステップ07：子コンポーネントを2つ表示できていません。");
+        }
+        await page.getByRole("textbox", { name: "練習用の表示名" }).fill("練習花子");
+        await waitText(page, '[data-testid="greeting-card"]', "練習花子");
+        const cards = await page.locator('[data-testid="greeting-card"]').allTextContents();
+        if (!cards[1].includes("架空の利用者")) {
+            throw new Error("ステップ07：独立した子部品の表示が変わってしまいました。");
+        }
+        await page.screenshot({ path: path.join(evidence, "step07.png") });
+        console.log("ステップ07：Parameterによる親子の値受け渡しに成功");
+
+        await page.goto(base + "/learn/08");
+        await page.waitForTimeout(1200);
+        await page.getByRole("button", { name: "Razor構文" }).click();
+        await waitText(page, '[data-testid="step08-selection"]', "Razor構文");
+        await page.getByRole("button", { name: "双方向バインディング" }).click();
+        await waitText(page, '[data-testid="step08-selection"]', "双方向バインディング");
+        await waitText(page, '[data-testid="step08-count"]', "2");
+        await page.screenshot({ path: path.join(evidence, "step08.png") });
+        console.log("ステップ08：EventCallbackを受けた親側の状態更新に成功");
+
+        await page.goto(base + "/learn/09");
+        await page.waitForTimeout(1200);
+        await waitText(page, '[data-testid="step09-topic"]', "初回のテーマ");
+        await page.getByRole("button", { name: "テーマを変更する" }).click();
+        await waitText(page, '[data-testid="step09-topic"]', "変更後のテーマ 1");
+        await page.getByRole("button", { name: "子を非表示にする" }).click();
+        await waitText(page, '[data-testid="step09-hidden"]', "破棄しました");
+        await page.getByRole("button", { name: "子を再表示する" }).click();
+        await waitText(page, '[data-testid="step09-init"]', "1");
+        await page.screenshot({ path: path.join(evidence, "step09.png") });
+        console.log("ステップ09：更新・破棄・再初期化の操作に成功");
+
+        await page.goto(base + "/learn/10");
+        await page.waitForTimeout(1200);
+        await page.getByRole("button", { name: "入力内容を確認する" }).click();
+        await page.getByText("表示名を入力してください。").waitFor();
+        await page.getByText("学習メモを入力してください。").waitFor();
+        if (await page.locator('[data-testid="step10-confirmation"]').count() !== 0) {
+            throw new Error("ステップ10：必須未入力で確認が成立しました。");
+        }
+        await page.getByRole("textbox", { name: "練習用の表示名（2〜20文字・必須）" }).fill("あ");
+        await page.getByRole("textbox", { name: "学習メモ（3〜80文字・必須）" }).fill("あい");
+        await page.getByRole("button", { name: "入力内容を確認する" }).click();
+        await page.getByText("表示名は2文字以上20文字以内で入力してください。").waitFor();
+        await page.getByText("学習メモは3文字以上80文字以内で入力してください。").waitFor();
+        await page.getByRole("textbox", { name: "練習用の表示名（2〜20文字・必須）" }).fill("練習太郎");
+        await page.getByRole("textbox", { name: "学習メモ（3〜80文字・必須）" }).fill("フォームの入力検証を復習する");
+        await page.getByRole("button", { name: "入力内容を確認する" }).click();
+        await waitText(page, '[data-testid="step10-confirmation"]', "入力検証に合格しました");
+        await waitText(page, '[data-testid="step10-confirmation"]', "練習太郎");
+        await page.screenshot({ path: path.join(evidence, "step10.png") });
+        console.log("ステップ10：未入力・文字数不足・正常送信の試験に成功");
+
+        await page.goto(base + "/learn/column/05");
+        await page.getByText("画面の表示は、何がきっかけで変わる？").waitFor();
+        await page.goto(base + "/learn/column/10");
+        await page.getByText("親子コンポーネントと入力検証を整理する").waitFor();
+        console.log("学習コラム01・02の日本語表示に成功");
+
         await page.keyboard.press("Tab");
         if ((await page.locator(":focus").count()) === 0) {
             throw new Error("キーボードでフォーカスを移動できません。");

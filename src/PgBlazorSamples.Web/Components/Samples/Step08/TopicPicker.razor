@@ -1,0 +1,22 @@
+<div class="practice-actions" role="group" aria-label="復習するテーマを選択">
+    @foreach (var topic in topics)
+    {
+        <button type="button" @key="topic" class="secondary-button"
+                aria-pressed="@(SelectedTopic == topic)"
+                @onclick="() => ChooseAsync(topic)">@topic</button>
+    }
+</div>
+
+@code {
+    // 親の選択状態を読み取るだけにして、子側では保持しません。
+    [Parameter]
+    public string SelectedTopic { get; set; } = "";
+
+    // 子が通知するイベントの受け口です。親の処理は子から直接呼びません。
+    [Parameter]
+    public EventCallback<string> OnSelected { get; set; }
+
+    private readonly string[] topics = ["Razor構文", "イベント処理", "双方向バインディング"];
+
+    private Task ChooseAsync(string topic) => OnSelected.InvokeAsync(topic);
+}

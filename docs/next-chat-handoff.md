@@ -1,49 +1,47 @@
-# 次のチャットへの引き継ぎ：pg_blazor_samples Step07〜10
+# 次のチャットへの引き継ぎ：pg_blazor_samples Step11〜15（DI基礎）
 
 更新日：2026-10-26
 
-## 最優先の実行依頼
+## 依頼
+接続済みGitHubを利用し、[ShutenOishi/pg_blazor_samples](https://github.com/ShutenOishi/pg_blazor_samples)の最新main/PR/Actionsを確認して、Step11〜15と3本目の復習コラムを自律的に実装してください。途中工程ごとの細かい「継続して」は求めず、コード・日本語資料・テスト・PDFを同じPRにまとめて進めてください。
 
-あなたはGitHub [ShutenOishi/pg_blazor_samples](https://github.com/ShutenOishi/pg_blazor_samples) の.NET 10 Blazor実装担当です。最新の認証済みGitHub GETとIssue/PR/Actionsの証跡を読んで、未完了作業を自律的に進めてください。細かな工程ごとの継続指示をユーザーへ求めず、可能な範囲をまとめて実装・検証・保護PR・マージ・結果報告まで行ってください。
+## これまでの確定状況（最新mainは再確認する）
 
-## 実装済み
+- Step01〜03：最初の画面・URL・Razor、Step04〜06：イベント・双方向入力・条件表示
+- Step07〜10：親→子[Parameter]、子→親EventCallback、ライフサイクルと後処理、EditForm/DataAnnotationsの日本語検証
+- コラム01（Step01〜05）、コラム02（Step06〜10）：理解を深める文章とアプリ内の復習ページ
+- 上記追加は[PR #13](https://github.com/ShutenOishi/pg_blazor_samples/pull/13)で実装。**作業開始時に最新のマージ結果を必ず再確認する**
+- [Actions 40264058164](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)：Windows Server 2025とUbuntuのReleaseビルド・publish、Ubuntu日本語HTTPとChromeの操作・否定テストがSUCCESS
+- [PDF 40264058244](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058244)：日本語ハンドブック生成・PDFヘッダ検査SUCCESS
+- 本リポジトリはVisual Studio 2026 / .NET 10（C# 14）/ Blazor Interactive Serverで、最終配備想定はWindows Server 2025 + IIS + AD + PostgreSQL 18
+- 実AD・DB・IISの実機テストは**まだ実施していない**。混同禁止
 
-- Step01〜03: 最初の画面、ルーティング、Razor構文。PR #8、main上の最初の実装コミット `52898c0ca2cd238b56926d911b1e7f1f7f6617f2`
-- Step04〜06: `@onclick`のカウンター、`@bind:event="oninput"`の日本語入力、`@if`/`@foreach`の条件付一覧。PR #10（最新マージ状況はGitHubから再確認）
-- Step04〜06のUbuntu/Windows Releaseビルド、HTTP疎通、Chrome + Playwrightの操作検証： [Actions Run 40260767597](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40260767597)で成功
-- PDF: GitHub Actionsの日本語技術ハンドブック生成。今回のStep04〜06を含む成功Runは [40260767554](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40260767554)。PDFは最新のコミットに対応するRunのArtifactを優先
-- 既存Issue #7: Visual Studio 2026 GUI、SignalR切断・再接続、アクセシビリティの実機検証は引き続き未完了（成功済みと偽らない）
+## Step11〜15の実装内容
 
-## 次に実装する内容
+1. **Step11 DIとは何か**：画面内で直接生成する時計サービスとDI登録から受け取る場合を比較。必要なサービス以外を導入しない
+2. **Step12 インターフェイス**：IClock等の小さな契約と実装を分け、固定時刻への差し替えを示す
+3. **Step13 3種類のライフタイム**：Singleton、Scoped、Transientの実際の状態とIDを操作で観察
+4. **Step14 BlazorのScoped/circuit**：HTTPリクエストとcircuitの違い、利用者状態をSingletonへ格納しない理由を日本語で説明。公開CIが実ADに接続したと誤認させない
+5. **Step15 @injectとコンストラクター**：Razorコンポーネントと通常のC#サービスでの注入方法を比較
+6. **コラム03：Step11〜15のまとめ**：DIとは何か、依存の向き、サービス寿命、テスト容易性の関係・誤解・確認問題と解答を追加。サイト上の復習画面とMarkdownを同時追加
 
-Step07〜10を1〜2件のレビュー可能なPRに分けて実装する。
+## プロジェクト構成を維持する
 
-1. Step07 `[Parameter]`：親から子へ値を渡す独立コンポーネント。複数親画面での再利用
-2. Step08 `EventCallback`：子コンポーネントのイベントを親へ通知し、状態を更新
-3. Step09 `OnInitializedAsync`・`OnParametersSetAsync`・`IDisposable`：ライフサイクルと後処理、二重初期化の学習
-4. Step10 `EditForm` + DataAnnotations：必須・文字数・日本語の検証メッセージ、安全な保存処理（DBなし）
-5. 既存のトップ・NavMenuへ新URL`/learn/07`〜`/learn/10`を追加し、完成済みのStep01〜06を壊さない
-6. 同一PRで `docs/samples/step07.md`〜`step10.md` とサンプル一覧・README・PDF索引を更新
-7. CI：Windows/Linux `net10.0` Releaseビルド・発行、日本語HTTP画面確認、Chromeでの実操作、PDF生成とソースハッシュを必ず確認
-8. PR条件が成立したもののみ通常の保護マージを行い、再取得した`main`のHEADと実装を確認する
+Step11〜17は既存Webプロジェクト内のServicesと契約を少しずつ増やす。Step18でUnitTests、Step19でApplication、Step31でDomain、Step33でInfrastructure、Step40でIntegrationTests。最初から多層構成を追加しない。MudBlazorはStep21、PostgreSQLはStep31以降、ADはStep41以降に導入する。
 
-## 守るべき方針
+## 実装・受入の一括手順
 
-- 画面、ラベル、通知、入力検証エラー、コードコメント、教材、操作手順はすべて**日本語**。HTMLは`lang="ja"`、カルチャーは`ja-JP`
-- Visual Studio 2026、.NET 10（C#14）、Blazor Web App Interactive Server。高コントラスト、ダークモード、文字サイズ、キーボード操作を配慮
-- 最初の10ステップまでは単独の`PgBlazorSamples.Web`のみ。DIの学習はStep11、UnitTestsはStep18、ApplicationはStep19、MudBlazorはStep21、DomainはStep31、InfrastructureはStep33、PostgreSQLはStep31以降、ADはStep41以降、IIS実機は後期ステップ
-- ADとPostgreSQLの利用者の業務データを公開リポジトリに入れない。初級サンプルは架空の固定値のみ
-- 「ソース追加」「CIビルド成功」「ブラウザーテスト成功」「AD/IIS実機成功」を明確に区別し、未確認を成功扱いしない
-- コードを変更したら日本語教材とPDFを同一PRで更新し、GitHub Actionsのログを照合
-- 既存CI・PR・成功した成果物の不必要な再実行を避ける
+- 最新mainと未完了PRを確認、不要な再実行はしない
+- 既存コンポーネントを壊さず、Step11〜15の/learn/11〜/learn/15を追加
+- UI、入力検証、コードコメント、エラーメッセージ、解説、CIログの利用者向け文言を日本語に統一
+- docs/samples/step11.md〜step15.mdとdocs/columns/column11-15.mdを実ソース準拠で追加、docs/columns/README.mdとPDFスクリプトへ反映
+- ステップごとに「前提、操作、動作の仕組み、注意点、演習、否定テスト」を含める
+- Linux・WindowsのReleaseビルド、HTTP、Chromeの実操作、PDF生成を確認。成功済みの旧テストも回帰確認
+- 成功した場合のみ保護マージし、新しいmainとpostmergeの成功を受け入れる。状態・証跡を正確に更新
+- 完了後は次のチャットへの引き継ぎをStep16〜20に更新する
 
-## 参照先
-
-- [リポジトリ](https://github.com/ShutenOishi/pg_blazor_samples)
-- [PR #10](https://github.com/ShutenOishi/pg_blazor_samples/pull/10)
-- [Issue #9](https://github.com/ShutenOishi/pg_blazor_samples/issues/9)
-- [60ステップ一覧](sample-catalog.md)
-- [ソースに準拠する日本語技術ハンドブック](implementation-handbook.md)
-- [PDF自動生成](pdf-generation.md)
-
-まず最新GitHub GETで `main`、PR #10、Issue #9、成功済みCI、最新PDF Artifactを確認し、状態に応じてStep07〜10の実装を開始してください。工程途中の提案だけで停止せず、実行可能なことを進めてください。
+## 重要な仕様
+- 60ステップ、5ステップごとにコラムを置く全12回構成（[コラム一覧](columns/README.md)）
+- 日本語のUIとコメント・読みやすい文字・ダークモード・キーボード操作を維持
+- 環境依存・資格情報・社内ネットワーク情報は公開リポジトリに含めない
+- 「コード作成」「CI成功」「AD/IIS実機成功」を別々の事実として扱う

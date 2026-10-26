@@ -1,0 +1,32 @@
+@page "/learn/07"
+@using PgBlazorSamples.Web.Components.Samples.Step07
+
+<PageTitle>ステップ07：コンポーネント引数｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">ステップ07 / コンポーネント引数</p>
+<h1>親から子へ値を渡す</h1>
+<p><code>[Parameter]</code> を使うと、再利用する部品へ親の値を渡せます。</p>
+
+<section class="lesson-details">
+    <h2>名前を変更して部品を再利用する</h2>
+    <label class="field-label" for="step07-name">練習用の表示名</label>
+    <input id="step07-name" type="text" class="text-input" maxlength="20"
+           @bind="learnerName" @bind:event="oninput" autocomplete="off" />
+    <GreetingCard LearnerName="@learnerName" Topic="親が入力した名前" />
+    <GreetingCard LearnerName="架空の利用者" Topic="別の値でも同じ部品" />
+</section>
+
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p>親が <code>LearnerName</code> を渡すと、子の <code>[Parameter]</code> プロパティで受け取れます。</p>
+    <p>子は引数を勝手に書き換えず、親から受け取った値を表示します。操作結果を親へ返す方法は次のステップで学びます。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/06">前へ：ステップ06</a>
+    <a href="/learn/08">次へ：ステップ08</a>
+</div>
+
+@code {
+    // バインドしている値は親画面が所有します。
+    private string learnerName = "練習太郎";
+}
