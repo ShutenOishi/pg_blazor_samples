@@ -1,0 +1,60 @@
+@page "/learn/58"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningRangeExportService Export
+@inject LearningDbService Database
+<PageTitle>ステップ58：集計とCSV｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ58 / GroupBy・COUNT・CSV</p>
+<h1>集計をDBで実行し、少量のCSVだけ安全に出力する</h1>
+<MudPaper Class="pa-4">
+    <MudButton OnClick="SummarizeAsync" Color="Color.Primary">完了状態を集計</MudButton>
+    <p role="status" data-testid="step58-state">@_message</p>
+    <MudTable T="LearningCountRow" Items="_counts" Dense="true">
+        <HeaderContent><MudTh>状態</MudTh><MudTh>件数</MudTh></HeaderContent>
+        <RowTemplate><MudTd>@(context.IsDone ? "完了" : "未完了")</MudTd><MudTd>@context.Count</MudTd></RowTemplate>
+    </MudTable>
+    <MudTextField T="string" Label="CSV対象の課題名（部分一致）" @bind-Value="_keyword"/>
+    <MudButton OnClick="BuildCsvAsync" Disabled="@_working">100件以下をCSVにする</MudButton>
+    @if (!string.IsNullOrEmpty(_csvUrl))
+    {
+        <p><a href="@_csvUrl" download="learning_tasks.csv">CSVファイルを保存する</a></p>
+    }
+</MudPaper>
+<section class="lesson-details">
+    <h2>集計とエクスポートは分ける</h2>
+    <p>集計はGroupByとCountでDB側に任せます。CSVは最大100件だけ許可し101件以上なら全件出力を拒否します。Excel系の式注入への対策、UTF-8 BOMと引用符のエスケープを確認します。</p>
+    <p>大規模データはページ表示と別の認可済みダウンロード経路、容量制限、監査、ストリーミングを設計します。この画面は開発用DB専用であり、利用者別の権限判定はありません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/57">前へ：ステップ57</a><a href="/learn/59">次へ：ステップ59</a></div>
+@code {
+    private IReadOnlyList<LearningCountRow> _counts = [];
+    private string _keyword = "";
+    private string? _csvUrl;
+    private bool _working;
+    private string _message = "集計またはCSV出力を選んでください。";
+    protected override void OnInitialized()
+    {
+        if (!Database.Configured) _message = LearningDbService.NotConfigured;
+    }
+    private async Task SummarizeAsync()
+    {
+        var result = await Export.CountByDoneAsync();
+        _counts = result.Rows;
+        _message = result.Message;
+    }
+    private async Task BuildCsvAsync()
+    {
+        if (_working) return;
+        _working = true;
+        _csvUrl = null;
+        try
+        {
+            var result = await Export.ExportSmallCsvAsync(_keyword);
+            _message = result.Message;
+            if (result.Base64 is not null)
+                _csvUrl = "data:text/csv;charset=utf-8;base64," + result.Base64;
+        }
+        catch (ArgumentException ex) { _message = ex.Message; }
+        finally { _working = false; }
+    }
+}

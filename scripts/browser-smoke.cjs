@@ -502,6 +502,36 @@ async function waitText(page, selector, expected) {
         await page.getByText("保存と表示は、操作ごとに責任を切り分ける").waitFor();
         console.log("ステップ51〜55・コラム12：日本語画面とDB未設定の案内を確認");
 
+        // Step56〜60：未設定DBの案内、Scopedキャッシュの隔離、総合選定の操作。
+        await page.goto(base + "/learn/56");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "期間の重なりを検索" }).click();
+        await waitText(page, '[data-testid="step56-state"]', "未設定");
+        await page.goto(base + "/learn/57");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "架空の一覧を表示" }).click();
+        await waitText(page, '[data-testid="step57-state"]', "新しい結果");
+        await page.getByRole("button", { name: "架空の一覧を表示" }).click();
+        await waitText(page, '[data-testid="step57-state"]', "キャッシュを再利用");
+        await page.getByRole("button", { name: "権限バージョンを更新" }).click();
+        await waitText(page, '[data-testid="step57-state"]', "古い版");
+        await page.goto(base + "/learn/58");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "完了状態を集計" }).click();
+        await waitText(page, '[data-testid="step58-state"]', "未設定");
+        await page.goto(base + "/learn/59");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "読み取りを20回計測する" }).click();
+        await waitText(page, '[data-testid="step59-state"]', "未設定");
+        await page.goto(base + "/learn/60");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "選定を確認する" }).click();
+        await waitText(page, '[data-testid="step60-state"]', "第一候補");
+        await page.goto(base + "/learn/column/60");
+        await page.getByText("一覧は取得条件・権限・出力・性能まで一体で考える").waitFor();
+        await page.screenshot({ path: path.join(evidence, "step60.png") });
+        console.log("ステップ56〜60・コラム13：日本語画面と操作を確認");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

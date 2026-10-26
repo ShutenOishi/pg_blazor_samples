@@ -39,3 +39,7 @@ Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazo
 ## EF Coreの学び方
 
 DB編も既存のWebプロジェクト内のData/とServices/だけで学びます。用途別コンポーネントの特別コラムはStep40の直後に読みます。
+
+## Step56〜60：一覧の境界と性能
+
+[コラム13](columns/column56-60.md)で、日付Rangeの境界、Scopedキャッシュと業務認可の違い、SQL集計と少量CSV、EXPLAIN・P95/P99、一覧方式の選定を復習します。架空の利用者デモは実際のAD認証ではありません。
