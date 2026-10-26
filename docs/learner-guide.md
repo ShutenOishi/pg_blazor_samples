@@ -4,7 +4,7 @@
 C#を学び始めた方、Windowsデスクトップアプリ開発からWebアプリ開発へ進みたい方、社内業務システムをBlazorで作りたい方を対象にしています。
 
 ## 学習環境
-Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazor Web App（Interactive Server）です。現在掲載しているステップ01〜25は、Active DirectoryやPostgreSQLがなくても学習できる構成です。ステップ21以降ではMudBlazor公式テンプレートの使い方と、日本語化のためのMudBlazor.Translationsも学びます。
+Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazor Web App（Interactive Server）です。現在掲載しているステップ01〜30は、Active DirectoryやPostgreSQLがなくても学習できる構成です。ステップ21以降ではMudBlazor公式テンプレートの使い方と、日本語化のためのMudBlazor.Translationsも学びます。
 
 ## 進め方
 1. 各ステップの「できるようになること」を読む。
@@ -25,7 +25,7 @@ Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazo
 | 6 | 61〜70 | Windows統合認証と業務権限 |
 | 7 | 71〜80 | 大量データ、障害対応、IISへの配備 |
 
-本版では**ステップ01〜25**と**学習コラム01〜06**を収録しています。ステップ26以降のソースは順次拡充予定です。EF Core 10とDataGrid連携の選択ガイドは先取りの学習資料であり、未実装の画面やDB操作が動作すると主張するものではありません。
+本版では**ステップ01〜30**と**学習コラム01〜07**を収録しています。ステップ31以降は順次拡充します。EF Core 10とDataGrid連携の選択ガイドは先取りの学習資料であり、未実装の画面やDB操作が動作すると主張するものではありません。
 
 ## 用語
 - **コンポーネント**：Blazorの画面を構成する再利用可能な部品

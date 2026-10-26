@@ -336,9 +336,63 @@ async function waitText(page, selector, expected) {
         await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
         console.log("ステップ21〜25とコラム06：MudBlazorの画面と対話を確認");
 
-        // コラムの末尾にはフォーカス可能な要素があるとは限らない。
-        // キーボード試験では、操作可能なボタンを起点にTabで移動できるか確認する。
+        // Step26〜30：データベースを用いずUIの対話操作を検証する。
+        await page.goto(base + "/learn/26");
+        await page.waitForTimeout(1100);
+        await waitText(page, '[data-testid="step26-count"]', "6 件");
+        await page.getByRole("textbox", { name: "課題名を検索" }).fill("Mud");
+        await waitText(page, '[data-testid="step26-count"]', "2 件");
+        await page.screenshot({ path: path.join(evidence, "step26.png") });
+        console.log("ステップ26：DataGridのQuickFilterを検証");
+
+        await page.goto(base + "/learn/27");
+        await page.waitForTimeout(1000);
+        await page.getByRole("button", { name: "確認ダイアログを開く" }).click();
+        await page.getByRole("button", { name: "中止", exact: true }).click();
+        await waitText(page, '[data-testid="step27-result"]', "中止しました");
+        await page.getByRole("button", { name: "確認ダイアログを開く" }).click();
+        await page.getByRole("button", { name: "実行する", exact: true }).click();
+        await waitText(page, '[data-testid="step27-result"]', "実行を選びました");
+        await page.screenshot({ path: path.join(evidence, "step27.png") });
+        console.log("ステップ27：ダイアログの肯定とキャンセルを検証");
+
+        await page.goto(base + "/learn/28");
+        await page.waitForTimeout(1000);
+        await page.getByRole("button", { name: "練習用の処理を開始" }).click();
+        await waitText(page, '[data-testid="step28-state"]', "完了しました");
+        await page.screenshot({ path: path.join(evidence, "step28.png") });
+        console.log("ステップ28：Snackbarと完了表示を検証");
+
+        await page.goto(base + "/learn/29");
+        await page.waitForTimeout(900);
+        await page.getByText("ダークモードを有効にする").click();
+        await waitText(page, '[data-testid="step29-theme"]', "ダークモード");
+        await page.getByRole("textbox", { name: "操作確認の入力欄" }).fill("練習");
+        await page.getByRole("button", { name: "入力状態を確認する" }).click();
+        await waitText(page, '[data-testid="step29-state"]', "練習");
+        await page.screenshot({ path: path.join(evidence, "step29.png") });
+        console.log("ステップ29：テーマ変更と入力を検証");
+
+        await page.goto(base + "/learn/30");
+        await page.waitForTimeout(900);
+        await waitText(page, '[data-testid="step30-count"]', "3 件");
+        await page.getByRole("button", { name: "確認して追加する" }).click();
+        await waitText(page, '[data-testid="step30-state"]', "1〜30文字");
+        await page.getByRole("textbox", { name: "追加する架空の利用者名" }).fill("テスト 四郎");
+        await page.getByRole("button", { name: "確認して追加する" }).click();
+        await page.getByRole("button", { name: "中止", exact: true }).click();
+        await waitText(page, '[data-testid="step30-state"]', "中止しました");
+        await page.getByRole("button", { name: "確認して追加する" }).click();
+        await page.getByRole("button", { name: "追加する", exact: true }).click();
+        await waitText(page, '[data-testid="step30-count"]', "4 件");
+        await page.screenshot({ path: path.join(evidence, "step30.png") });
+        await page.goto(base + "/learn/column/30");
+        await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();
+        console.log("ステップ30・コラム07：入力・検索・確認・追加を検証");
+
+        // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
+        await page.waitForTimeout(850);
         const keyboardStart = page.getByRole("button", { name: "1増やす" });
         await keyboardStart.waitFor();
         await keyboardStart.focus();

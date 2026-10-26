@@ -1,0 +1,21 @@
+@page "/learn/column/30"
+
+<PageTitle>学習コラム07：日本語UIからデータ連携へ｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム07 / ステップ26〜30</p>
+<h1>一覧・確認・通知・テーマを設計に結び付ける</h1>
+<section class="lesson-details">
+    <h2>5ステップをつなぐ</h2>
+    <ol>
+        <li>Step26：MudDataGridは小規模なItemsなら便利だが、DBの全件取得を推奨する意味ではない。</li>
+        <li>Step27：DialogServiceをDIで呼び、確認と中止を区別する。</li>
+        <li>Step28：処理中の状態とSnackbar通知、二重実行防止を分ける。</li>
+        <li>Step29：Scopedの設定サービスを通してテーマを共有し、キーボード・読み上げを確認する。</li>
+        <li>Step30：入力・検索・確認・通知を、架空データの画面として組み合わせる。</li>
+    </ol>
+    <h2>次のデータ連携編へ</h2>
+    <p>画面にあるデータをすべて持つ方法と、サーバーから必要な分だけ取得する方法は別です。Step31〜40でEF Core 10・Npgsql・DbContextFactoryを学び、Step41〜60でServerData、VirtualizeServerDataなどを比較します。</p>
+    <details><summary>確認問題：ItemsとServerDataの違いは？</summary><p>Itemsは既に取得した行を画面に渡します。ServerDataはページング・検索条件などを受けてサーバーへ問い合わせます。</p></details>
+    <details><summary>確認問題：確認ダイアログがあるので認可は不要？</summary><p>いいえ。確認はUXであり、保存直前のサーバー側認可・入力検証は別に必要です。</p></details>
+    <details><summary>確認問題：テーマ状態をSingletonに保存してよい？</summary><p>個人の状態を全員で共有しないため、この教材ではScopedサービスを利用します。Interactive Serverではcircuitの寿命に注意します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/30">ステップ30へ戻る</a><a href="/">学習目次へ</a></div>
