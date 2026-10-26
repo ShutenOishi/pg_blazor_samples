@@ -44,6 +44,12 @@ CHAPTERS = [
     ("ステップ20：DIで課題管理を作る", "docs/samples/step20.md"),
     ("学習コラム04：設定とサービス分離", "docs/columns/column16-20.md"),
     ("特別コラム05：ライブラリが提供するDI", "docs/columns/column-library-di.md"),
+    ("ステップ21：MudBlazorと日本語翻訳を導入する", "docs/samples/step21.md"),
+    ("ステップ22：MudBlazorのレイアウトを学ぶ", "docs/samples/step22.md"),
+    ("ステップ23：日本語で入力部品を使う", "docs/samples/step23.md"),
+    ("ステップ24：MudFormの入力検証を学ぶ", "docs/samples/step24.md"),
+    ("ステップ25：MudTableで一覧とソート", "docs/samples/step25.md"),
+    ("学習コラム06：MudBlazorのDIと翻訳", "docs/columns/column21-25.md"),
 ]
 
 EXTENSIONS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets", ".css", ".js", ".json"}
@@ -115,10 +121,10 @@ def main():
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから依存性注入まで<br>日本語で順番に学ぶ20ステップ</p>
+      <p class="lead">画面づくりから日本語UIまで<br>日本語で順番に学ぶ25ステップ</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜20／コラム01〜05</p>
+      <p class="version">学習範囲：ステップ01〜25／コラム01〜06</p>
     </section>
     <section class="toc">
       <h1>目次</h1>
