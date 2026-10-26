@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "planned-not-published",
+  "status": "migration-in-progress",
   "audience": "WinForms・Dapper経験、Web初学者",
   "target": {
     "dotnet": "10",
@@ -17,8 +17,8 @@
       "title": "WinFormsとWebの処理場所を比較する",
       "source": "docs/course-v3/lessons/web-01.md",
       "url": "/learn/web-01",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 2,
@@ -28,8 +28,8 @@
       "title": "URL・HTTPと要求／応答を理解する",
       "source": "docs/course-v3/lessons/web-02.md",
       "url": "/learn/web-02",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 3,
@@ -39,8 +39,8 @@
       "title": "HTML・CSS・フォームの基礎",
       "source": "docs/course-v3/lessons/web-03.md",
       "url": "/learn/web-03",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 4,
@@ -50,8 +50,8 @@
       "title": "開発者ツールでDOM・Network・Consoleを見る",
       "source": "docs/course-v3/lessons/web-04.md",
       "url": "/learn/web-04",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 5,
@@ -61,8 +61,8 @@
       "title": "Visual Studio 2026でWebアプリを起動・デバッグする",
       "source": "docs/course-v3/lessons/web-05.md",
       "url": "/learn/web-05",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 6,
@@ -1335,8 +1335,8 @@
       "unit": 1,
       "after_sequence": 5,
       "path": "docs/course-v3/reviews/review-01.md",
-      "existing": false,
-      "requires_rewrite": true
+      "existing": true,
+      "requires_rewrite": false
     },
     {
       "unit": 2,

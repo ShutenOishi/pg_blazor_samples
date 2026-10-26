@@ -1,0 +1,17 @@
+/* HTMLの意味はRazorで定義し、色や余白はCSS側に分ける。 */
+.web-foundation-card {
+    border: 2px solid #628aa1;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+.web-foundation-card input {
+    display: block;
+    width: min(100%, 27rem);
+    font: inherit;
+    padding: 0.6rem;
+    margin-block: 0.5rem;
+}
+.web-foundation-card input:focus-visible {
+    outline: 3px solid #275c84;
+    outline-offset: 2px;
+}

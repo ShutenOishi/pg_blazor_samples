@@ -1,0 +1,34 @@
+# 学習順002：URL・HTTPの要求／応答
+
+## このステップで学ぶこと
+HTTPのGETは主に読み取り、POSTはデータ送信に使う。HTTPでのページ取得とBlazorのイベント通知は同じではない。
+
+## 前提・環境
+C#とWinFormsのイベントを知っていれば進められます。Visual Studio 2026、.NET 10のBlazor Web App（Interactive Server）を使用します。データベースとActive Directoryは不要です。
+
+## 完成画面と操作
+アプリで `/learn/web-02` を開きます。Networkを開いてページを再読み込みし、DocumentのGETとステータスを確認する。
+
+## 処理の流れ
+最初の画面読み込みはHTTPによる取得。後のクリックはInteractive Serverの通信経路を使う場合がある。
+
+## 実装の場所
+この教材では `src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor` に画面を実装しています。実際の画面を動かした後、RazorのHTMLと `@code` 内のC#を見比べてください。
+
+## WinFormsとの対応
+WinFormsは画面表示とイベントが通常同じPC上で動きます。この教材のWeb画面はブラウザーに表示され、Razorの対話イベント処理はサーバー側で動きます。HTTPでの初期読み込みと対話型のイベントを区別してください。
+
+## 失敗時の確認
+ブラウザーのConsole、Network、サーバーの出力ログを確認してください。ブラウザーから見えるURLやHTMLだけでは、サーバー側のC#の呼び出し結果をすべて判断できません。
+
+## 演習と解答
+**演習：** Networkを開いてページを再読み込みし、DocumentのGETとステータスを確認する。
+
+**解答の確認：** 最初の画面読み込みはHTTPによる取得。後のクリックはInteractive Serverの通信経路を使う場合がある。
+
+## 完了確認
+- [ ] 画面を操作し、表示結果を確認した。
+- [ ] 処理がブラウザーとサーバーのどちらで動くか説明できる。
+- [ ] エラーが起きたときの確認箇所を説明できる。
+
+次は[学習順003](./web-03.md)です。

@@ -1,0 +1,26 @@
+@page "/learn/web-02"
+@inject NavigationManager Navigation
+
+<PageTitle>学習順002：URLとHTTP｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">新しい第1段階 / 学習順002</p>
+<h1>URL・HTTPと要求／応答を理解する</h1>
+<p>Webブラウザーは最初にHTTPでHTMLを要求します。対話型画面の後続イベントはBlazorの接続を利用し、すべてが通常のフォームPOSTになるわけではありません。</p>
+<section class="lesson-details">
+    <h2>現在の画面のURLを確かめる</h2>
+    <p>現在のパス：<strong data-testid="web02-path">@CurrentPath</strong></p>
+    <p>このページを再読み込みし、開発者ツールのNetworkでDocumentのGETと応答ステータスを確認してください。</p>
+    <dl class="value-list">
+        <div><dt>GET</dt><dd>主にリソースや画面の取得に使います。</dd></div>
+        <div><dt>POST</dt><dd>データを送る要求に使います。用途に応じて認証・CSRF対策が必要です。</dd></div>
+        <div><dt>200</dt><dd>要求が成功したことを示す代表的なステータスです。</dd></div>
+        <div><dt>404</dt><dd>指定されたリソースが見つからないことを示します。</dd></div>
+    </dl>
+</section>
+<section class="lesson-details">
+    <h2>ブラウザーで確認する</h2>
+    <p>画面の再読み込みと、前のステップのクリックは通信方法が異なります。Networkの項目名と種類を比較してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/web-01">前へ</a><a href="/learn/web-03">次へ：HTMLとCSS</a></div>
+@code {
+    private string CurrentPath => new Uri(Navigation.Uri).AbsolutePath;
+}

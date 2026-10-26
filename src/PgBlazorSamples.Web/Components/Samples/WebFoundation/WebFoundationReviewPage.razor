@@ -1,0 +1,27 @@
+@page "/learn/column/web-05"
+
+<PageTitle>第1組の復習：Webの基本｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順001〜005 / 復習コラム</p>
+<h1>Webの処理場所・通信・画面表示を整理する</h1>
+<section class="lesson-details">
+    <ol>
+        <li>学習順001：ブラウザーの表示とサーバーC#イベントを区別する。</li>
+        <li>学習順002：URL、HTTP、GET/POSTと応答ステータスを確認する。</li>
+        <li>学習順003：HTMLの意味とCSSの見た目を分ける。</li>
+        <li>学習順004：DOM・Network・Consoleを確認する。</li>
+        <li>学習順005：Kestrel起動とC#ブレークポイントを使う。</li>
+    </ol>
+    <details>
+        <summary>確認1：ボタンを押すとC#はどこで動きますか？</summary>
+        <p>この教材のInteractive Serverではサーバーで動き、表示結果がブラウザーへ反映されます。</p>
+    </details>
+    <details>
+        <summary>確認2：ブラウザーのNetworkですべてのクリックがHTTP POSTとして見えますか？</summary>
+        <p>いいえ。対話型のイベントはBlazorの接続を利用し、通常のフォームPOSTとは異なります。</p>
+    </details>
+    <details>
+        <summary>確認3：CSSを変更するとDBに保存されますか？</summary>
+        <p>いいえ。CSSは画面の外観を指定します。ここではDBアクセスを行っていません。</p>
+    </details>
+</section>
+<div class="page-navigation"><a href="/learn/web-05">前へ：Webデバッグ</a><a href="/learn/01">次へ：Razorの表示</a></div>
