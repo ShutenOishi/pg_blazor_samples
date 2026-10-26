@@ -13,7 +13,16 @@
 <p>操作回数：<strong data-testid="runtime04-count">@count</strong></p>
 <button type="button" @onclick="Increase">操作回数を1増やす</button>
 <p>ブラウザーの戻る・進む、URLのコピー、再読込を試してください。秘密情報をURLに置いてはいけません。</p></section>
-<div class="page-navigation"><a href="/learn/10">前へ</a><a href="/learn/runtime-05">次へ</a></div>
+<section class="lesson-details"><h2>URLと一時状態の比較</h2>
+<table><thead><tr><th>項目</th><th>保持場所</th><th>再読込後</th></tr></thead><tbody>
+<tr><td>tab</td><td>公開可能なURL</td><td>条件を再取得</td></tr>
+<tr><td>count</td><td>サーバー側コンポーネント</td><td>初期値0へ戻る</td></tr>
+</tbody></table>
+<pre><code>[SupplyParameterFromQuery(Name = "tab")]
+[Parameter] public string? Tab { get; set; }
+private void Increase() =&gt; count++;</code></pre>
+<details><summary>URLを書き換えれば業務権限も変わりますか？</summary><p>いいえ。URLは表示条件であり、認可はサーバー側の既存台帳で確認します。</p></details>
+</section><div class="page-navigation"><a href="/learn/10">前へ：学習順018</a><a href="/learn/runtime-05">次へ：学習順020</a></div>
 @code {
     [SupplyParameterFromQuery(Name = "tab")]
     [Parameter] public string? Tab { get; set; }
