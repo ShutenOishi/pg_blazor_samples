@@ -94,7 +94,7 @@ public sealed class LearningFinalIntegrationTests
             Assert.True(range.TotalCount >= 1);
 
             var counts = await service.CountByDoneAsync();
-            Assert.True(counts.Rows.Sum(x => x.Count) >= 105);
+            Assert.True(counts.Rows.Sum(x => x.Count) >= 105, counts.Message);
 
             var small = await service.ExportSmallCsvAsync(prefix + "in");
             Assert.Equal(2, small.Count);

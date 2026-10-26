@@ -58,9 +58,12 @@ public sealed class LearningRangeExportService(
         {
             await using var db = await factory.CreateDbContextAsync(ct);
             // 全EntityをToListして集計しない。GroupByをSQLへ変換する。
-            var rows = await db.Tasks.AsNoTracking().GroupBy(t => t.IsDone)
-                .Select(g => new LearningCountRow(g.Key, g.Count()))
-                .OrderBy(g => g.IsDone).ToListAsync(ct);
+            var grouped = await db.Tasks.AsNoTracking().GroupBy(t => t.IsDone)
+                .Select(g => new { Status = g.Key, Total = g.Count() })
+                .ToListAsync(ct);
+            // SQL集計後に小さな結果だけをDTOへ写す。SQL翻訳できない後段の式を渡さない。
+            var rows = grouped.OrderBy(x => x.Status)
+                .Select(x => new LearningCountRow(x.Status, x.Total)).ToArray();
             return new(rows, "DBでGROUP BYとCOUNTを実行しました。");
         }
         catch (OperationCanceledException) when (ct.IsCancellationRequested) { throw; }
