@@ -1,0 +1,30 @@
+@page "/learn/73"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ73：権限変更と更新の競合｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ73 / トランザクションと行ロック</p>
+<h1>権限を失った更新を確定させない</h1>
+<MudPaper Class="pa-4">
+    <p>保存時のDB正本を確認し、正本の行ロックと業務更新を同じトランザクションで実行します。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">更新可能性を照合する</MudButton>
+    <p role="status" data-testid="step73-state">@_status</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>実務で重要な境界</h2>
+    <ul>
+        <li>管理者が正本の行ロックを保証できる場合だけ、明示設定で更新を許可する。</li>
+        <li>書込トランザクションの中で <code>SELECT ... FOR UPDATE</code> により台帳行をロックする。</li>
+        <li>権限変更が先なら更新を拒否。更新が先なら、変更は保存コミット後に反映させる。</li>
+        <li>FDW・別DB・ロック不可ビューでは同じ原子性は保証できないので安全に拒否する。</li>
+    </ul>
+    <p>本番のロック可能性・DBロール権限・FDW障害を受け入れるまでは更新の機能を有効にしません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/72">前へ</a><a href="/">目次へ</a></div>
+@code {
+    private string _status = "書込み契約は未確認です。";
+    private async Task CheckAsync()
+    {
+        var permit = await Business.AuthorizeAsync(forEdit: true);
+        _status = permit.Message;
+    }
+}
