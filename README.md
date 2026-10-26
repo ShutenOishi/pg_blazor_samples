@@ -36,7 +36,7 @@ dotnet new mudblazor -n MudBlazorPractice -o MudBlazorPractice -int Server -ai -
 
 ## ソースコード実装の次工程
 
-Step01〜25の画面、UnitTests、Applicationの分割を追加しました。次はStep21〜25のCI受入を完了し、Step26〜30のMudDataGrid・対話画面などへ進み、その後Step31〜40のEF Core 10基礎、Step41〜60の一覧・データ連携、Step61〜80の認証・運用へ進みます。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
+Step01〜25の画面、UnitTests、Applicationの分割を追加しました。次はStep21〜25のCI受入を完了し、Step26〜30のMudDataGrid・対話画面などへ進み、その後Step31〜40のEF Core 10基礎、Step41〜60の一覧・データ連携、Step61〜80の認証・運用へ進みます。最初から80個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
 
 
 ## 5ステップごとの学習コラム
@@ -97,6 +97,8 @@ Step05・10・15…80の節目ごとに、**通常16回と特別編1回、計17�
 [日本語学習PDFの生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)の最新成功Runから、`blazor_learning_textbook_ja` を取得できます。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
 ## ドキュメント
+
+新しいORM採用と学習構成の判断は[ADR-0002](docs/decisions/0002-efcore10-grid-patterns.md)で説明しています。
 
 [日本語ドキュメント目次](docs/README.md) / [実装対応ハンドブック](docs/implementation-handbook.md)から、ロードマップ、構築方法、アーキテクチャ、AD、DB、テスト、貢献方法、実装計画へ移動できます。
 
