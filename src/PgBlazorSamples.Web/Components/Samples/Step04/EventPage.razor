@@ -1,0 +1,50 @@
+@page "/learn/04"
+
+<PageTitle>ステップ04：イベント処理｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">ステップ04 / イベント処理</p>
+<h1>ボタンのクリックで数値を変える</h1>
+<p>Blazorの <code>@@onclick</code> を使うと、ボタン操作でC#のメソッドを呼び出せます。</p>
+
+<section class="lesson-details" aria-labelledby="counter-heading">
+    <h2 id="counter-heading">カウンターを動かす</h2>
+    <p class="counter-display" role="status" aria-live="polite">
+        現在の数値：<strong data-testid="counter-value">@count</strong>
+    </p>
+    <div class="practice-actions">
+        <button type="button" @onclick="Increment">1増やす</button>
+        <button type="button" @onclick="Decrement" disabled="@(count == 0)">1減らす</button>
+        <button type="button" class="secondary-button" @onclick="Reset">0に戻す</button>
+    </div>
+    <p class="hint">0より小さくならないようにしています。無効な操作を受け付けないことも学びましょう。</p>
+</section>
+
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p>クリック時に <code>Increment</code> や <code>Reset</code> が呼び出され、画面が更新されます。</p>
+    <p>数値は現在の画面にだけ保持されます。データベースへは保存されません。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/03">前へ：ステップ03</a>
+    <a href="/learn/05">次へ：ステップ05</a>
+</div>
+
+@code {
+    // この画面に表示するカウンターです。利用者固有の状態を共有サービスには保持しません。
+    private int count;
+
+    // ボタン操作に対応するイベント処理です。
+    private void Increment() => count++;
+
+    // 0より小さな値にならないよう、表示条件に加えて処理側でも防ぎます。
+    private void Decrement()
+    {
+        if (count > 0)
+        {
+            count--;
+        }
+    }
+
+    // 演習を何度でも試せるよう、初期値に戻します。
+    private void Reset() => count = 0;
+}
