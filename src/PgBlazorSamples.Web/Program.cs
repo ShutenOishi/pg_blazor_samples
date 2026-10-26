@@ -1,4 +1,11 @@
+using System.Globalization;
 using PgBlazorSamples.Web.Components;
+
+// 日本語専用の教材なので、サーバーのOS設定によらず日本語表示を標準にする。
+// 日時や数値の既定書式、今後導入する入力検証などにも適用する。
+var japaneseCulture = CultureInfo.GetCultureInfo("ja-JP");
+CultureInfo.DefaultThreadCurrentCulture = japaneseCulture;
+CultureInfo.DefaultThreadCurrentUICulture = japaneseCulture;
 
 var builder = WebApplication.CreateBuilder(args);
 
