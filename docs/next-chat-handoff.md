@@ -2,7 +2,14 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 新規20/30の第5段階実装（最新）
+## 2026-10-27 第5段階のCI成功とPDF Releases更新（最新）
+- PR #36で新規20/30本の初稿とRazorを実装・CI受入済み。最終全面改稿は0/110、PRはDraft。
+- 実装HEAD `34ffe89a2f2ae77d61eb21e3fdf0f58030f45b20`：アプリ/Chrome/Windows/Linux/PG18 Run 40358248623、PDFとReleasesへの反映 Run 40358248514 がSUCCESS。
+- `learning-textbook-v3-preview` のPDFは同HEADの生成元をRelease notesで確認済み。ZIP化しない。正式mainのReleaseは変更しない。
+- 次の作業はsecurity-01〜05（学習順081〜085）を第7段階に挿入し、第17組復習・第7段階概要・日本語教材・アプリ/Chrome/PG18/PDFを同期。次にcapstone-01〜05（学習順106〜110）。
+- 新規30件の配置完了後、全110ステップ・22復習・3特別コラム・9概要を学習順001から全面改稿する。
+
+## 2026-10-27 新規20/30の第5段階実装（履歴）
 - PR #36にdb-bridge-01〜05（学習順046/052/053/058/059）、第5段階概要、第10〜12組復習、Razor/教材/Web/PDF/E2Eを追加。新規初稿20/30、最終全面改稿0/110。
 - Releasesには正式mainと別タグ `learning-textbook-v3-preview` の単体PDFを公開済み。今後も同一HEADのアプリCI（Chrome/PG18/Win/Linux）とPDF成功の場合に限りPreview Assetを更新する。
 - 再開時は最新HEADのCIとPreview Releaseのbodyに記された生成元SHA・Assetを照合し、不整合があれば修復する。

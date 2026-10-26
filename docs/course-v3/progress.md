@@ -7,11 +7,11 @@
 - v2で先行本文改稿済み：旧Step11〜30の20本とコラム5本。v3の最終照合は未実施。
 - 現行PR上のWeb目次・PDFには第1段階のWeb基礎5件と第2段階のruntime5件を挿入。新規10件と9段階の完全移行は未完了。mainのRelease PDFは別の既存80ステップ版。
 
-## 新規ステップ（初稿と画面追加済み 20 / 30、第5段階CI確認中）
+## 新規ステップ（初稿と画面追加済み 20 / 30、第5段階CI成功）
 - [x] web：5件のRazor・Markdown・復習・索引を追加、HEAD 9e12130のWindows/Linux・実ブラウザー・PG18・PDF CI成功（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] runtime：5件（HEAD 6f22c9dのWindows/Linux・Chrome・PG18・PDF CI成功）（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] browser：5件（初稿・画面・第9組復習・第4段階概要を追加。HEAD 9a9df7eのWindows/Linux・Chrome・PG18・PDF CI成功）
-- [x] db-bridge：5件（画面・教材初稿・第5段階概要・第10〜12組復習・Web/PDF目次・Chrome試験追加、CI受入待ち）
+- [x] db-bridge：5件（画面・教材初稿・概要・復習第10〜12組・Chrome・PostgreSQL18・PDF CI成功）
 - [ ] security：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [ ] capstone：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 
@@ -81,3 +81,11 @@
 - [x] 新規DbBridgeIntegrationTestsの初回Run 40357737630で`FromSql`の`SELECT *`が`xmin`を返さず失敗することを実測。
 - [x] モデルで必須の更新競合列`xmin`を`SELECT xmin, *`で明示し、教材Razorと実DB試験と解説を一致させた。SQL注入否定条件は維持。
 - [ ] 新HEADのPG18・Win/Linux・Chrome・PDF・Preview Releaseへの反映を確認する。
+
+### 2026-10-27 第5段階のCI受入とReleases更新
+- [x] 実装HEAD `34ffe89a2f2ae77d61eb21e3fdf0f58030f45b20` の [アプリCI Run 40358248623](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40358248623) は Windows Server 2025/Linux Release・xUnit・Chrome操作・PostgreSQL18実DB・SQL注入否定試験すべてSUCCESS。
+- [x] [PDF Run 40358248514](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40358248514) もSUCCESS。学習順046/052/053/058/059、段階概要、第10〜12組復習を含む日本語PDFの構築・内容検査・Releaseアップロードを確認。
+- [x] **[教材v3プレビューRelease](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview)** のPDF assetを同HEADから更新。生成元SHAがRelease notesと一致、単体PDFは899298バイト、ZIP化せず公開。正式版 `learning-textbook` は変更なし。
+- [x] 初回の実DB否定試験で`FromSql`が`xmin`不足により失敗したため、`SELECT xmin, *`を使用するようRazor・教材・テストを統一。修正後実DB試験合格。
+- [ ] 今後はsecurity-01〜05（学習順081〜085）と第7段階概要、第17組復習を実装し、その後capstone-01〜05（学習順106〜110）を配置。
+- [ ] **最終全面改稿は0/110**。新規30本の配置完了後に、概要9本・復習22本・特別3本を含め学習順001から全件改稿する。

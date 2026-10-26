@@ -512,7 +512,7 @@
       "title": "DapperとEF Coreの役割・選定を比較する",
       "source": "docs/course-v3/lessons/db-bridge-01.md",
       "url": "/learn/db-bridge-01",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -578,7 +578,7 @@
       "title": "SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL",
       "source": "docs/course-v3/lessons/db-bridge-02.md",
       "url": "/learn/db-bridge-02",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -589,7 +589,7 @@
       "title": "Dapperの接続／ExecuteとDbContext・追跡・SaveChanges",
       "source": "docs/course-v3/lessons/db-bridge-03.md",
       "url": "/learn/db-bridge-03",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -644,7 +644,7 @@
       "title": "既存DB・ビュー・キーなしモデル・FDWを扱う",
       "source": "docs/course-v3/lessons/db-bridge-04.md",
       "url": "/learn/db-bridge-04",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -655,7 +655,7 @@
       "title": "FromSql／SqlQueryのパラメーターとDapper併用",
       "source": "docs/course-v3/lessons/db-bridge-05.md",
       "url": "/learn/db-bridge-05",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
