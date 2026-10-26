@@ -18,7 +18,7 @@ private int count;
 // サーバー上の画面状態を操作する。永続保存はしない。
 private void Increase() => count++;
 ```
-Razorの `@onclick` が上のC#メソッドを呼び出します。実装は `src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor` と対応しています。
+Razorの `@onclick` が上のC#メソッドを呼び出します。完成画面を操作しながらRazorの表示とC#メソッドを確認してください。
 
 ## WinForms・Dapper経験者が注意する点
 WinFormsではフォーム上の変数がPCのプロセスで維持されます。Interactive Serverでは画面状態がサーバーの対話回線と結び付き、ブラウザーやDBに自動保存されるわけではありません。

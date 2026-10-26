@@ -18,7 +18,7 @@ private string selected = "circuit";
 // 保存先の候補を説明する。実際の保存処理は行わない。
 private void Select(string value) => selected = value;
 ```
-Razorの `@onclick` が上のC#メソッドを呼び出します。実装は `src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor` と対応しています。
+Razorの `@onclick` が上のC#メソッドを呼び出します。完成画面を操作しながらRazorの表示とC#メソッドを確認してください。
 
 ## WinForms・Dapper経験者が注意する点
 WinFormsではフォーム上の変数がPCのプロセスで維持されます。Interactive Serverでは画面状態がサーバーの対話回線と結び付き、ブラウザーやDBに自動保存されるわけではありません。
