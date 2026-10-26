@@ -2,7 +2,7 @@
 
 **対応するソース：** [FirstPage.razor](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor)
 
-**状態：コードを作成済み。動作確認結果はCIに従って更新します。**
+**状態：Windows/LinuxのReleaseビルドとLinuxのHTTP画面描画をCIで確認済み。実ブラウザーでの操作・読み上げ等は未確認です。**
 
 ## 到達目標
 

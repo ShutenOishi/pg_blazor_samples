@@ -8,6 +8,7 @@ on:
       - "Directory.Build.props"
       - "global.json"
       - "src/**"
+      - "docs/samples/**"
       - "scripts/smoke-test.sh"
       - ".github/workflows/build.yml"
   pull_request:
@@ -16,6 +17,7 @@ on:
       - "Directory.Build.props"
       - "global.json"
       - "src/**"
+      - "docs/samples/**"
       - "scripts/smoke-test.sh"
       - ".github/workflows/build.yml"
   workflow_dispatch:

@@ -13,7 +13,17 @@
 - [ ] DB・ADを使うステップでは実接続テストの証跡を確認する（モック成功では代用しない）。
 - [ ] 他のステップと共通UIが壊れていないことを確認する。
 
-## 将来のGitHub Actions
+## 現在実装済みのCI
+
+- [x] Ubuntu 24.04で.NET 10の復元、Releaseビルド、日本語HTML画面のHTTP疎通、発行を検証。
+- [x] Windows Server 2025ランナーで.NET 10の復元、Releaseビルド、発行を検証。
+- [x] 不明な学習URLで日本語の説明が表示されることを確認。
+- [x] RazorでHTMLタグに似た文字列が、タグとして出力されないことを確認。
+- [ ] 実ブラウザーのキーボード操作、SignalR接続の切断・再接続は今後検証。
+
+CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)／[PDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)。公開Runnerから社内ADへの接続は行いません。
+
+## 今後追加するGitHub Actions
 
 | 検証 | 条件 | 目的 |
 | --- | --- | --- |

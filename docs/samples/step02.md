@@ -2,7 +2,7 @@
 
 **対応するソース：** [NavigationPage.razor](../../src/PgBlazorSamples.Web/Components/Samples/Step02/NavigationPage.razor)、[NavMenu.razor](../../src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor)、[Routes.razor](../../src/PgBlazorSamples.Web/Components/Routes.razor)
 
-**状態：コードを作成済み。動作確認結果はCIに従って更新します。**
+**状態：Windows/LinuxのReleaseビルドとLinuxのHTTP画面描画をCIで確認済み。実ブラウザーでの操作・読み上げ等は未確認です。**
 
 ## 到達目標
 
