@@ -37,7 +37,11 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 
 上記の実ブラウザー試験は [GitHub Actions Run 40260767597](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40260767597) で **Ubuntu/Windowsビルド・ブラウザー操作ともSUCCESS** を確認しました。操作の画面画像は同RunのArtifactsから取得できます。
 
-## Step07〜10の追加試験（CI結果は要確認）
+## Step07〜10の追加試験（GitHub ActionsでSUCCESS）
+
+追加テストは[Run 40264058164](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)で、Ubuntu/Windowsビルド、UbuntuのHTTP・Chrome操作、双方の発行が成功しました。PDFは[Run 40264058244](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058244)で生成・検査が成功しました。
+
+
 
 - Step07：親が入力した文字だけが1枚目の再利用カードに反映される
 - Step08：子の選択が親の表示・選択回数へ反映される
