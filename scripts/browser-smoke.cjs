@@ -460,6 +460,37 @@ async function waitText(page, selector, expected) {
         await page.getByText("ItemsとServerDataを要件で使い分ける").waitFor();
         console.log("ステップ41〜45の日本語UIとコラム10の画面操作に成功");
 
+        // Step46〜50：DB未設定の明示、仮想化の表示、再試行、コラム11を確認。
+        await page.goto(base + "/learn/46");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step46-state"]', "未設定");
+        await page.getByRole("button", { name: "関連表を読み込む" }).click();
+        await waitText(page, '[data-testid="step46-state"]', "未設定");
+        await page.goto(base + "/learn/47");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step47-state"]', "未設定");
+        await page.getByRole("button", { name: "先頭から読み直す" }).click();
+        await waitText(page, '[data-testid="step47-state"]', "未設定");
+        await page.goto(base + "/learn/48");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step48-count"]', "500 件");
+        await page.getByText("仮想化の架空課題 001").waitFor();
+        await page.screenshot({ path: path.join(evidence, "step48.png") });
+        await page.goto(base + "/learn/49");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step49-state"]', "未設定");
+        await page.goto(base + "/learn/50");
+        await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="step50-state"]', "未設定");
+        await page.getByRole("textbox", { name: "課題名で検索（400ミリ秒待機）" }).fill("架空");
+        await page.waitForTimeout(750);
+        await page.getByRole("button", { name: "再読み込み" }).click();
+        await waitText(page, '[data-testid="step50-state"]', "未設定");
+        await page.screenshot({ path: path.join(evidence, "step50.png") });
+        await page.goto(base + "/learn/column/50");
+        await page.getByText("JOIN・キーセット・仮想化を要件から選ぶ").waitFor();
+        console.log("ステップ46〜50・コラム11：画面と操作の確認に成功");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

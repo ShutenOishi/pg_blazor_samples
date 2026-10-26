@@ -1,6 +1,6 @@
 # MudBlazor一覧・DataGrid・EF Core 10連携：実務パターンの選択ガイド
 
-> **学習計画（未実装）：** Step26はDBなしのDataGrid基本操作、Step31〜40はEF Core・PostgreSQLの基礎、Step41〜60は実際のDB接続を使った一覧・検索・編集の実践です。現在のソースにStep41〜60はありません。本ガイドは正しい選択方法と、実装時に検証すべき契約を定義します。
+> **学習計画（未実装）：** Step26はDBなしのDataGrid基本操作、Step31〜40はEF Core・PostgreSQLの基礎、Step41〜50は実際のDB接続を使った一覧・検索・仮想化を実装しています。Step51〜60の編集・集約は今後の計画です。本ガイドは正しい選択方法と、実装時に検証すべき契約を定義します。
 
 ## 目標：画面要件から最適な方式を自分で選べる
 
@@ -192,3 +192,7 @@ var items = await query
 ## Step41〜45の実装に対応する補足
 
 Web/Services/Learning/LearningPageService.csが、一覧のサーバー側検索・ページング・Count・Sort許可リストを実装します。最大ページサイズ50件、複数ソート3列、最後に一意の主キーIdを追加。MudTableとMudDataGridのServerDataはCancellationTokenを受けてこのサービスを呼び出し、IQueryableはコンポーネントへ渡しません。
+
+## Step46〜50の実装済み例
+
+関連テーブルの射影はStep46、IDキーセットはStep47、描画だけの仮想化はStep48、DBへの範囲要求はStep49、検索待機・再試行はStep50に対応します。Step47のカーソルはId専用、Step49はId固定順であり、複数列ソートまで実装したわけではありません。

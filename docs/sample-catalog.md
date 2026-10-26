@@ -85,7 +85,7 @@
 
 ## Lv.5 一覧表示・EF Core連携（20ステップを追加）
 
-**実行条件：** PostgreSQL 18、Step26（Grid基本操作）、Step31〜40（EF Core）を修了。**Step41〜45はWeb内で実装、Step46〜60は計画中。** 選択の根拠は[一覧表示パターンガイド](data-grid-patterns.md)。
+**実行条件：** PostgreSQL 18、Step26（Grid基本操作）、Step31〜40（EF Core）を修了。**Step41〜50はWeb内に実装、Step51〜60は計画中。** 選択の根拠は[一覧表示パターンガイド](data-grid-patterns.md)。
 
 | 番号 | 題材 | 到達目標 | 状態 |
 | --- | --- | --- | --- |
@@ -94,11 +94,11 @@
 | 43 | MudDataGrid ServerData | GridStateとCancellationTokenをサービスへつなぐ | ソース・教材追加／CI確認中 |
 | 44 | 安全な動的ソート | 複数列ソートを許可リスト化し一意順序を保証 | ソース・教材追加／CI確認中 |
 | 45 | 検索・フィルター | 部分一致・NULL・日本語・複合条件・Countの整合性 | ソース・教材追加／CI確認中 |
-| 46 | DTO射影と関連テーブル | AsNoTracking、Select、JOIN・N+1・列選択 | 計画中 |
-| 47 | オフセットとキーセット | Skip/Takeの限界、連続取得・索引・安定ソート | 計画中 |
-| 48 | 描画仮想化 | VirtualizeとItemsの違い、行高・Height・操作性 | 計画中 |
-| 49 | VirtualizeServerData | スクロール連動のDB取得、キャンセル、範囲要求 | 計画中 |
-| 50 | 一覧UXと障害対策 | 初回検索、デバウンス、ローディング、空状態、再試行 | 計画中 |
+| 46 | DTO射影と関連テーブル | AsNoTracking、Select、JOIN・N+1・列選択 | ソース・教材追加／CI確認中 |
+| 47 | オフセットとキーセット | Skip/Takeの限界、連続取得・索引・安定ソート | ソース・教材追加／CI確認中 |
+| 48 | 描画仮想化 | VirtualizeとItemsの違い、行高・Height・操作性 | ソース・教材追加／CI確認中 |
+| 49 | VirtualizeServerData | スクロール連動のDB取得、キャンセル、範囲要求 | ソース・教材追加／CI確認中 |
+| 50 | 一覧UXと障害対策 | 初回検索、デバウンス、ローディング、空状態、再試行 | ソース・教材追加／CI確認中 |
 | 51 | 編集フォーム・DTO | Gridから編集へ移り、長寿命DbContextを保持しない | 計画中 |
 | 52 | Dialog/フォーム連携 | 検証・保存・取消・二重送信・状態反映 | 計画中 |
 | 53 | 複数行選択と一括処理 | 権限付き一括承認・部分失敗・選択解除 | 計画中 |
@@ -110,7 +110,7 @@
 | 59 | 大量データの実測 | EXPLAIN、索引、P95/P99、プーリング、負荷試験 | 計画中 |
 | 60 | 一覧パターン選定演習 | 10方式から要件に合う構成を選び否定試験まで実施 | 計画中 |
 
-[コラム10：Items・MudTable/MudDataGrid ServerData・検索の選び方](columns/column41-45.md)
+[コラム10：Items・MudTable/MudDataGrid ServerData・検索の選び方](columns/column41-45.md)／[コラム11：DTO・キーセット・仮想化・検索UX](columns/column46-50.md)
 
 ## Lv.6 認証・認可：ADとDB
 
