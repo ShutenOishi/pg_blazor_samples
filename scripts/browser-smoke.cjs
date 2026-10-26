@@ -203,9 +203,14 @@ async function waitText(page, selector, expected) {
         const singletonBefore = (await page.locator('[data-testid="step13-singleton"]').textContent()).trim();
         const scopedBefore = (await page.locator('[data-testid="step13-scoped"]').textContent()).trim();
         await page.getByRole("button", { name: "Transientをもう1つ取得する" }).click();
+        // Interactive Serverのイベント後、非同期描画が完了するまで待つ。
+        await page.waitForFunction(previous => {
+            const value = document.querySelector('[data-testid="step13-transient-new"]')?.textContent?.trim();
+            return Boolean(value && value !== previous && value !== "まだ取得していません");
+        }, transientBefore, { timeout: 15000 });
         const transientAfter = (await page.locator('[data-testid="step13-transient-new"]').textContent()).trim();
-        if (transientAfter === transientBefore || transientAfter === "まだ取得していません") {
-            throw new Error("ステップ13：新しいTransientを取得できませんでした。");
+        if (!/^[0-9a-f]{8}$/.test(transientAfter)) {
+            throw new Error("ステップ13：Transientの識別子が期待した形式ではありません。");
         }
         if (singletonBefore.length !== 8 || scopedBefore.length !== 8) {
             throw new Error("ステップ13：サービス識別子の形式が不正です。");
