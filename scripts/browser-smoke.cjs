@@ -66,6 +66,21 @@ async function waitText(page, selector, expected) {
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
 
+        // Step66〜70は匿名環境で業務データを返さない。実AD認証の代用ではない。
+        for (const [step, label] of [
+            [66, "業務サービスに認可を問い合わせる"],
+            [67, "認可付き一覧を取得する"],
+            [68, "認可付き集計"],
+            [69, "認可付き詳細を取得する"],
+            [70, "現在の更新権限を確認"]
+        ]) {
+            await page.goto(base + "/learn/" + step);
+            await page.waitForTimeout(900);
+            await page.getByRole("button", { name: label }).click();
+            const state = await page.locator('[data-testid="step' + step + '-state"]').textContent();
+            if (!state?.includes("拒否")) throw new Error("Step" + step + "：匿名の認可拒否を確認できません: " + state);
+        }
+        console.log("ステップ66〜70：匿名の業務アクセスは全画面で拒否");
         await page.goto(base + "/learn/04");
         // 初期のHTMLが表示されていても、対話型回線の準備前にはクリックが処理されない。
         await page.waitForTimeout(1800);
