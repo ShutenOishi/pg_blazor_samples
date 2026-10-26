@@ -2,7 +2,13 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 セキュリティ5件のCI受入・プレビューPDF更新（最新）
+## 2026-10-27 総合演習5件の配置・全面改稿準備（最新）
+- Draft PR #36は新規30/30件のRazor・日本語初稿を配置。全110件の最終全面改稿は0/110。
+- capstone-01〜05（学習順106〜110）、第9段階概要・第22組復習・Web/PDF目次・Chrome匿名拒否・PostgreSQL18の競合/ロールバック結合試験を追加。
+- 22回の5本単位の最終改稿順は `docs/course-v3/full-rewrite-roadmap.md` に確定。次の実装工程は**学習順001〜005と第1段階概要・第1組復習の全面改稿**。
+- 今回追加後HEADのCI・PDF/Preview Releaseの最新生成元を必ず認証済みGitHub GETで検証。失敗時は修復。既存の `learning-textbook` 正式版・旧80URL・Draft PRは変更しない。
+
+## 2026-10-27 セキュリティ5件のCI受入・プレビューPDF更新（履歴）
 - Draft PR #36：新規初稿25/30。既存80のURL維持。全面改稿0/110。
 - security-01〜05（学習順081〜085）、第7段階概要、第17組復習、Razor・Markdown・Web/PDF目次・模擬安全拒否単体テスト・Chrome否定操作を追加。
 - 実装HEAD `d16ec614bc8f863cb8feb9a3e0143702e59ea16a`：アプリCI Run 40360843077（Windows/Linux/Chrome/PG18）と PDF Run 40360843042 が全SUCCESS。

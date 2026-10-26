@@ -46,6 +46,8 @@
 8. EF Core 10/Npgsql、MudBlazor.Translations、Win11/Windows Server 2025は維持。Domain/Infrastructure等の多数の新プロジェクトは増やさず、既存Web/Data・Servicesと学習用Application/Testsを活用する。実装例のDB接続は`DbContextFactory`等で操作ごとに管理する。
 9. PDFには開発者向けPR・GitHubやリポジトリ情報を記載しない。**ZIPせず単体PDF**を配布し、ソース/画面と一致する内容を検査する。
 
+**新規30テーマのRazor・初稿の配置は完了。** 以降の具体的な22回の改稿順と受入条件は[全110ステップ全面改稿手順](full-rewrite-roadmap.md)を正本とする。初稿実装と最終全面改稿は別管理。総合演習5本のCIは別途確認する。
+
 ## 実施順（旧計画と逆転する部分）
 
 | 順位 | 作業 | 完了判定 |
