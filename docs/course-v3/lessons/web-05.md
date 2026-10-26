@@ -12,8 +12,8 @@ C#とWinFormsのイベントを知っていれば進められます。Visual Stu
 ## 処理の流れ
 ブレークポイントはサーバーで実行するC#メソッドに置く。ブラウザーでの表示は別の場所で行われる。
 
-## 実装の場所
-この教材では `src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor` に画面を実装しています。実際の画面を動かした後、RazorのHTMLと `@code` 内のC#を見比べてください。
+## 実装を読む
+実際の画面を動かした後、RazorのHTMLと `@code` 内のC#を見比べてください。見出し・入力のHTMLとイベント処理のC#を区別してください。
 
 ## WinFormsとの対応
 WinFormsは画面表示とイベントが通常同じPC上で動きます。この教材のWeb画面はブラウザーに表示され、Razorの対話イベント処理はサーバー側で動きます。HTTPでの初期読み込みと対話型のイベントを区別してください。
