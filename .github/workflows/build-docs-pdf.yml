@@ -77,6 +77,12 @@ jobs:
           assert "ステップ49：DB取得と仮想スクロールを連携する" in content
           assert "ステップ50：デバウンスと障害時の再試行" in content
           assert "学習コラム11：関連DTO・キーセット・仮想化" in content
+          assert "ステップ51：編集DTOをフォームで検証して保存する" in content
+          assert "ステップ52：ダイアログで保存と取消を分ける" in content
+          assert "ステップ53：複数選択と原子的な一括処理" in content
+          assert "ステップ54：xmin競合と最新値の確認" in content
+          assert "ステップ55：詳細DTOとN+1の防止" in content
+          assert "学習コラム12：編集・一括処理・競合・詳細" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
       - name: PDFをダウンロード可能な成果物として保存

@@ -491,6 +491,17 @@ async function waitText(page, selector, expected) {
         await page.getByText("JOIN・キーセット・仮想化を要件から選ぶ").waitFor();
         console.log("ステップ46〜50・コラム11：画面と操作の確認に成功");
 
+        // Step51〜55：DBなしでも未設定状態・画面ナビ・コラムの表示を確認。
+        for (let step = 51; step <= 55; step++) {
+            await page.goto(base + "/learn/" + step);
+            await page.waitForTimeout(850);
+            await waitText(page, '[data-testid="step' + step + '-state"]', "未設定");
+            await page.screenshot({ path: path.join(evidence, "step" + step + ".png") });
+        }
+        await page.goto(base + "/learn/column/55");
+        await page.getByText("保存と表示は、操作ごとに責任を切り分ける").waitFor();
+        console.log("ステップ51〜55・コラム12：日本語画面とDB未設定の案内を確認");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

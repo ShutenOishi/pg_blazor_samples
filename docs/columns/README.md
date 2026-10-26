@@ -17,7 +17,7 @@
 | **特別編：用途別MudBlazor** | **Step40と41の間** | **一覧・入力・階層・通知・配置の選択事典** | [教材](column-mudblazor-by-purpose.md) |
 | 10 | 41〜45 | Items・MudTable/MudDataGrid ServerData・ソート・検索の選び方 | [教材](column41-45.md)／CI確認中 |
 | 11 | 46〜50 | DTO射影・キーセット・仮想化・検索UX | [教材](column46-50.md)／CI確認中 |
-| 12 | 51〜55 | 編集・Dialog・一括処理・競合・階層一覧 | 計画中 |
+| 12 | 51〜55 | 編集DTO・Dialog・一括処理・競合・詳細DTO | [教材](column51-55.md)／CI確認中 |
 | 13 | 56〜60 | 日付Range・認可・CSV・性能測定・総合選定 | 計画中 |
 | 14 | 61〜65 | AD本人認証と業務認可の分離 | 計画中 |
 | 15 | 66〜70 | 画面とサービスの認可、監査、Kerberos | 計画中 |

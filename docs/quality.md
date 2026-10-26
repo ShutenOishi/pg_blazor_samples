@@ -143,3 +143,13 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - [ ] PRのWindows/Linux/Chrome/DB/PDF全成功とmainのpostmergeを確認する
 
 実DBに接続したブラウザーE2E、索引による性能実測、IIS/ADの実機試験はこの段階の完了条件と区別します。
+
+## Step51〜55の受入条件
+
+- [ ] 編集DTOの入力再検証、xminとDbUpdateConcurrencyExceptionによる更新拒否をPostgreSQL18で実証
+- [ ] 一括更新の古い行混在・重複ID・空選択を否定試験し、全件ロールバックを検証
+- [ ] 詳細DTOの関連列をSQL射影し、削除・未設定・キャンセルを区別
+- [ ] DB未設定時の日本語画面、コラム12、PDF日本語章順を確認
+- [ ] Windows/Linux・Chrome・PostgreSQL18・PDFのPRおよびmain後のCIを成功確認
+
+Step61〜70まで利用者別の業務認可はありません。実運用への転用を禁止し、開発専用DBに限定します。

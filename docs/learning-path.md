@@ -33,7 +33,7 @@ C#の基礎（変数、クラス、非同期の概念）が分かると進めや
 
 ステップ05・10・15…80の直後に、通常16本＋特別編2本の計18本の理解を深めるコラムを配置します。単なる補足情報ではなく、「5ステップの関係」「実務の応用」「誤解と落とし穴」「確認問題・解答」「次への橋渡し」で構成します。
 
-現在は[コラム01](columns/column01-05.md)、[コラム02](columns/column06-10.md)、[コラム03](columns/column11-15.md)、[コラム04](columns/column16-20.md)、[特別コラム05：ライブラリのDI](columns/column-library-di.md)を追加しました。コラム06もMudBlazorのテンプレート・DI・翻訳に対応して追加しました。コラム07〜09と用途別MudBlazor特別コラムまで追加します。コラム10〜11を追加し、コラム12〜17は後続ステップで拡充します。全16回の計画は[コラム一覧](columns/README.md)で確認してください。
+現在は[コラム01](columns/column01-05.md)、[コラム02](columns/column06-10.md)、[コラム03](columns/column11-15.md)、[コラム04](columns/column16-20.md)、[特別コラム05：ライブラリのDI](columns/column-library-di.md)を追加しました。コラム06もMudBlazorのテンプレート・DI・翻訳に対応して追加しました。コラム07〜09と用途別MudBlazor特別コラムまで追加します。コラム10〜12を追加し、コラム13〜17は後続ステップで拡充します。全16回の計画は[コラム一覧](columns/README.md)で確認してください。
 
 ## 代表的なチェックポイント
 
@@ -53,7 +53,7 @@ C#の基礎（変数、クラス、非同期の概念）が分かると進めや
 
 ## データ連携編の選択指針
 
-Step26でDB不要のDataGridを学び、Step31〜40でEF Core 10とNpgsqlを身に付け、Step41〜60で実DBを使う一覧表示・検索・編集の設計を段階的に完成させます。まず[EF Core・Npgsqlの基礎](efcore10-data-access.md)を読み、[一覧表示パターンの比較](data-grid-patterns.md)から要件別の最適な方式を選びます。Step41〜50はソース・教材を実装しています。Step51以降は計画中です。
+Step26でDB不要のDataGridを学び、Step31〜40でEF Core 10とNpgsqlを身に付け、Step41〜60で実DBを使う一覧表示・検索・編集の設計を段階的に完成させます。まず[EF Core・Npgsqlの基礎](efcore10-data-access.md)を読み、[一覧表示パターンの比較](data-grid-patterns.md)から要件別の最適な方式を選びます。Step41〜55はソース・教材を実装しています。Step56以降は計画中です。
 
 ## Step40と41の間の特別コラム
 
@@ -66,3 +66,7 @@ Step26でDB不要のDataGridを学び、Step31〜40でEF Core 10とNpgsqlを身�
 ## Step46〜50の学び
 
 関連DTO・キーセット・描画仮想化・DB側仮想化・検索UXを独立した画面で比較します。[コラム11](columns/column46-50.md)で方式を選べることを確認してください。
+
+## Step51〜55の学び
+
+[編集と競合のコラム12](columns/column51-55.md)で、編集用DTO、Dialog、xmin付き一括更新、2ウィンドウの競合、詳細DTOの選択基準を確認します。DB実操作は開発用PostgreSQL 18のみで、ADと業務認可は未実装です。
