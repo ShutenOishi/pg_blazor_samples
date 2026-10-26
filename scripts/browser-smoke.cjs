@@ -168,6 +168,14 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="runtime02-count"]', "1");
         await page.reload();
         await waitText(page, '[data-testid="runtime02-count"]', "0");
+        // 第4組：学習順016から017へ進み、ライフサイクル表と対話を確認する。
+        await page.goto(base + "/learn/09");
+        await waitText(page, '[data-testid="step09-init"]', "1");
+        await page.getByRole("button", { name: "テーマを変更する" }).click();
+        await waitText(page, '[data-testid="step09-topic"]', "変更後のテーマ 1");
+        await page.getByRole("link", { name: "次へ：学習順017" }).click();
+        await page.getByRole("heading", { name: "事前レンダリングと初期化の実行回数" }).waitFor();
+        await page.getByRole("table").first().getByText("OnInitialized").waitFor();
         await page.goto(base + "/learn/runtime-03");
         await waitText(page, '[data-testid="runtime03-init"]', "1");
         await waitText(page, '[data-testid="runtime03-after"]', "1");
@@ -187,6 +195,10 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "業務の永続データ" }).click();
         await waitText(page, '[data-testid="runtime05-choice"]', "データベース");
+        await page.getByRole("link", { name: "次へ：第4組の復習" }).click();
+        await page.getByRole("heading", { name: "第4組の復習：初期化・再読込・状態の復習" }).waitFor();
+        await page.getByRole("table").first().getByText("日本語入力検証").waitFor();
+        await page.getByRole("link", { name: "次へ：学習順021" }).waitFor();
         for (const suffix of ["10", "15", "20"]) {
             await page.goto(base + "/learn/column/runtime-" + suffix);
             await page.getByRole("heading", { name: /第[234]組の復習/ }).waitFor();
