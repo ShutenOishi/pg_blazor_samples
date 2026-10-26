@@ -2,7 +2,17 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 新規30/30初稿のCI・Preview PDF完了（最新）
+## 2026-10-27 学習順001〜005の全面改稿・第1組受入（最新）
+- 新規30/30本の初稿実装は完了。最終全面改稿は**5/110**、第1組復習1/22、第1段階概要1/9。Draft PR #36、旧80URL、既存安全ゲートを維持。
+- 実装HEAD `f48474d3882359626d1efedda73ac9737461b121` のApp Run 40370279965、PDF Run 40370279958 は全SUCCESS。Windows/Linux、Chrome、PG18、教材品質検査とPDF公開を確認。
+- PDF単体1020439バイト。Release `learning-textbook-v3-preview` の生成元SHAが同HEADと一致。正式main `learning-textbook` は変更しない。
+- web-01〜05に比較表・切り分け表、実Razor/C#/HTML/CSSコード、操作の時系列、長文解説、演習と解答を追加。第1段階概要・復習も同水準に改稿。
+- 今後の全110本文は`docs/course-v3/full-rewrite-roadmap.md`の「長文教材の標準構成」に従う。初回品質ゲートの対象は001〜005、次の単位にも順次拡張する。
+- 次は**学習順006〜010（旧Step01〜04＋runtime-01）と第2段階概要・第2組復習の全面改稿**。初学者がテキストだけで分かるように長文・比較表・2個以上の実コード・手順・失敗例・演習と解答を整備し、RazorとPDF・Web目次・前後リンクを同期する。CI全SUCCESS後だけ改稿10/110へ進める。
+- 各回の最終返答で**次回引き継ぎ用プロンプトをコピーするボタン**を付ける。ボタンは次の工程・正本・最新PRコメント・安全条件を含む自立した文面とする。
+- 再開時に最新HEADのApp/PDF CIとプレビューReleaseの生成元をGETで照合。記録専用コミットによるCIの最新結果も確認してから次の改稿へ進む。
+
+## 2026-10-27 新規30/30初稿のCI・Preview PDF完了（履歴）
 - Draft PR #36で新規30件のRazor/教材初稿を配置・CI受入済み。既存80件のURLは不変、**最終全面改稿0/110**。
 - 実装HEAD `790a58ee5b975b288a6707ac7341fc3f873ad9b8` のApp Run 40364677020 / PDF Run 40364677179はSUCCESS。
 - 全面改稿計画を追加したHEAD `d7aebd3796fafd3a56fad3751c50c4d003813363` のApp Run 40365372365 / PDF Run 40365372317もSUCCESS。単体PDF952877バイトとRelease `learning-textbook-v3-preview` の生成元SHA一致をGETで検証済み。

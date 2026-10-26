@@ -18,7 +18,7 @@
       "source": "docs/course-v3/lessons/web-01.md",
       "url": "/learn/web-01",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 2,
@@ -29,7 +29,7 @@
       "source": "docs/course-v3/lessons/web-02.md",
       "url": "/learn/web-02",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 3,
@@ -40,7 +40,7 @@
       "source": "docs/course-v3/lessons/web-03.md",
       "url": "/learn/web-03",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 4,
@@ -51,7 +51,7 @@
       "source": "docs/course-v3/lessons/web-04.md",
       "url": "/learn/web-04",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 5,
@@ -62,7 +62,7 @@
       "source": "docs/course-v3/lessons/web-05.md",
       "url": "/learn/web-05",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 6,
@@ -1231,7 +1231,8 @@
       "stage": 1,
       "from": 1,
       "to": 5,
-      "overview": "docs/course-v3/stages/stage01.md"
+      "overview": "docs/course-v3/stages/stage01.md",
+      "final_review": "ci-passed"
     },
     {
       "name": "Blazorの基本と実行原理",
@@ -1336,7 +1337,8 @@
       "after_sequence": 5,
       "path": "docs/course-v3/reviews/review-01.md",
       "existing": true,
-      "requires_rewrite": false
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 2,
