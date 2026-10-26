@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 using PgBlazorSamples.Web.Data;
 using System.Globalization;
@@ -22,6 +23,21 @@ var builder = WebApplication.CreateBuilder(args);
 // 独自のMudLocalizerを作り直さず、翻訳パッケージの登録を優先する。
 builder.Services.AddMudServices();
 builder.Services.AddLocalization();
+// Step61：認証状態をInteractive Serverの各コンポーネントへ安全に供給する。
+builder.Services.AddCascadingAuthenticationState();
+
+// Windows統合認証はWindows Server 2025/IIS上の構成確認後に有効化する。
+// CIや匿名の架空データ教材から、実ADの認証済み主体を偽造しない。
+var windowsAuthEnabled = builder.Configuration.GetValue<bool>("WindowsAuthentication:Enabled");
+if (windowsAuthEnabled)
+{
+    builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+}
+builder.Services.AddAuthorization(options =>
+{
+    if (windowsAuthEnabled)
+        options.FallbackPolicy = options.DefaultPolicy;
+});
 builder.Services.AddMudTranslations();
 
 // Step18でUnitTests、Step19でApplicationを段階的に追加する。
@@ -68,6 +84,8 @@ builder.Services.AddScoped<LearningEditService>();
 builder.Services.AddScoped<LearningRangeExportService>();
 builder.Services.AddScoped<LearningCacheLessonService>();
 builder.Services.AddScoped<LearningPerformanceService>();
+// Step61〜65：本人はASP.NET CoreのWindows認証が確定し、SIDとDBを照合する。
+builder.Services.AddScoped<WindowsUserAccessService>();
 
 var app = builder.Build();
 
@@ -85,6 +103,9 @@ app.UseRequestLocalization(new RequestLocalizationOptions()
     .SetDefaultCulture("ja-JP")
     .AddSupportedCultures("ja-JP")
     .AddSupportedUICultures("ja-JP"));
+// 認証ミドルウェアはルート実行より前。未認証リクエストの拒否は.NET標準へ任せる。
+if (windowsAuthEnabled) app.UseAuthentication();
+app.UseAuthorization();
 app.UseAntiforgery();
 
 // .NET 10の静的アセットを登録し、対話型サーバー側の描画を有効にする。
