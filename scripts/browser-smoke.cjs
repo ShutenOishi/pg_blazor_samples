@@ -399,6 +399,10 @@ async function waitText(page, selector, expected) {
         await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();
         console.log("ステップ30・コラム07：入力・検索・確認・追加を検証");
 
+        // Step26〜30の画面遷移後、キーボード試験の起点を再び表示してフォーカスする。
+        await page.goto(base + "/learn/04");
+        await keyboardStart.waitFor();
+        await keyboardStart.focus();
         await page.keyboard.press("Tab");
         const tabMovedToControl = await page.evaluate(() => {
             const target = document.activeElement;
