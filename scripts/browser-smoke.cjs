@@ -532,6 +532,18 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "step60.png") });
         console.log("ステップ56〜60・コラム13：日本語画面と操作を確認");
 
+        // Step61〜65：未認証のままDB照合や権限付与を行わず、必ず拒否する。
+        for (let step = 61; step <= 65; step++) {
+            await page.goto(base + "/learn/" + step);
+            await page.waitForTimeout(700);
+            await page.getByRole("button", { name: "現在の認証・DB照合状態を確認" }).click();
+            await waitText(page, '[data-testid="step' + step + '-state"]', "Windows認証されていません");
+            await page.screenshot({ path: path.join(evidence, "step" + step + ".png") });
+        }
+        await page.goto(base + "/learn/column/65");
+        await page.getByText("本人認証と業務権限は別々に確認する").waitFor();
+        console.log("ステップ61〜65・コラム14：匿名アクセスの拒否と日本語画面を確認");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);
