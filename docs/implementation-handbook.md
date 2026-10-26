@@ -2,7 +2,7 @@
 
 > 対象: Visual Studio 2026 / .NET 10 / Blazor Interactive Server / MudBlazor / linq2db / Npgsql / PostgreSQL 18 / Active Directory / Windows Server 2025。
 >
-> **実装状況：Step01〜03のWebアプリ、Razorコンポーネント、ビルドCIを追加しました。** Step04以降の教材、Application/Domain/Infrastructure、DB/AD接続は未実装です。ビルド・動作の確認状況はGitHub Actionsを参照してください。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
+> **実装状況：Step01〜06のWebアプリとRazor教材を追加しました。** Step07以降の教材、Application/Domain/Infrastructure、DB/AD接続は未実装です。ビルド・動作の確認状況はGitHub Actionsを参照してください。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
 
 ## 1. 資料を読む順番と達成目標
 

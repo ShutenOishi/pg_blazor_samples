@@ -15,7 +15,8 @@
 - [x] Windows/Linux ReleaseビルドとHTTP疎通用CIを追加。
 - [x] CIのWindows/Linux ReleaseビルドとLinuxの日本語HTTP画面疎通が成功。
 - [ ] 実ブラウザーのキーボード操作と回線切断・復旧の受入確認を行う。
-- [ ] Step04〜10を実装する。
+- [x] Step04〜06のRazor画面と日本語教材を追加する（CI判定は実行結果を確認）。
+- [ ] Step07〜10を実装する。
 
 ## 直近の実装作業
 
