@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜73の日本語Blazor画面・実装・教材を順次整備しています（追加分は各PRのCIと保護マージで受入）。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
+> **現在の状態：Step01〜74の日本語Blazor画面・実装・教材を順次整備しています（追加分は各PRのCIと保護マージで受入）。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
 
 ## 学習アプリを起動する
 
@@ -147,3 +147,7 @@ MudDateRangePickerとdaterangeの重なり検索、架空利用者A/BのScoped�
 ## Step73：権限変更と保存を原子的に扱う
 
 読み取りは従来どおり既存台帳の都度照合、**更新は権限正本と対象データが同一PostgreSQL上で安全にロック可能と確認された場合のみ**許可します。管理者が確認後に `Authorization:TransactionalLedgerConfirmed=true` を設定し、書込みトランザクション内で台帳ビューの `SELECT ... FOR UPDATE` を実行します。FDW/別DBなどロック保証が成立しない場合は更新を拒否します。詳細は[ステップ73](docs/samples/step73.md)。
+
+## Step74：監査の永続性を保証する
+
+[ステップ74](docs/samples/step74.md)では、認証ハンドラーで確認したドメイン付き本人名・操作・対象行・結果・相関ID・UTCを**サーバー側でDBに記録**します。読み取りは監査が完了するまでデータを返さず、更新は業務SQLと監査SQLを同じトランザクションでコミットします。監査の保存先・権限・保存期間を検証して `Authorization:DurableAuditConfirmed=true` とした場合のみ業務データの取得を許可します。実機の監査証跡を受け入れるまでは本番で有効化しないでください。

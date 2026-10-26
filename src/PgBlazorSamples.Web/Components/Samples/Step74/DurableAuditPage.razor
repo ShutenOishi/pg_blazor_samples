@@ -1,0 +1,31 @@
+@page "/learn/74"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ74：業務の永続監査｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ74 / PostgreSQL 18の監査書込み</p>
+<h1>業務操作の本人・対象・結果を記録する</h1>
+<MudPaper Class="pa-4">
+    <p>サーバーが信頼済み認証情報から本人を取得し、業務の結果をPostgreSQLへ記録します。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">監査を伴う一覧取得を確認</MudButton>
+    <p role="status" data-testid="step74-state">@_status</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>確認項目</h2>
+    <ul>
+        <li>本人のドメイン付き名前・操作・対象行・成否・相関ID・UTCを監査DBへ保存する。</li>
+        <li>業務データを返す前に監査を保存し、監査停止中は閲覧もCSVも拒否する。</li>
+        <li>書込みでは監査と業務データを一つのトランザクションで確定する。</li>
+        <li>接続文字列の<code>application_name</code>はアプリ識別であり、本人監査にはならない。</li>
+    </ul>
+    <p>匿名・DB停止・ロックできない外部台帳での挙動、および監査の保存期間・改ざん対策を実環境でも検証します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/73">前へ</a><a href="/">目次へ</a></div>
+@code {
+    private string _status = "監査付き業務取得は未確認です。";
+    private async Task CheckAsync()
+    {
+        var result = await Business.LoadPageAsync(new LearningPageQuery(0, 1));
+        _status = result.Message;
+    }
+}

@@ -143,6 +143,7 @@ builder.Services.AddScoped<LearningPerformanceService>();
 // Step61〜65：本人はASP.NET CoreのWindows認証が確定し、ドメイン付きユーザー名とDBを照合する。
 builder.Services.AddScoped<WindowsUserAccessService>();
 // Step66〜70：本人と既存台帳を毎操作照合し、全SQLの部署条件を共通化する。
+builder.Services.AddScoped<LearningAuditService>();
 builder.Services.AddScoped<SecuredLearningService>();
 
 var app = builder.Build();

@@ -1,8 +1,8 @@
-# 次のチャット引き継ぎ：Step74〜75
+# 次チャットへの引き継ぎ：Step75、前段PR受入、PDF単体配布
 
-- Step71 PR #27、Step72 PR #28、Step73の段階的保護PRを作成済み。最新main・各PR HEADとWindows/Linux/Chrome/PostgreSQL18/PDFのCIを認証済みGitHub GETで確認し、失敗は修復して全成功後に**順番に**保護マージ。各PRのbaseを最新mainへ整合させる。
-- Step71: ログイン名大文字正規化・重複拒否・改名試験。Step72: HTTP Negotiate認証→CSRF付きPOST→10分Cookie、DP鍵共有と匿名拒否。Step73: 更新に `Authorization:TransactionalLedgerConfirmed=true` を要求、同一トランザクションの台帳行 `FOR UPDATE` と課題更新、競合テスト。FDW/別DBの原子性が未検証なら更新拒否。実機AD/IIS/FDW認証をCI成功と同一視しない。
-- Step74: 永続監査。実行者・操作・対象・成否・correlation_id・UTC、PII最小化、同一トランザクションで更新と監査を保存。監査書込障害は業務処理も拒否、否定試験を追加。application_name=固定アプリ名は個人監査ではない。
-- Step75: Windows Server 2025 / IIS / Kerberos、CSRF/CSP、Cookie+Data Protection鍵共有・失効、SignalR切断復旧、FDW停止、1万人台帳と異なる同時接続数・プール負荷の手順と検証、コラム16を追加。
-- 日本語Razor・step別教材・5ステップコラム・PDF目次・Chrome/PG18統合試験を同期。PDFはZIP配布しない。main/pushのPDF CI成功後に Release learning-textbook のPDF単体アセットを再取得検証。
-- Web内Data/ServicesとEF Core10を維持し、層別プロジェクトは増やさずMudBlazor.Translationsも保持。ADは本人認証とDOMAIN名だけ。登録UIは禁止。ログイン名再利用禁止または不変ID契約を維持。
+- Step71 PR #27 と Step72 PR #28 はWindows/Linux/Chrome/PG18/PDF受入後mainへ保護マージ済み。
+- Step73 PR #29 は行ロックと同一トランザクションによる書込み認可。Step74は新PRで業務DBと同一トランザクションの永続監査、匿名・監査失敗時の拒否を追加。まず各PRの最新版HEAD・CIを認証済みGitHub GETで確認し、修復・順次保護マージ、main/push受入を行う。
+- Step75: Windows Server 2025 + IIS / AD / Kerberosの実機手順、CSP・CSRF・DataProtection鍵共有・Cookie失効・SignalR再接続・1万人台帳/同時接続とプール負荷試験、FDW遅延/切断と監査保管/バックアップの受入を追加。5ステップごとの日本語コラム16、Razorページ、step75教材、PDF目次・Chrome・PostgreSQL18 CIを同期。
+- 本番DBや実ADの接続テストはCIの模擬Principal成功では代用しない。元表/FDWにロック原子性がないときは更新拒否。認可は既存DBのみ、登録・権限付与UIなし。本人名再利用は元表側禁止または不変ID。
+- 日本語教材とコード・PDFを同じPRで更新、失敗は積極修復。Windows/Linux/Chrome/PG18/PDFの必須CI全成功のみ保護マージ。main/pushでPDF Release assetを検証し、ZIP配布しない。
+- EF Core用の層別プロジェクトは増やさずWeb内Data/Services。MudBlazor.Translations維持。
