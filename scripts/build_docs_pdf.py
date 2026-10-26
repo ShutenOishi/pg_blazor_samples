@@ -63,10 +63,13 @@ def clean_lesson_markdown(text: str) -> str:
     text = re.sub(r"^# [^\n]*\n", "", text, count=1)
     lines = []
     for line in text.splitlines():
-        if re.match(r"^\s*\*\*(実装|実装ソース|実装コード|ソースコードの場所)[：:]", line):
+        if re.match(r"^\s*\*\*(実装|実装ソース|実装コード|対応するソース|ソースコードの場所)[：:]", line):
             continue
         if any(word in line.lower() for word in ("github.com", "レポジトリ", "pull request", "コミットハッシュ")):
             continue
+        if line.strip() == "dotnet run --project src/PgBlazorSamples.Web":
+            # IDEで起動する学習者に、開発ディレクトリ構造の知識を要求しない。
+            line = "dotnet run"
         # 関連教材の相互参照は文字だけ残し、開発ファイルへのリンクを表示しない。
         line = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", line)
         lines.append(line)
