@@ -1,4 +1,4 @@
-# 次チャットへの引き継ぎ：80ステップ完了後の品質確認・実機受入
+# 次チャットへの引き継ぎ：教材v3の30新規ステップと全110本の順次再編
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 

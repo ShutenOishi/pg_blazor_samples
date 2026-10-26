@@ -1,6 +1,6 @@
 # サンプル作成テンプレート
 
-新しい教材を追加するときは下記の順番で`docs/samples/stepNN.md`を作ります。**初学者が画面を開き、順番に読み進められる**ことを最優先にします。
+教材v3では[全110件の学習順](course-v3/learning-sequence.md)と[配置を管理するJSON](course-v3/curriculum.json)を正本として、**学習順001から順に学べること**を最優先にします。既存Step01〜80は従来の`docs/samples/stepNN.md`とURLを維持します。新規教材は`docs/course-v3/lessons/<id>.md`と`/learn/<id>`を使用し、学習順を識別子とは分けます。
 
 ## ひな形
 
@@ -77,10 +77,10 @@ Windows Server 2025のドメイン参加、IIS、Hosting Bundle、Windows認証�
 
 ## 5ステップごとの復習コラム（必須）
 
-実装がStep05・10・15など5の倍数へ到達した場合、そのPRには必ず同時に以下を追加します。
+新課程では**学習順001〜005、006〜010、…、106〜110の5件単位**で復習を用意します。旧Step番号が5の倍数かどうかで新課程の復習位置を決めません。新規5件を実装する変更には、対応する復習と段階概要も同時に含めます。
 
-- `docs/columns/columnNN-NN.md`：概念の関連、つまずき、実務応用、確認問題と解答
-- `src/PgBlazorSamples.Web/Components/Samples/Columns/ColumnNNPage.razor`：アプリ内から開ける日本語の復習画面
+- 新規・混合単位は`docs/course-v3/reviews/review-NN.md`、純粋な既存5件の単位は対応する`docs/columns/columnNN-NN.md`を再改稿する。概念の関連、誤解、実務応用、確認問題と解答を含める。
+- 5件単位に対応する日本語の復習Razor画面：既存の画面を改稿するか、衝突しない新URLの復習画面を作る。
 - `docs/columns/README.md`の状態更新、およびホーム画面・メニューの導線
 - `scripts/build_docs_pdf.py`のPDF収録リストとブラウザーテスト
 
@@ -92,4 +92,4 @@ PDFは開発記録ではなく、学習者向けのテキストとして構成�
 
 ## EF Core 10教材の簡素化
 
-Step31〜40はWeb/Data、Web/Servicesのみで完結します。Domain/Infrastructure/Repositoryの分割は必須ではありません。Step40後、Step41前に用途別MudBlazor特別コラムを置きます。
+Step31〜40はWeb/Data、Web/Servicesのみで完結します。Domain/Infrastructure/Repositoryの分割は必須ではありません。新学習順060（旧Step40の後）と061（旧Step41の前）の間に用途別MudBlazor特別コラムを置きます。

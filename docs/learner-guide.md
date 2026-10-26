@@ -4,13 +4,14 @@
 C#を学び始めた方、Windowsデスクトップアプリ開発からWebアプリ開発へ進みたい方、社内業務システムをBlazorで作りたい方を対象にしています。
 
 ## 学習環境
-Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazor Web App（Interactive Server）です。現在掲載しているステップ01〜30は、Active DirectoryやPostgreSQLがなくても学習できる構成です。ステップ21以降ではMudBlazor公式テンプレートの使い方と、日本語化のためのMudBlazor.Translationsも学びます。
+Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazor Web App（Interactive Server）です。追加したWeb基礎の学習順001〜005と、従来のStep01〜30は、Active DirectoryやPostgreSQLがなくても学習できる構成です。ステップ21以降ではMudBlazor公式テンプレートの使い方と、日本語化のためのMudBlazor.Translationsも学びます。
 
 ## 各段階の概要から学ぶ
 
 各段階の最初に概要ページを配置しています。先に到達目標、WinForms・Dapperとの違い、読む順番、演習の確認点を理解してから各ステップへ進みます。
 
-- 第1段階（Step01〜10）：[Razorと画面操作](stages/stage01.md)
+- **新第1段階（学習順001〜005）**：[Web開発の前提](course-v3/stages/stage01.md)。ここから始めます。
+- 旧第1段階（Step01〜10）：[Razorと画面操作](stages/stage01.md)
 - 第2段階（Step11〜20）：[DIとサービス設計](stages/stage02.md)
 - 第3段階（Step21〜30）：[MudBlazorによる業務画面](stages/stage03.md)
 - 第4段階（Step31〜40）：[PostgreSQLとEF Core](stages/stage04.md)
@@ -29,7 +30,8 @@ Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazo
 ## 学習の全体像
 | レベル | ステップ | 学習テーマ |
 | --- | --- | --- |
-| 1 | 01〜10 | Razor構文、イベント、画面の入力 |
+| 新第1段階 | 学習順001〜005 | WinFormsとWeb、HTTP、HTML/CSS、開発者ツール、デバッグ |
+| 旧第1段階 | Step01〜10 | Razor構文、イベント、画面の入力 |
 | 2 | 11〜20 | DI、サービス設計、単体テスト |
 | 3 | 21〜30 | MudBlazorの日本語業務画面 |
 | 4 | 31〜40 | PostgreSQL 18・EF Core 10・Npgsqlと日付/Range・排他制御 |
@@ -37,7 +39,7 @@ Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazo
 | 6 | 61〜70 | Windows統合認証と業務権限 |
 | 7 | 71〜80 | 大量データ、障害対応、IISへの配備 |
 
-本版はステップ01〜80、通常コラム16本と特別コラム3本、および7段階の概要ページを収録します。Step31〜40のソースはWebプロジェクト内にあります。PostgreSQLが未設定の場合はDB処理が未実行と明示します。Step41〜50のDataGrid/ServerData・JOIN・キーセット・仮想化・検索UXには実装画面があります。DB操作は開発用PostgreSQL 18で試します。
+本版は、新しいWeb基礎5本と既存Step01〜80の合計85本、復習・特別コラム20本、段階概要8本を収録します。追加予定の残り25テーマは未収録です。旧段階名・旧ステップ番号は段階的に再編します。Step31〜40のソースはWebプロジェクト内にあります。PostgreSQLが未設定の場合はDB処理が未実行と明示します。Step41〜50のDataGrid/ServerData・JOIN・キーセット・仮想化・検索UXには実装画面があります。DB操作は開発用PostgreSQL 18で試します。
 
 ## 用語
 - **コンポーネント**：Blazorの画面を構成する再利用可能な部品
