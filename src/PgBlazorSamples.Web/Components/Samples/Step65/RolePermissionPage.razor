@@ -19,7 +19,7 @@
         <h3>有効なロール</h3>
         <ul>@foreach (var role in _snapshot.Roles) { <li>@role</li> }</ul>
         <h3>許可コード</h3>
-        <ul>@foreach (var code in _snapshot.Permissions ?? Array.Empty<string>()) { <li>@code</li> }</ul>
+        <ul>@foreach (var permissionCode in _snapshot.Permissions ?? Array.Empty<string>()) { <li>@permissionCode</li> }</ul>
     }
 </MudPaper>
 <section class="lesson-details">
