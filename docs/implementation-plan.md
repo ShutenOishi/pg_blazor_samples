@@ -6,7 +6,13 @@
 - [x] .NET 10・Interactive Server・MudBlazor・linq2db・Npgsql・PostgreSQL 18・ADの採用方針を文書化する。
 - [x] 60件のステップアップ学習計画を作る。
 - [x] 環境、設計、認証、DB、品質、規約の基本ドキュメントを用意する。
-- [ ] ドキュメントPRを受け入れ、mainに反映する。
+- [x] ドキュメントPRを受け入れ、mainに反映する。
+
+## 直近の実装作業
+
+[最初のソースコード実装計画](first-code-implementation-plan.md)を実行の正本とする。**最初のPRはStep01〜03とWebソリューション、ReleaseビルドCI、日本語教材3本**を一式で追加する。次に04〜06、07〜10を個別PRで実装する。まず各PRの合格を確認し、その後の教材をまとめて追加する。
+
+注意：Step31でDomain、Step33でInfrastructureを導入するよう[サンプル一覧](sample-catalog.md)のDB章も再編成した。
 
 ## フェーズ1：動く最小構成（01～10）
 

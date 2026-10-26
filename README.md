@@ -56,6 +56,10 @@ Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazo
 
 全資料を日本語PDFとして再生成する[PDF生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)を用意しています。mainのMarkdownから生成されるため、PDFはソース・ドキュメント変更と同じGitコミットを記録します。最新の成功RunのArtifactsからダウンロードしてください。詳細は[PDFの生成・同期方法](docs/pdf-generation.md)。
 
+## ソースコード実装の次工程
+
+次の工程は**Step01〜03のBlazor Web App本体とCIを作成すること**です。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
+
 ## ドキュメント
 
 [日本語ドキュメント目次](docs/README.md) / [実装対応ハンドブック](docs/implementation-handbook.md)から、ロードマップ、構築方法、アーキテクチャ、AD、DB、テスト、貢献方法、実装計画へ移動できます。
