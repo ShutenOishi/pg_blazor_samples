@@ -75,10 +75,10 @@ async function waitText(page, selector, expected) {
             [70, "現在の更新権限を確認"]
         ]) {
             await page.goto(base + "/learn/" + step);
-            await page.waitForTimeout(900);
+            await page.waitForTimeout(1600);
             await page.getByRole("button", { name: label }).click();
-            const state = await page.locator('[data-testid="step' + step + '-state"]').textContent();
-            if (!state?.includes("拒否")) throw new Error("Step" + step + "：匿名の認可拒否を確認できません: " + state);
+            // Blazorのイベントは非同期で描画される。クリック直後の初期文字列は判定しない。
+            await waitText(page, '[data-testid="step' + step + '-state"]', "拒否");
         }
         console.log("ステップ66〜70：匿名の業務アクセスは全画面で拒否");
         await page.goto(base + "/learn/04");
