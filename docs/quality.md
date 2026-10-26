@@ -87,3 +87,24 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - [ ] 運用手順とロールバック、ログ・バックアップ/復元手順を確認
 
 これらは検証項目であり、**今回のドキュメントPRでは未検証**。
+
+## 学習者向けPDFの品質基準
+
+- PDF表紙は「Blazor 実践学習テキスト」。目次の項目には学習テーマの日本語タイトルを表示する。
+- 目次や本文にリポジトリ、PR、GitHub、コミットハッシュや開発管理用のファイルパスを表示しない。
+- 検証に必要なコミット・Markdownとソースのハッシュは別の`blazor_learning_source_manifest.json`へ記録。
+- 5ステップごとのコラムは、対応するステップの直後に配置する。
+- PDFの文字検索で日本語タイトルとコラムを確認する。PDF生成CIとアプリのビルド・ブラウザーテストは別々に成功判定する。
+
+## Step11〜15とコラム03の検証記録
+
+- [Windows/LinuxビルドとChrome操作](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851541)：SUCCESS
+- [学習者向けPDF](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851605)：SUCCESS
+- Step11：DIと直接生成の両方で挨拶を表示
+- Step12：固定時計の午前8時に切り替え「おはようございます」を確認
+- Step13：Transient再取得で新しい識別子を確認（対話描画完了を待つ）
+- Step14：親と子で同じScoped状態を共有し、パラメーター更新によって双方を再描画
+- Step15：Razorへの注入とコンストラクター注入による挨拶表示
+- PDF：学習者向け日本語目次、章タイトル、不要な開発管理文言の不在を確認
+
+実AD・DB・IIS接続の確認ではありません。

@@ -10,7 +10,7 @@
 - **コンストラクター注入**: 必要な部品を生成時に受け取ること
 - **Composition Root**: 部品の登録・組立を行う起動地点（通常はWebの`Program.cs`）
 
-## 最小サンプル（学習用・まだ未実装）
+## 最小サンプル（ステップ11〜15で実装済み）
 
 ```csharp
 public interface IClock
@@ -23,7 +23,7 @@ public sealed class SystemClock : IClock
     public DateTimeOffset GetNow() => DateTimeOffset.Now;
 }
 
-// 学習段階ではWebプロジェクト内に置いてよい。
+// このサービスはWebプロジェクト内に実装しています。
 public sealed class GreetingService(IClock clock)
 {
     public string GetMessage()
@@ -34,6 +34,7 @@ public sealed class GreetingService(IClock clock)
 ```csharp
 // Program.cs：部品の作り方を登録する
 builder.Services.AddSingleton<IClock, SystemClock>();
+builder.Services.AddSingleton<FixedClock>();
 builder.Services.AddTransient<GreetingService>();
 ```
 
@@ -45,7 +46,7 @@ builder.Services.AddTransient<GreetingService>();
 <p>@Greeting.GetMessage()</p>
 ```
 
-練習: `SystemClock`を`FixedClock`（常に朝8時を返す）に変更し、DI登録の1か所だけを修正してテストする。
+練習: ステップ12で実際の時計と固定時計（午前8時）を切り替える。アプリ全体で実装を交換する場合はDI登録の`IClock`の実装先を変更する。
 
 ## ライフタイムを必ず体験する
 

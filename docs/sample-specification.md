@@ -72,3 +72,7 @@ Windows Server 2025のドメイン参加、IIS、Hosting Bundle、Windows認証�
 - `scripts/build_docs_pdf.py`のPDF収録リストとブラウザーテスト
 
 `python scripts/check-learning-materials.py`で、実装済みの各ステップ・5ステップごとのコラム・PDF収録対象に欠落がないことを検査します。ソースと文章の意味が一致するかは、従来どおりレビューと動作試験で確認します。
+
+## PDF本文の読者
+
+PDFは開発記録ではなく、学習者向けのテキストとして構成する。目次を「ステップNN：テーマ」の日本語で表記し、アプリ操作・実コード・演習に集中する。GitHub・PR・リポジトリの説明は学習者向け本文に収録せず、別の開発資料で管理する。

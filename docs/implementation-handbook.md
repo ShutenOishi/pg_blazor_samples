@@ -2,7 +2,7 @@
 
 > 対象: Visual Studio 2026 / .NET 10 / Blazor Interactive Server / MudBlazor / linq2db / Npgsql / PostgreSQL 18 / Active Directory / Windows Server 2025。
 >
-> **実装状況：Step01〜10のWebアプリとRazor教材、およびStep05・10の復習コラムをソースへ追加しました。** Step07〜10のCI受入状況はサンプル一覧を参照してください。Step11以降、Application/Domain/Infrastructure、DB/AD接続は未実装です。ビルド・動作の確認状況はGitHub Actionsを参照してください。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
+> **実装状況：Step01〜15のWebアプリ、DI入門、Step05・10・15の復習コラムを追加しました。** Step11〜15のCI受入はサンプル一覧を参照してください。Step16以降、Application/Domain/Infrastructure、DB/AD接続は未実装です。ビルド・動作の確認状況はGitHub Actionsを参照してください。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
 
 ## 1. 資料を読む順番と達成目標
 
@@ -19,7 +19,7 @@
 
 ## 2. プロジェクトと参照方向
 
-Step01〜10は `PgBlazorSamples.Web` と `Program.cs`、`Components/`、各`.razor`にソースを追加しました。[Step01](samples/step01.md)、[Step02](samples/step02.md)、[Step03](samples/step03.md)、[Step04](samples/step04.md)、[Step05](samples/step05.md)、[Step06](samples/step06.md)、[Step07](samples/step07.md)、[Step08](samples/step08.md)、[Step09](samples/step09.md)、[Step10](samples/step10.md)の資料は実際のファイルを参照しています。復習は[コラム01](columns/column01-05.md)と[コラム02](columns/column06-10.md)で確認できます。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてDomainとInfrastructureを作ります。
+Step01〜15は `PgBlazorSamples.Web` と `Program.cs`、`Components/`、各`.razor`にソースを追加しました。[Step01](samples/step01.md)、[Step02](samples/step02.md)、[Step03](samples/step03.md)、[Step04](samples/step04.md)、[Step05](samples/step05.md)、[Step06](samples/step06.md)、[Step07](samples/step07.md)、[Step08](samples/step08.md)、[Step09](samples/step09.md)、[Step10](samples/step10.md)、[Step11](samples/step11.md)、[Step12](samples/step12.md)、[Step13](samples/step13.md)、[Step14](samples/step14.md)、[Step15](samples/step15.md)の資料は実際のファイルを参照しています。復習は[コラム01](columns/column01-05.md)と[コラム02](columns/column06-10.md)、[コラム03](columns/column11-15.md)で確認できます。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてDomainとInfrastructureを作ります。
 
 ```text
 PgBlazorSamples.Web
