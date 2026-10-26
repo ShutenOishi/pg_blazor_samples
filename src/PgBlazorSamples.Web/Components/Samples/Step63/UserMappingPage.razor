@@ -1,0 +1,41 @@
+@page "/learn/63"
+@using PgBlazorSamples.Web.Services.Learning
+@inject WindowsUserAccessService UserAccess
+<PageTitle>ステップ63：SIDとDB利用者の対応｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ63 / Windows認証と業務利用の境界</p>
+<h1>SIDとDB利用者の対応</h1>
+<MudPaper Class="pa-4">
+    <h2>ADの認証とアプリ台帳の登録を分離する</h2>
+    <p>app_user.sidを完全一致で照合します。本人認証が成功してもDBに利用者がなければ使用できません。</p>
+    <MudButton Color="Color.Primary" OnClick="InspectAsync">現在の認証・DB照合状態を確認</MudButton>
+    <p role="status" data-testid="step63-state">@_snapshot.Message</p>
+    <p>登録状態：@_snapshot.SidHint</p>
+    @if (!string.IsNullOrWhiteSpace(_snapshot.DisplayName))
+    {
+        <p>DB上の表示名：@_snapshot.DisplayName</p>
+    }
+    @if (false && _snapshot.Roles is { Count: > 0 })
+    {
+        <h3>有効なロール</h3>
+        <ul>@foreach (var role in _snapshot.Roles) { <li>@role</li> }</ul>
+        <h3>許可コード</h3>
+        <ul>@foreach (var code in _snapshot.Permissions ?? Array.Empty<string>()) { <li>@code</li> }</ul>
+    }
+</MudPaper>
+<section class="lesson-details">
+    <h2>安全に確認する</h2>
+    <p>開発用DBに架空利用者を登録する場合もパスワードは保存しません。</p>
+    <details><summary>確認問題：本人認証が成功したら業務データを参照できる？</summary>
+        <p>いいえ。アプリ利用者の有効性と、操作に対する権限をサーバー側で確認します。</p>
+    </details>
+    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・KerberosはStep70で実機検証します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/62">前のステップへ</a><a href="/learn/64">次へ進む</a></div>
+@code {
+    private WindowsAccessSnapshot _snapshot = new("initial", "ボタンを押すと認証とDB照合の状態を確認します。");
+
+    private async Task InspectAsync()
+    {
+        _snapshot = await UserAccess.ReadCurrentAsync();
+    }
+}
