@@ -10,6 +10,8 @@ on:
       - "src/**"
       - "docs/samples/**"
       - "scripts/smoke-test.sh"
+      - "scripts/check-learning-materials.py"
+      - "scripts/check-learning-materials.py"
       - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
@@ -44,6 +46,8 @@ jobs:
           dotnet-version: "10.0.x"
       - name: 依存関係を復元
         run: dotnet restore PgBlazorSamples.slnx
+      - name: 5ステップごとの学習コラムとPDF索引を検査
+        run: python scripts/check-learning-materials.py
       - name: Releaseビルド
         run: dotnet build PgBlazorSamples.slnx -c Release --no-restore
       - name: 日本語画面をHTTPで確認
