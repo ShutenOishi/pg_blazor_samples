@@ -1,0 +1,25 @@
+@page "/learn/db-bridge-01"
+<PageTitle>学習順46：DapperとEF Coreの役割・選定を比較する｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順46</p><h1>DapperとEF Coreの役割・選定を比較する</h1>
+<p>WinForms＋DapperのSQL・Executeと、EF Core 10のLINQ・変更追跡・SaveChangesを比較します。</p>
+<section class="lesson-details"><h2>要件別に方式を選ぶ</h2>
+<button type="button" @onclick='() => Choose("一般的なCRUD")'>一般的なCRUD</button>
+<button type="button" @onclick='() => Choose("既存の複雑なSQL")'>既存の複雑なSQL</button>
+<button type="button" @onclick='() => Choose("大量一覧")'>大量一覧</button>
+<p role="status" data-testid="dbbridge01-result">@result</p>
+<table><thead><tr><th scope="col">観点</th><th scope="col">Dapper</th><th scope="col">EF Core</th></tr></thead><tbody>
+<tr><td>検索</td><td>SQLを明示</td><td>LINQ/パラメーターSQL</td></tr>
+<tr><td>更新</td><td>Execute</td><td>SaveChanges</td></tr>
+<tr><td>一覧</td><td colspan="2">DBで条件・件数を制限し、本人認可はサーバーで強制</td></tr>
+</tbody></table>
+<p>EF Coreを中心に学びますが、既存SQLを無理に捨てる必要はありません。</p></section>
+<div class="page-navigation"><a href="/learn/column/browser-45">前へ</a><a href="/learn/31">次へ</a></div>
+@code {
+    private string result = "未選択";
+    private void Choose(string kind) => result = kind switch
+    {
+        "一般的なCRUD" => "一般的なCRUD：EF Coreの短命DbContextが候補です。",
+        "既存の複雑なSQL" => "既存の複雑なSQL：Dapperとの併用やFromSqlを検討します。",
+        _ => "大量一覧：どちらもDB側で検索・取得件数を制限します。"
+    };
+}

@@ -1,0 +1,26 @@
+@using Microsoft.EntityFrameworkCore
+@using PgBlazorSamples.Web.Data
+@inject IDbContextFactory<LearningDbContext> Factory
+@page "/learn/db-bridge-03"
+<PageTitle>学習順53：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順53</p><h1>Dapperの接続／ExecuteとDbContext・追跡・SaveChanges</h1>
+<p>DapperのExecuteは明示SQLを実行します。EF CoreではEntityの追跡状態を管理し、SaveChangesでDB操作を実行します。</p>
+<section class="lesson-details"><h2>変更追跡の状態を観察する</h2>
+<button type="button" @onclick="Inspect">追跡状態を再現する</button>
+<p role="status" data-testid="dbbridge03-state">@state</p>
+<p>生成時はDetached、追加時はAdded、Clear後はDetachedです。ここではSaveChangesを呼ばないため、DBは変更しません。</p></section>
+<div class="page-navigation"><a href="/learn/db-bridge-02">前へ</a><a href="/learn/36">次へ</a></div>
+@code {
+    private string state = "未実行";
+    private void Inspect()
+    {
+        using var db = Factory.CreateDbContext();
+        var entity = new LearningTask { Title = "追跡の練習" };
+        var before = db.Entry(entity).State;
+        db.Tasks.Add(entity);
+        var added = db.Entry(entity).State;
+        db.ChangeTracker.Clear();
+        var after = db.Entry(entity).State;
+        state = $"生成：{before}／Add後：{added}／Clear後：{after}（保存なし）";
+    }
+}
