@@ -2,6 +2,22 @@
 
 すべての解説・コメント・画面表示を日本語で統一します。英語はC#識別子、API名、製品名、ファイル名など実装上必要なものに限ります。
 
+## 段階ごとの概要ページ
+
+ステップを始める前に、その段階で学ぶ理由・前提・順番・確認課題を読めます。
+
+| 段階 | 概要ページ |
+| --- | --- |
+| 第1段階：Step01〜10 | [Razorと画面操作](stages/stage01.md) |
+| 第2段階：Step11〜20 | [DIとサービス設計](stages/stage02.md) |
+| 第3段階：Step21〜30 | [MudBlazorによる業務画面](stages/stage03.md) |
+| 第4段階：Step31〜40 | [PostgreSQLとEF Core](stages/stage04.md) |
+| 第5段階：Step41〜60 | [一覧データ連携と編集](stages/stage05.md) |
+| 第6段階：Step61〜70 | [Windows認証とDBによる業務認可](stages/stage06.md) |
+| 第7段階：Step71〜80 | [監査・競合制御・運用](stages/stage07.md) |
+
+
+
 | 用途 | ドキュメント |
 | --- | --- |
 | DIを初めて学ぶ人へ | [DI入門・サービスライフタイム](di-for-beginners.md) |

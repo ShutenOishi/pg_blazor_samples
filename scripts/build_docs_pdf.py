@@ -19,6 +19,7 @@ MANIFEST = ROOT / "dist" / "blazor_learning_source_manifest.json"
 # 目次表示名は学習者向けの日本語で固定する。ファイル名は読者に表示しない。
 CHAPTERS = [
     ("はじめに：この教材の使い方", "docs/learner-guide.md"),
+    ("第1段階の概要：Razorと画面操作", "docs/stages/stage01.md"),
     ("ステップ01：最初のBlazor画面を表示する", "docs/samples/step01.md"),
     ("ステップ02：URLと画面遷移を理解する", "docs/samples/step02.md"),
     ("ステップ03：RazorでC#の値を表示する", "docs/samples/step03.md"),
@@ -31,6 +32,7 @@ CHAPTERS = [
     ("ステップ09：初期化・更新・破棄を理解する", "docs/samples/step09.md"),
     ("ステップ10：入力フォームを日本語で検証する", "docs/samples/step10.md"),
     ("学習コラム02：親子部品と入力検証", "docs/columns/column06-10.md"),
+    ("第2段階の概要：DIとサービス設計", "docs/stages/stage02.md"),
     ("ステップ11：DI（依存性注入）の基本", "docs/samples/step11.md"),
     ("ステップ12：インターフェイスで部品を交換する", "docs/samples/step12.md"),
     ("ステップ13：Singleton・Scoped・Transient", "docs/samples/step13.md"),
@@ -44,6 +46,7 @@ CHAPTERS = [
     ("ステップ20：DIで課題管理を作る", "docs/samples/step20.md"),
     ("学習コラム04：設定とサービス分離", "docs/columns/column16-20.md"),
     ("特別コラム05：ライブラリが提供するDI", "docs/columns/column-library-di.md"),
+    ("第3段階の概要：MudBlazorによる業務画面", "docs/stages/stage03.md"),
     ("ステップ21：MudBlazorと日本語翻訳を導入する", "docs/samples/step21.md"),
     ("ステップ22：MudBlazorのレイアウトを学ぶ", "docs/samples/step22.md"),
     ("ステップ23：日本語で入力部品を使う", "docs/samples/step23.md"),
@@ -56,6 +59,7 @@ CHAPTERS = [
     ("ステップ29：ダークモードとキーボード操作を学ぶ", "docs/samples/step29.md"),
     ("ステップ30：MudBlazor日本語UIを総合演習する", "docs/samples/step30.md"),
     ("学習コラム07：UIの部品をデータ連携につなぐ", "docs/columns/column26-30.md"),
+    ("第4段階の概要：PostgreSQLとEF Core", "docs/stages/stage04.md"),
     ("ステップ31：モデルとDTOを理解する", "docs/samples/step31.md"),
     ("ステップ32：PostgreSQLで学習テーブルを定義する", "docs/samples/step32.md"),
     ("ステップ33：EF Core 10をWebへ登録する", "docs/samples/step33.md"),
@@ -69,6 +73,7 @@ CHAPTERS = [
     ("ステップ40：PostgreSQL 18の実接続確認", "docs/samples/step40.md"),
     ("学習コラム09：更新・日付Range・競合・DB確認", "docs/columns/column36-40.md"),
     ("特別コラム：用途から選ぶMudBlazorコンポーネント", "docs/columns/column-mudblazor-by-purpose.md"),
+    ("第5段階の概要：一覧データ連携と編集", "docs/stages/stage05.md"),
     ("ステップ41：Itemsを使う一覧の条件", "docs/samples/step41.md"),
     ("ステップ42：MudTableのServerDataでDB検索", "docs/samples/step42.md"),
     ("ステップ43：MudDataGridのServerDataとEF Core", "docs/samples/step43.md"),
@@ -93,6 +98,7 @@ CHAPTERS = [
     ("ステップ59：EXPLAINと応答時間計測", "docs/samples/step59.md"),
     ("ステップ60：一覧パターンを要件から選ぶ", "docs/samples/step60.md"),
     ("学習コラム13：期間検索・集計・性能・選定", "docs/columns/column56-60.md"),
+    ("第6段階の概要：Windows認証とDBによる業務認可", "docs/stages/stage06.md"),
     ("ステップ61：Windows統合認証を構成する", "docs/samples/step61.md"),
     ("ステップ62：認証済みドメインユーザー名を扱う", "docs/samples/step62.md"),
     ("ステップ63：認証済みユーザー名と既存台帳を結ぶ", "docs/samples/step63.md"),
@@ -106,6 +112,7 @@ CHAPTERS = [
     ("ステップ69：保存直前の権限とxminを再確認", "docs/samples/step69.md"),
     ("ステップ70：Windows Server 2025の実機受入を分ける", "docs/samples/step70.md"),
     ("学習コラム15：業務データを守る認可の強制", "docs/columns/column66-70.md"),
+    ("第7段階の概要：監査・競合制御・運用", "docs/stages/stage07.md"),
     ("ステップ71：既存台帳のキー正規化・重複拒否と索引", "docs/samples/step71.md"),
     ("ステップ72：明示Windowsログインと短命Cookie", "docs/samples/step72.md"),
     ("ステップ73：権限行ロックと更新の原子性", "docs/samples/step73.md"),
@@ -181,22 +188,26 @@ def main():
         content = clean_lesson_markdown(path.read_text(encoding="utf-8"))
         if "github.com" in content.lower() or "レポジトリ" in content:
             raise SystemExit(f"学習者用の不要な開発情報が残っています: {relative_path}")
+        is_stage = title.startswith("第") and "段階の概要" in title
         chapters_html.append(
             f'<section class="chapter" id="lesson-{number}">'
-            f'<p class="chapter-kicker">{"先取り学習（未実装の設計）" if "先取りガイド" in title else ("学習コラム" if "学習コラム" in title else "ステップアップ学習")}</p>'
+            f'<p class="chapter-kicker">{"各段階の学習案内" if is_stage else ("先取り学習（未実装の設計）" if "先取りガイド" in title else ("学習コラム" if "学習コラム" in title else "ステップアップ学習"))}</p>'
             f'<h1>{html.escape(title)}</h1>'
             f'{markdown.render(content)}</section>'
         )
-        toc.append(f'<li><a href="#lesson-{number}">{html.escape(title)}</a></li>')
+        toc_class = "toc-stage" if is_stage else "toc-topic"
+        toc.append(f'<li class="{toc_class}"><a href="#lesson-{number}">{html.escape(title)}</a></li>')
 
+    step_count = sum(1 for title, _ in CHAPTERS if title.startswith("ステップ"))
+    column_count = sum(1 for title, _ in CHAPTERS if "コラム" in title)
     body = f"""<!doctype html><html lang="ja"><head><meta charset="utf-8"></head><body>
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから日本語UIまで<br>75ステップ＋用途別MudBlazorとデータ連携の先取り学習</p>
+      <p class="lead">WinForms・Dapperの経験を生かしてWeb開発を学ぶ<br>{step_count}ステップ・7段階の概要・各種学習コラム</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜75／コラム01〜16／MudBlazor特別コラム／データ連携設計ガイド</p>
+      <p class="version">学習範囲：ステップ01〜{step_count:02d}／コラム{column_count}本／各段階の概要とデータ連携設計ガイド</p>
     </section>
     <section class="toc">
       <h1>目次</h1>
@@ -223,6 +234,8 @@ def main():
     .toc h1 { font-size: 24pt; margin-bottom: 4mm }
     .toc ol { padding-left: 1.45em }
     .toc li { margin: 2.2mm 0; break-inside: avoid; }
+    .toc li.toc-stage { margin-top: 6mm; font-weight: bold; border-bottom: 1px solid #9aafbd; padding-bottom: 2mm; }
+    .toc li.toc-topic { margin-left: 4mm; }
     .toc a { text-decoration: none; color: #164967; font-weight: 600 }
     .chapter { break-before: page; }
     .chapter-kicker { font-size: 10pt; font-weight: 700; color: #285a77; border-bottom: 1px solid #9aafbd }

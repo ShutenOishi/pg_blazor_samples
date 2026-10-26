@@ -16,6 +16,20 @@ C#の基礎（変数、クラス、非同期の概念）が分かると進めや
 | Lv.6 Windows認証 | 61～70 | AD本人認証とDB側業務認可を区別し適用する | ドメイン参加環境・PostgreSQL |
 | Lv.7 実務応用 | 71～80 | 既存台帳・明示ログイン・監査・IIS運用から性能と障害対応まで | 課題による |
 
+## 各段階の概要を読んでから進む
+
+各段階の最初に独立した概要ページがあります。そこでは、この段階で何ができるようになるか、既知のWinForms・Dapperと何が違うか、読む順番と確認課題を説明します。初めてWeb開発を学ぶ場合は、段階の概要、各ステップ、5ステップごとのコラムの順に読んでください。
+
+| 段階 | 概要 |
+| --- | --- |
+| 第1段階（Step01〜10） | [Razorと画面操作](stages/stage01.md) |
+| 第2段階（Step11〜20） | [DIとサービス設計](stages/stage02.md) |
+| 第3段階（Step21〜30） | [MudBlazorによる業務画面](stages/stage03.md) |
+| 第4段階（Step31〜40） | [PostgreSQLとEF Core](stages/stage04.md) |
+| 第5段階（Step41〜60） | [一覧データ連携と編集](stages/stage05.md) |
+| 第6段階（Step61〜70） | [Windows認証とDBによる業務認可](stages/stage06.md) |
+| 第7段階（Step71〜80） | [監査・競合制御・運用](stages/stage07.md) |
+
 ## 初学者に合わせたプロジェクト増加
 
 ステップ01ではWebプロジェクトのみを作成し、ステップ11でDIの意味を説明します。ステップ18でUnitTests、19でApplicationを既に追加しています。**EF Core 10のステップ31〜40では層別プロジェクトを追加せず、Web内のDataとServicesを使います。** PostgreSQLの結合確認は開発専用DBで実施します。詳細は[DI入門](di-for-beginners.md)と[アーキテクチャ](architecture.md)。
