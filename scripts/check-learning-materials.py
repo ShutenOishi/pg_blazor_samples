@@ -110,6 +110,34 @@ if len(newpaths) == 5:
     if f'"{review}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review}"') < newpaths[4]:
         missing.append("復習はWeb05より後に配置")
 
+
+# 第2段階では新規5件を既存10件の間に挿入する。Razor・教材・復習・PDF順を検証する。
+runtime_ids = ["runtime-01", "runtime-02", "runtime-03", "runtime-04", "runtime-05"]
+for n, lesson_id in enumerate(runtime_ids, 1):
+    item = next((item for item in ordered if item["id"] == lesson_id), None)
+    razor = SAMPLES / "Runtime" / f"Runtime{n:02d}Page.razor"
+    if not item or not item["implementation"].startswith("implemented"):
+        missing.append(lesson_id + "：学習順の実装状態が不正")
+        continue
+    if not razor.is_file() or f'@page "/learn/{lesson_id}"' not in razor.read_text(encoding="utf-8"):
+        missing.append(lesson_id + "：Razor URLが不正")
+    if not (ROOT / item["source"]).is_file() or f'"{item["source"]}"' not in PDF_SCRIPT:
+        missing.append(lesson_id + "：本文またはPDF索引が不足")
+stage2 = "docs/course-v3/stages/stage02.md"
+if not (SAMPLES / "Runtime" / "RuntimeOverviewPage.razor").is_file() or f'"{stage2}"' not in PDF_SCRIPT:
+    missing.append("第2段階の概要画面またはPDFが不足")
+for unit, suffix in [(2, "10"), (3, "15"), (4, "20")]:
+    source = f"docs/course-v3/reviews/review-0{unit}.md"
+    view = SAMPLES / "Runtime" / f"RuntimeReview0{unit}Page.razor"
+    if not view.is_file() or not (ROOT / source).is_file() or f'"{source}"' not in PDF_SCRIPT:
+        missing.append(f"第{unit}組の復習画面・本文・PDFが不足")
+expected_v3_prefix = [item["source"] for item in ordered[:20]]
+import re
+actual_v3_prefix = re.findall(r'^    \(".*?", "(docs/(?:samples|course-v3/lessons)/[^"]+)"\),$', PDF_SCRIPT, flags=re.MULTILINE)
+actual_v3_steps = [source for source in actual_v3_prefix if source in expected_v3_prefix]
+if actual_v3_steps != expected_v3_prefix:
+    missing.append("第1〜2段階のPDF学習順001〜020が不正")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

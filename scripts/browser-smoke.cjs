@@ -96,6 +96,45 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "web-foundation-review.png") });
         console.log("新第1段階のWeb基礎5画面と復習を確認");
 
+        // 第2段階：新規5ページの表示、対話状態、URL復元と3組の復習を検証する。
+        await page.goto(base + "/learn/stage/runtime");
+        await page.getByRole("heading", { name: "第2段階の概要：Blazorの基本と実行原理" }).waitFor();
+        await page.goto(base + "/learn/runtime-01");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "サーバー側の回数を増やす" }).click();
+        await waitText(page, '[data-testid="runtime01-count"]', "1");
+        await page.goto(base + "/learn/runtime-02");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "対話回数を1増やす" }).click();
+        await waitText(page, '[data-testid="runtime02-count"]', "1");
+        await page.reload();
+        await waitText(page, '[data-testid="runtime02-count"]', "0");
+        await page.goto(base + "/learn/runtime-03");
+        await waitText(page, '[data-testid="runtime03-init"]', "1");
+        await waitText(page, '[data-testid="runtime03-after"]', "1");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "状態を変更する" }).click();
+        await waitText(page, '[data-testid="runtime03-change"]', "1");
+        await page.goto(base + "/learn/runtime-04");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "履歴をURLで選ぶ" }).click();
+        await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        await page.getByRole("button", { name: "操作回数を1増やす" }).click();
+        await waitText(page, '[data-testid="runtime04-count"]', "1");
+        await page.reload();
+        await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        await waitText(page, '[data-testid="runtime04-count"]', "0");
+        await page.goto(base + "/learn/runtime-05");
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "業務の永続データ" }).click();
+        await waitText(page, '[data-testid="runtime05-choice"]', "データベース");
+        for (const suffix of ["10", "15", "20"]) {
+            await page.goto(base + "/learn/column/runtime-" + suffix);
+            await page.getByRole("heading", { name: /第[234]組の復習/ }).waitFor();
+        }
+        await page.screenshot({ path: path.join(evidence, "runtime-review.png") });
+        console.log("第2段階の新規実行原理5画面と復習3件を検証");
+
         // Step66〜70は匿名環境で業務データを返さない。実AD認証の代用ではない。
         for (const [step, label] of [
             [66, "業務サービスに認可を問い合わせる"],

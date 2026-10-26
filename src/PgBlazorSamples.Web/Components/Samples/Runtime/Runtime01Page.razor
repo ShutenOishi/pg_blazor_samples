@@ -1,0 +1,20 @@
+@page "/learn/runtime-01"
+
+<PageTitle>学習順009：Static SSRとInteractive Serverの違い｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第2段階 / 学習順009</p>
+<h1>Static SSRとInteractive Serverの違い</h1>
+<p>Static SSRはサーバーが要求ごとにHTMLを作って返します。単独ではBlazorのC#クリックイベントは動きません。Interactive Serverでは接続の準備後にC#イベントがサーバーで動きます。</p>
+<section class="lesson-details"><h2>対話型イベントの動作</h2>
+<p>このページはアプリ全体のInteractive Server設定で表示されています。初期HTMLもサーバーで事前レンダリングされるため、この画面単独ではStatic SSRの実機比較にはなりません。</p>
+<p>サーバーでの操作回数：<strong data-testid="runtime01-count">@count</strong></p>
+<button type="button" @onclick="Increment">サーバー側の回数を増やす</button>
+<h2>処理の違い</h2><table><thead><tr><th scope="col">方式</th><th scope="col">表示</th><th scope="col">C#クリック</th></tr></thead><tbody>
+<tr><td>Static SSR</td><td>要求時に生成したHTML</td><td>対話用の回線なし。フォーム送信等は別処理</td></tr>
+<tr><td>Interactive Server</td><td>初期HTML＋対話中の差分</td><td>サーバーで実行</td></tr></tbody></table>
+<p>ブラウザーで最初のHTML取得をNetworkから確認し、ボタンでカウントを変えてください。</p></section>
+<div class="page-navigation"><a href="/learn/03">前へ</a><a href="/learn/04">次へ</a></div>
+@code {
+    private int count;
+    // サーバー上の状態を更新し、接続中のブラウザーへ結果を反映する。
+    private void Increment() => count++;
+}

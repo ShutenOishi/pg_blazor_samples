@@ -1,0 +1,24 @@
+@inject NavigationManager Navigation
+@page "/learn/runtime-04"
+
+<PageTitle>学習順019：URL・履歴・再読込と画面状態｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第2段階 / 学習順019</p>
+<h1>URL・履歴・再読込と画面状態</h1>
+<p>画面の選択条件をURLのクエリに入れると、再読込やブックマークで再現できます。C#フィールドだけに保持した操作回数は再読込で失われます。</p>
+<section class="lesson-details"><h2>URLで残る選択条件</h2>
+<p>選択中の表示：<strong data-testid="runtime04-tab">@(Tab == "history" ? "履歴" : "一覧")</strong></p>
+<button type="button" @onclick='() => Choose("list")'>一覧をURLで選ぶ</button>
+<button type="button" @onclick='() => Choose("history")'>履歴をURLで選ぶ</button>
+<h2>再読込で消える状態</h2>
+<p>操作回数：<strong data-testid="runtime04-count">@count</strong></p>
+<button type="button" @onclick="Increase">操作回数を1増やす</button>
+<p>ブラウザーの戻る・進む、URLのコピー、再読込を試してください。秘密情報をURLに置いてはいけません。</p></section>
+<div class="page-navigation"><a href="/learn/10">前へ</a><a href="/learn/runtime-05">次へ</a></div>
+@code {
+    [SupplyParameterFromQuery(Name = "tab")]
+    [Parameter] public string? Tab { get; set; }
+    private int count;
+    // URLパラメーターには公開可能な表示条件だけを含める。
+    private void Choose(string value) => Navigation.NavigateTo($"/learn/runtime-04?tab={value}");
+    private void Increase() => count++;
+}

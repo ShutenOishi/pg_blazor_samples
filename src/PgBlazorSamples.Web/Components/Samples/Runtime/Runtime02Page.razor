@@ -1,0 +1,18 @@
+@page "/learn/runtime-02"
+
+<PageTitle>学習順015：SignalR・circuit・再接続｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第2段階 / 学習順015</p>
+<h1>SignalR・circuit・再接続</h1>
+<p>Interactive ServerはSignalRによってブラウザーとサーバーの対話を維持します。circuitは画面の状態とイベントをサーバー側で管理する単位です。</p>
+<section class="lesson-details"><h2>接続中だけ保持する状態</h2>
+<p>対話回数：<strong data-testid="runtime02-count">@count</strong></p>
+<button type="button" @onclick="Increase">対話回数を1増やす</button>
+<p>回線が一時的に切れても、サーバー側にcircuitが残っていれば再接続できる場合があります。保持期限やサーバー再起動の後は復元を保証しません。</p>
+<h2>操作課題</h2><ol><li>回数を増やす。</li><li>開発者ツールのNetworkから接続を観察する。</li><li>開発環境で一時的な切断を試し、アプリ共通の日本語再接続案内を確認する。</li><li>再読込したとき回数が維持されると期待しない。</li></ol>
+<p>ネットワークを遮断する自動処理は入れていません。</p></section>
+<div class="page-navigation"><a href="/learn/08">前へ</a><a href="/learn/09">次へ</a></div>
+@code {
+    private int count;
+    // サーバー上の画面状態を操作する。永続保存はしない。
+    private void Increase() => count++;
+}

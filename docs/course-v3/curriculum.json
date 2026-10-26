@@ -17,7 +17,7 @@
       "title": "WinFormsとWebの処理場所を比較する",
       "source": "docs/course-v3/lessons/web-01.md",
       "url": "/learn/web-01",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -28,7 +28,7 @@
       "title": "URL・HTTPと要求／応答を理解する",
       "source": "docs/course-v3/lessons/web-02.md",
       "url": "/learn/web-02",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -39,7 +39,7 @@
       "title": "HTML・CSS・フォームの基礎",
       "source": "docs/course-v3/lessons/web-03.md",
       "url": "/learn/web-03",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -50,7 +50,7 @@
       "title": "開発者ツールでDOM・Network・Consoleを見る",
       "source": "docs/course-v3/lessons/web-04.md",
       "url": "/learn/web-04",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -61,7 +61,7 @@
       "title": "Visual Studio 2026でWebアプリを起動・デバッグする",
       "source": "docs/course-v3/lessons/web-05.md",
       "url": "/learn/web-05",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -105,8 +105,8 @@
       "title": "Static SSRとInteractive Serverの違い",
       "source": "docs/course-v3/lessons/runtime-01.md",
       "url": "/learn/runtime-01",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 10,
@@ -171,8 +171,8 @@
       "title": "SignalR・circuit・再接続",
       "source": "docs/course-v3/lessons/runtime-02.md",
       "url": "/learn/runtime-02",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 16,
@@ -193,8 +193,8 @@
       "title": "事前レンダリングと初期化の実行回数",
       "source": "docs/course-v3/lessons/runtime-03.md",
       "url": "/learn/runtime-03",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 18,
@@ -215,8 +215,8 @@
       "title": "URL・履歴・再読込と画面状態",
       "source": "docs/course-v3/lessons/runtime-04.md",
       "url": "/learn/runtime-04",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 20,
@@ -226,8 +226,8 @@
       "title": "circuit・ブラウザー・DBの状態保存の選択",
       "source": "docs/course-v3/lessons/runtime-05.md",
       "url": "/learn/runtime-05",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 21,
@@ -1342,21 +1342,21 @@
       "unit": 2,
       "after_sequence": 10,
       "path": "docs/course-v3/reviews/review-02.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {
       "unit": 3,
       "after_sequence": 15,
       "path": "docs/course-v3/reviews/review-03.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {
       "unit": 4,
       "after_sequence": 20,
       "path": "docs/course-v3/reviews/review-04.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     },
     {
