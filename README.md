@@ -4,9 +4,9 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜40のBlazor Webアプリとコラム01〜09、MudBlazor用途別特別コラムのソース・日本語教材を作成しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜15もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作を[Run 40267851541](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851541)で確認しました。学習PDF生成は[Run 40267851605](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851605)で成功しています。Step21〜25はMudBlazor本体・MudBlazor.Translations・公式テンプレートの教材を追加し、CI確認中です。Step41〜80、PostgreSQL実DB検証、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+> **現在の状態：Step01〜50の日本語Blazor画面・実装・教材を整備しました。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
 
-## Step01〜20を起動する
+## 学習アプリを起動する
 
 Visual Studio 2026で `PgBlazorSamples.slnx` を開き、`PgBlazorSamples.Web` を起動してください。コマンドラインでは次のとおりです。
 
@@ -32,16 +32,15 @@ dotnet new mudblazor -n MudBlazorPractice -o MudBlazorPractice -int Server -ai -
 
 ## EF Core 10とMudBlazorのデータ連携（Step31〜60）
 
-標準ORMを**EF Core 10**に統一し、Npgsql接続プールと`IDbContextFactory`の寿命管理、`DateOnly`/`TimeOnly`/`Range`、楽観的排他制御を必修とします。一覧表示については、[10種類の実務パターン比較と選択ガイド](docs/data-grid-patterns.md)、[EF Core 10とNpgsqlの基礎](docs/efcore10-data-access.md)から先に学べます。**Step31以降は計画中で、実DBの実証は未実施です。**
+標準ORMを**EF Core 10**に統一し、Npgsql接続プールと`IDbContextFactory`の寿命管理、`DateOnly`/`TimeOnly`/`Range`、楽観的排他制御を必修とします。一覧表示については、[10種類の実務パターン比較と選択ガイド](docs/data-grid-patterns.md)、[EF Core 10とNpgsqlの基礎](docs/efcore10-data-access.md)から先に学べます。**Step31〜50には実DB用サンプルがあります。PostgreSQL 18の実接続テストはCI専用データベースで実施し、AD/IIS実機検証とは区別します。**
 
 ## ソースコード実装の次工程
 
-Step01〜40の画面とEF Core 10のWeb内サンプルを追加しました。Step26〜30にはDataGrid・Dialog・Snackbar・テーマ切替・総合演習を追加しました。CI成功後はStep31〜40のEF Core 10基礎、Step41〜60の一覧・データ連携、Step61〜80の認証・運用へ進みます。最初から80個の別アプリを作らず、EF Coreのために新しい層別プロジェクトは増やしません。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
-
+Step01〜50の実装を土台として、次はStep51〜55の編集フォーム、ダイアログ、一括処理、競合、階層・詳細画面を追加します。EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
 
 ## 5ステップごとの学習コラム
 
-Step05・10・15…80の節目ごとに、**通常16回と特別編2回、計18本**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)、[コラム04：設定とApplication分離](docs/columns/column16-20.md)、[特別コラム05：ライブラリのDI](docs/columns/column-library-di.md)、[コラム06：MudBlazorのDIと日本語化](docs/columns/column21-25.md)、[コラム07：UIとデータ連携](docs/columns/column26-30.md)を掲載しています。後続のテーマは[全18本の一覧](docs/columns/README.md)を参照してください。
+Step05・10・15…80の節目ごとに、**通常16回と特別編2回、計18本**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)、[コラム04：設定とApplication分離](docs/columns/column16-20.md)、[特別コラム05：ライブラリのDI](docs/columns/column-library-di.md)、[コラム06：MudBlazorのDIと日本語化](docs/columns/column21-25.md)、[コラム07：UIとデータ連携](docs/columns/column26-30.md)を掲載しています。コラム08〜11とMudBlazor用途別特別コラムも追加しました。後続のテーマは[全18本の一覧](docs/columns/README.md)を参照してください。
 
 ## どこから始める？
 
@@ -60,8 +59,8 @@ Step05・10・15…80の節目ごとに、**通常16回と特別編2回、計18�
 | IDE | Visual Studio 2026 |
 | 言語 | C# 14 |
 | ランタイム | .NET 10（`net10.0`） |
-| UI | Blazor Web App / Interactive Server（Step01〜03で利用）／MudBlazor（Step21〜30で実装、CI確認中） |
-| DB | PostgreSQL 18 / EF Core 10（Npgsqlプロバイダー、Step31以降で導入予定） |
+| UI | Blazor Web App / Interactive Server（Step01〜03で利用）／MudBlazor（Step21〜50のUIで活用） |
+| DB | PostgreSQL 18 / EF Core 10（Npgsqlプロバイダー、Step31〜50で実装） |
 | 認証 | Windows統合認証（Step61以降で導入予定） |
 | 認可 | PostgreSQLの利用者・ロール・操作権限 |
 | 運用言語 | 日本語のみ（画面、説明、注釈、検証観点） |
@@ -92,7 +91,7 @@ DIの学習用Applicationは維持しますが、**DBを学ぶための新しい
 
 ## 学習者向けのPDFで読む
 
-学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜40・コラム01〜09・MudBlazor用途別特別コラムを収録する構成へ更新しました（CI確認中）。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜50・コラム01〜11・特別コラム2本を収録し、GitHub Actionsで生成・検査します。
 
 [日本語学習PDFの生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)の最新成功Runから、`blazor_learning_textbook_ja` を取得できます。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
