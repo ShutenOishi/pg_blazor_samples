@@ -7,10 +7,10 @@
 - v2で先行本文改稿済み：旧Step11〜30の20本とコラム5本。v3の最終照合は未実施。
 - 現行PR上のWeb目次・PDFには第1段階のWeb基礎5件と第2段階のruntime5件を挿入。新規15件と9段階の完全移行は未完了。mainのRelease PDFは別の既存80ステップ版。
 
-## 新規ステップ（初稿と画面追加済み 15 / 30、第4段階CI受入待ち）
+## 新規ステップ（初稿と画面追加済み 15 / 30、第4段階CI成功）
 - [x] web：5件のRazor・Markdown・復習・索引を追加、HEAD 9e12130のWindows/Linux・実ブラウザー・PG18・PDF CI成功（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] runtime：5件（HEAD 6f22c9dのWindows/Linux・Chrome・PG18・PDF CI成功）（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
-- [x] browser：5件（初稿・画面・復習第9組・第4段階概要・テスト・PDF挿入、最新CI受入待ち）
+- [x] browser：5件（初稿・画面・第9組復習・第4段階概要を追加。HEAD 9a9df7eのWindows/Linux・Chrome・PG18・PDF CI成功）
 - [ ] db-bridge：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [ ] security：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [ ] capstone：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
@@ -62,3 +62,9 @@
 - [x] browser-03のCSV/PDFダウンロードおよびファイル名の判定後、画面の状態文字列を小文字 `.pdf` で表示しているのに試験だけ大文字「PDF」を期待してタイムアウトしたことを確認（Run 40353250122）。実際の表示に一致する断言へ修正した。
 - [x] 学習順040（旧Step30）→第8組の復習→041（browser-01）および第9組の復習→旧Step31への前後リンクを修正。未実装のdb-bridge-01へのリンクはまだ出さない。
 - [ ] 修正後HEADのChromeを含むCIがすべて成功した時点で、第4段階の新規5件のCI受入を記録する。
+
+### 2026-10-27 第4段階のCI受入実績
+- [x] browser-01〜05の最新実装HEAD `9a9df7e9f9d4c0b763b979958614ff1880fe1072` に対し、アプリCI [Run 40353992330](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40353992330) が SUCCESS。Windows Server 2025/Linux Release、xUnit、Chrome実ブラウザー操作、PostgreSQL18実接続が成功。
+- [x] 同HEADの単体日本語PDF生成・学習内容検査 [Run 40353992474](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40353992474) が SUCCESS。Draft PRのため正式Releaseは行わず、既存公開PDFは更新していない。
+- [x] 学習順040→第8組の復習→041〜045→第9組の復習→次の既存学習画面のリンクを確認。db-bridge-01の実装後に後続導線を再度更新する。
+- [ ] browserの最終全面改稿受入は未実施。新規15/30初稿と全面改稿0/110の区別を維持。

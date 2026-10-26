@@ -2,7 +2,14 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 browser実装後の最新状況（最優先）
+## 2026-10-27 第4段階CI完了（再開時の正本）
+- PR #36：新規初稿15/30（web 5、runtime 5、browser 5）。最終全面改稿0/110、旧80画面維持。PRはDraftでmain未反映。
+- HEAD `9a9df7e9f9d4c0b763b979958614ff1880fe1072` のアプリ/Chrome/Win/Linux/PG18 CI Run 40353992330、単体日本語PDF Run 40353992474が全SUCCESS。成功済みRunを再実行しない。
+- browser-01〜05は学習順041〜045に追加済み。第4段階概要と第9組の復習、PDF、ブラウザーテスト、旧URL・前後リンクを同期し、CI受入済み。
+- 次は **db-bridge-01〜05**（学習順046/052/053/058/059）をRazor・Markdown・第5段階概要・第10〜12組復習・安全なPG18実試験・Web/PDF目次とともに実装する。
+- 新規30件の配置完了後、全110本＋復習22本＋特別3本＋概要9本を学習順001から全面改稿。最新の状況は `docs/course-v3/progress.md` を参照。
+
+## 2026-10-27 browser初稿作成時の状態（履歴）
 - PR #36 は新規15/30本のRazor/教材初稿、最終全面改稿0/110。browser-01〜05（学習順041〜045）、第4段階概要、第9組復習を追加。
 - HEAD 6f22c9d のCI：Chromeを含むアプリ Run 40351271699、PDF Run 40351271704が完全SUCCESS。成功済みRunは再実行しない。
 - browser追加後の初回CIではWindows/Linuxビルド、PostgreSQL18、PDFが成功、Chromeのbrowser-03結果表示（大文字PDF/小文字.pdf）の断言だけ失敗して修正済み。最新HEADのChrome再検証結果を確認する。browserをCI成功前に受入済みとしない。

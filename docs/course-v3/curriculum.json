@@ -457,7 +457,7 @@
       "title": "JavaScript interopの利用判断",
       "source": "docs/course-v3/lessons/browser-01.md",
       "url": "/learn/browser-01",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -468,7 +468,7 @@
       "title": "ファイルアップロードと入力制約",
       "source": "docs/course-v3/lessons/browser-02.md",
       "url": "/learn/browser-02",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -479,7 +479,7 @@
       "title": "CSV・PDFファイルのダウンロード",
       "source": "docs/course-v3/lessons/browser-03.md",
       "url": "/learn/browser-03",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -490,7 +490,7 @@
       "title": "ErrorBoundary・取消・再試行",
       "source": "docs/course-v3/lessons/browser-04.md",
       "url": "/learn/browser-04",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -501,7 +501,7 @@
       "title": "HTMLの意味・フォーカス・拡大表示の最終確認",
       "source": "docs/course-v3/lessons/browser-05.md",
       "url": "/learn/browser-05",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
