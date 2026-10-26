@@ -35,3 +35,7 @@
 - [全80ステップ](../sample-catalog.md)
 - [公式：BlazorとEF Core](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/blazor-ef-core?view=aspnetcore-10.0)
 - [公式：MudDataGrid API](https://mudblazor.com/api/MudDataGrid)
+
+## 2026-10-26の追補：初学者向けの簡素化
+
+EF Coreの導入にDomain・Infrastructure・Repositoryを必須としない。Step31〜40の実装はWebプロジェクト内のData/とServices/へ統一。Step40終了とStep41開始の間にMudBlazor用途別コンポーネント特別コラムを追加し、合計18本（通常16＋特別2）のコラムにする。

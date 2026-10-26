@@ -1,10 +1,12 @@
+> **簡素化方針：** Step31〜40はWebプロジェクトのData/とServices/だけで実装。新しいDomain、Infrastructure、Repositoryプロジェクトは不要です。実DB未設定時には日本語の案内を表示します。
+
 # EF Core 10・Npgsql・Blazor Interactive Server データアクセス学習ガイド
 
 > **位置付け：Step31〜40・Step41〜60の実装設計資料。2026-10-26時点でこの章のDB連携ソースと実接続は未実装です。** 以下のコードは教材化する際の設計例であり、現行サンプルで実行できることを意味しません。
 
 ## この教材で目指すこと
 
-Web画面から直接データベースを操作するのではなく、MudBlazorのUI状態 → 検索・編集DTO → Applicationのサービス → EF Core 10（Npgsqlプロバイダー） → PostgreSQL 18、という境界を説明・実装・テストできるようにします。[一覧・グリッドの選択ガイド](data-grid-patterns.md)と一体で学びます。
+Web画面から直接データベースを操作するのではなく、MudBlazorのUI状態 → Web内のLearningDbService → EF Core 10（Npgsqlプロバイダー） → PostgreSQL 18、という境界を説明・実装・テストできるようにします。[一覧・グリッドの選択ガイド](data-grid-patterns.md)と一体で学びます。
 
 ## 1. EF Core・Npgsql・PostgreSQLの役割
 
@@ -22,7 +24,7 @@ NuGetの基本候補：`Npgsql.EntityFrameworkCore.PostgreSQL` の **10系**（E
 
 Interactive ServerのDIの`Scoped`はHTTP 1要求で終わらずcircuit単位で存続します。DbContextはスレッドセーフではなく、別コンポーネント/イベントの同時利用に適しません。
 
-- 標準は`IDbContextFactory<AppDbContext>`で**1操作1DbContext**。`await using`で必ず破棄します。
+- 標準は`IDbContextFactory<LearningDbContext>`で**1操作1DbContext**。`await using`で必ず破棄します。
 - 読み取り画面では`AsNoTracking`＋必要列のみ`Select`でDTOに射影します。
 - 更新は**新しいDbContext**で対象を読み直し、入力値と権限を検証して`SaveChangesAsync`します。
 - DbContext、`IQueryable`、`DbDataReader`、遅延列挙をRazorコンポーネントへ返しません。コンポーネント内へ接続文字列を置きません。
@@ -32,17 +34,17 @@ Interactive ServerのDIの`Scoped`はHTTP 1要求で終わらずcircuit単位で
 
 ```csharp
 // Program.cs（計画例、まだ導入していません）
-builder.Services.AddDbContextFactory<AppDbContext>(options =>
+builder.Services.AddDbContextFactory<LearningDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("PostgreSQL")
         ?? throw new InvalidOperationException("PostgreSQLの接続設定が必要です。")));
-builder.Services.AddScoped<IEmployeeQueryService, EmployeeQueryService>();
+builder.Services.AddScoped<ILearningDbService, LearningDbService>();
 ```
 
 ```csharp
-// Infrastructureのサービス内（計画例）
-public sealed class EmployeeQueryService(
-    IDbContextFactory<AppDbContext> factory) : IEmployeeQueryService
+// Web/Servicesのサービス内（計画例）
+public sealed class LearningDbService(
+    IDbContextFactory<LearningDbContext> factory) : ILearningDbService
 {
     public async Task<List<EmployeeRow>> GetRecentAsync(CancellationToken ct)
     {
@@ -57,7 +59,7 @@ public sealed class EmployeeQueryService(
 }
 ```
 
-例中の`EmployeeRow`などの型は後続ステップで定義します。サービス契約はApplication、EF Coreの具象実装はInfrastructureに置きます。説明のためにWebへEF Core依存を持ち込まず、DIの登録場所のみWebのComposition Rootに置きます。
+例中の`EmployeeRow`などの型は後続ステップで定義します。サービス契約はApplication、EF Coreの具象実装はWeb/Servicesに置きます。説明のためにWebへEF Core依存を持ち込まず、DIの登録場所のみWebのComposition Rootに置きます。
 
 ## 3. 接続プールとDbContextプールは別
 

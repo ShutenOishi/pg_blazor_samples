@@ -89,3 +89,7 @@ CREATE INDEX ix_audit_event_occurred_at ON audit_event (occurred_at DESC);
 架空のドメイン・ユーザー名・SIDのみを使います。本番のAD情報や実在個人の名前・アカウント情報を`seed`に入れません。DB結合テストでは毎回隔離された専用DB/スキーマを準備・破棄します。
 
 関連：[認証と認可](authentication.md) / [品質管理](quality.md)
+
+## Step31〜40で実装した簡単なEF Core教材
+
+Web/Data/LearningTask.cs（Entity/DTO）、Web/Data/LearningDbContext.cs（型対応）、Web/Services/Learning/LearningDbService.cs（検索/更新）、Program.cs（Factory DI）を基本とします。**この段階では新しい層別プロジェクトを作らず、1つのWeb内で学びます。** DDLはdatabase/schema/001_learning_task.sql、架空データはdatabase/seed/、日付・Range・xminを確認するSQLはdatabase/tests/です。実PostgreSQLに接続していない場合、UI上の動作とDB処理成功を区別します。

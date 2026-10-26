@@ -124,7 +124,7 @@ docs/
 
 - 31 Domainと業務モデル
 - 32 PostgreSQL 18のDDL・初期スキーマ
-- 33 InfrastructureとEF Core 10マッピング
+- 33 Web内でEF Core 10マッピング
 - 34 DbContextFactoryとNpgsql接続プール
 - 35 AsNoTracking・DTO射影・SELECT
 - 36 INSERT/UPDATE/DELETE、変更追跡
@@ -162,3 +162,6 @@ Windows Server 2025へ配備するPhase5/6では、Windows統合認証、SID照�
 - [ ] カタログの状態が証拠に合っている
 
 条件が満たされた段階で次のPR B（Step04〜06）へ進む。
+## 決定：EF Coreは層別プロジェクトを作らない
+
+Step31〜40はWeb/Data、Web/Services、Program.cs、開発用SQLだけで構成します。Step40後・41前に[用途別MudBlazor特別コラム](columns/column-mudblazor-by-purpose.md)を追加します。

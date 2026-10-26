@@ -12,7 +12,7 @@
 | MudBlazor.Translations | 3.6.0 | MudBlazor 9系用コミュニティ翻訳（ja-JP） |
 | MudBlazor.Templates | 4.3.0 | .NET 10向け生成テンプレート（学習時にCLIで別アプリを生成） |
 | EF Core | 10系安定版 | Step31以降の標準ORM。実装時に正確なパッチを固定 |
-| Npgsql.EntityFrameworkCore.PostgreSQL | 10系安定版 | EF Core 10のPostgreSQL公式プロバイダー。パッチの依存関係を確認 |
+| Npgsql.EntityFrameworkCore.PostgreSQL | **10.0.3** | Webへ導入したEF Core 10向けの安定版プロバイダー |
 | Npgsql | 10.0.3（調査時候補） | PostgreSQLドライバー。プロバイダーとの互換を優先 |
 | linq2db / linq2db.PostgreSQL | 標準採用しない | 上級編で比較する場合のみバージョンを選定 |
 | Microsoft.AspNetCore.Authentication.Negotiate | 10.0.13 | Windows統合認証 |

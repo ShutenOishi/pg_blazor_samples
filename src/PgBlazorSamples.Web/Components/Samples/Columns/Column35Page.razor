@@ -1,0 +1,12 @@
+@page "/learn/column/35"
+<PageTitle>学習コラム08：EF Core入門｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム08 / ステップ31〜35</p>
+<h1>WebプロジェクトだけでEF Core 10を始める</h1>
+<section class="lesson-details">
+    <h2>5ステップの関係</h2>
+    <p>EntityとDTO → PostgreSQLのDDL → EFプロバイダーとDI → DbContextFactory → AsNoTrackingによる検索の順番で理解します。</p>
+    <p>Domain/Infrastructureのプロジェクトを新設せず、Web内のDataとServicesで学びます。</p>
+    <details><summary>確認：DbContextをずっと共有してよい？</summary><p>いいえ。Blazorのcircuitが長く続くため、1操作ごとに生成・破棄します。</p></details>
+    <details><summary>確認：全行をItemsへ読み込む？</summary><p>行数の上限がなければDB側で検索とページングを行います。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/35">ステップ35へ戻る</a><a href="/learn/36">次へ：ステップ36</a></div>

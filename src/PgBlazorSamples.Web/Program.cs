@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using PgBlazorSamples.Web.Data;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using MudBlazor.Services;
@@ -47,6 +49,15 @@ builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 // Step29：利用者ごとのテーマ設定はcircuitごとに保持する。
 builder.Services.AddScoped<ThemePreferenceService>();
+
+// Step31〜40：新たな層別プロジェクトは作らず、このWeb内でEF Core 10を使う。
+// 未設定時はDB画面で接続前の案内を表示する。接続情報は環境変数で与える。
+var pgConnection = builder.Configuration.GetConnectionString("PostgreSQL");
+builder.Services.AddDbContextFactory<LearningDbContext>(options =>
+    options.UseNpgsql(string.IsNullOrWhiteSpace(pgConnection)
+        ? "Host=127.0.0.1;Database=pg_blazor_learning;Username=pg_blazor_learning;Timeout=2"
+        : pgConnection));
+builder.Services.AddScoped<LearningDbService>();
 
 var app = builder.Build();
 

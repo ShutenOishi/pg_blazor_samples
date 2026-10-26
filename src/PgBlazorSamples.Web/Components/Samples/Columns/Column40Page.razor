@@ -1,0 +1,12 @@
+@page "/learn/column/40"
+<PageTitle>学習コラム09：EF Coreの保存と型｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム09 / ステップ36〜40</p>
+<h1>保存・競合・日付Range・DBテストを結び付ける</h1>
+<section class="lesson-details">
+    <h2>5ステップの関係</h2>
+    <p>CRUD → DateOnly/Range変換 → トランザクション → xmin競合 → PostgreSQL 18の実接続検証です。</p>
+    <p>画面入力中にDbContextを保持せず、保存時にFactoryから短く生成します。</p>
+    <details><summary>確認：PostgreSQLのdaterangeとMudDateRangePickerのDateRangeは同じ？</summary><p>いいえ。画面の端点をDBの半開区間へ変換します。</p></details>
+    <details><summary>確認：別ユーザーの更新を上書きしてよい？</summary><p>いいえ。xminによる競合を通知し再読み込みしてもらいます。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/40">ステップ40へ戻る</a><a href="/learn/column/mudblazor-guide">次へ：MudBlazor用途別特別コラム</a></div>

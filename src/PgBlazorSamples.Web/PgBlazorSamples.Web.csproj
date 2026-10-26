@@ -8,6 +8,8 @@
     <!-- 学習環境を再現できるよう検証対象のバージョンを固定する。 -->
     <PackageReference Include="MudBlazor" Version="9.11.0" />
     <PackageReference Include="MudBlazor.Translations" Version="3.6.0" />
+    <!-- EF Core 10 + PostgreSQLはWebプロジェクトだけへ追加する。 -->
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../PgBlazorSamples.Application/PgBlazorSamples.Application.csproj" />

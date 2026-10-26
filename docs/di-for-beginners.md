@@ -66,10 +66,10 @@ builder.Services.AddTransient<GreetingService>();
 | ステップ11〜12 | Web内の`Services`と`IClock` | DIとインターフェイスを体験する |
 | ステップ18 | UnitTests | 偽時計を使い画面なしでテストする |
 | ステップ19〜20 | Applicationライブラリ | 業務処理を画面から分ける理由を体験する |
-| ステップ31〜33 | DomainとInfrastructure | 業務ルールとDB実装を分離する |
+| ステップ31〜33 | Web内のData/とServices/ | EF Core 10のために別プロジェクトを増やさない |
 | ステップ40以降 | DB結合テスト | 実環境依存の試験と単体テストを区別する |
 
-構成の目標は`Web → Application → Domain`、`Infrastructure → Application/Domain`です。Webが起動時にInfrastructureを登録し、ApplicationはInfrastructureの実装を参照しません。詳細は[アーキテクチャ](architecture.md)。
+Step19でApplicationを試しましたが、Step31以降のEF CoreはWeb内で完結します。画面→Service→DbContext→Npgsqlという経路を追います。詳細は[アーキテクチャ](architecture.md)。
 
 ## ライブラリのDIも理解する
 
@@ -77,7 +77,7 @@ builder.Services.AddTransient<GreetingService>();
 
 ## EF Coreを使うDIの次の段階
 
-Step31〜40で`AddDbContextFactory<AppDbContext>`、`IDbContextFactory<AppDbContext>`、操作単位の`await using`、Npgsql接続プールを学びます。画面側はDBコンテキストでなくサービスインターフェイスを注入し、一覧の`ServerData`ではCancellationTokenを渡します。[詳しい解説](efcore10-data-access.md)。
+Step31〜40で`AddDbContextFactory<LearningDbContext>`、`IDbContextFactory<LearningDbContext>`、操作単位の`await using`、Npgsql接続プールを学びます。画面側はDBコンテキストでなくサービスインターフェイスを注入し、一覧の`ServerData`ではCancellationTokenを渡します。[詳しい解説](efcore10-data-access.md)。
 
 ## DIから学ぶセキュリティの注意
 

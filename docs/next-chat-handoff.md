@@ -1,19 +1,19 @@
-# 次のチャットへの引き継ぎ：Step26〜30の確認からEF Core 10へ
+# 引き継ぎ：EF Core 10のWeb内実装とMudBlazor用途別コラム
 
-## 今回の範囲
-- Step26〜30のMudDataGrid Items、Dialog、Snackbar、Scopedテーマ切替、総合UIの日本語ソースと日本語教材、コラム07を追加。
-- 共有レイアウト・メニュー・ホーム・日本語PDF・Chromeの操作試験も更新。
-- これらは架空データのみで、PostgreSQL 18・AD・IIS実接続ではない。
+## 最重要決定
+- EF CoreはWeb/Data、Web/Services、Program.csのみ。追加のDomain/Infrastructure/Repositoryプロジェクト不要。
+- Npgsql.EntityFrameworkCore.PostgreSQL 10.0.3でStep31〜40の教材コードとDDL、DBなし時の案内を追加。
+- Step40とStep41の間に用途別MudBlazor特別コラムを追加。MudSimpleTable、MudTable、MudDataGrid、各種入力、階層、通知、配置を比較。
+- コラムは通常16本＋特別2本＝18本。PDFもStep40とコラム09直後に配置。
+- Step41〜60はDB側の検索・ページング・編集・集計・大量データ連携。新プロジェクトでなく同じWebのサービスを拡張する。
 
-## 次の実装順序
-1. 最新の元HEAD必須CI、Windows/Linuxビルド、Chrome操作、PDF生成を確認し、失敗があれば修正後に正規マージ・postmergeを確認。
-2. Step31 Domain、32 PostgreSQL 18 DDL、33 Infrastructure＋EF Core 10とNpgsqlを導入。
-3. Step34 DbContextFactory・プール、35 AsNoTracking/DTO、36 CRUD、37 DateOnly/TimeOnly/Range、38 トランザクション、39 xmin競合、40 PostgreSQL統合テスト。
-4. 5ステップごとの日本語コラム08・09、日本語PDFをソースと一致させる。
-5. Step41〜60ではDataGrid ServerData、VirtualizeServerData、キーセット、権限/集計/編集/CSVの選択を実装。
+## 未検証の区別
+- ビルド・画面/ブラウザー検証と本物のPostgreSQL 18への接続検証は別。
+- connection stringがないときは起動できるがDB操作は未実施。
+- 本番の資格情報はGitへ置かず、開発専用DBにだけDDL/Seedを適用する。
 
-## 基本原則
-- Blazor circuitでDbContextを長寿命のScopedとして共有しない。Factoryから操作単位で生成・破棄する。
-- 一覧はItemsの上限、ソートの安定性、認可された総件数、CancellationToken、SQL実行計画を検査する。
-- 学習者向けPDFにPR/コミット/リポジトリ説明を表示しない。
-- 成功済みCIの不要な再実行禁止。実DB未接続の機能を実証済みと呼ばない。
+## 次の自律作業
+1. 最新PR/CIを確認。ビルド失敗ならログに基づき修復。
+2. Linux/Windowsビルド、ブラウザー操作、資料索引、PDFの成功を確定させ正規マージ→main postmerge確認。
+3. PostgreSQL 18の専用環境でDateOnly/TimeOnly/Range/xmin/CRUD/トランザクションの統合テストを追加・検証する。
+4. Step41〜60のDataGrid ServerDataと大規模一覧の実装へ進む。

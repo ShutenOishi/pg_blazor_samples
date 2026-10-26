@@ -1,0 +1,24 @@
+@page "/learn/40"
+@inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
+<PageTitle>ステップ40：PostgreSQL結合確認｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ40 / DB結合確認</p>
+<h1>DBの実接続と異常系を確認する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CheckAsync">開発用DBへ接続して検索</MudButton>
+    <p role="status" data-testid="step40-result">@_result</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>検証の範囲</h2>
+    <p>画面が表示されたことはDB統合テスト成功を意味しません。開発用PostgreSQL 18を準備し、DDL、日付・Range・MultirangeのSQL、xmin競合を順番に検証します。</p>
+    <p>database/testsに含むSQLをpsqlで実行し、EXPLAIN (ANALYZE, BUFFERS)で必要な索引を検討します。DBが未設定なら結果に未設定と表示します。</p>
+    <p>この先は一覧UIとPostgreSQL連携の20ステップです。先にMudBlazorの用途別コンポーネントガイドを読んでください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/39">前へ：ステップ39</a><a href="/learn/column/40">コラム09：DB編のまとめ</a><a href="/learn/column/mudblazor-guide">特別コラム：MudBlazor用途別ガイド</a></div>
+@code {
+    private string _result = "まだ接続していません。";
+    private async Task CheckAsync()
+    {
+        var r = await Database.SearchAsync();
+        _result = $"{r.Message} 検索一致：{r.TotalCount} 件";
+    }
+}

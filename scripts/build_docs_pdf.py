@@ -56,6 +56,19 @@ CHAPTERS = [
     ("ステップ29：ダークモードとキーボード操作を学ぶ", "docs/samples/step29.md"),
     ("ステップ30：MudBlazor日本語UIを総合演習する", "docs/samples/step30.md"),
     ("学習コラム07：UIの部品をデータ連携につなぐ", "docs/columns/column26-30.md"),
+    ("ステップ31：モデルとDTOを理解する", "docs/samples/step31.md"),
+    ("ステップ32：PostgreSQLで学習テーブルを定義する", "docs/samples/step32.md"),
+    ("ステップ33：EF Core 10をWebへ登録する", "docs/samples/step33.md"),
+    ("ステップ34：DbContextFactoryと接続プール", "docs/samples/step34.md"),
+    ("ステップ35：LINQ検索とAsNoTracking", "docs/samples/step35.md"),
+    ("学習コラム08：WebプロジェクトだけでEF Coreを使う", "docs/columns/column31-35.md"),
+    ("ステップ36：EF Coreの登録・更新・削除", "docs/samples/step36.md"),
+    ("ステップ37：DateOnly・TimeOnly・Rangeの型変換", "docs/samples/step37.md"),
+    ("ステップ38：トランザクションを理解する", "docs/samples/step38.md"),
+    ("ステップ39：xmin楽観的排他を確認する", "docs/samples/step39.md"),
+    ("ステップ40：PostgreSQL 18の実接続確認", "docs/samples/step40.md"),
+    ("学習コラム09：更新・日付Range・競合・DB確認", "docs/columns/column36-40.md"),
+    ("特別コラム：用途から選ぶMudBlazorコンポーネント", "docs/columns/column-mudblazor-by-purpose.md"),
     ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
     ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]
@@ -131,10 +144,10 @@ def main():
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから日本語UIまで<br>30ステップ＋EF Core 10の先取り学習</p>
+      <p class="lead">画面づくりから日本語UIまで<br>40ステップ＋用途別MudBlazorとデータ連携の先取り学習</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜30／コラム01〜07／データ連携設計ガイド</p>
+      <p class="version">学習範囲：ステップ01〜40／コラム01〜09／MudBlazor特別コラム／データ連携設計ガイド</p>
     </section>
     <section class="toc">
       <h1>目次</h1>

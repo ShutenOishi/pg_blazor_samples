@@ -1,0 +1,35 @@
+@page "/learn/column/mudblazor-guide"
+<PageTitle>特別コラム：MudBlazor用途別ガイド｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">特別コラム / ステップ40と41の間</p>
+<h1>用途からMudBlazorのコンポーネントを選ぶ</h1>
+<p>部品の暗記ではなく、業務要件・データの量・入力形式から判断することを学びます。</p>
+<MudAlert Severity="Severity.Info" Class="mb-3">
+    単純な表はMudSimpleTableまたはMudTable。列フィルター・編集や複数ソートならMudDataGridが候補です。
+</MudAlert>
+<section class="lesson-details">
+    <h2>一覧とデータ表示</h2>
+    <table>
+        <thead><tr><th>やりたいこと</th><th>部品</th><th>考慮点</th></tr></thead>
+        <tbody>
+            <tr><td>静的な表</td><td>MudSimpleTable</td><td>追加の機能が不要</td></tr>
+            <tr><td>通常の一覧</td><td>MudTable</td><td>読みやすい単純な構成</td></tr>
+            <tr><td>複雑な検索/編集</td><td>MudDataGrid</td><td>列フィルター・複数ソート</td></tr>
+            <tr><td>DBの大量行</td><td>ServerData</td><td>DB側のページングと総件数</td></tr>
+            <tr><td>連続スクロール</td><td>VirtualizeServerData</td><td>可視範囲・高さ・取消</td></tr>
+            <tr><td>階層の選択</td><td>MudTreeView</td><td>必要な子だけ取得</td></tr>
+            <tr><td>数値の傾向</td><td>MudChart</td><td>数値表を併用</td></tr>
+        </tbody>
+    </table>
+    <h2>入力・検索</h2>
+    <p>MudTextFieldは文字列、MudNumericFieldは数値、MudSelectは少数の候補、MudAutocompleteは多数の候補の検索に使います。</p>
+    <p>日付はMudDatePicker、期間はMudDateRangePicker、時刻はMudTimePickerです。DateOnly、TimeOnly、PostgreSQLのRangeとは明示的に変換します。</p>
+    <p>複数の項目を検証するならMudForm、添付ファイルにはMudFileUpload。サーバー側の検証も必要です。</p>
+    <h2>配置・移動・通知</h2>
+    <p>MudGrid/MudItemはレスポンシブな段組み、MudStackは単純な配置、MudAppBar/MudDrawerは共通メニュー、MudTabsは画面内分類、MudStepperは段階入力です。</p>
+    <p>操作確認はMudDialog、短い通知はMudSnackbar、警告はMudAlert、処理中はMudProgressLinearやMudSkeletonを使い分けます。</p>
+    <h2>確認問題</h2>
+    <details><summary>固定4件を比較するだけなら？</summary><p>MudSimpleTableかMudTableがシンプルです。</p></details>
+    <details><summary>20万件を日付で検索して20件ずつ表示するなら？</summary><p>MudDataGrid ServerDataとEF CoreによるDB側検索を候補にします。</p></details>
+    <details><summary>ダイアログの確認だけで更新は安全？</summary><p>いいえ。サーバー側認可・競合検知が必要です。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/40">前へ：ステップ40</a><a href="/">学習目次へ</a></div>
