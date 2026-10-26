@@ -152,3 +152,11 @@
 - [x] **受入進捗：新規初稿30/30、最終全面改稿20/110、通常復習4/22、段階概要2/9。** 第2段階の15本と復習3組が受入済み。実AD/IIS/Kerberos/FDW・大規模負荷の実機受入とは区別する。
 - [ ] **次は学習順021〜025（旧Step11〜15：DIの基本、インターフェイス、Singleton/Scoped/Transient、Blazor Scopedとcircuit、injectとコンストラクター注入）および第5組復習・第3段階概要を全面改稿。** 既存のサービス・画面実装を詳細に読み、各本文3,300文字以上、実コード2ブロック以上、WinForms＋Dapper比較表と診断表、操作手順、演習と詳しい解答を整備する。Web/PDF章順・前後リンク・Chrome/安全ゲートを同一HEADで照合し、成功時のみ25/110・復習5/22・概要3/9へ進める。
 - [ ] 進捗記録更新後のPR最新HEAD自体について、新しいアプリ/PDF CIとPreview Releaseの生成元SHA・Assetを認証済みGETで再照合し、PRコメントに記録する。既存成功Runの再実行はしない。
+
+## 2026-10-27 学習順021〜025の全面改稿（同一HEAD CI受入待ち）
+- [x] 実Razor/C#とProgram.csのDI登録、GreetingService/IClock/FixedClock/Marker/ScopedCounter/Formatterを照合。旧Step11〜15（学習順021〜025）の各本文4,625〜5,300文字、第5組復習3,604文字、第3段階概要3,048文字を全文改稿。
+- [x] 各本文に実装からの複数コード、WinForms＋Dapper比較、比較表と診断表、手順、演習・詳しい解答を追加。
+- [x] 第3段階概要Razor、021〜025のRazor比較表/コード/診断、復習Razor、前後リンク、ホーム/メニュー、PDF章順、品質ゲート、Chrome E2Eを同期。
+- [ ] 最新HEADのWindows Server 2025/Linux・xUnit・Chrome・PostgreSQL18・安全拒否・日本語PDF CIを同一HEADで確認し、Preview Releaseの生成元SHAと単体PDFの実AssetをGET照合する。
+- **上記未成立の間は確定進捗を新規初稿30/30、最終全面改稿20/110、通常復習4/22、段階概要2/9に維持する。**
+- 全CI成功とプレビュー実物一致後だけ25/110・5/22・3/9へ変更し、次の026〜030・第6組復習、DI特別コラムとの接続へ進む。

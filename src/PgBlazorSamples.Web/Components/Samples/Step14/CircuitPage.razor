@@ -4,7 +4,7 @@
 @inject ScopedCounter Counter
 
 <PageTitle>ステップ14：BlazorのScopedとcircuit｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ14 / 対話回線とScoped</p>
+<p class="eyebrow">学習順024（旧Step14） / 親子でScopedを共有する</p>
 <h1>親子で状態を共有し、別の回線とは分ける</h1>
 <p>Blazor Interactive ServerのScopedサービスは、通常の1回限りのHTTP要求より長く、対話回線（circuit）に関連付いて保持されます。</p>
 
@@ -21,6 +21,22 @@
     <h2>別ウィンドウで試す</h2>
     <p>同じ画面をプライベートウィンドウで開いてください。新しいcircuitではカウントが0から始まります。</p>
     <p>同じ状態を親子で使っても、別の利用者と共有してよいわけではありません。認証情報・DB接続をSingletonへ置かないでください。</p>
+</section>
+<section class="lesson-details">
+    <h2>WinFormsとBlazorの実装を比べる</h2>
+    <table>
+        <thead><tr><th>方式・考え方</th><th>実装の要点</th><th>確認すること</th></tr></thead>
+        <tbody>
+            <tr><td>状態共有</td><td><code>ScopedCounter</code></td><td>同じcircuitでは親子が同じCountを参照</td></tr>
+            <tr><td>表示通知</td><td><code>OnChanged / StateHasChanged</code></td><td>子操作の後に親の再描画を要求</td></tr>
+        </tbody>
+    </table>
+    <h2>実コードと障害の切り分け</h2>
+    <pre><code>Counter.Increment();
+await OnChanged.InvokeAsync();
+// 親：private void Refresh() =&gt; StateHasChanged();</code></pre>
+    <p><strong>症状：</strong>子操作後に親の表示が古い。<strong>確認：</strong>EventCallbackからRefreshへの通知を確認。WinFormsのローカルイベントとは違い、Interactive Serverではサーバー側でC#を実行します。画面に表示された値だけでDBへの保存や業務認可が行われたと判断しないでください。</p>
+    <p>詳しい解説、2つ以上の実コード、比較表、症状別の切り分け、演習と詳しい解答は日本語教材の学習順024に掲載しています。</p>
 </section>
 <div class="page-navigation">
     <a href="/learn/13">前へ：ステップ13</a>

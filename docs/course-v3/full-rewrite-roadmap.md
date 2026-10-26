@@ -111,3 +111,9 @@
 - **実装HEAD `897153ba5c4e4c65bf91c6fa6c2c151d0e86a582`** はApp Run [40418321144](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40418321144)・PDF Run [40418321149](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40418321149)が全SUCCESS。Preview ReleaseのPDF単体は1204237バイト、SHA256 `00b2247f3f2eee2fd92944719403dd02ba9370c88f2cc3dba45cde16fefb42d4`、生成元SHA一致を認証済みGETで確認。
 - **確定：20/110本文、4/22通常復習、2/9段階概要**。第2段階は完了。第3段階はこれからでありDIの既存実装やv2改稿を未照合のまま計上しない。
 - **次工程05：学習順021〜025（旧Step11〜15：DI、インターフェイス、ライフタイム、circuitのScoped、注入の使い分け）と第5組復習、第3段階概要**。既存Razor/C#のDIサービス登録・スコープ/破棄・学習画面を照合し、3300文字以上・実コード・比較/診断表・演習/詳答とWeb/PDF/Chrome品質ゲートを同期する。全CIと単体PDFの同一HEAD検証後にのみ25/110、5/22、3/9へ進める。
+
+### 第5組学習順021〜025の改稿候補と受入手順（2026-10-27）
+
+旧Step11〜15に対応する各本文、第5組復習、第3段階概要を実コードと照合して改稿済み。第3段階のRazor概要、DI比較表、前後リンク、Web/PDF目次、品質ゲート、Chrome導線も同期した。ただし**新HEADのCI結果とプレビューPDFの同一HEAD照合まで受入判定しない**。確認後だけ25/110・第5組5/22・第3段階概要3/9を計上する。
+
+次の第6組026〜030は旧Step16〜20である。順にOptions、非同期処理とログ、xUnit、Application分離、DI課題管理を全面改稿し、復習第6組と特別コラム（ライブラリDI）の後続導線を一致させる。既存の旧80ステップURLとDraft状態を維持する。

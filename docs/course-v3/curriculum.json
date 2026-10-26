@@ -238,7 +238,7 @@
       "source": "docs/samples/step11.md",
       "url": "/learn/11",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-rewrite-awaiting-ci"
     },
     {
       "sequence": 22,
@@ -249,7 +249,7 @@
       "source": "docs/samples/step12.md",
       "url": "/learn/12",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-rewrite-awaiting-ci"
     },
     {
       "sequence": 23,
@@ -260,7 +260,7 @@
       "source": "docs/samples/step13.md",
       "url": "/learn/13",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-rewrite-awaiting-ci"
     },
     {
       "sequence": 24,
@@ -271,7 +271,7 @@
       "source": "docs/samples/step14.md",
       "url": "/learn/14",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-rewrite-awaiting-ci"
     },
     {
       "sequence": 25,
@@ -282,7 +282,7 @@
       "source": "docs/samples/step15.md",
       "url": "/learn/15",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-rewrite-awaiting-ci"
     },
     {
       "sequence": 26,
@@ -1257,7 +1257,8 @@
       "stage": 3,
       "from": 21,
       "to": 30,
-      "overview": "docs/course-v3/stages/stage03.md"
+      "overview": "docs/course-v3/stages/stage03.md",
+      "final_review": "awaiting-ci"
     },
     {
       "name": "MudBlazorとブラウザーの業務UI",
@@ -1370,7 +1371,8 @@
       "after_sequence": 25,
       "path": "docs/columns/column11-15.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": true,
+      "final_review": "awaiting-ci"
     },
     {
       "unit": 6,

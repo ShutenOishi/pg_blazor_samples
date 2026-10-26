@@ -476,6 +476,71 @@ for _, url, _ in fourth_group:
 if "016〜020" not in (ROOT / stage2).read_text(encoding="utf-8"):
     missing.append("第2段階概要に第4組の学習順が不足")
 
+
+# 学習順021〜025：第3段階のDI教材は、長文・実コード・診断・画面とPDF順を同時に照合する。
+di_group = [
+    ("docs/samples/step11.md", "/learn/11", "GreetingService", "Step11/DiIntroductionPage.razor", 'href="/learn/12"'),
+    ("docs/samples/step12.md", "/learn/12", "IClock", "Step12/InterfacePage.razor", 'href="/learn/13"'),
+    ("docs/samples/step13.md", "/learn/13", "GetRequiredService", "Step13/LifetimePage.razor", 'href="/learn/14"'),
+    ("docs/samples/step14.md", "/learn/14", "StateHasChanged", "Step14/CircuitPage.razor", 'href="/learn/15"'),
+    ("docs/samples/step15.md", "/learn/15", "GreetingFormatter", "Step15/InjectionPage.razor", 'href="/learn/column/15"'),
+]
+if [item["id"] for item in ordered[20:25]] != [f"step{n}" for n in range(11, 16)]:
+    missing.append("第5組の学習順021〜025の対応に不一致")
+for idx, (file_name, url, word, razor_name, next_link) in enumerate(di_group, start=21):
+    file = ROOT / file_name
+    if not file.is_file():
+        missing.append(file_name + "：DI教材の本文がありません")
+        continue
+    body = file.read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(file_name + "：比較・診断表または3300文字以上の本文が不足")
+    if body.count("```") < 4 or body.count("```") % 2:
+        missing.append(file_name + "：実コード2ブロック以上が必要")
+    if not all(token in body for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", url, word)):
+        missing.append(file_name + "：実画面・WinForms比較・演習・解答の説明が不足")
+    if any(token in body for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+        missing.append(file_name + "：PDFへ開発管理情報を持ち込まないでください")
+    razor = SAMPLES / razor_name
+    if not razor.is_file():
+        missing.append(razor_name + "：Razor画面不足")
+    else:
+        razor_text = razor.read_text(encoding="utf-8")
+        if f'@page "{url}"' not in razor_text or next_link not in razor_text or f"学習順{idx:03d}" not in razor_text:
+            missing.append(razor_name + "：URL・移動リンク・学習順が一致しません")
+    if f'"{file_name}"' not in PDF_SCRIPT:
+        missing.append(file_name + "：PDFに収録されていません")
+
+di_stage = "docs/course-v3/stages/stage03.md"
+di_review = "docs/columns/column11-15.md"
+for name, minimum in ((di_stage, 2700), (di_review, 3200)):
+    path = ROOT / name
+    if not path.is_file():
+        missing.append(name + "：第3段階の概要または第5組の復習不足")
+        continue
+    body = path.read_text(encoding="utf-8")
+    if len(body) < minimum or body.count("| ---") < 2 or body.count("```") < 4 or "解答" not in body:
+        missing.append(name + "：長文・比較/診断表・コード・解答が不足")
+di_overview = SAMPLES / "Step11/DiOverviewPage.razor"
+di_review_page = SAMPLES / "Columns/Column15Page.razor"
+if not di_overview.is_file() or '@page "/learn/stage/di"' not in di_overview.read_text(encoding="utf-8"):
+    missing.append("第3段階の概要RazorまたはURLがありません")
+if not di_review_page.is_file() or 'href="/learn/16"' not in di_review_page.read_text(encoding="utf-8"):
+    missing.append("第5組の復習Razorから学習順026への導線不足")
+pdf_di = [PDF_SCRIPT.find(f'"{row[0]}"') for row in di_group]
+pdf_stage3 = PDF_SCRIPT.find(f'"{di_stage}"')
+pdf_review5 = PDF_SCRIPT.find(f'"{di_review}"')
+pdf_next = PDF_SCRIPT.find('"docs/samples/step16.md"')
+if -1 in pdf_di or not (0 <= pdf_stage3 < pdf_di[0]) or pdf_di != sorted(pdf_di) or not (pdf_di[-1] < pdf_review5 < pdf_next):
+    missing.append("第3段階021〜025の概要・本文・復習とPDF順が不一致")
+if not all(f'学習順{seq:03d}を開く' in home for seq in range(21, 26)) or "/learn/stage/di" not in home or "第5組の復習" not in home:
+    missing.append("第3段階のWeb目次に学習順と第5組の復習が不足")
+nav_di = (ROOT / "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor").read_text(encoding="utf-8")
+if "/learn/stage/di" not in nav_di or not all(f"学習順{seq:03d}：" in nav_di for seq in range(21, 26)):
+    missing.append("第3段階のナビゲーションに不足")
+if 'href="/learn/column/runtime-20"' not in (SAMPLES / "Step11/DiIntroductionPage.razor").read_text(encoding="utf-8"):
+    missing.append("学習順020の復習から021への接続が不足")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

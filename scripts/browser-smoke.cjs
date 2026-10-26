@@ -546,6 +546,20 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step15-greeting"]', "練習花子さん");
         await page.screenshot({ path: path.join(evidence, "step15.png") });
         console.log("ステップ15：RazorとC#クラスのDI注入に成功");
+        // 第3段階・第5組：学習順021〜025の画面と復習リンクがつながることを確認する。
+        await page.goto(base + "/learn/stage/di");
+        await page.getByRole("heading", { name: "第3段階の概要：DI・サービスと単体テスト" }).waitFor();
+        await page.getByRole("link", { name: "学習順021を始める" }).click();
+        await page.locator('[data-testid="step11-direct"]').waitFor();
+        await page.goto(base + "/learn/15");
+        await page.getByRole("link", { name: "次へ：第5組の復習" }).click();
+        await page.getByRole("heading", { name: "学習順021〜025を結び付ける" }).waitFor();
+        await page.getByRole("link", { name: "次へ：学習順026" }).click();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順021を開く" }).waitFor();
+        await page.getByRole("link", { name: "学習順025を開く" }).waitFor();
+        console.log("第3段階概要・第5組復習・学習順021〜026のWeb画面導線を確認");
+
 
         await page.goto(base + "/learn/column/15");
         await page.getByText("DIを使うと、画面とサービスの何が変わる？").waitFor();
