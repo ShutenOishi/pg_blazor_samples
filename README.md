@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜65の日本語Blazor画面・実装・教材を整備しました。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
+> **現在の状態：Step01〜70の日本語Blazor画面・実装・教材を整備しました。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
 
 ## 学習アプリを起動する
 
@@ -36,7 +36,7 @@ dotnet new mudblazor -n MudBlazorPractice -o MudBlazorPractice -int Server -ai -
 
 ## ソースコード実装の次工程
 
-Step01〜50の実装を土台として、次はStep66〜70の画面・サービス双方の業務認可、管理・監査・IIS実機試験を追加します。EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
+Step01〜50の実装を土台として、Step66〜70で画面・サービス双方の業務認可と部署別の一覧・CSV・更新・実機受入課題を追加します。EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
 
 ## 5ステップごとの学習コラム
 
@@ -91,9 +91,9 @@ DIの学習用Applicationは維持しますが、**DBを学ぶための新しい
 
 ## 学習者向けのPDFで読む
 
-学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜65・コラム01〜14・特別コラム2本を収録し、GitHub Actionsで生成・検査します。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜70・コラム01〜15・特別コラム3本を収録し、GitHub Actionsで生成・検査します。
 
-[日本語学習PDFの生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)の最新成功Runから、`blazor_learning_textbook_ja` を取得できます。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
+[日本語学習PDFを単体でダウンロード](https://github.com/ShutenOishi/pg_blazor_samples/releases/download/learning-textbook/blazor_learning_textbook_ja.pdf)できます（mainの配布CI成功後）。ZIPのActions ArtifactではなくRelease assetを提供します。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
 ## ドキュメント
 
@@ -130,8 +130,8 @@ MudDateRangePickerとdaterangeの重なり検索、架空利用者A/BのScoped�
 
 ## Step61〜65：Windows認証とDB利用者・ロール（CI検証中）
 
-認証済みPrincipalのSIDをPostgreSQLのapp_userで照合し、未登録・無効・権限なし・DB失敗では拒否する学習画面を追加しました。[コラム14](docs/columns/column61-65.md)で復習できます。本番用の認可はStep66〜70まで未完成です。
+認証済みPrincipalのドメイン付きユーザー名を既存テーブルの読み取り専用ビューで照合し、未登録・無効・権限なし・DB失敗では拒否する学習画面を追加しました。[コラム14](docs/columns/column61-65.md)で復習できます。Step66〜70では架空データで業務サービス認可を追加しますが、本番の実機受入は別途必要です。
 
 ## 実務向け特別コラム：1万人以上のAD認証と既存台帳
 
-[1万人規模の認証・外部テーブル・ログインCookie・監査の設計](docs/authentication-at-scale.md)と[特別コラム](docs/columns/column-auth-at-scale.md)をStep65の直後に追加しました。ADは認証とドメイン付きユーザー名取得だけに使用し、既存テーブル・外部テーブルの権限を読み取り専用ビューで照合します。利用者登録やSID照合は前提としません。実業務サービスに対する全面的な認可はStep66〜70で実装します。
+[1万人規模の認証・外部テーブル・ログインCookie・監査の設計](docs/authentication-at-scale.md)と[特別コラム](docs/columns/column-auth-at-scale.md)をStep65の直後に追加しました。ADは認証とドメイン付きユーザー名取得だけに使用し、既存テーブル・外部テーブルの権限を読み取り専用ビューで照合します。利用者登録やSID照合は前提としません。Step66〜70のサービス認可例では既存台帳と部署絞り込みを使います。実AD/IIS・FDWの受入、監査永続化と明示ログインは追加検証が必要です。

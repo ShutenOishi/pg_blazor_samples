@@ -1,0 +1,30 @@
+@page "/learn/67"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ67：部署で絞る一覧｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ67 / CountとItemsを同じ条件に</p>
+<h1>部署別に許可された行だけを数える・表示する</h1>
+<MudPaper Class="pa-4">
+    <MudButton Color="Color.Primary" OnClick="LoadAsync">認可付き一覧を取得する</MudButton>
+    <p role="status" data-testid="step67-state">@_result.Message</p>
+    <p>権限内の総件数：@_result.TotalCount</p>
+    <table><thead><tr><th>番号</th><th>課題名</th><th>完了</th></tr></thead>
+        <tbody>
+            @foreach (var row in _result.Rows)
+            {
+                <tr><td>@row.Id</td><td>@row.Title</td><td>@(row.IsDone ? "はい" : "いいえ")</td></tr>
+            }
+        </tbody>
+    </table>
+</MudPaper>
+<section class="lesson-details">
+    <h2>確認ポイント</h2>
+    <p>WHERE unit_code はCount・Items・詳細・集計・CSV・更新で共通です。未認可の場合は総件数も0件を返します。</p>
+    <details><summary>Q. 一覧だけを絞ってCountを全件集計したら？</summary><p>件数から他部署の情報が漏れます。Countにも同じ条件を適用します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/66">前へ</a><a href="/learn/68">次へ</a></div>
+@code {
+    private LearningPageResult _result = new([], 0, "操作前です。");
+    private async Task LoadAsync() => _result = await Business.LoadPageAsync(new LearningPageQuery(0, 10));
+}

@@ -13,7 +13,11 @@ public sealed class LearningDbService(
     ILogger<LearningDbService> logger)
 {
     public bool Configured => !string.IsNullOrWhiteSpace(
-        configuration.GetConnectionString("PostgreSQL"));
+        configuration.GetConnectionString("PostgreSQL"))
+        && !configuration.GetValue<bool>("WindowsAuthentication:Enabled");
+
+    // Step66：Windows認証を有効化した場合、旧教材の無認可サービスはDB操作を許さない。
+    // 実業務の例は必ずSecuredLearningServiceを経由する。
 
     public const string NotConfigured =
         "PostgreSQLは未設定です。開発用DBを作成し、ConnectionStrings__PostgreSQLを設定してください。";

@@ -1,0 +1,42 @@
+@page "/learn/68"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ68：集計とCSVの認可｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ68 / CSVと集計の漏えい防止</p>
+<h1>集計とCSVも認可範囲だけにする</h1>
+<MudPaper Class="pa-4">
+    <MudButton Color="Color.Primary" OnClick="SumAsync">認可付き集計</MudButton>
+    <MudButton Color="Color.Primary" OnClick="CsvAsync">認可付きCSV</MudButton>
+    <p role="status" data-testid="step68-state">@_status</p>
+    @if (_summary is not null)
+    {
+        <ul>@foreach (var row in _summary.Rows) { <li>@(row.IsDone ? "完了" : "未完了")：@row.Count 件</li> }</ul>
+    }
+    @if (_csv?.Base64 is not null)
+    {
+        <a href="@($"data:text/csv;base64,{_csv.Base64}")" download="authorized_tasks.csv">認可済みCSVをダウンロード</a>
+    }
+</MudPaper>
+<section class="lesson-details">
+    <h2>確認ポイント</h2>
+    <p>CSVは最大100件。101件以上では「全件」を装って切り詰めず拒否します。匿名や権限なしでダウンロードリンクを表示しません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/67">前へ</a><a href="/learn/69">次へ</a></div>
+@code {
+    private LearningSummaryResult? _summary;
+    private LearningCsvResult? _csv;
+    private string _status = "操作前です。";
+    private async Task SumAsync()
+    {
+        _csv = null;
+        _summary = await Business.CountByDoneAsync();
+        _status = _summary.Message;
+    }
+    private async Task CsvAsync()
+    {
+        _summary = null;
+        _csv = await Business.ExportCsvAsync();
+        _status = _csv.Message;
+    }
+}

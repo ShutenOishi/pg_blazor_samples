@@ -14,7 +14,8 @@ public sealed record WindowsAccessSnapshot(
     string IdentityHint = "なし",
     string DisplayName = "",
     IReadOnlyList<string>? Roles = null,
-    IReadOnlyList<string>? Permissions = null)
+    IReadOnlyList<string>? Permissions = null,
+    string? UnitCode = null)
 {
     public bool CanRead => Code == "allowed";
 }
@@ -98,10 +99,10 @@ public sealed class WindowsUserAccessService(
             if (user.CanEdit) permissions.Add("learning.edit");
             if (!user.CanRead)
                 return new("forbidden", "有効な利用者ですが、この学習操作の閲覧権限がありません。", hint,
-                    user.DisplayName, Permissions: permissions);
+                    user.DisplayName, Permissions: permissions, UnitCode: user.UnitCode);
 
             return new("allowed", "Windows認証済みユーザー名と既存台帳の有効状態・閲覧権限が成立しました。", hint,
-                user.DisplayName, Permissions: permissions);
+                user.DisplayName, Permissions: permissions, UnitCode: user.UnitCode);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {

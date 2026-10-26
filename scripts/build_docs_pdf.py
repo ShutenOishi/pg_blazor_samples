@@ -100,6 +100,12 @@ CHAPTERS = [
     ("ステップ65：既存台帳の業務権限を確認する", "docs/samples/step65.md"),
     ("学習コラム14：認証と認可の分離", "docs/columns/column61-65.md"),
     ("特別コラム：1万人規模の認証・既存台帳認可・セッション・監査", "docs/columns/column-auth-at-scale.md"),
+    ("ステップ66：サービス側で認可を強制する", "docs/samples/step66.md"),
+    ("ステップ67：部署ごとのCountとItems", "docs/samples/step67.md"),
+    ("ステップ68：集計とCSVにも認可を適用", "docs/samples/step68.md"),
+    ("ステップ69：保存直前の権限とxminを再確認", "docs/samples/step69.md"),
+    ("ステップ70：Windows Server 2025の実機受入を分ける", "docs/samples/step70.md"),
+    ("学習コラム15：業務データを守る認可の強制", "docs/columns/column66-70.md"),
     ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
     ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]

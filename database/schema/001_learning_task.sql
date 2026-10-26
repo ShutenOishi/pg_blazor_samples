@@ -23,3 +23,7 @@ CREATE TABLE IF NOT EXISTS learning_category
 );
 ALTER TABLE learning_task ADD COLUMN IF NOT EXISTS category_id integer REFERENCES learning_category(id);
 CREATE INDEX IF NOT EXISTS ix_learning_task_category_id ON learning_task (category_id);
+
+-- Step67：架空の課題を部署別に分離する。開発用DB専用で実業務には適用しない。
+ALTER TABLE learning_task ADD COLUMN IF NOT EXISTS unit_code varchar(32) NOT NULL DEFAULT 'DEMO';
+CREATE INDEX IF NOT EXISTS ix_learning_task_unit_id ON learning_task (unit_code, id);

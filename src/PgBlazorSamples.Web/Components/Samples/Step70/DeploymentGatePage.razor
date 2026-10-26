@@ -1,0 +1,32 @@
+@page "/learn/70"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ70：IIS・監査の受入｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ70 / 実運用とCIの境界</p>
+<h1>Windows Server 2025で安全性を受け入れる</h1>
+<MudPaper Class="pa-4">
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">現在の更新権限を確認</MudButton>
+    <p role="status" data-testid="step70-state">@_status</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>実機で確認する項目</h2>
+    <ul>
+        <li>KerberosとIIS Windows認証を確立し、認証済み本人だけで接続する。</li>
+        <li>既存DBの利用者名再使用・改名、停止、重複、失効を否定試験する。</li>
+        <li>他部署のCount・Items・詳細・集計・CSV・更新がすべて拒否される。</li>
+        <li>監査ログの本人識別、保存期間、漏えい対策、障害時動作を運用環境で検証する。</li>
+        <li>1万人「登録」と1万人「同時接続」を分け、circuit・DBプールを負荷試験する。</li>
+    </ul>
+    <p><strong>CIでは実AD/IIS/Kerberosを検証できません。</strong> この画面が表示できても本番受入完了を意味しません。</p>
+    <details><summary>Q. application_nameだけで誰が更新したか証明できる？</summary><p>できません。DBの物理接続を再利用するため、アプリの監査ログは別の永続化を設計します。</p></details>
+    <details><summary>Q. ADパスワードを入力させる画面を作る？</summary><p>作りません。必要ならHTTPエンドポイントでWindows認証を確立し、短命Cookieを発行する方式を別途受け入れます。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/69">前へ</a><a href="/learn/column/70">コラム15へ</a></div>
+@code {
+    private string _status = "実機受入は未実施です。";
+    private async Task CheckAsync()
+    {
+        var permit = await Business.AuthorizeAsync(forEdit: true);
+        _status = permit.Message;
+    }
+}

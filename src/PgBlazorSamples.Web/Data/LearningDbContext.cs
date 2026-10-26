@@ -21,6 +21,7 @@ public sealed class LearningDbContext(DbContextOptions<LearningDbContext> option
         // daterangeはNpgsqlRange<DateTime>として保存する。DateOnlyとは別の型。
         task.Property(x => x.AvailableDates).HasColumnName("available_dates").HasColumnType("daterange");
         task.Property(x => x.IsDone).HasColumnName("is_done");
+        task.Property(x => x.UnitCode).HasColumnName("unit_code").HasMaxLength(32).IsRequired();
         task.Property(x => x.Version).IsRowVersion(); // PostgreSQLのxminにマッピング
         task.Property(x => x.CategoryId).HasColumnName("category_id");
         task.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId);
