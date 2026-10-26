@@ -73,14 +73,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # UbuntuにNoto日本語フォントがあるなら外部APTへアクセスしない。
-          # 再導入が必要な場合もネットワーク障害でCIが無期限に停止しないよう制限する。
-          if ! fc-match :lang=ja | grep -Eq 'Noto Sans CJK JP|Noto Serif CJK JP'; then
-            sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update
-            sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 install -y fonts-noto-cjk
+          # ブラウザー試験は日本語グリフを必要とするが、60MB超のNoto CJKを毎回
+          # APT取得すると、ミラー回線で150秒のタイムアウトが発生することがある。
+          # 画面試験では小型のIPA Gothicでも十分。PDFビルドのNoto要件とは分ける。
+          if ! fc-match :lang=ja | grep -Eq 'Noto Sans CJK JP|Noto Serif CJK JP|IPA Gothic|IPAGothic'; then
+            sudo timeout 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=20 update
+            sudo timeout 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=20 install -y fonts-ipafont-gothic
             timeout 60s fc-cache -f
           fi
-          fc-match :lang=ja | grep -E 'Noto Sans CJK JP|Noto Serif CJK JP'
+          fc-match :lang=ja | grep -E 'Noto Sans CJK JP|Noto Serif CJK JP|IPA Gothic|IPAGothic'
 
       - name: Chromeのパスを確認
         if: runner.os == 'Linux'
