@@ -1172,8 +1172,8 @@
       "title": "業務要件・画面遷移・WinForms移行の設計",
       "source": "docs/course-v3/lessons/capstone-01.md",
       "url": "/learn/capstone-01",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 107,
@@ -1183,8 +1183,8 @@
       "title": "PostgreSQL検索とページング・生成SQL",
       "source": "docs/course-v3/lessons/capstone-02.md",
       "url": "/learn/capstone-02",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 108,
@@ -1194,8 +1194,8 @@
       "title": "DTO編集・競合・取消・例外の統合",
       "source": "docs/course-v3/lessons/capstone-03.md",
       "url": "/learn/capstone-03",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 109,
@@ -1205,8 +1205,8 @@
       "title": "認証済み本人と既存台帳による権限・監査",
       "source": "docs/course-v3/lessons/capstone-04.md",
       "url": "/learn/capstone-04",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     },
     {
       "sequence": 110,
@@ -1216,8 +1216,8 @@
       "title": "E2E・障害復旧・IIS受入表",
       "source": "docs/course-v3/lessons/capstone-05.md",
       "url": "/learn/capstone-05",
-      "implementation": "planned",
-      "rewrite": "not-started"
+      "implementation": "implemented-ci-pending",
+      "rewrite": "first-draft"
     }
   ],
   "stages": [
@@ -1482,7 +1482,7 @@
       "unit": 22,
       "after_sequence": 110,
       "path": "docs/course-v3/reviews/review-22.md",
-      "existing": false,
+      "existing": true,
       "requires_rewrite": true
     }
   ],
