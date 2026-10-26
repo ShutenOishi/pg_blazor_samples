@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜70の日本語Blazor画面・実装・教材を整備しました。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
+> **現在の状態：Step01〜71の日本語Blazor画面・実装・教材を整備しました（Step71のCIは新規PRで検証）。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
 
 ## 学習アプリを起動する
 
@@ -135,3 +135,7 @@ MudDateRangePickerとdaterangeの重なり検索、架空利用者A/BのScoped�
 ## 実務向け特別コラム：1万人以上のAD認証と既存台帳
 
 [1万人規模の認証・外部テーブル・ログインCookie・監査の設計](docs/authentication-at-scale.md)と[特別コラム](docs/columns/column-auth-at-scale.md)をStep65の直後に追加しました。ADは認証とドメイン付きユーザー名取得だけに使用し、既存テーブル・外部テーブルの権限を読み取り専用ビューで照合します。利用者登録やSID照合は前提としません。Step66〜70のサービス認可例では既存台帳と部署絞り込みを使います。実AD/IIS・FDWの受入、監査永続化と明示ログインは追加検証が必要です。
+
+## Step71：既存利用者台帳のログイン名正規化
+
+既存台帳のCI用ビューでログイン名を大文字へ正規化し、大小違いによる複数行を **許可せず拒否** します。検索用の式索引と改名後の旧ログイン拒否もPostgreSQL 18実DBテストへ追加しました。[日本語教材](docs/samples/step71.md)をご覧ください。これは実AD・FDWの受入完了を意味せず、正本のログイン名再利用禁止（または不変ID）、照会の遅延・停止・条件pushdownは別途検証が必要です。

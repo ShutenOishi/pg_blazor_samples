@@ -1,0 +1,32 @@
+@page "/learn/71"
+@using PgBlazorSamples.Web.Services.Learning
+@inject WindowsUserAccessService Access
+<PageTitle>ステップ71：既存台帳とログイン名正規化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ71 / 1万人規模の既存台帳と安全な照合</p>
+<h1>同じ利用者名の表記揺れを拒否する</h1>
+<MudPaper Class="pa-4">
+    <p>この操作はサーバーで認証済み本人と読み取り専用ビューを照合します。利用者名の入力欄や登録画面は作りません。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">現在の台帳照合を確認</MudButton>
+    <p role="status" data-testid="step71-state">@_status</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>学ぶこと</h2>
+    <ul>
+        <li>認証済みの DOMAIN\user と、既存台帳の login_name を正規化して照合する。</li>
+        <li>先頭2件を取得し、同じログイン名へ複数行が対応したら拒否する。</li>
+        <li>大文字・小文字違いの衝突と、改名後の旧名無効化をPostgreSQL 18で試す。</li>
+        <li>1万人の正本をアプリへ一括取得せず、検索に適した索引を確認する。</li>
+    </ul>
+    <h2>本番運用で検証すること</h2>
+    <p>本教材の索引とビューは開発用の架空台帳です。FDWの検索条件pushdown、タイムアウト、切断、正本側の一意性を実機で検査してください。</p>
+    <p><strong>注意：</strong>同じDOMAIN\userを別の人物へ再発行すると、名前だけで旧本人との区別はできません。正本で再利用を禁止するか、不変の識別子を追加する必要があります。</p>
+</section>
+<div class="page-navigation"><a href="/learn/70">前へ</a><a href="/">目次へ</a></div>
+@code {
+    private string _status = "台帳は未照合です。";
+    private async Task CheckAsync()
+    {
+        var state = await Access.ReadCurrentAsync();
+        _status = state.Message;
+    }
+}

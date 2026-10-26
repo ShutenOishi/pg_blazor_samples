@@ -23,8 +23,15 @@ FROM generate_series(1, 10001) AS i
 ON CONFLICT (login_name) DO NOTHING;
 
 -- ビューの列定義を契約化する。条件のpushdownと元表の一意索引を別途検証すること。
+-- Step71：同じWindows名の大文字・小文字違いをビュー側で同じキーへ正規化する。
+-- CI用元表のPRIMARY KEYは元文字列の一意性しか保証しない。
+-- 本番では正本の利用者名一意制約と照合方式を管理者が別途受け入れる。
+-- PostgreSQL側でupper(login_name)を評価する場合の検索用索引。
+CREATE INDEX IF NOT EXISTS learning_existing_user_ci_login_upper_idx
+    ON learning_existing_user_ci (upper(login_name));
+
 CREATE OR REPLACE VIEW learning_user_access_v AS
-SELECT login_name, display_name, is_active, can_read, can_edit, unit_code, authorization_version
+SELECT upper(login_name) AS login_name, display_name, is_active, can_read, can_edit, unit_code, authorization_version
 FROM learning_existing_user_ci;
 
 -- アプリに必要なのは読み取りだけ。CI用のfixture操作はテストランナーに限る。
