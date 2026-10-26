@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """実装済みステップ・5ステップごとのコラム・PDF索引の整合性を検査する。"""
+import json
 import sys
 from pathlib import Path
 
@@ -71,6 +72,43 @@ for stage, start in enumerate(stage_starts, start=1):
         missing.append(page + "：PDF目次に収録されていません")
     elif first_step_marker not in PDF_SCRIPT or PDF_SCRIPT.index(page_marker) > PDF_SCRIPT.index(first_step_marker):
         missing.append(page + "：段階概要は先頭ステップの前に配置してください")
+
+# v3の学習順・実装済み新規ステップとPDF目次の整合性を保証する。
+curriculum = json.loads((ROOT / "docs/course-v3/curriculum.json").read_text(encoding="utf-8"))
+ordered = curriculum["steps"]
+if len(ordered) != 110 or [item["sequence"] for item in ordered] != list(range(1, 111)):
+    missing.append("v3の110学習順が不正")
+if len({item["id"] for item in ordered}) != 110:
+    missing.append("v3の学習IDに重複がある")
+if len(curriculum["stages"]) != 9 or len(curriculum["reviews"]) != 22:
+    missing.append("v3の段階/復習組数が不正")
+newpaths = []
+for n in range(1, 6):
+    item = ordered[n-1]
+    razor = SAMPLES / "WebFoundation" / f"Web{n:02d}Page.razor"
+    if item["id"] != f"web-{n:02d}" or not item["implementation"].startswith("implemented"):
+        missing.append(f"web-{n:02d}の順序・実装状態が不一致")
+    if not razor.exists() or f'@page "/learn/web-{n:02d}"' not in razor.read_text(encoding="utf-8"):
+        missing.append(str(razor.relative_to(ROOT)) + "：URL定義なし")
+    if not (ROOT / item["source"]).exists() or f'"{item["source"]}"' not in PDF_SCRIPT:
+        missing.append(item["source"] + "：教材・PDF収録なし")
+    else:
+        newpaths.append(PDF_SCRIPT.index(f'"{item["source"]}"'))
+review = 'docs/course-v3/reviews/review-01.md'
+stage = 'docs/course-v3/stages/stage01.md'
+if not (SAMPLES / "WebFoundation" / "WebFoundationReviewPage.razor").exists():
+    missing.append("Web基礎の復習画面なし")
+if not (ROOT / review).exists() or f'"{review}"' not in PDF_SCRIPT:
+    missing.append("Web基礎の復習PDFなし")
+if not (ROOT / stage).exists() or f'"{stage}"' not in PDF_SCRIPT:
+    missing.append("Web基礎の概要ページなし")
+if len(newpaths) == 5:
+    if newpaths != sorted(newpaths):
+        missing.append("Web基礎のPDF学習順が不正")
+    if f'"{stage}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{stage}"') > newpaths[0]:
+        missing.append("段階概要はWeb01より前に配置")
+    if f'"{review}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review}"') < newpaths[4]:
+        missing.append("復習はWeb05より後に配置")
 
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))

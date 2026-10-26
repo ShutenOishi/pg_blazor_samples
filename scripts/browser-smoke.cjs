@@ -69,6 +69,31 @@ async function waitText(page, selector, expected) {
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
 
+        // 新第1段階の全画面とWeb基礎復習を実ブラウザーで確認する。
+        await page.goto(base + "/learn/web-01");
+        await page.waitForTimeout(1000);
+        await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
+        await waitText(page, '[data-testid="web01-count"]', "1");
+        await page.goto(base + "/learn/web-02");
+        await waitText(page, '[data-testid="web02-path"]', "/learn/web-02");
+        await page.goto(base + "/learn/web-03");
+        await page.waitForTimeout(850);
+        await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習太郎");
+        await waitText(page, '[data-testid="web03-preview"]', "練習太郎");
+        await page.goto(base + "/learn/web-04");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "追加の説明を表示・非表示" }).click();
+        await waitText(page, '[data-testid="web04-state"]', "表示中");
+        await page.getByTestId("web04-added").waitFor();
+        await page.goto(base + "/learn/web-05");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "デバッグ対象の処理を実行する" }).click();
+        await waitText(page, '[data-testid="web05-count"]', "1");
+        await page.goto(base + "/learn/column/web-05");
+        await page.getByRole("heading", { name: "Webの処理場所・通信・画面表示を整理する" }).waitFor();
+        await page.screenshot({ path: path.join(evidence, "web-foundation-review.png") });
+        console.log("新第1段階のWeb基礎5画面と復習を確認");
+
         // Step66〜70は匿名環境で業務データを返さない。実AD認証の代用ではない。
         for (const [step, label] of [
             [66, "業務サービスに認可を問い合わせる"],

@@ -19,7 +19,15 @@ MANIFEST = ROOT / "dist" / "blazor_learning_source_manifest.json"
 # 目次表示名は学習者向けの日本語で固定する。ファイル名は読者に表示しない。
 CHAPTERS = [
     ("はじめに：この教材の使い方", "docs/learner-guide.md"),
-    ("第1段階の概要：Razorと画面操作", "docs/stages/stage01.md"),
+    ("第1段階の概要：Web開発の前提", "docs/course-v3/stages/stage01.md"),
+    ("学習順001：WinFormsとWebの処理場所", "docs/course-v3/lessons/web-01.md"),
+    ("学習順002：URL・HTTPの要求と応答", "docs/course-v3/lessons/web-02.md"),
+    ("学習順003：HTML・CSS・フォーム", "docs/course-v3/lessons/web-03.md"),
+    ("学習順004：ブラウザー開発者ツール", "docs/course-v3/lessons/web-04.md"),
+    ("学習順005：Webアプリのデバッグ", "docs/course-v3/lessons/web-05.md"),
+    ("第1組の復習コラム：Webの基本", "docs/course-v3/reviews/review-01.md"),
+    # 旧80ステップの導入章。後続の新規runtime等の挿入後に改訂する。
+    ("旧構成・第1段階の概要：Razorと画面操作", "docs/stages/stage01.md"),
     ("ステップ01：最初のBlazor画面を表示する", "docs/samples/step01.md"),
     ("ステップ02：URLと画面遷移を理解する", "docs/samples/step02.md"),
     ("ステップ03：RazorでC#の値を表示する", "docs/samples/step03.md"),
@@ -188,7 +196,7 @@ def main():
         content = clean_lesson_markdown(path.read_text(encoding="utf-8"))
         if "github.com" in content.lower() or "レポジトリ" in content:
             raise SystemExit(f"学習者用の不要な開発情報が残っています: {relative_path}")
-        is_stage = title.startswith("第") and "段階の概要" in title
+        is_stage = "段階の概要" in title
         chapters_html.append(
             f'<section class="chapter" id="lesson-{number}">'
             f'<p class="chapter-kicker">{"各段階の学習案内" if is_stage else ("先取り学習（未実装の設計）" if "先取りガイド" in title else ("学習コラム" if "学習コラム" in title else "ステップアップ学習"))}</p>'
@@ -198,20 +206,21 @@ def main():
         toc_class = "toc-stage" if is_stage else "toc-topic"
         toc.append(f'<li class="{toc_class}"><a href="#lesson-{number}">{html.escape(title)}</a></li>')
 
-    step_count = sum(1 for title, _ in CHAPTERS if title.startswith("ステップ"))
+    step_count = sum(1 for title, _ in CHAPTERS if title.startswith(("ステップ", "学習順")))
     column_count = sum(1 for title, _ in CHAPTERS if "コラム" in title)
+    stage_count = sum(1 for title, _ in CHAPTERS if "段階の概要" in title)
     body = f"""<!doctype html><html lang="ja"><head><meta charset="utf-8"></head><body>
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">WinForms・Dapperの経験を生かしてWeb開発を学ぶ<br>{step_count}ステップ・7段階の概要・各種学習コラム</p>
+      <p class="lead">WinForms・Dapperの経験を生かしてWeb開発を学ぶ<br>収録ステップ{step_count}本・概要{stage_count}本・各種学習コラム</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜{step_count:02d}／コラム{column_count}本／各段階の概要とデータ連携設計ガイド</p>
+      <p class="version">学習範囲：ステップ{step_count}本／コラム{column_count}本／概要{stage_count}本</p>
     </section>
     <section class="toc">
       <h1>目次</h1>
-      <p>学びたいテーマの名前を選んでください。番号は実際の画面と対応しています。</p>
+      <p>Web基礎の学習順001から始められます。旧構成のステップ番号は順次整理します。</p>
       <ol>{''.join(toc)}</ol>
     </section>
     {''.join(chapters_html)}
