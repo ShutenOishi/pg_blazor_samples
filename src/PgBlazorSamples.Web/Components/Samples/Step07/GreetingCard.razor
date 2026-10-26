@@ -1,0 +1,14 @@
+<article class="lesson-details" data-testid="greeting-card">
+    <h3>@Topic</h3>
+    <p>こんにちは、<strong>@LearnerName</strong> さん。</p>
+    <p class="hint">同じ部品を、異なる値で再利用しています。</p>
+</article>
+
+@code {
+    // Parameterは親が渡す入力です。子コンポーネント内で書き換えません。
+    [Parameter]
+    public string LearnerName { get; set; } = "ゲスト";
+
+    [Parameter]
+    public string Topic { get; set; } = "学習";
+}

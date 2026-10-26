@@ -1,0 +1,28 @@
+@page "/learn/column/10"
+
+<PageTitle>学習コラム02：親子とフォーム｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">学習コラム02 / ステップ06〜10のまとめ</p>
+<h1>親子コンポーネントと入力検証を整理する</h1>
+<p>状態の持ち主をはっきりさせると、部品を再利用しやすくなります。</p>
+<section class="lesson-details">
+    <h2>復習する4つのポイント</h2>
+    <ol>
+        <li><code>[Parameter]</code> は親から子へ値を渡す入口です。</li>
+        <li><code>EventCallback</code> は子から親へ操作を通知します。</li>
+        <li>初期化、パラメーター変更、破棄は別のタイミングです。</li>
+        <li><code>EditForm</code> と検証属性で入力ミスを確認します。</li>
+    </ol>
+    <details>
+        <summary>確認問題：入力検証が成功すればDBへ保存してよい？</summary>
+        <p>いいえ。入力検証は形式や必須項目の確認です。サーバー側の業務権限チェックやDBへの適切な保存処理は別に必要です。</p>
+    </details>
+    <details>
+        <summary>次のステップへの橋渡し：DIは何のため？</summary>
+        <p>画面がデータ取得や保存の具体的な処理を抱え込まず、役割を持つサービスへ処理を委ねるための仕組みです。ステップ11で学びます。</p>
+    </details>
+</section>
+<div class="page-navigation">
+    <a href="/learn/10">ステップ10へ戻る</a>
+    <a href="/">学習の目次へ戻る</a>
+</div>
