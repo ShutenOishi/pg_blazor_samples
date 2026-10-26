@@ -188,3 +188,7 @@ var items = await query
 - [EF Coreのページング](https://learn.microsoft.com/ja-jp/ef/core/querying/pagination)
 - [BlazorとEF Core](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/blazor-ef-core?view=aspnetcore-10.0)
 - [EF Core 10・Npgsql学習ガイド](efcore10-data-access.md)
+
+## Step41〜45の実装に対応する補足
+
+Web/Services/Learning/LearningPageService.csが、一覧のサーバー側検索・ページング・Count・Sort許可リストを実装します。最大ページサイズ50件、複数ソート3列、最後に一意の主キーIdを追加。MudTableとMudDataGridのServerDataはCancellationTokenを受けてこのサービスを呼び出し、IQueryableはコンポーネントへ渡しません。

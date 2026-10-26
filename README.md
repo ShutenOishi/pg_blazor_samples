@@ -116,3 +116,7 @@ DIの学習用Applicationは維持しますが、**DBを学ぶための新しい
 ## Step40と41の間の特別コラム
 
 [用途から選ぶMudBlazorコンポーネント事典](docs/columns/column-mudblazor-by-purpose.md)で、MudSimpleTable/MudTable/MudDataGrid、日付・入力、階層、ダイアログ、通知、配置を比較します。Step41の前に読むことを推奨します。
+
+## Step41〜45の日本語UIと実DBページング
+
+Step41〜45の新しいソースはWeb内のData/とServices/のみで完結。MudTable/MudDataGridのServerData、CancellationToken、ソート許可リスト、日付と状態の検索を導入し、[コラム10](docs/columns/column41-45.md)で復習します。Step46以降は仮想化やキーセットページングを実装予定です。

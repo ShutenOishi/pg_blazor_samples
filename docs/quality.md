@@ -125,3 +125,10 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - [ ] 開発専用PostgreSQL 18でDateOnly/TimeOnly/daterange/datemultirange/xmin/CRUD/トランザクションを検証
 - [ ] コラム08・09とStep40→用途別特別コラム→Step41の順序をPDF索引で確認
 - [ ] EF Core用の新規Domain/Infrastructure等の層別プロジェクトが追加されていないこと
+
+## Step41〜45の受入条件
+
+- [ ] MudTableとMudDataGridのServerData画面の日本語操作を確認
+- [ ] PostgreSQL 18でページング、Count、ソート、期間・状態・文字列検索、キャンセルを検証
+- [ ] コラム10とPDF索引の一致を確認
+- [ ] 新規Domain/Infrastructureプロジェクトの追加なし

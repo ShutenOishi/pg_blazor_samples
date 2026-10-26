@@ -1,0 +1,22 @@
+@page "/learn/column/45"
+<PageTitle>学習コラム10：一覧・ServerDataと検索｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム10 / Step41〜45</p>
+<h1>ItemsとServerDataを要件で使い分ける</h1>
+<section class="lesson-details">
+    <h2>5ステップの関係</h2>
+    <p>Step41：少量のItems → Step42：MudTable ServerData → Step43：MudDataGrid ServerData → Step44：安全な複数列ソート → Step45：複合条件と総件数です。</p>
+    <p>DB側の検索・ソート・ページングはWebのLearningPageServiceが担当し、画面へ返すのはDTOと総件数だけです。</p>
+    <h2>判断と落とし穴</h2>
+    <table>
+        <thead><tr><th>状況</th><th>使い方</th></tr></thead>
+        <tbody>
+            <tr><td>8件の固定一覧</td><td>Itemsで十分</td></tr>
+            <tr><td>何万件もあるDBの表</td><td>ServerDataで必要なページだけ取得</td></tr>
+            <tr><td>列操作が複雑</td><td>MudDataGridと許可リスト</td></tr>
+            <tr><td>画面から入力された検索条件</td><td>DBのWhereとCountへ同じ条件を適用</td></tr>
+        </tbody>
+    </table>
+    <details><summary>確認：SortByをSQLへ直接連結してよい？</summary><p>いいえ。許可リストのプロパティを使うEF Core式へ変換します。</p></details>
+    <details><summary>確認：ServerDataの取消トークンはどこまで渡す？</summary><p>DbContextの作成、CountAsync、ToListAsyncまで引き継ぎます。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/45">ステップ45へ戻る</a><a href="/">学習目次へ戻る</a></div>

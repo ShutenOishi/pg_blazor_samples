@@ -25,7 +25,7 @@ Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazo
 | 6 | 61〜70 | Windows統合認証と業務権限 |
 | 7 | 71〜80 | 大量データ、障害対応、IISへの配備 |
 
-本版はステップ01〜40、コラム01〜09、MudBlazor用途別特別コラムを収録します。Step31〜40のソースはWebプロジェクト内にあります。PostgreSQLが未設定の場合はDB処理が未実行と明示します。Step41以降のDataGrid/ServerDataはこれから実装します。
+本版はステップ01〜45、コラム01〜10、MudBlazor用途別特別コラムを収録します。Step31〜40のソースはWebプロジェクト内にあります。PostgreSQLが未設定の場合はDB処理が未実行と明示します。Step41以降のDataGrid/ServerDataはこれから実装します。
 
 ## 用語
 - **コンポーネント**：Blazorの画面を構成する再利用可能な部品

@@ -1,0 +1,66 @@
+@page "/learn/42"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+@inject LearningDbService DbSettings
+
+<PageTitle>ステップ42：MudTableのServerData｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ42 / MudTable ServerData</p>
+<h1>必要なページだけPostgreSQLから取得する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudTextField T="string" Label="課題名を検索" @bind-Value="_keyword" Immediate="true"/>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SearchAsync">検索する</MudButton>
+    <p role="status" data-testid="step42-state">@_message</p>
+    <MudTable T="LearningTaskRow" @ref="_table" ServerData="LoadAsync"
+              Hover="true" Dense="true" RowsPerPage="5">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel T="LearningTaskRow" SortLabel="Title">課題名</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="LearningTaskRow" SortLabel="DueDate">期限日</MudTableSortLabel></MudTh>
+            <MudTh>状態</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="課題名">@context.Title</MudTd>
+            <MudTd DataLabel="期限日">@context.DueDate?.ToString("yyyy/MM/dd")</MudTd>
+            <MudTd DataLabel="状態">@(context.IsDone ? "完了" : "未完了")</MudTd>
+        </RowTemplate>
+        <PagerContent><MudTablePager PageSizeOptions="@(new int[] {5, 10, 20})"/></PagerContent>
+    </MudTable>
+</MudPaper>
+<section class="lesson-details">
+    <h2>TableStateからDBへ渡す</h2>
+    <p>Page・PageSize・SortLabel・SortDirectionをLearningPageQueryへ変換し、取消トークンもEF Coreに渡します。ItemsとServerDataは同時に使いません。</p>
+    <p>検索時には先頭ページへ戻して再取得します。DB未設定のときは日本語案内だけ表示されます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/41">前へ：ステップ41</a><a href="/learn/43">次へ：ステップ43</a></div>
+@code {
+    protected override void OnInitialized()
+    {
+        // ServerDataは子部品内のイベントなので、未設定を親画面で先に表示する。
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
+    private MudTable<LearningTaskRow>? _table;
+    private string _keyword = "";
+    private string _message = "初期表示の準備中です。";
+
+    private async Task<TableData<LearningTaskRow>> LoadAsync(TableState state, CancellationToken ct)
+    {
+        var sort = state.SortDirection == SortDirection.None || string.IsNullOrEmpty(state.SortLabel)
+            ? null : new List<LearningSort> { new(state.SortLabel,
+                state.SortDirection == SortDirection.Descending) };
+        var result = await Pages.LoadAsync(new(
+            state.Page, state.PageSize, _keyword, Sorts: sort), ct);
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+
+    private async Task SearchAsync()
+    {
+        if (_table is null) return;
+        if (_table.CurrentPage == 0)
+            await _table.ReloadServerData();
+        else
+            _table.NavigateTo(0); // ページ遷移時にMudTableが自動再検索する
+    }
+}
