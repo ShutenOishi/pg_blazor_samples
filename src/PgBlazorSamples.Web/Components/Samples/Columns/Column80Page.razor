@@ -1,0 +1,13 @@
+@page "/learn/column/80"
+<PageTitle>学習コラム17：競合・監視・配布の実務｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム17 / ステップ76〜80</p>
+<h1>速い仕組みでも安全条件を省略しない</h1>
+<section class="lesson-details">
+    <h2>5ステップをつなぐ</h2>
+    <p>更新時はxminと台帳行ロックで競合を拒否、キャッシュは権限失効をまたがせず、監視はlivenessと業務可用性を区別します。テストは異常系と実DBまで実行し、本番のIIS/Kerberosは現地でのみ受け入れます。</p>
+    <h2>確認問題</h2>
+    <details><summary>30秒キャッシュが有効ならDBの再認可を省略できる？</summary><p>いいえ。権限が剥奪される場合があります。機密業務データは毎操作認可し、監査も記録します。</p></details>
+    <details><summary>livenessが200ならFDWや監査も正常？</summary><p>いいえ。プロセスの応答のみを示します。readinessと監査は別の検証です。</p></details>
+    <details><summary>CIでChrome操作が成功ならIIS/Kerberosも合格？</summary><p>いいえ。実ドメイン、SPN、鍵共有、接続切断・再接続を現地で確認します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/80">ステップ80へ戻る</a><a href="/">目次へ</a></div>

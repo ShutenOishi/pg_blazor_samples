@@ -1,0 +1,55 @@
+@page "/learn/77"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+@inject WindowsUserAccessService Access
+@inject AuthorizedLessonHintCache Cache
+<PageTitle>ステップ77：権限変更とキャッシュ｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ77 / 認可キャッシュの失効</p>
+<h1>キャッシュよりも現在の権限を優先する</h1>
+<MudPaper Class="pa-4">
+    <p>DBの権限版を毎回確認してから、非機密の学習ヒントだけを30秒間再利用します。業務データはキャッシュしません。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">最新の権限とキャッシュを確認</MudButton>
+    <MudButton OnClick="Reset">表示用キャッシュを消去</MudButton>
+    <p role="status" data-testid="step77-state">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>1万人規模で気をつけること</h2>
+    <p>Cookieやcircuitの生存期間を権限の有効期間と取り違えません。キャッシュヒット時でもADで認証した本人を信頼できるハンドラーから取得し、DB正本の有効・閲覧・部署を照合します。</p>
+    <p>キーには本人・部署・authorization_versionを含めます。期限切れ・権限版変更・認可拒否でヒントを破棄し、閲覧データ・Count・CSV・監査はキャッシュを経由させません。複数サーバーの共有キャッシュへ拡張する場合は別途分散失効を設計します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/76">前へ</a><a href="/learn/78">次へ</a></div>
+@code {
+    private string _message = "未確認です。";
+    private async Task CheckAsync()
+    {
+        // キャッシュ検索の前に毎回DB正本を照合。失効中は一切再利用しない。
+        var permit = await Business.AuthorizeAsync();
+        if (permit.Unit is null)
+        {
+            Cache.Clear();
+            _message = permit.Message;
+            return;
+        }
+        var login = await Access.ReadTrustedCurrentLoginNameAsync();
+        var current = await Access.ReadCurrentAsync();
+        if (login is null || !current.CanRead || current.UnitCode != permit.Unit)
+        {
+            Cache.Clear();
+            _message = "現在の認可を確認できないため、処理を拒否しました。";
+            return;
+        }
+        var keyVersion = current.AuthorizationVersion;
+        if (Cache.TryGet(login, permit.Unit, keyVersion, out var hint))
+            _message = "権限の再確認に成功しました。非機密の表示ヒントを再利用しました。";
+        else
+        {
+            Cache.Store(login, permit.Unit, keyVersion, "認可後の学習用ヒント");
+            _message = "権限の再確認に成功しました。非機密の表示ヒントを再生成しました。";
+        }
+    }
+    private void Reset()
+    {
+        Cache.Clear();
+        _message = "表示用キャッシュを消去しました。業務データには触れていません。";
+    }
+}
