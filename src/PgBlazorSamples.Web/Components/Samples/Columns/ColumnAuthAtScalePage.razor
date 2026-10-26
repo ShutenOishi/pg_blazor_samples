@@ -1,0 +1,42 @@
+@page "/learn/column/auth-at-scale"
+<PageTitle>特別コラム：1万人規模の認証と認可｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">特別コラム / 社内1万人規模の実践</p>
+<h1>ADは本人確認、DBが業務権限を決める</h1>
+<MudPaper Class="pa-4">
+    <p>登録済みの利用者情報は既存DBのテーブル／外部テーブルにあり、アプリはユーザー登録を行いません。</p>
+    <MudSelect T="string" Label="設計したい場面" @bind-Value="_scenario">
+        <MudSelectItem T="string" Value="@("sso")">ドメイン端末から自動で開きたい</MudSelectItem>
+        <MudSelectItem T="string" Value="@("login")">業務だけにログイン画面が必要</MudSelectItem>
+        <MudSelectItem T="string" Value="@("external")">ユーザーの権限が外部テーブルにある</MudSelectItem>
+        <MudSelectItem T="string" Value="@("large")">1万人以上が利用する</MudSelectItem>
+        <MudSelectItem T="string" Value="@("audit")">DBでも利用者の操作を追跡したい</MudSelectItem>
+    </MudSelect>
+    <MudButton Color="Color.Primary" OnClick="Choose">推奨構成を確認</MudButton>
+    <p role="status" data-testid="auth-scale-choice">@_result</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>共通の責任分界</h2>
+    <table><thead><tr><th>担当</th><th>役割</th></tr></thead><tbody>
+        <tr><td>AD/IIS</td><td>本人認証、信頼できるDOMAIN\userを渡す</td></tr>
+        <tr><td>既存DB/外部台帳</td><td>利用者の有効状態・所属・業務権限の正本</td></tr>
+        <tr><td>Webサービス</td><td>Count、一覧、詳細、CSV、更新を操作ごとに認可</td></tr>
+        <tr><td>監査</td><td>アプリ監査が主証跡。application_nameは補助情報</td></tr>
+    </tbody></table>
+    <details><summary>Q：名前をユーザー名の後半だけで照合してもよい？</summary><p>いいえ。同名利用者が複数のドメインに存在し得ます。名前変更や再利用への運用対策も必要です。</p></details>
+    <details><summary>Q：ログイン画面にADパスワードを入力させる？</summary><p>いいえ。Windows認証の開始を案内し、サーバー側で本人を確認します。保持する場合は短命Cookieを使用します。</p></details>
+    <details><summary>Q：アプリの操作監査をApplication Nameだけに委ねる？</summary><p>いいえ。トランザクション連動のアプリ監査と、失敗時の別ログを設計します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/65">ステップ65へ戻る</a><a href="/">学習目次へ戻る</a></div>
+@code {
+    private string _scenario = "sso";
+    private string _result = "場面を選んで推奨構成を確認してください。";
+    private void Choose() => _result = _scenario switch
+    {
+        "sso" => "IIS Windows認証を使って自動SSO。認証済みユーザー名で既存DBの権限を毎回確認します。",
+        "login" => "案内画面と専用Windows認証HTTPエンドポイントを分け、必要なら短命Cookieで認証状態を維持します。",
+        "external" => "外部テーブルを直接全件取得せず、統一ビュー・リモート索引・絞込pushdown・失効条件を検証します。",
+        "large" => "利用者総数と同時circuit数を分けて実測し、短命DbContextとNpgsqlプールを用います。",
+        "audit" => "アプリ側監査を主証跡にし、Application Nameはサービス名で固定して相関IDで補助します。",
+        _ => "場面を選んでください。"
+    };
+}
