@@ -1,0 +1,14 @@
+@page "/learn/column/75"
+<PageTitle>学習コラム16：認証と運用の判断｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム16 / ステップ71〜75</p>
+<h1>認証・認可・監査の本番移行を判断する</h1>
+<section class="lesson-details">
+    <h2>5ステップのつながり</h2>
+    <p>既存台帳の重複拒否→明示Windowsログイン→権限変更との競合制御→永続監査→実機受入。段階を進めても「ADは本人認証、DBは権限の正本」を変えません。</p>
+    <p>1万人以上の利用者台帳と、SignalRの同時circuit数、Npgsqlの物理接続プール数は別々の容量設計です。</p>
+    <h2>確認問題</h2>
+    <details><summary>FDWへSELECT FOR UPDATEを発行すればローカル更新も原子的？</summary><p>いいえ。接続先のトランザクション境界を別途確認し、保証できなければ拒否します。</p></details>
+    <details><summary>監査SQLの失敗後も業務更新してよい？</summary><p>いいえ。同一トランザクションでロールバックします。</p></details>
+    <details><summary>Chrome CIの成功でKerberosは受入済み？</summary><p>いいえ。実AD・IIS・SPN・TLSとCookie鍵を実機で検証します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/75">ステップ75へ戻る</a><a href="/">目次へ</a></div>

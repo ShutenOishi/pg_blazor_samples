@@ -1,0 +1,31 @@
+@page "/learn/75"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>ステップ75：IIS実機受入｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ75 / Windows Server 2025・Kerberos・運用安全性</p>
+<h1>CIの成功と本番受入を分ける</h1>
+<MudPaper Class="pa-4">
+    <p>この画面は実AD認証を代行しません。現地の運用試験で確認する条件を学びます。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">本番運用の認可ゲートを照合</MudButton>
+    <p role="status" data-testid="step75-state">@_status</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>運用開始前の確認項目</h2>
+    <ul>
+        <li>Windows Server 2025 / IISのHTTPS、Kerberos・SPN、Windowsと匿名認証の経路分離。</li>
+        <li>CSRF・Cookie期限・ログアウト・暗号鍵共有・SignalR再接続・複数サーバー。</li>
+        <li>既存台帳の名前重複・改名・再利用防止、FDWタイムアウト、失効反映。</li>
+        <li>同一DBの行ロックと更新・監査の原子的コミット。保証できないFDW更新は拒否。</li>
+        <li>10,001人の既存台帳登録数と、Blazor circuit数・同時接続・DBプールの負荷を区別。</li>
+    </ul>
+    <p><strong>この画面の操作やCIだけでは実AD/IISの受入は完了しません。</strong> 測定値と再現手順を運用担当者が保存してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/74">前へ</a><a href="/learn/column/75">コラム16へ</a></div>
+@code {
+    private string _status = "実機受入は未実施です。";
+    private async Task CheckAsync()
+    {
+        var result = await Business.AuthorizeAsync();
+        _status = result.Message;
+    }
+}
