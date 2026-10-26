@@ -2,7 +2,7 @@
 
 ## 方針
 
-**単一のBlazor Webアプリを中心に、必要なタイミングでクラスライブラリへ責務を切り出す方式**を採用します。60個の独立アプリを複製しません。ただし学習用のコードと本番相当の業務機能は名前空間・ルーティングと権限で分離します。
+**単一のBlazor Webアプリを中心に、必要なタイミングでクラスライブラリへ責務を切り出す方式**を採用します。80個の独立アプリを複製しません。ただし学習用のコードと本番相当の業務機能は名前空間・ルーティングと権限で分離します。
 
 DIを初めて学ぶ人にも適した順序にします。最初から4層構成を暗記させず、部品の入れ替えやテストを体験してから層を切り出します。
 
@@ -15,9 +15,9 @@ DIを初めて学ぶ人にも適した順序にします。最初から4層構�
 | Step18 | `PgBlazorSamples.UnitTests` | Fake実装を使い、画面なしのテストを学ぶ |
 | Step19 | `PgBlazorSamples.Application` | 業務処理と抽象インターフェイスを画面から分離 |
 | Step31 | `PgBlazorSamples.Domain` | Entity、値オブジェクト、業務ルールを隔離 |
-| Step33 | `PgBlazorSamples.Infrastructure` | linq2db/Npgsqlなど外部環境の具象実装を隔離 |
+| Step33 | `PgBlazorSamples.Infrastructure` | EF Core 10/Npgsqlなど外部環境の具象実装を隔離 |
 | Step40 | `PgBlazorSamples.IntegrationTests` | PostgreSQL 18を使った再現可能な結合試験 |
-| Step50以降 | `PgBlazorSamples.WebTests` | 認証、IIS、Web画面の総合検証 |
+| Step70以降 | `PgBlazorSamples.WebTests` | 認証、IIS、Web画面の総合検証 |
 
 ## 完成形のディレクトリ案
 
@@ -26,7 +26,7 @@ PgBlazorSamples.slnx
 src/
   PgBlazorSamples.Web/
     Components/Layout/
-    Components/Samples/Step01/ ... Step60/
+    Components/Samples/Step01/ ... Step80/
     Features/Users/
     Program.cs
   PgBlazorSamples.Application/
@@ -60,7 +60,7 @@ Web ────────────────> Application ────�
  |                         |                          |
  +──> Infrastructure ──────+──────────────────────────+
            |
-     linq2db / Npgsql
+     EF Core 10 / Npgsql
            |
      PostgreSQL 18
 ```
@@ -76,7 +76,10 @@ Web ────────────────> Application ────�
 
 - DIのScopedサービスは通常のHTTPリクエスト単位ではなく、対話型の**circuit**に紐づいて生存し得る。
 - ユーザー固有情報をSingletonへ格納しない。
-- NpgsqlDataSourceの安全な共有と、操作ごとに生成・破棄する接続/linq2db DataConnectionを区別する。
+- NpgsqlDataSourceの安全な共有と、操作ごとに生成・破棄する接続/EF Core DbContextを区別する。
+- 標準は`IDbContextFactory<AppDbContext>`による**操作ごとのDbContext生成・破棄**。DbContextをcircuitに長期間共有しない。
+- Npgsqlの物理接続プールとEF CoreのDbContextプールは別物。初学者向けには前者のみを標準とする。
+- MudDataGridはサービス経由でDTOを取得する。全件`Items`、`ServerData`、`VirtualizeServerData`の選択根拠は[一覧パターン](data-grid-patterns.md)で説明する。
 - 同時イベント、切断・再接続、二重送信、描画時の二重初期化を教材に含める。
 - 画面のAuthorizeViewは表示制御であり、業務サービスの認可の代用ではない。
 - AD Windows統合認証はIISで実施。PostgreSQL側の利用者・権限確認はサーバー側で毎回適切に行う。
@@ -88,5 +91,5 @@ Web ────────────────> Application ────�
 ## さらに読む
 
 - [DI入門](di-for-beginners.md)
-- [サンプル60ステップ](sample-catalog.md)
+- [サンプル80ステップ](sample-catalog.md)
 - [ADR-0001](decisions/0001-learning-app-structure.md)
