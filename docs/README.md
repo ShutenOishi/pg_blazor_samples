@@ -8,8 +8,8 @@
 | Windows Server 2025での構築 | [IIS・Windows認証・Kerberos・gMSA・PostgreSQL](windows-server-2025-iis.md) |
 | PDFの生成・ソース整合性 | [PDFの生成と同期](pdf-generation.md) |
 | 技術ハンドブック | [実装対応ハンドブック](implementation-handbook.md) |
-| 実装済みの日本語教材 | [Step01](samples/step01.md)／[Step02](samples/step02.md)／[Step03](samples/step03.md)／[Step04](samples/step04.md)／[Step05](samples/step05.md)／[Step06](samples/step06.md)／[Step07](samples/step07.md)／[Step08](samples/step08.md)／[Step09](samples/step09.md)／[Step10](samples/step10.md) |
-| 5ステップごとの理解を深めるコラム | [全12回の計画と実装済みコラム01・02](columns/README.md) |
+| 実装済みの日本語教材 | [Step01](samples/step01.md)／[Step02](samples/step02.md)／[Step03](samples/step03.md)／[Step04](samples/step04.md)／[Step05](samples/step05.md)／[Step06](samples/step06.md)／[Step07](samples/step07.md)／[Step08](samples/step08.md)／[Step09](samples/step09.md)／[Step10](samples/step10.md)／[Step11](samples/step11.md)／[Step12](samples/step12.md)／[Step13](samples/step13.md)／[Step14](samples/step14.md)／[Step15](samples/step15.md) |
+| 5ステップごとの理解を深めるコラム | [全12回の計画と実装済みコラム01〜03](columns/README.md) |
 | 次のチャットへの引き継ぎ | [引き継ぎプロンプト](next-chat-handoff.md) |
 | 次の実装工程とPR単位 | [初回ソース実装計画](first-code-implementation-plan.md) |
 | 学習順序と到達目標 | [学習ロードマップ](learning-path.md) |

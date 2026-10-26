@@ -4,9 +4,9 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、linq2db、Npgsql、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜10のBlazor Webアプリのソースとコラム01・02を追加しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+> **現在の状態：Step01〜15のBlazor Webアプリのソースとコラム01〜03を追加しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜15は今回の変更で検証中です。Step16〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
 
-## Step01〜10を起動する
+## Step01〜15を起動する
 
 Visual Studio 2026で `PgBlazorSamples.slnx` を開き、`PgBlazorSamples.Web` を起動してください。コマンドラインでは次のとおりです。
 
@@ -15,18 +15,18 @@ dotnet restore PgBlazorSamples.slnx
 dotnet run --project src/PgBlazorSamples.Web
 ```
 
-トップページから日本語の各ステップに移動できます。最初の10ステップはDB/ADなしで起動できる構成です。画面メニュー、再接続案内、エラー表示も日本語です。
+トップページから日本語の各ステップに移動できます。最初の15ステップはDB/ADなしで起動できる構成です。画面メニュー、再接続案内、エラー表示も日本語です。
 
-実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)／[ステップ04](docs/samples/step04.md)／[ステップ05](docs/samples/step05.md)／[ステップ06](docs/samples/step06.md)／[ステップ07](docs/samples/step07.md)／[ステップ08](docs/samples/step08.md)／[ステップ09](docs/samples/step09.md)／[ステップ10](docs/samples/step10.md)。ソースコード変更時は同じPRで教材を更新します。
+実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)／[ステップ04](docs/samples/step04.md)／[ステップ05](docs/samples/step05.md)／[ステップ06](docs/samples/step06.md)／[ステップ07](docs/samples/step07.md)／[ステップ08](docs/samples/step08.md)／[ステップ09](docs/samples/step09.md)／[ステップ10](docs/samples/step10.md)／[ステップ11](docs/samples/step11.md)／[ステップ12](docs/samples/step12.md)／[ステップ13](docs/samples/step13.md)／[ステップ14](docs/samples/step14.md)／[ステップ15](docs/samples/step15.md)。ソースコード変更時は同じPRで教材を更新します。
 
 ## ソースコード実装の次工程
 
-Step01〜10の画面、親子部品、入力フォームの教材をソースに追加しました。次はStep11〜15のDI入門へ進みます。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
+Step01〜15の画面とDI入門教材をソースに追加しました。次はStep16〜20の設定、ログ、単体テスト、Application分割へ進みます。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
 
 
 ## 5ステップごとの学習コラム
 
-Step05・10・15…60の節目ごとに、**全12回**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)と[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)を掲載しています。後続のコラムのテーマは[全12回の一覧](docs/columns/README.md)を参照してください。
+Step05・10・15…60の節目ごとに、**全12回**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)を掲載しています。後続のコラムのテーマは[全12回の一覧](docs/columns/README.md)を参照してください。
 
 ## どこから始める？
 

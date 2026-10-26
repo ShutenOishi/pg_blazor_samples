@@ -16,7 +16,7 @@
     </div>
     <p>選択中：<strong data-testid="step12-kind">@(useFixed ? "固定時計" : "実際の時計")</strong></p>
     <p>取得した時刻：<strong data-testid="step12-time">@SelectedClock.GetNow().ToString("yyyy/MM/dd HH:mm")</strong></p>
-    <p role="status" data-testid="step12-greeting">挨拶：<strong>@new GreetingService(SelectedClock).GetMessage()</strong></p>
+    <p role="status" data-testid="step12-greeting">挨拶：<strong>@(new GreetingService(SelectedClock).GetMessage())</strong></p>
 </section>
 <section class="lesson-details">
     <h2>コードの注目点</h2>

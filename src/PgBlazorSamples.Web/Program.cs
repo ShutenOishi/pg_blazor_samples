@@ -1,5 +1,7 @@
 using System.Globalization;
 using PgBlazorSamples.Web.Components;
+using PgBlazorSamples.Web.Services.Clock;
+using PgBlazorSamples.Web.Services.Lifetime;
 
 // 日本語専用の教材なので、サーバーのOS設定によらず日本語表示を標準にする。
 // 日時や数値の既定書式、今後導入する入力検証などにも適用する。
@@ -9,10 +11,22 @@ CultureInfo.DefaultThreadCurrentUICulture = japaneseCulture;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 初級教材の段階ではWebプロジェクトだけを使用する。
-// DIによるサービスの追加とプロジェクト分割はステップ11以降で学ぶ。
+// 最初の15ステップはWebプロジェクトのみを使用する。
+// Step11からDIコンテナーへ時計サービスを登録する。
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Step11〜12：時計の約束と差し替え可能な具象実装を登録する。
+builder.Services.AddSingleton<IClock, SystemClock>();
+builder.Services.AddSingleton<FixedClock>();
+builder.Services.AddTransient<GreetingService>();
+builder.Services.AddTransient<GreetingFormatter>();
+
+// Step13〜14：サービス生存期間を観察するための架空の状態。
+builder.Services.AddSingleton<SingletonMarker>();
+builder.Services.AddScoped<ScopedMarker>();
+builder.Services.AddTransient<TransientMarker>();
+builder.Services.AddScoped<ScopedCounter>();
 
 var app = builder.Build();
 
