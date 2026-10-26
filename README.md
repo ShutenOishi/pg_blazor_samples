@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜60の日本語Blazor画面・実装・教材を整備しました。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
+> **現在の状態：Step01〜65の日本語Blazor画面・実装・教材を整備しました。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
 
 ## 学習アプリを起動する
 
@@ -36,7 +36,7 @@ dotnet new mudblazor -n MudBlazorPractice -o MudBlazorPractice -int Server -ai -
 
 ## ソースコード実装の次工程
 
-Step01〜50の実装を土台として、次はStep61〜65のWindows統合認証、SIDとアプリ利用者の対応、業務利用の拒否判定を追加します。EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
+Step01〜50の実装を土台として、次はStep66〜70の画面・サービス双方の業務認可、管理・監査・IIS実機試験を追加します。EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
 
 ## 5ステップごとの学習コラム
 
@@ -91,7 +91,7 @@ DIの学習用Applicationは維持しますが、**DBを学ぶための新しい
 
 ## 学習者向けのPDFで読む
 
-学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜60・コラム01〜13・特別コラム2本を収録し、GitHub Actionsで生成・検査します。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜65・コラム01〜14・特別コラム2本を収録し、GitHub Actionsで生成・検査します。
 
 [日本語学習PDFの生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)の最新成功Runから、`blazor_learning_textbook_ja` を取得できます。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
@@ -127,3 +127,7 @@ Web内のLearningEditServiceで、入力DTOとDbContextFactoryによる短命DbC
 ## Step56〜60：期間・集計・性能・一覧方式の選択
 
 MudDateRangePickerとdaterangeの重なり検索、架空利用者A/BのScopedキャッシュ例、DB側GroupByと100件以内のCSV、小規模P95/P99とEXPLAIN、10方式の選定演習を追加しました。[コラム13](docs/columns/column56-60.md)で復習します。架空キャッシュ例は認証・業務認可ではありません。実データへの接続はStep61〜70のサービス認可を完成するまで禁止します。
+
+## Step61〜65：Windows認証とDB利用者・ロール（CI検証中）
+
+認証済みPrincipalのSIDをPostgreSQLのapp_userで照合し、未登録・無効・権限なし・DB失敗では拒否する学習画面を追加しました。[コラム14](docs/columns/column61-65.md)で復習できます。本番用の認可はStep66〜70まで未完成です。
