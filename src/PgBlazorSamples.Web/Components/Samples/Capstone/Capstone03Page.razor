@@ -1,0 +1,64 @@
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+@page "/learn/capstone-03"
+<PageTitle>学習順108：DTO編集・競合・取消・例外の統合｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第9段階 / 学習順108</p>
+<h1>DTO編集・競合・取消・例外の統合</h1>
+
+<p>表示済みの値ではなく、本人認証と既存台帳の最新の操作権限、対象部署とxminの版を使います。取消はDBへ書き込まず、保存時は共通サービスの認可・監査とトランザクションを使います。</p>
+<section class="lesson-details">
+<label for="capstone03-id">編集する課題番号</label>
+<input id="capstone03-id" type="number" min="1" @bind="_id" />
+<button type="button" @onclick="LoadAsync">認可付き詳細を取得する</button>
+@if (_detail?.Item is { } item)
+{
+  <p>編集中の課題番号：@item.Id、読み取った版：@item.Version</p>
+  <label for="capstone03-title">課題名（最大100文字）</label>
+  <input id="capstone03-title" maxlength="100" @bind="_title" />
+  <label><input type="checkbox" @bind="_isDone" /> 完了</label>
+  <button type="button" @onclick="SaveAsync">権限と競合を再検査して保存する</button>
+  <button type="button" @onclick="Cancel">編集を取り消す</button>
+}
+<p role="status" data-testid="capstone03-result">@_status</p>
+<details><summary>確認：表示後に部署権限が失効した場合は？</summary><p>SaveAsyncが保存直前に正本を再検査し、権限行ロック・xmin・監査記録を同一トランザクションで保証できなければ拒否します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/capstone-02">前へ</a><a href="/learn/capstone-04">次へ</a></div>
+@code {
+    private long _id = 1;
+    private string _title = "";
+    private bool _isDone;
+    private string _status = "未読込です。";
+    private LearningDetailResult? _detail;
+    private async Task LoadAsync()
+    {
+        _detail = null; // 以前の認可済みDTOが不正な入力の後も残らないようにする。
+        _title = "";
+        if (_id <= 0) { _status = "1以上の番号を指定してください。"; return; }
+        var result = await Business.GetDetailAsync(_id);
+        _detail = result.Item is null ? null : result;
+        _title = result.Item?.Title ?? "";
+        _isDone = result.Item?.IsDone ?? false;
+        _status = result.Message;
+    }
+    private void Cancel()
+    {
+        _detail = null;
+        _title = "";
+        _status = "編集を取り消しました。DBの値は変更していません。";
+    }
+    private async Task SaveAsync()
+    {
+        var item = _detail?.Item;
+        if (item is null) { _status = "保存対象はありません。"; return; }
+        if (string.IsNullOrWhiteSpace(_title) || _title.Trim().Length > 100)
+        { _status = "課題名は1〜100文字で入力してください。"; return; }
+        var result = await Business.SaveAsync(new LearningEditInput
+        { Id = item.Id, Version = item.Version, Title = _title, IsDone = _isDone });
+        _status = result.Message;
+        if (result.Status == LearningEditStatus.Success)
+            await LoadAsync();
+        else
+            _detail = null; // 競合・拒否後に古い入力を再送できないようにする。
+    }
+}

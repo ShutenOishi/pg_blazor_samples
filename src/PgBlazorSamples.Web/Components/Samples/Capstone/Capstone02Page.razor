@@ -1,0 +1,57 @@
+@using PgBlazorSamples.Web.Services.Learning
+@using PgBlazorSamples.Web.Data
+@using Microsoft.EntityFrameworkCore
+@inject SecuredLearningService Business
+@inject IDbContextFactory<LearningDbContext> Factory
+@page "/learn/capstone-02"
+<PageTitle>学習順107：PostgreSQL検索とページング・生成SQL｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第9段階 / 学習順107</p>
+<h1>PostgreSQL検索とページング・生成SQL</h1>
+
+<p>SQL生成とDBからの取得を区別します。生成SQLの確認には接続が不要ですが、一覧取得は必ず既存台帳認可と監査を通します。</p>
+<section class="lesson-details">
+<h2>学習用の検索条件</h2>
+<label for="capstone02-keyword">課題名に含まれる文字（最大100文字）</label>
+<input id="capstone02-keyword" maxlength="100" @bind="_keyword" />
+<button type="button" @onclick="ExplainSql">生成SQLだけを確認する</button>
+<pre data-testid="capstone02-sql" style="white-space:pre-wrap;overflow-wrap:anywhere">@_sql</pre>
+<button type="button" @onclick="LoadAsync">権限付き一覧を取得する</button>
+<p role="status" data-testid="capstone02-result">@_result</p>
+<p data-testid="capstone02-total">総件数：@_total 件 / 表示件数：@_rows.Count 件（最大10件）</p>
+@if (_rows.Count > 0)
+{
+<table><thead><tr><th scope="col">番号</th><th scope="col">課題名</th><th scope="col">状態</th></tr></thead><tbody>
+@foreach (var item in _rows)
+{
+<tr><td>@item.Id</td><td>@item.Title</td><td>@(item.IsDone ? "完了" : "未完了")</td></tr>
+}
+</tbody></table>
+}
+<p>ここで確認する生成SQLは架空部署の式木を変換しただけです。表示しても実際の業務データを読み取りません。業務操作では必ずSecuredLearningServiceが本人、部署、監査を検証します。</p></section>
+<div class="page-navigation"><a href="/learn/capstone-01">前へ</a><a href="/learn/capstone-03">次へ</a></div>
+@code {
+    private string _keyword = "";
+    private string _result = "未検索です。";
+    private string _sql = "SQL生成前";
+    private int _total;
+    private IReadOnlyList<LearningTaskRow> _rows = [];
+    private void ExplainSql()
+    {
+        using var db = Factory.CreateDbContext();
+        var keyword = _keyword.Trim();
+        // SQL構造の教材用。実データ取得ではない。
+        _sql = db.Tasks.AsNoTracking()
+            .Where(t => t.UnitCode == "DEMO" && t.Title.Contains(keyword))
+            .OrderBy(t => t.Id).Take(10).Select(t => new { t.Id, t.Title })
+            .ToQueryString();
+    }
+    private async Task LoadAsync()
+    {
+        _rows = [];
+        _total = 0;
+        var result = await Business.LoadPageAsync(new(0, 10, _keyword));
+        _result = result.Message;
+        _rows = result.Rows;
+        _total = result.TotalCount;
+    }
+}
