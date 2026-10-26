@@ -2,7 +2,15 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 総合演習5件の配置・全面改稿準備（最新）
+## 2026-10-27 新規30/30初稿のCI・Preview PDF完了（最新）
+- Draft PR #36で新規30件のRazor/教材初稿を配置・CI受入済み。既存80件のURLは不変、**最終全面改稿0/110**。
+- 実装HEAD `790a58ee5b975b288a6707ac7341fc3f873ad9b8` のApp Run 40364677020 / PDF Run 40364677179はSUCCESS。
+- 全面改稿計画を追加したHEAD `d7aebd3796fafd3a56fad3751c50c4d003813363` のApp Run 40365372365 / PDF Run 40365372317もSUCCESS。単体PDF952877バイトとRelease `learning-textbook-v3-preview` の生成元SHA一致をGETで検証済み。
+- 110本の改稿順・22復習・3特別・9段階概要の5本単位の受入規則は `docs/course-v3/full-rewrite-roadmap.md` が正本。
+- **次工程：学習順001〜005と第1段階概要・第1組復習の全文を実装に合わせて全面改稿。** GUI・日本語教材・Web/PDF目次、Chrome・Windows/Linux・PG18を同期し、成功して初めて最終改稿5/110とする。
+- 最新HEADの記録更新後に発生したCIとPreview PDFの生成元を再開時に照合し、不整合は修復する。正式main版は上書きせず、Draft PR維持。
+
+## 2026-10-27 総合演習5件の配置・全面改稿準備（履歴）
 - Draft PR #36は新規30/30件のRazor・日本語初稿を配置。全110件の最終全面改稿は0/110。
 - capstone-01〜05（学習順106〜110）、第9段階概要・第22組復習・Web/PDF目次・Chrome匿名拒否・PostgreSQL18の競合/ロールバック結合試験を追加。
 - 22回の5本単位の最終改稿順は `docs/course-v3/full-rewrite-roadmap.md` に確定。次の実装工程は**学習順001〜005と第1段階概要・第1組復習の全面改稿**。

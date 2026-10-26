@@ -1172,7 +1172,7 @@
       "title": "業務要件・画面遷移・WinForms移行の設計",
       "source": "docs/course-v3/lessons/capstone-01.md",
       "url": "/learn/capstone-01",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -1183,7 +1183,7 @@
       "title": "PostgreSQL検索とページング・生成SQL",
       "source": "docs/course-v3/lessons/capstone-02.md",
       "url": "/learn/capstone-02",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -1194,7 +1194,7 @@
       "title": "DTO編集・競合・取消・例外の統合",
       "source": "docs/course-v3/lessons/capstone-03.md",
       "url": "/learn/capstone-03",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -1205,7 +1205,7 @@
       "title": "認証済み本人と既存台帳による権限・監査",
       "source": "docs/course-v3/lessons/capstone-04.md",
       "url": "/learn/capstone-04",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -1216,7 +1216,7 @@
       "title": "E2E・障害復旧・IIS受入表",
       "source": "docs/course-v3/lessons/capstone-05.md",
       "url": "/learn/capstone-05",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     }
   ],

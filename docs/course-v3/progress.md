@@ -7,13 +7,13 @@
 - v2で先行本文改稿済み：旧Step11〜30の20本とコラム5本。v3の最終照合は未実施。
 - 現行Draft PRのWeb目次・日本語PDFには旧80件と新規25件の初稿を配置。最後の新規5件は配置済み。9段階の最終全面改稿は未完了。mainの正式Release PDFは別に維持。
 
-## 新規ステップ（初稿と画面追加済み 30 / 30、総合演習のCI受入待ち）
+## 新規ステップ（初稿と画面追加済み 30 / 30、総合演習のCI成功）
 - [x] web：5件のRazor・Markdown・復習・索引を追加、HEAD 9e12130のWindows/Linux・実ブラウザー・PG18・PDF CI成功（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] runtime：5件（HEAD 6f22c9dのWindows/Linux・Chrome・PG18・PDF CI成功）（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] browser：5件（初稿・画面・第9組復習・第4段階概要を追加。HEAD 9a9df7eのWindows/Linux・Chrome・PG18・PDF CI成功）
 - [x] db-bridge：5件（画面・教材初稿・概要・復習第10〜12組・Chrome・PostgreSQL18・PDF CI成功）
 - [x] security：5件（画面・日本語初稿・第7段階概要・第17組復習・安全拒否単体テスト・Chrome/Win/Linux/PG18/PDF CI成功）
-- [x] capstone：5件（Razor・日本語初稿・第9段階概要・第22組復習・Web/PDF目次・匿名拒否Chrome試験・PostgreSQL18結合試験を追加、最新HEADのCI完了確認待ち）
+- [x] capstone：5件（Razor・日本語初稿・第9段階概要・第22組復習・Web/PDF目次・匿名拒否Chrome試験・PostgreSQL18結合試験を追加し、全CI成功）
 
 ## 最終全面改稿（受入済み 0 / 110）
 - [ ] 第1段階：学習順001〜005、概要・本文5本・関連復習・PDFとUIの一致を受入
@@ -106,3 +106,10 @@
 - [x] 22回の5本単位による全110本文・22復習・3特別コラム・9段階概要の[全面改稿手順](full-rewrite-roadmap.md)を作成。最初は001〜005。
 - [ ] 総合演習追加後HEADのWindows/Linux・Chrome・PostgreSQL18・PDFのCI全成功と、DraftプレビューReleaseの単体PDF（生成元SHA一致）を確認する。**未成功のまま受入完了としない。**
 - [ ] 全面改稿の受入0/110。新規初稿30/30とは別にカウントする。
+
+### 2026-10-27 新規30/30配置のCI・Preview Release受入
+- [x] 実装HEAD `790a58ee5b975b288a6707ac7341fc3f873ad9b8` のアプリ Run [40364677020](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40364677020) と PDF Run [40364677179](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40364677179) が両方SUCCESS。Windows Server2025/Linux、xUnit、Chrome、PostgreSQL18の結合・競合・ロールバック・安全拒否を確認。
+- [x] 新しい110件全面改稿計画を追加したHEAD `d7aebd3796fafd3a56fad3751c50c4d003813363` の [App Run 40365372365](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40365372365) と [PDF Run 40365372317](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40365372317) もSUCCESS。
+- [x] `learning-textbook-v3-preview` の単体日本語PDF `blazor_learning_textbook_ja.pdf` 952877バイトと、Release notes生成元SHA `d7aebd3796fafd3a56fad3751c50c4d003813363` をGitHub GETで確認。ZIP化せず、main正式版には触れていない。
+- [x] 学習順001〜110のすべてにRazor画面と初稿が配置され、通常復習22組・段階概要9件・特別3コラムの全面改稿順も[手順](full-rewrite-roadmap.md)に明記した。
+- [ ] **全面改稿の受入は0/110。次は001〜005を先頭から全面改稿し、第1段階概要と第1組復習のテキスト・Razor・Web目次・PDFを同じ単位で検証する。**
