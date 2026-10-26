@@ -80,6 +80,8 @@ def clean_lesson_markdown(text: str) -> str:
             continue
         if any(word in line.lower() for word in ("github.com", "レポジトリ", "pull request", "コミットハッシュ")):
             continue
+        # 学習PDFでは開発用ディレクトリ指定を省き、Webプロジェクト内で実行する例として示す。
+        line = re.sub(r"dotnet add src/[^\\s]+\\.csproj package ", "dotnet add package ", line)
         if line.strip() == "dotnet run --project src/PgBlazorSamples.Web":
             # IDEで起動する学習者に、開発ディレクトリ構造の知識を要求しない。
             line = "dotnet run"
