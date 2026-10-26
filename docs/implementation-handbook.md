@@ -1,6 +1,6 @@
 # 実装対応ハンドブック — 設計とソースの整合性
 
-> 対象: Visual Studio 2026 / .NET 10 / Blazor Interactive Server / MudBlazor / linq2db / Npgsql / PostgreSQL 18 / Active Directory / Windows Server 2025。
+> 対象: Visual Studio 2026 / .NET 10 / Blazor Interactive Server / MudBlazor / EF Core 10 / Npgsql / PostgreSQL 18 / Active Directory / Windows Server 2025。
 >
 > **実装状況：Step01〜15のWebアプリ、DI入門、Step05・10・15の復習コラムを追加しました。** Step11〜15のCI受入はサンプル一覧を参照してください。Step16以降、Application/Domain/Infrastructure、DB/AD接続は未実装です。ビルド・動作の確認状況はGitHub Actionsを参照してください。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
 
@@ -15,7 +15,7 @@
 | AD・認可 | 41–50 | 既存プロジェクトを拡張 | イントラネットのAD検証環境 |
 | 運用 | 51–60 | 必要に応じWebTests | Windows Server 2025、IIS |
 
-**60ステップの具体的な課題は [サンプル一覧](sample-catalog.md) が正本**です。この文書では、教材を実装するときに守る技術契約と受入条件を補足します。
+**80ステップの具体的な課題は [サンプル一覧](sample-catalog.md) が正本**です。この文書では、教材を実装するときに守る技術契約と受入条件を補足します。
 
 ## 2. プロジェクトと参照方向
 
