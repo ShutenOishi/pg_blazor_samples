@@ -20,7 +20,7 @@ public sealed class LearningEditInput
     };
 }
 
-public enum LearningEditStatus { Success, Invalid, Conflict, Missing, NotConfigured, Error }
+public enum LearningEditStatus { Success, Invalid, Conflict, Missing, NotConfigured, Forbidden, Error }
 
 /// <summary>保存後の状態を曖昧なメッセージ文字列で判定しない。</summary>
 public sealed record LearningEditResult(
