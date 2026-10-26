@@ -23,7 +23,8 @@ public sealed class SecuredLearningIntegrationTests
             {
                 ["ConnectionStrings:PostgreSQL"] = connection,
                 ["WindowsAuthentication:Enabled"] = "true",
-                ["Authorization:TransactionalLedgerConfirmed"] = "true"
+                ["Authorization:TransactionalLedgerConfirmed"] = "true",
+                ["Authorization:DurableAuditConfirmed"] = "true"
             }).Build();
         var auth = new DemoAuthenticationStateProvider();
         using var provider = new ServiceCollection()
@@ -32,6 +33,7 @@ public sealed class SecuredLearningIntegrationTests
             .AddLogging()
             .AddDbContextFactory<LearningDbContext>(options => options.UseNpgsql(connection))
             .AddScoped<WindowsUserAccessService>()
+            .AddScoped<LearningAuditService>()
             .AddScoped<SecuredLearningService>()
             .AddScoped<LearningDbService>()
             .BuildServiceProvider();
@@ -104,6 +106,13 @@ public sealed class SecuredLearningIntegrationTests
                 await db.Database.ExecuteSqlInterpolatedAsync(
                     $"UPDATE learning_existing_user_ci SET can_edit = {true}, authorization_version = authorization_version + 1 WHERE login_name = {login}");
             Assert.Equal(LearningEditStatus.Success, (await business.SaveAsync(edited)).Status);
+            await using (var auditDb = await factory.CreateDbContextAsync())
+            {
+                var entries = await auditDb.Database.SqlQueryRaw<int>(
+                    "SELECT COUNT(*)::integer AS \"Value\" FROM learning_operation_audit_ci WHERE actor_login = {0}",
+                    login).SingleAsync();
+                Assert.True(entries >= 4); // 一覧・詳細・集計・CSV・保存の永続監査が成立
+            }
             Assert.Equal(LearningEditStatus.Conflict, (await business.SaveAsync(edited)).Status);
 
             // 他部署のIDを一括更新へ混入させると全体を拒否する。
@@ -143,6 +152,7 @@ public sealed class SecuredLearningIntegrationTests
             .AddLogging()
             .AddDbContextFactory<LearningDbContext>(x => x.UseNpgsql("Host=127.0.0.1;Database=unused"))
             .AddScoped<WindowsUserAccessService>()
+            .AddScoped<LearningAuditService>()
             .AddScoped<SecuredLearningService>()
             .BuildServiceProvider();
         using var scope = provider.CreateScope();
@@ -171,6 +181,7 @@ public sealed class SecuredLearningIntegrationTests
             .AddLogging()
             .AddDbContextFactory<LearningDbContext>(x => x.UseNpgsql(connection))
             .AddScoped<WindowsUserAccessService>()
+            .AddScoped<LearningAuditService>()
             .AddScoped<SecuredLearningService>()
             .BuildServiceProvider();
         using var scope = provider.CreateScope();
@@ -239,6 +250,7 @@ public sealed class SecuredLearningIntegrationTests
             .AddLogging()
             .AddDbContextFactory<LearningDbContext>(x => x.UseNpgsql("Host=127.0.0.1;Database=unused"))
             .AddScoped<WindowsUserAccessService>()
+            .AddScoped<LearningAuditService>()
             .AddScoped<SecuredLearningService>()
             .BuildServiceProvider();
         using var scope = provider.CreateScope();
@@ -246,6 +258,70 @@ public sealed class SecuredLearningIntegrationTests
         Assert.Null((await service.AuthorizeAsync(forEdit: true)).Unit);
         Assert.Equal(LearningEditStatus.Forbidden,
             (await service.SaveAsync(new LearningEditInput { Id = 1, Version = 1, Title = "拒否" })).Status);
+    }
+
+
+    [Fact]
+    public async Task PostgreSql18_AuditWriteFailure_RejectsAndRollsBack()
+    {
+        var connection = Environment.GetEnvironmentVariable("ConnectionStrings__PostgreSQL");
+        if (string.IsNullOrWhiteSpace(connection)) return;
+        var cfg = new ConfigurationBuilder().AddInMemoryCollection(
+            new Dictionary<string, string?>
+            {
+                ["ConnectionStrings:PostgreSQL"] = connection,
+                ["WindowsAuthentication:Enabled"] = "true",
+                ["Authorization:TransactionalLedgerConfirmed"] = "true",
+                ["Authorization:DurableAuditConfirmed"] = "true"
+            }).Build();
+        var auth = new DemoAuthenticationStateProvider();
+        using var provider = new ServiceCollection()
+            .AddSingleton<IConfiguration>(cfg)
+            .AddSingleton<AuthenticationStateProvider>(auth)
+            .AddLogging()
+            .AddDbContextFactory<LearningDbContext>(options => options.UseNpgsql(connection))
+            .AddScoped<WindowsUserAccessService>()
+            .AddScoped<LearningAuditService>()
+            .AddScoped<SecuredLearningService>()
+            .BuildServiceProvider();
+        using var scope = provider.CreateScope();
+        var factory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningDbContext>>();
+        var business = scope.ServiceProvider.GetRequiredService<SecuredLearningService>();
+        var suffix = Guid.NewGuid().ToString("N")[..10].ToUpperInvariant();
+        var login = "TRAINING\\AUDITFAIL" + suffix;
+        var unit = "A" + suffix;
+        long id = 0;
+        try
+        {
+            await using (var db = await factory.CreateDbContextAsync())
+            {
+                await db.Database.ExecuteSqlInterpolatedAsync(
+                    $"INSERT INTO learning_existing_user_ci(login_name,display_name,is_active,can_read,can_edit,unit_code) VALUES ({login}, {"監査障害テスト"}, {true}, {true}, {true}, {unit})");
+                var task = new LearningTask { Title = "監査トランザクション"+suffix, UnitCode = unit };
+                db.Tasks.Add(task);
+                await db.SaveChangesAsync();
+                id = task.Id;
+            }
+            auth.User = Principal(login, "Negotiate");
+            await using var readDb = await factory.CreateDbContextAsync();
+            var current = await readDb.Tasks.AsNoTracking().SingleAsync(t => t.Id == id);
+            var result = await business.SaveAsync(new LearningEditInput
+            {
+                Id = id, Version = current.Version, Title = "変更不可"+suffix, IsDone = true
+            });
+            Assert.Equal(LearningEditStatus.Error, result.Status);
+            var actual = await readDb.Tasks.AsNoTracking().SingleAsync(t => t.Id == id);
+            Assert.Equal("監査トランザクション"+suffix, actual.Title);
+            Assert.Equal(0, (await business.LoadPageAsync(new(0, 20, suffix))).TotalCount);
+            Assert.Null((await business.ExportCsvAsync(suffix)).Base64);
+        }
+        finally
+        {
+            await using var db = await factory.CreateDbContextAsync();
+            await db.Tasks.Where(t => t.Id == id).ExecuteDeleteAsync();
+            await db.Database.ExecuteSqlInterpolatedAsync(
+                $"DELETE FROM learning_existing_user_ci WHERE login_name = {login}");
+        }
     }
 
     private static ClaimsPrincipal Principal(string login, string scheme) =>

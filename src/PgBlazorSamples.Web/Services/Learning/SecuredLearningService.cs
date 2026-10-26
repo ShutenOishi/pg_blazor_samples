@@ -14,6 +14,7 @@ public sealed class SecuredLearningService(
     IDbContextFactory<LearningDbContext> factory,
     WindowsUserAccessService access,
     IConfiguration configuration,
+    LearningAuditService audit,
     ILogger<SecuredLearningService> logger)
 {
     private const string Refused = "Windows認証と既存台帳による操作権限が確認できないため、処理を拒否しました。";
@@ -31,6 +32,9 @@ public sealed class SecuredLearningService(
         // ローカル台帳との排他契約が実機で確認されるまで更新は拒否する。
         if (forEdit && !configuration.GetValue<bool>("Authorization:TransactionalLedgerConfirmed"))
             return (null, "権限正本のトランザクション連動を確認できないため、更新を拒否しました。");
+        // 本人と部署が合っても、監査DBに永続記録できない運用では行データを公開しない。
+        if (!configuration.GetValue<bool>(LearningAuditService.AuditConfirmedSetting))
+            return (null, "監査の永続化を確認できないため、処理を拒否しました。");
         var state = await access.ReadCurrentAsync(ct);
         var needed = forEdit ? "learning.edit" : WindowsUserAccessService.ReadPermission;
         if (!state.CanRead || state.Permissions?.Contains(needed) != true ||
@@ -88,6 +92,8 @@ public sealed class SecuredLearningService(
                 .Skip(checked(request.Page * request.PageSize)).Take(request.PageSize)
                 .Select(t => new LearningTaskRow(t.Id, t.Title, t.DueDate,
                     t.StartTime, t.IsDone, t.Version)).ToListAsync(ct);
+            // 監査の永続化失敗時は結果を公開しない。Readは監査を記録してから応答する。
+            await audit.WriteRequiredAsync(db, "task.list", permit.Unit, 0, rows.Count, "success", ct);
             return new(rows, total, "許可された部署内の一覧を取得しました。");
         }
         catch (OperationCanceledException) when (ct.IsCancellationRequested) { throw; }
@@ -112,6 +118,8 @@ public sealed class SecuredLearningService(
                     t.Category == null ? "未分類" : t.Category.Name,
                     t.DueDate, t.StartTime, t.IsDone, t.Version))
                 .SingleOrDefaultAsync(ct);
+            await audit.WriteRequiredAsync(db, "task.detail", permit.Unit, id,
+                detail is null ? 0 : 1, detail is null ? "not_found" : "success", ct);
             return detail is null
                 ? new(null, "対象データは存在しないか、閲覧権限がありません。")
                 : new(detail, "許可された部署の詳細を取得しました。");
@@ -134,6 +142,8 @@ public sealed class SecuredLearningService(
             var groups = await Visible(db, permit.Unit).AsNoTracking()
                 .GroupBy(t => t.IsDone)
                 .Select(g => new LearningCountRow(g.Key, g.Count())).ToListAsync(ct);
+            await audit.WriteRequiredAsync(db, "task.summary", permit.Unit, 0,
+                groups.Sum(g => g.Count), "success", ct);
             return new(groups, "許可部署の行のみ集計しました。");
         }
         catch (OperationCanceledException) when (ct.IsCancellationRequested) { throw; }
@@ -160,12 +170,17 @@ public sealed class SecuredLearningService(
             var rows = await query.OrderBy(t => t.Id).Take(MaxCsvRows + 1)
                 .Select(t => new { t.Id, t.Title, t.IsDone }).ToListAsync(ct);
             if (rows.Count > MaxCsvRows)
+            {
+                await audit.WriteRequiredAsync(db, "task.csv", permit.Unit, 0,
+                    rows.Count, "limit_rejected", ct);
                 return new(null, 0, "101件以上は出力しません。条件を絞ってください。");
+            }
             var csv = new StringBuilder("\uFEFF番号,課題名,完了\r\n");
             foreach (var t in rows)
                 csv.Append(t.Id).Append(',').Append(LearningRangeExportService.EscapeCsv(t.Title))
                     .Append(',').Append(t.IsDone ? "はい" : "いいえ").Append("\r\n");
-            logger.LogInformation("業務監査 CSV発行 対象部署={Unit} 件数={Count}", permit.Unit, rows.Count);
+            await audit.WriteRequiredAsync(db, "task.csv", permit.Unit, 0, rows.Count, "success", ct);
+            logger.LogInformation("CSV出力処理を完了しました。");
             return new(Convert.ToBase64String(Encoding.UTF8.GetBytes(csv.ToString())),
                 rows.Count, "許可された行だけをCSVへ出力しました。");
         }
@@ -200,6 +215,8 @@ public sealed class SecuredLearningService(
             // 利用者行のロックを保持中のため、正本の更新はこのコミットまで待機する。
             task.Title = input.Title.Trim();
             task.IsDone = input.IsDone;
+            // 監査は同じDBトランザクションにINSERTする。監査保存失敗で課題更新もロールバック。
+            await audit.WriteRequiredAsync(db, "task.update", permit.Unit, input.Id, 1, "success", ct);
             await db.SaveChangesAsync(ct);
             await tx.CommitAsync(ct);
             logger.LogInformation("業務監査 課題更新 部署={Unit} 行ID={Id}", permit.Unit, input.Id);
@@ -240,6 +257,11 @@ public sealed class SecuredLearningService(
             if (rows.Count != selections.Count || rows.Any(t => expected[t.Id] != t.Version))
                 return new(LearningEditStatus.Conflict, "権限外・削除・競合があるため全件取り消しました。");
             foreach (var row in rows) row.IsDone = true;
+            // 1行ごとに同じ相関IDを記録し、一括更新と監査を一つのコミットにまとめる。
+            var correlationId = Guid.NewGuid();
+            foreach (var row in rows)
+                await audit.WriteRequiredAsync(db, "task.bulk_complete", permit.Unit,
+                    row.Id, 1, "success", ct, correlationId);
             await db.SaveChangesAsync(ct);
             await tx.CommitAsync(ct);
             logger.LogInformation("業務監査 一括更新 部署={Unit} 件数={Count}", permit.Unit, rows.Count);

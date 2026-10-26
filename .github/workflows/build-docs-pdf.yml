@@ -103,6 +103,7 @@ jobs:
           assert "ステップ71：既存台帳のキー正規化・重複拒否と索引" in content
           assert "ステップ72：明示Windowsログインと短命Cookie" in content
           assert "ステップ73：権限行ロックと更新の原子性" in content
+          assert "ステップ74：本人・操作・結果を永続監査する" in content
           assert "学習コラム15：業務データを守る認可の強制" in content
           assert "特別コラム：1万人規模の認証・既存台帳認可・セッション・監査" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")

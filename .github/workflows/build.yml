@@ -147,6 +147,7 @@ jobs:
         run: |
           psql -v ON_ERROR_STOP=1 -f database/schema/001_learning_task.sql
           psql -v ON_ERROR_STOP=1 -f database/schema/002_app_access.sql
+          psql -v ON_ERROR_STOP=1 -f database/schema/003_learning_audit.sql
           psql -v ON_ERROR_STOP=1 -f database/seed/001_learning_task.sql
       - name: date・time・daterange・multirange・xminのSQLを確認
         run: psql -v ON_ERROR_STOP=1 -f database/tests/001_learning_task_check.sql
