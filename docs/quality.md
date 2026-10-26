@@ -73,13 +73,15 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - コンポーネント破棄、切断と再接続
 - 日本語の検索と日時変換、アクセシビリティ
 
-## EF Core 10と一覧連携の追加検証（未実施）
+## EF Core 10と一覧連携の追加検証
 
-- [ ] 実PostgreSQL 18でDbContextFactory、DateOnly/TimeOnly、Range/Multirangeを往復させる
+- [x] 実PostgreSQL 18でDbContextFactory、DateOnly/TimeOnly、daterange、xmin、トランザクションを検証する（CIで実施）
 - [ ] Npgsql物理接続プールとDbContextプールの差を測定する
 - [ ] MudDataGrid ServerDataの検索・複数ソート・CountとItemsに同一認可条件を適用する
-- [ ] VirtualizeServerDataの範囲、取消、スクロール、フォーカスを検査する
-- [ ] キーセットとSkip/Takeの順序安定性、性能を比較する
+- [x] VirtualizeServerDataの範囲取得・取消を実PostgreSQL 18で検査する
+- [ ] 実DB接続時の大規模スクロール・フォーカスの負荷を追加検査する
+- [x] IDキーセットのページ間重複・欠落を実DBで検査する
+- [ ] キーセットとSkip/Takeの性能を大量データで比較する
 - [ ] xmin競合、DB停止、長時間編集、一括更新、エクスポートの異常系を検査する
 
 ## 学習教材の再現性
@@ -102,7 +104,7 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - PDF表紙は「Blazor 実践学習テキスト」。目次の項目には学習テーマの日本語タイトルを表示する。
 - 目次や本文にリポジトリ、PR、GitHub、コミットハッシュや開発管理用のファイルパスを表示しない。
 - 検証に必要なコミット・Markdownとソースのハッシュは別の`blazor_learning_source_manifest.json`へ記録。
-- 5ステップごとのコラムは、対応するステップの直後に配置する。計画は通常16本＋特別編1本。
+- 5ステップごとのコラムは、対応するステップの直後に配置する。計画は通常16本＋特別編2本。
 - Step41〜60の実装時にはItems/ServerData/VirtualizeServerDataの選択理由、ソート安定性、検索・権限・仮想化、Range・編集・競合・CSV・性能測定のテストを追加する。
 - PDFの文字検索で日本語タイトルとコラムを確認する。PDF生成CIとアプリのビルド・ブラウザーテストは別々に成功判定する。
 
@@ -132,3 +134,12 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - [ ] PostgreSQL 18でページング、Count、ソート、期間・状態・文字列検索、キャンセルを検証
 - [ ] コラム10とPDF索引の一致を確認
 - [ ] 新規Domain/Infrastructureプロジェクトの追加なし
+
+## Step46〜50の受入条件
+
+- [x] ブラウザー試験にStep46〜50のルート、画面、検索入力、再読込、仮想化を追加する
+- [x] PostgreSQL 18のJOIN射影、IDキーセット、StartIndex/Count、異常条件・取消のテストを追加する
+- [x] コラム11と日本語PDFの章順・索引の検査を追加する
+- [ ] PRのWindows/Linux/Chrome/DB/PDF全成功とmainのpostmergeを確認する
+
+実DBに接続したブラウザーE2E、索引による性能実測、IIS/ADの実機試験はこの段階の完了条件と区別します。

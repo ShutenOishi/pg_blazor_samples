@@ -11,6 +11,9 @@ public sealed class LearningTask
     public TimeOnly? StartTime { get; set; }
     public NpgsqlRange<DateTime>? AvailableDates { get; set; }
     public bool IsDone { get; set; }
+    // Step46：必要な列だけJOINするための任意の関連。
+    public int? CategoryId { get; set; }
+    public LearningCategory? Category { get; set; }
 
     // PostgreSQLのxminを使った楽観的排他。自分で値を更新しない。
     public uint Version { get; set; }

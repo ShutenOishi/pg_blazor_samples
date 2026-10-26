@@ -4,7 +4,7 @@
 
 - Step01〜30：Razor・DI・MudBlazorの日本語画面と教材を作成・CI確認済み。
 - Step31〜40：**Webプロジェクト内**のDataとServicesを利用するEF Core 10の画面・SQL・教材を追加。DB未設定時には説明を表示。実PostgreSQL 18への接続検証は環境が必要で、SQLの実行履歴のない部分は未実証とする。
-- Step41〜60：MudTable/MudDataGridのデータ連携方式を要件から選ぶ20ステップ。計画中。
+- Step41〜50：MudTable/MudDataGridのServerData、関連DTO、キーセット、仮想化、検索UXをWeb内に実装。Step51〜60の編集と集約は計画中。
 - Step61〜70：AD Windows統合認証と業務権限。計画中。
 - Step71〜80：IIS運用・監視・性能等。計画中。
 
@@ -41,3 +41,7 @@
 ## Step41〜45実装
 
 Web内のData/LearningPageQuery.csとServices/Learning/LearningPageService.csを使用。MudTable・MudDataGridのServerDataからCancellationTokenを引き継ぎ、EF Coreでページング、Count、複数列ソート、日付・状態・文字列の絞り込みを実行します。新しいDomain/Infrastructureプロジェクトは追加しません。
+
+## Step46〜50実装
+
+WebのData/LearningAdvancedQueries.csとServices/Learning/LearningAdvancedPageService.csを追加。関連する分類テーブル、DTO射影、キーセットId昇順、VirtualizeServerDataの範囲指定を担当します。Step50では既存のLearningPageServiceと400msのデバウンスを使用。コラム11と日本語PDFも同じリビジョンから生成します。

@@ -71,6 +71,12 @@ jobs:
           assert "ステップ21：MudBlazorと日本語翻訳を導入する" in content
           assert "ステップ25：MudTableで一覧とソート" in content
           assert "学習コラム06：MudBlazorのDIと翻訳" in content
+          assert "ステップ46：関連テーブルをDTOへ射影する" in content
+          assert "ステップ47：キーセットページングを理解する" in content
+          assert "ステップ48：取得済み一覧を部分描画する" in content
+          assert "ステップ49：DB取得と仮想スクロールを連携する" in content
+          assert "ステップ50：デバウンスと障害時の再試行" in content
+          assert "学習コラム11：関連DTO・キーセット・仮想化" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
       - name: PDFをダウンロード可能な成果物として保存

@@ -85,7 +85,7 @@ public sealed class GreetingService(IClock clock)
 
 ## 5. MudBlazorとEF Coreの一覧表示の連携
 
-Step41〜60を新設し、[10パターンの選択ガイド](data-grid-patterns.md)に従ってItems、ServerData、VirtualizeServerData、キーセット、編集・集約・CSVを比較します。DbContextを対話画面へ長期間保持せず、`IDbContextFactory`から操作単位で生成します。EF Core 10とNpgsqlの詳細は[データアクセスガイド](efcore10-data-access.md)に分離しました。**ここは設計中であり、実DBのソース・統合テストは今後追加します。**
+Step41〜60を新設し、[10パターンの選択ガイド](data-grid-patterns.md)に従ってItems、ServerData、VirtualizeServerData、キーセット、編集・集約・CSVを比較します。DbContextを対話画面へ長期間保持せず、`IDbContextFactory`から操作単位で生成します。EF Core 10とNpgsqlの詳細は[データアクセスガイド](efcore10-data-access.md)に分離しました。**Step41〜50は実装しています。Step51〜60の編集・集約・権限付き機能は今後追加します。**
 
 ## 6. AD・IIS・Windows Server 2025の構築観点
 

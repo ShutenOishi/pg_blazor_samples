@@ -1,0 +1,34 @@
+@page "/learn/46"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningAdvancedPageService Pages
+<PageTitle>ステップ46：関連テーブルとDTO｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ46 / DTO射影・関連テーブル</p>
+<h1>JOINした必要な列だけを表示する</h1>
+<p>課題と分類を関連付け、必要な3列だけをDTOとして取得します。未分類は「未分類」と表示します。</p>
+<MudPaper Class="pa-4">
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="RefreshAsync">関連表を読み込む</MudButton>
+    <p role="status" data-testid="step46-state">@_message</p>
+    <MudTable T="CategoryTaskRow" Items="@_rows" Dense="true">
+        <HeaderContent><MudTh>番号</MudTh><MudTh>課題名</MudTh><MudTh>分類</MudTh></HeaderContent>
+        <RowTemplate><MudTd DataLabel="番号">@context.Id</MudTd><MudTd DataLabel="課題名">@context.Title</MudTd><MudTd DataLabel="分類">@context.CategoryName</MudTd></RowTemplate>
+        <NoRecordsContent><MudText>該当する課題はありません。</MudText></NoRecordsContent>
+    </MudTable>
+</MudPaper>
+<section class="lesson-details">
+    <h2>なぜDTOに射影する？</h2>
+    <p>Includeでエンティティ全体を増やすより、Selectで必要な列だけを取得します。N+1（行ごとに個別SQL）を避け、AsNoTrackingで一覧の変更追跡を省きます。</p>
+    <p>上限20件の教材画面です。大量一覧では次のステップの方式を検討してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/45">前へ：ステップ45</a><a href="/learn/47">次へ：ステップ47</a></div>
+@code {
+    private IReadOnlyList<CategoryTaskRow> _rows = [];
+    private string _message = "開発用DBの読み込みを開始します。";
+    protected override async Task OnInitializedAsync() => await RefreshAsync();
+    private async Task RefreshAsync()
+    {
+        var result = await Pages.LoadCategoriesAsync();
+        _rows = result.Rows;
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+    }
+}
