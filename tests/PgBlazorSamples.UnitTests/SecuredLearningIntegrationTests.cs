@@ -22,7 +22,8 @@ public sealed class SecuredLearningIntegrationTests
             new Dictionary<string, string?>
             {
                 ["ConnectionStrings:PostgreSQL"] = connection,
-                ["WindowsAuthentication:Enabled"] = "true"
+                ["WindowsAuthentication:Enabled"] = "true",
+                ["Authorization:TransactionalLedgerConfirmed"] = "true"
             }).Build();
         var auth = new DemoAuthenticationStateProvider();
         using var provider = new ServiceCollection()
@@ -148,6 +149,103 @@ public sealed class SecuredLearningIntegrationTests
         var service = scope.ServiceProvider.GetRequiredService<SecuredLearningService>();
         Assert.Null((await service.AuthorizeAsync()).Unit);
         Assert.Equal(0, (await service.LoadPageAsync(new())).TotalCount);
+    }
+
+
+    [Fact]
+    public async Task PostgreSql18_RevocationWaitingOnWriteLock_RejectsMutation()
+    {
+        var connection = Environment.GetEnvironmentVariable("ConnectionStrings__PostgreSQL");
+        if (string.IsNullOrWhiteSpace(connection)) return;
+        var cfg = new ConfigurationBuilder().AddInMemoryCollection(
+            new Dictionary<string, string?>
+            {
+                ["ConnectionStrings:PostgreSQL"] = connection,
+                ["WindowsAuthentication:Enabled"] = "true",
+                ["Authorization:TransactionalLedgerConfirmed"] = "true"
+            }).Build();
+        var auth = new DemoAuthenticationStateProvider();
+        using var provider = new ServiceCollection()
+            .AddSingleton<IConfiguration>(cfg)
+            .AddSingleton<AuthenticationStateProvider>(auth)
+            .AddLogging()
+            .AddDbContextFactory<LearningDbContext>(x => x.UseNpgsql(connection))
+            .AddScoped<WindowsUserAccessService>()
+            .AddScoped<SecuredLearningService>()
+            .BuildServiceProvider();
+        using var scope = provider.CreateScope();
+        var factory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningDbContext>>();
+        var service = scope.ServiceProvider.GetRequiredService<SecuredLearningService>();
+        var suffix = Guid.NewGuid().ToString("N")[..12].ToUpperInvariant();
+        var login = "TRAINING\\TX" + suffix;
+        var unit = "Q" + suffix;
+        long id = 0;
+        try
+        {
+            await using (var db = await factory.CreateDbContextAsync())
+            {
+                await db.Database.ExecuteSqlInterpolatedAsync(
+                    $"INSERT INTO learning_existing_user_ci (login_name, display_name, is_active, can_read, can_edit, unit_code) VALUES ({login}, {"ロック試験用"}, {true}, {true}, {true}, {unit})");
+                var task = new LearningTask { Title = "権限剥奪競合"+suffix, UnitCode = unit };
+                db.Tasks.Add(task);
+                await db.SaveChangesAsync();
+                id = task.Id;
+            }
+            auth.User = Principal(login, "Negotiate");
+            LearningEditInput input;
+            await using (var db = await factory.CreateDbContextAsync())
+            {
+                var row = await db.Tasks.AsNoTracking().SingleAsync(t => t.Id == id);
+                input = new LearningEditInput { Id = id, Version = row.Version, Title = "保存禁止"+suffix, IsDone = true };
+            }
+            // 正本側の更新が先に行ロックを取得し、コミット前のcan_edit=falseを保持する。
+            await using (var blocker = await factory.CreateDbContextAsync())
+            {
+                await using var tx = await blocker.Database.BeginTransactionAsync();
+                await blocker.Database.ExecuteSqlInterpolatedAsync(
+                    $"UPDATE learning_existing_user_ci SET can_edit = {false}, authorization_version = authorization_version + 1 WHERE login_name = {login}");
+                // SaveAsyncの初期照合は旧版を読めても、FOR UPDATEはブロックされる。
+                var saving = service.SaveAsync(input);
+                await Task.Delay(100);
+                await tx.CommitAsync();
+                Assert.Equal(LearningEditStatus.Forbidden, (await saving.WaitAsync(TimeSpan.FromSeconds(15))).Status);
+            }
+            await using var verify = await factory.CreateDbContextAsync();
+            Assert.Equal("権限剥奪競合"+suffix,
+                (await verify.Tasks.AsNoTracking().SingleAsync(t => t.Id == id)).Title);
+        }
+        finally
+        {
+            await using var db = await factory.CreateDbContextAsync();
+            await db.Tasks.Where(t => t.Id == id).ExecuteDeleteAsync();
+            await db.Database.ExecuteSqlInterpolatedAsync(
+                $"DELETE FROM learning_existing_user_ci WHERE login_name = {login}");
+        }
+    }
+
+    [Fact]
+    public async Task TransactionalLedgerNotConfirmed_WriteIsFailClosed()
+    {
+        var cfg = new ConfigurationBuilder().AddInMemoryCollection(
+            new Dictionary<string, string?>
+            {
+                ["ConnectionStrings:PostgreSQL"] = "Host=127.0.0.1;Database=unused",
+                ["WindowsAuthentication:Enabled"] = "true"
+            }).Build();
+        using var provider = new ServiceCollection()
+            .AddSingleton<IConfiguration>(cfg)
+            .AddSingleton<AuthenticationStateProvider>(
+                new DemoAuthenticationStateProvider { User = Principal("TRAINING\\USER00001", "Negotiate") })
+            .AddLogging()
+            .AddDbContextFactory<LearningDbContext>(x => x.UseNpgsql("Host=127.0.0.1;Database=unused"))
+            .AddScoped<WindowsUserAccessService>()
+            .AddScoped<SecuredLearningService>()
+            .BuildServiceProvider();
+        using var scope = provider.CreateScope();
+        var service = scope.ServiceProvider.GetRequiredService<SecuredLearningService>();
+        Assert.Null((await service.AuthorizeAsync(forEdit: true)).Unit);
+        Assert.Equal(LearningEditStatus.Forbidden,
+            (await service.SaveAsync(new LearningEditInput { Id = 1, Version = 1, Title = "拒否" })).Status);
     }
 
     private static ClaimsPrincipal Principal(string login, string scheme) =>

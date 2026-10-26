@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using PgBlazorSamples.Web.Data;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,6 +27,10 @@ public sealed class SecuredLearningService(
         if (!configuration.GetValue<bool>("WindowsAuthentication:Enabled") ||
             string.IsNullOrWhiteSpace(configuration.GetConnectionString("PostgreSQL")))
             return (null, Refused);
+        // 別DBやFDWでの権限変更と業務更新を単一トランザクションにできない場合、
+        // ローカル台帳との排他契約が実機で確認されるまで更新は拒否する。
+        if (forEdit && !configuration.GetValue<bool>("Authorization:TransactionalLedgerConfirmed"))
+            return (null, "権限正本のトランザクション連動を確認できないため、更新を拒否しました。");
         var state = await access.ReadCurrentAsync(ct);
         var needed = forEdit ? "learning.edit" : WindowsUserAccessService.ReadPermission;
         if (!state.CanRead || state.Permissions?.Contains(needed) != true ||
@@ -34,6 +39,25 @@ public sealed class SecuredLearningService(
             return (null, Refused);
 
         return (state.UnitCode, "既存台帳の権限と所属部署を確認しました。");
+    }
+
+    /// <summary>
+    /// Step73：正本と業務テーブルが同一PostgreSQL上にあり、ロック可能な単純ビューの場合のみ使用。
+    /// SELECT FOR UPDATEで正本の利用者行をロックし、トランザクションが確定するまで失効を競合させる。
+    /// FDW/別DBなどロックできない正本では例外となり、更新を拒否する（許可へのフォールバックなし）。
+    /// </summary>
+    private async Task<bool> CheckLockedEditAsync(LearningDbContext db, string unit, CancellationToken ct)
+    {
+        var login = await access.ReadTrustedCurrentLoginNameAsync();
+        if (login is null) return false;
+
+        // FromSqlInterpolatedを使い、loginは必ずSQLパラメータとして渡す。
+        // Take(2)によりビューの正規化衝突も拒否。行ロックは同一DbContextのトランザクションで保持。
+        var rows = await db.ExistingUserAccess.FromSqlInterpolated(
+                $"SELECT * FROM learning_user_access_v WHERE login_name = {login} FOR UPDATE")
+            .AsNoTracking().Take(2).ToListAsync(ct);
+        return rows.Count == 1 && rows[0].IsActive && rows[0].CanRead && rows[0].CanEdit &&
+               string.Equals(rows[0].UnitCode, unit, StringComparison.Ordinal);
     }
 
     private static IQueryable<LearningTask> Visible(LearningDbContext db, string unit) =>
@@ -164,17 +188,20 @@ public sealed class SecuredLearningService(
         try
         {
             await using var db = await factory.CreateDbContextAsync(ct);
+            await using var tx = await db.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, ct);
+            // 認可確認と更新を同一トランザクションへ固定する。不可なら安全に拒否。
+            if (!await CheckLockedEditAsync(db, permit.Unit, ct))
+                return new(LearningEditStatus.Forbidden, Refused);
             var task = await Visible(db, permit.Unit).SingleOrDefaultAsync(t => t.Id == input.Id, ct);
             if (task is null) return new(LearningEditStatus.Missing, "対象が存在しないか、編集権限がありません。");
             if (task.Version != input.Version)
                 return new(LearningEditStatus.Conflict, "別の利用者が更新しました。再読込してください。");
 
-            // 更新直前にもう一度照合し、保存までに剥奪された権限を使用させない。
-            if ((await AuthorizeAsync(forEdit: true, ct: ct)).Unit != permit.Unit)
-                return new(LearningEditStatus.Forbidden, Refused);
+            // 利用者行のロックを保持中のため、正本の更新はこのコミットまで待機する。
             task.Title = input.Title.Trim();
             task.IsDone = input.IsDone;
             await db.SaveChangesAsync(ct);
+            await tx.CommitAsync(ct);
             logger.LogInformation("業務監査 課題更新 部署={Unit} 行ID={Id}", permit.Unit, input.Id);
             return new(LearningEditStatus.Success, "認可とxmin競合検査を経て保存しました。",
                 new LearningEditInput { Id = task.Id, Title = task.Title,
@@ -203,15 +230,15 @@ public sealed class SecuredLearningService(
         try
         {
             await using var db = await factory.CreateDbContextAsync(ct);
-            await using var tx = await db.Database.BeginTransactionAsync(ct);
+            await using var tx = await db.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, ct);
+            if (!await CheckLockedEditAsync(db, permit.Unit, ct))
+                return new(LearningEditStatus.Forbidden, Refused);
             var expected = selections.ToDictionary(s => s.Id, s => s.Version);
             var ids = expected.Keys.ToArray();
             var rows = await Visible(db, permit.Unit)
                 .Where(t => ids.Contains(t.Id)).ToListAsync(ct);
             if (rows.Count != selections.Count || rows.Any(t => expected[t.Id] != t.Version))
                 return new(LearningEditStatus.Conflict, "権限外・削除・競合があるため全件取り消しました。");
-            if ((await AuthorizeAsync(forEdit: true, ct: ct)).Unit != permit.Unit)
-                return new(LearningEditStatus.Forbidden, Refused);
             foreach (var row in rows) row.IsDone = true;
             await db.SaveChangesAsync(ct);
             await tx.CommitAsync(ct);

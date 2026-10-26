@@ -67,6 +67,13 @@ public sealed class WindowsUserAccessService(
         return name.ToUpperInvariant();
     }
 
+    /// <summary>現在の認証ハンドラーにより検証済みのログイン名を取得する。画面の入力値は信頼しない。</summary>
+    public async Task<string?> ReadTrustedCurrentLoginNameAsync()
+    {
+        var principal = (await authenticationState.GetAuthenticationStateAsync()).User;
+        return ReadTrustedLoginName(principal);
+    }
+
     public async Task<WindowsAccessSnapshot> ReadCurrentAsync(CancellationToken cancellationToken = default)
     {
         var principal = (await authenticationState.GetAuthenticationStateAsync()).User;

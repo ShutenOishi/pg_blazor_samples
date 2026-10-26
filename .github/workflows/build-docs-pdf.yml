@@ -39,9 +39,20 @@ jobs:
         with:
           python-version: "3.12"
       - name: 日本語フォントと描画依存を導入
+        shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk libpango-1.0-0 libpangocairo-1.0-0
+          set -euo pipefail
+          packages=()
+          for name in fonts-noto-cjk libpango-1.0-0 libpangocairo-1.0-0; do
+            if ! dpkg-query -W -f='${Status}' "$name" 2>/dev/null | grep -q 'install ok installed'; then
+              packages+=("$name")
+            fi
+          done
+          if (( ${#packages[@]} > 0 )); then
+            sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update
+            sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 install -y "${packages[@]}"
+          fi
+          fc-match :lang=ja | grep -E 'Noto Sans CJK JP|Noto Serif CJK JP'
       - name: PDF生成ライブラリを導入
         run: python -m pip install "weasyprint==66.0" "markdown-it-py==4.0.0" "pypdf==6.1.1"
       - name: 5ステップごとの学習コラムの漏れを検査
@@ -102,6 +113,7 @@ jobs:
           assert "ステップ70：Windows Server 2025の実機受入を分ける" in content
           assert "ステップ71：既存台帳のキー正規化・重複拒否と索引" in content
           assert "ステップ72：明示Windowsログインと短命Cookie" in content
+          assert "ステップ73：権限行ロックと更新の原子性" in content
           assert "学習コラム15：業務データを守る認可の強制" in content
           assert "特別コラム：1万人規模の認証・既存台帳認可・セッション・監査" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
