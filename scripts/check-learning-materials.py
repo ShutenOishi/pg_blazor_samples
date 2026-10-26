@@ -203,6 +203,37 @@ for unit, end in ((10, 50), (11, 55), (12, 60)):
     if a in PDF_SCRIPT and b in PDF_SCRIPT and PDF_SCRIPT.index(a) < PDF_SCRIPT.index(b):
         missing.append(f"第{unit}組の復習が5ステップの末尾より前です")
 
+
+# 第7段階のセキュリティ5本・段階概要・復習をRazor/PDF/学習順で照合する。
+for n in range(1, 6):
+    lesson_id = f"security-0{n}"
+    item = ordered[80 + n - 1]
+    razor = SAMPLES / "Security" / f"Security0{n}Page.razor"
+    if item["id"] != lesson_id or not item["implementation"].startswith("implemented"):
+        missing.append(lesson_id + "：順序・実装状態が不正")
+    if not razor.is_file() or f'@page "/learn/{lesson_id}"' not in razor.read_text(encoding="utf-8"):
+        missing.append(lesson_id + "：Razor・URLが不足")
+    if not (ROOT / item["source"]).is_file() or f'"{item["source"]}"' not in PDF_SCRIPT:
+        missing.append(lesson_id + "：教材・PDF索引が不足")
+stage07 = "docs/course-v3/stages/stage07.md"
+review17 = "docs/course-v3/reviews/review-17.md"
+if not (SAMPLES / "Security" / "SecurityOverviewPage.razor").is_file() or f'"{stage07}"' not in PDF_SCRIPT:
+    missing.append("第7段階の概要画面・PDFが不足")
+if not (SAMPLES / "Security" / "SecurityReview17Page.razor").is_file() or not (ROOT / review17).is_file() or f'"{review17}"' not in PDF_SCRIPT:
+    missing.append("第17組の復習画面・教材・PDFが不足")
+if not (ROOT / "src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs").is_file():
+    missing.append("模擬安全判定の共通コードがありません")
+expected_sec = [item["source"] for item in ordered[80:85]]
+actual_sec = [source for source in actual_v3_prefix if source in expected_sec]
+if actual_sec != expected_sec:
+    missing.append("学習順081〜085のPDF順序が不正")
+if f'"{stage07}"' in PDF_SCRIPT and f'"{expected_sec[0]}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{stage07}"') > PDF_SCRIPT.index(f'"{expected_sec[0]}"'):
+    missing.append("第7段階の概要は学習順081より前に配置")
+if f'"{review17}"' in PDF_SCRIPT and f'"{expected_sec[-1]}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review17}"') < PDF_SCRIPT.index(f'"{expected_sec[-1]}"'):
+    missing.append("第17組の復習は学習順085より後に配置")
+if f'"{review17}"' in PDF_SCRIPT and '"docs/samples/step61.md"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review17}"') > PDF_SCRIPT.index('"docs/samples/step61.md"'):
+    missing.append("第17組復習は次の学習順086より前に配置")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

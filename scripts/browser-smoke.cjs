@@ -222,6 +222,62 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "db-bridge-review.png") });
         console.log("第5段階：db-bridge5画面と復習3件を確認");
 
+        // 第7段階：本物の認証/認可を偽装せず、教材の模擬拒否とRazorのエンコードを確認。
+        await page.goto(base + "/learn/stage/security");
+        await page.getByRole("heading", { name: "第7段階の概要：Webセキュリティ・AD認証とDB認可" }).waitFor();
+        await page.goto(base + "/learn/security-01");
+        await page.waitForTimeout(950);
+        await page.getByRole("button", { name: "架空の条件を判定する" }).click();
+        await waitText(page, '[data-testid="security01-result"]', "拒否");
+        for (const term of ["HTTP側で本人認証が成立", "Cookieチケットが有効", "既存DB台帳に本人が有効登録済み", "既存台帳に対象業務の読み取り権限がある"]) {
+            await page.getByLabel(term).check();
+        }
+        await page.getByRole("button", { name: "架空の条件を判定する" }).click();
+        await waitText(page, '[data-testid="security01-result"]', "条件成立");
+        await page.getByLabel("既存台帳に対象業務の読み取り権限がある").uncheck();
+        await page.getByRole("button", { name: "架空の条件を判定する" }).click();
+        await waitText(page, '[data-testid="security01-result"]', "拒否");
+
+        await page.goto(base + "/learn/security-02");
+        await page.waitForTimeout(950);
+        await page.getByRole("button", { name: "変更要求の模擬判定" }).click();
+        await waitText(page, '[data-testid="security02-result"]', "拒否");
+        for (const term of ["HTTPS経路で受け取った", "送信元を検証済み", "Antiforgeryトークンを検証済み", "サーバー側で業務認可済み"]) {
+            await page.getByLabel(term).check();
+        }
+        await page.getByRole("button", { name: "変更要求の模擬判定" }).click();
+        await waitText(page, '[data-testid="security02-result"]', "4条件成立");
+
+        await page.goto(base + "/learn/security-03");
+        await page.waitForTimeout(950);
+        await page.getByLabel("学習用文字列（JavaScriptとして実行しません）").fill("<img src=x onerror=alert(1)>");
+        await page.getByRole("button", { name: "表示用のHTMLエンコードを確認" }).click();
+        await waitText(page, '[data-testid="security03-result"]', "HTMLは実行していません");
+        await waitText(page, '[data-testid="security03-encoded"]', "&lt;img");
+        if (await page.locator('img[src="x"]').count() !== 0) throw new Error("未信頼文字列がHTMLのimgとして生成されています。");
+
+        await page.goto(base + "/learn/security-04");
+        await page.waitForTimeout(950);
+        await page.getByRole("button", { name: "模擬構成を点検する" }).click();
+        await waitText(page, '[data-testid="security04-result"]', "不足");
+        for (const term of ["秘密情報を安全な保存先から注入する", "Data Protection鍵を全Webインスタンス間で共有・保護する", "HTTPS終端とCookie設定を検証する"]) {
+            await page.getByLabel(term).check();
+        }
+        await page.getByRole("button", { name: "模擬構成を点検する" }).click();
+        await waitText(page, '[data-testid="security04-result"]', "条件あり");
+
+        await page.goto(base + "/learn/security-05");
+        await page.waitForTimeout(950);
+        await page.getByRole("button", { name: "再接続後の条件を確認" }).click();
+        await waitText(page, '[data-testid="security05-result"]', "条件成立");
+        await page.getByLabel("既存台帳の権限版が変更された").check();
+        await page.getByRole("button", { name: "再接続後の条件を確認" }).click();
+        await waitText(page, '[data-testid="security05-result"]', "拒否");
+        await page.goto(base + "/learn/column/security-85");
+        await page.getByRole("heading", { name: "第17組の復習：Webの安全境界" }).waitFor();
+        await page.screenshot({ path: path.join(evidence, "security-review17.png") });
+        console.log("第7段階：模擬認可・XSS否定・失効・5ステップの復習を実ブラウザーで確認");
+
         // Step66〜70は匿名環境で業務データを返さない。実AD認証の代用ではない。
         for (const [step, label] of [
             [66, "業務サービスに認可を問い合わせる"],
