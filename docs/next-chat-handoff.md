@@ -1,30 +1,26 @@
-# 次のチャット引き継ぎ：大規模認証編のPR #24受入とStep66〜70
+# 次のチャット引き継ぎ：Step71〜75（既存台帳・明示Windowsログイン・監査）
 
-## 最新の基本状況
+## 現在の確定状態
 
-- mainはStep01〜60まで。Step61〜65の実装はPR #24 `feat/step61-65-windows-sid-roles` にある。**必ず最新PR HEADとCIを再取得する**。
-- ユーザー要件によりPR #24の初期SID/app_user登録モデルは置換。以後は**ADはWindows認証とドメイン付きユーザー名取得だけ、利用者登録なし、既存テーブル/外部テーブルを正本**にする。
-- WebのData/Servicesを維持し、EF Coreのための層別プロジェクトを新設しない。MudBlazor.TranslationsとStep40/41間の特別コラムを保持。
+- mainにStep01〜70の実装、5ステップごとの日本語コラム01〜15を保護PRで取り込んでいる。
+- PR #24（Step61〜65）は保護マージ・Windows/Linux/Chrome/PostgreSQL 18/PDFの受入が完了。
+- PR #25（Step66〜70）も保護マージ済み。WindowsUserAccessServiceの既存台帳照合、SecuredLearningServiceによる操作単位の認可、部署単位のCount/Items/詳細/CSV/集計/編集・一括更新、旧教材DBサービスのWindows認証時停止、CI実DBの拒否試験、画面と学習教材・コラム15を実装した。
+- PR #25の元HEADではWindows 2025、Linux実Chrome、PostgreSQL 18実DB、PDFの4チェックが全成功。再開時は最新main/pushもGitHub GETで確認すること。
+- 学習PDFはZIP配布しない。mainのPDF CI成功時にlearning-textbook GitHub Releaseへblazor_learning_textbook_ja.pdf単体を公開する。公開状態とダウンロード可能性は再開時にGET確認すること。Actions ArtifactのZIPは教材配布に使わない。
+- Webプロジェクト内のData/Servicesを維持し、EF Core専用の層別プロジェクトを追加しない。MudBlazor.TranslationsとStep40/41の特別コラムも保持。
 
-## PR #24の追加実装
+## 次の実装（Step71〜75、必要なら前後に追加）
 
-- ReadTrustedLoginName：認証済みWindows主体から`DOMAIN\\user`を得る。SIDやHTTPヘッダーへ依存しない。
-- LearningDbContextに読み取り専用の`learning_user_access_v`をキーレスでマッピング。0件・複数件・無効・権限なし・障害時は拒否する。
-- `database/schema/002_app_access.sql`は**CI専用の架空1万1人の台帳fixture**。業務アプリ自体は利用者を登録しない。
-- Step61〜65、コラム14、特別コラム「1万人規模の認証・既存台帳・明示ログイン・監査」、設計資料、PDF索引とChrome操作、PostgreSQL18試験。
-- Windows/Linux/実Chrome/PostgreSQL18/PDFが最新PR HEADで全成功するまで未完成。成功すれば通常の保護マージとmain/push CIを検証する。
-
-## 続き
-
-1. PR #24の元HEAD CIを見て、失敗があれば能動的に直す。全成功後マージしてmain CIを見る。
-2. Step66〜70のルート・サービスの実認可へ進み、Count/Items/詳細/CSV/編集/集計と部署の絞込を必ず共有する。
-3. 外部台帳/FDWの遅延・索引pushdown・キャッシュ反映・ユーザー名再使用・重複・DB障害の否定検証を強化する。
-4. 明示ログインが必要な業務だけ専用Windows認証HTTP endpoint→短命Cookieを採用。IIS匿名可否/経路、データ保護キー、失効、HTTP SignInを分離。**ADパスワード入力は禁止**。
-5. 監査はアプリ側の確実なレコードを優先し、PostgreSQL application_nameは補助的な固定名またはトランザクション限定相関値にする。
-6. 日本語画面、コラム15、学習テキストPDFとソースの整合性、実機AD/IISとCI代替の区別を維持する。
+1. 1万人以上の既存利用者台帳/FDWを想定し、login_name一意性・索引・JOIN/検索pushdown・外部表遅延/切断を否定試験。名前変更・再使用・重複拒否を強化。
+2. Windows認証後にログイン状態を保持する業務のみ、専用のHTTP認証エンドポイント→暗号化短命Cookieと明示ログイン案内を実装。IISの匿名/Windows経路を分け、ADパスワード入力を禁止。自己申告Claim禁止、Data Protectionキー共有、失効、HTTP SignInとBlazor circuitの違いまで試験。
+3. 編集時の権限変更と書込みの競合・原子性を整理し、既存台帳の途中変更を安全に扱う。
+4. 監査を業務本人・操作・対象行・結果・correlation_id・UTC時刻のサーバー側証跡として設計。現行application_name=PgBlazorSamples.Webはアプリ識別だけで個人監査を保証しない。永続化、PII最小化、障害時拒否を試験。
+5. Windows Server 2025 + IIS/AD/Kerberos実機の確認手順、CSP/CSRF、Cookie、SignalR reconnect、同時接続・プール負荷試験を充実。CIテスト主体を実AD受入と称さない。
+6. 5ステップごとのコラム・日本語Razor教材・PDF索引・実ChromeとPostgreSQL 18試験を同期。PDFも単体Releaseで配布し、ZIPに戻さない。
 
 ## 安全境界
 
-- Step66〜70のサービス強制認可が完了するまで、実データは接続不可。
-- ドメインを省くユーザー名照合は不可。ユーザー名再使用/変更の運用リスクを明示。
-- 非Windows認証スキームの自己申告Claimを業務本人として受理しない。
+- Step66〜70は開発用の架空データでの認可パターン。既存台帳/FDW/IIS/AD実機の運用受入、監査永続化は未完成。本番DB接続は実機受入まで禁止。
+- 認証だけで許可しない。can_read/can_editとunit_codeは既存DBから操作時に確認。登録・ロール付与UIを作らない。
+- DOMAINを省略した照合は禁止。任意Cookie/HTTPヘッダーの自己申告をWindows本人と取り違えない。
+- CI失敗を能動修復し、元PR HEADのWindows/Linux/Chrome/PG18/PDFが全成功してから保護マージ。main/pushとPDF Release実物も検証する。
