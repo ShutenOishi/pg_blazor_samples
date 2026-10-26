@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、linq2db、Npgsql、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜15のBlazor Webアプリのソースとコラム01〜03を追加しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜15は今回の変更で検証中です。Step16〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+> **現在の状態：Step01〜15のBlazor Webアプリのソースとコラム01〜03を追加しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作検証が成功しています（[証跡](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40264058164)）。Step11〜15もWindows/LinuxのReleaseビルド・日本語HTTP・Chrome操作を[Run 40267851541](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851541)で確認しました。学習PDF生成は[Run 40267851605](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40267851605)で成功しています。Step16〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
 
 ## Step01〜15を起動する
 
