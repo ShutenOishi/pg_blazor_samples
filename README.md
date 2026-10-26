@@ -52,9 +52,13 @@ Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazo
 
 各ステップは「前提 → 作るもの → 動かし方 → 仕組み → 演習 → 確認方法」で統一し、1ステップずつ動作可能な状態で追加します。設計上は単一の主力Webアプリに機能別教材を追加し、必要になるまでプロジェクトを増やしません。
 
+## PDFで読む
+
+全資料を日本語PDFとして再生成する[PDF生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)を用意しています。mainのMarkdownから生成されるため、PDFはソース・ドキュメント変更と同じGitコミットを記録します。最新の成功RunのArtifactsからダウンロードしてください。詳細は[PDFの生成・同期方法](docs/pdf-generation.md)。
+
 ## ドキュメント
 
-[日本語ドキュメント目次](docs/README.md)から、ロードマップ、構築方法、アーキテクチャ、AD、DB、テスト、貢献方法、実装計画へ移動できます。
+[日本語ドキュメント目次](docs/README.md) / [実装対応ハンドブック](docs/implementation-handbook.md)から、ロードマップ、構築方法、アーキテクチャ、AD、DB、テスト、貢献方法、実装計画へ移動できます。
 
 ## 重要事項
 
