@@ -90,11 +90,12 @@ jobs:
           assert "ステップ60：一覧パターンを要件から選ぶ" in content
           assert "学習コラム13：期間検索・集計・性能・選定" in content
           assert "ステップ61：Windows統合認証を構成する" in content
-          assert "ステップ62：認証済みSIDを扱う" in content
-          assert "ステップ63：ADのSIDとDB利用者を結ぶ" in content
+          assert "ステップ62：認証済みドメインユーザー名を扱う" in content
+          assert "ステップ63：認証済みユーザー名と既存台帳を結ぶ" in content
           assert "ステップ64：未登録・無効利用者を拒否する" in content
-          assert "ステップ65：ロールと許可コードを確認する" in content
+          assert "ステップ65：既存台帳の業務権限を確認する" in content
           assert "学習コラム14：認証と認可の分離" in content
+          assert "特別コラム：1万人規模の認証・既存台帳認可・セッション・監査" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
       - name: PDFをダウンロード可能な成果物として保存
