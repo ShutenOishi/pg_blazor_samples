@@ -25,7 +25,7 @@ DOCS = [
     "CONTRIBUTING.md", "SECURITY.md",
 ]
 OUTPUT = ROOT / "dist" / "pg_blazor_samples_technical_handbook.pdf"
-EXTS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets"}
+EXTS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets", ".css", ".js", ".json"}
 
 
 def digest(path):
@@ -41,7 +41,7 @@ def code_files():
                 if (path.is_file() and path.suffix.lower() in EXTS
                         and not {"bin", "obj", ".vs", ".git"} & set(path.parts)):
                     result.append(path)
-    result.extend(p for p in ROOT.iterdir() if p.is_file() and p.suffix in {".sln", ".slnx", ".props", ".targets"})
+    result.extend(p for p in ROOT.iterdir() if p.is_file() and (p.suffix in {".sln", ".slnx", ".props", ".targets"} or p.name == "global.json"))
     return sorted(set(result))
 
 
