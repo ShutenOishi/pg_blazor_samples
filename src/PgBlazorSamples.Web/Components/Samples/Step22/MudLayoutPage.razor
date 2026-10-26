@@ -12,7 +12,7 @@
                            aria-label="学習メニューを開閉" OnClick="ToggleMenu" />
             <MudText Typo="Typo.h6">練習用管理画面</MudText>
         </MudAppBar>
-        <MudDrawer @bind-Open="_menuOpen" Variant="DrawerVariant.Temporary"
+        <MudDrawer @bind-Open="_menuOpen" Variant="DrawerVariant.Persistent" ClipMode="DrawerClipMode.Docked"
                    Fixed="false" Overlay="false">
             <MudNavMenu>
                 <MudNavLink Href="/learn/21">導入と翻訳</MudNavLink>
