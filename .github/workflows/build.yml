@@ -145,4 +145,4 @@ jobs:
       - name: date・time・daterange・multirange・xminのSQLを確認
         run: psql -v ON_ERROR_STOP=1 -f database/tests/001_learning_task_check.sql
       - name: PostgreSQL 18へのEF Core実接続・更新競合・ロールバック
-        run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --filter "FullyQualifiedName~LearningDbIntegrationTests|FullyQualifiedName~LearningAdvancedIntegrationTests"
+        run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --filter "FullyQualifiedName~LearningDbIntegrationTests|FullyQualifiedName~LearningAdvancedIntegrationTests|FullyQualifiedName~LearningEditIntegrationTests"

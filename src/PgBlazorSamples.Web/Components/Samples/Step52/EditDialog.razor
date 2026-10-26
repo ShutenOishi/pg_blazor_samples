@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Components.Forms
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningEditService Edits
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="_draft" OnValidSubmit="SaveAsync">
+            <DataAnnotationsValidator />
+            <label for="step52-title">課題名</label>
+            <InputText id="step52-title" class="form-control" @bind-Value="_draft.Title" />
+            <ValidationMessage For="@(() => _draft.Title)" />
+            <p><label><InputCheckbox @bind-Value="_draft.IsDone" /> 完了</label></p>
+            <p role="status" data-testid="step52-dialog-state">@_message</p>
+            <MudButton ButtonType="ButtonType.Submit" Disabled="_saving" Color="Color.Primary">保存して閉じる</MudButton>
+            <MudButton ButtonType="ButtonType.Button" Disabled="_saving" OnClick="Cancel">取消</MudButton>
+        </EditForm>
+    </DialogContent>
+</MudDialog>
+@code {
+    [CascadingParameter] private IMudDialogInstance Dialog { get; set; } = default!;
+    [Parameter, EditorRequired] public LearningEditInput Model { get; set; } = default!;
+    private LearningEditInput _draft = new();
+    private string _message = "入力してから保存してください。";
+    private bool _saving;
+
+    protected override void OnParametersSet() => _draft = Model.Copy();
+
+    private async Task SaveAsync()
+    {
+        if (_saving) return;
+        _saving = true;
+        try
+        {
+            var result = await Edits.SaveAsync(_draft);
+            _message = result.Message;
+            if (result.Status == LearningEditStatus.Success)
+                Dialog.Close(DialogResult.Ok(true));
+            // 競合・削除・エラー時は勝手に閉じない。古い版による再試行も防ぐ。
+        }
+        finally { _saving = false; }
+    }
+
+    private void Cancel() => Dialog.Cancel();
+}

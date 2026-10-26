@@ -1,13 +1,16 @@
-# 次のチャット引き継ぎ：Step51〜55の編集・競合・詳細表示
+# 次のチャット引き継ぎ：Step56〜60の検索・集計・性能・選定
 
-## 維持する方針
-- Step46〜50を実装。Step46 DTO JOIN、47 IDキーセット、48 Itemsの描画仮想化、49 VirtualizeServerData、50 デバウンス・再試行。
-- EF Core 10のために層別プロジェクトを増やさず、Web内のDataとServicesを活用する。
-- 日本語UI、MudBlazor.Translations、日本語ソースコメント、5ステップごとのコラム、学習者向け日本語PDFを維持。
-- Step40と41の間にあるMudBlazor用途別特別コラムは移動・削除しない。
-- DB実操作は開発用PostgreSQL 18のみ。AD本人認証と業務認可はStep61〜70で実装。画面フィルターを認可扱いしない。
+## 完了済みの方針と成果
 
-## 続き
-1. 最新main、PR、CI（Windows/Linux、ブラウザー、PostgreSQL 18、PDF）を確認し、未成立ならログから修復。
-2. Step51〜55の編集DTO、Dialog、選択と一括操作、xmin競合、詳細画面・N+1回避を実装。
-3. コラム12・日本語PDF・画面操作・実DBの否定試験を同じPRで追加し、保護マージ・main後のCIを確認。
+- Step51〜55：編集DTO、MudDialogによる保存・取消、最大50件の原子的な一括完了、xmin競合と最新値、DTO詳細とJOINを追加。
+- Web内のData・Servicesを利用し、EF Core 10の層別プロジェクトを増やさない。
+- 日本語UI、日本語コメント、MudBlazor.Translations、コラム12、ソースと同期する日本語PDFを維持。
+- Step40と41の間のMudBlazor用途別特別コラムは移動・削除しない。
+- 本教材は開発用PostgreSQL 18のみを操作。AD本人認証・業務認可はStep61〜70の対象。画面の検索や表示制御を認可と呼ばない。
+
+## 次に行うこと
+
+1. 最新mainとPR・ActionsのWindows/Linux・Chrome・PostgreSQL18・PDFの結果を確認し、失敗ならログから修復。
+2. Step56〜60：MudDatePicker/DateRangeとPostgreSQL Rangeの検索、キャッシュと権限の関係、集計とCSV、EXPLAIN/負荷計測、一覧方式総合選定を実装。
+3. コラム13、対応する日本語教材、PDF、画面操作・実DB否定テストを同じ保護PRに追加する。
+4. 成功済み工程は不要に再実行しない。PR必須CI成功後に保護マージし、main後CIまで確認する。

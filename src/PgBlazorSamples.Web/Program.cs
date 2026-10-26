@@ -62,6 +62,8 @@ builder.Services.AddScoped<LearningDbService>();
 builder.Services.AddScoped<LearningPageService>();
 // Step46〜49：JOIN・キーセット・仮想化の各パターンを操作単位のDbContextで実装。
 builder.Services.AddScoped<LearningAdvancedPageService>();
+// Step51〜55：短命DbContextを使った編集DTO、排他、一括更新と詳細表示。
+builder.Services.AddScoped<LearningEditService>();
 
 var app = builder.Build();
 
