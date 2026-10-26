@@ -68,13 +68,13 @@ builder.Services.AddMudTranslations();
 
     private void Notify()
     {
-        Snackbar.Add("日本語の通知が表示されました.", Severity.Success);
+        Snackbar.Add("日本語の通知が表示されました。", Severity.Success);
         message = "通知サービスを使いました。";
     }
 }
 ```
 
-上記は説明用の短縮例です。実コードでは通知の文章の句点が「。」、`MudButton`の`Variant`と`Color`、`MudAlert`も指定されています。表示文言の確認には実コードを正としてください。
+上記は説明用の短縮例です。実コードには`MudButton`の`Variant`と`Color`、`MudAlert`、移動リンクもあります。
 
 ## ボタンから通知までの順序
 1. ブラウザーで`MudButton`を押す。
