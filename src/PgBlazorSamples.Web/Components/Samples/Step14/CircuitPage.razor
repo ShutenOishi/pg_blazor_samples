@@ -15,7 +15,7 @@
         <button type="button" @onclick="Increase">親から1増やす</button>
         <button type="button" class="secondary-button" @onclick="Reset">0に戻す</button>
     </div>
-    <SharedCounter OnChanged="Refresh" />
+    <SharedCounter CurrentCount="@Counter.Count" OnChanged="Refresh" />
 </section>
 <section class="lesson-details">
     <h2>別ウィンドウで試す</h2>

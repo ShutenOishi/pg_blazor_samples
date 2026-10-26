@@ -20,7 +20,7 @@ public sealed class ScopedCounter
 }
 ```
 
-登録は `builder.Services.AddScoped<ScopedCounter>();`。親と子にそれぞれ `@inject ScopedCounter Counter` を書いていても、同じcircuitのスコープから同じインスタンスが渡されます。子から親へ `EventCallback` で再描画を通知する点も復習します。
+登録は `builder.Services.AddScoped<ScopedCounter>();`。親と子にそれぞれ `@inject ScopedCounter Counter` を書いていても、同じcircuitのスコープから同じインスタンスが渡されます。子から親へ `EventCallback` で再描画を通知し、親から `CurrentCount` を渡して子の描画も更新します。**同じScopedサービスを注入しただけでは、別コンポーネントの表示は自動更新されません**。
 
 ## 注意点
 ブラウザーの「別タブ」と「別circuit」の関係はナビゲーションや接続状態で変わる場合があります。再現性の高い比較には独立したプライベートウィンドウを利用してください。circuitが切れたりサーバーが再起動したりすると、状態が失われ得ます。業務データの永続保存の代わりではありません。

@@ -3,12 +3,14 @@
 
 <section class="lesson-details">
     <h3>子コンポーネントから操作する</h3>
-    <p>子が見ている値：<strong data-testid="step14-child-count">@Counter.Count</strong></p>
+    <p>子が見ている値：<strong data-testid="step14-child-count">@CurrentCount</strong></p>
     <div class="practice-actions">
         <button type="button" @onclick="IncreaseAsync">子の表示から1増やす</button>
     </div>
 </section>
 @code {
+    // 親側の表示変更を子へ通知し、共有Scoped状態の変更後に再描画します。
+    [Parameter] public int CurrentCount { get; set; }
     [Parameter] public EventCallback OnChanged { get; set; }
 
     private async Task IncreaseAsync()
