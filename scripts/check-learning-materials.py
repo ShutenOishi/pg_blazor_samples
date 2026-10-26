@@ -278,7 +278,7 @@ for n in range(1, 6):
         missing.append(item.name + "：比較・切り分け表が不足")
     if body.count("```") < 4 or body.count("```") % 2:
         missing.append(item.name + "：実装に沿うコード例が2件以上必要")
-    if "演習" not in body or "解答" not in body or "失敗" not in body:
+    if "演習" not in body or "解答" not in body or not any(word in body for word in ("失敗", "切り分け", "症状", "うまく動かない")):
         missing.append(item.name + "：演習・解答・失敗時の説明が不足")
     if "src/PgBlazorSamples.Web" in body or "github.com" in body or "レポジトリ" in body:
         missing.append(item.name + "：学習者に不要な管理情報を含んでいます")

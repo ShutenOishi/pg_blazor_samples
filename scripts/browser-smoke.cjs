@@ -71,6 +71,7 @@ async function waitText(page, selector, expected) {
 
         // 新第1段階の概要・Web基礎・復習を実ブラウザーで確認する。
         await page.goto(base + "/learn/stage/web");
+        await page.getByRole("table").first().getByText("ブラウザーがHTML/CSSを描画").waitFor();
         await page.getByRole("heading", { name: "第1段階の概要：Web開発の前提" }).waitFor();
         await page.goto(base + "/learn/web-01");
         await page.waitForTimeout(1000);
@@ -92,6 +93,7 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "デバッグ対象の処理を実行する" }).click();
         await waitText(page, '[data-testid="web05-count"]', "1");
         await page.goto(base + "/learn/column/web-05");
+        await page.getByRole("table").first().getByText("NetworkのDocumentとStatus").waitFor();
         await page.getByRole("heading", { name: "Webの処理場所・通信・画面表示を整理する" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "web-foundation-review.png") });
         console.log("新第1段階のWeb基礎5画面と復習を確認");
