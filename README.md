@@ -91,7 +91,7 @@ DIの学習用Applicationは維持しますが、**DBを学ぶための新しい
 
 ## 学習者向けのPDFで読む
 
-学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜80・通常コラム17本・特別コラム3本を収録し、GitHub Actionsで生成・検査します。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜80・通常コラム16本（最終通し番号17）・特別コラム3本を収録し、GitHub Actionsで生成・検査します。
 
 [日本語学習PDFを単体でダウンロード](https://github.com/ShutenOishi/pg_blazor_samples/releases/download/learning-textbook/blazor_learning_textbook_ja.pdf)できます（mainの配布CI成功後）。ZIPのActions ArtifactではなくRelease assetを提供します。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
