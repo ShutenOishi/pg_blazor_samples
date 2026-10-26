@@ -25,6 +25,14 @@ public sealed class WindowsAccessIntegrationTests
         Assert.Null(WindowsUserAccessService.ReadTrustedLoginName(new ClaimsPrincipal(
             new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, login) }))));
         Assert.Null(WindowsUserAccessService.ReadTrustedLoginName(Principal(login, "Cookies")));
+        Assert.Null(WindowsUserAccessService.ReadTrustedLoginName(
+            Principal(login, WindowsUserAccessService.BrowserCookieScheme)));
+        // この単体テストはClaimの条件を検証するもの。Cookieの暗号署名自体はハンドラーが担当。
+        var ticket = new ClaimsPrincipal(new ClaimsIdentity([
+            new Claim(ClaimTypes.Name, login),
+            new Claim(WindowsUserAccessService.BrowserCookieSourceClaim, "Negotiate")
+        ], WindowsUserAccessService.BrowserCookieScheme));
+        Assert.Equal(login, WindowsUserAccessService.ReadTrustedLoginName(ticket));
         Assert.Null(WindowsUserAccessService.ReadTrustedLoginName(Principal(null)));
         Assert.Null(WindowsUserAccessService.ReadTrustedLoginName(Principal("USER")));
         Assert.Null(WindowsUserAccessService.ReadTrustedLoginName(Principal("USER@EXAMPLE")));

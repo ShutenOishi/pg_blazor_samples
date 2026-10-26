@@ -1,20 +1,11 @@
-# 次のチャット引き継ぎ：Step72〜75（Windows明示ログイン・権限変更・監査・実機受入）
+# 次のチャット引き継ぎ：Step73〜75
 
-## 確定済み
-- Step01〜70は保護マージ済みで、Windows/Linux・Chrome・PostgreSQL18・PDF検証済み。
-- Step71は既存台帳の大文字正規化、case collision拒否、式索引、改名後の旧名拒否、匿名拒否画面、教材・PDF索引を実装するPRで作業開始。**CI/マージ/配布結果は最新GitHub GETで確認**する。
-- PDFはZIP化しない。main/push成功後に learning-textbook Release へPDF単体アップロードする。
-- DBデータアクセスの層別プロジェクト追加を禁止。Web/Data・Servicesを使う。MudBlazor.Translationsを維持。
-
-## 継続指示
-1. Step71 PRの最新HEAD Windows/Linux/Chrome/PostgreSQL18/PDFがすべて成功したら正規マージし、main/pushとPDF単体Releaseを確認。失敗時は能動修復。
-2. Step72：**認証ハンドラーのみが取得したWindowsログイン名**による専用HTTP認証経路、短命の暗号化Cookie、Data Protectionキー共有、CSRF、失効を実装。任意クレーム・ADパスワード入力・ブラウザーからの自己申告は禁止。IIS Windows認証と匿名経路の共存、SignInがHTTP応答に必要なこと、Blazor circuit再接続を試験。
-3. Step73：編集途中の権限剥奪に対応。既存台帳と業務行が同一DBでロック可能な場合は一貫したトランザクション、FDW/別DBでは**原子性の保証がないことを明示して安全な拒否または正本側APIとの連携契約**を選択。権限変更と書込みの競合否定試験を追加。
-4. Step74：本人・操作・対象・結果・correlation_id・UTCを永続化。PII最小化、監査保存失敗時拒否、処理の成否と証跡の一貫性を確認。application_name単独では個人監査にならない。
-5. Step75：Windows Server 2025/IIS/AD/Kerberos、CSP/CSRF、Cookie/SignalR reconnect、負荷、FDW切断の受入手順と検証。CIの偽Principalを実ADと称さない。
-6. Step71〜75終了でコラム16、Razor画面、日本語教材、PDF索引、実Chrome・PG18試験を同期。保護PRの必須CI成功後のみマージ。
-
-## 安全境界
-- 1万人の登録人数と同時接続数は別。ADは本人認証とドメイン付きユーザー名のみ、登録UIなし、既存DB/FDW正本による都度認可。
-- login_nameの**再利用**はユーザー名だけでは原理的に識別不能。上位正本の非再利用契約、または不変ID追加が必要。正本の重複、遅延、障害時は拒否。
-- 開発用の架空台帳は本番DBへ適用禁止。Pooled Npgsqlのapplication_nameは固定アプリ識別のみ。
+- Step01〜70は保護マージ済み。Step71はPR #27（大小文字の正規化、重複拒否、改名、10,001人索引、教材・PDF）で最新CIとマージを確認すること。
+- Step72はPRで明示Windows認証→専用HTTP確認フォーム→CSRF検証済POST→署名・暗号化10分Cookie、POSTログアウト、DataProtectionKeysPath本番必須、通常認可の都度DB照合、匿名拒否を実装。**最新PR HEADのCI・マージ・実AD受入状態はGitHub GETで検証すること。**
+- Step73：既存台帳と業務更新の原子性。同一ローカルDBは同じトランザクション・適切なロックで競合を保証。別DB/FDWでは保証できない場合、安全拒否または権限正本と同期する業務契約を用意。
+- Step74：本人、操作、対象、結果、correlation_id、UTCを永続監査。PIIを必要最小限にし、監査障害時は拒否を検証。application_name固定だけでは個人監査にならない。
+- Step75：IIS Windows/匿名経路、Kerberos、Data Protection共有、CSP・CSRF、Cookie失効、SignalR reconnect、FDW切断、同時接続数・プール負荷を実機受入。CIの仮Principalを実AD成功とは呼ばない。
+- Step71〜75終了時にはコラム16、日本語Razor画面、各教材、目次、PDF単体Release、Chrome/PG18試験を同期。
+- **必須CI全成功後にのみ正規保護マージ、main/pushとPDF Release単体の再取得を確認。ZIP配布は禁止。**
+- DBの層別プロジェクト増設は禁止。Web内のData/ServicesとEF Core10、MudBlazor.Translations維持。
+- ADは認証とDOMAIN付き名だけ。既存DB/FDWが権限正本、利用者登録UIなし。アカウント名再利用の識別不能性、外部表の失効・障害時拒否を維持。
