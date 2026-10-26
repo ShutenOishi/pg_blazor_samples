@@ -1,50 +1,30 @@
--- Step63〜65：開発用PostgreSQL 18へのみ適用。実ADの利用者やSIDは投入しない。
--- 未登録・無効・役割なしは拒否する。ロール付与は管理者が別途安全な手段で行う。
-CREATE TABLE IF NOT EXISTS app_user
+-- Step63〜65のCI検証専用：既存の人事/業務利用者台帳を模した外部データ。
+-- 実運用環境でこのファイルを実行しない。Webアプリ自身は利用者登録・更新をしない。
+CREATE TABLE IF NOT EXISTS learning_existing_user_ci
 (
-    id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    sid varchar(184) NOT NULL UNIQUE,
+    login_name varchar(129) PRIMARY KEY,
     display_name varchar(100) NOT NULL,
     is_active boolean NOT NULL DEFAULT false,
-    CONSTRAINT ck_app_user_sid CHECK (sid ~ '^S-1-[0-9]+(-[0-9]+){2,}$')
+    can_read boolean NOT NULL DEFAULT false,
+    can_edit boolean NOT NULL DEFAULT false,
+    unit_code varchar(32) NULL,
+    authorization_version bigint NOT NULL DEFAULT 0
 );
-CREATE TABLE IF NOT EXISTS app_role
-(
-    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    code varchar(80) NOT NULL UNIQUE,
-    name varchar(100) NOT NULL,
-    is_active boolean NOT NULL DEFAULT true
-);
-CREATE TABLE IF NOT EXISTS app_permission
-(
-    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    code varchar(100) NOT NULL UNIQUE,
-    name varchar(100) NOT NULL
-);
-CREATE TABLE IF NOT EXISTS app_user_role
-(
-    user_id bigint NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
-    role_id integer NOT NULL REFERENCES app_role(id) ON DELETE CASCADE,
-    PRIMARY KEY (user_id, role_id)
-);
-CREATE TABLE IF NOT EXISTS app_role_permission
-(
-    role_id integer NOT NULL REFERENCES app_role(id) ON DELETE CASCADE,
-    permission_id integer NOT NULL REFERENCES app_permission(id) ON DELETE CASCADE,
-    PRIMARY KEY (role_id, permission_id)
-);
-CREATE INDEX IF NOT EXISTS ix_app_user_role_role_id ON app_user_role(role_id);
-CREATE INDEX IF NOT EXISTS ix_app_role_permission_permission_id ON app_role_permission(permission_id);
 
--- 架空のロール・権限定義のみ。利用者登録や許可の自動付与はしない。
-INSERT INTO app_role(code, name) VALUES
-('viewer', '閲覧担当'), ('editor', '編集担当')
-ON CONFLICT(code) DO NOTHING;
-INSERT INTO app_permission(code, name) VALUES
-('learning.read', '教材の読み取り'), ('learning.edit', '教材の編集')
-ON CONFLICT(code) DO NOTHING;
-INSERT INTO app_role_permission(role_id, permission_id)
-SELECT r.id, p.id FROM app_role r CROSS JOIN app_permission p
-WHERE (r.code = 'viewer' AND p.code = 'learning.read')
-   OR (r.code = 'editor' AND p.code IN ('learning.read', 'learning.edit'))
-ON CONFLICT DO NOTHING;
+-- 1万人以上の既存利用者を想定した検索を開発用DBで再現するための架空データ。
+-- 上位システムの既存テーブル / FDW 外部テーブルも同じ契約のビューへ射影可能。
+INSERT INTO learning_existing_user_ci
+    (login_name, display_name, is_active, can_read, can_edit, unit_code)
+SELECT
+    'TRAINING\\USER' || lpad(i::text, 5, '0'),
+    '架空利用者' || i::text,
+    TRUE, TRUE, FALSE, 'DEMO'
+FROM generate_series(1, 10001) AS i
+ON CONFLICT (login_name) DO NOTHING;
+
+-- ビューの列定義を契約化する。条件のpushdownと元表の一意索引を別途検証すること。
+CREATE OR REPLACE VIEW learning_user_access_v AS
+SELECT login_name, display_name, is_active, can_read, can_edit, unit_code, authorization_version
+FROM learning_existing_user_ci;
+
+-- アプリに必要なのは読み取りだけ。CI用のfixture操作はテストランナーに限る。
