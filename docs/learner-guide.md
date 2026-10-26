@@ -4,7 +4,7 @@
 C#を学び始めた方、Windowsデスクトップアプリ開発からWebアプリ開発へ進みたい方、社内業務システムをBlazorで作りたい方を対象にしています。
 
 ## 学習環境
-Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazor Web App（Interactive Server）です。現在掲載しているステップ01〜20は、Active DirectoryやPostgreSQLがなくても学習できる構成です。
+Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazor Web App（Interactive Server）です。現在掲載しているステップ01〜25は、Active DirectoryやPostgreSQLがなくても学習できる構成です。ステップ21以降ではMudBlazor公式テンプレートの使い方と、日本語化のためのMudBlazor.Translationsも学びます。
 
 ## 進め方
 1. 各ステップの「できるようになること」を読む。
@@ -24,7 +24,7 @@ Visual Studio 2026と.NET 10（C# 14）を使用します。画面技術はBlazo
 | 5 | 41〜50 | Windows統合認証と業務権限 |
 | 6 | 51〜60 | 大量データ、障害対応、IISへの配備 |
 
-本版では**ステップ01〜20**と**学習コラム01〜05**を収録しています。ステップ16以降は順次拡充します。
+本版では**ステップ01〜25**と**学習コラム01〜06**を収録しています。ステップ26以降は順次拡充します。
 
 ## 用語
 - **コンポーネント**：Blazorの画面を構成する再利用可能な部品
