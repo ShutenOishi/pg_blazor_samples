@@ -164,6 +164,12 @@ jobs:
             echo "::error::同一HEADのアプリCI成功が確認できませんでした。"
             exit 1
           fi
+          # 前のHEADの遅延CIが現在のプレビューを上書きしないようにする。
+          current_head="$(gh api "repos/$GITHUB_REPOSITORY/pulls/36" --jq '.head.sha')"
+          if [[ "$SOURCE_SHA" != "$current_head" ]]; then
+            echo "新HEADが存在するため古いPDFの公開を省略します。"
+            exit 0
+          fi
           # 公開済みPreviewのPDFファイル名を固定し、ZIP化を避ける。
           tag="learning-textbook-v3-preview"
           if ! gh release view "$tag" >/dev/null 2>&1; then

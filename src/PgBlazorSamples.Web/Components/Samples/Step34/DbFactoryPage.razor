@@ -13,7 +13,7 @@
     <p>Interactive ServerのScopedは画面を開いている間も存続します。スレッドセーフでないDbContextは共有せず、IDbContextFactoryから毎操作生成し、await usingで破棄します。</p>
     <p>Npgsqlの物理接続プールとDbContextそのものを再利用するプールは別です。最初の教材は後者を使用しません。</p>
 </section>
-<div class="page-navigation"><a href="/learn/33">前へ：ステップ33</a><a href="/learn/35">次へ：ステップ35</a></div>
+<div class="page-navigation"><a href="/learn/33">前へ：ステップ33</a><a href="/learn/column/db-bridge-50">第10組の復習へ</a></div>
 @code {
     private string _message = "まだ実行していません。";
     private async Task LoadAsync() => _message = (await Database.SearchAsync()).Message;
