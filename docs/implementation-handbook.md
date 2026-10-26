@@ -2,7 +2,7 @@
 
 > 対象: Visual Studio 2026 / .NET 10 / Blazor Interactive Server / MudBlazor / linq2db / Npgsql / PostgreSQL 18 / Active Directory / Windows Server 2025。
 >
-> **2026-10-26 現在のリポジトリには `src/`、`tests/`、`.csproj`、`.razor`、`.cs` が存在しません。** 現在の説明は実装計画であり、動作検証済みの実アプリを表すものではありません。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
+> **実装状況：Step01〜03のWebアプリ、Razorコンポーネント、ビルドCIを追加しました。** Step04以降の教材、Application/Domain/Infrastructure、DB/AD接続は未実装です。ビルド・動作の確認状況はGitHub Actionsを参照してください。PDFには生成対象のGitコミットとソースファイル検出結果を自動掲載します。
 
 ## 1. 資料を読む順番と達成目標
 
@@ -19,7 +19,7 @@
 
 ## 2. プロジェクトと参照方向
 
-最初のStep01では `PgBlazorSamples.Web` だけを用意し、`Program.cs`、`Components/`、`.razor` の読み方を学びます。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてDomainとInfrastructureを作ります。
+Step01〜03には `PgBlazorSamples.Web` と `Program.cs`、`Components/`、`.razor` を実装しました。[Step01](samples/step01.md)、[Step02](samples/step02.md)、[Step03](samples/step03.md)の資料は、実際のファイルを参照しています。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてDomainとInfrastructureを作ります。
 
 ```text
 PgBlazorSamples.Web
