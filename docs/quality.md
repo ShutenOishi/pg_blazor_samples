@@ -37,6 +37,15 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 
 上記の実ブラウザー試験は [GitHub Actions Run 40260767597](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40260767597) で **Ubuntu/Windowsビルド・ブラウザー操作ともSUCCESS** を確認しました。操作の画面画像は同RunのArtifactsから取得できます。
 
+## Step07〜10の追加試験（CI結果は要確認）
+
+- Step07：親が入力した文字だけが1枚目の再利用カードに反映される
+- Step08：子の選択が親の表示・選択回数へ反映される
+- Step09：パラメーター更新、非表示による破棄、再表示によるインスタンス再作成を確認する
+- Step10：必須未入力、文字数不足、正常入力時のみ確認欄更新を検証する
+- コラム01・02：日本語画面をHTTPで表示できる
+- 計画しているコラム03〜12は未実装。実装した段階で個別試験を追加する
+
 ## 今後追加するGitHub Actions
 
 | 検証 | 条件 | 目的 |

@@ -4,7 +4,7 @@
 - 対象：Visual Studio 2026 / .NET 10（C# 14）/ Blazor Web App（Interactive Server）
 - 対象リポジトリ：[pg_blazor_samples](https://github.com/ShutenOishi/pg_blazor_samples)
 - 標準配備先：Active Directoryドメイン内のWindows Server 2025 + IIS
-- 現状：Step01〜06のBlazor Webプロジェクトと日本語教材を作成し、Windows/LinuxのReleaseビルド・日本語HTTP画面疎通をCIで確認済み。Step04〜06はChromeによる実操作テストも成功済み。Step07〜60および実AD・DB・IIS統合は今後の対象。
+- 現状：Step01〜06はWindows/Linuxビルド・ブラウザー動作を確認済み。Step07〜10とコラム01・02のソースを追加し、CI受入確認中。Step11〜60および実AD・DB・IIS統合は今後の対象。
 - この文書は実装の作業計画です。完了判定は各CI結果と[サンプル一覧](sample-catalog.md)に記録します。HTTPによる確認と実ブラウザーでの手動確認は区別します。
 
 ## 実装原則

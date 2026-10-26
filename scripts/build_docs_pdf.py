@@ -18,6 +18,10 @@ DOCS = [
     "docs/samples/step03.md",
     "docs/samples/step04.md", "docs/samples/step05.md",
     "docs/samples/step06.md",
+    "docs/samples/step07.md", "docs/samples/step08.md",
+    "docs/samples/step09.md", "docs/samples/step10.md",
+    "docs/columns/README.md", "docs/columns/column01-05.md",
+    "docs/columns/column06-10.md",
     "docs/learning-path.md", "docs/sample-catalog.md",
     "docs/di-for-beginners.md", "docs/architecture.md",
     "docs/environment.md", "docs/versions.md", "docs/database.md",
@@ -75,7 +79,7 @@ def main():
       <section class="cover"><p class="edition">pg_blazor_samples / 技術ドキュメント</p>
       <h1>Blazor × PostgreSQL 18<br>日本語技術ハンドブック</h1>
       <p class="lead">Visual Studio 2026 / .NET 10 / MudBlazor / linq2db / Npgsql<br>Active Directory / Windows Server 2025</p>
-      <hr><p><strong>資料の状態：Step01〜06を実装・その後のStepは設計中</strong></p>
+      <hr><p><strong>資料の状態：Step01〜10のソースを追加・Step11以降は設計中（受入状況はサンプル一覧）</strong></p>
       <p>{html.escape(status)}</p>
       <p class="small">Gitコミット：{html.escape(revision)}<br>生成：{now}</p></section>
       <section class="toc"><h1>目次</h1><ol>{entries}<li><a href="#inventory">ソース整合性付録</a></li></ol></section>

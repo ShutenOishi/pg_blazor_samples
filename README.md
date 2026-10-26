@@ -4,9 +4,9 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、linq2db、Npgsql、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜06のBlazor Webアプリのソースを作成しました。** ビルド・HTTP疎通の確認はGitHub Actionsで行います。Step07〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+> **現在の状態：Step01〜10のBlazor Webアプリのソースとコラム01・02を追加しました。** Step01〜06はCIとブラウザーテストの成功証跡があります。Step07〜10のCI結果は確認中です。Step11〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
 
-## Step01〜06を起動する
+## Step01〜10を起動する
 
 Visual Studio 2026で `PgBlazorSamples.slnx` を開き、`PgBlazorSamples.Web` を起動してください。コマンドラインでは次のとおりです。
 
@@ -15,14 +15,18 @@ dotnet restore PgBlazorSamples.slnx
 dotnet run --project src/PgBlazorSamples.Web
 ```
 
-トップページから日本語の各ステップに移動できます。最初の6ステップはDB/ADなしで起動できます。画面メニュー、再接続案内、エラー表示も日本語です。
+トップページから日本語の各ステップに移動できます。最初の10ステップはDB/ADなしで起動できる構成です。画面メニュー、再接続案内、エラー表示も日本語です。
 
-実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)／[ステップ04](docs/samples/step04.md)／[ステップ05](docs/samples/step05.md)／[ステップ06](docs/samples/step06.md)。ソースコード変更時は同じPRで教材を更新します。
+実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)／[ステップ04](docs/samples/step04.md)／[ステップ05](docs/samples/step05.md)／[ステップ06](docs/samples/step06.md)／[ステップ07](docs/samples/step07.md)／[ステップ08](docs/samples/step08.md)／[ステップ09](docs/samples/step09.md)／[ステップ10](docs/samples/step10.md)。ソースコード変更時は同じPRで教材を更新します。
 
 ## ソースコード実装の次工程
 
-Step01〜03の基盤に続き**Step04〜06の操作型教材を実装**しました。次はStep07〜10のコンポーネント・フォーム教材を作成します。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
+Step01〜10の画面、親子部品、入力フォームの教材をソースに追加しました。次はStep11〜15のDI入門へ進みます。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
 
+
+## 5ステップごとの学習コラム
+
+Step05・10・15…60の節目ごとに、**全12回**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)と[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)を掲載しています。後続のコラムのテーマは[全12回の一覧](docs/columns/README.md)を参照してください。
 
 ## どこから始める？
 
