@@ -6,7 +6,7 @@
 - Web: **IIS** + **.NET 10 ASP.NET Core Hosting Bundle**
 - アプリ: **Blazor Web App / Interactive Server**。サーバー側の処理をSignalR経由で実行
 - 認証: **IIS Windows認証**（Negotiateを使用しKerberosを優先、NTLMへの意図しないフォールバックを検査）
-- 認可: PostgreSQL 18 のアプリユーザー/ロール/操作権限
+- 認可: PostgreSQL 18 の既存テーブルまたは外部テーブルの利用者・操作権限
 - DB: PostgreSQL 18（アプリサーバーと分離可能）。EF Core 10（Npgsqlプロバイダー）で接続
 - 利用端末: 社内管理のWindowsドメイン参加端末 + 統合認証を使えるEdge等
 - 接続: 内部DNSのFQDN、信頼された社内CA等によるHTTPS証明書
@@ -30,7 +30,7 @@ Windows Server 2025（ドメイン参加）
     +-- Blazor Web App（Interactive Server + SignalR）
     |       |
     |       +-- アプリケーションサービス
-    |       +-- SID/ユーザー有効性/権限の照合
+    |       +-- Windows認証済みユーザー名/既存利用者台帳の有効性/権限の照合
     |
     +---- TCP/TLS ----> PostgreSQL 18
     |
@@ -45,7 +45,7 @@ AD認証の本人情報はIIS/ASP.NET Coreで取得し、DBにはADパスワー�
 2. 検証用OU/ユーザー、管理権限、IISインストール権限、社内CA証明書の発行方法。
 3. IISアプリプールの実行アカウント。まず専用アプリプールIDを基本とし、AD資源アクセスなどに必要なら**gMSA**を検討。
 4. ネットワーク分離、HTTPS、PostgreSQLへの到達性、ファイアウォールと監査対象。
-5. 利用者の同時接続数とサーバー資源。Interactive Serverは回線状態を保持するため、負荷試験が必要。
+5. 利用者の総数と最大同時接続数を区別する。Interactive Serverは回線状態を保持するため、1万人規模の負荷試験と段階的なスケールアウトが必要。
 6. PostgreSQLのバックアップ・復旧・更新手順、Webアプリのログ収集先と保管期間。
 
 ## 構築手順（設計時点のチェックリスト）

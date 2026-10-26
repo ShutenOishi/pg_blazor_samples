@@ -7,6 +7,7 @@ public sealed class LearningDbContext(DbContextOptions<LearningDbContext> option
 {
     public DbSet<LearningTask> Tasks => Set<LearningTask>();
     public DbSet<LearningCategory> Categories => Set<LearningCategory>();
+    public DbSet<ExistingUserAccessRow> ExistingUserAccess => Set<ExistingUserAccessRow>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,5 +31,17 @@ public sealed class LearningDbContext(DbContextOptions<LearningDbContext> option
         category.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
         category.Property(x => x.Name).HasColumnName("name").HasMaxLength(60).IsRequired();
         category.HasIndex(x => x.Name).IsUnique();
+
+        // 既存台帳の統一ビュー。新規テーブルを業務アプリから作成・更新しない。
+        var externalAccess = modelBuilder.Entity<ExistingUserAccessRow>();
+        externalAccess.HasNoKey();
+        externalAccess.ToView("learning_user_access_v");
+        externalAccess.Property(x => x.LoginName).HasColumnName("login_name");
+        externalAccess.Property(x => x.DisplayName).HasColumnName("display_name");
+        externalAccess.Property(x => x.IsActive).HasColumnName("is_active");
+        externalAccess.Property(x => x.CanRead).HasColumnName("can_read");
+        externalAccess.Property(x => x.CanEdit).HasColumnName("can_edit");
+        externalAccess.Property(x => x.UnitCode).HasColumnName("unit_code");
+        externalAccess.Property(x => x.AuthorizationVersion).HasColumnName("authorization_version");
     }
 }

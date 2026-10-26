@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 using PgBlazorSamples.Web.Data;
 using System.Globalization;
@@ -22,6 +23,21 @@ var builder = WebApplication.CreateBuilder(args);
 // 独自のMudLocalizerを作り直さず、翻訳パッケージの登録を優先する。
 builder.Services.AddMudServices();
 builder.Services.AddLocalization();
+// Step61：認証状態をInteractive Serverの各コンポーネントへ安全に供給する。
+builder.Services.AddCascadingAuthenticationState();
+
+// Windows統合認証はWindows Server 2025/IIS上の構成確認後に有効化する。
+// CIや匿名の架空データ教材から、実ADの認証済み主体を偽造しない。
+var windowsAuthEnabled = builder.Configuration.GetValue<bool>("WindowsAuthentication:Enabled");
+if (windowsAuthEnabled)
+{
+    builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+}
+builder.Services.AddAuthorization(options =>
+{
+    if (windowsAuthEnabled)
+        options.FallbackPolicy = options.DefaultPolicy;
+});
 builder.Services.AddMudTranslations();
 
 // Step18でUnitTests、Step19でApplicationを段階的に追加する。
@@ -53,10 +69,17 @@ builder.Services.AddScoped<ThemePreferenceService>();
 // Step31〜40：新たな層別プロジェクトは作らず、このWeb内でEF Core 10を使う。
 // 未設定時はDB画面で接続前の案内を表示する。接続情報は環境変数で与える。
 var pgConnection = builder.Configuration.GetConnectionString("PostgreSQL");
-builder.Services.AddDbContextFactory<LearningDbContext>(options =>
-    options.UseNpgsql(string.IsNullOrWhiteSpace(pgConnection)
+// PostgreSQLの接続にはアプリ名を固定で付ける。利用者別の接続文字列にせず
+// Npgsqlのプールを再利用する。実行者の監査は業務サービス側で別途記録する。
+var pgApplicationConnection = new Npgsql.NpgsqlConnectionStringBuilder(
+    string.IsNullOrWhiteSpace(pgConnection)
         ? "Host=127.0.0.1;Database=pg_blazor_learning;Username=pg_blazor_learning;Timeout=2"
-        : pgConnection));
+        : pgConnection)
+{
+    ApplicationName = "PgBlazorSamples.Web"
+};
+builder.Services.AddDbContextFactory<LearningDbContext>(options =>
+    options.UseNpgsql(pgApplicationConnection.ConnectionString));
 builder.Services.AddScoped<LearningDbService>();
 // Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
 builder.Services.AddScoped<LearningPageService>();
@@ -68,6 +91,8 @@ builder.Services.AddScoped<LearningEditService>();
 builder.Services.AddScoped<LearningRangeExportService>();
 builder.Services.AddScoped<LearningCacheLessonService>();
 builder.Services.AddScoped<LearningPerformanceService>();
+// Step61〜65：本人はASP.NET CoreのWindows認証が確定し、SIDとDBを照合する。
+builder.Services.AddScoped<WindowsUserAccessService>();
 
 var app = builder.Build();
 
@@ -85,6 +110,9 @@ app.UseRequestLocalization(new RequestLocalizationOptions()
     .SetDefaultCulture("ja-JP")
     .AddSupportedCultures("ja-JP")
     .AddSupportedUICultures("ja-JP"));
+// 認証ミドルウェアはルート実行より前。未認証リクエストの拒否は.NET標準へ任せる。
+if (windowsAuthEnabled) app.UseAuthentication();
+app.UseAuthorization();
 app.UseAntiforgery();
 
 // .NET 10の静的アセットを登録し、対話型サーバー側の描画を有効にする。

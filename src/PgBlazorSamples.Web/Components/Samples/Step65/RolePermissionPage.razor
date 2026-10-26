@@ -1,0 +1,39 @@
+@page "/learn/65"
+@using PgBlazorSamples.Web.Services.Learning
+@inject WindowsUserAccessService UserAccess
+<PageTitle>ステップ65：役割と操作権限｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ65 / Windows認証と業務利用の境界</p>
+<h1>役割と操作権限</h1>
+<MudPaper Class="pa-4">
+    <h2>既存台帳の業務別権限を判定する</h2>
+    <p>既存台帳のcan_read・can_edit・unit_code等から許可操作を求めます。業務データの絞込はStep67で実装します。</p>
+    <MudButton Color="Color.Primary" OnClick="InspectAsync">現在の認証・既存台帳照合状態を確認</MudButton>
+    <p role="status" data-testid="step65-state">@_snapshot.Message</p>
+    <p>許可の結果：@_snapshot.IdentityHint</p>
+    @if (!string.IsNullOrWhiteSpace(_snapshot.DisplayName))
+    {
+        <p>既存台帳の表示名：@_snapshot.DisplayName</p>
+    }
+    @if (_snapshot.Permissions is { Count: > 0 })
+    {
+        <h3>既存台帳による許可コード</h3>
+        <ul>@foreach (var permissionCode in _snapshot.Permissions) { <li>@permissionCode</li> }</ul>
+    }
+</MudPaper>
+<section class="lesson-details">
+    <h2>安全に確認する</h2>
+    <p>画面表示だけを制御しても認可ではありません。Step66〜70で全業務操作へ適用します。</p>
+    <details><summary>確認問題：本人認証が成功したら業務データを参照できる？</summary>
+        <p>いいえ。既存台帳の利用者の有効性と、操作に対する権限をサーバー側で確認します。</p>
+    </details>
+    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・KerberosはStep70で実機検証します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/64">前のステップへ</a><a href="/learn/column/65">次へ進む</a></div>
+@code {
+    private WindowsAccessSnapshot _snapshot = new("initial", "ボタンを押すと認証と既存台帳照合の状態を確認します。");
+
+    private async Task InspectAsync()
+    {
+        _snapshot = await UserAccess.ReadCurrentAsync();
+    }
+}

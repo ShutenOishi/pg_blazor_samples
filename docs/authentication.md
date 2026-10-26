@@ -1,54 +1,50 @@
-# Active Directory認証とPostgreSQL認可
+# Active Directory認証と既存PostgreSQL台帳の認可
 
 ## 基本方針
 
-**認証**はWindows統合認証（Active Directory / Negotiate / Kerberos等）に任せ、**認可**はPostgreSQL上の利用者・ロール・許可情報に基づいて判定します。Windowsの本人確認が成功しても、アプリケーションの未登録者や無効利用者には業務データを公開しません。
+Active Directoryは**Windows統合認証と認証済みのドメイン付きユーザー名取得だけ**に使用します。利用者の登録・有効性・所属・業務別権限の正本は既存PostgreSQLテーブル、ビューまたは外部テーブルです。アプリは新しい利用者を登録・権限付与しません。
 
-## 想定する認可フロー
+## 認証から業務権限まで
 
-1. ブラウザーからアプリへアクセスする。
-2. IISのWindows認証または適切に構成されたASP.NET Core Negotiateで本人を認証する。
-3. サーバー側の`ClaimsPrincipal`から識別子を取得する。Windows環境では原則として**SID**を安定キーにする。
-4. SIDを用いてPostgreSQLの`app_user`を検索する。照合不可、無効、重複など異常があれば拒否する。
-5. `app_user_role`と`app_role_permission`から操作許可を求める。
-6. 画面ルートと**業務サービスの操作単位**で認可する。
-7. 業務操作は利用者識別子・対象・結果・時刻を適切に監査記録する。
+1. IIS Windows認証またはASP.NET Core Negotiateが本人を認証。
+2. サーバーの認証済みPrincipalから`DOMAIN\\user`を取得。HTTPヘッダー・URL・画面入力の値を信じない。
+3. 正規化済みの同形式のキーで、DB管理者が用意した読み取り専用の統一ビューを**最大2件だけ**照合する。
+4. 0件/重複/無効/DB障害なら拒否。有効なら`can_read`、`can_edit`、`unit_code`などから必要な業務権限を判定する。
+5. Count/一覧/詳細/CSV/更新/集計/APIのすべてで操作単位に同一の業務データ範囲へ権限を適用し、監査を記録する（Step66〜70）。
 
-`DOMAIN\user`は表示・補助照合用とし、名前変更や同名アカウント再作成に備えて一意な識別子として過信しません。SID取得ができない環境では、環境固有の信頼できる識別子を別途設計・検証する必要があり、ユーザー名だけへ無条件にフォールバックしません。
+ADユーザー名はSIDより変更・再使用の問題があるため、**ドメインを含む契約、改名・再使用の検知、台帳同期・旧権限失効を運用前提**とします。UPNとの表記変換は暗黙に行いません。
+
+## 既存台帳の契約
+
+`learning_user_access_v`が`login_name`、`display_name`、`is_active`、`can_read`、`can_edit`、`unit_code`、`authorization_version`を返す読み取り専用ビューとして使用します。
+
+- 実運用では各システムの既存テーブル・外部テーブルからこの列群へ投影するビューをDB管理者が作成。
+- アプリに利用者の新規登録・更新機能を置かない。
+- 検証用`database/schema/002_app_access.sql`は架空1万1人の**CI専用fixture**。本番には適用しない。
+- 業務サービスへの保護が完了するまでは開発用DBに限定する。
 
 ## 認可ルール
 
-| 状態 | 期待結果 |
+| 状態 | 期待 |
 | --- | --- |
-| Windows認証に失敗 | 業務画面を利用できない |
-| AD認証済みだがDB未登録 | 拒否 |
-| DB登録済みだが`is_active=false` | 拒否 |
-| DB登録済みで権限がない | 対応する操作は拒否 |
-| 許可されたユーザー | 許可された操作のみ実行可能 |
-| DBに接続できない | 権限を許可せず、安全にエラーを表示 |
+| 未認証・ユーザー名不正 | 拒否 |
+| 既存台帳に該当0件 / 2件以上 | 拒否 |
+| 既存台帳で無効 | 拒否 |
+| 閲覧不可・編集不可・対象部署外 | 該当操作を拒否 |
+| 台帳または外部DB停止 | 拒否 |
+| 有効かつ対象権限あり | 許可された業務操作のみ |
 
-匿名閲覧できる教材を設ける場合は、業務データ・内部API・管理機能へ接続できない無害なサンプル画面だけを`AllowAnonymous`で明示します。`FallbackPolicy`は原則として認証要求とし、未指定の業務ルートを無条件公開しません。
+`FallbackPolicy`による認証要求と`AuthorizeView`によるボタン非表示は、業務データの操作単位の認可の代わりにはなりません。匿名画面の構成、Cookie/SSOの違い、Connection Pool、監査は[1万人規模の実務設計](authentication-at-scale.md)で扱います。
 
-## 実装・運用上の注意
+## 実装段階と実機受入
 
-- Windows認証は`Microsoft.AspNetCore.Authentication.Negotiate`などの公式機構を利用する。IIS、Kestrel、リバースプロキシそれぞれで設定・信頼境界が異なる。
-- リバースプロキシが送った任意の`X-User`ヘッダーを信用して認証してはならない。
-- Windows IDの偽装を使う場合は適用範囲を明示する。アプリのDB接続資格情報とWindows本人の扱いを混同しない。
-- 画面の`AuthorizeView`による表示制御だけでなく、サービスのメソッドでも許可を確かめる。
-- ロールの更新は次の操作に反映されるようにし、長寿命のInteractive Server回線に古い認可結果を永続保持しない。
-- サーバー間で認証情報・回線・接続を維持する場合は負荷分散とセッション運用を別途確認する。
-- 認証ログには生の資格情報や秘密を残さず、閲覧権限と保管期間を定める。
+- Step61〜65：Negotiateを選択可能にし、認証済みユーザー名と既存台帳を照合する。DB拒否経路をテストする。
+- Step66〜70：画面と全サービスのデータ範囲を保護し、管理・監査・IIS/Kerberosを検証する。
+- CIのWindows/Linux/Chrome/PostgreSQL18試験では**本物のAD認証・Kerberos・IIS本番動作は実証できない**。
+- 開発でWindows認証を無効にできるが、その状態では本物の業務データを扱ってはならない。
 
-## 検証条件
+## 参考
 
-成功経路だけでなく、未登録、無効化、権限剥奪、DB障害、接続切断、SID取得失敗、ADの名前変更・再作成、並行更新などの**拒否経路**をテストします。
-
-## 参照
-
-- [Windows認証の公式Blazorガイド](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/security/blazor-web-app-with-windows-authentication?view=aspnetcore-10.0)
+- [1万人規模・外部テーブル・Cookieと監査](authentication-at-scale.md)
+- [Windows Server 2025とIIS](windows-server-2025-iis.md)
 - [ASP.NET Core Windows認証](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/windowsauth?view=aspnetcore-10.0)
-- [テーブル設計案](database.md)
-
-## 本番相当ホスト
-
-Windows Server 2025のドメイン参加済みメンバーサーバーにIISを構成する。Windows認証の終端位置、匿名認証の無効化、IISアプリプールID、HTTPS、HTTP SPNとKerberos/NTLMの実態、SignalRの再接続を検証する。Windows Serverの運用上の詳細は[構築計画](windows-server-2025-iis.md)。
