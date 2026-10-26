@@ -1,0 +1,27 @@
+@page "/learn/48"
+@using PgBlazorSamples.Web.Data
+<PageTitle>ステップ48：描画仮想化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ48 / 描画仮想化</p>
+<h1>取得済み500件を画面に必要な分だけ描画する</h1>
+<p>Itemsを使う仮想化です。データ500件はすでにメモリ上にあるため、DBの取得件数は減りません。</p>
+<p role="status" data-testid="step48-count">メモリに保持：@_rows.Count 件／DB問い合わせ：0 件</p>
+<MudPaper Class="pa-4">
+    <MudDataGrid T="LearningTaskRow" Items="@_rows" Virtualize="true" Height="360px" ItemSize="50"
+                 Dense="true" Filterable="false" SortMode="SortMode.Single">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="番号"/>
+            <PropertyColumn Property="x => x.Title" Title="架空の課題名"/>
+        </Columns>
+    </MudDataGrid>
+</MudPaper>
+<section class="lesson-details">
+    <h2>重要な違い</h2>
+    <p>Virtualizeは描画行数を減らしますが、Itemsへのデータ取得は減らしません。高さと想定行高を設定し、可変高さの行を避けます。次のStep49はDBへの要求範囲まで制限します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/47">前へ：ステップ47</a><a href="/learn/49">次へ：ステップ49</a></div>
+@code {
+    // 意図的に全件をメモリへ作るDB不要デモ。実DBの全件取得例ではない。
+    private readonly IReadOnlyList<LearningTaskRow> _rows = Enumerable.Range(1, 500)
+        .Select(i => new LearningTaskRow(i, $"仮想化の架空課題 {i:000}", null, null, false, 0))
+        .ToArray();
+}

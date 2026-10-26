@@ -1,0 +1,89 @@
+@page "/learn/50"
+@implements IDisposable
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningPageService Pages
+@inject LearningDbService DbSettings
+<PageTitle>ステップ50：検索UXと再試行｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ50 / 検索UX・障害対策</p>
+<h1>入力を待ってから検索し、障害時は再試行する</h1>
+<MudPaper Class="pa-4">
+    <MudTextField T="string" Label="課題名で検索（400ミリ秒待機）"
+                  Value="@_draft" ValueChanged="OnKeywordChangedAsync" Immediate="true"/>
+    <MudButton Variant="Variant.Outlined" OnClick="RetryAsync">再読み込み</MudButton>
+    <p role="status" data-testid="step50-state">@_message</p>
+    @if (_tooLong)
+    {
+        <p role="alert">検索語は100文字以内にしてください。</p>
+    }
+    <MudDataGrid T="LearningTaskRow" @ref="_grid" ServerData="LoadAsync"
+                 RowsPerPage="10" Dense="true" Filterable="false" SortMode="SortMode.Single">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="番号"/>
+            <PropertyColumn Property="x => x.Title" Title="課題名"/>
+            <PropertyColumn Property="x => x.IsDone" Title="完了"/>
+        </Columns>
+        <NoRecordsContent><MudText>条件に合う課題はありません。</MudText></NoRecordsContent>
+        <PagerContent><MudDataGridPager T="LearningTaskRow" PageSizeOptions="@(new int[] {10, 20, 50})"/></PagerContent>
+    </MudDataGrid>
+</MudPaper>
+<section class="lesson-details">
+    <h2>待機・空状態・障害の区別</h2>
+    <p>入力のたびに直ちにDB検索せず400ミリ秒待機し、次の入力があれば前の待機を中止します。DBアクセスの中断はServerDataのCancellationTokenへ委ねます。0件とDB障害を異なる日本語で案内し、利用者が再試行できます。</p>
+    <p>検索条件とDB上の認可は別の概念です。業務公開前には認可条件をCountとItemsの両方へ適用します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/49">前へ：ステップ49</a><a href="/learn/column/50">コラム11：一覧方式とUXの選び方</a></div>
+@code {
+    private MudDataGrid<LearningTaskRow>? _grid;
+    private CancellationTokenSource? _pendingSearch;
+    private string _draft = "";
+    private string _appliedKeyword = "";
+    private bool _tooLong;
+    private string _message = "一覧を読み込みます。";
+
+    protected override void OnInitialized()
+    {
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
+    private async Task OnKeywordChangedAsync(string value)
+    {
+        _draft = value ?? "";
+        _pendingSearch?.Cancel();
+        _pendingSearch?.Dispose();
+        _pendingSearch = new CancellationTokenSource();
+        _tooLong = _draft.Length > LearningPageService.MaxKeywordLength;
+        if (_tooLong) return;
+        var token = _pendingSearch.Token;
+        try
+        {
+            await Task.Delay(400, token);
+            token.ThrowIfCancellationRequested();
+            _appliedKeyword = _draft;
+            await InvokeAsync(RetryAsync);
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+            // 入力継続中の古い検索を実行しない。
+        }
+    }
+
+    private async Task<GridData<LearningTaskRow>> LoadAsync(GridState<LearningTaskRow> state, CancellationToken token)
+    {
+        var result = await Pages.LoadAsync(new(state.Page, state.PageSize, _appliedKeyword), token);
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+
+    private async Task RetryAsync()
+    {
+        if (_grid is not null && !_tooLong) await _grid.ReloadServerData();
+    }
+
+    public void Dispose()
+    {
+        _pendingSearch?.Cancel();
+        _pendingSearch?.Dispose();
+    }
+}

@@ -60,6 +60,8 @@ builder.Services.AddDbContextFactory<LearningDbContext>(options =>
 builder.Services.AddScoped<LearningDbService>();
 // Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
 builder.Services.AddScoped<LearningPageService>();
+// Step46〜49：JOIN・キーセット・仮想化の各パターンを操作単位のDbContextで実装。
+builder.Services.AddScoped<LearningAdvancedPageService>();
 
 var app = builder.Build();
 

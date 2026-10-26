@@ -1,0 +1,46 @@
+@page "/learn/47"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningAdvancedPageService Pages
+<PageTitle>ステップ47：キーセットページング｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ47 / オフセットとキーセット</p>
+<h1>最後の番号から次の10件を取得する</h1>
+<p>ページ番号をSkipで飛ばさず、最後に表示した一意の番号より後だけ読みます。</p>
+<MudPaper Class="pa-4">
+    <MudStack Row="true" Spacing="2">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_hasMore)" OnClick="NextAsync">次の10件</MudButton>
+        <MudButton Variant="Variant.Outlined" OnClick="ResetAsync">先頭から読み直す</MudButton>
+    </MudStack>
+    <p role="status" data-testid="step47-state">@_message</p>
+    <MudTable T="LearningTaskRow" Items="@_rows" Dense="true">
+        <HeaderContent><MudTh>番号</MudTh><MudTh>課題名</MudTh></HeaderContent>
+        <RowTemplate><MudTd DataLabel="番号">@context.Id</MudTd><MudTd DataLabel="課題名">@context.Title</MudTd></RowTemplate>
+        <NoRecordsContent><MudText>表示できる課題がありません。</MudText></NoRecordsContent>
+    </MudTable>
+</MudPaper>
+<section class="lesson-details">
+    <h2>適用範囲</h2>
+    <p>IDの昇順だけに固定したキーセットです。任意の複数列ソートで運用する場合は全ソートキーと一意IDをカーソルに含めます。途中で条件を変更したらカーソルをリセットしてください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/46">前へ：ステップ46</a><a href="/learn/48">次へ：ステップ48</a></div>
+@code {
+    private IReadOnlyList<LearningTaskRow> _rows = [];
+    private long? _cursor;
+    private bool _hasMore = true;
+    private string _message = "先頭ページを取得します。";
+    protected override async Task OnInitializedAsync() => await NextAsync();
+    private async Task NextAsync()
+    {
+        var result = await Pages.LoadAfterIdAsync(_cursor);
+        _rows = result.Rows;
+        _cursor = result.NextId ?? _cursor;
+        _hasMore = result.HasMore;
+        _message = result.Message + $" 今回：{_rows.Count} 件、続き：{(_hasMore ? "あり" : "なし")}";
+    }
+    private async Task ResetAsync()
+    {
+        _cursor = null;
+        _hasMore = true;
+        await NextAsync();
+    }
+}

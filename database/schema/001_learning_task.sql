@@ -14,3 +14,12 @@ CREATE INDEX IF NOT EXISTS ix_learning_task_available_dates ON learning_task USI
 -- xmin はPostgreSQLのシステム列。DDLで明示的に作成しない。
 -- 期間の例：INSERT INTO learning_task(title, available_dates)
 -- VALUES ('期間の練習', daterange('2026-10-01', '2026-11-01', '[)'));
+
+-- Step46：関連テーブルの例。既存の開発用テーブルへ繰り返し適用できる。
+CREATE TABLE IF NOT EXISTS learning_category
+(
+    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name varchar(60) NOT NULL UNIQUE
+);
+ALTER TABLE learning_task ADD COLUMN IF NOT EXISTS category_id integer REFERENCES learning_category(id);
+CREATE INDEX IF NOT EXISTS ix_learning_task_category_id ON learning_task (category_id);

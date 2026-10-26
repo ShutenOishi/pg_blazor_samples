@@ -6,6 +6,7 @@ namespace PgBlazorSamples.Web.Data;
 public sealed class LearningDbContext(DbContextOptions<LearningDbContext> options) : DbContext(options)
 {
     public DbSet<LearningTask> Tasks => Set<LearningTask>();
+    public DbSet<LearningCategory> Categories => Set<LearningCategory>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,6 +21,14 @@ public sealed class LearningDbContext(DbContextOptions<LearningDbContext> option
         task.Property(x => x.AvailableDates).HasColumnName("available_dates").HasColumnType("daterange");
         task.Property(x => x.IsDone).HasColumnName("is_done");
         task.Property(x => x.Version).IsRowVersion(); // PostgreSQLのxminにマッピング
+        task.Property(x => x.CategoryId).HasColumnName("category_id");
+        task.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId);
         task.HasIndex(x => x.DueDate);
+        var category = modelBuilder.Entity<LearningCategory>();
+        category.ToTable("learning_category");
+        category.HasKey(x => x.Id);
+        category.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
+        category.Property(x => x.Name).HasColumnName("name").HasMaxLength(60).IsRequired();
+        category.HasIndex(x => x.Name).IsUnique();
     }
 }

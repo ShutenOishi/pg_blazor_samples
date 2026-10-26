@@ -1,0 +1,41 @@
+@page "/learn/49"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningAdvancedPageService Pages
+@inject LearningDbService DbSettings
+<PageTitle>ステップ49：DB側の仮想化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ49 / VirtualizeServerData</p>
+<h1>スクロール範囲だけPostgreSQLから取得する</h1>
+<p>GridStateVirtualizeのStartIndex・CountをEF CoreのSkip・Takeへ渡します。ここでは番号順を固定し、列ソートは無効にします。</p>
+<p role="status" data-testid="step49-state">@_message</p>
+<MudPaper Class="pa-4">
+    <MudDataGrid T="LearningTaskRow" Virtualize="true" Height="360px" ItemSize="50"
+                 VirtualizeServerData="LoadAsync" Dense="true" Filterable="false">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="番号" Sortable="false"/>
+            <PropertyColumn Property="x => x.Title" Title="課題名" Sortable="false"/>
+            <PropertyColumn Property="x => x.DueDate" Title="期限日" Sortable="false" Format="yyyy/MM/dd"/>
+        </Columns>
+    </MudDataGrid>
+</MudPaper>
+<section class="lesson-details">
+    <h2>スクロールとページングを混同しない</h2>
+    <p>表示領域の高さを固定し、要求されるCountの範囲だけ取得します。キャンセルはCountAsync・ToListAsyncにも渡します。極端に深いスクロールではOFFSETの負荷が残り、連続探索にはStep47が向きます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/48">前へ：ステップ48</a><a href="/learn/50">次へ：ステップ50</a></div>
+@code {
+    private string _message = "開発用DBから表示範囲を取得します。";
+    protected override void OnInitialized()
+    {
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+    private async Task<GridData<LearningTaskRow>> LoadAsync(GridStateVirtualize<LearningTaskRow> state, CancellationToken token)
+    {
+        var count = Math.Min(state.Count, LearningAdvancedPageService.MaxWindowSize);
+        if (count < 1) return new() { Items = [], TotalItems = 0 };
+        var result = await Pages.LoadWindowAsync(state.StartIndex, count, token);
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+}
