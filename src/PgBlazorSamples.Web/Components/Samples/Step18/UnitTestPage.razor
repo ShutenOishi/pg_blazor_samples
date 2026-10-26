@@ -1,0 +1,37 @@
+@page "/learn/18"
+@using PgBlazorSamples.Web.Services.Clock
+
+<PageTitle>ステップ18：DIと単体テスト｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ18 / 単体テスト</p>
+<h1>固定時計で時間帯に左右されないテストを作る</h1>
+<p>時刻を外から受け取る設計なので、実際の時刻に関係なく結果を確認できます。</p>
+<section class="lesson-details">
+  <h2>同じ処理に異なる時計を渡す</h2>
+  <p>午前8時：<strong data-testid="step18-morning">@morningMessage</strong></p>
+  <p>午後1時：<strong data-testid="step18-afternoon">@afternoonMessage</strong></p>
+  <button type="button" @onclick="Compare">固定時計で再確認する</button>
+</section>
+<section class="lesson-details">
+  <h2>テストとの関係</h2>
+  <p>ユニットテストはブラウザーを立ち上げず、C#のサービスに偽の時計を渡し、期待した文字列と比較します。</p>
+  <p>この画面の表示だけでは単体テストに合格したことになりません。UnitTestsプロジェクトを使い、<code>dotnet test</code> で実行します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/17">前へ：ステップ17</a><a href="/learn/19">次へ：ステップ19</a></div>
+@code {
+    private string morningMessage = "";
+    private string afternoonMessage = "";
+
+    protected override void OnInitialized() => Compare();
+
+    private void Compare()
+    {
+        morningMessage = new GreetingService(new FixedClock()).GetMessage();
+        afternoonMessage = new GreetingService(new AfternoonClock()).GetMessage();
+    }
+
+    // テストにだけ必要な条件を最小限の実装で再現します。
+    private sealed class AfternoonClock : IClock
+    {
+        public DateTimeOffset GetNow() => new(2026, 1, 1, 13, 0, 0, TimeSpan.FromHours(9));
+    }
+}

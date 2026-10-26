@@ -1,0 +1,24 @@
+@page "/learn/19"
+@using PgBlazorSamples.Application
+@inject IStepSummaryService Summary
+
+<PageTitle>ステップ19：Application分離｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ19 / クラスライブラリ分離</p>
+<h1>画面とは別のクラスライブラリへ処理を分ける</h1>
+<p>計算と文章化の処理はApplicationに置き、画面はDIから受け取って呼び出します。</p>
+<section class="lesson-details">
+  <h2>学習進捗を表示する</h2>
+  <p>学習済み：<strong data-testid="step19-count">@completed</strong> ステップ</p>
+  <p role="status" data-testid="step19-summary">@Summary.Describe(completed)</p>
+  <div class="practice-actions">
+    <button type="button" @onclick="() => completed = Math.Min(60, completed + 5)">5ステップ学習した</button>
+    <button type="button" @onclick="() => completed = 0">最初から確認する</button>
+  </div>
+</section>
+<section class="lesson-details">
+  <h2>参照の向き</h2>
+  <p>Web → Application の一方向です。Application側はRazorコンポーネントや画面のイベントを知りません。</p>
+  <p><code>IStepSummaryService</code> の実装をDIで差し替えられ、テスト時には画面を必要としません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/18">前へ：ステップ18</a><a href="/learn/20">次へ：ステップ20</a></div>
+@code { private int completed; }

@@ -1,11 +1,11 @@
-# 次のチャットへの引き継ぎ：Blazor Step16〜20
+# 次のチャットへの引き継ぎ：Blazor Step21〜25
 
-1. 最新のGitHub `ShutenOishi/pg_blazor_samples` mainを取得し、Step01〜15とコラム01〜03のCI/postmerge証跡を確認する。
-2. Step16「Optionsパターン」、17「非同期処理とログ」、18「DIと単体テスト」、19「Applicationクラスライブラリ分離」、20「DI総合演習のToDoサービス」を実装する。
-3. Step18で初めて`PgBlazorSamples.UnitTests`、Step19で初めて`PgBlazorSamples.Application`を追加する。WebからApplicationへの参照方向を守り、DB・ADを先取りしない。
-4. 5ステップ終了に合わせて`docs/columns/column16-20.md`と日本語復習ページを追加する。画面、教材、否定テスト、PDF目次、同一版PDFの整合性を守る。
-5. PDFは学習者向けの`blazor_learning_textbook_ja.pdf`を使用。学習者向け本文にレポジトリ、CI、PR、コミットハッシュ、開発管理ファイルなどを出さない。**目次は日本語の学習タイトル**で統一する。検証用ソース一覧は別JSONへ保存。
-6. Windows/Linux Releaseビルド・日本語HTTP/Chrome・PDF生成・教材欠落チェックを実行し、成功時のみ保護マージ・main postmerge受入へ進む。
-7. 実AD・PostgreSQL・IISの検証をしていない場合は明記する。成功済みの作業は理由なく再実行しない。
+- 最新の認証済みGitHubから main と成功済みCI/postmergeを確認する。
+- Step21〜25にMudBlazorを導入する。公式のバージョン別手順に従い、パッケージ、AddMudServices、Provider、対話型レンダーモード、CSS・JSを検証する。
+- Step21：導入とサービス登録、22：レイアウト、23：入力部品、24：フォーム検証、25：テーブル。
+- コラム06（ステップ21〜25）で、特別コラム05の「公式手順を読む→登録→注入→Provider配置」を実際のMudBlazorコードで振り返る。
+- Stepごとの日本語教材、コラム、PDF日本語目次、Windows/Linuxビルド、UnitTests、HTTP・Chrome操作を同一PRで実装する。
+- CIが全成功した後のみ保護マージし、main postmerge受入まで検証する。
+- DB、AD、IISは未接続であり、実証済みと記述しない。既存の成功済み工程は再実行しない。
 
-使用環境：Visual Studio 2026、.NET 10、Blazor Interactive Server。画面・コードコメント・解説は日本語。学習コラムは5ステップごとに全12本を配置する。
+環境：Visual Studio 2026／.NET 10／Blazor Interactive Server。通常12本＋特別編1本のコラムを計画し、実装済みはコラム01〜05。

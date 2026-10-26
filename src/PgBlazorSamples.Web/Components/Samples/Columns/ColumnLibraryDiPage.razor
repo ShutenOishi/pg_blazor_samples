@@ -1,0 +1,49 @@
+@page "/learn/column/library-di"
+@using Microsoft.Extensions.Options
+@using PgBlazorSamples.Web.Services.Learning
+@inject IOptions<LearningOptions> Settings
+@inject ILogger<ColumnLibraryDiPage> Logger
+@inject NavigationManager Navigation
+
+<PageTitle>特別コラム05：ライブラリのDIを使いこなす｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">特別コラム05 / ライブラリを使うためのDI</p>
+<h1>ライブラリの機能は、登録して受け取って使う</h1>
+<p>すべての部品を自作する必要はありません。ライブラリの提供するDI登録と使い方が分かると、Blazorの開発を始めやすくなります。</p>
+<section class="lesson-details">
+  <h2>実際に標準サービスを使ってみる</h2>
+  <p>Optionsが返す教材名：<strong data-testid="library-di-title">@Settings.Value.CourseTitle</strong></p>
+  <p>NavigationManagerが返す現在の画面：<strong data-testid="library-di-uri">@Navigation.ToBaseRelativePath(Navigation.Uri)</strong></p>
+  <button type="button" @onclick="WriteLog">ILoggerで学習用ログを書く</button>
+  <p role="status" data-testid="library-di-message">@message</p>
+</section>
+<section class="lesson-details">
+  <h2>ライブラリの導入手順は3つに分けて確認する</h2>
+  <ol>
+    <li>必要なパッケージ、名前空間、対象の描画モードを確認する。</li>
+    <li><code>Program.cs</code>などで <code>Add...()</code> を呼び、機能を登録する。</li>
+    <li><code>@@inject</code> またはコンストラクターでサービスを受け取り、必要ならProviderコンポーネントも配置する。</li>
+  </ol>
+  <details>
+    <summary>例：MudBlazorのサービスとProvider（Step21で実際に導入）</summary>
+    <p>パッケージ導入後に <code>builder.Services.AddMudServices();</code> で登録します。ダイアログや通知には、それぞれのProviderコンポーネントも必要です。ここではまだMudBlazorの実パッケージを追加していません。</p>
+  </details>
+  <details>
+    <summary>例：NpgsqlのDataSource（DB学習編で導入）</summary>
+    <p>接続プールを管理するDataSourceと、操作ごとに取得・破棄する接続は寿命が異なります。接続をScopedやSingletonで不用意に保持してはいけません。この画面はDBに接続しません。</p>
+  </details>
+  <details>
+    <summary>問題：AddMudServices()だけでダイアログは必ず動く？</summary>
+    <p>いいえ。対応するProvider、対話型描画モード、パッケージやCSS等の設定も公式手順に従って確認します。</p>
+  </details>
+</section>
+<div class="page-navigation"><a href="/learn/column/20">コラム04へ戻る</a><a href="/">学習目次へ</a></div>
+@code {
+    private string message = "ログはまだ書き込んでいません。";
+
+    private void WriteLog()
+    {
+        // 機密情報をログに出さず、ライブラリ提供のILoggerをそのまま利用します。
+        Logger.LogInformation("ライブラリDIコラムの学習用操作を確認しました。");
+        message = "学習用ログを書き込みました。";
+    }
+}

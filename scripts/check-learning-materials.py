@@ -40,6 +40,14 @@ for number in range(5, max(steps) + 1, 5):
     if f'"{doc}"' not in PDF_SCRIPT:
         missing.append(doc + "：PDF索引に不足")
 
+if max(steps) >= 20:
+    extra = 'docs/columns/column-library-di.md'
+    if not (ROOT / extra).is_file() or f'"{extra}"' not in PDF_SCRIPT:
+        missing.append(extra + '：特別コラム未収録')
+    page = SAMPLES / 'Columns' / 'ColumnLibraryDiPage.razor'
+    if not page.is_file():
+        missing.append(str(page.relative_to(ROOT)))
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
-print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5}件。")
+print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0)}件。")

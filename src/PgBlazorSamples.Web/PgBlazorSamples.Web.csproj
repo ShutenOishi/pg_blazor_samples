@@ -4,4 +4,7 @@
     <RootNamespace>PgBlazorSamples.Web</RootNamespace>
     <AssemblyName>PgBlazorSamples.Web</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PgBlazorSamples.Application/PgBlazorSamples.Application.csproj" />
+  </ItemGroup>
 </Project>

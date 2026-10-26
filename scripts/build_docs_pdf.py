@@ -37,6 +37,13 @@ CHAPTERS = [
     ("ステップ14：BlazorのScopedと対話回線", "docs/samples/step14.md"),
     ("ステップ15：injectとコンストラクター注入", "docs/samples/step15.md"),
     ("学習コラム03：DIとサービスの寿命", "docs/columns/column11-15.md"),
+    ("ステップ16：Optionsで設定を受け取る", "docs/samples/step16.md"),
+    ("ステップ17：非同期処理とログ", "docs/samples/step17.md"),
+    ("ステップ18：DIによる単体テスト", "docs/samples/step18.md"),
+    ("ステップ19：Applicationへ処理を分離", "docs/samples/step19.md"),
+    ("ステップ20：DIで課題管理を作る", "docs/samples/step20.md"),
+    ("学習コラム04：設定とサービス分離", "docs/columns/column16-20.md"),
+    ("特別コラム05：ライブラリが提供するDI", "docs/columns/column-library-di.md"),
 ]
 
 EXTENSIONS = {".cs", ".razor", ".csproj", ".slnx", ".sln", ".sql", ".props", ".targets", ".css", ".js", ".json"}
@@ -108,10 +115,10 @@ def main():
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから依存性注入まで<br>日本語で順番に学ぶ15ステップ</p>
+      <p class="lead">画面づくりから依存性注入まで<br>日本語で順番に学ぶ20ステップ</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜15／復習コラム01〜03</p>
+      <p class="version">学習範囲：ステップ01〜20／コラム01〜05</p>
     </section>
     <section class="toc">
       <h1>目次</h1>

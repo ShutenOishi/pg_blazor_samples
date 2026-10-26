@@ -2,6 +2,8 @@ using System.Globalization;
 using PgBlazorSamples.Web.Components;
 using PgBlazorSamples.Web.Services.Clock;
 using PgBlazorSamples.Web.Services.Lifetime;
+using PgBlazorSamples.Web.Services.Learning;
+using PgBlazorSamples.Application;
 
 // 日本語専用の教材なので、サーバーのOS設定によらず日本語表示を標準にする。
 // 日時や数値の既定書式、今後導入する入力検証などにも適用する。
@@ -11,7 +13,7 @@ CultureInfo.DefaultThreadCurrentUICulture = japaneseCulture;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 最初の15ステップはWebプロジェクトのみを使用する。
+// Step18でUnitTests、Step19でApplicationを段階的に追加する。
 // Step11からDIコンテナーへ時計サービスを登録する。
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -27,6 +29,13 @@ builder.Services.AddSingleton<SingletonMarker>();
 builder.Services.AddScoped<ScopedMarker>();
 builder.Services.AddTransient<TransientMarker>();
 builder.Services.AddScoped<ScopedCounter>();
+
+// Step16：標準Optionsライブラリのサービス登録。設定を画面で解析しない。
+builder.Services.Configure<LearningOptions>(builder.Configuration.GetSection("Learning"));
+
+// Step19〜20：Applicationの契約と実装、画面固有の保存方法を分離する。
+builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
+builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 
 var app = builder.Build();
 
