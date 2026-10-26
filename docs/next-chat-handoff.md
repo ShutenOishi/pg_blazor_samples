@@ -1,8 +1,10 @@
-# 次チャットへの引き継ぎ：Step75、前段PR受入、PDF単体配布
+# 次チャットへの引き継ぎ：Step71〜75の受入とStep76以降
 
-- Step71 PR #27 と Step72 PR #28 はWindows/Linux/Chrome/PG18/PDF受入後mainへ保護マージ済み。
-- Step73 PR #29 は行ロックと同一トランザクションによる書込み認可。Step74は新PRで業務DBと同一トランザクションの永続監査、匿名・監査失敗時の拒否を追加。まず各PRの最新版HEAD・CIを認証済みGitHub GETで確認し、修復・順次保護マージ、main/push受入を行う。
-- Step75: Windows Server 2025 + IIS / AD / Kerberosの実機手順、CSP・CSRF・DataProtection鍵共有・Cookie失効・SignalR再接続・1万人台帳/同時接続とプール負荷試験、FDW遅延/切断と監査保管/バックアップの受入を追加。5ステップごとの日本語コラム16、Razorページ、step75教材、PDF目次・Chrome・PostgreSQL18 CIを同期。
-- 本番DBや実ADの接続テストはCIの模擬Principal成功では代用しない。元表/FDWにロック原子性がないときは更新拒否。認可は既存DBのみ、登録・権限付与UIなし。本人名再利用は元表側禁止または不変ID。
-- 日本語教材とコード・PDFを同じPRで更新、失敗は積極修復。Windows/Linux/Chrome/PG18/PDFの必須CI全成功のみ保護マージ。main/pushでPDF Release assetを検証し、ZIP配布しない。
-- EF Core用の層別プロジェクトは増やさずWeb内Data/Services。MudBlazor.Translations維持。
+対象: https://github.com/ShutenOishi/pg_blazor_samples
+
+- Step71 PR #27、Step72 PR #28はCI成功後にmainへ保護マージ済み。Step73 PR #29、Step74 PR #30、Step75 PRは段階的PR。最新GitHub GETを必ず取得し、各HEADのWindows/Linux・Chrome・PostgreSQL18・日本語PDF CIを確認。失敗を能動修復して順に保護マージし、main/push受入。
+- PDFはReleaseの単体アセット `blazor_learning_textbook_ja.pdf` として配布しZIPにはしない。main/push成功後に実物URL・内容・更新コミットを再確認。
+- Step73は同一DBの権限行ロックを実機で保証できる場合だけ`Authorization:TransactionalLedgerConfirmed=true`。FDW/別DBは原子性未検証なら更新拒否。
+- Step74は`Authorization:DurableAuditConfirmed=true`で永続監査、更新と監査を同一トランザクションでコミット。失敗時は拒否。CIの疑似認証はAD実機試験ではない。
+- Step75はWindows Server 2025/IIS/AD/Kerberos、SPN・証明書・Cookie失効・Data Protection鍵・SignalR・FDW・高負荷の実機チェック手順。現地証跡を確認するまで受入済みと称さない。
+- Step76〜80へ進むときもWeb内EF Core10、MudBlazor.Translations、学習5ステップごとの日本語コラム、Razor/PDF/CIの同期、登録UIなし、既存DB認可を維持。

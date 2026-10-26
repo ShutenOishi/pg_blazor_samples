@@ -112,3 +112,7 @@ AD認証の本人情報はIIS/ASP.NET Coreで取得し、DBにはADパスワー�
 - [ASP.NET CoreのWindows認証](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/windowsauth?view=aspnetcore-10.0)
 - [Blazor Web AppのWindows認証](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/blazor-web-app-with-windows-authentication?view=aspnetcore-10.0)
 - [Windows Server 2025でのgMSA管理](https://learn.microsoft.com/ja-jp/windows-server/identity/ad-ds/manage/group-managed-service-accounts/group-managed-service-accounts/manage-group-managed-service-accounts)
+
+## Step75：実機受入チェック
+
+IIS + Windows認証の通常経路・明示Cookie経路を別々に検証し、SPN・Kerberos・HTTPS、Cookie鍵共有・失効・SignalR再接続、台帳FDW切断・遅延、権限行ロック、監査INSERT失敗で業務更新を中止できることを受け入れます。10,001人の登録件数を同時接続人数やDBプール接続数と混同しません。**Actionsの偽PrincipalやPostgreSQL18 CI成功は実機受入の代用ではありません。**

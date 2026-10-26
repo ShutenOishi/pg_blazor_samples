@@ -76,7 +76,8 @@ async function waitText(page, selector, expected) {
             [71, "現在の台帳照合を確認"],
             [72, "Cookie認証と台帳照合を確認"],
             [73, "更新可能性を照合する"],
-            [74, "監査を伴う一覧取得を確認"]
+            [74, "監査を伴う一覧取得を確認"],
+            [75, "本番運用の認可ゲートを照合"]
         ]) {
             await page.goto(base + "/learn/" + step);
             await page.waitForTimeout(1600);
@@ -84,7 +85,7 @@ async function waitText(page, selector, expected) {
             // Blazorのイベントは非同期で描画される。クリック直後の初期文字列は判定しない。
             await waitText(page, '[data-testid="step' + step + '-state"]', "拒否");
         }
-        console.log("ステップ66〜74：匿名の業務アクセスは全画面で拒否");
+        console.log("ステップ66〜75：匿名の業務アクセスは全画面で拒否");
         await page.goto(base + "/learn/04");
         // 初期のHTMLが表示されていても、対話型回線の準備前にはクリックが処理されない。
         await page.waitForTimeout(1800);

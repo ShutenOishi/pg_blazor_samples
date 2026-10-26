@@ -110,6 +110,8 @@ CHAPTERS = [
     ("ステップ72：明示Windowsログインと短命Cookie", "docs/samples/step72.md"),
     ("ステップ73：権限行ロックと更新の原子性", "docs/samples/step73.md"),
     ("ステップ74：本人・操作・結果を永続監査する", "docs/samples/step74.md"),
+    ("ステップ75：IIS・Kerberos・負荷・障害の実機受入", "docs/samples/step75.md"),
+    ("学習コラム16：認証・認可・監査の本番移行判断", "docs/columns/column71-75.md"),
     ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
     ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]
@@ -185,10 +187,10 @@ def main():
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから日本語UIまで<br>74ステップ＋用途別MudBlazorとデータ連携の先取り学習</p>
+      <p class="lead">画面づくりから日本語UIまで<br>75ステップ＋用途別MudBlazorとデータ連携の先取り学習</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜74／コラム01〜15／MudBlazor特別コラム／データ連携設計ガイド</p>
+      <p class="version">学習範囲：ステップ01〜75／コラム01〜16／MudBlazor特別コラム／データ連携設計ガイド</p>
     </section>
     <section class="toc">
       <h1>目次</h1>
