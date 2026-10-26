@@ -294,6 +294,48 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="library-di-message"]', "学習用ログを書き込みました");
         console.log("コラム04・特別コラム05：DIの理解を深める日本語画面を確認");
 
+        // Step21〜25：MudBlazorのイベント・日本語入力・検証・一覧を実際に操作する。
+        await page.goto(base + "/learn/21");
+        await page.waitForTimeout(1200);
+        await page.getByRole("button", { name: "日本語の通知を表示する" }).click();
+        await waitText(page, '[data-testid="step21-state"]', "通知サービスを使いました");
+        await page.screenshot({ path: path.join(evidence, "step21.png") });
+
+        await page.goto(base + "/learn/22");
+        await page.waitForTimeout(1000);
+        await page.getByRole("button", { name: "学習メニューを開閉" }).click();
+        await waitText(page, '[data-testid="step22-state"]', "メニューを閉じています");
+        await page.getByRole("button", { name: "学習メニューを開閉" }).click();
+        await waitText(page, '[data-testid="step22-state"]', "メニューを表示しています");
+        await page.screenshot({ path: path.join(evidence, "step22.png") });
+
+        await page.goto(base + "/learn/23");
+        await page.waitForTimeout(1000);
+        await page.getByRole("textbox", { name: "練習用の氏名" }).fill("練習太郎");
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎");
+        await page.screenshot({ path: path.join(evidence, "step23.png") });
+
+        await page.goto(base + "/learn/24");
+        await page.waitForTimeout(1000);
+        await page.getByRole("button", { name: "入力を検証する" }).click();
+        await waitText(page, '[data-testid="step24-result"]', "入力内容に不備があります");
+        await page.getByText("課題名を入力してください。").waitFor();
+        await page.getByText("学習内容を入力してください。").waitFor();
+        await page.getByRole("textbox", { name: "課題名（必須）" }).fill("架空の課題");
+        await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("UIを学ぶ");
+        await page.getByRole("button", { name: "入力を検証する" }).click();
+        await waitText(page, '[data-testid="step24-result"]', "入力検証に合格しました");
+        await page.screenshot({ path: path.join(evidence, "step24.png") });
+
+        await page.goto(base + "/learn/25");
+        await page.waitForTimeout(1000);
+        await waitText(page, '[data-testid="step25-count"]', "4 件");
+        await page.getByText("課題名", { exact: true }).last().click();
+        await page.screenshot({ path: path.join(evidence, "step25.png") });
+        await page.goto(base + "/learn/column/25");
+        await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
+        console.log("ステップ21〜25とコラム06：MudBlazorの画面と対話を確認");
+
         await page.keyboard.press("Tab");
         if ((await page.locator(":focus").count()) === 0) {
             throw new Error("キーボードでフォーカスを移動できません。");
