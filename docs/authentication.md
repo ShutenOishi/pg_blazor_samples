@@ -29,6 +29,14 @@
 
 匿名閲覧できる教材を設ける場合は、業務データ・内部API・管理機能へ接続できない無害なサンプル画面だけを`AllowAnonymous`で明示します。`FallbackPolicy`は原則として認証要求とし、未指定の業務ルートを無条件公開しません。
 
+## Step61〜65の実装範囲（業務認可は未完成）
+
+- 設定 `WindowsAuthentication__Enabled=true` の場合に標準Negotiate認証を登録し、デフォルトポリシーを未認証に対して要求します。IIS側のWindows認証・匿名認証は管理者が別途設定します。
+- 設定が無効の場合は**架空データ学習専用**です。既存Step31〜60を含むアプリを業務データへ接続してはなりません。
+- `app_user`とロール表は`database/schema/002_app_access.sql`をPostgreSQL 18の**開発用DBだけ**で適用します。新規利用者は登録しないため、デフォルトですべて拒否します。
+- `WindowsUserAccessService`は認証済みSIDをDBで再照合し、利用者・ロール・権限を判定します。ただしStep31〜60の一覧・編集・CSV処理へ認可は未適用です。
+- CI上で認証主体を模したテストは、実ADのKerberos・IIS・SPNの実機確認に代わるものではありません。
+
 ## 実装・運用上の注意
 
 - Windows認証は`Microsoft.AspNetCore.Authentication.Negotiate`などの公式機構を利用する。IIS、Kestrel、リバースプロキシそれぞれで設定・信頼境界が異なる。
