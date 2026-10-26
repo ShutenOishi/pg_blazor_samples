@@ -1,27 +1,30 @@
-# 次のチャット引き継ぎ：Step66〜70の業務認可・監査・IIS
+# 次のチャット引き継ぎ：大規模認証編のPR #24受入とStep66〜70
 
-## 観測済みmain
-- Step51〜55 PR #22、Step56〜60 PR #23は保護マージ済み。
-- Step56〜60のmain/pushアプリ・PDF CIはSUCCESS。
-- Step61〜65は `feat/step61-65-windows-sid-roles` に実装。PRの最新CIとmain状態を再確認すること。
+## 最新の基本状況
 
-## Step61〜65で追加したもの
-- 公式Negotiate認証の設定分岐、Blazor認証状態、SID確認。
-- WebのData/内にapp_user、app_role、app_permission、関連テーブルをEF Coreマッピング。開発用DDLは002_app_access.sql。
-- WindowsUserAccessServiceで未認証・SIDなし・未登録・無効・権限なし・DB障害を拒否。サービス認可の範囲はまだ限定的。
-- Step61〜65の日本語画面、コラム14、5章の日本語教材、PDF索引、Chrome匿名拒否・PostgreSQL18結合試験。
-- EF CoreはWeb内のData/とServices/のみを使い、新たな層別プロジェクトを作らない。MudBlazor.TranslationsとStep40/41間の用途別特別コラムは維持。
+- mainはStep01〜60まで。Step61〜65の実装はPR #24 `feat/step61-65-windows-sid-roles` にある。**必ず最新PR HEADとCIを再取得する**。
+- ユーザー要件によりPR #24の初期SID/app_user登録モデルは置換。以後は**ADはWindows認証とドメイン付きユーザー名取得だけ、利用者登録なし、既存テーブル/外部テーブルを正本**にする。
+- WebのData/Servicesを維持し、EF Coreのための層別プロジェクトを新設しない。MudBlazor.TranslationsとStep40/41間の特別コラムを保持。
 
-## 続き（重要）
-1. 最新PRのWindows/Linux/実Chrome/PostgreSQL18/PDF CIを確認。失敗は修復し、全成功後だけ保護マージしてmain/pushを受け入れる。
-2. Step66：AuthorizeRouteView・AuthorizeViewとFallbackPolicyによる画面認可。匿名の安全な教材を明示して、業務部分だけを確実に保護する。
-3. Step67：Count・Items・詳細・CSV・一括更新を含む実業務サービスのすべての経路で**操作ごとに**権限を判定。権限変更・DB障害はフェイルクローズ。
-4. Step68：ロールと利用者の管理操作は管理者権限とCSRF対策付きで実装。任意のSID入力で本人を偽装しない。
-5. Step69：個人情報を最小化した監査（実行者・対象・成否・時刻、失敗含む）。
-6. Step70：IIS/Windows Server 2025/KerberosとSPNの構築確認。CI代替と実AD・IIS実機受入を区別する。
-7. コラム15・日本語画面・コード・PDFを同一PRで同期し、必須CI全成功を完了条件にする。
+## PR #24の追加実装
 
-## 安全契約
-- **Step66〜70のサービス認可完成までは開発用DB以外につなげない**。WindowsAuthentication:Enabled=falseは業務公開不可。
-- SIDは認証済み主体のみから取り、HTTPヘッダーや入力値、単なるログイン名へフォールバックしない。
-- CIで実AD/IISのKerberos成立を実証したと主張しない。
+- ReadTrustedLoginName：認証済みWindows主体から`DOMAIN\\user`を得る。SIDやHTTPヘッダーへ依存しない。
+- LearningDbContextに読み取り専用の`learning_user_access_v`をキーレスでマッピング。0件・複数件・無効・権限なし・障害時は拒否する。
+- `database/schema/002_app_access.sql`は**CI専用の架空1万1人の台帳fixture**。業務アプリ自体は利用者を登録しない。
+- Step61〜65、コラム14、特別コラム「1万人規模の認証・既存台帳・明示ログイン・監査」、設計資料、PDF索引とChrome操作、PostgreSQL18試験。
+- Windows/Linux/実Chrome/PostgreSQL18/PDFが最新PR HEADで全成功するまで未完成。成功すれば通常の保護マージとmain/push CIを検証する。
+
+## 続き
+
+1. PR #24の元HEAD CIを見て、失敗があれば能動的に直す。全成功後マージしてmain CIを見る。
+2. Step66〜70のルート・サービスの実認可へ進み、Count/Items/詳細/CSV/編集/集計と部署の絞込を必ず共有する。
+3. 外部台帳/FDWの遅延・索引pushdown・キャッシュ反映・ユーザー名再使用・重複・DB障害の否定検証を強化する。
+4. 明示ログインが必要な業務だけ専用Windows認証HTTP endpoint→短命Cookieを採用。IIS匿名可否/経路、データ保護キー、失効、HTTP SignInを分離。**ADパスワード入力は禁止**。
+5. 監査はアプリ側の確実なレコードを優先し、PostgreSQL application_nameは補助的な固定名またはトランザクション限定相関値にする。
+6. 日本語画面、コラム15、学習テキストPDFとソースの整合性、実機AD/IISとCI代替の区別を維持する。
+
+## 安全境界
+
+- Step66〜70のサービス強制認可が完了するまで、実データは接続不可。
+- ドメインを省くユーザー名照合は不可。ユーザー名再使用/変更の運用リスクを明示。
+- 非Windows認証スキームの自己申告Claimを業務本人として受理しない。
