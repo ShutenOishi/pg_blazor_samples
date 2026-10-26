@@ -5,14 +5,14 @@
 ## 既にある成果
 - 既存の実装：旧Step01〜80の80本。
 - v2で先行本文改稿済み：旧Step11〜30の20本とコラム5本。v3の最終照合は未実施。
-- 現行PR上のWeb目次・PDFには第1段階のWeb基礎5件と第2段階のruntime5件を挿入。新規10件と9段階の完全移行は未完了。mainのRelease PDFは別の既存80ステップ版。
+- 現行Draft PRのWeb目次・日本語PDFには旧80件と新規25件の初稿を配置。最後の新規5件と9段階の最終全面改稿は未完了。mainの正式Release PDFは別に維持。
 
-## 新規ステップ（初稿と画面追加済み 20 / 30、第5段階CI成功）
+## 新規ステップ（初稿と画面追加済み 25 / 30、第7段階CI成功）
 - [x] web：5件のRazor・Markdown・復習・索引を追加、HEAD 9e12130のWindows/Linux・実ブラウザー・PG18・PDF CI成功（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] runtime：5件（HEAD 6f22c9dのWindows/Linux・Chrome・PG18・PDF CI成功）（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 - [x] browser：5件（初稿・画面・第9組復習・第4段階概要を追加。HEAD 9a9df7eのWindows/Linux・Chrome・PG18・PDF CI成功）
 - [x] db-bridge：5件（画面・教材初稿・概要・復習第10〜12組・Chrome・PostgreSQL18・PDF CI成功）
-- [ ] security：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
+- [x] security：5件（画面・日本語初稿・第7段階概要・第17組復習・安全拒否単体テスト・Chrome/Win/Linux/PG18/PDF CI成功）
 - [ ] capstone：5件（Razor＋教材＋復習＋テスト＋PDFを同じ単位で実装）
 
 ## 最終全面改稿（受入済み 0 / 110）
@@ -33,7 +33,7 @@
 - [ ] 1万人規模認証・既存DB認可特別コラム
 
 ## 段階概要（最終受入 0 / 9）
-- [x] 9段階の**計画用概要草稿**を作成し、第1・第2・第4・第5段階をPRのPDFへ先行収録
+- [x] 9段階の**計画用概要草稿**を作成し、第1・第2・第4・第5・第7段階をPRのPDFへ先行収録
 - [ ] 最終PDF/Webの段階先頭へ9ページを配置し、本文・演習と整合
 
 ## 5件単位の受入条件
@@ -89,3 +89,12 @@
 - [x] 初回の実DB否定試験で`FromSql`が`xmin`不足により失敗したため、`SELECT xmin, *`を使用するようRazor・教材・テストを統一。修正後実DB試験合格。
 - [ ] 今後はsecurity-01〜05（学習順081〜085）と第7段階概要、第17組復習を実装し、その後capstone-01〜05（学習順106〜110）を配置。
 - [ ] **最終全面改稿は0/110**。新規30本の配置完了後に、概要9本・復習22本・特別3本を含め学習順001から全件改稿する。
+
+## 2026-10-27 第7段階security-01〜05の実装・CI受入・PDF Release反映
+- [x] 前HEAD `d1e686c00e8f9af2cb26e831f51474b7a7b703ea` のアプリ Run 40359052176 と PDF Run 40359052135 は両方SUCCESS、同HEADのプレビューRelease asset存在・生成元SHA一致を再確認した。
+- [x] 新規5件を学習順081〜085へ配置。Razor画面・日本語Markdown・第7段階概要・第17組復習・Web目次・NavMenu・前後リンク・PDF索引・教材整合検査・Chrome E2Eを同期した。旧Step01〜80のURLを維持。
+- [x] Windows認証/Cookie/circuit、Middleware/HTTPS/Antiforgery、XSS/CSRF/SQLパラメーター、SecretとData Protection鍵、接続失効/権限版の模擬否定試験を追加。**本物のAD認証や既存DB台帳を新規教材画面で偽装しない。**
+- [x] 実装HEAD `d16ec614bc8f863cb8feb9a3e0143702e59ea16a` の [アプリCI Run 40360843077](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40360843077) は Windows/Linux Release、全単体テスト、Chrome E2E、PostgreSQL18実DB試験すべてSUCCESS。
+- [x] 同HEADの [PDF Run 40360843042](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40360843042) もSUCCESS。プレビューRelease `learning-textbook-v3-preview` に単体日本語PDF（926066バイト）を更新し、生成元SHAを再取得して照合済み。ZIP化・正式main版の上書きなし。
+- [ ] 次はcapstone-01〜05（学習順106〜110）、第9段階概要、第22組復習をRazor/本文/Web/PDF/否定・Chrome・PG18テストと同時実装する。
+- [ ] 30件全初稿後に、全110ステップ・22復習・3特別コラム・9概要を**学習順001から**最終全面改稿する。最終改稿の受入済みは0/110。

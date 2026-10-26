@@ -897,7 +897,7 @@
       "title": "Windows認証・Cookie・HTTP・circuit",
       "source": "docs/course-v3/lessons/security-01.md",
       "url": "/learn/security-01",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -908,7 +908,7 @@
       "title": "Middlewareの順序・HTTPS・IISの経路",
       "source": "docs/course-v3/lessons/security-02.md",
       "url": "/learn/security-02",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -919,7 +919,7 @@
       "title": "XSS・CSRF・SQL注入の防御境界",
       "source": "docs/course-v3/lessons/security-03.md",
       "url": "/learn/security-03",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -930,7 +930,7 @@
       "title": "環境別設定・Secret・Data Protection鍵",
       "source": "docs/course-v3/lessons/security-04.md",
       "url": "/learn/security-04",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {
@@ -941,7 +941,7 @@
       "title": "接続切断・セッション失効・権限再検証",
       "source": "docs/course-v3/lessons/security-05.md",
       "url": "/learn/security-05",
-      "implementation": "implemented-ci-pending",
+      "implementation": "implemented-ci-passed",
       "rewrite": "first-draft"
     },
     {

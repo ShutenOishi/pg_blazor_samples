@@ -2,7 +2,16 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 第5段階のCI成功とPDF Releases更新（最新）
+## 2026-10-27 セキュリティ5件のCI受入・プレビューPDF更新（最新）
+- Draft PR #36：新規初稿25/30。既存80のURL維持。全面改稿0/110。
+- security-01〜05（学習順081〜085）、第7段階概要、第17組復習、Razor・Markdown・Web/PDF目次・模擬安全拒否単体テスト・Chrome否定操作を追加。
+- 実装HEAD `d16ec614bc8f863cb8feb9a3e0143702e59ea16a`：アプリCI Run 40360843077（Windows/Linux/Chrome/PG18）と PDF Run 40360843042 が全SUCCESS。
+- `learning-textbook-v3-preview` に同HEADの日本語PDF単体926066バイトが公開済み。正式mainのRelease `learning-textbook` は上書きしない。
+- 再開時にPR HEAD・進捗・最新PRコメント・CI・プレビューReleaseの生成元を照合し、失敗があれば修正する。
+- 次はcapstone-01〜05（学習順106〜110）、第9段階概要、第22組復習。実装と日本語教材・Windows/Linux・Chrome・PG18・PDFの同期を行う。
+- 30新規配置後は学習順001から全110本文・22復習・3特別コラム・9段階概要を最終全面改稿し、各5件単位で受入する。
+
+## 2026-10-27 第5段階のCI成功とPDF Releases更新（履歴）
 - PR #36で新規20/30本の初稿とRazorを実装・CI受入済み。最終全面改稿は0/110、PRはDraft。
 - 実装HEAD `34ffe89a2f2ae77d61eb21e3fdf0f58030f45b20`：アプリ/Chrome/Windows/Linux/PG18 Run 40358248623、PDFとReleasesへの反映 Run 40358248514 がSUCCESS。
 - `learning-textbook-v3-preview` のPDFは同HEADの生成元をRelease notesで確認済み。ZIP化しない。正式mainのReleaseは変更しない。
