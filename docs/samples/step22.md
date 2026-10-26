@@ -9,7 +9,7 @@
 3. 画面幅を狭くし、2列の情報カードが1列へ折り返されることを確認します。
 
 ## ソースの仕組み
-この教材は既存のナビゲーションを保つため、MudPaper・MudStack・MudGrid・MudItem・MudNavMenuをページ内で使用します。メニューの表示状態は bool のフィールドに保持します。公式テンプレートのMudLayout、MudAppBar、MudDrawerによるアプリ全体の構成とも比較してください。
+この教材は既存のナビゲーションを保つため、MudLayout・MudAppBar・MudDrawer・MudMainContentをページ内で使用し、MudGrid・MudItemでレスポンシブに配置します。メニューの表示状態は bool のフィールドに保持します。公式テンプレートのMudLayout、MudAppBar、MudDrawerを用いたアプリ全体の構成とも比較してください。既存の学習メニューを壊さないよう、このページではFixed=falseにして局所的な学習エリアに配置しています。
 
 ## 注意
 画面の開閉はRazorの状態更新です。認証・認可による機能制限とは異なります。機能の利用権限は後続の認可編で学びます。
