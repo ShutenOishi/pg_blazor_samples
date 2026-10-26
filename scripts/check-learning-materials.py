@@ -234,6 +234,35 @@ if f'"{review17}"' in PDF_SCRIPT and f'"{expected_sec[-1]}"' in PDF_SCRIPT and P
 if f'"{review17}"' in PDF_SCRIPT and '"docs/samples/step61.md"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review17}"') > PDF_SCRIPT.index('"docs/samples/step61.md"'):
     missing.append("第17組復習は次の学習順086より前に配置")
 
+
+# 最後の5ステップ：総合演習と段階概要・第22組を教材/PDF/Webに同期する。
+for n in range(1, 6):
+    lesson_id = f"capstone-0{n}"
+    item = ordered[104 + n]
+    page = SAMPLES / "Capstone" / f"Capstone0{n}Page.razor"
+    if item["sequence"] != 105 + n or item["id"] != lesson_id or not item["implementation"].startswith("implemented"):
+        missing.append(f"{lesson_id}：学習順または実装状態の不一致")
+    if not page.is_file() or f'@page "/learn/{lesson_id}"' not in page.read_text(encoding="utf-8"):
+        missing.append(f"{lesson_id}：Razor画面とURLが不足")
+    if not (ROOT / item["source"]).is_file() or f'"{item["source"]}"' not in PDF_SCRIPT:
+        missing.append(f"{lesson_id}：MarkdownかPDFへの収録が不足")
+stage09 = "docs/course-v3/stages/stage09.md"
+review22 = "docs/course-v3/reviews/review-22.md"
+if not (SAMPLES / "Capstone" / "CapstoneOverviewPage.razor").is_file() or f'"{stage09}"' not in PDF_SCRIPT:
+    missing.append("第9段階の概要画面・PDF索引が不足")
+if not (SAMPLES / "Capstone" / "CapstoneReview22Page.razor").is_file() or not (ROOT / review22).is_file() or f'"{review22}"' not in PDF_SCRIPT:
+    missing.append("第22組の復習画面・本文・PDF索引が不足")
+expected_capstone = [x["source"] for x in ordered[105:110]]
+actual_capstone = [source for source in actual_v3_prefix if source in expected_capstone]
+if actual_capstone != expected_capstone:
+    missing.append("総合演習106〜110のPDF学習順が不正")
+if f'"{stage09}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{stage09}"') > PDF_SCRIPT.index(f'"{expected_capstone[0]}"'):
+    missing.append("第9段階概要を学習順106より先に配置してください")
+if f'"{review22}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review22}"') < PDF_SCRIPT.index(f'"{expected_capstone[-1]}"'):
+    missing.append("第22組復習を学習順110の後に置いてください")
+if not (ROOT / "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs").is_file():
+    missing.append("総合演習のPostgreSQL18否定試験が不足")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

@@ -786,6 +786,55 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "auth-at-scale.png") });
         console.log("1万人規模の認証・既存台帳・ログイン・監査の選定画面を確認");
 
+
+        // 第9段階：実業務アクセスは必ず既存の認可サービスを通し、匿名時の拒否を確認。
+        await page.goto(base + "/learn/stage/capstone");
+        await page.getByRole("heading", { name: "第9段階の概要：業務アプリの通し演習" }).waitFor();
+        await page.goto(base + "/learn/capstone-01");
+        await page.waitForTimeout(850);
+        await page.getByLabel("要件を選ぶ").selectOption("edit");
+        await page.getByRole("button", { name: "設計の確認" }).click();
+        await waitText(page, '[data-testid="capstone01-result"]', "xmin");
+
+        await page.goto(base + "/learn/capstone-02");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "生成SQLだけを確認する" }).click();
+        await waitText(page, '[data-testid="capstone02-sql"]', "SELECT");
+        await page.getByRole("button", { name: "権限付き一覧を取得する" }).click();
+        await waitText(page, '[data-testid="capstone02-result"]', "拒否");
+        await waitText(page, '[data-testid="capstone02-total"]', "総件数：0 件");
+
+        await page.goto(base + "/learn/capstone-03");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "認可付き詳細を取得する" }).click();
+        await waitText(page, '[data-testid="capstone03-result"]', "拒否");
+        if (await page.getByRole("button", { name: "権限と競合を再検査して保存する" }).count() !== 0)
+            throw new Error("匿名画面に編集の保存ボタンを表示してはいけません。");
+
+        await page.goto(base + "/learn/capstone-04");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "現在の権限と監査の前提を確認" }).click();
+        await waitText(page, '[data-testid="capstone04-result"]', "拒否");
+        await page.getByRole("button", { name: "認可付き集計を取得する" }).click();
+        await waitText(page, '[data-testid="capstone04-summary"]', "拒否");
+
+        await page.goto(base + "/learn/capstone-05");
+        await page.waitForTimeout(850);
+        await page.getByRole("button", { name: "受入の不足を確認する" }).click();
+        await waitText(page, '[data-testid="capstone05-result"]', "受入に不足");
+        for (const label of ["コード・日本語教材・Web目次・PDFの内容が一致する",
+                             "Windows/Linux・PostgreSQL 18・ChromeのCI証跡を確認した",
+                             "未認証・権限失効・競合・監査失敗時に拒否する",
+                             "実IIS/AD/Kerberos・証明書・負荷・復旧の実機受入証跡がある"]) {
+            await page.getByLabel(label, { exact: true }).check();
+        }
+        await page.getByRole("button", { name: "受入の不足を確認する" }).click();
+        await waitText(page, '[data-testid="capstone05-result"]', "本番受入を宣言できません");
+        await page.goto(base + "/learn/column/capstone-110");
+        await page.getByRole("heading", { name: "第22組の復習：業務アプリの通し演習" }).waitFor();
+        await page.screenshot({ path: path.join(evidence, "capstone-review22.png") });
+        console.log("総合演習5画面・認可付き一覧/詳細/集計の匿名拒否・IIS受入区分を確認");
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

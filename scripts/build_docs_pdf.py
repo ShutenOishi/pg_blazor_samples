@@ -164,6 +164,13 @@ CHAPTERS = [
     ("ステップ79：実DB・ブラウザー・認可の結合/E2E試験", "docs/samples/step79.md"),
     ("ステップ80：Windows Server 2025/IISの配布・切替・復旧", "docs/samples/step80.md"),
     ("学習コラム17：競合制御・キャッシュ・監視・本番復旧", "docs/columns/column76-80.md"),
+    ("第9段階の概要：業務アプリの通し演習", "docs/course-v3/stages/stage09.md"),
+    ("学習順106：業務要件・画面遷移・WinForms移行の設計", "docs/course-v3/lessons/capstone-01.md"),
+    ("学習順107：PostgreSQL検索とページング・生成SQL", "docs/course-v3/lessons/capstone-02.md"),
+    ("学習順108：DTO編集・競合・取消・例外の統合", "docs/course-v3/lessons/capstone-03.md"),
+    ("学習順109：認証済み本人と既存台帳による権限・監査", "docs/course-v3/lessons/capstone-04.md"),
+    ("学習順110：E2E・障害復旧・IIS受入表", "docs/course-v3/lessons/capstone-05.md"),
+    ("第22組の復習：総合演習", "docs/course-v3/reviews/review-22.md"),
     ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
     ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]
