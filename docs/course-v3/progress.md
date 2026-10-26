@@ -1,6 +1,6 @@
 # 教材v3 再編・実装・最終全面改稿の進捗
 
-**現在の確定進捗：新規初稿30/30、最終全面改稿15/110、通常復習3/22、段階概要2/9。**
+**現在の確定進捗：新規初稿30/30、最終全面改稿20/110、通常復習4/22、段階概要2/9。**
 
 **2つの進捗を分けて追跡します。** 以前の教材v2で本文改稿した成果は無効化せず保存しますが、新しい前提順で読み直すまでは最終改稿と数えません。
 
@@ -17,9 +17,9 @@
 - [x] security：5件（画面・日本語初稿・第7段階概要・第17組復習・安全拒否単体テスト・Chrome/Win/Linux/PG18/PDF CI成功）
 - [x] capstone：5件（Razor・日本語初稿・第9段階概要・第22組復習・Web/PDF目次・匿名拒否Chrome試験・PostgreSQL18結合試験を追加し、全CI成功）
 
-## 最終全面改稿（受入済み 15 / 110）
+## 最終全面改稿（受入済み 20 / 110）
 - [x] 第1段階：学習順001〜005、概要・本文5本・関連復習・PDFとUIの一致を受入（HEAD f48474d、Windows/Linux/Chrome/PG18/PDF CI SUCCESS）
-- [ ] 第2段階：学習順006〜020。**006〜015の10本と第2段階概要・第2〜3組復習はCI受入済み**、016〜020の5本と第4組復習は未改稿
+- [x] 第2段階：学習順006〜020の15本、段階概要、第2〜4組復習を実装・教材・PDF・Chrome・PG18同一HEADでCI受入済み
 - [ ] 第3段階：学習順021〜030、概要・本文10本・関連復習・PDFとUIの一致を受入
 - [ ] 第4段階：学習順031〜045、概要・本文15本・関連復習・PDFとUIの一致を受入
 - [ ] 第5段階：学習順046〜060、概要・本文15本・関連復習・PDFとUIの一致を受入
@@ -29,7 +29,7 @@
 - [ ] 第9段階：学習順106〜110、概要・本文5本・関連復習・PDFとUIの一致を受入
 
 ## 復習と特別コラム（最終改稿受入済み 3 / 25）
-- [ ] 学習順5件ごとの通常復習22本の本文・実装・索引を再構成（第1〜3組受入：3/22）
+- [ ] 学習順5件ごとの通常復習22本の本文・実装・索引を再構成（第1〜4組受入：4/22）
 - [ ] DI特別コラム
 - [ ] 用途別MudBlazor特別コラム
 - [ ] 1万人規模認証・既存DB認可特別コラム
@@ -143,3 +143,12 @@
 - [x] [学習テキストv3プレビュー](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview)の日本語PDF単体は**1,141,020バイト**、Asset SHA256 `b646ebc7af8e8cf01c57ca043965fe5b238c5f2d8af006e8d754db34668ef99e`。Release notesの生成元SHAと上記実装HEADが認証済みGETで一致。ZIP配布なし、main正式版は変更なし。
 - [x] **確定進捗：新規初稿30/30、最終全面改稿15/110、通常復習3/22、段階概要2/9。** 実AD/IIS/Kerberos/FDWの実機受入とは区別。
 - [ ] **次は学習順016〜020（旧Step09・runtime-03・旧Step10・runtime-04・runtime-05）と第4組復習を全面改稿。** 第2段階概要・Razor・学習順・前後リンク・Web目次・PDF・品質ゲート・Chrome操作を合わせる。全CIとPreviewの同一HEADが確認できた場合だけ20/110へ進める。
+
+## 2026-10-27 第4組（学習順016〜020）の全面改稿・CI受入
+- [x] 旧Step09・runtime-03・旧Step10・runtime-04・runtime-05を実Razor/C#と照合し、各本文**4,534〜5,227文字**へ全面改稿。初期化/破棄、事前レンダリング、フォームの日本語検証、URLと再読込、状態の保存先を取り違えない構成とし、実コード2ブロック以上、WinForms＋Dapper比較、診断表、操作手順、演習と詳細解答を追加した。第4組復習は5,642文字。
+- [x] 第2段階概要、Razorの実装説明・比較表と前後リンク、Web目次の既存順序、PDF章順、品質スクリプトの文字数/表/コード/導線検査、Chromeでの016→017と020→第4組復習の遷移を同期。旧80URLを保持。
+- [x] **実装HEAD `897153ba5c4e4c65bf91c6fa6c2c151d0e86a582`** の[アプリCI Run 40418321144](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40418321144)（Windows Server 2025、Linux Chrome、xUnit、PostgreSQL 18実DB、匿名・権限・監査など既存の安全拒否）が全SUCCESS。[PDF CI Run 40418321149](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40418321149)もSUCCESS。
+- [x] [プレビューRelease](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview)の日本語PDF単体`blazor_learning_textbook_ja.pdf`は**1,204,237バイト**、SHA256 `00b2247f3f2eee2fd92944719403dd02ba9370c88f2cc3dba45cde16fefb42d4`。認証済みGitHub GETで生成元SHAと実装HEADの一致を確認。ZIP・正式main版の更新なし。
+- [x] **受入進捗：新規初稿30/30、最終全面改稿20/110、通常復習4/22、段階概要2/9。** 第2段階の15本と復習3組が受入済み。実AD/IIS/Kerberos/FDW・大規模負荷の実機受入とは区別する。
+- [ ] **次は学習順021〜025（旧Step11〜15：DIの基本、インターフェイス、Singleton/Scoped/Transient、Blazor Scopedとcircuit、injectとコンストラクター注入）および第5組復習・第3段階概要を全面改稿。** 既存のサービス・画面実装を詳細に読み、各本文3,300文字以上、実コード2ブロック以上、WinForms＋Dapper比較表と診断表、操作手順、演習と詳しい解答を整備する。Web/PDF章順・前後リンク・Chrome/安全ゲートを同一HEADで照合し、成功時のみ25/110・復習5/22・概要3/9へ進める。
+- [ ] 進捗記録更新後のPR最新HEAD自体について、新しいアプリ/PDF CIとPreview Releaseの生成元SHA・Assetを認証済みGETで再照合し、PRコメントに記録する。既存成功Runの再実行はしない。

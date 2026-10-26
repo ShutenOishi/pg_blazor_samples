@@ -183,7 +183,7 @@
       "source": "docs/samples/step09.md",
       "url": "/learn/09",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 17,
@@ -194,7 +194,7 @@
       "source": "docs/course-v3/lessons/runtime-03.md",
       "url": "/learn/runtime-03",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 18,
@@ -205,7 +205,7 @@
       "source": "docs/samples/step10.md",
       "url": "/learn/10",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 19,
@@ -216,7 +216,7 @@
       "source": "docs/course-v3/lessons/runtime-04.md",
       "url": "/learn/runtime-04",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 20,
@@ -227,7 +227,7 @@
       "source": "docs/course-v3/lessons/runtime-05.md",
       "url": "/learn/runtime-05",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 21,
@@ -1245,7 +1245,7 @@
       "from": 6,
       "to": 20,
       "overview": "docs/course-v3/stages/stage02.md",
-      "final_review": "overview-ci-passed"
+      "final_review": "ci-passed"
     },
     {
       "name": "DI・サービスと単体テスト",
@@ -1354,14 +1354,16 @@
       "after_sequence": 15,
       "path": "docs/course-v3/reviews/review-03.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 4,
       "after_sequence": 20,
       "path": "docs/course-v3/reviews/review-04.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 5,
