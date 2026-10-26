@@ -95,7 +95,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Step11〜12：時計の約束と差し替え可能な具象実装を登録する。
-builder.Services.AddSingleton<IClock, SystemClock>();
+builder.Services.AddSingleton<IClock, PgBlazorSamples.Web.Services.Clock.SystemClock>();
 builder.Services.AddSingleton<FixedClock>();
 builder.Services.AddTransient<GreetingService>();
 builder.Services.AddTransient<GreetingFormatter>();
