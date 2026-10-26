@@ -33,6 +33,7 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - Step06：全4件から未完了2件へ絞り込み、その後4件へ復帰
 - キーボードのフォーカスが移動すること（詳細なWCAG検証は別に行う）
 - 成功時に日本語画面のスクリーンショットをActionsのArtifactへ保存
+- Linuxのスクリーンショットで日本語が□などの代替記号にならないよう、Chrome起動前にNoto Sans CJK JPを導入して日本語用fontconfigの解決先を検証
 
 上記の実ブラウザー試験は [GitHub Actions Run 40260767597](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40260767597) で **Ubuntu/Windowsビルド・ブラウザー操作ともSUCCESS** を確認しました。操作の画面画像は同RunのArtifactsから取得できます。
 
