@@ -19,7 +19,7 @@
 
 ## 2. プロジェクトと参照方向
 
-Step01〜03には `PgBlazorSamples.Web` と `Program.cs`、`Components/`、`.razor` を実装しました。[Step01](samples/step01.md)、[Step02](samples/step02.md)、[Step03](samples/step03.md)の資料は、実際のファイルを参照しています。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてDomainとInfrastructureを作ります。
+Step01〜06は `PgBlazorSamples.Web` と `Program.cs`、`Components/`、各`.razor`に実装済みです。[Step01](samples/step01.md)、[Step02](samples/step02.md)、[Step03](samples/step03.md)、[Step04](samples/step04.md)、[Step05](samples/step05.md)、[Step06](samples/step06.md)の資料は、実際のソースファイルを参照しています。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてDomainとInfrastructureを作ります。
 
 ```text
 PgBlazorSamples.Web

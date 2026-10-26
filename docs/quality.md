@@ -19,7 +19,8 @@
 - [x] Windows Server 2025ランナーで.NET 10の復元、Releaseビルド、発行を検証。
 - [x] 不明な学習URLで日本語の説明が表示されることを確認。
 - [x] RazorでHTMLタグに似た文字列が、タグとして出力されないことを確認。
-- [ ] 実ブラウザーのキーボード操作、SignalR接続の切断・再接続は今後検証。
+- [x] Step04〜06の実ブラウザークリック、日本語入力、一覧フィルター、初歩的なキーボードフォーカスを検証。
+- [ ] より広範なキーボード操作・読み上げ、SignalRの強制切断・再接続は今後検証。
 
 CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)／[PDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)。公開Runnerから社内ADへの接続は行いません。
 
@@ -33,7 +34,7 @@ CIの実行履歴：[Blazorビルド](https://github.com/ShutenOishi/pg_blazor_s
 - キーボードのフォーカスが移動すること（詳細なWCAG検証は別に行う）
 - 成功時に日本語画面のスクリーンショットをActionsのArtifactへ保存
 
-テストコードの存在だけでは「試験成功」ではありません。該当コミットのCI完了状態・ログを照合してください。
+上記の実ブラウザー試験は [GitHub Actions Run 40260767597](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40260767597) で **Ubuntu/Windowsビルド・ブラウザー操作ともSUCCESS** を確認しました。操作の画面画像は同RunのArtifactsから取得できます。
 
 ## 今後追加するGitHub Actions
 
