@@ -6,7 +6,7 @@
 <p>画面上部の操作領域と開閉できるメニューの役割を確認します。</p>
 <MudPaper Class="pa-3" Elevation="1">
     <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" AriaLabel="学習メニューを開閉" OnClick="ToggleMenu" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" aria-label="学習メニューを開閉" OnClick="ToggleMenu" />
         <MudText Typo="Typo.h6">練習用管理画面</MudText>
     </MudStack>
     <p role="status" data-testid="step22-state">@(_menuOpen ? "メニューを表示しています。" : "メニューを閉じています。")</p>
