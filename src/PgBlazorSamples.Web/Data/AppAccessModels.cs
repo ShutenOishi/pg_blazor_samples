@@ -1,38 +1,17 @@
 namespace PgBlazorSamples.Web.Data;
 
-// Step63〜65：本人のAD識別子と、アプリ内で許可する役割は別の情報として保存する。
-// ADパスワードやWindows資格情報をPostgreSQLへ保存しない。
-public sealed class AppUser
+/// <summary>
+/// Step63〜65：既存利用者台帳・外部テーブルを同じ形式で扱うための読み取り専用ビュー。
+/// アプリが利用者を登録したり権限を付与したりすることはない。
+/// </summary>
+public sealed class ExistingUserAccessRow
 {
-    public long Id { get; set; }
-    public string Sid { get; set; } = "";
+    // DOMAIN\userなど、Windows認証で確定した値と正規化済みの一意なアカウント。
+    public string LoginName { get; set; } = "";
     public string DisplayName { get; set; } = "";
     public bool IsActive { get; set; }
-}
-
-public sealed class AppRole
-{
-    public int Id { get; set; }
-    public string Code { get; set; } = "";
-    public string Name { get; set; } = "";
-    public bool IsActive { get; set; }
-}
-
-public sealed class AppPermission
-{
-    public int Id { get; set; }
-    public string Code { get; set; } = "";
-    public string Name { get; set; } = "";
-}
-
-public sealed class AppUserRole
-{
-    public long UserId { get; set; }
-    public int RoleId { get; set; }
-}
-
-public sealed class AppRolePermission
-{
-    public int RoleId { get; set; }
-    public int PermissionId { get; set; }
+    public bool CanRead { get; set; }
+    public bool CanEdit { get; set; }
+    public string? UnitCode { get; set; }
+    public long AuthorizationVersion { get; set; }
 }
