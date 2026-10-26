@@ -76,3 +76,8 @@
 - [x] PDFは既存の正式版と区別してReleasesの`learning-textbook-v3-preview`に公開。最初の検証済み版はcommit 1af26d95、PDF単体872186バイト。今回の新HEADは全CI完了後だけプレビューを更新する。
 - [ ] PostgreSQL18でFromSql/SqlQueryのSQLインジェクション否定検証を追加しCIを受入する。
 - [ ] 次はsecurity-01〜05および第7段階概要・復習、続いてcapstone-01〜05。30件配置後に最終全面改稿001〜110。
+
+### 2026-10-27 PostgreSQL 18実DB試験の修復
+- [x] 新規DbBridgeIntegrationTestsの初回Run 40357737630で`FromSql`の`SELECT *`が`xmin`を返さず失敗することを実測。
+- [x] モデルで必須の更新競合列`xmin`を`SELECT xmin, *`で明示し、教材Razorと実DB試験と解説を一致させた。SQL注入否定条件は維持。
+- [ ] 新HEADのPG18・Win/Linux・Chrome・PDF・Preview Releaseへの反映を確認する。

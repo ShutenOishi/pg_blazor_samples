@@ -34,3 +34,13 @@ SQLのWHEREに利用者文字列を直接結合してよいですか？
 - [ ] 操作画面で結果を確認した。
 - [ ] ブラウザー/サーバー/DBの処理を区別できた。
 - [ ] 安全なSQLのパラメーターと操作単位の短命DbContextを説明できた。
+
+## PostgreSQL 18での実行時の注意
+この教材の`LearningTask`はPostgreSQLのシステム列`xmin`を更新競合トークンに使用しています。`FromSqlInterpolated`で`LearningTask`のEntityを直接取得する場合は、モデルに必要な`xmin`列を返してください。
+
+```csharp
+var rows = db.Tasks.FromSqlInterpolated(
+    $"SELECT xmin, * FROM learning_task WHERE title = {term}");
+```
+
+`SELECT *`だけではPostgreSQLの`xmin`が返らないため、実DBの結果マッピング時に例外が発生します。この違いはPostgreSQL 18の統合試験で検証します。

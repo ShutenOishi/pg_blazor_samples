@@ -23,7 +23,7 @@
         using var db = Factory.CreateDbContext();
         var keyword = term;
         fromSql = db.Tasks.FromSqlInterpolated(
-            $"SELECT * FROM learning_task WHERE title = {keyword}").AsNoTracking().ToQueryString();
+            $"SELECT xmin, * FROM learning_task WHERE title = {keyword}").AsNoTracking().ToQueryString();
         sqlQuery = db.Database.SqlQuery<int>(
             $"SELECT COUNT(*)::int AS \"Value\" FROM learning_task WHERE title = {keyword}").ToQueryString();
         state = "パラメーター化したSQLを生成しました。実DBは操作していません。";

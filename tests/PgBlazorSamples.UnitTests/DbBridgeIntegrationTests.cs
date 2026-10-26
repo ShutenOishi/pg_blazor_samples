@@ -28,13 +28,13 @@ public sealed class DbBridgeIntegrationTests
 
             // 悪意ある見た目の文字列をSQLの値として渡しても全件取得にならない。
             var found = await db.Tasks.FromSqlInterpolated(
-                $"SELECT * FROM learning_task WHERE title = {attack}").AsNoTracking().ToListAsync();
+                $"SELECT xmin, * FROM learning_task WHERE title = {attack}").AsNoTracking().ToListAsync();
             Assert.Empty(found);
             var counted = await db.Database.SqlQuery<int>(
                 $"SELECT COUNT(*)::int AS \"Value\" FROM learning_task WHERE title = {attack}").SingleAsync();
             Assert.Equal(0, counted);
             var expected = await db.Tasks.FromSqlInterpolated(
-                $"SELECT * FROM learning_task WHERE title = {title}").AsNoTracking().SingleAsync();
+                $"SELECT xmin, * FROM learning_task WHERE title = {title}").AsNoTracking().SingleAsync();
             Assert.Equal(id, expected.Id);
         }
         finally
