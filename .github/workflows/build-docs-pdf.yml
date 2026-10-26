@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           packages=()
-          for name in fonts-noto-cjk libpango-1.0-0 libpangocairo-1.0-0; do
+          for name in fonts-ipafont-gothic libpango-1.0-0 libpangocairo-1.0-0; do
             if ! dpkg-query -W -f='${Status}' "$name" 2>/dev/null | grep -q 'install ok installed'; then
               packages+=("$name")
             fi
@@ -52,7 +52,7 @@ jobs:
             sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 update
             sudo timeout 150s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 install -y "${packages[@]}"
           fi
-          fc-match :lang=ja | grep -E 'Noto Sans CJK JP|Noto Serif CJK JP'
+          fc-list :lang=ja family | grep -Ei 'Noto.*CJK|IPA'
       - name: PDF生成ライブラリを導入
         run: python -m pip install "weasyprint==66.0" "markdown-it-py==4.0.0" "pypdf==6.1.1"
       - name: 5ステップごとの学習コラムの漏れを検査
