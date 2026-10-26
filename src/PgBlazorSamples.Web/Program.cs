@@ -69,10 +69,17 @@ builder.Services.AddScoped<ThemePreferenceService>();
 // Step31〜40：新たな層別プロジェクトは作らず、このWeb内でEF Core 10を使う。
 // 未設定時はDB画面で接続前の案内を表示する。接続情報は環境変数で与える。
 var pgConnection = builder.Configuration.GetConnectionString("PostgreSQL");
-builder.Services.AddDbContextFactory<LearningDbContext>(options =>
-    options.UseNpgsql(string.IsNullOrWhiteSpace(pgConnection)
+// PostgreSQLの接続にはアプリ名を固定で付ける。利用者別の接続文字列にせず
+// Npgsqlのプールを再利用する。実行者の監査は業務サービス側で別途記録する。
+var pgApplicationConnection = new Npgsql.NpgsqlConnectionStringBuilder(
+    string.IsNullOrWhiteSpace(pgConnection)
         ? "Host=127.0.0.1;Database=pg_blazor_learning;Username=pg_blazor_learning;Timeout=2"
-        : pgConnection));
+        : pgConnection)
+{
+    ApplicationName = "PgBlazorSamples.Web"
+};
+builder.Services.AddDbContextFactory<LearningDbContext>(options =>
+    options.UseNpgsql(pgApplicationConnection.ConnectionString));
 builder.Services.AddScoped<LearningDbService>();
 // Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
 builder.Services.AddScoped<LearningPageService>();
