@@ -69,7 +69,9 @@ async function waitText(page, selector, expected) {
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
 
-        // 新第1段階の全画面とWeb基礎復習を実ブラウザーで確認する。
+        // 新第1段階の概要・Web基礎・復習を実ブラウザーで確認する。
+        await page.goto(base + "/learn/stage/web");
+        await page.getByRole("heading", { name: "第1段階の概要：Web開発の前提" }).waitFor();
         await page.goto(base + "/learn/web-01");
         await page.waitForTimeout(1000);
         await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
