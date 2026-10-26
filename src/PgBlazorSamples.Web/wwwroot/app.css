@@ -82,3 +82,18 @@ code { overflow-wrap: anywhere; font-size: 0.88em; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ステップ04〜06でも操作範囲とフォーカスを見やすくする。 */
+.practice-actions { display: flex; gap: .65rem; flex-wrap: wrap; margin: 1rem 0; }
+.practice-actions button, .secondary-button { padding: .55rem 1rem; font: inherit; border: 2px solid var(--brand); border-radius: .45rem; color: var(--surface); background: var(--brand); cursor: pointer; }
+.secondary-button { color: var(--foreground); background: var(--surface); }
+.practice-actions button:disabled, .secondary-button:disabled { opacity: .55; cursor: not-allowed; }
+.counter-display { font-size: 1.2rem; }
+.counter-display strong { font-size: 1.6rem; }
+.field-label { display: block; font-weight: 700; margin-bottom: .5rem; }
+.text-input { display: block; width: min(100%, 26rem); padding: .6rem; font: inherit; border: 2px solid var(--border); border-radius: .4rem; color: var(--foreground); background: var(--surface); }
+.checkbox-label { display: inline-flex; align-items: center; gap: .65rem; cursor: pointer; }
+.checkbox-label input { width: 1.3rem; height: 1.3rem; accent-color: var(--brand); }
+.learning-list { padding-left: 1.6rem; }
+.learning-list li { padding: .65rem 0; border-bottom: 1px solid var(--border); }
+.task-status { display: inline-block; margin-left: 1rem; font-weight: 700; }

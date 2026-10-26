@@ -10,6 +10,7 @@ on:
       - "src/**"
       - "docs/samples/**"
       - "scripts/smoke-test.sh"
+      - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
     paths:
@@ -19,6 +20,7 @@ on:
       - "src/**"
       - "docs/samples/**"
       - "scripts/smoke-test.sh"
+      - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   workflow_dispatch:
 
@@ -48,5 +50,28 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: bash scripts/smoke-test.sh
+      - name: Chromeのパスを確認
+        if: runner.os == 'Linux'
+        shell: bash
+        run: command -v google-chrome || command -v chromium
+
+      - name: 実ブラウザー検証ライブラリを導入
+        if: runner.os == 'Linux'
+        shell: bash
+        run: npm --prefix scripts install --no-save --no-package-lock playwright-core@1.56.1
+
+      - name: 日本語UIのクリックと双方向入力を実ブラウザーで確認
+        if: runner.os == 'Linux'
+        shell: bash
+        run: node scripts/browser-smoke.cjs
+
+      - name: 画面操作の証跡画像を保存
+        if: runner.os == 'Linux' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: japanese-blazor-ui-browser-screenshots
+          path: dist/browser-evidence/
+          if-no-files-found: ignore
+
       - name: Release発行を確認
         run: dotnet publish src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj -c Release --no-build -o publish-output

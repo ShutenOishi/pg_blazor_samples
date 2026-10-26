@@ -4,9 +4,9 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、linq2db、Npgsql、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜03のBlazor Webアプリのソースを作成しました。** ビルド・HTTP疎通の確認はGitHub Actionsで行います。Step04〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+> **現在の状態：Step01〜06のBlazor Webアプリのソースを作成しました。** ビルド・HTTP疎通の確認はGitHub Actionsで行います。Step07〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
 
-## Step01〜03を起動する
+## Step01〜06を起動する
 
 Visual Studio 2026で `PgBlazorSamples.slnx` を開き、`PgBlazorSamples.Web` を起動してください。コマンドラインでは次のとおりです。
 
@@ -15,13 +15,13 @@ dotnet restore PgBlazorSamples.slnx
 dotnet run --project src/PgBlazorSamples.Web
 ```
 
-トップページから日本語の各ステップに移動できます。最初の3ステップはDB/ADなしで起動できます。画面メニュー、再接続案内、エラー表示も日本語です。
+トップページから日本語の各ステップに移動できます。最初の6ステップはDB/ADなしで起動できます。画面メニュー、再接続案内、エラー表示も日本語です。
 
-実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)。ソースコード変更時は同じPRで教材を更新します。
+実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)／[ステップ04](docs/samples/step04.md)／[ステップ05](docs/samples/step05.md)／[ステップ06](docs/samples/step06.md)。ソースコード変更時は同じPRで教材を更新します。
 
 ## ソースコード実装の次工程
 
-次の工程は**Step01〜03のBlazor Web App本体とCIを作成すること**です。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
+Step01〜03の基盤に続き**Step04〜06の操作型教材を実装**しました。次はStep07〜10のコンポーネント・フォーム教材を作成します。最初から60個の別アプリを作らず、DI・DB・ADの必要な段階でプロジェクトを増やします。作業単位・実装ファイル・受入基準は[初回ソース実装計画](docs/first-code-implementation-plan.md)をご覧ください。
 
 
 ## どこから始める？

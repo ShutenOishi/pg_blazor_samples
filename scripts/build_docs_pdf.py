@@ -13,8 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = [
     "README.md", "docs/implementation-handbook.md",
     "docs/first-code-implementation-plan.md",
+    "docs/next-chat-handoff.md",
     "docs/samples/step01.md", "docs/samples/step02.md",
     "docs/samples/step03.md",
+    "docs/samples/step04.md", "docs/samples/step05.md",
+    "docs/samples/step06.md",
     "docs/learning-path.md", "docs/sample-catalog.md",
     "docs/di-for-beginners.md", "docs/architecture.md",
     "docs/environment.md", "docs/versions.md", "docs/database.md",
@@ -72,7 +75,7 @@ def main():
       <section class="cover"><p class="edition">pg_blazor_samples / 技術ドキュメント</p>
       <h1>Blazor × PostgreSQL 18<br>日本語技術ハンドブック</h1>
       <p class="lead">Visual Studio 2026 / .NET 10 / MudBlazor / linq2db / Npgsql<br>Active Directory / Windows Server 2025</p>
-      <hr><p><strong>資料の状態：設計・学習計画</strong></p>
+      <hr><p><strong>資料の状態：Step01〜06を実装・その後のStepは設計中</strong></p>
       <p>{html.escape(status)}</p>
       <p class="small">Gitコミット：{html.escape(revision)}<br>生成：{now}</p></section>
       <section class="toc"><h1>目次</h1><ol>{entries}<li><a href="#inventory">ソース整合性付録</a></li></ol></section>
