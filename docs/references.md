@@ -9,8 +9,10 @@
 | Windows認証とBlazor | [Windows認証の公式サンプル](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/security/blazor-web-app-with-windows-authentication?view=aspnetcore-10.0) |
 | ASP.NET CoreのWindows認証 | [Windows認証の構成](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/windowsauth?view=aspnetcore-10.0) |
 | MudBlazor | [NuGet](https://www.nuget.org/packages/MudBlazor) / [公式サイト](https://mudblazor.com/) |
-| linq2db | [NuGet](https://www.nuget.org/packages/linq2db) / [公式リポジトリ](https://github.com/linq2db/linq2db) |
-| linq2db.PostgreSQL | [NuGet](https://www.nuget.org/packages/linq2db.PostgreSQL) |
+| EF Core 10 | [公式概要](https://learn.microsoft.com/ja-jp/ef/core/) / [Blazorとの連携](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/blazor-ef-core?view=aspnetcore-10.0) |
+| Npgsql EF Core Provider | [公式マッピング](https://www.npgsql.org/efcore/mapping/) / [Range](https://www.npgsql.org/efcore/mapping/range.html) |
+| MudDataGrid | [公式API](https://mudblazor.com/api/MudDataGrid) |
+| linq2db（任意の比較） | [公式リポジトリ](https://github.com/linq2db/linq2db) |
 | Npgsql | [NuGet](https://www.nuget.org/packages/Npgsql) / [公式マニュアル](https://www.npgsql.org/doc/) |
 | PostgreSQL 18 | [公式ドキュメント](https://www.postgresql.org/docs/18/) |
 | NuGet一元管理 | [Central Package Management](https://learn.microsoft.com/ja-jp/nuget/consume-packages/central-package-management) |
@@ -24,5 +26,6 @@
 - [ASP.NET Core Windows認証](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/windowsauth?view=aspnetcore-10.0)
 - [Blazor Web AppのWindows認証](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/blazor-web-app-with-windows-authentication?view=aspnetcore-10.0)
 - [Windows Server 2025のgMSA](https://learn.microsoft.com/ja-jp/windows-server/identity/ad-ds/manage/group-managed-service-accounts/group-managed-service-accounts/manage-group-managed-service-accounts)
-- [linq2db 6.5.1（NuGet）](https://www.nuget.org/packages/linq2db/6.5.1)
-- [linq2db.PostgreSQL（NuGet）](https://www.nuget.org/packages/linq2db.PostgreSQL/)
+- [EF Coreページングとキーセット](https://learn.microsoft.com/ja-jp/ef/core/querying/pagination)
+- [Npgsqlの日時型](https://www.npgsql.org/doc/types/datetime.html)
+- [linq2db（上級比較を行う場合のみ）](https://github.com/linq2db/linq2db)

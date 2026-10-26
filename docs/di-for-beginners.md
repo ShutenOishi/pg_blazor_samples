@@ -56,7 +56,7 @@ builder.Services.AddTransient<GreetingService>();
 | Scoped | `AddScoped` | Interactive ServerではHTTP要求単位ではなく**circuitに紐づき得る** |
 | Transient | `AddTransient` | 解決の都度生成。破棄とコストも考慮 |
 
-学習ページで別ブラウザー/別タブを開き、状態がどう変わるかを比較します。長寿命のScopedサービスでNpgsql接続やlinq2dbの変更可能な状態を共有しません。
+学習ページで別ブラウザー/別タブを開き、状態がどう変わるかを比較します。長寿命のScopedサービスでNpgsql接続やEF Core DbContextの変更可能な状態を共有しません。
 
 ## プロジェクト分割は順番に覚える
 
@@ -73,7 +73,11 @@ builder.Services.AddTransient<GreetingService>();
 
 ## ライブラリのDIも理解する
 
-自作するDIだけでなく、既存ライブラリが提供する登録メソッドと注入方法を読むことが重要です。[特別コラム05](columns/column-library-di.md)で、ILogger・IOptions・MudBlazor・Npgsqlを比較します。MudBlazorとNpgsqlは後続のステップで実際に導入します。
+自作するDIだけでなく、既存ライブラリが提供する登録メソッドと注入方法を読むことが重要です。[特別コラム05](columns/column-library-di.md)で、ILogger・IOptions・MudBlazor・Npgsqlを比較します。MudBlazorとNpgsql/EF Coreは後続のステップで実際に導入します。
+
+## EF Coreを使うDIの次の段階
+
+Step31〜40で`AddDbContextFactory<AppDbContext>`、`IDbContextFactory<AppDbContext>`、操作単位の`await using`、Npgsql接続プールを学びます。画面側はDBコンテキストでなくサービスインターフェイスを注入し、一覧の`ServerData`ではCancellationTokenを渡します。[詳しい解説](efcore10-data-access.md)。
 
 ## DIから学ぶセキュリティの注意
 

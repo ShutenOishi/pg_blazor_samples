@@ -7,7 +7,7 @@
 - アプリ: **Blazor Web App / Interactive Server**。サーバー側の処理をSignalR経由で実行
 - 認証: **IIS Windows認証**（Negotiateを使用しKerberosを優先、NTLMへの意図しないフォールバックを検査）
 - 認可: PostgreSQL 18 のアプリユーザー/ロール/操作権限
-- DB: PostgreSQL 18（アプリサーバーと分離可能）。Npgsql/linq2dbで接続
+- DB: PostgreSQL 18（アプリサーバーと分離可能）。EF Core 10（Npgsqlプロバイダー）で接続
 - 利用端末: 社内管理のWindowsドメイン参加端末 + 統合認証を使えるEdge等
 - 接続: 内部DNSのFQDN、信頼された社内CA等によるHTTPS証明書
 - 時刻: ドメイン時刻同期を確認する。日付・時刻の画面表示は日本時間、DBの監査時刻はUTCを基準とする

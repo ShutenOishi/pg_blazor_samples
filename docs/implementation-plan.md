@@ -1,86 +1,73 @@
-# 実装計画とマイルストーン
+# 実装計画・マイルストーン（80ステップ）
 
-## フェーズ0：準備と設計（今回の対象）
+## 目的と実態
 
-- [x] 既存リポジトリを調査する。
-- [x] .NET 10・Interactive Server・MudBlazor・linq2db・Npgsql・PostgreSQL 18・ADの採用方針を文書化する。
-- [x] 60件のステップアップ学習計画を作る。
-- [x] 環境、設計、認証、DB、品質、規約の基本ドキュメントを用意する。
-- [x] ドキュメントPRを受け入れ、mainに反映する。
+- **標準**：Visual Studio 2026 / .NET 10 / Blazor Interactive Server / MudBlazor 9系 + MudBlazor.Translations（ja-JP）/ **EF Core 10 + Npgsql** / PostgreSQL 18。
+- 最終実行環境：ADドメイン内のWindows Server 2025 + IIS。画面は日本語、ソースの説明コメントも日本語。
+- **実装済みソース：Step01〜25とコラム01〜06**。Step21〜25のCI結果は必ず最新Runで確認し、ソース追加だけで検証済みと表記しない。
+- Step26〜80、実PostgreSQL接続、実AD/IIS検証は未実装または未実証。今回の変更は**教材の採用方針と計画**の更新であり、EF Coreソースのビルド・DB実行済みを意味しない。
+- 学習教材・説明・画面実装・コラム・PDFを同じPRで更新し、ソースが存在しない設計例を「実装済み」としない。
 
-## 現在の実装進捗
+## フェーズ構成
 
-- [x] Step01〜03のWebプロジェクトと日本語Razor画面のソースを追加。
-- [x] Step01〜03のソースファイル対応の日本語教材を追加。
-- [x] Windows/Linux ReleaseビルドとHTTP疎通用CIを追加。
-- [x] CIのWindows/Linux ReleaseビルドとLinuxの日本語HTTP画面疎通が成功。
-- [ ] 実ブラウザーのキーボード操作と回線切断・復旧の受入確認を行う。
-- [x] Step04〜06のRazor画面と日本語教材を追加。
-- [x] Step04〜06のChrome操作、日本語HTTP画面、Windows/Linuxビルド、PDF生成の成功をGitHub Actionsで確認。
-- [ ] Step07〜10を実装する。
+| フェーズ | ステップ | 実装テーマ | 状態 |
+| --- | --- | --- | --- |
+| 1 | 01〜10 | Razor、バインド、フォーム | ソース作成済み |
+| 2 | 11〜20 | DI、ライフタイム、単体テスト、Application | ソース作成済み |
+| 3 | 21〜30 | MudBlazor Templates・翻訳・日本語UI・DataGrid基本 | 21〜25ソース作成済み、26〜30計画中 |
+| 4 | 31〜40 | Domain、Infrastructure、EF Core 10、Npgsql、日付・Range、変更追跡、排他、トランザクション | 計画中 |
+| 5 | 41〜60 | データ一覧・検索・編集を20ステップで網羅（選択の根拠と性能実証） | 計画中 |
+| 6 | 61〜70 | AD認証とDB権限、IIS/Kerberos | 計画中 |
+| 7 | 71〜80 | 大量処理、監視、キャッシュ、テスト、Windows Server 2025配備 | 計画中 |
 
-## 直近の実装作業
+## 優先実装順
 
-[最初のソースコード実装計画](first-code-implementation-plan.md)を実行の正本とする。**最初のPRはStep01〜03とWebソリューション、ReleaseビルドCI、日本語教材3本**を一式で追加する。次に04〜06、07〜10を個別PRで実装する。まず各PRの合格を確認し、その後の教材をまとめて追加する。
+### 次回：Step21〜25受入 → Step26〜30
 
-注意：Step31でDomain、Step33でInfrastructureを導入するよう[サンプル一覧](sample-catalog.md)のDB章も再編成した。
+1. Step21〜25の実体・CI・PDF Artifact・Chrome操作の成功可否を最新Runで確認し、失敗している場合のみ必要箇所を修正。
+2. Step26は**DBなし**でMudDataGridの`Items`、フィルター、ページャー、ローカル処理の限界を学ぶ。
+3. Step27〜30はDialog、通知、アクセシビリティ、モックの総合画面を実装。コラム07とPDFへ反映。
+4. CIのWindows/LinuxビルドとChrome操作が成功した範囲だけ「検証済み」に変更。
 
+### DB基盤：Step31〜40
 
-## フェーズ1：動く最小構成（01～10）
+1. Step31 Domain、32 PostgreSQL DDL・架空データ、33 InfrastructureとEF Coreマッピング。
+2. Step34で`IDbContextFactory`、BlazorのScopedとの違い、Npgsql物理接続プールとDbContextプールを比較。
+3. Step35〜36でAsNoTracking/DTO射影、CREATE/UPDATE/DELETE、追跡とNoTrackingを学ぶ。
+4. Step37でDateOnly/TimeOnly、MudDatePickerの変換、Range/Multirangeの実DB型演算。
+5. Step38〜39でトランザクション、`xmin`競合、二重保存、キャンセル・プール・負荷。
+6. Step40で隔離したPostgreSQL 18上のIntegrationTestsと実行計画。コラム08、09とPDFを追加。
 
-- [x] Visual Studio 2026 / .NET 10向けのソリューションとWebプロジェクトを作成する。
-- [x] Interactive Serverを構成し、目次と日本語ナビゲーションを作成する（実ブラウザー接続の受入試験は別途）。
-- [ ] 最初の10件の独立した教材画面と日本語解説を作る。
-- [ ] ビルドと初歩的な単体テストをCIへ入れる。
+### 最優先の連携編：Step41〜60
 
-**終了判定**：新規開発者がREADMEからステップ01を実行でき、01～10の確認条件を満たす。
+[一覧表示10パターン比較](data-grid-patterns.md)のすべてを実際のEF Core 10サービスに接続し、**上級のDataGridがなくても使える設計を含めて**適切な選択を学習する。
 
-## フェーズ2：DI入門・サービス設計（11～20）
+- 41〜45：Items・MudTable ServerData・MudDataGrid ServerData・安全なソート・検索。
+- 46〜50：DTO射影、オフセット/キーセット、描画仮想化、VirtualizeServerData、初回検索とエラーUX。
+- 51〜55：編集DTO、Dialog、選択・一括承認、`xmin`競合、階層データ。
+- 56〜60：DateRange・DB Range、利用者別キャッシュ・権限、集計/CSV、実測/性能改善、選定演習。
 
-- [ ] DI・インターフェイス・ライフタイムを日本語で解説し、交換可能な時計・ToDoサービスを作る。
-- [ ] Blazor ServerのcircuitにおけるScopedの特性を動作で理解する。
-- [ ] UnitTestsとApplicationライブラリを順に追加し、DIによるテスト差し替えを検証する。
+**各5ステップでコラムを1本追加**（コラム10〜13）。最終演習は「どの方式を選ぶか、選ばなかった方式はなぜ不適切か」を説明する提出課題にする。
 
-**終了判定**：11～20のサンプルでDI登録・依存関係・ライフタイムを説明でき、Fake実装でテストできる。
+### 認証・運用：Step61〜80
 
-## フェーズ3：MudBlazorと業務画面（21～30）
+現行の未実装Step41〜50を61〜70へ、51〜60を71〜80へ移動する。ADによる本人認証、DBでの業務認可、認証なし時の既定拒否、Kerberos、IIS、運用・性能を学ぶ。学習用の架空SIDは実AD接続成功の証拠としない。
 
-- [ ] MudBlazorのプロバイダー・レイアウト・フォーム・表・グリッド・通知を導入する。
-- [ ] 先に学んだDIをUI操作のサービス利用に生かす。
-- [ ] ダークモード、日本語文言、キーボード操作、読み上げを確認する。
+## ソースと資料の合格条件
 
-**終了判定**：21～30のMudBlazor画面とアクセシビリティを確認できる。
+- [ ] 各ステップに`/learn/NN`の画面、`docs/samples/stepNN.md`、日本語UI・注釈、演習・失敗ケースがある。
+- [ ] 5ステップ到達時は対応コラムの`Razor`画面・Markdown・PDF章を必ず追加する。現在は通常16回＋特別編1回を計画。
+- [ ] EF Coreは10系、Npgsql EF Coreプロバイダーは互換する10系の安定版パッチを固定し、Restore/Releaseビルド/依存関係監査を行う。
+- [ ] DB利用ステップの検証には**本物のPostgreSQL 18**での正常/異常系、Range、競合、索引、キャンセルを含む。
+- [ ] 41〜60ではGridの`Items`/`ServerData`/`VirtualizeServerData`とサービス側`IQueryable`の責務を説明し、CountとItemsの権限制限を実装・検査。
+- [ ] 公開Runnerから実ADへ接続しない。AD・IIS運用は専用の環境で別途検証する。
+- [ ] 成功済みのCI・PDF Artifactを不要に再実行しない。次のPRで対象変更を含む検証のみを実行する。
 
-## フェーズ4：PostgreSQL 18（31～40）
+## 参照
 
-- [ ] Domain/Infrastructureクラスライブラリを段階的に追加する。
-- [ ] 初期スキーマと架空のテストデータを導入する。
-- [ ] Npgsql/linq2dbの実接続と基本CRUDを実装する。
-- [ ] トランザクション・同時更新・性能を検証する。
-- [ ] PostgreSQL 18を使う独立した結合テストを追加する。
-
-**終了判定**：テストDBでCRUD、ロールバック、競合検出を再現できる。
-
-## フェーズ5：AD認証と認可（41～50）
-
-- [ ] Windows統合認証を有効化し、ADの本人情報を取得する。
-- [ ] SIDと`app_user`を照合する。
-- [ ] DBロール・操作権限・管理画面・監査ログを追加する。
-- [ ] Windows Server 2025のAD検証サーバーでIIS/Kerberosの実接続・拒否テストを実施する。
-
-**終了判定**：AD認証だけでは利用を許さず、DB未登録・無効・権限なしを拒否する。
-
-## フェーズ6：実務応用と保守（51～60）
-
-- [ ] 大量データ・高度なフォーム・ファイル・競合・キャッシュを扱う。
-- [ ] Windows Server 2025 + IISへの構築、Hosting Bundle、HTTPS、SPN、gMSA、SignalRを検証する。
-- [ ] エラー観測、配布、結合・E2Eテストを整備する。
-- [ ] 運用トラブル対応とバージョン更新の手順を確認する。
-
-**終了判定**：全60ステップの再現手順、回帰テスト、完成条件がそろう。
-
-## 作業単位と優先順位
-
-1つのPRには原則**1つの学習テーマ群**を収め、画面・テスト・日本語解説をセットにします。大きな共通化は導入効果を確認してから行い、作業途中の古いサンプルを消さないことを優先します。
-
-初めの実装PRは**ソリューション・目次・ステップ01～03・CI**を推奨します。次のPRで04～10へ進みます。今後ステップを増やすときも計画順序を目安とし、先行実装の必要性がある場合は依存関係を明記します。
+- [80ステップ一覧](sample-catalog.md)
+- [ロードマップ](learning-path.md)
+- [EF Core 10学習ガイド](efcore10-data-access.md)
+- [MudBlazor一覧とデータ連携の選択ガイド](data-grid-patterns.md)
+- [コラム計画](columns/README.md)
+- [PDFのソース同期](pdf-generation.md)
