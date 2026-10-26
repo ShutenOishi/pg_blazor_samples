@@ -1,0 +1,26 @@
+@page "/learn/16"
+@using Microsoft.Extensions.Options
+@using PgBlazorSamples.Web.Services.Learning
+@inject IOptions<LearningOptions> Settings
+
+<PageTitle>ステップ16：Optionsパターン｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ16 / 設定とDI</p>
+<h1>設定ファイルの値を型付きサービスで受け取る</h1>
+<p>Optionsパターンを使うと、画面は設定ファイルの解析方法を知る必要がありません。</p>
+<section class="lesson-details">
+  <h2>設定を読み取る</h2>
+  <p>教材名：<strong data-testid="step16-title">@Settings.Value.CourseTitle</strong></p>
+  <p>課題の上限：<strong data-testid="step16-limit">@Settings.Value.MaxTasks</strong> 件</p>
+  <button type="button" @onclick="() => showCode = !showCode">設定とDIの関係を確認</button>
+  @if (showCode)
+  {
+    <p data-testid="step16-explain">Program.csで設定を登録し、IOptions&lt;LearningOptions&gt; を画面に注入します。</p>
+  }
+</section>
+<section class="lesson-details">
+  <h2>重要な区別</h2>
+  <p><code>Configure&lt;LearningOptions&gt;(...)</code> は設定値をOptionsサービスに結び付ける登録です。毎回設定ファイルを読み直す仕組みではありません。</p>
+  <p>学習用の上限値はサービス側でも検査します。画面表示だけでは入力制限になりません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/15">前へ：ステップ15</a><a href="/learn/17">次へ：ステップ17</a></div>
+@code { private bool showCode; }

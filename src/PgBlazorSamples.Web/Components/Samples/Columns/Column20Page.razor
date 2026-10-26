@@ -1,0 +1,27 @@
+@page "/learn/column/20"
+
+<PageTitle>学習コラム04：設定・テスト・サービス分離｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム04 / ステップ16〜20のまとめ</p>
+<h1>DIを利用して画面の責任を小さくする</h1>
+<section class="lesson-details">
+  <h2>5ステップを結び付ける</h2>
+  <ol>
+    <li>Step16：設定値はIOptionsで受け取る。</li>
+    <li>Step17：ログと非同期処理はILogger、CancellationTokenを使う。</li>
+    <li>Step18：固定時計を使いサービスだけをテストする。</li>
+    <li>Step19：業務処理をApplicationへ分離する。</li>
+    <li>Step20：画面はITodoServiceの契約だけに依存する。</li>
+  </ol>
+  <details><summary>問題：DBの保存方法を変えたら、画面は必ず変更する？</summary>
+    <p>いいえ。ITodoServiceという契約と使用方法が同じなら、DI登録で具象実装を差し替えることで画面を変えずに済みます。</p>
+  </details>
+  <details><summary>問題：Scopedなら画面のすべてのデータが自動永続化される？</summary>
+    <p>いいえ。Blazorの対話回線で保持される練習用の状態であり、データベースへの保存ではありません。</p>
+  </details>
+</section>
+<section class="lesson-details">
+  <h2>次は「自分でDIを作らなくても利用できる」ことを知る</h2>
+  <p>ASP.NET Coreや外部ライブラリがすでに提供しているサービスをDIで受け取れると、Blazorの開発は取り組みやすくなります。</p>
+  <a href="/learn/column/library-di">続けてコラム05：ライブラリが提供するDIを使う</a>
+</section>
+<div class="page-navigation"><a href="/learn/20">ステップ20へ戻る</a><a href="/">学習目次へ</a></div>

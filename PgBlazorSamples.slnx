@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj" />
+  <Project Path="src/PgBlazorSamples.Application/PgBlazorSamples.Application.csproj" />
+  <Project Path="tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj" />
 </Solution>
