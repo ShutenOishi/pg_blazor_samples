@@ -4,7 +4,20 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、linq2db、Npgsql、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：企画・設計・学習計画を整備した段階です。** サンプルの実装、ビルド、AD接続、PostgreSQL接続はまだ実証していません。実装状況は[サンプル一覧](docs/sample-catalog.md)で更新します。
+> **現在の状態：Step01〜03のBlazor Webアプリのソースを作成しました。** ビルド・HTTP疎通の確認はGitHub Actionsで行います。Step04〜60、MudBlazor、PostgreSQL、AD/IIS実機接続は今後の実装・検証対象です。[サンプル一覧](docs/sample-catalog.md)で状態を確認してください。
+
+## Step01〜03を起動する
+
+Visual Studio 2026で `PgBlazorSamples.slnx` を開き、`PgBlazorSamples.Web` を起動してください。コマンドラインでは次のとおりです。
+
+```powershell
+dotnet restore PgBlazorSamples.slnx
+dotnet run --project src/PgBlazorSamples.Web
+```
+
+トップページから日本語の各ステップに移動できます。最初の3ステップはDB/ADなしで起動できます。画面メニュー、再接続案内、エラー表示も日本語です。
+
+実際のソースに対応する教材：[ステップ01](docs/samples/step01.md)／[ステップ02](docs/samples/step02.md)／[ステップ03](docs/samples/step03.md)。ソースコード変更時は同じPRで教材を更新します。
 
 ## どこから始める？
 
@@ -23,9 +36,9 @@ Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazo
 | IDE | Visual Studio 2026 |
 | 言語 | C# 14 |
 | ランタイム | .NET 10（`net10.0`） |
-| UI | Blazor Web App / Interactive Server / MudBlazor |
-| DB | PostgreSQL 18 / linq2db / Npgsql |
-| 認証 | Windows統合認証（Negotiate。IIS利用時はWindows認証も検証） |
+| UI | Blazor Web App / Interactive Server（Step01〜03で利用）／MudBlazor（Step21以降で導入予定） |
+| DB | PostgreSQL 18 / linq2db / Npgsql（Step31以降で導入予定） |
+| 認証 | Windows統合認証（Step41以降で導入予定） |
 | 認可 | PostgreSQLの利用者・ロール・操作権限 |
 | 運用言語 | 日本語のみ（画面、説明、注釈、検証観点） |
 
