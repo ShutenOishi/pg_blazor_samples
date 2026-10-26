@@ -1,0 +1,84 @@
+/* 最初から日本語の読みやすさとキーボード操作を優先する。 */
+:root {
+    font-family: "Yu Gothic UI", "Meiryo", "Noto Sans CJK JP", system-ui, sans-serif;
+    color-scheme: light dark;
+    --background: #f4f7fa;
+    --surface: #ffffff;
+    --foreground: #152b3b;
+    --subtle: #395366;
+    --brand: #075b89;
+    --border: #a7bccb;
+    --focus: #f0a100;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #111c27;
+        --surface: #1b2e3b;
+        --foreground: #f3f7fa;
+        --subtle: #d5e3ec;
+        --brand: #8ed6ff;
+        --border: #648095;
+        --focus: #ffcb57;
+    }
+}
+
+* { box-sizing: border-box; }
+html { font-size: 18px; }
+body { margin: 0; background: var(--background); color: var(--foreground); line-height: 1.7; }
+a { color: var(--brand); text-underline-offset: 0.22em; }
+a:hover { text-decoration-thickness: 0.14em; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+h1, h2 { line-height: 1.4; }
+h1 { font-size: clamp(1.7rem, 4vw, 2.2rem); }
+h2 { font-size: 1.24rem; }
+code { overflow-wrap: anywhere; font-size: 0.88em; }
+.skip-link { position: absolute; left: 1rem; top: -6rem; z-index: 100; padding: .8rem 1rem; background: var(--surface); }
+.skip-link:focus { top: 1rem; }
+.site-header { display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap; padding: 1rem 1.5rem; color: #fff; background: #083b5b; }
+.site-brand { font-weight: 700; font-size: 1.2rem; color: #fff; }
+.site-description { color: #e5f3fa; font-size: .94rem; }
+.app-content { display: grid; grid-template-columns: minmax(13rem, 16rem) minmax(0,1fr); max-width: 84rem; margin: auto; }
+.sidebar { border-right: 1px solid var(--border); padding: 1.5rem; }
+.learn-nav { display: grid; gap: .45rem; }
+.learn-nav h2 { margin: 0 0 .65rem; }
+.learn-nav a { padding: .55rem .65rem; border-radius: .4rem; }
+.learn-nav a.active { color: var(--foreground); font-weight: bold; border: 2px solid var(--brand); background: var(--surface); }
+.nav-planned { color: var(--subtle); font-size: .91rem; }
+.main-content { min-height: 64vh; padding: 2rem clamp(1rem, 4vw, 3rem); min-width: 0; }
+.main-content > :first-child { margin-top: 0; }
+.site-footer { border-top: 1px solid var(--border); padding: 1rem 2rem; text-align: center; color: var(--subtle); }
+.eyebrow { color: var(--subtle); font-weight: 700; }
+.page-heading { max-width: 54rem; margin-bottom: 2rem; }
+.lesson-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem,1fr)); gap: 1rem; }
+.lesson-card, .notice, .lesson-details { border: 1px solid var(--border); border-radius: .75rem; padding: 1rem 1.2rem; background: var(--surface); margin: 1rem 0; }
+.lesson-card h2 { margin: .2rem 0; }
+.lesson-card .eyebrow { margin: 0; }
+.practice-nav, .page-navigation { display: flex; flex-wrap: wrap; gap: .8rem 1.3rem; margin: 1.5rem 0; }
+.hint { color: var(--subtle); }
+.value-list > div { display: flex; flex-wrap: wrap; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--border); }
+.value-list dt { min-width: 9rem; font-weight: 700; }
+.example-output { border-left: 4px solid var(--brand); padding: .6rem 1rem; background: var(--background); }
+.error-panel { padding: 1rem; border: 2px solid var(--border); }
+/* Blazorの接続状態クラスに応じて、日本語メッセージのみ表示する。 */
+#components-reconnect-modal { display: none; position: fixed; z-index: 10001; inset: auto 1rem 1rem; padding: 1rem; border: 3px solid var(--focus); border-radius: .5rem; background: var(--surface); box-shadow: 0 4px 24px #0006; }
+#components-reconnect-modal.components-reconnect-show,
+#components-reconnect-modal.components-reconnect-retrying,
+#components-reconnect-modal.components-reconnect-paused,
+#components-reconnect-modal.components-reconnect-failed,
+#components-reconnect-modal.components-reconnect-rejected { display: block; }
+#components-reconnect-modal p { display: none; }
+#components-reconnect-modal.components-reconnect-show .reconnect-show-message,
+#components-reconnect-modal.components-reconnect-paused .reconnect-show-message,
+#components-reconnect-modal.components-reconnect-retrying .reconnect-retrying-message,
+#components-reconnect-modal.components-reconnect-failed .reconnect-failed-message,
+#components-reconnect-modal.components-reconnect-rejected .reconnect-rejected-message { display: block; }
+
+@media (max-width: 50rem) {
+    .app-content { grid-template-columns: 1fr; }
+    .sidebar { border-right: 0; border-bottom: 1px solid var(--border); padding: 1rem; }
+    .main-content { padding: 1.4rem 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,22 @@
+@inherits LayoutComponentBase
+
+<a class="skip-link" href="#main-content">本文へ移動</a>
+<div class="app-shell">
+    <header class="site-header">
+        <a class="site-brand" href="/">Blazor ステップアップ学習</a>
+        <span class="site-description">日本語で学ぶ業務アプリ開発</span>
+    </header>
+
+    <div class="app-content">
+        <aside class="sidebar">
+            <NavMenu />
+        </aside>
+        <main id="main-content" class="main-content" tabindex="-1">
+            @Body
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <span>学習用のサンプルです。業務情報や実在する利用者の情報は扱いません。</span>
+    </footer>
+</div>
