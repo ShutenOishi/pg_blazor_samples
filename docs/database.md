@@ -2,7 +2,7 @@
 
 ## 原則
 
-PostgreSQLは業務ユーザーと操作権限を保持します。**ADのパスワード、NTLMハッシュ、Kerberosチケットは保存しません。** ユーザー識別の根拠はサーバーで検証されたWindows主体です。データベース接続はNpgsql、CRUDとLINQはlinq2dbを基本とします。
+PostgreSQLは業務ユーザーと操作権限を保持します。**ADのパスワード、NTLMハッシュ、Kerberosチケットは保存しません。** ユーザー識別の根拠はサーバーで検証されたWindows主体です。データベース接続はNpgsql、CRUDとLINQはEF Core 10（Npgsql公式プロバイダー）を基本とします。linq2dbは上級の比較題材に限定します。
 
 以下は**初期設計案**であり、実行済みDDLではありません。型・制約・権限・監査をレビューしてから`database/schema`へSQLを配置します。
 
@@ -70,12 +70,19 @@ CREATE INDEX ix_audit_event_occurred_at ON audit_event (occurred_at DESC);
 ## データアクセスの標準
 
 - SQLパラメーター化とLINQのパラメーター化を用い、利用者入力をSQL文字列に結合しない。
-- `NpgsqlDataSource`は安全に共有する設計を検討し、接続・コンテキスト・トランザクションは処理ごとに破棄する。
+- Blazor Interactive Serverでは`IDbContextFactory<AppDbContext>`を使って操作ごとにDbContextを生成・破棄する。Npgsql物理接続プールとDbContextプールは別。
+- `NpgsqlDataSource`の明示的な共有は必要性が出た時に検討し、二重の接続プール構築を避ける。
 - 検索の絞り込み・件数制限・並べ替えはDB側で実行する。
 - 必要な列のみ取得し、一覧で大量のレコードをメモリに展開しない。
 - 監査記録を含む複数更新はトランザクション境界を明確にする。
 - 日時は`timestamptz`を使用し、UTCと日本時間の変換を明示する。
 - 変更スクリプトは番号付きで管理する。既存の適用済みスクリプトを黙って変更しない。
+
+## EF Coreで扱う日時・期間型（追加予定）
+
+単純な日付は`DateOnly`、時刻は`TimeOnly`、UTC日時は`DateTime`（UTC）を使います。`daterange`/`tstzrange`/`datemultirange`はNpgsqlの型マッピング・境界・包含演算を**PostgreSQL 18で統合試験**してから学習用DDLとC#の型を確定します。UIのMudDatePicker（`DateTime?`）やMudDateRangePickerの`DateRange`をそのままエンティティの型にしません。
+
+詳細：[EF Core 10データアクセス](efcore10-data-access.md)／[一覧表示パターン](data-grid-patterns.md)。
 
 ## テストデータ
 
