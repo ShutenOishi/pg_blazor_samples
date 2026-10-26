@@ -87,6 +87,12 @@ CHAPTERS = [
     ("ステップ54：xmin競合と最新値の確認", "docs/samples/step54.md"),
     ("ステップ55：詳細DTOとN+1の防止", "docs/samples/step55.md"),
     ("学習コラム12：編集・一括処理・競合・詳細", "docs/columns/column51-55.md"),
+    ("ステップ56：日本語日付範囲とDB検索", "docs/samples/step56.md"),
+    ("ステップ57：キャッシュと権限境界", "docs/samples/step57.md"),
+    ("ステップ58：DB側集計とCSV出力", "docs/samples/step58.md"),
+    ("ステップ59：EXPLAINと応答時間計測", "docs/samples/step59.md"),
+    ("ステップ60：一覧パターンを要件から選ぶ", "docs/samples/step60.md"),
+    ("学習コラム13：期間検索・集計・性能・選定", "docs/columns/column56-60.md"),
     ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
     ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]
@@ -162,10 +168,10 @@ def main():
     <section class="cover">
       <p class="brand">Visual Studio 2026 / .NET 10</p>
       <h1>Blazor 実践学習テキスト</h1>
-      <p class="lead">画面づくりから日本語UIまで<br>55ステップ＋用途別MudBlazorとデータ連携の先取り学習</p>
+      <p class="lead">画面づくりから日本語UIまで<br>60ステップ＋用途別MudBlazorとデータ連携の先取り学習</p>
       <div class="cover-note">各ステップ：目標 → 操作 → コードのしくみ → 演習<br>
       5ステップごとに理解を深める復習コラムを収録</div>
-      <p class="version">学習範囲：ステップ01〜55／コラム01〜12／MudBlazor特別コラム／データ連携設計ガイド</p>
+      <p class="version">学習範囲：ステップ01〜60／コラム01〜13／MudBlazor特別コラム／データ連携設計ガイド</p>
     </section>
     <section class="toc">
       <h1>目次</h1>

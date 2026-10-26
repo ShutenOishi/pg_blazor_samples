@@ -64,6 +64,10 @@ builder.Services.AddScoped<LearningPageService>();
 builder.Services.AddScoped<LearningAdvancedPageService>();
 // Step51〜55：短命DbContextを使った編集DTO、排他、一括更新と詳細表示。
 builder.Services.AddScoped<LearningEditService>();
+// Step56〜60：期間検索、集計、学習用キャッシュ、実DB性能の観察をWeb内へ登録。
+builder.Services.AddScoped<LearningRangeExportService>();
+builder.Services.AddScoped<LearningCacheLessonService>();
+builder.Services.AddScoped<LearningPerformanceService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,44 @@
+@page "/learn/59"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningPerformanceService Performance
+@inject LearningDbService Database
+<PageTitle>ステップ59：DB性能観察｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ59 / EXPLAIN・P95・P99</p>
+<h1>実データの索引利用と応答時間を観察する</h1>
+<MudPaper Class="pa-4">
+    <MudButton Color="Color.Primary" Disabled="@_working" OnClick="ObserveAsync">読み取りを20回計測する</MudButton>
+    <p role="status" data-testid="step59-state">@_message</p>
+    @if (_result is not null && _result.PlanLines.Count > 0)
+    {
+        <p>P95：@_result.P95Milliseconds.ToString("F2") ms ／ P99：@_result.P99Milliseconds.ToString("F2") ms</p>
+        <h2>PostgreSQL EXPLAIN（推定計画）</h2>
+        <pre>@string.Join(Environment.NewLine, _result.PlanLines)</pre>
+    }
+</MudPaper>
+<section class="lesson-details">
+    <h2>測定の誤解を避ける</h2>
+    <p>この数値は開発用DBに対する20回だけの小規模な観察値です。P95・P99の統計的精度は高くありません。接続、キャッシュ、同時実行、データ件数で変わるため、業務上の性能保証値として使用しません。</p>
+    <p>SQLは固定のSELECTとEXPLAINのみで書込はしません。実運用の性能判断には十分なサンプル、測定環境の固定、実行計画、索引の前後比較、別系統の負荷試験が必要です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/58">前へ：ステップ58</a><a href="/learn/60">次へ：ステップ60</a></div>
+@code {
+    private bool _working;
+    private LearningPerformanceResult? _result;
+    private string _message = "開発用PostgreSQLで観察できます。";
+    protected override void OnInitialized()
+    {
+        if (!Database.Configured) _message = LearningDbService.NotConfigured;
+    }
+    private async Task ObserveAsync()
+    {
+        if (_working) return;
+        _working = true;
+        try
+        {
+            _result = await Performance.ObserveAsync();
+            _message = _result.Message;
+        }
+        finally { _working = false; }
+    }
+}

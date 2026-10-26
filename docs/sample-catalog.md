@@ -85,7 +85,7 @@
 
 ## Lv.5 一覧表示・EF Core連携（20ステップを追加）
 
-**実行条件：** PostgreSQL 18、Step26（Grid基本操作）、Step31〜40（EF Core）を修了。**Step41〜55はWeb内に実装、Step56〜60は計画中。** 選択の根拠は[一覧表示パターンガイド](data-grid-patterns.md)。
+**実行条件：** PostgreSQL 18、Step26（Grid基本操作）、Step31〜40（EF Core）を修了。**Step41〜60はWeb内に実装。** 選択の根拠は[一覧表示パターンガイド](data-grid-patterns.md)。
 
 | 番号 | 題材 | 到達目標 | 状態 |
 | --- | --- | --- | --- |
@@ -104,13 +104,13 @@
 | 53 | 複数行選択と一括処理 | 権限付き一括承認・部分失敗・選択解除 | ソース・教材追加／CI確認中 |
 | 54 | 競合と楽観的排他 | xmin・削除競合・差分提示・再読み込み | ソース・教材追加／CI確認中 |
 | 55 | 親子/階層/詳細 | 必要時の詳細取得、N+1回避、権限の再確認 | ソース・教材追加／CI確認中 |
-| 56 | 日付・期間フィルター | MudDatePicker/DateRangeとDateOnly/Range検索の連携 | 計画中 |
-| 57 | 利用者別キャッシュ・認可 | 画面/Count/Itemsの権限制限、失効・更新 | 計画中 |
-| 58 | 集約・統計・エクスポート | GroupBy/Count/CSV・大量出力の分離 | 計画中 |
-| 59 | 大量データの実測 | EXPLAIN、索引、P95/P99、プーリング、負荷試験 | 計画中 |
-| 60 | 一覧パターン選定演習 | 10方式から要件に合う構成を選び否定試験まで実施 | 計画中 |
+| 56 | 日付・期間フィルター | MudDatePicker/DateRangeとDateOnly/Range検索の連携 | ソース・教材追加／CI確認中 |
+| 57 | 利用者別キャッシュ・認可 | 画面/Count/Itemsの権限制限、失効・更新 | ソース・教材追加／CI確認中 |
+| 58 | 集約・統計・エクスポート | GroupBy/Count/CSV・大量出力の分離 | ソース・教材追加／CI確認中 |
+| 59 | 大量データの実測 | EXPLAIN、索引、P95/P99、プーリング、負荷試験 | ソース・教材追加／CI確認中 |
+| 60 | 一覧パターン選定演習 | 10方式から要件に合う構成を選び否定試験まで実施 | ソース・教材追加／CI確認中 |
 
-[コラム10：Items・MudTable/MudDataGrid ServerData・検索の選び方](columns/column41-45.md)／[コラム11：DTO・キーセット・仮想化・検索UX](columns/column46-50.md)／[コラム12：編集・一括操作・競合・詳細](columns/column51-55.md)
+[コラム10：Items・MudTable/MudDataGrid ServerData・検索の選び方](columns/column41-45.md)／[コラム11：DTO・キーセット・仮想化・検索UX](columns/column46-50.md)／[コラム12：編集・一括操作・競合・詳細](columns/column51-55.md)／[コラム13：期間・集計・性能・選定](columns/column56-60.md)
 
 ## Lv.6 認証・認可：ADとDB
 

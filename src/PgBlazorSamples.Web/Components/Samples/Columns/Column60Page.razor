@@ -1,0 +1,19 @@
+@page "/learn/column/60"
+<PageTitle>学習コラム13：期間検索と一覧選定｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム13 / Step56〜60</p>
+<h1>一覧は取得条件・権限・出力・性能まで一体で考える</h1>
+<section class="lesson-details">
+    <h2>各ステップの役割</h2>
+    <table><thead><tr><th>対象</th><th>方式</th><th>気をつける点</th></tr></thead><tbody>
+        <tr><td>期間</td><td>DateRange → daterange検索</td><td>終端を含むUIと半開区間の違い</td></tr>
+        <tr><td>キャッシュ</td><td>circuit内Scopedで架空利用者ごと</td><td>AD認証と認可の代用にしない</td></tr>
+        <tr><td>集計・CSV</td><td>DB GroupBy・100件上限</td><td>大量出力と式注入</td></tr>
+        <tr><td>性能</td><td>EXPLAIN・P95/P99の観察</td><td>少数回数は性能保証ではない</td></tr>
+        <tr><td>設計選定</td><td>10方式の比較</td><td>最も簡潔な適合手段を選ぶ</td></tr>
+    </tbody></table>
+    <details><summary>確認：キャッシュのキーに利用者IDだけ入れれば安全？</summary><p>いいえ。実際の認可と権限版、全データ取得経路での認可判定が必要です。</p></details>
+    <details><summary>確認：1万行のCSVを画面のdata URLへ載せる？</summary><p>いいえ。上限と認可を備えた専用ダウンロード経路に分離します。</p></details>
+    <details><summary>確認：EXPLAINの推定値は本番P99と同じ？</summary><p>いいえ。実際の負荷下で計測し、別の監視指標で評価します。</p></details>
+    <p>次はStep61〜70で、Active Directory本人認証とPostgreSQLの業務認可を独立して実装します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/60">ステップ60へ戻る</a><a href="/">学習目次へ戻る</a></div>
