@@ -57,6 +57,21 @@ if max(steps) >= 40:
     if not page.is_file():
         missing.append(str(page.relative_to(ROOT)))
 
+# 段階概要は各段階の先頭に必ず収録し、学習者が目次から先に読めるようにする。
+stage_starts = (1, 11, 21, 31, 41, 61, 71)
+for stage, start in enumerate(stage_starts, start=1):
+    if max(steps) < start:
+        continue
+    page = f"docs/stages/stage{stage:02d}.md"
+    page_marker = f'"{page}"'
+    first_step_marker = f'"docs/samples/step{start:02d}.md"'
+    if not (ROOT / page).is_file():
+        missing.append(page + "：段階概要がありません")
+    if page_marker not in PDF_SCRIPT:
+        missing.append(page + "：PDF目次に収録されていません")
+    elif first_step_marker not in PDF_SCRIPT or PDF_SCRIPT.index(page_marker) > PDF_SCRIPT.index(first_step_marker):
+        missing.append(page + "：段階概要は先頭ステップの前に配置してください")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

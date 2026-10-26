@@ -4,7 +4,7 @@
 
 Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor、EF Core 10（Npgsqlプロバイダー）、PostgreSQL 18を使用します。認証はActive Directory（Windows統合認証）、アプリケーション利用者と権限はPostgreSQLで管理する構成を目指します。
 
-> **現在の状態：Step01〜75の日本語Blazor画面・実装・教材を順次整備しています（追加分は各PRのCIと保護マージで受入）。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
+> **現在の状態：Step01〜80の日本語Blazor画面・実装・教材を整備しています（追加分は各PRのCIと保護マージで受入）。** Step41〜50はMudTable/MudDataGridのServerData、JOIN・DTO、キーセット、仮想化、検索UXを実装しています。Windows/Linuxビルド、ChromeによるUI操作、PostgreSQL 18の実DB結合、PDF生成は[アプリCI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build.yml)と[PDF生成CI](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で検証します。Active DirectoryとIISの実機認証検証はStep61以降の対象です。進捗は[サンプル一覧](docs/sample-catalog.md)を参照してください。
 
 ## 学習アプリを起動する
 
@@ -32,21 +32,23 @@ dotnet new mudblazor -n MudBlazorPractice -o MudBlazorPractice -int Server -ai -
 
 ## EF Core 10とMudBlazorのデータ連携（Step31〜60）
 
-標準ORMを**EF Core 10**に統一し、Npgsql接続プールと`IDbContextFactory`の寿命管理、`DateOnly`/`TimeOnly`/`Range`、楽観的排他制御を必修とします。一覧表示については、[10種類の実務パターン比較と選択ガイド](docs/data-grid-patterns.md)、[EF Core 10とNpgsqlの基礎](docs/efcore10-data-access.md)から先に学べます。**Step31〜50には実DB用サンプルがあります。PostgreSQL 18の実接続テストはCI専用データベースで実施し、AD/IIS実機検証とは区別します。**
+標準ORMを**EF Core 10**に統一し、Npgsql接続プールと`IDbContextFactory`の寿命管理、`DateOnly`/`TimeOnly`/`Range`、楽観的排他制御を必修とします。一覧表示については、[10種類の実務パターン比較と選択ガイド](docs/data-grid-patterns.md)、[EF Core 10とNpgsqlの基礎](docs/efcore10-data-access.md)から先に学べます。**Step31〜60には実DB用サンプルがあります。PostgreSQL 18の実接続テストはCI専用データベースで実施し、AD/IIS実機検証とは区別します。**
 
-## ソースコード実装の次工程
+## 教材v2の改訂方針
 
-Step01〜50の実装を土台として、Step66〜70で画面・サービス双方の業務認可と部署別の一覧・CSV・更新・実機受入課題を追加します。EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
+実装済みStep01〜80と通常16本・特別3本のコラムは、[教材v2改訂計画](docs/curriculum-v2-winforms-dapper-plan.md)に沿って全件の本文を改稿します。[全面改稿の進捗表](docs/curriculum-v2-rewrite-progress.md)で個別の状況を確認できます。各段階の概要は[学習ロードマップ](docs/learning-path.md)と[日本語PDF目次](scripts/build_docs_pdf.py)にも追加しています。新規テーマは既存のURLを維持したまま段階的に導入します。
+
+EF CoreのためのDomain/Infrastructure等の層別プロジェクトは新設せず、Web内のDataとServicesを使います。
 
 ## 5ステップごとの学習コラム
 
-Step05・10・15…80の節目ごとに、**通常16回と特別編2回、計18本**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)、[コラム04：設定とApplication分離](docs/columns/column16-20.md)、[特別コラム05：ライブラリのDI](docs/columns/column-library-di.md)、[コラム06：MudBlazorのDIと日本語化](docs/columns/column21-25.md)、[コラム07：UIとデータ連携](docs/columns/column26-30.md)を掲載しています。コラム08〜11とMudBlazor用途別特別コラムも追加しました。後続のテーマは[全18本の一覧](docs/columns/README.md)を参照してください。
+Step05・10・15…80の節目ごとに、**通常16回と特別編3回、計19本**のコラムを用意します。現在は[コラム01：Razor・イベント・状態](docs/columns/column01-05.md)、[コラム02：親子コンポーネント・入力検証](docs/columns/column06-10.md)、[コラム03：DIとサービスの寿命](docs/columns/column11-15.md)、[コラム04：設定とApplication分離](docs/columns/column16-20.md)、[特別コラム05：ライブラリのDI](docs/columns/column-library-di.md)、[コラム06：MudBlazorのDIと日本語化](docs/columns/column21-25.md)、[コラム07：UIとデータ連携](docs/columns/column26-30.md)を掲載しています。通常コラム16本と特別コラム3本の全体は[全19本の一覧](docs/columns/README.md)を参照してください。
 
 ## どこから始める？
 
 | あなたの状況 | 読む場所 |
 | --- | --- |
-| Blazorが初めて | [学習ロードマップ](docs/learning-path.md) → ステップ01 |
+| Blazorが初めて | [第1段階の概要](docs/stages/stage01.md) → [学習ロードマップ](docs/learning-path.md) → ステップ01 |
 | C#とWeb開発は経験済み | [サンプル一覧](docs/sample-catalog.md)からテーマを選ぶ |
 | 社内システムの設計を学びたい | [構成設計](docs/architecture.md)と[認証・認可](docs/authentication.md) |
 | 開発環境を準備したい | [開発環境](docs/environment.md) |
