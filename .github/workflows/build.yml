@@ -73,12 +73,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # ブラウザー試験は日本語グリフを必要とするが、60MB超のNoto CJKを毎回
-          # APT取得すると、ミラー回線で150秒のタイムアウトが発生することがある。
-          # 画面試験では小型のIPA Gothicでも十分。PDFビルドのNoto要件とは分ける。
+          # ブラウザー試験で必要な日本語グリフを確認する。Ubuntuミラーの通信遅延で
+          # IPAフォント取得が120秒を超えた事例に対応し、ダウンロードの再試行と
+          # 取得猶予を確保する。フォント未導入のまま画面試験を成功扱いしない。
           if ! fc-list :lang=ja family | grep -Eiq 'Noto.*CJK|IPA'; then
-            sudo timeout 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=20 update
-            sudo timeout 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=20 install -y fonts-ipafont-gothic
+            sudo timeout 180s apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 update
+            sudo timeout 300s apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 install -y --no-install-recommends fonts-ipafont-gothic
             timeout 60s fc-cache -f
           fi
           # fc-matchは優先書体を一つ返すだけ。導入フォントの有無はfc-listで調べる。
