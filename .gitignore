@@ -1,0 +1,17 @@
+# .NETおよびVisual Studioが生成する成果物
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+TestResults/
+artifacts/
+dist/
+
+# 個別端末の設定と秘密情報を誤って登録しない
+.env
+.env.*
+!.env.example
+**/appsettings.Local.json
+**/appsettings.Production.json

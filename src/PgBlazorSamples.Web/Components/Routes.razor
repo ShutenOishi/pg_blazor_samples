@@ -1,0 +1,23 @@
+<ErrorBoundary>
+    <ChildContent>
+        <Router AppAssembly="typeof(Program).Assembly">
+            <Found Context="routeData">
+                <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
+                <FocusOnNavigate RouteData="routeData" Selector="h1" />
+            </Found>
+            <NotFound>
+                <LayoutView Layout="typeof(MainLayout)">
+                    <h1>ページが見つかりません</h1>
+                    <p>指定されたページは存在しません。学習の目次から選び直してください。</p>
+                    <a href="/">学習の目次へ戻る</a>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </ChildContent>
+    <ErrorContent>
+        <div class="error-panel" role="alert">
+            <h1>ページの表示中に問題が発生しました</h1>
+            <p>画面を再読み込みしてください。改善しない場合は管理者へ連絡してください。</p>
+        </div>
+    </ErrorContent>
+</ErrorBoundary>

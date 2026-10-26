@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <base href="/" />
+    <link rel="stylesheet" href="@Assets["app.css"]" />
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+<body>
+    <Routes @rendermode="InteractiveServer" />
+
+    <!-- 接続状態はBlazorがCSSクラスで通知する。英語の既定案内を使わない。 -->
+    <div id="components-reconnect-modal" class="reconnect-panel" role="status" aria-live="assertive">
+        <p class="reconnect-show-message">サーバーとの接続が切れました。再接続しています。</p>
+        <p class="reconnect-retrying-message">接続を再試行しています。</p>
+        <p class="reconnect-failed-message">再接続できません。ネットワークの状態を確認して、ページを再読み込みしてください。</p>
+        <p class="reconnect-rejected-message">サーバー上の画面状態が失われました。ページを再読み込みしてください。</p>
+    </div>
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+</html>
