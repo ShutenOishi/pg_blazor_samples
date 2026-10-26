@@ -336,11 +336,27 @@ async function waitText(page, selector, expected) {
         await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
         console.log("ステップ21〜25とコラム06：MudBlazorの画面と対話を確認");
 
-        await page.keyboard.press("Tab");
-        if ((await page.locator(":focus").count()) === 0) {
-            throw new Error("キーボードでフォーカスを移動できません。");
+        // コラムの末尾にはフォーカス可能な要素があるとは限らない。
+        // キーボード試験では、操作可能なボタンを起点にTabで移動できるか確認する。
+        await page.goto(base + "/learn/04");
+        const keyboardStart = page.getByRole("button", { name: "1増やす" });
+        await keyboardStart.waitFor();
+        await keyboardStart.focus();
+        if (!(await keyboardStart.evaluate(element => document.activeElement === element))) {
+            throw new Error("キーボード試験の起点となるボタンにフォーカスできません。");
         }
-        console.log("日本語Blazor画面の実ブラウザー操作試験が完了しました。");
+        await page.keyboard.press("Tab");
+        const tabMovedToControl = await page.evaluate(() => {
+            const target = document.activeElement;
+            return target !== null
+                && target !== document.body
+                && target !== document.documentElement
+                && target.matches('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        });
+        if (!tabMovedToControl || await keyboardStart.evaluate(element => document.activeElement === element)) {
+            throw new Error("Tabキーで次の操作要素にフォーカスを移動できません。");
+        }
+        console.log("日本語Blazor画面のキーボード移動とブラウザー操作試験が完了しました。");
     } catch (error) {
         console.error("ブラウザー操作試験が失敗しました：", error);
         // 失敗時に実際のページ状態を記録し、アプリ不具合とテスト誤判定を区別する。
