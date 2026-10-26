@@ -44,23 +44,33 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-noto-cjk libpango-1.0-0 libpangocairo-1.0-0
       - name: PDF生成ライブラリを導入
-        run: python -m pip install "weasyprint==66.0" "markdown-it-py==4.0.0"
+        run: python -m pip install "weasyprint==66.0" "markdown-it-py==4.0.0" "pypdf==6.1.1"
       - name: 5ステップごとの学習コラムの漏れを検査
         run: python scripts/check-learning-materials.py
       - name: ソースと同期した日本語PDFを生成
         run: python scripts/build_docs_pdf.py
       - name: PDF生成を検査
         run: |
-          test -s dist/pg_blazor_samples_technical_handbook.pdf
+          test -s dist/blazor_learning_textbook_ja.pdf
+          test -s dist/blazor_learning_source_manifest.json
           python - <<'PY'
           from pathlib import Path
-          p = Path("dist/pg_blazor_samples_technical_handbook.pdf")
+          p = Path("dist/blazor_learning_textbook_ja.pdf")
           assert p.read_bytes()[:5] == b"%PDF-"
           print(f"生成PDFのサイズ: {p.stat().st_size} bytes")
+          from pypdf import PdfReader
+          from pathlib import Path
+          reader = PdfReader(str(p))
+          content = "\n".join(page.extract_text() or "" for page in reader.pages)
+          for phrase in ("レポジトリ", "github.com", "README.md", "src/PgBlazorSamples.Web"):
+              assert phrase not in content, f"学習者向けPDFに開発情報が混在しています: {phrase}"
+          assert "ステップ15：injectとコンストラクター注入" in content
+          assert "学習コラム03：DIとサービスの寿命" in content
+          print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
       - name: PDFをダウンロード可能な成果物として保存
         uses: actions/upload-artifact@v4
         with:
-          name: pg_blazor_samples_technical_handbook
-          path: dist/pg_blazor_samples_technical_handbook.pdf
+          name: blazor_learning_textbook_ja
+          path: dist/blazor_learning_textbook_ja.pdf
           retention-days: 30

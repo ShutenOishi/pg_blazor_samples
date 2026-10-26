@@ -74,9 +74,11 @@ Step05・10・15…60の節目ごとに、**全12回**のコラムを用意し�
 
 各ステップは「前提 → 作るもの → 動かし方 → 仕組み → 演習 → 確認方法」で統一し、1ステップずつ動作可能な状態で追加します。設計上は単一の主力Webアプリに機能別教材を追加し、必要になるまでプロジェクトを増やしません。
 
-## PDFで読む
+## 学習者向けのPDFで読む
 
-全資料を日本語PDFとして再生成する[PDF生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)を用意しています。mainのMarkdownから生成されるため、PDFはソース・ドキュメント変更と同じGitコミットを記録します。最新の成功RunのArtifactsからダウンロードしてください。詳細は[PDFの生成・同期方法](docs/pdf-generation.md)。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜15と復習コラム01〜03を収録しています。
+
+[日本語学習PDFの生成ワークフロー](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)の最新成功Runから、`blazor_learning_textbook_ja` を取得できます。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
 ## ドキュメント
 

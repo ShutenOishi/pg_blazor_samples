@@ -173,6 +173,71 @@ async function waitText(page, selector, expected) {
         await page.getByText("親子コンポーネントと入力検証を整理する").waitFor();
         console.log("学習コラム01・02の日本語表示に成功");
 
+        // Step11〜15：DI、時計の差し替え、ライフタイム、Scoped共有、注入を検証。
+        await page.goto(base + "/learn/11");
+        await page.waitForTimeout(1100);
+        await page.getByRole("button", { name: "時刻を読み直す" }).click();
+        if (!(await page.locator('[data-testid="step11-direct"]').textContent())?.trim()) {
+            throw new Error("ステップ11：直接生成による挨拶が空です。");
+        }
+        if (!(await page.locator('[data-testid="step11-injected"]').textContent())?.trim()) {
+            throw new Error("ステップ11：DIによる挨拶が空です。");
+        }
+        await page.screenshot({ path: path.join(evidence, "step11.png") });
+        console.log("ステップ11：DIと直接生成の比較に成功");
+
+        await page.goto(base + "/learn/12");
+        await page.waitForTimeout(1100);
+        await page.getByRole("button", { name: "固定時計（午前8時）" }).click();
+        await waitText(page, '[data-testid="step12-kind"]', "固定時計");
+        await waitText(page, '[data-testid="step12-time"]', "2026/01/01 08:00");
+        await waitText(page, '[data-testid="step12-greeting"]', "おはようございます");
+        await page.getByRole("button", { name: "実際の時計" }).click();
+        await waitText(page, '[data-testid="step12-kind"]', "実際の時計");
+        await page.screenshot({ path: path.join(evidence, "step12.png") });
+        console.log("ステップ12：IClockで時計を差し替える操作に成功");
+
+        await page.goto(base + "/learn/13");
+        await page.waitForTimeout(1100);
+        const transientBefore = (await page.locator('[data-testid="step13-transient-initial"]').textContent()).trim();
+        const singletonBefore = (await page.locator('[data-testid="step13-singleton"]').textContent()).trim();
+        const scopedBefore = (await page.locator('[data-testid="step13-scoped"]').textContent()).trim();
+        await page.getByRole("button", { name: "Transientをもう1つ取得する" }).click();
+        const transientAfter = (await page.locator('[data-testid="step13-transient-new"]').textContent()).trim();
+        if (transientAfter === transientBefore || transientAfter === "まだ取得していません") {
+            throw new Error("ステップ13：新しいTransientを取得できませんでした。");
+        }
+        if (singletonBefore.length !== 8 || scopedBefore.length !== 8) {
+            throw new Error("ステップ13：サービス識別子の形式が不正です。");
+        }
+        await page.screenshot({ path: path.join(evidence, "step13.png") });
+        console.log("ステップ13：3種類の生存期間の識別子を確認");
+
+        await page.goto(base + "/learn/14");
+        await page.waitForTimeout(1100);
+        await waitText(page, '[data-testid="step14-parent-count"]', "0");
+        await page.getByRole("button", { name: "親から1増やす" }).click();
+        await waitText(page, '[data-testid="step14-parent-count"]', "1");
+        await waitText(page, '[data-testid="step14-child-count"]', "1");
+        await page.getByRole("button", { name: "子の表示から1増やす" }).click();
+        await waitText(page, '[data-testid="step14-parent-count"]', "2");
+        await waitText(page, '[data-testid="step14-child-count"]', "2");
+        await page.getByRole("button", { name: "0に戻す" }).click();
+        await waitText(page, '[data-testid="step14-parent-count"]', "0");
+        await page.screenshot({ path: path.join(evidence, "step14.png") });
+        console.log("ステップ14：親子で同一Scoped状態を共有する操作に成功");
+
+        await page.goto(base + "/learn/15");
+        await page.waitForTimeout(1100);
+        await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習花子");
+        await waitText(page, '[data-testid="step15-greeting"]', "練習花子さん");
+        await page.screenshot({ path: path.join(evidence, "step15.png") });
+        console.log("ステップ15：RazorとC#クラスのDI注入に成功");
+
+        await page.goto(base + "/learn/column/15");
+        await page.getByText("DIを使うと、画面とサービスの何が変わる？").waitFor();
+        console.log("コラム03：日本語画面の表示を確認");
+
         await page.keyboard.press("Tab");
         if ((await page.locator(":focus").count()) === 0) {
             throw new Error("キーボードでフォーカスを移動できません。");
