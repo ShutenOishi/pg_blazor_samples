@@ -2,7 +2,16 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 2026-10-27 学習順001〜005の全面改稿・第1組受入（最新）
+## 2026-10-27 学習順006〜010の全面改稿・第2組受入（最新）
+- **確定実績：新規30/30初稿、最終全面改稿10/110、通常復習2/22、段階概要2/9。** 第2段階の残り011〜020は未改稿。
+- 第2組（旧Step01/02/03、runtime-01、旧Step04）の長文本文5本、段階概要、復習、Razorの学習順と前後リンク・Web目次を実コードに合わせて改稿。品質CIは比較/診断表・2個以上のコード・演習/解答・PDF章順・リンクを検査。Chrome E2Eの学習順と0未満防止を追加。
+- 実装最終HEAD `d87ee9a96b7fb790645e5ef7d624008009f92980` のApp Run [40409325752](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40409325752)（Win2025/Linux/Chrome/xUnit/PG18）とPDF Run [40409325725](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40409325725)が全SUCCESS。初回PlaywrightのForm曖昧検索のFAILを完全一致で修復。成功Runの再実行は不要。
+- [Preview Release](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview)は単体日本語PDF 1,079,388バイト、Release生成元SHAと上記HEADが一致。正式main版とDraft PRは維持。
+- **次は学習順011〜015（旧Step05〜08＋runtime-02）と第3組復習の全面改稿。** 各本文3300文字以上を目安に、WinForms＋Dapper比較、実装コード2ブロック以上、比較表と診断表、手順、エラーの切り分け、演習と詳しい解答を追加。第2段階概要・Razor・Web/PDF索引・前後リンク・テストを同期。全CIとPreview生成元SHA一致後のみ15/110へ進める。
+- 最新HEAD、App/PDF CI、Preview Releaseを認証済みGitHub GETで再確認し、進捗記録だけのコミットも同一SHAのCI/PDF受入対象として照合する。毎回最後にコピーできる引き継ぎプロンプトボタンを設ける。
+- `docs/course-v3/progress.md`、`docs/course-v3/full-rewrite-roadmap.md`、`docs/course-v3/curriculum.json`、PR #36の最新コメントを正本として再開する。AD本人認証と既存DB台帳認可・監査・安全拒否、旧80 URL、正式ReleaseとDraft状態を維持。実AD/IIS/FDW実機未確認を成功扱いしない。
+
+## 2026-10-27 学習順001〜005の全面改稿・第1組受入（履歴）
 - 新規30/30本の初稿実装は完了。最終全面改稿は**5/110**、第1組復習1/22、第1段階概要1/9。Draft PR #36、旧80URL、既存安全ゲートを維持。
 - 実装HEAD `f48474d3882359626d1efedda73ac9737461b121` のApp Run 40370279965、PDF Run 40370279958 は全SUCCESS。Windows/Linux、Chrome、PG18、教材品質検査とPDF公開を確認。
 - PDF単体1020439バイト。Release `learning-textbook-v3-preview` の生成元SHAが同HEADと一致。正式main `learning-textbook` は変更しない。

@@ -73,7 +73,7 @@
       "source": "docs/samples/step01.md",
       "url": "/learn/01",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 7,
@@ -84,7 +84,7 @@
       "source": "docs/samples/step02.md",
       "url": "/learn/02",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 8,
@@ -95,7 +95,7 @@
       "source": "docs/samples/step03.md",
       "url": "/learn/03",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 9,
@@ -106,7 +106,7 @@
       "source": "docs/course-v3/lessons/runtime-01.md",
       "url": "/learn/runtime-01",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 10,
@@ -117,7 +117,7 @@
       "source": "docs/samples/step04.md",
       "url": "/learn/04",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 11,
@@ -1244,7 +1244,8 @@
       "stage": 2,
       "from": 6,
       "to": 20,
-      "overview": "docs/course-v3/stages/stage02.md"
+      "overview": "docs/course-v3/stages/stage02.md",
+      "final_review": "overview-ci-passed"
     },
     {
       "name": "DI・サービスと単体テスト",
@@ -1345,7 +1346,8 @@
       "after_sequence": 10,
       "path": "docs/course-v3/reviews/review-02.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 3,
