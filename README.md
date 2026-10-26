@@ -91,7 +91,7 @@ DIの学習用Applicationは維持しますが、**DBを学ぶための新しい
 
 ## 学習者向けのPDFで読む
 
-学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜70・コラム01〜15・特別コラム3本を収録し、GitHub Actionsで生成・検査します。
+学習者向けの資料は **「Blazor 実践学習テキスト」** に統一しました。目次・見出しは日本語の学習テーマで表示し、開発管理用のレポジトリ情報・CI・PR・ハッシュなどはPDFへ載せません。ステップ01〜80・通常コラム17本・特別コラム3本を収録し、GitHub Actionsで生成・検査します。
 
 [日本語学習PDFを単体でダウンロード](https://github.com/ShutenOishi/pg_blazor_samples/releases/download/learning-textbook/blazor_learning_textbook_ja.pdf)できます（mainの配布CI成功後）。ZIPのActions ArtifactではなくRelease assetを提供します。コードとの照合情報は同一生成処理の別JSONへ出力し、学習本文に混ぜません。詳しくは[PDFの作成方法](docs/pdf-generation.md)をご覧ください。
 
@@ -155,3 +155,7 @@ MudDateRangePickerとdaterangeの重なり検索、架空利用者A/BのScoped�
 ## Step75：Windows Server 2025実機受入
 
 [ステップ75](docs/samples/step75.md)と[学習コラム16](docs/columns/column71-75.md)で、IIS/AD/Kerberos・Cookie鍵共有・SignalR再接続・FDW障害・監査保存失敗・台帳人数と同時接続数の違いを学びます。GitHub Actionsの成功だけで現地のAD/IIS認証は「受入済み」としません。
+
+## Step76〜80：運用編の完成条件
+
+[ステップ76〜80](docs/sample-catalog.md)と[学習コラム17](docs/columns/column76-80.md)を追加しました。二画面のxmin競合と既存台帳の再認可、権限版・TTL付きの非機密ヒントのScopedキャッシュ、/health/live、実DBとChromeの否定試験、IIS配布・切戻し手順を説明します。業務データはキャッシュしません。CIの成功は実AD・IIS・FDW・監査の現地受入を意味しません。

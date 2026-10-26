@@ -145,6 +145,11 @@ builder.Services.AddScoped<WindowsUserAccessService>();
 // Step66〜70：本人と既存台帳を毎操作照合し、全SQLの部署条件を共通化する。
 builder.Services.AddScoped<LearningAuditService>();
 builder.Services.AddScoped<SecuredLearningService>();
+// Step77：学習用の非機密ヒントだけをScopedで保持する。
+builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
+builder.Services.AddScoped<AuthorizedLessonHintCache>();
+// Step78：これはプロセスのlivenessであり、DB・監査・認可のreadinessではない。
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -237,6 +242,8 @@ if (explicitLoginEnabled)
 }
 
 // .NET 10の静的アセットを登録し、対話型サーバー側の描画を有効にする。
+// Step78：内容を公開しないliveness。IIS/プロキシで監視元を制限する。
+app.MapHealthChecks("/health/live").AllowAnonymous();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

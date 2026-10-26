@@ -112,6 +112,12 @@ CHAPTERS = [
     ("ステップ74：本人・操作・結果を永続監査する", "docs/samples/step74.md"),
     ("ステップ75：IIS・Kerberos・負荷・障害の実機受入", "docs/samples/step75.md"),
     ("学習コラム16：認証・認可・監査の本番移行判断", "docs/columns/column71-75.md"),
+    ("ステップ76：二人の編集競合とxmin", "docs/samples/step76.md"),
+    ("ステップ77：キャッシュの有効期限と権限失効", "docs/samples/step77.md"),
+    ("ステップ78：ヘルスチェック・構造化ログ・運用監視", "docs/samples/step78.md"),
+    ("ステップ79：実DB・ブラウザー・認可の結合/E2E試験", "docs/samples/step79.md"),
+    ("ステップ80：Windows Server 2025/IISの配布・切替・復旧", "docs/samples/step80.md"),
+    ("学習コラム17：競合制御・キャッシュ・監視・本番復旧", "docs/columns/column76-80.md"),
     ("先取りガイド：EF Core 10とNpgsqlのデータアクセス", "docs/efcore10-data-access.md"),
     ("先取りガイド：MudBlazor一覧とデータ連携方式の選択", "docs/data-grid-patterns.md"),
 ]

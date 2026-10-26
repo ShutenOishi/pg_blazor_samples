@@ -57,6 +57,9 @@ async function waitText(page, selector, expected) {
     let browser;
     try {
         await waitForServer();
+        // Step78：匿名で確認できるのはプロセスの稼働だけ。業務readinessではない。
+        const live = await fetch(base + "/health/live");
+        if (!live.ok) throw new Error("Step78：/health/liveが正常応答しません。");
         browser = await chromium.launch({
             executablePath: findChrome(),
             headless: true,
@@ -77,7 +80,12 @@ async function waitText(page, selector, expected) {
             [72, "Cookie認証と台帳照合を確認"],
             [73, "更新可能性を照合する"],
             [74, "監査を伴う一覧取得を確認"],
-            [75, "本番運用の認可ゲートを照合"]
+            [75, "本番運用の認可ゲートを照合"],
+            [76, "更新の認可を確認する"],
+            [77, "最新の権限とキャッシュを確認"],
+            [78, "業務利用の現在の認可を確認"],
+            [79, "監査付き一覧のE2E経路を確認"],
+            [80, "稼働後の業務認可ゲートを確認"]
         ]) {
             await page.goto(base + "/learn/" + step);
             await page.waitForTimeout(1600);
@@ -85,7 +93,7 @@ async function waitText(page, selector, expected) {
             // Blazorのイベントは非同期で描画される。クリック直後の初期文字列は判定しない。
             await waitText(page, '[data-testid="step' + step + '-state"]', "拒否");
         }
-        console.log("ステップ66〜75：匿名の業務アクセスは全画面で拒否");
+        console.log("ステップ66〜80：匿名の業務アクセスは全画面で拒否");
         await page.goto(base + "/learn/04");
         // 初期のHTMLが表示されていても、対話型回線の準備前にはクリックが処理されない。
         await page.waitForTimeout(1800);

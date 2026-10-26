@@ -1,10 +1,10 @@
-# 次チャットへの引き継ぎ：Step71〜75の受入とStep76以降
+# 次チャットへの引き継ぎ：Step76〜80 CI受入と実務品質の仕上げ
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-- Step71 PR #27、Step72 PR #28はCI成功後にmainへ保護マージ済み。Step73 PR #29、Step74 PR #30、Step75 PRは段階的PR。最新GitHub GETを必ず取得し、各HEADのWindows/Linux・Chrome・PostgreSQL18・日本語PDF CIを確認。失敗を能動修復して順に保護マージし、main/push受入。
-- PDFはReleaseの単体アセット `blazor_learning_textbook_ja.pdf` として配布しZIPにはしない。main/push成功後に実物URL・内容・更新コミットを再確認。
-- Step73は同一DBの権限行ロックを実機で保証できる場合だけ`Authorization:TransactionalLedgerConfirmed=true`。FDW/別DBは原子性未検証なら更新拒否。
-- Step74は`Authorization:DurableAuditConfirmed=true`で永続監査、更新と監査を同一トランザクションでコミット。失敗時は拒否。CIの疑似認証はAD実機試験ではない。
-- Step75はWindows Server 2025/IIS/AD/Kerberos、SPN・証明書・Cookie失効・Data Protection鍵・SignalR・FDW・高負荷の実機チェック手順。現地証跡を確認するまで受入済みと称さない。
-- Step76〜80へ進むときもWeb内EF Core10、MudBlazor.Translations、学習5ステップごとの日本語コラム、Razor/PDF/CIの同期、登録UIなし、既存DB認可を維持。
+- Step71〜75はPR #27〜31がmain保護マージ済み。main 18b0adf5...でWindows/Linux・Chrome・PostgreSQL18・日本語PDF生成のpush CIが成功済み。
+- 今回の新規ブランチ feat/steps-76-80-operations でStep76〜80の日本語Razor画面、ソース、xUnit、教材・コラム17、PDFの目次、匿名ブラウザー確認、/health/liveを追加。再開時は最新PR/HEADとCIの成否をGitHub GETで必ず確認する。
+- 失敗したCIは能動修復し、必須CI成功・元HEAD照合後に通常マージ、main/pushのWindows/Linux・Chrome・PostgreSQL18・PDF成功を受け入れる。
+- PDFはReleaseの単体アセット blazor_learning_textbook_ja.pdf として公開しZIP化しない。main/push成功後に配布URL・更新時刻・内容を再取得する。
+- ADは認証とユーザー名のみ。登録UIなし・既存DBの権限を都度検証。更新の権限行ロック・xmin・監査は同一トランザクション、FDW原子性未実証は拒否。Step77は機密データをキャッシュしない。
+- 実AD・IIS・Kerberos・FDW・Cookie共有・10,001人規模の現地受入はCIとは別であり、未実施を完了と表示しない。
