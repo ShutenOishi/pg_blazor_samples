@@ -211,7 +211,7 @@ def main():
       @bottom-left { content: "Blazor 実践学習テキスト"; font-size: 9pt; color: #364c5d }
       @bottom-right { content: counter(page); font-size: 10pt; color: #233949 }
     }
-    html { font-family: "Noto Sans CJK JP", sans-serif; color: #172b3b }
+    html { font-family: "Noto Sans CJK JP", "IPAGothic", sans-serif; color: #172b3b }
     body { font-size: 11.4pt; line-height: 1.75 }
     .cover { padding-top: 39mm; break-after: page; }
     .cover .brand { font-size: 13pt; font-weight: bold; letter-spacing: .04em; color: #1e536c }
@@ -232,7 +232,7 @@ def main():
     h3 { font-size: 12.5pt; break-after: avoid; color: #234d64 }
     p { margin: 3mm 0; orphans: 2; widows: 2 }
     li { margin: 1.7mm 0; }
-    code { font-family: "Noto Sans Mono CJK JP", monospace; font-size: .88em; overflow-wrap: anywhere }
+    code { font-family: "Noto Sans Mono CJK JP", "IPAGothic", monospace; font-size: .88em; overflow-wrap: anywhere }
     pre { font-size: 9pt; white-space: pre-wrap; overflow-wrap: anywhere; break-inside: avoid;
           padding: 4mm; background: #eef4f7; border-left: 2px solid #7597a9; line-height: 1.5 }
     table { border-collapse: collapse; width: 100%; font-size: 9.1pt; margin: 4mm 0 }
