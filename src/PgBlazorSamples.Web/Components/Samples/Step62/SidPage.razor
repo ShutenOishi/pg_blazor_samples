@@ -5,11 +5,11 @@
 <p class="eyebrow">ステップ62 / Windows認証と業務利用の境界</p>
 <h1>ドメイン付きユーザー名の安全な取得</h1>
 <MudPaper Class="pa-4">
-    <h2>Windows利用者の安定キーを識別する</h2>
-    <p>利用者名は変更されるため既存台帳照合キーにしません。認証済み主体のPrimarySidまたはWindowsIdentity.Userを検証します。</p>
+    <h2>認証済みWindows利用者のDOMAIN\\userを取得する</h2>
+    <p>Windows認証で確定したDOMAIN\\userを台帳の照合キーにします。ただし名前変更・再使用やドメイン競合に備え、元システムの同期と失効を設計します。</p>
     <MudButton Color="Color.Primary" OnClick="InspectAsync">現在の認証・既存台帳照合状態を確認</MudButton>
     <p role="status" data-testid="step62-state">@_snapshot.Message</p>
-    <p>ドメイン付きユーザー名の末尾：@_snapshot.IdentityHint</p>
+    <p>認証名の状態：@_snapshot.IdentityHint</p>
     @if (!string.IsNullOrWhiteSpace(_snapshot.DisplayName))
     {
         <p>既存台帳の表示名：@_snapshot.DisplayName</p>
