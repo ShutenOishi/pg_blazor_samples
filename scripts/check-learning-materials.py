@@ -305,6 +305,71 @@ for n in range(1, 6):
 if not (web01 / "WebFoundationOverviewPage.razor").is_file() or not (web01 / "WebFoundationReviewPage.razor").is_file():
     missing.append("第1段階概要・第1組復習画面の欠落")
 
+
+# 学習順006〜010の全面改稿を第1組と同じ基準で受入検査する。
+second_group = [
+    ("step01", "docs/samples/step01.md", "/learn/01", "@page"),
+    ("step02", "docs/samples/step02.md", "/learn/02", "NavLink"),
+    ("step03", "docs/samples/step03.md", "/learn/03", "sampleText"),
+    ("runtime-01", "docs/course-v3/lessons/runtime-01.md", "/learn/runtime-01", "Interactive Server"),
+    ("step04", "docs/samples/step04.md", "/learn/04", "Decrement"),
+]
+for lesson_id, filename, url, symbol in second_group:
+    file = ROOT / filename
+    if not file.is_file():
+        missing.append(filename + "：全面改稿本文が不足")
+        continue
+    text = file.read_text(encoding="utf-8")
+    if len(text) < 3300:
+        missing.append(filename + "：長文教材が3300文字未満")
+    if text.count("| ---") < 2 or text.count(" | ") < 8:
+        missing.append(filename + "：比較表・診断表が不足")
+    if text.count("```") < 4 or text.count("```") % 2:
+        missing.append(filename + "：コードブロック2件以上が必要")
+    if not all(token in text for token in ("演習", "解答", "切り分け", "WinForms", url, symbol)):
+        missing.append(filename + "：目標・URL・操作・解説が不足")
+    if any(forbidden in text for forbidden in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+        missing.append(filename + "：学習者PDFに不要な管理用パス")
+    if f'"{filename}"' not in PDF_SCRIPT:
+        missing.append(filename + "：PDF学習目次にありません")
+
+for filename, minimum in [
+    ("docs/course-v3/stages/stage02.md", 2500),
+    ("docs/course-v3/reviews/review-02.md", 2500),
+]:
+    file = ROOT / filename
+    if not file.is_file():
+        missing.append(filename + "：第2段階概要・復習が不足")
+        continue
+    text = file.read_text(encoding="utf-8")
+    if len(text) < minimum or text.count("| ---") < 2 or text.count("```") < 2 or "解答" not in text:
+        missing.append(filename + "：説明・表・コード・解答のいずれかが不足")
+
+second_sources = [x[1] for x in second_group]
+pdf_positions = [PDF_SCRIPT.find(f'"{name}"') for name in second_sources]
+review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-02.md"')
+stage_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage02.md"')
+if -1 in pdf_positions or pdf_positions != sorted(pdf_positions):
+    missing.append("学習順006〜010のPDF収録順が不正")
+if stage_pos < 0 or stage_pos > pdf_positions[0]:
+    missing.append("第2段階概要が006の前にありません")
+if review_pos < pdf_positions[-1] or review_pos > PDF_SCRIPT.find('"docs/samples/step05.md"'):
+    missing.append("第2組復習が010と011の間にありません")
+if not all(url in (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8") for _, _, url, _ in second_group):
+    missing.append("学習順006〜010のWeb目次が不足")
+for path, target in [
+    ("Step01/FirstPage.razor", 'href="/learn/02"'),
+    ("Step02/NavigationPage.razor", 'href="/learn/03"'),
+    ("Step03/RazorSyntaxPage.razor", 'href="/learn/runtime-01"'),
+    ("Runtime/Runtime01Page.razor", 'href="/learn/04"'),
+    ("Step04/EventPage.razor", 'href="/learn/column/runtime-10"'),
+    ("Runtime/RuntimeReview02Page.razor", 'href="/learn/05"'),
+]:
+    source = SAMPLES / path
+    if not source.is_file() or target not in source.read_text(encoding="utf-8"):
+        missing.append(path + "：学習順の前後リンク不一致")
+
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

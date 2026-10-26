@@ -101,6 +101,32 @@ async function waitText(page, selector, expected) {
         // 第2段階：新規5ページの表示、対話状態、URL復元と3組の復習を検証する。
         await page.goto(base + "/learn/stage/runtime");
         await page.getByRole("heading", { name: "第2段階の概要：Blazorの基本と実行原理" }).waitFor();
+        // 全面改稿した学習順006〜010の表示・遷移・正常/拒否操作を確認する。
+        await page.getByRole("table").first().getByText("Form").waitFor();
+        await page.goto(base + "/learn/01");
+        await page.getByRole("heading", { name: "はじめてのBlazor画面" }).waitFor();
+        await page.getByRole("link", { name: "次へ：学習順007" }).click();
+        await page.getByRole("heading", { name: "URLとルーティング" }).waitFor();
+        await page.getByRole("link", { name: "学習順008へ進む" }).click();
+        await page.getByRole("heading", { name: "C#の値を画面へ表示する" }).waitFor();
+        await page.getByText("2026年10月26日").first().waitFor();
+        await page.getByRole("link", { name: "次へ：学習順009" }).click();
+        await page.getByRole("heading", { name: "Static SSRとInteractive Serverの違い" }).waitFor();
+        await page.getByRole("link", { name: "次へ：学習順010" }).click();
+        await page.getByRole("button", { name: "1増やす" }).click();
+        await page.getByRole("button", { name: "1増やす" }).click();
+        await waitText(page, '[data-testid="counter-value"]', "2");
+        await page.getByRole("button", { name: "1減らす" }).click();
+        await waitText(page, '[data-testid="counter-value"]', "1");
+        await page.getByRole("button", { name: "0に戻す" }).click();
+        await waitText(page, '[data-testid="counter-value"]', "0");
+        if (!(await page.getByRole("button", { name: "1減らす" }).isDisabled())) {
+            throw new Error("学習順010の0未満防止が無効です");
+        }
+        await page.getByRole("link", { name: "次へ：第2組の復習" }).click();
+        await page.getByRole("heading", { name: "第2組の復習：Razorと実行方式の復習" }).waitFor();
+        await page.getByRole("table").first().getByText("disabledとif").waitFor();
+        console.log("全面改稿006〜010の実画面・学習順・復習・拒否を検証");
         await page.goto(base + "/learn/runtime-01");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "サーバー側の回数を増やす" }).click();

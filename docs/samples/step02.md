@@ -39,8 +39,8 @@ WinFormsではボタンを押して別のFormを開きます。Webでは利用�
 ```razor
 <nav aria-label="画面遷移の練習" class="practice-nav">
     <NavLink href="/" Match="NavLinkMatch.All">学習の目次</NavLink>
-    <NavLink href="/learn/01" Match="NavLinkMatch.All">ステップ01へ戻る</NavLink>
-    <NavLink href="/learn/03" Match="NavLinkMatch.All">ステップ03へ進む</NavLink>
+    <NavLink href="/learn/01" Match="NavLinkMatch.All">学習順006へ戻る</NavLink>
+    <NavLink href="/learn/03" Match="NavLinkMatch.All">学習順008へ進む</NavLink>
 </nav>
 ```
 
@@ -56,7 +56,7 @@ WinFormsではボタンを押して別のFormを開きます。Webでは利用�
 
 1. 起動中のWebアプリで`/learn/02`をアドレス欄に直接入力する。
 2. ページ内の「学習の目次」を押し、URLがトップへ移ることを確認する。
-3. 戻って「ステップ01へ戻る」、続いて「ステップ03へ進む」をそれぞれ開く。
+3. 戻って「学習順006へ戻る」、続いて「学習順008へ進む」をそれぞれ開く。
 4. 開発者ツールのElementsでリンクの`href`を調べ、画面の表示文字列と宛先が別であることを確かめる。
 5. 左側の学習メニューで現在地に応じて表示が変わるかを確認する。
 6. 存在しない学習URLを新しいタブで開き、日本語の見つからない画面へ進むことを確認する。
