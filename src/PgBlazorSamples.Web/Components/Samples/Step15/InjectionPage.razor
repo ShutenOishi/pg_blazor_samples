@@ -1,0 +1,29 @@
+@page "/learn/15"
+@using PgBlazorSamples.Web.Services.Clock
+@inject GreetingFormatter Formatter
+
+<PageTitle>ステップ15：injectとコンストラクター注入｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ15 / 注入方法</p>
+<h1>画面とC#クラスでサービスを受け取る</h1>
+<p>Razorコンポーネントは <code>@@inject</code>、通常のC#クラスはコンストラクター経由で必要なサービスを受け取れます。</p>
+
+<section class="lesson-details">
+    <h2>注入されたサービスで挨拶する</h2>
+    <label class="field-label" for="step15-name">練習用の名前</label>
+    <input id="step15-name" class="text-input" maxlength="20"
+           @bind="learnerName" @bind:event="oninput" />
+    <p class="example-output" role="status" data-testid="step15-greeting">@Formatter.Format(learnerName)</p>
+</section>
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p>この画面は <code>@@inject GreetingFormatter Formatter</code> でサービスを受け取ります。</p>
+    <p><code>GreetingFormatter(GreetingService greeting)</code> では、C#クラスが別のサービスをコンストラクターで受け取ります。</p>
+    <p>実装クラスと契約を分け、起動時に登録することで、画面の責任を小さくできます。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/14">前へ：ステップ14</a>
+    <a href="/learn/column/15">学習コラム03へ</a>
+</div>
+@code {
+    private string learnerName = "練習太郎";
+}

@@ -1,0 +1,31 @@
+@page "/learn/column/15"
+
+<PageTitle>学習コラム03：DIのしくみを整理する｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習コラム03 / ステップ11〜15のまとめ</p>
+<h1>DIを使うと、画面とサービスの何が変わる？</h1>
+<section class="lesson-details">
+    <h2>5ステップのつながり</h2>
+    <ol>
+        <li>Step11：自分で部品を作る方法と受け取る方法を比べた。</li>
+        <li>Step12：<code>IClock</code>という約束によって時計を交換した。</li>
+        <li>Step13：部品の生存期間を3種類の識別子で観察した。</li>
+        <li>Step14：同じ対話回線の親子がScoped状態を共有することを確認した。</li>
+        <li>Step15：<code>@@inject</code>とコンストラクター注入を比べた。</li>
+    </ol>
+    <details>
+        <summary>確認問題：利用者ごとの値をSingletonに置いてよい？</summary>
+        <p>いいえ。Singletonはアプリ内で共有されるため、別の利用者の状態と混ざる危険があります。</p>
+    </details>
+    <details>
+        <summary>確認問題：固定時計への交換で何が便利になる？</summary>
+        <p>時間帯を決めた動作確認ができ、テスト結果が実際の時刻に左右されなくなります。</p>
+    </details>
+    <details>
+        <summary>次の学習へ：DIだけで設定やログも管理できる？</summary>
+        <p>Step16では設定の受け取り、Step17ではログと非同期処理を扱います。役割の分離をさらに進めます。</p>
+    </details>
+</section>
+<div class="page-navigation">
+    <a href="/learn/15">ステップ15へ戻る</a>
+    <a href="/">学習の目次へ戻る</a>
+</div>

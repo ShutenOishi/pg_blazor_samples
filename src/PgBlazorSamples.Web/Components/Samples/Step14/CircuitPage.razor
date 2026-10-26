@@ -1,0 +1,36 @@
+@page "/learn/14"
+@using PgBlazorSamples.Web.Services.Lifetime
+@using PgBlazorSamples.Web.Components.Samples.Step14
+@inject ScopedCounter Counter
+
+<PageTitle>ステップ14：BlazorのScopedとcircuit｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ14 / 対話回線とScoped</p>
+<h1>親子で状態を共有し、別の回線とは分ける</h1>
+<p>Blazor Interactive ServerのScopedサービスは、通常の1回限りのHTTP要求より長く、対話回線（circuit）に関連付いて保持されます。</p>
+
+<section class="lesson-details">
+    <h2>親コンポーネントから操作する</h2>
+    <p>親が見ている値：<strong data-testid="step14-parent-count">@Counter.Count</strong></p>
+    <div class="practice-actions">
+        <button type="button" @onclick="Increase">親から1増やす</button>
+        <button type="button" class="secondary-button" @onclick="Reset">0に戻す</button>
+    </div>
+    <SharedCounter OnChanged="Refresh" />
+</section>
+<section class="lesson-details">
+    <h2>別ウィンドウで試す</h2>
+    <p>同じ画面をプライベートウィンドウで開いてください。新しいcircuitではカウントが0から始まります。</p>
+    <p>同じ状態を親子で使っても、別の利用者と共有してよいわけではありません。認証情報・DB接続をSingletonへ置かないでください。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/13">前へ：ステップ13</a>
+    <a href="/learn/15">次へ：ステップ15</a>
+</div>
+@code {
+    // DIコンテナーが同じ回線の親と子へ同じScopedCounterを渡します。
+    private void Increase() => Counter.Increment();
+    private void Reset() => Counter.Reset();
+
+    // 子の変更を親の表示へ反映するための通知です。
+    private void Refresh() => StateHasChanged();
+}

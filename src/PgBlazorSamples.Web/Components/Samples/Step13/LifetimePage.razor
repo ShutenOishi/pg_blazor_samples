@@ -1,0 +1,43 @@
+@page "/learn/13"
+@using PgBlazorSamples.Web.Services.Lifetime
+@using Microsoft.Extensions.DependencyInjection
+@inject SingletonMarker Singleton
+@inject ScopedMarker Scoped
+@inject TransientMarker InitialTransient
+@inject IServiceProvider Services
+
+<PageTitle>ステップ13：DIの生存期間｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ13 / Singleton・Scoped・Transient</p>
+<h1>サービスはいつ作られ、いつ共有される？</h1>
+<p>サービスの寿命を3種類の識別子で観察します。識別子は練習用の乱数で、個人情報ではありません。</p>
+
+<section class="lesson-details">
+    <h2>生成された部品を比べる</h2>
+    <dl class="value-list">
+        <div><dt>Singleton</dt><dd data-testid="step13-singleton">@Singleton.Id</dd></div>
+        <div><dt>Scoped</dt><dd data-testid="step13-scoped">@Scoped.Id</dd></div>
+        <div><dt>Transient（初回）</dt><dd data-testid="step13-transient-initial">@InitialTransient.Id</dd></div>
+        <div><dt>Transient（再取得）</dt><dd data-testid="step13-transient-new">@additionalTransientId</dd></div>
+    </dl>
+    <div class="practice-actions">
+        <button type="button" @onclick="ResolveAnother">Transientをもう1つ取得する</button>
+    </div>
+</section>
+<section class="lesson-details">
+    <h2>違いをどう理解する？</h2>
+    <p>Singletonはアプリ全体、ScopedはBlazorの対話回線（circuit）に関連する範囲で共有されます。Transientは要求するたびに作られます。</p>
+    <p>別のプライベートウィンドウと比較するとScopedの違いを観察できます。利用者固有の状態をSingletonに保存してはいけません。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/12">前へ：ステップ12</a>
+    <a href="/learn/14">次へ：ステップ14</a>
+</div>
+@code {
+    private string additionalTransientId = "まだ取得していません";
+
+    private void ResolveAnother()
+    {
+        // 操作のたびにDIコンテナーへ新しいTransientを要求します。
+        additionalTransientId = Services.GetRequiredService<TransientMarker>().Id;
+    }
+}

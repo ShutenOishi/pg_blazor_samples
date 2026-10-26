@@ -1,0 +1,20 @@
+@using PgBlazorSamples.Web.Services.Lifetime
+@inject ScopedCounter Counter
+
+<section class="lesson-details">
+    <h3>子コンポーネントから操作する</h3>
+    <p>子が見ている値：<strong data-testid="step14-child-count">@Counter.Count</strong></p>
+    <div class="practice-actions">
+        <button type="button" @onclick="IncreaseAsync">子の表示から1増やす</button>
+    </div>
+</section>
+@code {
+    [Parameter] public EventCallback OnChanged { get; set; }
+
+    private async Task IncreaseAsync()
+    {
+        Counter.Increment();
+        // 親の表示も更新するように通知します。
+        await OnChanged.InvokeAsync();
+    }
+}

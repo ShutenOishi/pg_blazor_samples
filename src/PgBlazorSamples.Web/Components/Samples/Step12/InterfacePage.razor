@@ -1,0 +1,34 @@
+@page "/learn/12"
+@using PgBlazorSamples.Web.Services.Clock
+@inject IClock SystemClock
+@inject FixedClock FixedClock
+
+<PageTitle>ステップ12：インターフェイス｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">ステップ12 / インターフェイス</p>
+<h1>同じ約束で時計の実装を入れ替える</h1>
+<p><code>IClock</code> は「時刻を取得できる」という約束です。実装の中身は交換できます。</p>
+
+<section class="lesson-details">
+    <h2>使う時計を選んで比べる</h2>
+    <div class="practice-actions">
+        <button type="button" @onclick="() => useFixed = false">実際の時計</button>
+        <button type="button" @onclick="() => useFixed = true">固定時計（午前8時）</button>
+    </div>
+    <p>選択中：<strong data-testid="step12-kind">@(useFixed ? "固定時計" : "実際の時計")</strong></p>
+    <p>取得した時刻：<strong data-testid="step12-time">@SelectedClock.GetNow().ToString("yyyy/MM/dd HH:mm")</strong></p>
+    <p role="status" data-testid="step12-greeting">挨拶：<strong>@new GreetingService(SelectedClock).GetMessage()</strong></p>
+</section>
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p>実際の時計 <code>SystemClock</code> と固定時計 <code>FixedClock</code> は、どちらも <code>IClock</code> を実装します。</p>
+    <p><code>GreetingService</code> は具体的な時計を知らなくても挨拶を作れます。今回は画面で切り替えますが、通常はDI登録先を変更して差し替えます。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/11">前へ：ステップ11</a>
+    <a href="/learn/13">次へ：ステップ13</a>
+</div>
+@code {
+    private bool useFixed;
+    // 共通インターフェイスを使うと、呼び出し元を変更せず実装を交換できます。
+    private IClock SelectedClock => useFixed ? FixedClock : SystemClock;
+}
