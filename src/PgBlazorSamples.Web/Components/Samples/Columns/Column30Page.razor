@@ -12,10 +12,10 @@
         <li>Step29：Scopedの設定サービスを通してテーマを共有し、キーボード・読み上げを確認する。</li>
         <li>Step30：入力・検索・確認・通知を、架空データの画面として組み合わせる。</li>
     </ol>
-    <h2>次のデータ連携編へ</h2>
-    <p>画面にあるデータをすべて持つ方法と、サーバーから必要な分だけ取得する方法は別です。Step31〜40でEF Core 10・Npgsql・DbContextFactoryを学び、Step41〜60でServerData、VirtualizeServerDataなどを比較します。</p>
+    <h2>次はブラウザー固有の操作へ</h2>
+    <p>学習順041〜045でJavaScript連携、ファイルの選択と保存、例外の扱い、キーボードと拡大表示を学びます。その後でStep31〜40のEF Core 10・Npgsql・DbContextFactoryへ進みます。</p>
     <details><summary>確認問題：ItemsとServerDataの違いは？</summary><p>Itemsは既に取得した行を画面に渡します。ServerDataはページング・検索条件などを受けてサーバーへ問い合わせます。</p></details>
     <details><summary>確認問題：確認ダイアログがあるので認可は不要？</summary><p>いいえ。確認はUXであり、保存直前のサーバー側認可・入力検証は別に必要です。</p></details>
     <details><summary>確認問題：テーマ状態をSingletonに保存してよい？</summary><p>個人の状態を全員で共有しないため、この教材ではScopedサービスを利用します。Interactive Serverではcircuitの寿命に注意します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/30">ステップ30へ戻る</a><a href="/">学習目次へ</a></div>
+<div class="page-navigation"><a href="/learn/30">ステップ30へ戻る</a><a href="/learn/browser-01">次へ：学習順041</a></div>

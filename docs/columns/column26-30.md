@@ -64,6 +64,6 @@
 **答え：** 必須ではありません。この教材はWeb内の`Data`と`Services`を使い、`IDbContextFactory`とEF Core 10/Npgsqlを学びます。
 
 ## 次の段階への準備
-Step31〜40でモデル、`DbContextFactory`、LINQからのSQL、CRUD、トランザクション、`xmin`、PostgreSQL 18の実DB試験を学びます。Step41〜60ではMudBlazorの一覧をDB検索と結び付けます。
+学習順041〜045で、JavaScriptとの連携、アップロードとダウンロード、例外処理と取消、キーボード・拡大表示を確認します。続いてStep31〜40でモデル、`DbContextFactory`、LINQからのSQL、CRUD、トランザクション、`xmin`、PostgreSQL 18の実DB試験を学びます。Step41〜60ではMudBlazorの一覧をDB検索と結び付けます。
 
 画面側の選択と業務データを扱うサーバー側の条件を分けて考え、DB編に進んでください。

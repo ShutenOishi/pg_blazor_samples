@@ -5,7 +5,7 @@
 ## 2026-10-27 browser実装後の最新状況（最優先）
 - PR #36 は新規15/30本のRazor/教材初稿、最終全面改稿0/110。browser-01〜05（学習順041〜045）、第4段階概要、第9組復習を追加。
 - HEAD 6f22c9d のCI：Chromeを含むアプリ Run 40351271699、PDF Run 40351271704が完全SUCCESS。成功済みRunは再実行しない。
-- browser追加後の最新HEADについてWindows/Linux、Chrome、PG18、PDFの実結果を確認し、失敗があれば修正する。browserをCI成功前に受入済みとしない。
+- browser追加後の初回CIではWindows/Linuxビルド、PostgreSQL18、PDFが成功、Chromeのbrowser-03結果表示（大文字PDF/小文字.pdf）の断言だけ失敗して修正済み。最新HEADのChrome再検証結果を確認する。browserをCI成功前に受入済みとしない。
 - 次は db-bridge-01〜05。学習順046/052/053/058/059に挿入し、第5段階概要・第10〜12組復習・画面・本文・PDF/テストを同期。その後security→capstone。
 - 新規30本配置後に全110ステップを学習順001から全面改稿する。最新記録は `docs/course-v3/progress.md`。
 

@@ -164,7 +164,7 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "学習用PDFを保存する" }).click();
         const pdfFile = await pdfDownload;
         if (pdfFile.suggestedFilename() !== "blazor_practice.pdf") throw new Error("PDFのファイル名が違います。");
-        await waitText(page, '[data-testid="browser03-result"]', "PDF");
+        await waitText(page, '[data-testid="browser03-result"]', "blazor_practice.pdf");
 
         await page.goto(base + "/learn/browser-04");
         await page.waitForTimeout(950);
