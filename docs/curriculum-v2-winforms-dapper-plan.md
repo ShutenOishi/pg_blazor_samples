@@ -1,5 +1,7 @@
 # Blazor教材改訂計画 v2：WinForms＋Dapper経験者がWeb開発を初めて学ぶために
 
+> **このv2計画の「既存教材を先に改稿する」実施順は廃止し、[v3再編・実装計画](course-v3/implementation-plan.md)を正本としました。** 内容検討の履歴として残します。旧先行改稿済25本も、v3最終改稿では再検査対象です。
+
 状態：**計画案＋既存7段階の概要ページ初版を作成。既存80ステップ・通常コラム16本・特別コラム3本の全面改稿は未着手であり、今後の必須工程とする。** 対象：Visual Studio 2026、.NET 10、Blazor Web App（Interactive Server）、MudBlazor＋MudBlazor.Translations、EF Core 10/Npgsql、PostgreSQL 18、Windows Server 2025/IIS。
 
 ## 1. 読者像と到達目標

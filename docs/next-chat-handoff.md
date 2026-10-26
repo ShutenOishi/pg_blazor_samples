@@ -2,7 +2,16 @@
 
 対象: https://github.com/ShutenOishi/pg_blazor_samples
 
-## 教材v2全面改稿（進行中・2026-10-26）
+## 最優先：教材v3の再編・新規実装を先行する
+
+- [9段階・110ステップの再編計画](course-v3/implementation-plan.md)と[110件の詳細順序](course-v3/learning-sequence.md)、[実装・最終改稿の進捗](course-v3/progress.md)を正本とする。
+- **新規30ステップをまず正しい位置に実装**し、その後に既存80ステップと新規30本、各5件の復習22本、特別コラム3本、段階概要9本を**学習順001から**全件書き直して検証する。
+- 旧Step11〜30とコラム5本の先行改稿は保存したまま、最終改稿は未受入とする。以前の「次はStep31〜35を改稿」という指示は破棄。
+- 最初の具体作業：`web-01`〜`web-05`のRazor/Markdown、Web先頭の目次と復習、PDF・Windows/Linux・Chromeを同じPRで実装。続いてruntime→browser→db-bridge→security→capstoneの順に新規30件。
+- 9段階の**計画用概要草稿**は`docs/course-v3/stages/`。段階開始時に仕上げ、全体移行時に現行7概要と入れ替える。現行PDFは完成済み80本を主に収録、計画中のページは見せない。
+- 既存`/learn/01`〜`/learn/80`は維持。新しい学習順番号と旧識別子を分離し、`curriculum.json`を並び順の正本とする。日本語PDF単体配布、未検証の実AD/IIS受入を成功扱いしない。
+
+## 以前の教材v2先行改稿（履歴、実施順は失効・2026-10-26）
 
 - 作業対象：[Draft PR #36](https://github.com/ShutenOishi/pg_blazor_samples/pull/36)。mainには未マージ。最新HEADはGitHub認証済みGETで再取得する。既存URL `/learn/01`〜`/learn/80` は維持し、一括改番しない。
 - WinForms＋Dapper経験者が初めてWeb開発を学ぶ前提で、既存の**80ステップ・通常コラム16本・特別コラム3本、合計99本すべてを一度は全面改稿**する。追記・置換だけで完了扱いにしない。

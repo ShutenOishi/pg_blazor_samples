@@ -1,0 +1,1506 @@
+{
+  "schema_version": 1,
+  "status": "planned-not-published",
+  "audience": "WinForms・Dapper経験、Web初学者",
+  "target": {
+    "dotnet": "10",
+    "efcore": "10",
+    "postgresql": "18",
+    "server": "Windows Server 2025 + IIS"
+  },
+  "steps": [
+    {
+      "sequence": 1,
+      "stage": 1,
+      "unit": 1,
+      "id": "web-01",
+      "title": "WinFormsとWebの処理場所を比較する",
+      "source": "docs/course-v3/lessons/web-01.md",
+      "url": "/learn/web-01",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 2,
+      "stage": 1,
+      "unit": 1,
+      "id": "web-02",
+      "title": "URL・HTTPと要求／応答を理解する",
+      "source": "docs/course-v3/lessons/web-02.md",
+      "url": "/learn/web-02",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 3,
+      "stage": 1,
+      "unit": 1,
+      "id": "web-03",
+      "title": "HTML・CSS・フォームの基礎",
+      "source": "docs/course-v3/lessons/web-03.md",
+      "url": "/learn/web-03",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 4,
+      "stage": 1,
+      "unit": 1,
+      "id": "web-04",
+      "title": "開発者ツールでDOM・Network・Consoleを見る",
+      "source": "docs/course-v3/lessons/web-04.md",
+      "url": "/learn/web-04",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 5,
+      "stage": 1,
+      "unit": 1,
+      "id": "web-05",
+      "title": "Visual Studio 2026でWebアプリを起動・デバッグする",
+      "source": "docs/course-v3/lessons/web-05.md",
+      "url": "/learn/web-05",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 6,
+      "stage": 2,
+      "unit": 2,
+      "id": "step01",
+      "title": "最初のBlazor画面を表示する",
+      "source": "docs/samples/step01.md",
+      "url": "/learn/01",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 7,
+      "stage": 2,
+      "unit": 2,
+      "id": "step02",
+      "title": "URLと画面遷移を理解する",
+      "source": "docs/samples/step02.md",
+      "url": "/learn/02",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 8,
+      "stage": 2,
+      "unit": 2,
+      "id": "step03",
+      "title": "RazorでC#の値を表示する",
+      "source": "docs/samples/step03.md",
+      "url": "/learn/03",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 9,
+      "stage": 2,
+      "unit": 2,
+      "id": "runtime-01",
+      "title": "Static SSRとInteractive Serverの違い",
+      "source": "docs/course-v3/lessons/runtime-01.md",
+      "url": "/learn/runtime-01",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 10,
+      "stage": 2,
+      "unit": 2,
+      "id": "step04",
+      "title": "ボタンのイベントを扱う",
+      "source": "docs/samples/step04.md",
+      "url": "/learn/04",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 11,
+      "stage": 2,
+      "unit": 3,
+      "id": "step05",
+      "title": "入力値を双方向に結び付ける",
+      "source": "docs/samples/step05.md",
+      "url": "/learn/05",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 12,
+      "stage": 2,
+      "unit": 3,
+      "id": "step06",
+      "title": "条件分岐と繰り返しで表示する",
+      "source": "docs/samples/step06.md",
+      "url": "/learn/06",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 13,
+      "stage": 2,
+      "unit": 3,
+      "id": "step07",
+      "title": "親から子へ値を渡す",
+      "source": "docs/samples/step07.md",
+      "url": "/learn/07",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 14,
+      "stage": 2,
+      "unit": 3,
+      "id": "step08",
+      "title": "子から親へ通知する",
+      "source": "docs/samples/step08.md",
+      "url": "/learn/08",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 15,
+      "stage": 2,
+      "unit": 3,
+      "id": "runtime-02",
+      "title": "SignalR・circuit・再接続",
+      "source": "docs/course-v3/lessons/runtime-02.md",
+      "url": "/learn/runtime-02",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 16,
+      "stage": 2,
+      "unit": 4,
+      "id": "step09",
+      "title": "初期化・更新・破棄を理解する",
+      "source": "docs/samples/step09.md",
+      "url": "/learn/09",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 17,
+      "stage": 2,
+      "unit": 4,
+      "id": "runtime-03",
+      "title": "事前レンダリングと初期化の実行回数",
+      "source": "docs/course-v3/lessons/runtime-03.md",
+      "url": "/learn/runtime-03",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 18,
+      "stage": 2,
+      "unit": 4,
+      "id": "step10",
+      "title": "入力フォームを日本語で検証する",
+      "source": "docs/samples/step10.md",
+      "url": "/learn/10",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 19,
+      "stage": 2,
+      "unit": 4,
+      "id": "runtime-04",
+      "title": "URL・履歴・再読込と画面状態",
+      "source": "docs/course-v3/lessons/runtime-04.md",
+      "url": "/learn/runtime-04",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 20,
+      "stage": 2,
+      "unit": 4,
+      "id": "runtime-05",
+      "title": "circuit・ブラウザー・DBの状態保存の選択",
+      "source": "docs/course-v3/lessons/runtime-05.md",
+      "url": "/learn/runtime-05",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 21,
+      "stage": 3,
+      "unit": 5,
+      "id": "step11",
+      "title": "DI（依存性注入）の基本",
+      "source": "docs/samples/step11.md",
+      "url": "/learn/11",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 22,
+      "stage": 3,
+      "unit": 5,
+      "id": "step12",
+      "title": "インターフェイスで部品を交換する",
+      "source": "docs/samples/step12.md",
+      "url": "/learn/12",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 23,
+      "stage": 3,
+      "unit": 5,
+      "id": "step13",
+      "title": "Singleton・Scoped・Transient",
+      "source": "docs/samples/step13.md",
+      "url": "/learn/13",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 24,
+      "stage": 3,
+      "unit": 5,
+      "id": "step14",
+      "title": "BlazorのScopedと対話回線",
+      "source": "docs/samples/step14.md",
+      "url": "/learn/14",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 25,
+      "stage": 3,
+      "unit": 5,
+      "id": "step15",
+      "title": "injectとコンストラクター注入",
+      "source": "docs/samples/step15.md",
+      "url": "/learn/15",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 26,
+      "stage": 3,
+      "unit": 6,
+      "id": "step16",
+      "title": "Optionsで設定を受け取る",
+      "source": "docs/samples/step16.md",
+      "url": "/learn/16",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 27,
+      "stage": 3,
+      "unit": 6,
+      "id": "step17",
+      "title": "非同期処理とログ",
+      "source": "docs/samples/step17.md",
+      "url": "/learn/17",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 28,
+      "stage": 3,
+      "unit": 6,
+      "id": "step18",
+      "title": "DIによる単体テスト",
+      "source": "docs/samples/step18.md",
+      "url": "/learn/18",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 29,
+      "stage": 3,
+      "unit": 6,
+      "id": "step19",
+      "title": "Applicationへ処理を分離",
+      "source": "docs/samples/step19.md",
+      "url": "/learn/19",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 30,
+      "stage": 3,
+      "unit": 6,
+      "id": "step20",
+      "title": "DIで課題管理を作る",
+      "source": "docs/samples/step20.md",
+      "url": "/learn/20",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 31,
+      "stage": 4,
+      "unit": 7,
+      "id": "step21",
+      "title": "MudBlazorと日本語翻訳を導入する",
+      "source": "docs/samples/step21.md",
+      "url": "/learn/21",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 32,
+      "stage": 4,
+      "unit": 7,
+      "id": "step22",
+      "title": "MudBlazorのレイアウトを学ぶ",
+      "source": "docs/samples/step22.md",
+      "url": "/learn/22",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 33,
+      "stage": 4,
+      "unit": 7,
+      "id": "step23",
+      "title": "日本語で入力部品を使う",
+      "source": "docs/samples/step23.md",
+      "url": "/learn/23",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 34,
+      "stage": 4,
+      "unit": 7,
+      "id": "step24",
+      "title": "MudFormの入力検証を学ぶ",
+      "source": "docs/samples/step24.md",
+      "url": "/learn/24",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 35,
+      "stage": 4,
+      "unit": 7,
+      "id": "step25",
+      "title": "MudTableで一覧とソート",
+      "source": "docs/samples/step25.md",
+      "url": "/learn/25",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 36,
+      "stage": 4,
+      "unit": 8,
+      "id": "step26",
+      "title": "MudDataGridで検索・並べ替えする",
+      "source": "docs/samples/step26.md",
+      "url": "/learn/26",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 37,
+      "stage": 4,
+      "unit": 8,
+      "id": "step27",
+      "title": "確認ダイアログで実行と中止を選ぶ",
+      "source": "docs/samples/step27.md",
+      "url": "/learn/27",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 38,
+      "stage": 4,
+      "unit": 8,
+      "id": "step28",
+      "title": "Snackbarと処理中の状態を表示する",
+      "source": "docs/samples/step28.md",
+      "url": "/learn/28",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 39,
+      "stage": 4,
+      "unit": 8,
+      "id": "step29",
+      "title": "ダークモードとキーボード操作を学ぶ",
+      "source": "docs/samples/step29.md",
+      "url": "/learn/29",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 40,
+      "stage": 4,
+      "unit": 8,
+      "id": "step30",
+      "title": "MudBlazor日本語UIを総合演習する",
+      "source": "docs/samples/step30.md",
+      "url": "/learn/30",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 41,
+      "stage": 4,
+      "unit": 9,
+      "id": "browser-01",
+      "title": "JavaScript interopの利用判断",
+      "source": "docs/course-v3/lessons/browser-01.md",
+      "url": "/learn/browser-01",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 42,
+      "stage": 4,
+      "unit": 9,
+      "id": "browser-02",
+      "title": "ファイルアップロードと入力制約",
+      "source": "docs/course-v3/lessons/browser-02.md",
+      "url": "/learn/browser-02",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 43,
+      "stage": 4,
+      "unit": 9,
+      "id": "browser-03",
+      "title": "CSV・PDFファイルのダウンロード",
+      "source": "docs/course-v3/lessons/browser-03.md",
+      "url": "/learn/browser-03",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 44,
+      "stage": 4,
+      "unit": 9,
+      "id": "browser-04",
+      "title": "ErrorBoundary・取消・再試行",
+      "source": "docs/course-v3/lessons/browser-04.md",
+      "url": "/learn/browser-04",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 45,
+      "stage": 4,
+      "unit": 9,
+      "id": "browser-05",
+      "title": "HTMLの意味・フォーカス・拡大表示の最終確認",
+      "source": "docs/course-v3/lessons/browser-05.md",
+      "url": "/learn/browser-05",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 46,
+      "stage": 5,
+      "unit": 10,
+      "id": "db-bridge-01",
+      "title": "DapperとEF Coreの役割・選定を比較する",
+      "source": "docs/course-v3/lessons/db-bridge-01.md",
+      "url": "/learn/db-bridge-01",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 47,
+      "stage": 5,
+      "unit": 10,
+      "id": "step31",
+      "title": "モデルとDTOを理解する",
+      "source": "docs/samples/step31.md",
+      "url": "/learn/31",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 48,
+      "stage": 5,
+      "unit": 10,
+      "id": "step32",
+      "title": "PostgreSQLで学習テーブルを定義する",
+      "source": "docs/samples/step32.md",
+      "url": "/learn/32",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 49,
+      "stage": 5,
+      "unit": 10,
+      "id": "step33",
+      "title": "EF Core 10をWebへ登録する",
+      "source": "docs/samples/step33.md",
+      "url": "/learn/33",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 50,
+      "stage": 5,
+      "unit": 10,
+      "id": "step34",
+      "title": "DbContextFactoryと接続プール",
+      "source": "docs/samples/step34.md",
+      "url": "/learn/34",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 51,
+      "stage": 5,
+      "unit": 11,
+      "id": "step35",
+      "title": "LINQ検索とAsNoTracking",
+      "source": "docs/samples/step35.md",
+      "url": "/learn/35",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 52,
+      "stage": 5,
+      "unit": 11,
+      "id": "db-bridge-02",
+      "title": "SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL",
+      "source": "docs/course-v3/lessons/db-bridge-02.md",
+      "url": "/learn/db-bridge-02",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 53,
+      "stage": 5,
+      "unit": 11,
+      "id": "db-bridge-03",
+      "title": "Dapperの接続／ExecuteとDbContext・追跡・SaveChanges",
+      "source": "docs/course-v3/lessons/db-bridge-03.md",
+      "url": "/learn/db-bridge-03",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 54,
+      "stage": 5,
+      "unit": 11,
+      "id": "step36",
+      "title": "EF Coreの登録・更新・削除",
+      "source": "docs/samples/step36.md",
+      "url": "/learn/36",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 55,
+      "stage": 5,
+      "unit": 11,
+      "id": "step37",
+      "title": "DateOnly・TimeOnly・Rangeの型変換",
+      "source": "docs/samples/step37.md",
+      "url": "/learn/37",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 56,
+      "stage": 5,
+      "unit": 12,
+      "id": "step38",
+      "title": "トランザクションを理解する",
+      "source": "docs/samples/step38.md",
+      "url": "/learn/38",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 57,
+      "stage": 5,
+      "unit": 12,
+      "id": "step39",
+      "title": "xmin楽観的排他を確認する",
+      "source": "docs/samples/step39.md",
+      "url": "/learn/39",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 58,
+      "stage": 5,
+      "unit": 12,
+      "id": "db-bridge-04",
+      "title": "既存DB・ビュー・キーなしモデル・FDWを扱う",
+      "source": "docs/course-v3/lessons/db-bridge-04.md",
+      "url": "/learn/db-bridge-04",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 59,
+      "stage": 5,
+      "unit": 12,
+      "id": "db-bridge-05",
+      "title": "FromSql／SqlQueryのパラメーターとDapper併用",
+      "source": "docs/course-v3/lessons/db-bridge-05.md",
+      "url": "/learn/db-bridge-05",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 60,
+      "stage": 5,
+      "unit": 12,
+      "id": "step40",
+      "title": "PostgreSQL 18の実接続確認",
+      "source": "docs/samples/step40.md",
+      "url": "/learn/40",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 61,
+      "stage": 6,
+      "unit": 13,
+      "id": "step41",
+      "title": "Itemsを使う一覧の条件",
+      "source": "docs/samples/step41.md",
+      "url": "/learn/41",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 62,
+      "stage": 6,
+      "unit": 13,
+      "id": "step42",
+      "title": "MudTableのServerDataでDB検索",
+      "source": "docs/samples/step42.md",
+      "url": "/learn/42",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 63,
+      "stage": 6,
+      "unit": 13,
+      "id": "step43",
+      "title": "MudDataGridのServerDataとEF Core",
+      "source": "docs/samples/step43.md",
+      "url": "/learn/43",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 64,
+      "stage": 6,
+      "unit": 13,
+      "id": "step44",
+      "title": "複数列ソートを安全に組み立てる",
+      "source": "docs/samples/step44.md",
+      "url": "/learn/44",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 65,
+      "stage": 6,
+      "unit": 13,
+      "id": "step45",
+      "title": "日付と完了状態で絞り込む",
+      "source": "docs/samples/step45.md",
+      "url": "/learn/45",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 66,
+      "stage": 6,
+      "unit": 14,
+      "id": "step46",
+      "title": "関連テーブルをDTOへ射影する",
+      "source": "docs/samples/step46.md",
+      "url": "/learn/46",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 67,
+      "stage": 6,
+      "unit": 14,
+      "id": "step47",
+      "title": "キーセットページングを理解する",
+      "source": "docs/samples/step47.md",
+      "url": "/learn/47",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 68,
+      "stage": 6,
+      "unit": 14,
+      "id": "step48",
+      "title": "取得済み一覧を部分描画する",
+      "source": "docs/samples/step48.md",
+      "url": "/learn/48",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 69,
+      "stage": 6,
+      "unit": 14,
+      "id": "step49",
+      "title": "DB取得と仮想スクロールを連携する",
+      "source": "docs/samples/step49.md",
+      "url": "/learn/49",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 70,
+      "stage": 6,
+      "unit": 14,
+      "id": "step50",
+      "title": "デバウンスと障害時の再試行",
+      "source": "docs/samples/step50.md",
+      "url": "/learn/50",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 71,
+      "stage": 6,
+      "unit": 15,
+      "id": "step51",
+      "title": "編集DTOをフォームで検証して保存する",
+      "source": "docs/samples/step51.md",
+      "url": "/learn/51",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 72,
+      "stage": 6,
+      "unit": 15,
+      "id": "step52",
+      "title": "ダイアログで保存と取消を分ける",
+      "source": "docs/samples/step52.md",
+      "url": "/learn/52",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 73,
+      "stage": 6,
+      "unit": 15,
+      "id": "step53",
+      "title": "複数選択と原子的な一括処理",
+      "source": "docs/samples/step53.md",
+      "url": "/learn/53",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 74,
+      "stage": 6,
+      "unit": 15,
+      "id": "step54",
+      "title": "xmin競合と最新値の確認",
+      "source": "docs/samples/step54.md",
+      "url": "/learn/54",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 75,
+      "stage": 6,
+      "unit": 15,
+      "id": "step55",
+      "title": "詳細DTOとN+1の防止",
+      "source": "docs/samples/step55.md",
+      "url": "/learn/55",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 76,
+      "stage": 6,
+      "unit": 16,
+      "id": "step56",
+      "title": "日本語日付範囲とDB検索",
+      "source": "docs/samples/step56.md",
+      "url": "/learn/56",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 77,
+      "stage": 6,
+      "unit": 16,
+      "id": "step57",
+      "title": "キャッシュと権限境界",
+      "source": "docs/samples/step57.md",
+      "url": "/learn/57",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 78,
+      "stage": 6,
+      "unit": 16,
+      "id": "step58",
+      "title": "DB側集計とCSV出力",
+      "source": "docs/samples/step58.md",
+      "url": "/learn/58",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 79,
+      "stage": 6,
+      "unit": 16,
+      "id": "step59",
+      "title": "EXPLAINと応答時間計測",
+      "source": "docs/samples/step59.md",
+      "url": "/learn/59",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 80,
+      "stage": 6,
+      "unit": 16,
+      "id": "step60",
+      "title": "一覧パターンを要件から選ぶ",
+      "source": "docs/samples/step60.md",
+      "url": "/learn/60",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 81,
+      "stage": 7,
+      "unit": 17,
+      "id": "security-01",
+      "title": "Windows認証・Cookie・HTTP・circuit",
+      "source": "docs/course-v3/lessons/security-01.md",
+      "url": "/learn/security-01",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 82,
+      "stage": 7,
+      "unit": 17,
+      "id": "security-02",
+      "title": "Middlewareの順序・HTTPS・IISの経路",
+      "source": "docs/course-v3/lessons/security-02.md",
+      "url": "/learn/security-02",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 83,
+      "stage": 7,
+      "unit": 17,
+      "id": "security-03",
+      "title": "XSS・CSRF・SQL注入の防御境界",
+      "source": "docs/course-v3/lessons/security-03.md",
+      "url": "/learn/security-03",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 84,
+      "stage": 7,
+      "unit": 17,
+      "id": "security-04",
+      "title": "環境別設定・Secret・Data Protection鍵",
+      "source": "docs/course-v3/lessons/security-04.md",
+      "url": "/learn/security-04",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 85,
+      "stage": 7,
+      "unit": 17,
+      "id": "security-05",
+      "title": "接続切断・セッション失効・権限再検証",
+      "source": "docs/course-v3/lessons/security-05.md",
+      "url": "/learn/security-05",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 86,
+      "stage": 7,
+      "unit": 18,
+      "id": "step61",
+      "title": "Windows統合認証を構成する",
+      "source": "docs/samples/step61.md",
+      "url": "/learn/61",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 87,
+      "stage": 7,
+      "unit": 18,
+      "id": "step62",
+      "title": "認証済みドメインユーザー名を扱う",
+      "source": "docs/samples/step62.md",
+      "url": "/learn/62",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 88,
+      "stage": 7,
+      "unit": 18,
+      "id": "step63",
+      "title": "認証済みユーザー名と既存台帳を結ぶ",
+      "source": "docs/samples/step63.md",
+      "url": "/learn/63",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 89,
+      "stage": 7,
+      "unit": 18,
+      "id": "step64",
+      "title": "未登録・無効利用者を拒否する",
+      "source": "docs/samples/step64.md",
+      "url": "/learn/64",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 90,
+      "stage": 7,
+      "unit": 18,
+      "id": "step65",
+      "title": "既存台帳の業務権限を確認する",
+      "source": "docs/samples/step65.md",
+      "url": "/learn/65",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 91,
+      "stage": 7,
+      "unit": 19,
+      "id": "step66",
+      "title": "サービス側で認可を強制する",
+      "source": "docs/samples/step66.md",
+      "url": "/learn/66",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 92,
+      "stage": 7,
+      "unit": 19,
+      "id": "step67",
+      "title": "部署ごとのCountとItems",
+      "source": "docs/samples/step67.md",
+      "url": "/learn/67",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 93,
+      "stage": 7,
+      "unit": 19,
+      "id": "step68",
+      "title": "集計とCSVにも認可を適用",
+      "source": "docs/samples/step68.md",
+      "url": "/learn/68",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 94,
+      "stage": 7,
+      "unit": 19,
+      "id": "step69",
+      "title": "保存直前の権限とxminを再確認",
+      "source": "docs/samples/step69.md",
+      "url": "/learn/69",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 95,
+      "stage": 7,
+      "unit": 19,
+      "id": "step70",
+      "title": "Windows Server 2025の実機受入を分ける",
+      "source": "docs/samples/step70.md",
+      "url": "/learn/70",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 96,
+      "stage": 8,
+      "unit": 20,
+      "id": "step71",
+      "title": "既存台帳のキー正規化・重複拒否と索引",
+      "source": "docs/samples/step71.md",
+      "url": "/learn/71",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 97,
+      "stage": 8,
+      "unit": 20,
+      "id": "step72",
+      "title": "明示Windowsログインと短命Cookie",
+      "source": "docs/samples/step72.md",
+      "url": "/learn/72",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 98,
+      "stage": 8,
+      "unit": 20,
+      "id": "step73",
+      "title": "権限行ロックと更新の原子性",
+      "source": "docs/samples/step73.md",
+      "url": "/learn/73",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 99,
+      "stage": 8,
+      "unit": 20,
+      "id": "step74",
+      "title": "本人・操作・結果を永続監査する",
+      "source": "docs/samples/step74.md",
+      "url": "/learn/74",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 100,
+      "stage": 8,
+      "unit": 20,
+      "id": "step75",
+      "title": "IIS・Kerberos・負荷・障害の実機受入",
+      "source": "docs/samples/step75.md",
+      "url": "/learn/75",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 101,
+      "stage": 8,
+      "unit": 21,
+      "id": "step76",
+      "title": "二人の編集競合とxmin",
+      "source": "docs/samples/step76.md",
+      "url": "/learn/76",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 102,
+      "stage": 8,
+      "unit": 21,
+      "id": "step77",
+      "title": "キャッシュの有効期限と権限失効",
+      "source": "docs/samples/step77.md",
+      "url": "/learn/77",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 103,
+      "stage": 8,
+      "unit": 21,
+      "id": "step78",
+      "title": "ヘルスチェック・構造化ログ・運用監視",
+      "source": "docs/samples/step78.md",
+      "url": "/learn/78",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 104,
+      "stage": 8,
+      "unit": 21,
+      "id": "step79",
+      "title": "実DB・ブラウザー・認可の結合/E2E試験",
+      "source": "docs/samples/step79.md",
+      "url": "/learn/79",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 105,
+      "stage": 8,
+      "unit": 21,
+      "id": "step80",
+      "title": "Windows Server 2025/IISの配布・切替・復旧",
+      "source": "docs/samples/step80.md",
+      "url": "/learn/80",
+      "implementation": "existing",
+      "rewrite": "recheck-required"
+    },
+    {
+      "sequence": 106,
+      "stage": 9,
+      "unit": 22,
+      "id": "capstone-01",
+      "title": "業務要件・画面遷移・WinForms移行の設計",
+      "source": "docs/course-v3/lessons/capstone-01.md",
+      "url": "/learn/capstone-01",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 107,
+      "stage": 9,
+      "unit": 22,
+      "id": "capstone-02",
+      "title": "PostgreSQL検索とページング・生成SQL",
+      "source": "docs/course-v3/lessons/capstone-02.md",
+      "url": "/learn/capstone-02",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 108,
+      "stage": 9,
+      "unit": 22,
+      "id": "capstone-03",
+      "title": "DTO編集・競合・取消・例外の統合",
+      "source": "docs/course-v3/lessons/capstone-03.md",
+      "url": "/learn/capstone-03",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 109,
+      "stage": 9,
+      "unit": 22,
+      "id": "capstone-04",
+      "title": "認証済み本人と既存台帳による権限・監査",
+      "source": "docs/course-v3/lessons/capstone-04.md",
+      "url": "/learn/capstone-04",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    },
+    {
+      "sequence": 110,
+      "stage": 9,
+      "unit": 22,
+      "id": "capstone-05",
+      "title": "E2E・障害復旧・IIS受入表",
+      "source": "docs/course-v3/lessons/capstone-05.md",
+      "url": "/learn/capstone-05",
+      "implementation": "planned",
+      "rewrite": "not-started"
+    }
+  ],
+  "stages": [
+    {
+      "name": "Web開発の前提",
+      "goal": "WinFormsとブラウザー/サーバーの役割を区別し、HTTPと開発者ツールで動作を追える。",
+      "pre": "C#とWindowsアプリ開発の経験。DB/AD不要。",
+      "bridge": "フォームのイベントだけでは見えなかったHTTP要求・応答・DOM・HTTPSとKestrelを先に理解する。",
+      "exercise": "Networkで要求と応答を観察し、HTMLの見た目を変えてサーバー側ブレークポイントを通す。",
+      "next": "Razorの表示と対話を、Web側の仕組みと結び付ける。",
+      "stage": 1,
+      "from": 1,
+      "to": 5,
+      "overview": "docs/course-v3/stages/stage01.md"
+    },
+    {
+      "name": "Blazorの基本と実行原理",
+      "goal": "Razorの表示・イベント・コンポーネントと、SSR・SignalR・circuit・状態の違いを説明できる。",
+      "pre": "第1段階。DB/AD不要。",
+      "bridge": "WinFormsのイベントがローカルで完結していたのに対し、Interactive ServerではC#がサーバーで実行される。",
+      "exercise": "SSRと対話型のクリック、回線切断、ライフサイクルの初期化回数と再読込を観察する。",
+      "next": "DIの寿命とcircuit状態を混同せず、サービスを導入する。",
+      "stage": 2,
+      "from": 6,
+      "to": 20,
+      "overview": "docs/course-v3/stages/stage02.md"
+    },
+    {
+      "name": "DI・サービスと単体テスト",
+      "goal": "DI登録、インターフェイス、ライフタイム、Options、ログ、テスト、サービス分離を一つの小さな画面で説明できる。",
+      "pre": "第2段階のcircuit/イベント。DB/AD不要。",
+      "bridge": "WinFormsのnewと外部サービス注入を比較し、Scopedを画面操作ごとの生成と誤解しない。",
+      "exercise": "固定時計をテストへ渡し、Scoped課題リストとIOptionsを利用して入力エラーを確認する。",
+      "next": "UIライブラリのDI登録とProviderを理解する。",
+      "stage": 3,
+      "from": 21,
+      "to": 30,
+      "overview": "docs/course-v3/stages/stage03.md"
+    },
+    {
+      "name": "MudBlazorとブラウザーの業務UI",
+      "goal": "日本語入力・一覧・ダイアログ・通知に加え、JS連携、ファイル操作、エラー、アクセシビリティを判断できる。",
+      "pre": "第3段階のDI。DB/ADなしで練習できる。",
+      "bridge": "DataGridViewとは違い、Items全件保持とサーバー側取得を分け、ブラウザーのファイル・DOMに必要な手段を選ぶ。",
+      "exercise": "架空の課題データで検索・確認・アップロード制約・CSV/PDFダウンロード・キーボード操作を試す。",
+      "next": "画面をPostgreSQLとEF Coreの短命DbContextへ接続する。",
+      "stage": 4,
+      "from": 31,
+      "to": 45,
+      "overview": "docs/course-v3/stages/stage04.md"
+    },
+    {
+      "name": "DapperからEF Core 10・PostgreSQL 18へ",
+      "goal": "既存SQLとLINQ、Npgsqlの接続プール、DbContextFactory、CRUD、型、更新競合を対応付けられる。",
+      "pre": "第4段階の入力/UI。学習用PostgreSQL 18が必要な操作を明示する。",
+      "bridge": "DapperのSQL/DTO/Executeに対してEF Coreのモデル・追跡・SaveChanges・生成SQLを実例で比較する。",
+      "exercise": "同じ検索をSQLとLINQで表現し、パラメーター、トランザクション、xminによる競合を確認する。",
+      "next": "一覧の取得方式を件数と操作要件で選ぶ。",
+      "stage": 5,
+      "from": 46,
+      "to": 60,
+      "overview": "docs/course-v3/stages/stage05.md"
+    },
+    {
+      "name": "一覧データ連携・検索・編集",
+      "goal": "Items・ServerData・仮想化・キーセットを条件で使い分け、認可の前段階として安全なデータ操作を理解する。",
+      "pre": "第5段階のDbContextFactory/SQL。PostgreSQL 18。",
+      "bridge": "DataGridViewへの全件一括読み込みから、DB検索と画面描画を分離した方式へ移る。",
+      "exercise": "CountとItemsの一致、安定ソート、キャンセル、xmin競合、CSV上限とEXPLAINを観察する。",
+      "next": "データ取得に本人・部署・操作単位の認可を適用する。",
+      "stage": 6,
+      "from": 61,
+      "to": 80,
+      "overview": "docs/course-v3/stages/stage06.md"
+    },
+    {
+      "name": "Webセキュリティ・AD認証とDB認可",
+      "goal": "HTTP/Cookie/CSRFとWindows統合認証を理解し、既存DB利用者台帳を権限の正本として拒否を保証する。",
+      "pre": "第6段階のDB検索。AD/IIS実機確認は別。",
+      "bridge": "Windowsログオン済みでも業務DBの全件が読めるわけではない。認証名と権限テーブルの照合を分ける。",
+      "exercise": "未登録/無効/部署外の拒否、サービス経由以外の呼び出し、Count/CSVの漏えい否定を確認する。",
+      "next": "認可を前提に監査・権限失効・配備を運用する。",
+      "stage": 7,
+      "from": 81,
+      "to": 95,
+      "overview": "docs/course-v3/stages/stage07.md"
+    },
+    {
+      "name": "監査・競合制御・Windows Server運用",
+      "goal": "鍵・Cookie、権限行ロック、監査の同一トランザクション、IIS/障害復旧の受入範囲を判断できる。",
+      "pre": "第7段階の認証認可とPostgreSQL。現地のIIS/AD/FDWは環境依存。",
+      "bridge": "デスクトップ単体実行とは違い、複数利用者・再接続・サーバー側の状態失効と監視が必要になる。",
+      "exercise": "権限変更競合と監査失敗の拒否、IIS受入チェック、DB実接続/CI/実機の違いを確認する。",
+      "next": "一連の設計を総合演習でまとめる。",
+      "stage": 8,
+      "from": 96,
+      "to": 105,
+      "overview": "docs/course-v3/stages/stage08.md"
+    },
+    {
+      "name": "業務アプリの通し演習",
+      "goal": "画面からDB検索・入力・認可・監査・E2E・運用受入まで架空の一業務を通して説明できる。",
+      "pre": "第1〜8段階。実AD/IISの本番条件は別受入。",
+      "bridge": "WinForms＋Dapperで作っていた業務画面を、Webの状態・サービス・DB・認証認可に分けて移す。",
+      "exercise": "架空の課題/申請画面の作成、拒否/競合/取消/障害の確認、配布・復旧判断を実施する。",
+      "next": "具体的な勤務先システムへの適用前に、権限・監査・性能・運用要件を照合する。",
+      "stage": 9,
+      "from": 106,
+      "to": 110,
+      "overview": "docs/course-v3/stages/stage09.md"
+    }
+  ],
+  "reviews": [
+    {
+      "unit": 1,
+      "after_sequence": 5,
+      "path": "docs/course-v3/reviews/review-01.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 2,
+      "after_sequence": 10,
+      "path": "docs/course-v3/reviews/review-02.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 3,
+      "after_sequence": 15,
+      "path": "docs/course-v3/reviews/review-03.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 4,
+      "after_sequence": 20,
+      "path": "docs/course-v3/reviews/review-04.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 5,
+      "after_sequence": 25,
+      "path": "docs/columns/column11-15.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 6,
+      "after_sequence": 30,
+      "path": "docs/columns/column16-20.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 7,
+      "after_sequence": 35,
+      "path": "docs/columns/column21-25.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 8,
+      "after_sequence": 40,
+      "path": "docs/columns/column26-30.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 9,
+      "after_sequence": 45,
+      "path": "docs/course-v3/reviews/review-09.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 10,
+      "after_sequence": 50,
+      "path": "docs/course-v3/reviews/review-10.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 11,
+      "after_sequence": 55,
+      "path": "docs/course-v3/reviews/review-11.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 12,
+      "after_sequence": 60,
+      "path": "docs/course-v3/reviews/review-12.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 13,
+      "after_sequence": 65,
+      "path": "docs/columns/column41-45.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 14,
+      "after_sequence": 70,
+      "path": "docs/columns/column46-50.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 15,
+      "after_sequence": 75,
+      "path": "docs/columns/column51-55.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 16,
+      "after_sequence": 80,
+      "path": "docs/columns/column56-60.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 17,
+      "after_sequence": 85,
+      "path": "docs/course-v3/reviews/review-17.md",
+      "existing": false,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 18,
+      "after_sequence": 90,
+      "path": "docs/columns/column61-65.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 19,
+      "after_sequence": 95,
+      "path": "docs/columns/column66-70.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 20,
+      "after_sequence": 100,
+      "path": "docs/columns/column71-75.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 21,
+      "after_sequence": 105,
+      "path": "docs/columns/column76-80.md",
+      "existing": true,
+      "requires_rewrite": true
+    },
+    {
+      "unit": 22,
+      "after_sequence": 110,
+      "path": "docs/course-v3/reviews/review-22.md",
+      "existing": false,
+      "requires_rewrite": true
+    }
+  ],
+  "specials": [
+    {
+      "after_sequence": 30,
+      "id": "library-di",
+      "source": "docs/columns/column-library-di.md"
+    },
+    {
+      "after_sequence": 60,
+      "id": "mudblazor-by-purpose",
+      "source": "docs/columns/column-mudblazor-by-purpose.md"
+    },
+    {
+      "after_sequence": 90,
+      "id": "auth-at-scale",
+      "source": "docs/columns/column-auth-at-scale.md"
+    }
+  ]
+}
