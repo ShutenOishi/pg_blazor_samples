@@ -167,7 +167,7 @@ async function waitText(page, selector, expected) {
         await page.getByRole("heading", { name: "第3組の復習：入力・部品・対話回線の復習" }).waitFor();
         await page.getByRole("table").first().getByText("EventCallback<string>").waitFor();
         await page.getByRole("link", { name: "次へ：学習順016" }).click();
-        if (!page.url().includes("/learn/09")) throw new Error("第3組の復習から学習順016へ移動できません");
+        if (!page.url().includes("/learn/016")) throw new Error("第3組の復習から学習順016へ移動できません");
         console.log("全面改稿011〜015の実画面・親子通知・一覧フィルター・復習への遷移を検証");
         await page.goto(base + "/learn/runtime-01");
         await page.waitForTimeout(900);
