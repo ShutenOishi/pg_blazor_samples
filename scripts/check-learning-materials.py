@@ -1347,6 +1347,41 @@ if -1 in pdf_last or pdf_last != sorted(pdf_last) or not (
 ):
     missing.append("第9段階概要→106〜110→第22組のPDF目次ソース順序が不正")
 
+# 学習順001〜110のソース参照表を現在の教材順序と突き合わせる。
+# 利用者が番号を換算して探す必要をなくし、改名時の参照切れを検出する。
+source_map_path = ROOT / "docs/course-v3/source-map.json"
+source_index_path = ROOT / "docs/course-v3/source-index.md"
+if not source_map_path.is_file() or not source_index_path.is_file():
+    missing.append("学習順001〜110の教材・実装直接索引がありません")
+else:
+    source_map = json.loads(source_map_path.read_text(encoding="utf-8"))
+    source_index = source_index_path.read_text(encoding="utf-8")
+    mapped_lessons = source_map.get("lessons", [])
+    if len(mapped_lessons) != 110:
+        missing.append("実装直接索引が110件ではありません")
+    if [entry.get("sequence") for entry in mapped_lessons] != list(range(1, 111)):
+        missing.append("実装直接索引の学習順が連続していません")
+    if len({entry.get("razor_path") for entry in mapped_lessons}) != 110:
+        missing.append("実装直接索引の主Razorへの対応が重複しています")
+    for expected, actual in zip(ordered, mapped_lessons):
+        seq = expected["sequence"]
+        if (actual.get("lesson_path") != expected["source"]
+                or actual.get("app_url") != expected["url"]
+                or actual.get("title") != expected["title"]
+                or actual.get("stage") != expected["stage"]):
+            missing.append(f"学習順{seq:03d}：実装直接索引がcurriculumと一致しません")
+        if not (ROOT / actual.get("lesson_path", "")).is_file():
+            missing.append(f"学習順{seq:03d}：教材ファイルがありません")
+        if not (ROOT / actual.get("razor_path", "")).is_file():
+            missing.append(f"学習順{seq:03d}：Razorソースがありません")
+        if f"| {seq:03d} | " not in source_index:
+            missing.append(f"学習順{seq:03d}：直接索引の表示がありません")
+    import re
+    for path in (ROOT / "README.md", source_index_path):
+        visible = re.sub(r"\]\([^)]+\)", "]", path.read_text(encoding="utf-8"))
+        if re.search(r"(?:旧(?:Step|ステップ)|(?:Step|ステップ)\s*\d{1,3})", visible):
+            missing.append(f"{path.relative_to(ROOT)}：現在の学習順以外の番号表記があります")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
