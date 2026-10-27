@@ -457,16 +457,16 @@ async function waitText(page, selector, expected) {
         await page.goto(base + "/learn/10");
         await page.waitForTimeout(1200);
         await page.getByRole("button", { name: "入力内容を確認する" }).click();
-        await page.getByText("表示名を入力してください。", { exact: true }).waitFor();
-        await page.getByText("学習メモを入力してください。", { exact: true }).waitFor();
+        await page.locator('form .form-field').first().getByText("表示名を入力してください。", { exact: true }).waitFor();
+        await page.locator('form .form-field').nth(1).getByText("学習メモを入力してください。", { exact: true }).waitFor();
         if (await page.locator('[data-testid="step10-confirmation"]').count() !== 0) {
             throw new Error("ステップ10：必須未入力で確認が成立しました。");
         }
         await page.getByRole("textbox", { name: "練習用の表示名（2〜20文字・必須）" }).fill("あ");
         await page.getByRole("textbox", { name: "学習メモ（3〜80文字・必須）" }).fill("あい");
         await page.getByRole("button", { name: "入力内容を確認する" }).click();
-        await page.getByText("表示名は2文字以上20文字以内で入力してください。", { exact: true }).waitFor();
-        await page.getByText("学習メモは3文字以上80文字以内で入力してください。", { exact: true }).waitFor();
+        await page.locator('form .form-field').first().getByText("表示名は2文字以上20文字以内で入力してください。", { exact: true }).waitFor();
+        await page.locator('form .form-field').nth(1).getByText("学習メモは3文字以上80文字以内で入力してください。", { exact: true }).waitFor();
         await page.getByRole("textbox", { name: "練習用の表示名（2〜20文字・必須）" }).fill("練習太郎");
         await page.getByRole("textbox", { name: "学習メモ（3〜80文字・必須）" }).fill("フォームの入力検証を復習する");
         await page.getByRole("button", { name: "入力内容を確認する" }).click();
@@ -638,10 +638,13 @@ async function waitText(page, selector, expected) {
         console.log("コラム04・特別コラム05：DIの理解を深める日本語画面を確認");
 
         // Step21〜25：MudBlazorのイベント・日本語入力・検証・一覧を実際に操作する。
+        await page.goto(base + "/learn/stage/browser");
+        await page.locator('[data-testid="stage04-compare"]').waitFor();
         await page.goto(base + "/learn/21");
         await page.waitForTimeout(1200);
         await page.getByRole("button", { name: "日本語の通知を表示する" }).click();
         await waitText(page, '[data-testid="step21-state"]', "通知サービスを使いました");
+        await page.locator('[data-testid="mud07-compare-21"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step21.png") });
 
         await page.goto(base + "/learn/22");
@@ -650,12 +653,14 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step22-state"]', "メニューを閉じています");
         await page.getByRole("button", { name: "学習メニューを開閉" }).click();
         await waitText(page, '[data-testid="step22-state"]', "メニューを表示しています");
+        await page.locator('[data-testid="mud07-compare-22"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step22.png") });
 
         await page.goto(base + "/learn/23");
         await page.waitForTimeout(1000);
         await page.getByRole("textbox", { name: "練習用の氏名" }).fill("練習太郎");
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎");
+        await page.locator('[data-testid="mud07-compare-23"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step23.png") });
 
         await page.goto(base + "/learn/24");
@@ -668,15 +673,18 @@ async function waitText(page, selector, expected) {
         await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("UIを学ぶ");
         await page.getByRole("button", { name: "入力を検証する" }).click();
         await waitText(page, '[data-testid="step24-result"]', "入力検証に合格しました");
+        await page.locator('[data-testid="mud07-compare-24"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step24.png") });
 
         await page.goto(base + "/learn/25");
         await page.waitForTimeout(1000);
         await waitText(page, '[data-testid="step25-count"]', "4 件");
+        await page.locator('[data-testid="mud07-compare-25"]').waitFor();
         await page.getByText("課題名", { exact: true }).last().click();
         await page.screenshot({ path: path.join(evidence, "step25.png") });
         await page.goto(base + "/learn/column/25");
         await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
+        await page.locator('[data-testid="mud07-review-table"]').waitFor();
         console.log("ステップ21〜25とコラム06：MudBlazorの画面と対話を確認");
 
         // Step26〜30：データベースを用いずUIの対話操作を検証する。
