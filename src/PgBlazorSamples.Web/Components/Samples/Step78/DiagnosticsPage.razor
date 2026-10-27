@@ -2,7 +2,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>ステップ78：運用監視｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ78 / liveness・ログ・相関ID</p>
+<p class="eyebrow">学習順103（旧Step78） / liveness・ログ・相関ID</p>
 <h1>稼働確認と業務の利用許可は別物</h1>
 <MudPaper Class="pa-4">
     <p>アプリ起動だけを監視する /health/live と、本人・既存台帳・監査に依存する業務アクセスを区別します。</p>
@@ -18,6 +18,19 @@
         <li>アラートは認証失敗増加、DB接続待機、監査INSERT失敗、SignalR再接続率、P95/P99を測定します。</li>
     </ul>
     <p>匿名でも応答するlivenessは監視専用で、機密値を一切出さず、IISやプロキシでアクセス元を制限します。</p>
+</section>
+<section class="lesson-details">
+    <h2>学習順103：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage08-compare-103">
+        <thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor Interactive Server</th></tr></thead>
+        <tbody>
+            <tr><td>処理の入口</td><td>Windowsフォームで操作を受ける</td><td>Razorからサーバー側サービスを呼ぶ</td></tr>
+            <tr><td>本人・部署・操作</td><td>DB正本をSQL実行時に照会</td><td>業務サービスが既存台帳を都度照会</td></tr>
+            <tr><td>競合・監査</td><td>版とトランザクションを検証</td><td>xmin・権限と永続監査の安全拒否</td></tr>
+            <tr><td>本番受入</td><td>端末と接続先を検証</td><td>CIと実AD/IIS/FDW・負荷の現地受入を区別</td></tr>
+        </tbody>
+    </table>
+    <p>詳しい演習と解答は学習順103の教材本文にあります。匿名時の拒否は安全な動作です。</p>
 </section>
 <div class="page-navigation"><a href="/learn/77">前へ</a><a href="/learn/79">次へ</a></div>
 @code {
