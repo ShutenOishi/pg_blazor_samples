@@ -2,7 +2,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>ステップ70：IIS・監査の受入｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ70 / 実運用とCIの境界</p>
+<p class="eyebrow">学習順095 / 第7段階・第19組（旧Step70）</p>
 <h1>Windows Server 2025で安全性を受け入れる</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" OnClick="CheckAsync">現在の更新権限を確認</MudButton>
@@ -20,8 +20,15 @@
     <p><strong>CIでは実AD/IIS/Kerberosを検証できません。</strong> この画面が表示できても本番受入完了を意味しません。</p>
     <details><summary>Q. application_nameだけで誰が更新したか証明できる？</summary><p>できません。DBの物理接続を再利用するため、アプリの監査ログは別の永続化を設計します。</p></details>
     <details><summary>Q. ADパスワードを入力させる画面を作る？</summary><p>作りません。必要ならHTTPエンドポイントでWindows認証を確立し、短命Cookieを発行する方式を別途受け入れます。</p></details>
+    <h2>WinForms＋DapperとBlazorの認可比較</h2>
+    <table data-testid="stage07-compare-95"><thead><tr><th>視点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core</th></tr></thead><tbody>
+        <tr><td>運用</td><td>SQL実行時に既存台帳の操作権限と部署条件を確認する</td><td>実IIS/AD/Kerberos・FDWで別途受入</td></tr>
+        <tr><td>安全拒否</td><td>ボタンの無効化だけで業務データを保護しない</td><td>CIで実機受入を代替しない</td></tr>
+        <tr><td>現地受入</td><td>Windows端末・DB運用の検査を別に行う</td><td>実AD・IIS・Kerberos・FDWと1万人超負荷は未完了</td></tr>
+    </tbody></table>
+    <p>教材本文は学習順095です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/69">前へ</a><a href="/learn/column/70">コラム15へ</a></div>
+<div class="page-navigation"><a href="/learn/69">前へ：学習順094</a><a href="/learn/column/70">次へ：第19組の復習</a></div>
 @code {
     private string _status = "実機受入は未実施です。";
     private async Task CheckAsync()

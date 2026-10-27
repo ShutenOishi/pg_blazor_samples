@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>ステップ68：集計とCSVの認可｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ68 / CSVと集計の漏えい防止</p>
+<p class="eyebrow">学習順093 / 第7段階・第19組（旧Step68）</p>
 <h1>集計とCSVも認可範囲だけにする</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" OnClick="SumAsync">認可付き集計</MudButton>
@@ -21,8 +21,15 @@
 <section class="lesson-details">
     <h2>確認ポイント</h2>
     <p>CSVは最大100件。101件以上では「全件」を装って切り詰めず拒否します。匿名や権限なしでダウンロードリンクを表示しません。</p>
+    <h2>WinForms＋DapperとBlazorの認可比較</h2>
+    <table data-testid="stage07-compare-93"><thead><tr><th>視点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core</th></tr></thead><tbody>
+        <tr><td>データ出力</td><td>SQL実行時に既存台帳の操作権限と部署条件を確認する</td><td>集計・CSVにも同一の部署条件</td></tr>
+        <tr><td>安全拒否</td><td>ボタンの無効化だけで業務データを保護しない</td><td>101件以上は出力せず監査に記録</td></tr>
+        <tr><td>現地受入</td><td>Windows端末・DB運用の検査を別に行う</td><td>実AD・IIS・Kerberos・FDWと1万人超負荷は未完了</td></tr>
+    </tbody></table>
+    <p>教材本文は学習順093です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/67">前へ</a><a href="/learn/69">次へ</a></div>
+<div class="page-navigation"><a href="/learn/67">前へ：学習順092</a><a href="/learn/69">次へ：学習順094</a></div>
 @code {
     private LearningSummaryResult? _summary;
     private LearningCsvResult? _csv;

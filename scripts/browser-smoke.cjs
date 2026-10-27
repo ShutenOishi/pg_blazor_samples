@@ -1098,6 +1098,32 @@ async function waitText(page, selector, expected) {
         console.log("1万人規模の認証・既存台帳・ログイン・監査の選定画面を確認");
 
 
+
+        // 第19組091〜095：実Chromeで匿名拒否、比較表、前後導線、Web目次を検査。
+        const unit19Actions = [
+            [66, 91, "業務サービスに認可を問い合わせる"],
+            [67, 92, "認可付き一覧を取得する"],
+            [68, 93, "認可付き集計"],
+            [69, 94, "認可付き詳細を取得する"],
+            [70, 95, "現在の更新権限を確認"]
+        ];
+        for (const [oldId, seq, action] of unit19Actions) {
+            await page.goto(base + "/learn/" + oldId);
+            await page.locator('[data-testid="stage07-compare-' + seq + '"]').waitFor();
+            await page.getByRole("button", { name: action }).click();
+            await waitText(page, '[data-testid="step' + oldId + '-state"]', "拒否");
+        }
+        await page.goto(base + "/learn/66");
+        await page.getByRole("link", { name: "前へ：1万人規模の認証" }).waitFor();
+        await page.goto(base + "/learn/70");
+        await page.getByRole("link", { name: "次へ：第19組の復習" }).waitFor();
+        await page.goto(base + "/learn/column/70");
+        await page.locator('[data-testid="stage07-review19-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順096" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順091〜095を復習する" }).waitFor();
+        console.log("第19組091〜095：旧URL、匿名拒否、比較表、前後導線、復習、Web目次を確認");
+
         // 第9段階：実業務アクセスは必ず既存の認可サービスを通し、匿名時の拒否を確認。
         await page.goto(base + "/learn/stage/capstone");
         await page.getByRole("heading", { name: "第9段階の概要：業務アプリの通し演習" }).waitFor();

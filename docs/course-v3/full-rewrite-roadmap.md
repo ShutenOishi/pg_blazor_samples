@@ -1,3 +1,13 @@
+## 2026-10-27 第19組091〜095・復習の全面改稿実装（PDF停止継続）
+
+- **編集前GitHub正本HEAD：`55cd2400b8f91004515587721e820c5d60760840`**。PR #36はDraft/open・main未マージ。認証済みGETで進捗、ロードマップ、curriculum、引き継ぎ、PRコメント #6442657157と同一HEADのアプリCI [40508494099](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40508494099) SUCCESS（全3ジョブ）、PDF Workflow [40508493970](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40508493970) SKIPPEDを確認。成功した旧CIは再実行しない。
+- **学習順091〜095（旧Step66〜70）と第19組復習の全6本文を全面改稿。** それぞれ3,300文字以上、実C#/Razor/EF CoreとPostgreSQL18の試験実装に照合しコード2例以上、WinForms＋Dapper比較、表、操作手順、障害の切り分け、演習と詳しい解答を追加。認可入口、Count/Items、集計・100件CSV、行ロック/xminと一括更新、AD/IIS/FDWと1万人超負荷の未受入を区別する。
+- Razor5画面の学習順と比較表、第19組復習表、Home/NavMenu、前後リンク（特別コラム→091〜095→第19組復習→096）、PDF目次**ソースのみ**、静的教材検査とChrome E2E項目を同期。旧80URL、第7段階概要、既存の安全拒否を維持。
+- **教材改稿の予定進捗：新規初稿30/30、全面改稿95/110、通常復習19/22、段階概要7/9。** **本記録更新後の同一最新HEADに対して、Windows/Linux Release、xUnit、Chrome、PostgreSQL18実DB・既存安全拒否の全3ジョブSUCCESSおよびPDF Workflow SKIPPEDを確認した場合にだけ正式受入とする。** 成功した旧HEADのCIは代用しない。
+- **最優先：ユーザーからの明示再開指示までPDF生成・再生成、Preview Release・正式Release更新を一切禁止。** PDF停止Workflowを保持する。Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、サイズ1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`を変更しない。
+- ADは本人認証とユーザー名取得のみ。操作・行単位は既存台帳を都度認可し、監査、権限失効、xmin競合、DB/FDW原子性不明時の安全拒否を維持。**実AD/IIS/Kerberos/FDWと1万人超の実機負荷受入は未完了。**
+- **次工程：学習順096〜100（旧Step71〜75）と第20組復習、第8段階概要**を全面改稿。本文3,300字以上、コード2例、WinForms＋Dapper比較、操作・障害診断・詳答を充実させ、Razor/Web/PDF目次**ソースのみ**、NavMenu・前後リンク・静的検査・Chromeを同期。記録更新HEADの全CIとPDF SKIPPEDで受入し、次チャット用プロンプトを作成する。PDF停止継続。
+
 ## 2026-10-27 第18組086〜090・復習の実装HEADでアプリCIを確認（PDF停止継続）
 
 - **教材改稿実装HEAD `c4a90adf45b1cdb3595d956ce3474530f7972455`** のアプリ [Run 40507815883](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40507815883) は **SUCCESS**。Windows Server 2025 ReleaseとxUnit/静的教材検査、Ubuntu 24.04 ReleaseとxUnit/Chrome実操作、PostgreSQL18実DBと既存安全拒否の3ジョブすべてSUCCESS。旧成功CIは再実行していない。
