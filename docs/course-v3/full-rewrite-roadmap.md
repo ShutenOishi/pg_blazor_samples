@@ -2,7 +2,7 @@
 
 ## 現在の達成状況
 
-新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜5組001〜025のCI受入済み25/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
+新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜6組001〜030のCI受入済み30/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
 
 ## 最終成果物と受入条件
 
@@ -35,7 +35,7 @@
 | 03（受入済み） | 第2段階 Blazorの基本と実行原理 | 011〜015 | 入力値を双方向に結び付ける／条件分岐と繰り返しで表示する／親から子へ値を渡す／子から親へ通知する／SignalR・circuit・再接続、復習第3組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 04（受入済み） | 第2段階 Blazorの基本と実行原理 | 016〜020 | 初期化・更新・破棄を理解する／事前レンダリングと初期化の実行回数／入力フォームを日本語で検証する／URL・履歴・再読込と画面状態／circuit・ブラウザー・DBの状態保存の選択、復習第4組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 05（受入済み） | 第3段階 DI・サービスと単体テスト | 021〜025 | DI（依存性注入）の基本／インターフェイスで部品を交換する／Singleton・Scoped・Transient／BlazorのScopedと対話回線／injectとコンストラクター注入、復習第5組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
-| 06 | 第3段階 DI・サービスと単体テスト | 026〜030 | Optionsで設定を受け取る／非同期処理とログ／DIによる単体テスト／Applicationへ処理を分離／DIで課題管理を作る、復習第6組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
+| 06（受入済み） | 第3段階 DI・サービスと単体テスト | 026〜030 | Optionsで設定を受け取る／非同期処理とログ／DIによる単体テスト／Applicationへ処理を分離／DIで課題管理を作る、復習第6組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 07 | 第4段階 MudBlazorとブラウザーの業務UI | 031〜035 | MudBlazorと日本語翻訳を導入する／MudBlazorのレイアウトを学ぶ／日本語で入力部品を使う／MudFormの入力検証を学ぶ／MudTableで一覧とソート、復習第7組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 08 | 第4段階 MudBlazorとブラウザーの業務UI | 036〜040 | MudDataGridで検索・並べ替えする／確認ダイアログで実行と中止を選ぶ／Snackbarと処理中の状態を表示する／ダークモードとキーボード操作を学ぶ／MudBlazor日本語UIを総合演習する、復習第8組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 09 | 第4段階 MudBlazorとブラウザーの業務UI | 041〜045 | JavaScript interopの利用判断／ファイルアップロードと入力制約／CSV・PDFファイルのダウンロード／ErrorBoundary・取消・再試行／HTMLの意味・フォーカス・拡大表示の最終確認、復習第9組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
@@ -124,3 +124,11 @@
 - 教材品質ゲートを第6組の3300文字・複数表・コード・Web/PDF順へ拡張。Chrome E2Eに026〜030の表表示、Step19練習用60上限、Step20上限5件・6件目拒否、第6組復習を追加。Step19の60は全110本の教材総数と区別する。
 - **同一HEADのWindows Server 2025/Linux、xUnit、Chrome、PostgreSQL18実DBと安全拒否、日本語PDFの全CI成功、Preview Release生成元SHAとAsset照合が完了するまでは、確定進捗を新規初稿30/30、全面改稿25/110、通常復習5/22、段階概要3/9に据え置く。** 実AD/IIS/Kerberos/FDW未受入。正式main/Release、旧80 URL、Draft、認可・監査・安全拒否の条件を維持。
 - 成功受入後の次工程は学習順031〜035（旧Step21〜25：MudBlazor導入・レイアウト・日本語入力・MudForm・MudTable）、第7組復習と第4段階概要の改稿。実Razor・日本語長文・Web/PDF・品質ゲート・Chromeを揃えて検証する。
+
+## 2026-10-27 学習順026〜030・第6組復習の同一HEAD最終CI受入
+- **確定進捗：新規初稿30/30、最終全面改稿30/110、通常復習6/22、段階概要3/9。** 第3段階021〜030本文10本・第5/6組の復習を受入。段階概要3/9の件数は変更しない。
+- **実装・受入HEAD `4d8c652aa0c58c795a111ccc9afbda9c504b39d2`**。アプリ [Run 40429979992](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40429979992) SUCCESS：Windows Server 2025/Linux Release、xUnit、Chrome実操作、PostgreSQL18実DB結合と安全拒否の既存試験。PDF [Run 40429979990](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40429979990) SUCCESS：教材品質ゲート、日本語PDF生成とPreview反映。
+- [Preview Release](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview) の生成元SHAは実装HEADと一致。単体Asset `blazor_learning_textbook_ja.pdf` **ID 680012256、1,272,480バイト、SHA256 `1fcdcc375ddb62f2ec10505682687639f06b1fe2cda806bfb61637feb219fbff`**。Release GET・Asset個別GETの名前・サイズ・digest一致。ZIPなし、正式main版未変更。
+- 次工程は**学習順031〜035（旧Step21〜25：MudBlazorと日本語翻訳・レイアウト・日本語入力・MudForm・MudTable）と第7組復習、第4段階概要**を実Razor・C#に合わせて全面改稿する。各本文3300文字以上を目安に、実コード2ブロック以上、WinForms＋Dapper比較表・切り分け表・操作・演習と詳しい解答、前後リンク、Web/PDF目次、品質ゲート、Chromeを同期。全CIとPreviewの同一HEAD照合後のみ35/110・7/22・概要4/9へ更新する。
+- 引き続きDraft PR #36、旧80URL、AD本人認証と既存DB/外部台帳による都度認可・監査・安全拒否を維持。実AD/IIS/Kerberos/FDW/大規模負荷の現地未受入は成功扱いしない。成功済みCIの不要な再実行、正式Release再発行、mainへのマージは禁止。
+- **この記録更新コミット自体も新HEADになるため、そのHEADに対するApp/PDF CIとPreview Release生成元SHAの再照合が必要。** 前HEADの成功を新HEADの証跡として流用しない。
