@@ -12,11 +12,11 @@ HTTP/Cookie/CSRFとWindows統合認証を理解し、既存DB利用者台帳を�
 Windowsログオン済みでも業務DBの全件が読めるわけではない。認証名と権限テーブルの照合を分ける。
 
 ## 学習の順番と到達点
-- 学習順081：Windows認証・Cookie・HTTP・circuit（初稿実装：security-01）
-- 学習順082：Middlewareの順序・HTTPS・IISの経路（初稿実装：security-02）
-- 学習順083：XSS・CSRF・SQL注入の防御境界（初稿実装：security-03）
-- 学習順084：環境別設定・Secret・Data Protection鍵（初稿実装：security-04）
-- 学習順085：接続切断・セッション失効・権限再検証（初稿実装：security-05）
+- 学習順081：Windows認証・Cookie・HTTP・circuit（全面改稿済み：security-01）
+- 学習順082：Middlewareの順序・HTTPS・IISの経路（全面改稿済み：security-02）
+- 学習順083：XSS・CSRF・SQL注入の防御境界（全面改稿済み：security-03）
+- 学習順084：環境別設定・Secret・Data Protection鍵（全面改稿済み：security-04）
+- 学習順085：接続切断・セッション失効・権限再検証（全面改稿済み：security-05）
 - 学習順086：Windows統合認証を構成する（旧Step61に対応）
 - 学習順087：認証済みドメインユーザー名を扱う（旧Step62に対応）
 - 学習順088：認証済みユーザー名と既存台帳を結ぶ（旧Step63に対応）
