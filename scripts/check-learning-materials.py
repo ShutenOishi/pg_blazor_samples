@@ -1026,7 +1026,7 @@ for sequence, (_, relative, view_path) in enumerate(unit16, start=76):
         missing.append(relative + "：Razor比較表が不足")
     if f"学習順{sequence:03d}を開く" not in home or f"学習順{sequence:03d}：" not in nav_eighth:
         missing.append(relative + "：Home/NavMenuの学習順が不一致")
-    if f'"{relative}"' not in PDF_SCRIPT or f"学習順{sequence}：" not in PDF_SCRIPT:
+    if f'"{relative}"' not in PDF_SCRIPT or f"学習順{sequence:03d}：" not in PDF_SCRIPT:
         missing.append(relative + "：PDF目次ソースの順序・名称が不一致")
 review16_path = "docs/columns/column56-60.md"
 review16 = (ROOT / review16_path).read_text(encoding="utf-8")
