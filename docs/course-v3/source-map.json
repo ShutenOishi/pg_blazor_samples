@@ -585,10 +585,11 @@
       "lesson_path": "docs/course-v3/lessons/browser-05.md",
       "app_url": "/learn/browser-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor",
-      "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "audit_state": "interactive",
+      "test_state": "browser-smoke-added-awaiting-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/045"
+      "canonical_url": "/learn/045",
+      "notes": "フォーカスを実際に入力欄へ移すElementReference.FocusAsyncとChrome activeElement検証を追加。画面読み上げ・200%ズームは別途実機確認。"
     },
     {
       "sequence": 46,

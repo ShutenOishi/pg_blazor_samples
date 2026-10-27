@@ -265,6 +265,8 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "文字の大きさを切り替える" }).click();
         await page.getByRole("button", { name: "表示のコントラストを切り替える" }).click();
         await waitText(page, '[data-testid="browser05-settings"]', "高コントラスト");
+        await page.getByRole("button", { name: "入力欄へフォーカスを移す" }).click();
+        await page.waitForFunction(() => document.activeElement?.id === "browser05-note");
         await page.goto(base + "/learn/column/browser-45");
         await page.getByRole("heading", { name: "第9組の復習：ブラウザー機能と安全な操作" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "browser-review09.png") });
