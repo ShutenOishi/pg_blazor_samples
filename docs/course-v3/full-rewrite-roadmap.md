@@ -1,3 +1,12 @@
+## 2026-10-27 第18組086〜090・復習の実装HEADでアプリCIを確認（PDF停止継続）
+
+- **教材改稿実装HEAD `c4a90adf45b1cdb3595d956ce3474530f7972455`** のアプリ [Run 40507815883](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40507815883) は **SUCCESS**。Windows Server 2025 ReleaseとxUnit/静的教材検査、Ubuntu 24.04 ReleaseとxUnit/Chrome実操作、PostgreSQL18実DBと既存安全拒否の3ジョブすべてSUCCESS。旧成功CIは再実行していない。
+- **同一HEADのPDF Workflow [Run 40507815933](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40507815933) は SKIPPED（意図どおり）。** 日本語PDF生成・再生成、Preview Release・正式Release更新は禁止継続。Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`は認証済みGETで不変確認。
+- 第18組の5本文は4,927／5,108／5,069／4,946／5,139文字、復習4,370文字。実C#/Razor/SQL、WinForms＋Dapper比較表、2コード例、操作手順、障害の切り分け、演習と詳しい解答、5画面と復習比較表、前後リンク、Web/PDF目次ソース、NavMenu、静的検査、Chromeを同期。第7段階概要は変更なし。
+- **改稿達成数：新規初稿30/30、全面改稿90/110、通常復習18/22、段階概要7/9**。本CI実装HEADは受入条件を満たした。ただしこの記録追記でさらに新HEADとなるため、**記録更新後の同一新HEADでも3ジョブSUCCESSとPDF SKIPPEDを再照合して最終受入確定**する。旧HEADのCIを新HEADの証拠に代用しない。
+- PR #36はDraft/open、main未マージ、旧80URLを維持。AD本人認証・ユーザー名取得のみ、既存DB台帳が操作・行単位の都度認可の正本。監査・失効・xmin競合・DB/FDW原子性不明時の安全拒否を維持。**実AD/IIS/Kerberos/FDWと1万人超負荷の実機受入は未完了**。
+- **次工程：学習順091〜095（旧Step66〜70）と第19組復習の全面改稿**。各3,300字以上、実コード2例、WinForms＋Dapper比較、診断・演習詳答を用意し、同一HEADのCIで受入する。第7段階概要は完了済みのため再改稿しない。PDF停止継続。
+
 ## 2026-10-27 学習順086〜090・第18組復習の全面改稿（PDF停止継続）
 
 - GitHub正本を認証済みGETで照合。改稿前HEAD a3c650f3993a52444e3a59ace40cf082839e282b、アプリCI 40503800141全3ジョブSUCCESS、PDF Workflow 40503800130 SKIPPED、PR #36はDraft/open・main未マージ。
