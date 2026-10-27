@@ -678,7 +678,7 @@
       "source": "docs/samples/step41.md",
       "url": "/learn/41",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-app-ci-pending"
     },
     {
       "sequence": 62,
@@ -689,7 +689,7 @@
       "source": "docs/samples/step42.md",
       "url": "/learn/42",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-app-ci-pending"
     },
     {
       "sequence": 63,
@@ -700,7 +700,7 @@
       "source": "docs/samples/step43.md",
       "url": "/learn/43",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-app-ci-pending"
     },
     {
       "sequence": 64,
@@ -711,7 +711,7 @@
       "source": "docs/samples/step44.md",
       "url": "/learn/44",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-app-ci-pending"
     },
     {
       "sequence": 65,
@@ -722,7 +722,7 @@
       "source": "docs/samples/step45.md",
       "url": "/learn/45",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-app-ci-pending"
     },
     {
       "sequence": 66,
@@ -1295,7 +1295,8 @@
       "stage": 6,
       "from": 61,
       "to": 80,
-      "overview": "docs/course-v3/stages/stage06.md"
+      "overview": "docs/course-v3/stages/stage06.md",
+      "review": "app-ci-pending"
     },
     {
       "name": "Webセキュリティ・AD認証とDB認可",
@@ -1435,7 +1436,8 @@
       "after_sequence": 65,
       "path": "docs/columns/column41-45.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": true,
+      "final_review": "app-ci-pending"
     },
     {
       "unit": 14,

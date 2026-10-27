@@ -5,7 +5,7 @@
 @inject LearningDbService DbSettings
 
 <PageTitle>ステップ44：許可リストと複数列ソート｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ44 / 安全な動的ソート</p>
+<p class="eyebrow">学習順064 / 安全な動的ソート</p>
 <h1>複数列ソートを安全にDBへ伝える</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudAlert Severity="Severity.Info" Dense="true">列名は許可リストのC#プロパティに変換します。自由なSQL文字列は作りません。</MudAlert>
@@ -21,6 +21,19 @@
         <PagerContent><MudDataGridPager T="LearningTaskRow" PageSizeOptions="@(new int[] {5, 10, 20})"/></PagerContent>
     </MudDataGrid>
 </MudPaper>
+<section class="lesson-details" data-testid="stage06-compare-064">
+    <h2>学習順064：許可リスト付き複数ソートとWinForms＋Dapperの比較</h2>
+    <table>
+        <caption>学習順064：画面とデータ取得の役割</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">操作</th><td>画面イベントでSQLを実行する</td><td>最大3列と末尾Idの一意順序</td></tr>
+            <tr><th scope="row">取得</th><td>SQLと結果集合を管理する</td><td>未知のSortByをSQLへ連結しません</td></tr>
+            <tr><th scope="row">安全</th><td>DBパラメーターと権限の確認</td><td>入力検査と台帳に基づく都度認可はサービス側で行う</td></tr>
+        </tbody>
+    </table>
+    <p>この画面は学習用です。実際の業務ではADによる本人認証だけでなく、既存DB台帳の行・操作ごとの認可と監査が必要です。</p>
+</section>
 <section class="lesson-details">
     <h2>ソート条件をどう扱うか</h2>
     <p>SortDefinitionsのIndex順で最大3列のソートを適用し、最後に主キーIdを追加します。UIが不正な列名を送ってもLearningPageServiceが拒否します。</p>
