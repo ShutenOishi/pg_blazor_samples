@@ -408,9 +408,15 @@ third_review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-03.md"')
 next_group_pos = PDF_SCRIPT.find('"docs/samples/step09.md"')
 if -1 in third_pdf_indices or third_pdf_indices != sorted(third_pdf_indices) or not(third_pdf_indices[-1] < third_review_pos < next_group_pos):
     missing.append("第3組のPDF章順または復習位置が不正")
+# ホームは新学習順の正規URLへ案内する。以前のURLは内部の互換用経路。
+canonical_lookup = {item["app_url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
 home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
+def indexed_home(url):
+    canonical = canonical_lookup.get(url, url)
+    return f'href="{canonical}"' in home
+
 for _, url, _ in third_group:
-    if url not in home:
+    if not indexed_home(url):
         missing.append(url + "：Web目次に不足")
 if not (
     home.index('>学習順010を開く</a>') < home.index('>学習順006〜010の復習</a>')
@@ -471,7 +477,7 @@ for relative, expected in [
     if expected not in (SAMPLES / relative).read_text(encoding="utf-8"):
         missing.append(relative + "：第4組の前後リンク不一致")
 for _, url, _ in fourth_group:
-    if url not in home:
+    if not indexed_home(url):
         missing.append(url + "：Web目次に第4組の学習URLが不足")
 if "016〜020" not in (ROOT / stage2).read_text(encoding="utf-8"):
     missing.append("第2段階概要に第4組の学習順が不足")
@@ -565,7 +571,7 @@ for seq, (filename, url, symbol, razor_name) in enumerate(sixth_group, start=26)
     razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="di06-compare-{seq - 10}"' not in razor:
         missing.append(razor_name + "：URL・表示順・比較表が不一致")
-    if url not in home or f'"{filename}"' not in PDF_SCRIPT:
+    if not indexed_home(url) or f'"{filename}"' not in PDF_SCRIPT:
         missing.append(filename + "：Web/PDF索引が不足")
 pdf_six = [PDF_SCRIPT.find(f'"{filename}"') for filename, _, _, _ in sixth_group]
 pdf_review6 = PDF_SCRIPT.find('"docs/columns/column16-20.md"')
@@ -603,7 +609,7 @@ for seq, (filename, url, symbol, razor_name) in enumerate(mud_seventh, start=31)
     razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq:03d}" not in razor or f'data-testid="mud07-compare-{seq - 10}"' not in razor:
         missing.append(razor_name + "：URL・学習順・比較表が不一致")
-    if f'"{filename}"' not in PDF_SCRIPT or url not in home:
+    if f'"{filename}"' not in PDF_SCRIPT or not indexed_home(url):
         missing.append(filename + "：PDF/Webの学習順から欠落")
 review7 = (ROOT / "docs/columns/column21-25.md").read_text(encoding="utf-8")
 stage4 = (ROOT / "docs/course-v3/stages/stage04.md").read_text(encoding="utf-8")
@@ -701,7 +707,7 @@ for seq, (item_id, page_name, required_symbol) in enumerate(browser_ninth, start
         missing.append(page_name + "：Razor URLか学習順が一致しません")
     if f'data-testid="browser09-compare-{seq:03d}"' not in razor:
         missing.append(page_name + "：第9組WinForms比較表がありません")
-    if f"/learn/{item_id}" not in home or f"/learn/{item_id}" not in nav_eighth:
+    if f"/learn/{seq:03d}" not in home or f"/learn/{seq:03d}" not in nav_eighth:
         missing.append(relative + "：WebトップかNavMenuの索引がありません")
     if f'"{relative}"' not in PDF_SCRIPT or f"学習順{seq:03d}：" not in PDF_SCRIPT:
         missing.append(relative + "：PDF章題/索引の学習順が不足")
@@ -1381,6 +1387,17 @@ else:
             missing.append(f"学習順{seq:03d}：正規URLの対応が不正")
         if f"| {seq:03d} | " not in source_index or f"`/learn/{seq:03d}`" not in source_index:
             missing.append(f"学習順{seq:03d}：直接索引の表示がありません")
+    # 実際のメニュー/ホームに110件すべての正規URLが現れることを検証する。
+    actual_home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
+    actual_nav = (ROOT / "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor").read_text(encoding="utf-8")
+    for entry in mapped_lessons:
+        seq = entry["sequence"]
+        new = f'href="/learn/{seq:03d}"'
+        old = f'href="{entry["app_url"]}"'
+        if new not in actual_home or new not in actual_nav:
+            missing.append(f"学習順{seq:03d}：正規URLのホーム・メニューへの参照が不足")
+        if old in actual_home or old in actual_nav:
+            missing.append(f"学習順{seq:03d}：ホーム・メニューに互換URLが残っています")
     import re
     for path in (ROOT / "README.md", source_index_path):
         visible = re.sub(r"\]\([^)]+\)", "]", path.read_text(encoding="utf-8"))
