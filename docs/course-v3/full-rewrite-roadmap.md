@@ -1,3 +1,16 @@
+## 2026-10-27 第11組051〜055・復習の実装受入（PDF停止継続）
+
+- **GitHub正本の実装HEAD：`03e694f129621a1ac877bfb166332475e5dd1499`**。Draft PR #36はopen/draft、main未マージ。旧80ステップのURLは保持。
+- 同一HEADの[アプリCI Run 40473219284](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40473219284)は**SUCCESS**。Windows Server 2025 Release・xUnit・静的教材整合、Ubuntu 24.04 Release・xUnit・Chrome実操作、PostgreSQL 18専用実DB結合・既存安全拒否の3ジョブがすべてSUCCESS。成功Runは再実行しない。
+- [PDF Workflow Run 40473219518](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40473219518)は**SKIPPED（意図的）**。PDF生成・再生成、Preview/正式Release更新はユーザーの再開指示まで禁止。PDF索引は`scripts/build_docs_pdf.py`の**ソース文字列だけ**を整理したが、スクリプトは実行していない。
+- Preview `learning-textbook-v3-preview` の既存PDFは生成元`5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID `680751957`、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`のまま。**実装最新HEADとの差は正常、差を埋めるPDF出力は絶対にしない。**
+- 第11組051〜055の5本文を4,656／4,420／4,399／4,420／4,522文字、第11組復習を5,173文字へ全面改稿。各本文に実コード2件、WinForms＋Dapper比較、表、操作手順、障害切り分け、演習と詳しい解答を追加した。
+- Razor5ページの比較表、第11組復習画面、Home/ナビメニューの051〜055→復習→056の導線、静的教材品質検査、Chrome操作、PDF索引**ソース**を同期。データ型・生成SQLの非接続性・変更追跡とSaveChanges・xminによる競合拒否は実装に合わせた。
+- **確定進捗：新規初稿30/30、最終全面改稿55/110、通常復習11/22、段階概要5/9。** 第5段階全15件はまだ完了していない。
+- 本進捗記録のコミットによって新HEADが生じるため、**記録更新後HEADのアプリCI（Win/Linux/xUnit/Chrome/PG18/安全拒否/静的品質検査）が全SUCCESSで、PDF WorkflowがSKIPPEDであることを再照合する。** この項目は実装HEADの既存CI成功と混同しない。Preview PDFを更新しない。
+- **次工程：学習順056〜060（旧Step38・39、db-bridge-04・05、旧Step40）と第12組復習を全面改稿。** 各本文3,300文字以上、実コード2例、WinForms＋Dapper比較、複数表、操作、障害切り分け、詳しい解答。Razor、Web/PDF目次のソース、NavMenu、前後リンク、品質ゲートとChromeを同期し、第5段階を完成させる。PDF関連の受入は停止中として保留。
+- ADは本人認証とユーザー名のみ、業務認可は既存DB/外部台帳に基づく都度判定、監査・権限失効・更新競合・監査失敗時の安全拒否を維持。実AD/IIS/Kerberos/FDW・1万人超負荷の実機受入は未完了であり、CIの成功と混同しない。
+
 ## 2026-10-27 最新HEAD最終受入とPDF生成一時停止（現在の運用方針）
 
 - **停止していたChatの作業を認証済みGitHub GETで再照合済み**。記録更新後のPR #36 HEAD `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71` は Draft/open のまま、main `3121697d38caf8341557a841753b21876881bbb1` に未マージ。
@@ -29,7 +42,7 @@
 
 ## 現在の達成状況
 
-新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜10組001〜050のCI受入済み50/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
+新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜11組001〜055のCI受入済み55/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
 
 ## 最終成果物と受入条件
 

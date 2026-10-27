@@ -17,7 +17,7 @@ MudDatePickerはDateTime?、学習用テーブルのdateはDateOnly?、time with
 if (_day is null) { _result = "日付を選択してください。"; return; }
 DateOnly date = DateOnly.FromDateTime(_day.Value);
 if (date == DateOnly.MaxValue) {
-    _result = "終了日の翌日を作れません."; return;
+    _result = "終了日の翌日を作れません。"; return;
 }
 var period = new NpgsqlRange<DateTime>(
     date.ToDateTime(TimeOnly.MinValue), true,
