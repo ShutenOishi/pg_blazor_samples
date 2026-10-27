@@ -1372,9 +1372,14 @@ else:
             missing.append(f"学習順{seq:03d}：実装直接索引がcurriculumと一致しません")
         if not (ROOT / actual.get("lesson_path", "")).is_file():
             missing.append(f"学習順{seq:03d}：教材ファイルがありません")
-        if not (ROOT / actual.get("razor_path", "")).is_file():
+        razor_file = ROOT / actual.get("razor_path", "")
+        if not razor_file.is_file():
             missing.append(f"学習順{seq:03d}：Razorソースがありません")
-        if f"| {seq:03d} | " not in source_index:
+        elif f'@page "/learn/{seq:03d}"' not in razor_file.read_text(encoding="utf-8"):
+            missing.append(f"学習順{seq:03d}：正規URLがRazorにありません")
+        if actual.get("canonical_url") != f"/learn/{seq:03d}":
+            missing.append(f"学習順{seq:03d}：正規URLの対応が不正")
+        if f"| {seq:03d} | " not in source_index or f"`/learn/{seq:03d}`" not in source_index:
             missing.append(f"学習順{seq:03d}：直接索引の表示がありません")
     import re
     for path in (ROOT / "README.md", source_index_path):

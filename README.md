@@ -6,7 +6,7 @@
 
 **[学習順001〜110：本文と実際のRazorソースを直接開ける索引](docs/course-v3/source-index.md)**
 
-[学習項目とソースファイルの対応データ](docs/course-v3/source-map.json)にも全110件の学習順・タイトル・教材・画面・URLを収録しています。番号の読み替えやコードファイル名からの逆引きは不要です。
+[学習項目とソースファイルの対応データ](docs/course-v3/source-map.json)にも全110件の学習順・タイトル・教材・画面・URLを収録しています。教材とRazorの対応に加え、各学習項目の正規URLは `/learn/001` から `/learn/110` です。以前のURLは既存リンクを保護する互換経路として残します。番号の読み替えやコードファイル名からの逆引きは不要です。
 
 Visual Studio 2026で `PgBlazorSamples.slnx` を開き、`PgBlazorSamples.Web` を起動してください。コマンドラインでも起動できます。
 

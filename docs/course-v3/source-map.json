@@ -2,7 +2,7 @@
   "schema_version": 1,
   "convention": "学習順001〜110",
   "source_revision": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-  "notes": "110件の教材本文と主Razor画面への対応。audit_stateは初期監査の仮区分で合格を意味しない。",
+  "notes": "110件の教材本文と主Razor画面への対応。audit_stateは初期監査の仮区分で合格を意味しない。 canonical_urlは新しい学習順に対応する正規URL。app_urlは外部リンク互換用の既存経路であり、教材上の旧番号表示には使用しない。",
   "lessons": [
     {
       "sequence": 1,
@@ -14,7 +14,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/001"
     },
     {
       "sequence": 2,
@@ -26,7 +27,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/002"
     },
     {
       "sequence": 3,
@@ -38,7 +40,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/003"
     },
     {
       "sequence": 4,
@@ -50,7 +53,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/004"
     },
     {
       "sequence": 5,
@@ -62,7 +66,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/005"
     },
     {
       "sequence": 6,
@@ -74,7 +79,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/006"
     },
     {
       "sequence": 7,
@@ -86,7 +92,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step02/NavigationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/007"
     },
     {
       "sequence": 8,
@@ -98,7 +105,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step03/RazorSyntaxPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/008"
     },
     {
       "sequence": 9,
@@ -110,7 +118,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/009"
     },
     {
       "sequence": 10,
@@ -122,7 +131,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step04/EventPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/010"
     },
     {
       "sequence": 11,
@@ -134,7 +144,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step05/BindingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/011"
     },
     {
       "sequence": 12,
@@ -146,7 +157,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step06/ConditionsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/012"
     },
     {
       "sequence": 13,
@@ -158,7 +170,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step07/ParametersPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/013"
     },
     {
       "sequence": 14,
@@ -170,7 +183,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step08/CallbackPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/014"
     },
     {
       "sequence": 15,
@@ -182,7 +196,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/015"
     },
     {
       "sequence": 16,
@@ -194,7 +209,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step09/LifecyclePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/016"
     },
     {
       "sequence": 17,
@@ -206,7 +222,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/017"
     },
     {
       "sequence": 18,
@@ -218,7 +235,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step10/FormPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/018"
     },
     {
       "sequence": 19,
@@ -230,7 +248,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/019"
     },
     {
       "sequence": 20,
@@ -242,7 +261,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/020"
     },
     {
       "sequence": 21,
@@ -254,7 +274,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step11/DiIntroductionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/021"
     },
     {
       "sequence": 22,
@@ -266,7 +287,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step12/InterfacePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/022"
     },
     {
       "sequence": 23,
@@ -278,7 +300,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step13/LifetimePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/023"
     },
     {
       "sequence": 24,
@@ -290,7 +313,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step14/CircuitPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/024"
     },
     {
       "sequence": 25,
@@ -302,7 +326,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step15/InjectionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/025"
     },
     {
       "sequence": 26,
@@ -314,7 +339,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step16/OptionsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/026"
     },
     {
       "sequence": 27,
@@ -326,7 +352,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step17/AsyncLoggingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/027"
     },
     {
       "sequence": 28,
@@ -338,7 +365,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step18/UnitTestPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/028"
     },
     {
       "sequence": 29,
@@ -350,7 +378,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step19/ApplicationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/029"
     },
     {
       "sequence": 30,
@@ -362,7 +391,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step20/TodoPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/030"
     },
     {
       "sequence": 31,
@@ -374,7 +404,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step21/MudIntroductionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/031"
     },
     {
       "sequence": 32,
@@ -386,7 +417,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step22/MudLayoutPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/032"
     },
     {
       "sequence": 33,
@@ -398,7 +430,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step23/MudInputsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/033"
     },
     {
       "sequence": 34,
@@ -410,7 +443,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step24/MudValidationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/034"
     },
     {
       "sequence": 35,
@@ -422,7 +456,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step25/MudTablePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/035"
     },
     {
       "sequence": 36,
@@ -434,7 +469,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step26/DataGridPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/036"
     },
     {
       "sequence": 37,
@@ -446,7 +482,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step27/DialogPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/037"
     },
     {
       "sequence": 38,
@@ -458,7 +495,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step28/NotificationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/038"
     },
     {
       "sequence": 39,
@@ -470,7 +508,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step29/AccessibilityPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/039"
     },
     {
       "sequence": 40,
@@ -482,7 +521,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step30/UiPracticePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/040"
     },
     {
       "sequence": 41,
@@ -494,7 +534,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/041"
     },
     {
       "sequence": 42,
@@ -506,7 +547,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/042"
     },
     {
       "sequence": 43,
@@ -518,7 +560,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/043"
     },
     {
       "sequence": 44,
@@ -530,7 +573,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/044"
     },
     {
       "sequence": 45,
@@ -542,7 +586,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/045"
     },
     {
       "sequence": 46,
@@ -554,7 +599,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/046"
     },
     {
       "sequence": 47,
@@ -566,7 +612,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step31/EfModelPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/047"
     },
     {
       "sequence": 48,
@@ -578,7 +625,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step32/SqlSchemaPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/048"
     },
     {
       "sequence": 49,
@@ -590,7 +638,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step33/EfSetupPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/049"
     },
     {
       "sequence": 50,
@@ -602,7 +651,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step34/DbFactoryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/050"
     },
     {
       "sequence": 51,
@@ -614,7 +664,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step35/EfSearchPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/051"
     },
     {
       "sequence": 52,
@@ -626,7 +677,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/052"
     },
     {
       "sequence": 53,
@@ -638,7 +690,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/053"
     },
     {
       "sequence": 54,
@@ -650,7 +703,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step36/EfCrudPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/054"
     },
     {
       "sequence": 55,
@@ -662,7 +716,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step37/EfDateRangePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/055"
     },
     {
       "sequence": 56,
@@ -674,7 +729,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step38/EfTransactionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/056"
     },
     {
       "sequence": 57,
@@ -686,7 +742,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step39/EfConcurrencyPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/057"
     },
     {
       "sequence": 58,
@@ -698,7 +755,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/058"
     },
     {
       "sequence": 59,
@@ -710,7 +768,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor",
       "audit_state": "partial",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/059"
     },
     {
       "sequence": 60,
@@ -722,7 +781,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step40/EfDbCheckPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/060"
     },
     {
       "sequence": 61,
@@ -734,7 +794,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step41/ItemsBoundaryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/061"
     },
     {
       "sequence": 62,
@@ -746,7 +807,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step42/TableServerDataPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/062"
     },
     {
       "sequence": 63,
@@ -758,7 +820,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step43/GridServerDataPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/063"
     },
     {
       "sequence": 64,
@@ -770,7 +833,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step44/SafeSortPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/064"
     },
     {
       "sequence": 65,
@@ -782,7 +846,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step45/FilterSearchPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/065"
     },
     {
       "sequence": 66,
@@ -794,7 +859,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step46/RelatedDtoPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/066"
     },
     {
       "sequence": 67,
@@ -806,7 +872,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step47/KeysetPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/067"
     },
     {
       "sequence": 68,
@@ -818,7 +885,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step48/VirtualizeItemsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/068"
     },
     {
       "sequence": 69,
@@ -830,7 +898,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step49/VirtualizeDatabasePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/069"
     },
     {
       "sequence": 70,
@@ -842,7 +911,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step50/SearchUxPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/070"
     },
     {
       "sequence": 71,
@@ -854,7 +924,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step51/EditDtoPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/071"
     },
     {
       "sequence": 72,
@@ -866,7 +937,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step52/EditDialogPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/072"
     },
     {
       "sequence": 73,
@@ -878,7 +950,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step53/BulkEditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/073"
     },
     {
       "sequence": 74,
@@ -890,7 +963,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step54/ConflictEditorPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/074"
     },
     {
       "sequence": 75,
@@ -902,7 +976,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step55/DetailProjectionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/075"
     },
     {
       "sequence": 76,
@@ -914,7 +989,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step56/RangeSearchPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/076"
     },
     {
       "sequence": 77,
@@ -926,7 +1002,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step57/CacheBoundaryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/077"
     },
     {
       "sequence": 78,
@@ -938,7 +1015,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step58/StatisticsExportPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/078"
     },
     {
       "sequence": 79,
@@ -950,7 +1028,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step59/PerformancePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/079"
     },
     {
       "sequence": 80,
@@ -962,7 +1041,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step60/PatternChoicePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/080"
     },
     {
       "sequence": 81,
@@ -974,7 +1054,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/081"
     },
     {
       "sequence": 82,
@@ -986,7 +1067,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/082"
     },
     {
       "sequence": 83,
@@ -998,7 +1080,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/083"
     },
     {
       "sequence": 84,
@@ -1010,7 +1093,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/084"
     },
     {
       "sequence": 85,
@@ -1022,7 +1106,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/085"
     },
     {
       "sequence": 86,
@@ -1034,7 +1119,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step61/NegotiatePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/086"
     },
     {
       "sequence": 87,
@@ -1046,7 +1132,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step62/SidPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/087"
     },
     {
       "sequence": 88,
@@ -1058,7 +1145,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step63/UserMappingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/088"
     },
     {
       "sequence": 89,
@@ -1070,7 +1158,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step64/UserRefusalPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/089"
     },
     {
       "sequence": 90,
@@ -1082,7 +1171,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step65/RolePermissionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/090"
     },
     {
       "sequence": 91,
@@ -1094,7 +1184,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step66/AuthorizedEntryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/091"
     },
     {
       "sequence": 92,
@@ -1106,7 +1197,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step67/UnitScopedPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/092"
     },
     {
       "sequence": 93,
@@ -1118,7 +1210,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step68/ScopedExportPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/093"
     },
     {
       "sequence": 94,
@@ -1130,7 +1223,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step69/SecuredEditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/094"
     },
     {
       "sequence": 95,
@@ -1142,7 +1236,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step70/DeploymentGatePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/095"
     },
     {
       "sequence": 96,
@@ -1154,7 +1249,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step71/DirectoryNormalizationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/096"
     },
     {
       "sequence": 97,
@@ -1166,7 +1262,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step72/ExplicitWindowsLoginPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/097"
     },
     {
       "sequence": 98,
@@ -1178,7 +1275,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step73/TransactionalAuthorizationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/098"
     },
     {
       "sequence": 99,
@@ -1190,7 +1288,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step74/DurableAuditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/099"
     },
     {
       "sequence": 100,
@@ -1202,7 +1301,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step75/IisAcceptancePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/100"
     },
     {
       "sequence": 101,
@@ -1214,7 +1314,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step76/ConcurrentEditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/101"
     },
     {
       "sequence": 102,
@@ -1226,7 +1327,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step77/AuthorizedCachePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/102"
     },
     {
       "sequence": 103,
@@ -1238,7 +1340,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step78/DiagnosticsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/103"
     },
     {
       "sequence": 104,
@@ -1250,7 +1353,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step79/EndToEndAcceptancePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/104"
     },
     {
       "sequence": 105,
@@ -1262,7 +1366,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step80/DeploymentPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/105"
     },
     {
       "sequence": 106,
@@ -1274,7 +1379,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/106"
     },
     {
       "sequence": 107,
@@ -1286,7 +1392,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/107"
     },
     {
       "sequence": 108,
@@ -1298,7 +1405,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/108"
     },
     {
       "sequence": 109,
@@ -1310,7 +1418,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
       "audit_state": "interactive",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/109"
     },
     {
       "sequence": 110,
@@ -1322,7 +1431,8 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
       "audit_state": "simulation",
       "test_state": "not-individually-verified",
-      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9"
+      "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
+      "canonical_url": "/learn/110"
     }
   ]
 }
