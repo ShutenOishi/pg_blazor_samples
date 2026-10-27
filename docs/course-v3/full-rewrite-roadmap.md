@@ -1,3 +1,12 @@
+## 2026-10-28 第22組106〜110の改稿・同期HEAD全CI受入確定（PDF停止継続）
+
+- **認証済みGitHub GETの受入証跡：** 教材7本文・Razor/目次ソース/NavMenu/静的検査/Chrome・進捗/カリキュラムの同期HEAD `248a6deeb33ca33ff889cbbf84a07ea37b045b50` に対し、[アプリRun 40547653260](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40547653260) は **completed/SUCCESS**。Windows Server 2025 Release/xUnit/教材静的検査、Ubuntu 24.04 Release/xUnit/Chrome実操作、PostgreSQL18実DB結合/安全拒否の **3ジョブがすべてcompleted/SUCCESS**。同一HEADの [PDF Workflow 40547653349](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40547653349) は **completed/SKIPPED**。成功Runを手動再実行していない。
+- **教材の最終改稿：** 106〜110は3,694／4,193／4,243／3,947／4,364文字、第22組復習3,447文字、第9段階概要3,431文字。7本文すべて3,300字以上・C#コード例2件以上、WinForms＋Dapper比較表、操作手順、障害切り分け、演習詳答。5つのRazorと概要・復習、Home/NavMenu、旧80URL、前後リンク、Web/PDF目次**ソースのみ**、静的検査、Chromeと一致。
+- **受入達成進捗：** 新規初稿 **30/30**、全面改稿 **110/110**、通常復習 **22/22**、段階概要 **9/9**。**この受入記録を追記するとHEADが変わるので、記録更新後の最新HEADでも同じアプリ3ジョブSUCCESS・PDF SKIPPEDを直接GETしてから最終受入を確定する。** 旧HEAD成功を新HEADに流用しない。
+- **絶対禁止：** ユーザーの明示再開までPDF生成・再生成、Preview Release・正式Release更新は全面禁止。PDF停止Workflow維持。既存Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`は更新禁止。認証済みGETで旧Preview不変を確認。
+- **安全条件・未受入：** Draft PR #36・main未マージ。ADは本人認証と信頼できる名前取得のみ、既存DB台帳で操作・行単位を都度認可。権限失効・xmin競合・監査障害・FDW原子性不明時の安全拒否を維持。実AD/IIS/Kerberos/FDW、鍵/監査の本番運用、1万人超登録・同時circuit/DBプール/切戻し負荷の実機受入は未完了。
+- **次工程：** 記録更新HEADのアプリ全3ジョブSUCCESSとPDF SKIPPEDを照合し、PR #36に最終証跡を確定追記。教材110本の追加改稿・成功CI再実行は不要。PDFの明示再開指示までPDFとReleaseは変更せず、未受入の現地環境・負荷試験の計画と証跡準備を進める。
+
 ## 2026-10-28 第22組106〜110・復習・第9段階概要を全面改稿（同一記録HEADのCI受入待ち・PDF停止継続）
 
 - **直前の確定正本：** Draft PR #36 HEAD `092c1dc43f3d8158c3c5b098b0bf94bc67ef064f`、アプリCI [40543274455](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40543274455) Windows/Linux/PG18全3ジョブSUCCESS、PDF Workflow [40543274413](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40543274413) SKIPPED。成功CIの再実行なし。
