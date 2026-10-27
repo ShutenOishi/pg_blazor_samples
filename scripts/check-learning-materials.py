@@ -1127,7 +1127,7 @@ for index, view_rel in enumerate([
             missing.append(source + "：" + term + "不足")
     if f'data-testid="stage07-compare-{seq}"' not in view:
         missing.append(source + "：比較表不足")
-    if f"学習順{seq}を開く" not in home or f"学習順{seq:03d}：" not in nav_eighth:
+    if f"学習順{seq:03d}を開く" not in home or f"学習順{seq:03d}：" not in nav_eighth:
         missing.append(source + "：Web目次・NavMenu不足")
     if f'"{source}"' not in PDF_SCRIPT or f"学習順{seq:03d}：" not in PDF_SCRIPT:
         missing.append(source + "：PDF目次ソース不足")
@@ -1285,7 +1285,7 @@ for seq, old, view_rel in unit21:
             missing.append(source + "：" + term + "不足")
     if f'data-testid="stage08-compare-{seq}"' not in view:
         missing.append(source + "：Razor比較表不足")
-    if f"学習順{seq}を開く" not in home or f"学習順{seq:03d}：" not in nav_eighth:
+    if f"学習順{seq:03d}を開く" not in home or f"学習順{seq:03d}：" not in nav_eighth:
         missing.append(source + "：Web目次・NavMenu不足")
     if f'"{source}"' not in PDF_SCRIPT or f"学習順{seq:03d}：" not in PDF_SCRIPT:
         missing.append(source + "：PDF目次ソース不足")
@@ -1437,6 +1437,13 @@ for view_file in SAMPLES.rglob("*.razor"):
         if target in compatibility:
             missing.append(f'{view_file.relative_to(ROOT)}：互換URLへの利用者向けリンクが残っています: {target}')
 
+
+# 現行Web目次・NavMenuを学習順だけで公開し、旧番号を案内しない。
+for page_path in ("src/PgBlazorSamples.Web/Components/Pages/Home.razor",
+                  "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor"):
+    ui = (ROOT / page_path).read_text(encoding="utf-8")
+    if re.search(r"(?:旧ステップ番号から探す|旧URLから探す|(?:Step|ステップ)\\s*\\d{1,2}|学習順\\d{1,2}(?!\\d))", ui):
+        missing.append(f"{page_path}：利用者向けの旧番号表記が残っています")
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
