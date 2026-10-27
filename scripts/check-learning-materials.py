@@ -355,7 +355,9 @@ if stage_pos < 0 or stage_pos > pdf_positions[0]:
     missing.append("第2段階概要が006の前にありません")
 if review_pos < pdf_positions[-1] or review_pos > PDF_SCRIPT.find('"docs/samples/step05.md"'):
     missing.append("第2組復習が010と011の間にありません")
-if not all(url in (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8") for _, _, url, _ in second_group):
+home_for_second_group = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
+second_urls = {item["url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
+if not all(f'href="{second_urls.get(url, url)}"' in home_for_second_group for _, _, url, _ in second_group):
     missing.append("学習順006〜010のWeb目次が不足")
 for path, target in [
     ("Step01/FirstPage.razor", 'href="/learn/02"'),
