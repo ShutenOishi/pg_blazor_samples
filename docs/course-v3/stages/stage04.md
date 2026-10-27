@@ -1,6 +1,58 @@
 # 第4段階の概要：MudBlazorとブラウザーの業務UI
 
-> 新規学習順041〜045は初稿・Razor画面を実装しました。既存ステップや特別コラムの最終全面改稿は今後実施します。
+## 到達目標と事前知識
+第3段階までに学んだDI、画面イベント、Blazor Serverのcircuitを使い、UIライブラリとブラウザーの違いを理解します。WinForms＋Dapperの経験を前提に、Panel・ToolStrip・TextBox・ErrorProvider・DataGridViewと、MudBlazorの部品を対応させます。第4段階は学習順031〜045の15テーマを3組で学ぶ構成です。データは架空のもので、実AD認証や業務DBの認可を実施したことにはなりません。
+
+## 3組の学習内容
+| 復習 | 学習順 | 主題 | 到達点 |
+| --- | --- | --- | --- |
+| 第7組 | 031〜035 | MudBlazor導入・日本語翻訳・配置・入力・検証・一覧 | DIとProvider、値の型、表示件数と取得件数を説明する |
+| 第8組 | 036〜040 | MudDataGrid・Dialog・通知・テーマ・総合演習 | UI状態と実処理を区別する |
+| 第9組 | 041〜045 | JS連携・アップロード・ダウンロード・エラー・操作性 | ブラウザー／サーバーの境界と拒否条件を説明する |
+
+## WinForms＋Dapperとの比較
+| 経験した操作 | MudBlazorの対応 | 注意点 |
+| --- | --- | --- |
+| PanelとToolStripを配置 | MudLayout・MudAppBar・MudDrawer | メニュー開閉は認可ではない |
+| TextBox・ComboBoxへ入力 | MudTextField・MudSelect | ブラウザー操作でサーバーの値が変わる |
+| DateTimePickerの日付 | MudDatePicker | DateTime?とDB側dateを区別する |
+| ValidatingやErrorProvider | MudFormのValidateAsync | 入力検証とサービス側認可は別 |
+| DataGridViewで一覧表示 | MudTable・MudDataGrid | ItemsとServerDataの取得方式を比較する |
+
+## 実コードで見る事前準備
+```csharp
+builder.Services.AddMudServices();
+builder.Services.AddLocalization();
+builder.Services.AddMudTranslations();
+```
+ライブラリ側のサービスを登録しただけで通知が画面に出るとは限りません。共通レイアウトのMudSnackbarProviderや、CSS/JavaScript、Interactive Serverの指定を組み合わせる必要があります。独自のラベルは日本語で記述し、共通翻訳だけに依存しないでください。
+
+```razor
+<MudTable T="LearningRow" Items="@_items" RowsPerPage="2">
+    <PagerContent><MudTablePager /></PagerContent>
+</MudTable>
+```
+この表示は固定4件から2件ずつ表示する例です。DapperでDBから2件だけ取得しているのではありません。次のServerDataの学習では、SQLの絞り込みと安全なページ取得を別途扱います。
+
+## 操作手順と切り分け
+最初に学習順031の日本語通知ボタンを操作します。032ではメニューを閉じて再び開き、画面幅に応じた配置を確認します。033では架空の氏名と日付を入力します。034では空欄で2つのエラーを出し、入力後は合格へ変わることを確認します。035では4件の表を2件ずつ表示し、見出しのソートを試します。各5本の後で復習を行ってください。
+
+| 症状 | 切り分け | 判断の目安 |
+| --- | --- | --- |
+| クリックで変化しない | 対話型接続、OnClick、サーバー側状態 | イベントが届いたかから確認 |
+| 通知だけ表示されない | ISnackbar・Provider | 通知の要求と表示を区別 |
+| 日付が空欄になる | DateTime?のnullとCulture | 値の存在と日本語書式を分ける |
+| 正しい入力でも保存できない | IsValidと業務認可 | 合格はDB保存権限を意味しない |
+| ページ切替でも処理が重い | Itemsに渡す件数 | 後続のServerData導入を判断 |
+
+## 演習と詳しい解答
+**問1：** メニューを閉じれば権限のない機能は守れますか。**解答：** いいえ。URLから直接要求を送れるので、サービス側が既存DB/外部台帳を正本として都度認可しなければなりません。
+
+**問2：** 翻訳を導入したのに業務固有の見出しを手動で書くのはなぜですか。**解答：** 共通のUI文言と業務固有の項目名は別だからです。Cultureは日付・数値、Translationsは共通文言、RequiredErrorは独自ルールです。
+
+**問3：** MudTableのRowsPerPage=2でDBの取得件数が減りますか。**解答：** 減りません。Itemsのデータを2件ずつ表示するだけです。大量データであれば取得条件とページングをサーバー側で扱います。
+
+
 
 ## この段階でできるようになること
 日本語入力・一覧・ダイアログ・通知に加え、JS連携、ファイル操作、エラー、アクセシビリティを判断できる。
