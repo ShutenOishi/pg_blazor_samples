@@ -1110,6 +1110,8 @@ async function waitText(page, selector, expected) {
         for (const [oldId, seq, action] of unit19Actions) {
             await page.goto(base + "/learn/" + oldId);
             await page.locator('[data-testid="stage07-compare-' + seq + '"]').waitFor();
+            // Interactive Serverのcircuit初期化前にSSRのボタンを押す競合を避ける。
+            await page.waitForTimeout(850);
             await page.getByRole("button", { name: action }).click();
             await waitText(page, '[data-testid="step' + oldId + '-state"]', "拒否");
         }
