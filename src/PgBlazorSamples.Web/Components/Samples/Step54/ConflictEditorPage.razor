@@ -6,7 +6,7 @@
 @inject LearningEditService Edits
 
 <PageTitle>ステップ54：xmin競合の画面設計｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ54 / 競合・削除・再読み込み</p>
+<p class="eyebrow">学習順74（旧ステップ54） / 第15組</p>
 <h1>同時編集で古い変更を上書きしない</h1>
 <p>同じ行を2つのブラウザーで開いてから先に片方で保存し、後からもう片方で保存してください。</p>
 <MudPaper Class="pa-4">
@@ -36,6 +36,11 @@
     }
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順74：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-74"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>更新競合</td><td>WHEREと更新件数で古い版を拒否する</td><td>xminとDbUpdateConcurrencyExceptionで競合を拒否</td></tr>
+    <tr><td>操作と行の安全性</td><td>既存DB台帳の都度認可をSQLの境界に置く</td><td>学習用DTOと本番の都度認可・監査を明確に区別する</td></tr></tbody></table>
+    <p>このステップの実コード2例、操作手順、失敗時の切り分け、演習と詳しい解答は日本語教材に掲載しています。実AD・既存台帳の本番認可はこの練習画面には未実装です。</p>
     <h2>競合時に自動上書きしない</h2>
     <p>画面の版番号とDBのxminを照合し、保存直前のDbUpdateConcurrencyExceptionも捕捉します。競合時は最新値を別表示し、利用者が読み替えるまで編集データを勝手に変更しません。削除済みなら保存できません。</p>
 </section>

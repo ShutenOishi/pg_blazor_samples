@@ -959,6 +959,50 @@ if -1 in positions14 or positions14 != sorted(positions14) or not (
 ):
     missing.append("第13組→066〜070→第14組→071のPDF索引順が不正")
 
+# 第15組071〜075：本文、Razor、Web/PDF索引のソースのみを検査。PDFは生成しない。
+unit15 = [
+    ("step51", "docs/samples/step51.md", "Step51/EditDtoPage.razor"),
+    ("step52", "docs/samples/step52.md", "Step52/EditDialogPage.razor"),
+    ("step53", "docs/samples/step53.md", "Step53/BulkEditPage.razor"),
+    ("step54", "docs/samples/step54.md", "Step54/ConflictEditorPage.razor"),
+    ("step55", "docs/samples/step55.md", "Step55/DetailProjectionPage.razor"),
+]
+if [item["id"] for item in ordered[70:75]] != [item[0] for item in unit15]:
+    missing.append("第15組071〜075の学習順が不正")
+for sequence, (_, relative, view_path) in enumerate(unit15, start=71):
+    body = (ROOT / relative).read_text(encoding="utf-8")
+    view = (SAMPLES / view_path).read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(relative + "：3300字以上・比較と切り分け表が不足")
+    if body.count(chr(96)*3) < 4 or "WinForms" not in body or "Dapper" not in body or "詳しい解答" not in body:
+        missing.append(relative + "：実コード2例・比較・詳答が不足")
+    if f'data-testid="stage06-compare-{sequence:03d}"' not in view:
+        missing.append(relative + "：Razor比較表が不足")
+    if f"学習順{sequence:03d}を開く" not in home or f"学習順{sequence:03d}：" not in nav_eighth:
+        missing.append(relative + "：Web目次とNavMenuが不一致")
+    if f'"{relative}"' not in PDF_SCRIPT or f"学習順{sequence:03d}：" not in PDF_SCRIPT:
+        missing.append(relative + "：PDF目次ソースに学習順がない")
+review15_path = "docs/columns/column51-55.md"
+review15 = (ROOT / review15_path).read_text(encoding="utf-8")
+review15_view = (SAMPLES / "Columns/Column55Page.razor").read_text(encoding="utf-8")
+if len(review15) < 3300 or review15.count("| ---") < 2 or review15.count(chr(96)*3) < 4 or "詳しい解答" not in review15:
+    missing.append("第15組復習の長文・表・実コード・詳答が不足")
+if 'data-testid="stage06-review15-table"' not in review15_view or 'href="/learn/56"' not in review15_view:
+    missing.append("第15組復習Razorと学習順076への導線不足")
+if 'href="/learn/column/50"' not in (SAMPLES / "Step51/EditDtoPage.razor").read_text(encoding="utf-8"):
+    missing.append("学習順071から第14組復習への前後リンク不足")
+if "学習順071〜075を復習" not in home or "第15組の復習：071〜075" not in nav_eighth:
+    missing.append("第15組のHome/NavMenu復習導線が不足")
+positions15 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit15]
+review15_pos = PDF_SCRIPT.find(f'"{review15_path}"')
+review14_pos = PDF_SCRIPT.find('"docs/columns/column46-50.md"')
+step56_pos = PDF_SCRIPT.find('"docs/samples/step56.md"')
+if -1 in positions15 or positions15 != sorted(positions15) or not (
+    review14_pos < positions15[0] < positions15[-1] < review15_pos < step56_pos
+):
+    missing.append("第14組→071〜075→第15組→076のPDF索引順が不正")
+
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

@@ -1,8 +1,15 @@
 @page "/learn/column/55"
 <PageTitle>学習コラム12：編集・競合・詳細｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム12 / Step51〜55</p>
+<p class="eyebrow">第15組の復習 / 学習順071〜075</p>
 <h1>保存と表示は、操作ごとに責任を切り分ける</h1>
 <section class="lesson-details">
+    <h2>第15組：学習順071〜075の比較</h2>
+    <table data-testid="stage06-review15-table"><thead><tr><th>学習順</th><th>テーマ</th><th>確認する拒否条件</th></tr></thead>
+    <tbody><tr><td>071</td><td>編集DTO</td><td>入力不正とxmin</td></tr>
+    <tr><td>072</td><td>Dialog</td><td>取消と競合</td></tr>
+    <tr><td>073</td><td>一括確定</td><td>一件でも変更されたら0件確定</td></tr>
+    <tr><td>074</td><td>競合</td><td>最新値へ明示的に読み替える</td></tr>
+    <tr><td>075</td><td>詳細DTO</td><td>削除とDB障害を区別する</td></tr></tbody></table>
     <h2>5つの操作をつなげる</h2>
     <table><thead><tr><th>要件</th><th>第一候補</th><th>失敗したとき</th></tr></thead>
     <tbody>
@@ -19,4 +26,4 @@
     <details><summary>確認：xmin不一致なら自動再試行する？</summary><p>いいえ。意図しない上書きになるため、最新値を示して利用者に選ばせます。</p></details>
     <details><summary>確認：詳細取得のN+1を防ぐには？</summary><p>必要な関連列をSelectでDTOへ射影し、単一クエリで取得します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/55">ステップ55へ戻る</a><a href="/">学習目次へ戻る</a></div>
+<div class="page-navigation"><a href="/learn/55">ステップ55へ戻る</a><a href="/learn/56">次へ：学習順076</a><a href="/">学習目次へ戻る</a></div>

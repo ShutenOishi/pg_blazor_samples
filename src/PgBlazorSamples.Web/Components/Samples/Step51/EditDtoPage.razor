@@ -6,7 +6,7 @@
 @inject LearningEditService Edits
 
 <PageTitle>ステップ51：編集DTOと検証｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ51 / 編集フォームとDTO</p>
+<p class="eyebrow">学習順71（旧ステップ51） / 第15組</p>
 <h1>一覧で選んだ課題をDTOで編集する</h1>
 <p>開発用PostgreSQL 18を使用します。DbContextを画面に保持せず、版番号つきDTOだけを保持します。</p>
 <MudPaper Class="pa-4">
@@ -36,10 +36,15 @@
     }
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順71：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-71"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>編集DTO</td><td>TextBoxとDapperの更新SQLを直接使う</td><td>EditFormとSaveAsyncで入力再検証・保存</td></tr>
+    <tr><td>操作と行の安全性</td><td>既存DB台帳の都度認可をSQLの境界に置く</td><td>学習用DTOと本番の都度認可・監査を明確に区別する</td></tr></tbody></table>
+    <p>このステップの実コード2例、操作手順、失敗時の切り分け、演習と詳しい解答は日本語教材に掲載しています。実AD・既存台帳の本番認可はこの練習画面には未実装です。</p>
     <h2>実務での使い分け</h2>
     <p>編集用DTOは一覧行とは別のコピーです。保存時に必ずサーバー側で入力を検証し、xminが違う場合は上書きせず最新情報の確認を求めます。</p>
 </section>
-<div class="page-navigation"><a href="/learn/50">前へ：ステップ50</a><a href="/learn/52">次へ：ステップ52</a></div>
+<div class="page-navigation"><a href="/learn/column/50">前へ：第14組の復習</a><a href="/learn/52">次へ：ステップ52</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private LearningEditInput? _draft;

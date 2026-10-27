@@ -982,6 +982,21 @@ async function waitText(page, selector, expected) {
         }
         await page.goto(base + "/learn/column/55");
         await page.getByText("保存と表示は、操作ごとに責任を切り分ける").waitFor();
+        // 第15組：旧80 URL、各比較表、復習と次の学習順の導線を実Chromeで検証。
+        for (const [sequence, oldId] of [[71, 51], [72, 52], [73, 53], [74, 54], [75, 55]]) {
+            await page.goto(base + "/learn/" + oldId);
+            await page.locator('[data-testid="stage06-compare-' + sequence.toString().padStart(3, "0") + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/51");
+        await page.getByRole("link", { name: "前へ：第14組の復習" }).waitFor();
+        await page.goto(base + "/learn/55");
+        await page.getByRole("link", { name: "第15組の復習：編集・競合・詳細" }).waitFor();
+        await page.goto(base + "/learn/column/55");
+        await page.locator('[data-testid="stage06-review15-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順076" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順071〜075を復習" }).waitFor();
+        console.log("第15組071〜075の比較表・復習・前後導線を確認");
         console.log("ステップ51〜55・コラム12：日本語画面とDB未設定の案内を確認");
 
         // Step56〜60：未設定DBの案内、Scopedキャッシュの隔離、総合選定の操作。

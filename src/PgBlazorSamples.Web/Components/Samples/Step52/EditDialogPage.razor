@@ -6,7 +6,7 @@
 @inject IDialogService Dialogs
 
 <PageTitle>ステップ52：編集ダイアログ｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ52 / Dialog・保存・取消</p>
+<p class="eyebrow">学習順72（旧ステップ52） / 第15組</p>
 <h1>入力と保存の責任をダイアログにまとめる</h1>
 <p>編集フォームは子コンポーネントです。取消はDBを書き換えず、成功したときだけ一覧を読み直します。</p>
 <MudPaper Class="pa-4">
@@ -21,6 +21,11 @@
     </MudTable>
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順72：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-72"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>Dialog</td><td>ShowDialogと戻り値を使い分ける</td><td>IDialogServiceとDialog.Resultで取消・成功を判定</td></tr>
+    <tr><td>操作と行の安全性</td><td>既存DB台帳の都度認可をSQLの境界に置く</td><td>学習用DTOと本番の都度認可・監査を明確に区別する</td></tr></tbody></table>
+    <p>このステップの実コード2例、操作手順、失敗時の切り分け、演習と詳しい解答は日本語教材に掲載しています。実AD・既存台帳の本番認可はこの練習画面には未実装です。</p>
     <h2>ライブラリDIを使う</h2>
     <p>IDialogServiceとMudDialogProviderを使います。Dialogは編集DTOのコピーを受け取り、成功したときだけ結果を返します。二重送信をガードし、保存前の入力検証はサーバー側でも行います。</p>
 </section>
