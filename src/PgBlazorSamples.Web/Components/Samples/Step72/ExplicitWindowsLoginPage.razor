@@ -3,8 +3,8 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject IConfiguration Configuration
 @inject WindowsUserAccessService Access
-<PageTitle>ステップ72：明示Windowsログイン｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ72 / Negotiate と短命Cookie</p>
+<PageTitle>学習順97：明示Windowsログイン｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順97（旧Step72） / Negotiate と短命Cookie</p>
 <h1>必要な業務だけWindowsログインを明示する</h1>
 <MudPaper Class="pa-4">
     @if (Configuration.GetValue<bool>("WindowsAuthentication:ExplicitLoginEnabled"))
@@ -32,8 +32,22 @@
         <li>フォームのCSRFトークンを検証してログイン・ログアウトする。</li>
     </ul>
     <p><strong>本番注意：</strong>Windows Server 2025/IISでWindows認証と匿名接続の併存、Kerberos、共有Data Protection鍵、サーバー間の再接続を実地確認する必要があります。</p>
+
+    <h2>学習順097の比較と確認</h2>
+    <table data-testid="stage08-compare-097">
+        <caption>学習順097：明示ログイン・Cookie</caption>
+        <thead><tr><th scope="col">確認対象</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理の根拠</th><td>OSから検証済み本人を受け取り、SQLで正本を照合</td><td>確認GETではCookie発行なし／POSTはCSRF検証</td></tr>
+            <tr><th scope="row">失敗時</th><td>DB更新と表示を止め、必要な監査を残す</td><td>10分Cookieは本人認証だけでDB業務権限は保持しない</td></tr>
+            <tr><th scope="row">受入範囲</th><td>端末・既存DBの実環境で別途検証</td><td>CIの架空認証と実AD/IIS/FDWの現地受入を区別</td></tr>
+        </tbody>
+    </table>
+    <details><summary>この画面が表示できれば本番で許可されたと判断できますか？</summary>
+        <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
+    </details>
 </section>
-<div class="page-navigation"><a href="/learn/71">前へ</a><a href="/">目次へ</a></div>
+<div class="page-navigation"><a href="/learn/71">前へ</a><a href="/">目次へ</a><a href="/learn/73">次へ</a></div>
 @code {
     private string _status = "ログイン状態は未確認です。";
     private async Task CheckAsync()
