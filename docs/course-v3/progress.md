@@ -1,3 +1,14 @@
+## 2026-10-27 第14組066〜070・通常復習の全面改稿（PDF停止継続）
+
+- **本文・画面同期実装HEAD：`51243bbe6046456e5140959834c72eba5a37e966`**。初稿5本は合計30/30のまま。学習順066〜070（旧Step46〜50）は **4,731／4,703／4,673／4,941／5,091文字**へ全面改稿、第14組復習は **4,036文字**。各本文は実コード2例、WinForms＋Dapper比較、操作、障害切り分け、演習と詳しい解答を含む。
+- Step46の関連CategoryをDTO射影、47のIdキーセット、48の500件メモリ保持とVirtualize、49の最大200件DB範囲取得、50の400ミリ秒待機・取消・再試行を、実Razor・LearningAdvancedPageService・LearningPageServiceと照合した。
+- Razor5画面の学習順表示・比較表、レビュー画面、Home/NavMenu、前後リンク（第13組→066〜070→第14組→071）、PDF目次の**ソース文字列のみ**、静的教材品質ゲート、Chrome操作を同期。第6段階概要は既受入のため再改稿しない。旧80ステップのURLは保持。
+- 先行アプリCI [40489203833](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40489203833) のUbuntuコンパイル失敗（Step47の説明文中のRazor `@cursor` 解釈）を `@@cursor` へ修復。修復実装HEADの[アプリCI 40489404815](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40489404815)と[PDF Workflow 40489404804](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40489404804)を確認対象とする。
+- **予定進捗：新規初稿30/30、全面改稿70/110、通常復習14/22、段階概要6/9。** 本進捗・カリキュラム記録更新により新HEADとなるため、**記録更新後の最新HEAD**でWindows/Linux Release、xUnit、Chrome、PostgreSQL18実DB・既存安全拒否のアプリCI全3ジョブSUCCESSを確認した場合だけ最終受入を確定する。未成功時は受入未完了とし必要な修復を行う。
+- PDF生成・再生成、Preview Release・正式Release更新は禁止のまま。PDF停止WorkflowはSKIPPEDを維持。既存Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71` とAsset ID `680751957`、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f` を変更しない。現HEADとのSHA差異は正常で、PDF受入は保留。
+- Draft PR #36・main未マージ、本人AD認証とユーザー名のみ、既存DB/外部台帳の操作・行単位都度認可、権限失効・xmin競合・監査失敗・FDW原子性不明時の安全拒否を維持する。**実AD/IIS/Kerberos/FDWと1万人超の現地負荷受入は未完了**。
+- **次工程：学習順071〜075（旧Step51〜55）と第15組復習**を実コードと照合して全面改稿。各3300字以上、実コード2例、WinForms＋Dapper比較、表、操作、診断、詳答を含める。Razor/目次・PDFソースだけ・Chrome・静的検査を同期し、最新HEAD全3アプリCI SUCCESSで75/110・15/22へ進める。PDF停止継続。
+
 ## 2026-10-27 第13組061〜065・第6段階概要の全面改稿受入（PDF停止継続）
 
 - **改稿実装・検証HEAD：24d59a62c01b89f5f5ab9c1c501a5bdd405d9a66**。Draft PR #36はopen/draft、main未マージ。既存80ステップのURLは維持した。
@@ -68,7 +79,7 @@
 - 後続：学習順051〜055（旧Step35、db-bridge-02、db-bridge-03、旧Step36〜37）、第11組復習。旧80 URL、Draft PR #36、main、正式Release、個人監査・DB台帳の都度認可、安全拒否を維持。実AD/IIS/Kerberos/FDWと1万人規模の実機試験は未受入。
 
 
-**現在の確定進捗：新規初稿30/30、最終全面改稿65/110、通常復習13/22、段階概要6/9。**
+**現在の確定進捗：新規初稿30/30、最終全面改稿70/110、通常復習14/22、段階概要6/9（最新HEAD全アプリCI成功で最終受入）。**
 
 **2つの進捗を分けて追跡します。** 以前の教材v2で本文改稿した成果は無効化せず保存しますが、新しい前提順で読み直すまでは最終改稿と数えません。
 

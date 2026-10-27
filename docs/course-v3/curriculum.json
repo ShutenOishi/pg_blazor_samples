@@ -733,7 +733,7 @@
       "source": "docs/samples/step46.md",
       "url": "/learn/46",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 67,
@@ -744,7 +744,7 @@
       "source": "docs/samples/step47.md",
       "url": "/learn/47",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 68,
@@ -755,7 +755,7 @@
       "source": "docs/samples/step48.md",
       "url": "/learn/48",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 69,
@@ -766,7 +766,7 @@
       "source": "docs/samples/step49.md",
       "url": "/learn/49",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 70,
@@ -777,7 +777,7 @@
       "source": "docs/samples/step50.md",
       "url": "/learn/50",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 71,
