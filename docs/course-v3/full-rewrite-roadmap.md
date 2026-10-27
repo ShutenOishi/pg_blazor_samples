@@ -2,7 +2,7 @@
 
 ## 現在の達成状況
 
-新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜8組001〜040のCI受入済み40/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
+新規30ステップの**Razor画面・日本語教材初稿を配置済み**。総合演習5件のCIと、同じHEADによる日本語PDFのPreview Release公開を検証済みです。**全面改稿と受入は第1〜9組001〜045のCI受入済み45/110**であり、初稿実装と混同しません。既存80ステップのURLは維持し、Draft PR #36からmainへ未検証のままマージしません。
 
 ## 最終成果物と受入条件
 
@@ -38,7 +38,7 @@
 | 06（受入済み） | 第3段階 DI・サービスと単体テスト | 026〜030 | Optionsで設定を受け取る／非同期処理とログ／DIによる単体テスト／Applicationへ処理を分離／DIで課題管理を作る、復習第6組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 07（受入済み） | 第4段階 MudBlazorとブラウザーの業務UI | 031〜035 | MudBlazorと日本語翻訳を導入する／MudBlazorのレイアウトを学ぶ／日本語で入力部品を使う／MudFormの入力検証を学ぶ／MudTableで一覧とソート、復習第7組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 08（受入済み） | 第4段階 MudBlazorとブラウザーの業務UI | 036〜040 | MudDataGridで検索・並べ替えする／確認ダイアログで実行と中止を選ぶ／Snackbarと処理中の状態を表示する／ダークモードとキーボード操作を学ぶ／MudBlazor日本語UIを総合演習する、復習第8組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
-| 09 | 第4段階 MudBlazorとブラウザーの業務UI | 041〜045 | JavaScript interopの利用判断／ファイルアップロードと入力制約／CSV・PDFファイルのダウンロード／ErrorBoundary・取消・再試行／HTMLの意味・フォーカス・拡大表示の最終確認、復習第9組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
+| 09（受入済み） | 第4段階 MudBlazorとブラウザーの業務UI | 041〜045 | JavaScript interopの利用判断／ファイルアップロードと入力制約／CSV・PDFファイルのダウンロード／ErrorBoundary・取消・再試行／HTMLの意味・フォーカス・拡大表示の最終確認、復習第9組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 10 | 第5段階 DapperからEF Core 10・PostgreSQL 18へ | 046〜050 | DapperとEF Coreの役割・選定を比較する／モデルとDTOを理解する／PostgreSQLで学習テーブルを定義する／EF Core 10をWebへ登録する／DbContextFactoryと接続プール、復習第10組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 11 | 第5段階 DapperからEF Core 10・PostgreSQL 18へ | 051〜055 | LINQ検索とAsNoTracking／SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL／Dapperの接続／ExecuteとDbContext・追跡・SaveChanges／EF Coreの登録・更新・削除／DateOnly・TimeOnly・Rangeの型変換、復習第11組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 12 | 第5段階 DapperからEF Core 10・PostgreSQL 18へ | 056〜060 | トランザクションを理解する／xmin楽観的排他を確認する／既存DB・ビュー・キーなしモデル・FDWを扱う／FromSql／SqlQueryのパラメーターとDapper併用／PostgreSQL 18の実接続確認、復習第12組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
@@ -52,6 +52,16 @@
 | 20 | 第8段階 監査・競合制御・Windows Server運用 | 096〜100 | 既存台帳のキー正規化・重複拒否と索引／明示Windowsログインと短命Cookie／権限行ロックと更新の原子性／本人・操作・結果を永続監査する／IIS・Kerberos・負荷・障害の実機受入、復習第20組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 21 | 第8段階 監査・競合制御・Windows Server運用 | 101〜105 | 二人の編集競合とxmin／キャッシュの有効期限と権限失効／ヘルスチェック・構造化ログ・運用監視／実DB・ブラウザー・認可の結合/E2E試験／Windows Server 2025/IISの配布・切替・復旧、復習第21組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
 | 22 | 第9段階 業務アプリの通し演習 | 106〜110 | 業務要件・画面遷移・WinForms移行の設計／PostgreSQL検索とページング・生成SQL／DTO編集・競合・取消・例外の統合／認証済み本人と既存台帳による権限・監査／E2E・障害復旧・IIS受入表、復習第22組 | 本文・画面・概要・復習・PDF・CI・否定試験の一致 |
+
+## 2026-10-27 第4段階完成の受入証跡
+
+- **教材実装の受入HEAD** `3cab5c0fc430ea473675c6eb4acf04e0ead7103b`。アプリ [Run 40447468064](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40447468064) はWindows Server 2025/Linux Release・xUnit・Chrome実操作・PostgreSQL18実DB結合と既存安全拒否の全ジョブSUCCESS。日本語PDF [Run 40447468058](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40447468058) も教材品質ゲート・PDF生成・Preview公開SUCCESS。
+- **Preview Release** [learning-textbook-v3-preview](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview) は生成元HEAD一致。単体 `blazor_learning_textbook_ja.pdf`、Asset ID `680389176`、**1,416,502バイト**、SHA256 `8514f1eaa4c3bbe0cf13416615329de73ee8d23cfff2bed7afce247898cfb50f`。Release GETとAsset個別GETのname・size・digest一致、ZIPなし。
+- 学習順041〜045（browser-01〜05）の全面改稿は各**5,066／5,283／5,668／5,638／5,744文字**、第9組復習**5,843文字**。実Razor/C#/JS、WinForms＋Dapper比較、診断表、実操作、拒否、演習・詳しい解答を収録。第4段階概要、5画面Razorの比較表、復習画面、ホーム/NavMenu、前後リンク、Web/PDF索引、品質ゲート、Chromeを整合。
+- 初回実装HEAD `a9815703638d22484f8b1c6f7c417338549d916a` のChrome検査は学習順のゼロ埋め欠落（41対041）でFAILURE。新HEAD `3cab5c0...` でテスト識別子を修正し、失敗した旧HEADを成功扱いせず全CIで受入。成功済みCIの手動再実行は実施していない。
+- **確定進捗：新規初稿30/30、最終全面改稿45/110、通常復習9/22、段階概要4/9。第4段階031〜045と第7〜9組復習が完了。** Draft PR・旧80URL・正式main教材と正式Releaseは維持。AD認証は本人とドメイン名だけ、認可は既存DB/外部台帳を正本として都度判定し、監査・権限失効・更新競合・失敗時の安全拒否を維持。実AD/IIS/Kerberos/FDW・1万人超実機負荷は未受入。
+- **次工程：学習順046〜050（db-bridge-01、旧Step31〜34）と第10組復習、第5段階概要**。EF Core10・Npgsql・DbContextFactory・PG18の実Razor/SQL/C#と照合して各3300文字以上、実コード2以上、WinForms＋Dapper比較、切り分け、操作、演習と詳答を全面改稿。第5段階先頭、前後リンク、Web/PDF、日本語、Chrome・品質ゲート・安全拒否を同期。同一HEADのWindows/Linux・xUnit・Chrome・PG18・PDF成功とPreview PDF生成元SHA一致後にのみ50/110・10/22・5/9へ進む。
+- **記録更新によりHEADが進んだ場合**、必ずその新HEADのApp/PDF CI全SUCCESSおよびPreview Release生成元SHA・単体PDF AssetのGET一致を再照合すること。旧HEADの成功を新HEADの証跡として流用しない。
 
 ## 特別3コラムの扱い
 

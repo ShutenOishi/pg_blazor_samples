@@ -458,7 +458,7 @@
       "source": "docs/course-v3/lessons/browser-01.md",
       "url": "/learn/browser-01",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 42,
@@ -469,7 +469,7 @@
       "source": "docs/course-v3/lessons/browser-02.md",
       "url": "/learn/browser-02",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 43,
@@ -480,7 +480,7 @@
       "source": "docs/course-v3/lessons/browser-03.md",
       "url": "/learn/browser-03",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 44,
@@ -491,7 +491,7 @@
       "source": "docs/course-v3/lessons/browser-04.md",
       "url": "/learn/browser-04",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 45,
@@ -502,7 +502,7 @@
       "source": "docs/course-v3/lessons/browser-05.md",
       "url": "/learn/browser-05",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 46,
@@ -1270,7 +1270,8 @@
       "stage": 4,
       "from": 31,
       "to": 45,
-      "overview": "docs/course-v3/stages/stage04.md"
+      "overview": "docs/course-v3/stages/stage04.md",
+      "final_review": "ci-passed"
     },
     {
       "name": "DapperからEF Core 10・PostgreSQL 18へ",
@@ -1403,7 +1404,8 @@
       "after_sequence": 45,
       "path": "docs/course-v3/reviews/review-09.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 10,
