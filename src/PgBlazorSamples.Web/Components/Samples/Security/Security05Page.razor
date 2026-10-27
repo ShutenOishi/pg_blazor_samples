@@ -15,8 +15,8 @@
 <p>実際の利用者・Cookie・既存台帳を変更しません。画面状態が保持されていても、業務サービスで現在の権限を再取得します。</p>
 <h2>再確認の順序</h2>
 <ol><li>サーバーが最新の本人認証状態を検証する。</li><li>最新の既存DB台帳で有効性・部署・操作権限を再照合する。</li><li>更新する場合は排他・監査条件を満たしてから同一トランザクションで実行する。</li><li>拒否時は既存データ・集計・CSVを返さない。</li></ol>
-</section>
-<div class="page-navigation"><a href="/learn/security-04">前へ</a><a href="/learn/column/security-85">次へ</a></div>
+<h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-85"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<div class="page-navigation"><a href="/learn/security-04">前へ：学習順084</a><a href="/learn/column/security-85">次へ：第17組の復習</a></div>
 @code {
     private bool expired;
     private bool permissionRevoked;

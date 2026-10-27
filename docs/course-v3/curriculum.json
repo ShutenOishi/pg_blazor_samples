@@ -898,7 +898,7 @@
       "source": "docs/course-v3/lessons/security-01.md",
       "url": "/learn/security-01",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-pending"
     },
     {
       "sequence": 82,
@@ -909,7 +909,7 @@
       "source": "docs/course-v3/lessons/security-02.md",
       "url": "/learn/security-02",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-pending"
     },
     {
       "sequence": 83,
@@ -920,7 +920,7 @@
       "source": "docs/course-v3/lessons/security-03.md",
       "url": "/learn/security-03",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-pending"
     },
     {
       "sequence": 84,
@@ -931,7 +931,7 @@
       "source": "docs/course-v3/lessons/security-04.md",
       "url": "/learn/security-04",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-pending"
     },
     {
       "sequence": 85,
@@ -942,7 +942,7 @@
       "source": "docs/course-v3/lessons/security-05.md",
       "url": "/learn/security-05",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-pending"
     },
     {
       "sequence": 86,
@@ -1308,7 +1308,8 @@
       "stage": 7,
       "from": 81,
       "to": 95,
-      "overview": "docs/course-v3/stages/stage07.md"
+      "overview": "docs/course-v3/stages/stage07.md",
+      "final_review": "ci-pending"
     },
     {
       "name": "監査・競合制御・Windows Server運用",
@@ -1467,7 +1468,8 @@
       "after_sequence": 85,
       "path": "docs/course-v3/reviews/review-17.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-pending"
     },
     {
       "unit": 18,

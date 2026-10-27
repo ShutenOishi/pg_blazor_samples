@@ -15,8 +15,8 @@
 <h2>サーバー側の構成例</h2>
 <ol><li>信頼するプロキシ・HTTPS終端を決定し、転送ヘッダーを検証する。</li><li>UseAuthentication（Windows認証を有効にした場合）。</li><li>UseAuthorization。</li><li>UseAntiforgery。</li><li>Razorコンポーネントのマッピングと業務サービスの認可。</li></ol>
 <p>順序だけでHTTPSやIISの安全性が保証されるわけではありません。IIS/Kerberos・SPN・証明書・ホスト設定は実機の検証事項です。</p>
-</section>
-<div class="page-navigation"><a href="/learn/security-01">前へ</a><a href="/learn/security-03">次へ</a></div>
+<h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-82"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<div class="page-navigation"><a href="/learn/security-01">前へ：学習順081</a><a href="/learn/security-03">次へ：学習順083</a></div>
 @code {
     private bool https;
     private bool sameOrigin;
