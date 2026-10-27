@@ -1,3 +1,13 @@
+## 2026-10-27 第21組101〜105・復習の全面改稿（PDF停止継続）
+
+- **前回受入HEAD：** `f6c27a56d202dfb1813e75257564f50bdef762f3`。認証済みGitHub GETでDraft/open・main未マージ、[アプリCI 40523479216](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40523479216) Windows/Linux/PostgreSQL18の全3ジョブSUCCESS、同一HEADの[PDF Workflow 40523479478](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40523479478) SKIPPEDを確認。成功済みRunは再実行しない。
+- **今回の改稿：** 学習順101〜105（旧Step76〜80）は **4,135／4,074／3,838／3,898／4,628文字**、第21組復習は**3,701文字**。全6本3,300字以上、実コード2例、WinForms＋Dapper比較、操作手順、障害の切り分け、演習詳答。Razor・SecuredLearningService・AuthorizedLessonHintCache・WindowsUserAccessService・LearningAuditService・Program.cs・CI用PostgreSQL18架空台帳と照合。第8段階概要は受入済みのため変更していない。
+- **同期：** 5つのRazorと第21組復習比較表、Home/NavMenu、旧80 URL、100→101〜105→第21組復習→106の前後リンク、Web/PDF目次**ソースのみ**、静的検査とChrome匿名拒否を同期。ADは本人認証と名前取得のみ、操作・行単位都度認可は既存DB台帳の正本。監査・xmin・失効・FDW原子性不明時の安全拒否を緩和していない。
+- **予定進捗：新規初稿30/30、全面改稿105/110、通常復習21/22、段階概要8/9。** この記録更新後の最新HEADに対応するWindows/Linux Release・xUnit・Chrome、PostgreSQL18実DB・既存安全拒否のアプリCI全3ジョブSUCCESSおよびPDF Workflow SKIPPEDを確認するまで最終受入は保留。旧HEADのCIで代用しない。
+- **最優先の禁止：** ユーザーが明示的に再開を指示するまでPDF生成・再生成、Preview Release・正式Release更新を一切禁止。PDF停止Workflow維持。Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`を変更しない。Draft PR #36・main未マージ維持。
+- **実機未受入：** 実AD/IIS/Kerberos/FDW、Data Protection鍵・監査の本番運用、1万人超登録・同時circuit・DBプール・負荷・復旧は現地実機の証拠がない。
+- **次工程：** 同一最新HEADのアプリ全3ジョブSUCCESSとPDF SKIPPEDの後、学習順106〜110（capstone-01〜05）、第22組復習、第9段階概要を全面改稿。実コード2例・3,300文字以上・比較表・演習詳答、Razor・目次ソース・NavMenu・前後リンク・静的検査・Chromeを同期し、完了時はGitHub進捗・PRコメントと短い引き継ぎプロンプトを作成。
+
 ## 2026-10-27 第20組096〜100・復習・第8段階概要の全面改稿（PDF停止継続）
 
 - **改稿前の受入確定：** Draft PR #36 HEAD `0218641d342a00c9e0609653417ffa651f6c9bbf`。認証済みGitHub GETで同一HEADの[アプリCI 40517851741](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40517851741) は **SUCCESS（全3ジョブ：Windows Server 2025 Release/xUnit/静的教材検査、Ubuntu 24.04 Release/xUnit/Chrome、PostgreSQL18実DB・既存安全拒否）**。先にin_progressだったPostgreSQL18ジョブも `completed/success` をGETで確認。[PDF Workflow 40517851952](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40517851952) は同一HEADで **SKIPPED**。成功済みRunは再実行しない。これにより前工程の**95/110、通常復習19/22、段階概要7/9**を受入確定。
