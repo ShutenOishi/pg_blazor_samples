@@ -623,7 +623,7 @@
       "source": "docs/samples/step38.md",
       "url": "/learn/38",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 57,
@@ -634,7 +634,7 @@
       "source": "docs/samples/step39.md",
       "url": "/learn/39",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 58,
@@ -645,7 +645,7 @@
       "source": "docs/course-v3/lessons/db-bridge-04.md",
       "url": "/learn/db-bridge-04",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 59,
@@ -656,7 +656,7 @@
       "source": "docs/course-v3/lessons/db-bridge-05.md",
       "url": "/learn/db-bridge-05",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 60,
@@ -667,7 +667,7 @@
       "source": "docs/samples/step40.md",
       "url": "/learn/40",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 61,
@@ -1427,7 +1427,8 @@
       "after_sequence": 60,
       "path": "docs/course-v3/reviews/review-12.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 13,
