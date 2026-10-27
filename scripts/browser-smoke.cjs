@@ -457,16 +457,16 @@ async function waitText(page, selector, expected) {
         await page.goto(base + "/learn/10");
         await page.waitForTimeout(1200);
         await page.getByRole("button", { name: "入力内容を確認する" }).click();
-        await page.getByText("表示名を入力してください。").waitFor();
-        await page.getByText("学習メモを入力してください。").waitFor();
+        await page.getByText("表示名を入力してください。", { exact: true }).waitFor();
+        await page.getByText("学習メモを入力してください。", { exact: true }).waitFor();
         if (await page.locator('[data-testid="step10-confirmation"]').count() !== 0) {
             throw new Error("ステップ10：必須未入力で確認が成立しました。");
         }
         await page.getByRole("textbox", { name: "練習用の表示名（2〜20文字・必須）" }).fill("あ");
         await page.getByRole("textbox", { name: "学習メモ（3〜80文字・必須）" }).fill("あい");
         await page.getByRole("button", { name: "入力内容を確認する" }).click();
-        await page.getByText("表示名は2文字以上20文字以内で入力してください。").waitFor();
-        await page.getByText("学習メモは3文字以上80文字以内で入力してください。").waitFor();
+        await page.getByText("表示名は2文字以上20文字以内で入力してください。", { exact: true }).waitFor();
+        await page.getByText("学習メモは3文字以上80文字以内で入力してください。", { exact: true }).waitFor();
         await page.getByRole("textbox", { name: "練習用の表示名（2〜20文字・必須）" }).fill("練習太郎");
         await page.getByRole("textbox", { name: "学習メモ（3〜80文字・必須）" }).fill("フォームの入力検証を復習する");
         await page.getByRole("button", { name: "入力内容を確認する" }).click();
