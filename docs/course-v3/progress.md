@@ -1,3 +1,16 @@
+## 2026-10-27 第13組061〜065・第6段階概要の全面改稿受入（PDF停止継続）
+
+- **改稿実装・検証HEAD：24d59a62c01b89f5f5ab9c1c501a5bdd405d9a66**。Draft PR #36はopen/draft、main未マージ。既存80ステップのURLは維持した。
+- 同一HEADの[アプリCI 40482470750](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40482470750)は**SUCCESS**。Windows Server 2025 Release・xUnit・静的教材整合、Ubuntu 24.04 Release・xUnit・Chrome実操作、PostgreSQL18実DB結合・既存安全拒否を含む全3ジョブSUCCESS。先行してPDF目次の旧構成概要を欠落させた静的検査失敗を確認し、旧URLの互換索引を保持する修復コミットで解消。成功済みRunを再実行していない。
+- [PDF Workflow 40482470822](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40482470822)は**SKIPPED（意図的）**。PDF生成・再生成、Preview Release・正式Release更新はユーザーからの明示的な再開指示まで禁止。PDF目次は `scripts/build_docs_pdf.py` の**ソースだけ**更新し、生成スクリプトは実行しない。
+- 既存Previewの生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID `680751957`、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f` を維持し、最新HEADへ追随させない。
+- 学習順061〜065（旧Step41〜45）はそれぞれ**4,796／5,051／5,021／4,929／5,239文字**へ改稿。実コード2例、WinForms＋Dapper比較表、障害切り分け、操作、演習と詳しい解答を収録。第13組復習 `docs/columns/column41-45.md` は**3,999文字**、第6段階概要 `docs/course-v3/stages/stage06.md` は**4,120文字**。
+- 5つのRazor比較表、Web目次/Home/NavMenu、学習順061〜065→第13組復習→066、段階概要ページ、PDF目次**ソース**、静的品質検査とChrome実操作を同期。旧構成の段階概要・全80 URLと、第12組復習から061への導線も維持。
+- **確定進捗：新規初稿30/30、全面改稿65/110、通常復習13/22、段階概要6/9。** 第6段階061〜080は最初の5本のみ全面改稿受入であり、残り15本を完了扱いしない。
+- **この進捗記録の更新でHEADが変わるため**、記録更新後の最新HEADについてアプリCI全3ジョブSUCCESSとPDF Workflow SKIPPEDを改めて照合すること。旧実装HEADのCI成功を新HEADの成功と混同しない。
+- **次工程：学習順066〜070（旧Step46〜50）と第14組復習**。実Razor/C#/SQL・PostgreSQL18のDTO射影、キーセットページング、仮想化、DB取得とVirtualize、検索UXを読み直し、各本文3,300文字以上、コード2例以上、WinForms＋Dapper比較、複数表、操作、障害切り分け、演習と詳しい解答を充実させる。第6段階概要は改稿済み。Web/PDF目次ソース・Razor/NavMenu/前後リンク・静的検査・Chromeを同期し、同一最新HEADの全アプリCI SUCCESSを条件に70/110・14/22へ進む。
+- AD本人認証・ユーザー名取得、既存DB/外部台帳の操作・行単位都度認可、監査、権限失効・xmin競合・監査障害時の安全拒否を緩和しない。**実AD/IIS/Kerberos/FDWと1万人超の現地負荷試験は未受入**。Draft・main未マージ・正式Release維持、成功CI再実行禁止を継続する。
+
 ## 2026-10-27 第12組056〜060・復習の全面改稿受入（PDF生成停止を維持）
 
 - **改稿実装HEAD：`081f082f1a974f7448c5b402e3be684037d2612f`**、Draft PR #36はopen/draft、main未マージ。既存80ステップのURLを保つ。
@@ -55,7 +68,7 @@
 - 後続：学習順051〜055（旧Step35、db-bridge-02、db-bridge-03、旧Step36〜37）、第11組復習。旧80 URL、Draft PR #36、main、正式Release、個人監査・DB台帳の都度認可、安全拒否を維持。実AD/IIS/Kerberos/FDWと1万人規模の実機試験は未受入。
 
 
-**現在の確定進捗：新規初稿30/30、最終全面改稿55/110、通常復習11/22、段階概要5/9。**
+**現在の確定進捗：新規初稿30/30、最終全面改稿65/110、通常復習13/22、段階概要6/9。**
 
 **2つの進捗を分けて追跡します。** 以前の教材v2で本文改稿した成果は無効化せず保存しますが、新しい前提順で読み直すまでは最終改稿と数えません。
 
