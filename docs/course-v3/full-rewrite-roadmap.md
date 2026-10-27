@@ -1,3 +1,13 @@
+## 2026-10-28 第22組106〜110・復習・第9段階概要を全面改稿（同一記録HEADのCI受入待ち・PDF停止継続）
+
+- **直前の確定正本：** Draft PR #36 HEAD `092c1dc43f3d8158c3c5b098b0bf94bc67ef064f`、アプリCI [40543274455](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40543274455) Windows/Linux/PG18全3ジョブSUCCESS、PDF Workflow [40543274413](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40543274413) SKIPPED。成功CIの再実行なし。
+- **今回の全面改稿：** 学習順106〜110と第22組復習・第9段階概要の7本を、各3,300文字以上・C#実コード2例以上・WinForms＋Dapper比較表・操作手順・障害切り分け・演習詳答で改稿。5つのRazor比較表、段階概要・復習のRazor比較表、Home/NavMenu、旧80URL・前後リンク、静的検査とChrome実操作を同期。PDF目次は既存の正しいソース順序を維持し検査を追加、**PDF自体は生成しない**。
+- **改稿予定値：** 新規初稿30/30、全面改稿110/110、通常復習22/22、段階概要9/9。**本資料を含む最新HEADでアプリCI全3ジョブSUCCESSおよびPDF Workflow SKIPPEDを直接GETできるまで正式受入は保留。** 先行HEADの成功で代用しない。
+- **最優先の禁止：** ユーザーが明示的に再開を指示するまでPDF生成・再生成、Preview Release・正式Releaseの更新を禁止。PDF停止Workflowを維持。既存Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`は変更しない。
+- **安全条件：** Draft PR #36・main未マージ。ADは本人認証と信頼できるログイン名の取得のみ。業務は既存DB台帳による操作・行単位の都度認可、監査と権限失効・xmin競合・FDW原子性不明時の安全拒否を維持。
+- **未受入：** 実AD/IIS/Kerberos/FDW、Data Protection鍵・監査の運用、1万人超登録・同時circuit・DBプール・負荷と復旧の現地実機受入。
+- **次工程：** 同一最新HEADの3ジョブSUCCESSとPDF SKIPPEDを確認し、PRコメントに結果を記録する。PDF再開の明示指示まではPDF/Releaseに触れず、必要な現地受入証跡の整理に進む。
+
 ## 2026-10-28 第21組101〜105・復習の最終受入確定（PDF停止継続）
 
 - **直近の同一HEAD受入：** `5e5d09a1e02b2af3ba6b4616edf67c23ec5b583d`、[アプリ Run 40532324525](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40532324525) は **completed/SUCCESS**。Windows Server 2025 Release・xUnit・教材静的検査、Ubuntu 24.04 Release・xUnit・Chrome実操作、PostgreSQL18実DB結合・既存安全拒否の **全3ジョブcompleted/SUCCESS** を認証済みGitHub GETで確認。[PDF Workflow 40532324527](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40532324527) は **completed/SKIPPED**。成功Runの再実行なし。

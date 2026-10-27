@@ -1232,6 +1232,42 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "capstone-review22.png") });
         console.log("総合演習5画面・認可付き一覧/詳細/集計の匿名拒否・IIS受入区分を確認");
 
+        // 第22組の長文改稿と画面側比較表、旧80URL、前後導線を同期検証。
+        await page.goto(base + "/learn/stage/capstone");
+        await page.locator('[data-testid="capstone-stage-overview-table"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/capstone-01");
+        await page.locator('[data-testid="capstone-compare-106"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/capstone-02");
+        await page.locator('[data-testid="capstone-compare-107"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/capstone-03");
+        await page.locator('[data-testid="capstone-compare-108"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/capstone-04");
+        await page.locator('[data-testid="capstone-compare-109"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/capstone-05");
+        await page.locator('[data-testid="capstone-compare-110"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/column/capstone-110");
+        await page.locator('[data-testid="capstone-review22-table"]').waitFor();
+        await page.getByRole("link", { name: "前へ", exact: true }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
+        await page.goto(base + "/learn/80");
+        await page.getByRole("link", { name: "次へ：第21組の復習" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順106を開く" }).waitFor();
+        console.log("第22組106〜110：画面比較表・概要・復習・旧80URL・前後導線を確認");
+
+
         // 遷移直後のFocusOnNavigateによる自動フォーカスが終わってから検証する。
         await page.goto(base + "/learn/04");
         await page.waitForTimeout(850);

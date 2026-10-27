@@ -1295,6 +1295,58 @@ if -1 in pdf21 or pdf21 != sorted(pdf21) or not (
 ):
     missing.append("第21組101〜105→第21組復習→第9段階のPDF索引順不正")
 
+
+# 最終第22組106〜110・第9段階概要の長文・実コード・WebとPDF索引ソース検査。
+final_nav = (ROOT / "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor").read_text(encoding="utf-8")
+final_home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
+for seq in range(106, 111):
+    n = seq - 105
+    source = f"docs/course-v3/lessons/capstone-0{n}.md"
+    body = (ROOT / source).read_text(encoding="utf-8")
+    view = (SAMPLES / f"Capstone/Capstone0{n}Page.razor").read_text(encoding="utf-8")
+    if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
+        missing.append(source + "：全面改稿状態が不一致")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96)*3) < 4:
+        missing.append(source + "：3300文字・比較/障害表・実コード2例の不足")
+    for term in ("WinForms", "Dapper", "操作手順", "障害の切り分け", "詳しい解答"):
+        if term not in body:
+            missing.append(source + "：" + term + "不足")
+    if f'data-testid="capstone-compare-{seq}"' not in view:
+        missing.append(source + "：Razor比較表が不足")
+    if f"学習順{seq}を開く" not in final_home or f"学習順{seq}：" not in final_nav:
+        missing.append(source + "：Home/NavMenuの学習順が不足")
+    if f'"{source}"' not in PDF_SCRIPT or f"学習順{seq}：" not in PDF_SCRIPT:
+        missing.append(source + "：PDF目次ソースが不足")
+    previous = "/learn/column/80" if seq == 106 else f"/learn/capstone-0{n - 1}"
+    following = "/learn/column/capstone-110" if seq == 110 else f"/learn/capstone-0{n + 1}"
+    if f'href="{previous}"' not in view or f'href="{following}"' not in view:
+        missing.append(source + "：前後リンクが不足")
+
+for source, razor, marker in [
+    ("docs/course-v3/stages/stage09.md", "Capstone/CapstoneOverviewPage.razor", "capstone-stage-overview-table"),
+    ("docs/course-v3/reviews/review-22.md", "Capstone/CapstoneReview22Page.razor", "capstone-review22-table"),
+]:
+    body = (ROOT / source).read_text(encoding="utf-8")
+    view = (SAMPLES / razor).read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96)*3) < 4 or "詳しい解答" not in body:
+        missing.append(source + "：3300文字・比較表・コード2例・詳答が不足")
+    if f'data-testid="{marker}"' not in view:
+        missing.append(source + "：Razor比較表不足")
+
+final_curriculum = json.loads((ROOT / "docs/course-v3/curriculum.json").read_text(encoding="utf-8"))
+if final_curriculum["stages"][-1].get("final_review") != "ci-passed":
+    missing.append("第9段階の改稿状態が不一致")
+if final_curriculum["reviews"][-1].get("final_review") != "ci-passed":
+    missing.append("第22組の改稿状態が不一致")
+pdf_last = [PDF_SCRIPT.find(f'"docs/course-v3/lessons/capstone-0{n}.md"') for n in range(1, 6)]
+pdf_stage = PDF_SCRIPT.find('"docs/course-v3/stages/stage09.md"')
+pdf_review = PDF_SCRIPT.find('"docs/course-v3/reviews/review-22.md"')
+if -1 in pdf_last or pdf_last != sorted(pdf_last) or not (
+    PDF_SCRIPT.find('"docs/columns/column76-80.md"') < pdf_stage
+    < pdf_last[0] < pdf_last[-1] < pdf_review
+):
+    missing.append("第9段階概要→106〜110→第22組のPDF目次ソース順序が不正")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
