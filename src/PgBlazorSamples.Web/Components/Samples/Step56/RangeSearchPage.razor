@@ -5,7 +5,7 @@
 @inject LearningRangeExportService Ranges
 @inject LearningDbService Database
 <PageTitle>ステップ56：期間Range検索｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ56 / DateRange・PostgreSQL daterange</p>
+<p class="eyebrow">学習順76 / DateRange・PostgreSQL daterange</p>
 <h1>日本語の日付範囲とDBの期間の重なりを検索する</h1>
 <MudPaper Class="pa-4">
     <MudDateRangePicker Label="検索期間（開始日〜終了日）" @bind-DateRange="_range"
@@ -25,8 +25,20 @@
     <h2>期限日と期間列は別の意味</h2>
     <p>DueDateは単一のdate、AvailableDatesはdaterangeです。画面の終端を含む指定は、SQL検索で翌日を上端とする半開区間に直します。範囲が重なる行だけを抽出し、最大20行だけ表示します。</p>
     <p>NULL期間・開始が終了より後・過大な期間を否定試験します。データがないときとDB未設定を区別します。実業務では必ず行単位の認可を追加してください。</p>
+
+    <h2>学習順76：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-76">
+        <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>
+            <tr><td>今回の処理</td><td>日本語日付範囲とDB検索のSQLと表示を管理</td><td>日本語日付範囲とDB検索を学習用サービスで処理</td></tr>
+            <tr><td>DBの接続</td><td>NpgsqlConnectionとSQLパラメーター</td><td>DbContextFactoryとLINQ／Npgsql</td></tr>
+            <tr><td>認可</td><td>業務台帳を都度照合</td><td>この学習画面は未実装、本番では既存台帳を操作・行ごと確認</td></tr>
+        </tbody>
+    </table>
+    <p>実コード・操作手順・障害の切り分け・演習と詳しい解答は docs/samples/step56.md に収録しています。</p>
 </section>
-<div class="page-navigation"><a href="/learn/55">前へ：ステップ55</a><a href="/learn/57">次へ：ステップ57</a></div>
+<div class="page-navigation"><a href="/learn/column/55">前へ：第15組の復習</a><a href="/learn/57">次へ：ステップ57</a></div>
 @code {
     private static readonly CultureInfo Japanese = CultureInfo.GetCultureInfo("ja-JP");
     private DateRange _range = new(new DateTime(2026, 10, 1), new DateTime(2026, 11, 30));

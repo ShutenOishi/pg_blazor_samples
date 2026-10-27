@@ -1029,6 +1029,23 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "step60.png") });
         console.log("ステップ56〜60・コラム13：日本語画面と操作を確認");
 
+        // 第16組：旧URL・比較表・復習・ホーム・前後導線をChromeで検査。
+        for (const [sequence, oldId] of [[76, 56], [77, 57], [78, 58], [79, 59], [80, 60]]) {
+            await page.goto(base + "/learn/" + oldId);
+            await page.locator('[data-testid="stage06-compare-' + sequence + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/56");
+        await page.getByRole("link", { name: "前へ：第15組の復習" }).waitFor();
+        await page.goto(base + "/learn/60");
+        await page.getByRole("link", { name: "第16組の復習：期間・集計・性能" }).waitFor();
+        await page.goto(base + "/learn/column/60");
+        await page.locator('[data-testid="stage06-review16-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順081" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順076〜080を復習" }).waitFor();
+        console.log("第16組076〜080の比較表・復習と前後導線をChromeで確認");
+
+
         // Step61〜65：未認証のままDB照合や権限付与を行わず、必ず拒否する。
         for (let step = 61; step <= 65; step++) {
             await page.goto(base + "/learn/" + step);
