@@ -106,6 +106,7 @@ CHAPTERS = [
     ("第12組の復習：トランザクション・xmin・安全SQL", "docs/course-v3/reviews/review-12.md"),
     ("学習コラム09：更新・日付Range・競合・DB確認", "docs/columns/column36-40.md"),
     ("特別コラム：用途から選ぶMudBlazorコンポーネント", "docs/columns/column-mudblazor-by-purpose.md"),
+    ("旧構成の一覧データ概要（旧URL互換）", "docs/stages/stage05.md"),
     ("第6段階の概要：一覧データ連携・検索・編集", "docs/course-v3/stages/stage06.md"),
     ("学習順061：Itemsを使う一覧の条件", "docs/samples/step41.md"),
     ("学習順062：MudTableのServerDataでDB検索", "docs/samples/step42.md"),
