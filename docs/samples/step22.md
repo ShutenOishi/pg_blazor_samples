@@ -1,4 +1,44 @@
-# ステップ22：MudBlazorでレイアウトを作る
+# 学習順32：MudBlazorのレイアウトを学ぶ（旧Step22）
+
+## 学ぶ前に
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/22 です。
+
+## WinForms＋Dapperとの比較
+| 観点 | デスクトップでの経験 | MudBlazorでの対応 |
+| --- | --- | --- |
+| 上部バー | ToolStrip | MudAppBar |
+| メニュー | Panel | MudDrawerとMudNavMenu |
+| 配置 | Dock／Anchor | MudGridのxsとsm |
+| 権限 | 別の認可制御 | メニューの開閉では認可しない |
+
+## 不具合時の切り分け
+| 症状 | 確認する場所 |
+| --- | --- |
+| ボタンが動かない | ToggleMenuと_menuOpenの変化 |
+| 配置が変化しない | ブラウザー幅とブレークポイント |
+| 全画面を覆う | Fixed・Overlayの設定 |
+| リンクを直接開ける | 非表示と権限の違い |
+
+## アプリ共通部分とページ内の練習領域
+ここではMudLayoutを学習ページの内側に置いています。アプリ全体のMainLayoutには別のナビゲーションやProviderがあります。練習用のMudAppBarとMudDrawerはFixed=false、Overlay=falseで固定表示を避けます。WinFormsのPanelとDockをそのまま持ち込まず、CSS上の表示領域を確認してください。Drawerの開閉はUI状態であり、利用者の閲覧権限や機能へのアクセス可否を設定する仕組みではありません。
+
+```razor
+<MudDrawer @bind-Open="_menuOpen" Variant="DrawerVariant.Persistent"
+           ClipMode="DrawerClipMode.Docked" Fixed="false" Overlay="false">
+    <MudNavMenu><MudNavLink Href="/learn/21">導入と翻訳</MudNavLink></MudNavMenu>
+</MudDrawer>
+```
+
+```csharp
+private bool _menuOpen = true;
+private void ToggleMenu() => _menuOpen = !_menuOpen;
+```
+
+xs=12は狭い画面で列をすべて使い、sm=6は幅が広がると半分を使います。2枚のカードが縦並びと横並びになる様子を確認してください。データの値が変わったわけではなく、表示領域の大きさによって配置だけが変わります。
+
+**演習と詳しい解答：** 開閉ボタンを2回押して状態を説明してください。初期true、1回目false、2回目trueとなり、@bind-Openの状態と説明文が一致します。別のブラウザーで直接URLを指定すればメニューが非表示でも画面の要求は届きます。機密データを返すときは既存DB/外部台帳を正本とするサーバー側認可を毎回行う必要があります。Dapperで検索する場合も、表示条件だけを権限条件にしないでください。
+
+## 実装に対応した操作・コード・詳細解答
 
 ## このステップでできるようになること
 WinFormsのフォーム上へToolStripやPanelを置くように、Blazorではレイアウト用のコンポーネントを組み合わせます。ここでは上部の`MudAppBar`、開閉式の`MudDrawer`、本文の`MudMainContent`、画面幅に応じた`MudGrid`を学びます。
@@ -75,3 +115,10 @@ Step21を修了してから`/learn/22`を開きます。DB・ADは不要です�
 - [ ] 共通レイアウトとページ内の練習レイアウトを区別できる。
 
 次は[ステップ23：入力コンポーネント](step23.md)です。
+
+
+## 学習順32の追加確認
+- [ ] 画面で操作を実際に行い、状態の変化を確認した。
+- [ ] 比較表と切り分け表に沿って、WinFormsとの相違点を説明できる。
+- [ ] DapperによるDB検索と画面表示の処理を区別できる。
+- [ ] 教材の演習に回答し、失敗時の復旧手順を説明できる。

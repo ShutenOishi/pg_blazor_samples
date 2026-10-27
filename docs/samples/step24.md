@@ -1,4 +1,49 @@
-# ステップ24：MudFormで入力を検証する
+# 学習順34：MudFormの入力検証を学ぶ（旧Step24）
+
+## 学ぶ前に
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/24 です。
+
+## WinForms＋Dapperとの比較
+| 観点 | デスクトップでの経験 | MudBlazorでの対応 |
+| --- | --- | --- |
+| 必須検査 | ErrorProviderやValidating | RequiredとRequiredError |
+| 実行方法 | 各検査の呼び出し | MudForm.ValidateAsync |
+| 結果 | フォームの判定 | MudForm.IsValid |
+| 認可 | 業務側で判断 | 入力検証とは独立 |
+
+## 不具合時の切り分け
+| 症状 | 確認する場所 |
+| --- | --- |
+| 必須エラーが出ない | Requiredと@ref、ValidateAsync |
+| 文言が英語 | RequiredErrorで独自文言を指定 |
+| 再入力後も失敗 | 再検証とIsValidを確認 |
+| 合格後の保存拒否 | 認可やDB制約と入力検証を区別 |
+
+## 画面入力の合格と業務操作の許可は違う
+WinFormsのErrorProviderは入力エラーの手掛かりを示します。MudFormのRequiredErrorも同様に利用者が入力を直す助けになります。MudFormのValidateAsyncをawaitした後でIsValidを見ます。必須項目の値が整っていても、利用者に更新権限があるとは限りません。実DB保存時はサーバーのサービス側で既存台帳を確認し、競合・権限失効・監査失敗を安全に拒否する設計が必要です。
+
+```razor
+<MudForm @ref="_form">
+    <MudTextField T="string" Label="課題名（必須）" @bind-Value="_title"
+                  Required="true" RequiredError="課題名を入力してください。" />
+</MudForm>
+```
+
+```csharp
+private MudForm? _form;
+private async Task CheckAsync()
+{
+    if (_form is null) return;
+    await _form.ValidateAsync();
+    _result = _form.IsValid ? "入力検証に合格しました。" : "入力内容に不備があります。";
+}
+```
+
+@refはコンポーネント参照です。初回表示の前にはnullとなる場合があるのでガードしています。Step10のEditFormと構造が違っても、UIのエラー検証とサーバー認可は分けて考える点は共通です。
+
+**演習と詳しい解答：** 両欄を空にして検証ボタンを押すと2種類の日本語エラーと全体の不備が表示されます。架空の文字列を入力して再検証すれば必須条件を満たし合格します。エラー文言を試験する際、同一文言が画面の別の説明にもあるならフォームの検証領域を限定して調べる必要があります。合格してもDB保存が許可される保証はなく、DapperなどのDB処理より前に業務上の認可を確認します。
+
+## 実装に対応した操作・コード・詳細解答
 
 ## このステップでできるようになること
 WinFormsの入力チェックと同様に、ユーザーが必要項目を入力したか確認します。MudBlazorの`MudForm`は複数の入力コンポーネントをまとめて検証し、日本語の必須エラーを表示できます。
@@ -73,3 +118,10 @@ Step10で扱ったBlazor標準の`EditForm`はデータモデル・バリデー�
 - [ ] `ValidateAsync`と`IsValid`の役割を説明できる。
 
 次は[ステップ25：MudTable](step25.md)です。
+
+
+## 学習順34の追加確認
+- [ ] 画面で操作を実際に行い、状態の変化を確認した。
+- [ ] 比較表と切り分け表に沿って、WinFormsとの相違点を説明できる。
+- [ ] DapperによるDB検索と画面表示の処理を区別できる。
+- [ ] 教材の演習に回答し、失敗時の復旧手順を説明できる。

@@ -1,4 +1,49 @@
-# ステップ25：MudTableで一覧と並べ替えを作る
+# 学習順35：MudTableで一覧とソート（旧Step25）
+
+## 学ぶ前に
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/25 です。
+
+## WinForms＋Dapperとの比較
+| 観点 | デスクトップでの経験 | MudBlazorでの対応 |
+| --- | --- | --- |
+| 小規模一覧 | DataGridView.DataSource | MudTable Items |
+| 並べ替え | DataGridView.Sort | MudTableSortLabel SortBy |
+| ページング | UI表示の切り替え | RowsPerPageとMudTablePager |
+| 大量データ | Dapperで必要行だけ取得 | 後続のServerDataを選択 |
+
+## 不具合時の切り分け
+| 症状 | 確認する場所 |
+| --- | --- |
+| 行が表示されない | Itemsの件数とバインド |
+| ソートが効かない | SortBy式とLearningRowの型 |
+| ページャーがない | PagerContentとMudTablePager |
+| 大量データで遅い | Items全件取得とServerDataを比較 |
+
+## 一覧の取得件数と画面の表示件数
+MudTableのItemsへ渡すのは架空の4行です。RowsPerPage=2は表示する行数を2にするだけで、PostgreSQLから検索した結果が2行になるという意味ではありません。WinFormsのDataGridViewへDapperで全件取得したDataTableを渡してから画面をスクロールする方式と似ています。DB側の検索件数を本当に制限するには、後続のServerData方式で条件・並べ替え・ページングをDBへ渡す設計が必要です。
+
+```csharp
+private sealed record LearningRow(string Title, int Level, bool Done);
+private readonly List<LearningRow> _items =
+[
+    new("Razorの基本", 1, true), new("DIの復習", 2, true),
+    new("日本語フォーム", 3, false), new("一覧表の操作", 4, false)
+];
+```
+
+```razor
+<MudTable T="LearningRow" Items="@_items" RowsPerPage="2">
+    <HeaderContent><MudTh><MudTableSortLabel T="LearningRow" SortBy="@_sortTitle">課題名</MudTableSortLabel></MudTh></HeaderContent>
+    <RowTemplate><MudTd>@context.Title</MudTd></RowTemplate>
+    <PagerContent><MudTablePager /></PagerContent>
+</MudTable>
+```
+
+SortByは並べ替えに利用するプロパティを指定します。実DBのソート列をユーザー入力のSQL断片から直接作ってはいけません。サービス側で許可列を明示して組み立てます。ユーザーごとの閲覧権限は表示済み行を隠すだけでは不十分で、取得する段階で認可を強制します。
+
+**演習と詳しい解答：** 初期表示の2行と次ページの2行を比較し、データが4行のままであることを説明します。列見出しの課題名と難易度をクリックするとSortByの式で表示順が変わります。10,001行をそのままItemsへ投入するのは検索コストとサーバーメモリを増大させるため不適切です。後続でServerData、DB側絞り込みとページ取得を学びます。
+
+## 実装に対応した操作・コード・詳細解答
 
 ## このステップでできるようになること
 WinFormsのDataGridViewに相当する一覧表示を、MudBlazorの`MudTable`で作ります。今回は**4件の固定データ**をローカルなリストから表示し、ソートとページャーを試します。DBから必要なページだけを読み込む`ServerData`は後続のデータ連携編で学びます。
@@ -95,3 +140,10 @@ private readonly Func<LearningRow, object> _sortLevel =
 - [ ] `MudTable`と将来学ぶ`ServerData`の違いを説明できる。
 
 [コラム06：MudBlazorの使い方](../columns/column21-25.md)で5ステップをまとめます。
+
+
+## 学習順35の追加確認
+- [ ] 画面で操作を実際に行い、状態の変化を確認した。
+- [ ] 比較表と切り分け表に沿って、WinFormsとの相違点を説明できる。
+- [ ] DapperによるDB検索と画面表示の処理を区別できる。
+- [ ] 教材の演習に回答し、失敗時の復旧手順を説明できる。

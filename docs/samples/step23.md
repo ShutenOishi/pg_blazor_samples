@@ -1,4 +1,44 @@
-# ステップ23：MudBlazorで文字・選択・日付を入力する
+# 学習順33：日本語で入力部品を使う（旧Step23）
+
+## 学ぶ前に
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/23 です。
+
+## WinForms＋Dapperとの比較
+| 観点 | デスクトップでの経験 | MudBlazorでの対応 |
+| --- | --- | --- |
+| 文字入力 | TextBox.Text | MudTextFieldのValue |
+| 候補選択 | ComboBox | MudSelectとMudSelectItem |
+| 日付 | DateTimePicker | MudDatePickerのDateTime? |
+| DB連携 | Dapperのパラメーター | 後続でDateOnlyと型を照合 |
+
+## 不具合時の切り分け
+| 症状 | 確認する場所 |
+| --- | --- |
+| 文字が反映されない | Immediateと双方向バインド |
+| 選択が変わらない | TとValueの型 |
+| 日付が空になる | DateTime?とnull条件分岐 |
+| 日本語表記にならない | CultureとDateFormat |
+
+## 値の型・表示書式・保存形式を別に考える
+MudTextFieldの@bind-Valueは文字列を_nameへ、MudSelectは_topicへ、MudDatePickerの@bind-DateはDateTime?の_studyDateへ結び付けます。Immediate=trueなら文字入力の変更が早く反映されます。ただし、通信を介してサーバー側のC#へ伝えられるので、WinFormsの同一プロセスのTextChangedとは動作する場所が異なります。最初の日付は2026年10月26日の架空の固定値です。
+
+```razor
+<MudTextField T="string" Label="練習用の氏名" @bind-Value="_name" Immediate="true" />
+<MudDatePicker Label="学習予定日" @bind-Date="_studyDate"
+               Culture="@Japanese" DateFormat="yyyy/MM/dd" />
+```
+
+```csharp
+private static readonly CultureInfo Japanese = CultureInfo.GetCultureInfo("ja-JP");
+private string _name = "";
+private DateTime? _studyDate = new(2026, 10, 26);
+```
+
+画面の「yyyy年M月d日」は日本語の表示形式です。PostgreSQLのdate列へその文字列を連結する設計にはしません。後続ではEF Core 10とNpgsqlの型変換を確認し、年月日だけを扱うDateOnlyとDateTime?を区別して、値をパラメーターとして渡します。
+
+**演習と詳しい解答：** 氏名へ架空の「練習太郎」を入力し、テーマをDIへ変えて結果を観察します。入力と選択の更新がサーバー側の変数へ結び付き、再描画された確認欄へ反映されます。日付を消してnullになったときは、null条件演算子と代替表示により「日付未入力」を出します。画面へ値を表示できたことはDBへ保存されたことを意味しません。Dapperを使うデータ処理と画面の状態管理は別です。
+
+## 実装に対応した操作・コード・詳細解答
 
 ## このステップでできるようになること
 WinFormsのTextBox、ComboBox、DateTimePickerに相当する入力機能を、MudBlazorの`MudTextField`・`MudSelect`・`MudDatePicker`で扱います。値とC#の状態の結び付け方、`DateTime?`の日付型、`ja-JP`による表示を理解します。
@@ -72,3 +112,10 @@ WinFormsのTextBox、ComboBox、DateTimePickerに相当する入力機能を、M
 - [ ] `DateTime?`と将来の`DateOnly`を区別できる。
 
 次は[ステップ24：フォーム検証](step24.md)です。
+
+
+## 学習順33の追加確認
+- [ ] 画面で操作を実際に行い、状態の変化を確認した。
+- [ ] 比較表と切り分け表に沿って、WinFormsとの相違点を説明できる。
+- [ ] DapperによるDB検索と画面表示の処理を区別できる。
+- [ ] 教材の演習に回答し、失敗時の復旧手順を説明できる。
