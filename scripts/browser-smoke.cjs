@@ -89,6 +89,15 @@ async function waitText(page, selector, expected) {
             throw new Error(`学習順002のGET結果が不正: 既存=${validDocument.status()}, 未登録=${absentDocument.status()}`);
         }
         console.log("学習順002：Document GET 200と未登録GET 404を確認");
+        // 学習順052：画面にSQL生成とは別の実DB検索イベントがあることを検証。
+        await page.goto(base + "/learn/052");
+        await page.getByRole("button", { name: "学習DBで実際に検索する" }).click();
+        const liveState = await page.locator('[data-testid="dbbridge02-live-status"]').innerText();
+        if (!liveState || liveState.includes("学習DB検索は未実行")) {
+            throw new Error("学習順052のDB検索ボタンに反応がありません");
+        }
+        console.log("学習順052：実DB検索と未設定の安全拒否の操作を検証");
+
 
         await page.goto(base + "/learn/web-03");
         await page.waitForTimeout(850);

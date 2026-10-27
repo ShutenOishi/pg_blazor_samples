@@ -3,7 +3,7 @@
 **実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor)。画面の正規URLは `/learn/052` です。
 
 ## 到達目標と前提
-DbBridge02Page.razorは入力した架空キーワードをTrimしてLINQを作り、ToQueryStringでSQLを生成する画面です。データベースの問い合わせは行いません。WhereはSQLのWHERE、Categoryナビゲーションの参照は関連テーブルとの結合、OrderByとThenByはORDER BY、Take(10)は上限の指定につながります。Idで並び順を確定させ、ページングの行順が変動しないようにします。CategoryIdは任意なので、Category!というC#記号でDBのNULLが消えるわけではありません。生成されたJOINの形とNULLの扱いは確認が必要です。ContainsとDapperのILIKEは必ずしも同等条件になりません。SQL生成結果はSQLが実行された証拠でも実行計画でもありません。
+DbBridge02Page.razorは入力した架空キーワードをTrimしてLINQを作り、ToQueryStringでSQLを生成する画面です。「LINQからSQLを生成する」の操作ではDBへの問い合わせを行いません。「学習DBで実際に検索する」の操作では隔離した学習用PostgreSQL 18を検索し、最大10件を表示します。WhereはSQLのWHERE、Categoryナビゲーションの参照は関連テーブルとの結合、OrderByとThenByはORDER BY、Take(10)は上限の指定につながります。Idで並び順を確定させ、ページングの行順が変動しないようにします。CategoryIdは任意なので、Category!というC#記号でDBのNULLが消えるわけではありません。生成されたJOINの形とNULLの扱いは確認が必要です。ContainsとDapperのILIKEは必ずしも同等条件になりません。SQL生成結果はSQLが実行された証拠でも実行計画でもありません。
 学習順052は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/052` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
@@ -12,7 +12,7 @@ DbBridge02Page.razorは入力した架空キーワードをTrimしてLINQを作�
 | WHERE | SQLのWHEREと値パラメーター | WhereとContains | 条件の大小文字差を確認 |
 | JOIN | LEFT JOINとON | Categoryナビゲーション | NULLを検証 |
 | ORDER BY | c.name,id | OrderByとThenBy | Idで同順位を解消 |
-| 実行 | Dapper QueryAsync | ToQueryString | 後者はDBに接続しない |
+| 実行 | Dapper QueryAsync | ToQueryString／ToListAsync | 生成SQL表示と実DB検索を区別 |
 
 ## ソースコード例1：中心の処理
 ```csharp
@@ -56,10 +56,28 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 
 ## 実際の操作手順
 1. /learn/052を開く。
-2. 架空の検索語を入力しSQL生成を押す。
-3. WHEREと並べ替えと結合、パラメーターを確認する。
-4. 結果がSQL文字列でありレコード一覧ではないと説明する。
+2. 架空の検索語を入力し「LINQからSQLを生成する」を押す。
+3. WHERE・結合・並べ替えとパラメーターを確認する。
+4. SQL文字列だけでは実行結果を検証できないことを説明する。
+5. 隔離した学習DBを設定した場合に限り「学習DBで実際に検索する」を押す。専用DB未設定なら拒否メッセージを確認する。
+6. DB検索時は件数と表の表示を確認し、正常0件・入力不備・接続障害を区別する。
 各手順の完了後には日本語の状態表示を読み、未接続・未設定の状態を成功として扱わないでください。WinFormsのダイアログに慣れていても、サーバーログやDB統合試験とブラウザー画面の証跡を混ぜないことが重要です。
+
+## 学習DBを使った実検索
+
+`LearningDbService.Configured`による学習DB設定とWindows認証無効の確認を経て、Razorイベントで次の検索を実行します。
+
+```csharp
+await using var db = await Factory.CreateDbContextAsync();
+var rows = await db.Tasks.AsNoTracking()
+    .Where(task => task.Title.Contains(term))
+    .OrderBy(task => task.Category!.Name).ThenBy(task => task.Id)
+    .Select(task => new { task.Id, task.Title,
+        Category = task.Category == null ? "未分類" : task.Category.Name })
+    .Take(10).ToListAsync();
+```
+
+この`ToListAsync`はDBへ実際のSQLを送る点が`ToQueryString`と異なります。実装では検索語1〜100文字を検証し、例外の詳細や接続情報を利用者へ出さず、失敗と0件を別に表示します。Windows本人認証を有効にした環境では匿名の学習用DB検索を拒否します。統合試験は専用DBの架空データでWHERE・任意カテゴリのJOIN・件数・重複の有無を検査します。
 
 ## 障害の切り分け表
 | 現象 | 調べる項目 | 判断と対応 |
@@ -82,4 +100,4 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 **詳しい解答：** 同じカテゴリ名が複数あるときの安定順を確保するためです。 この結論を画面、サービス、PostgreSQLのどこで確認するかも答え、正常な拒否と操作成功を分けて記録してください。
 
 ## 次へ進む前の確認
-本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/053` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。
+本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/053` に進みます。正式PDF Releaseは全残工程を受入後に更新します。

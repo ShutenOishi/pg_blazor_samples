@@ -243,6 +243,10 @@ if (explicitLoginEnabled)
 
 // .NET 10の静的アセットを登録し、対話型サーバー側の描画を有効にする。
 // Step78：内容を公開しないliveness。IIS/プロキシで監視元を制限する。
+// 学習順002：未登録URLのHTTP 404を実際のDocument GETで確認するための専用応答。
+// デモ専用の固定パス。DB、認証台帳、秘密情報を参照しない。
+app.MapGet("/__learning_missing_page_for_http_404__", () => Results.NotFound())
+    .AllowAnonymous();
 app.MapHealthChecks("/health/live").AllowAnonymous();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
