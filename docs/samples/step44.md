@@ -1,5 +1,8 @@
 # ステップ44：許可リスト・複数列ソート・安定した順序
 
+
+**学習順064・第6段階／第13組**
+
 ## できるようになること
 
 SortDefinitionsのIndexで優先順を確定。今回のEF Core 10連携は、**既存のWebプロジェクト内**のData/LearningPageQuery.cs、Services/Learning/LearningPageService.csで実装します。Domain・Infrastructure・Repositoryの別プロジェクトは作りません。
@@ -51,6 +54,67 @@ A. いいえ。ページャーの総件数には、同じ検索・認可条件�
 
 **Q. ソート列名をそのままSQLに連結してよい？**  
 A. いいえ。許可リストに変換してEF Coreの式でソートします。
+
+
+## 学習順064：実装に即した詳しい解説
+
+このテーマの中心は複数列ソートと一意のIdです。Step44はSortMode.MultipleでSortDefinitions.Indexの順に最大3列を選ぶ。サービス側はId、Title、DueDate、StartTime、IsDoneのみ許す。 複数列が同値のレコードが存在する場合、ページングのORDER BYに一意な最後の列がないと行順序が変化する可能性がある。LearningPageServiceは最後にIdをThenByし、一意な順序を作る。これでも検索の途中に挿入・削除があればOFFSETページングの行ずれはあり得る。
+
+### 実コード例1：画面と検索条件
+
+```csharp
+// SafeSortPage.razor：指定順に先頭3列だけ渡す
+var sorts = state.SortDefinitions.OrderBy(x => x.Index)
+    .Take(3).Select(x => new LearningSort(x.SortBy, x.Descending))
+    .ToArray();
+```
+
+### 実コード例2：境界と戻り値
+
+```csharp
+// LearningPageServiceは未許可の列名を拒否する
+public static bool IsAllowedSort(string column) =>
+    column is "Id" or "Title" or "DueDate" or "StartTime" or "IsDone";
+// 既存のAddOrderが静的なOrderBy/ThenBy式を選ぶ。
+```
+
+### WinForms＋Dapperとの比較
+
+| 観点 | WinForms＋Dapper | Blazor＋EF Core 10 |
+| --- | --- | --- |
+| 表示イベント | フォームでデータを読みDataGridViewへ設定 | Razorのイベント・ServerDataコールバックを使用 |
+| データ取得 | SQLとパラメーターを手動構築 | LearningPageServiceが型付きの検索条件を受ける |
+| 取得範囲 | LIMITやOFFSETを自分でSQLへ書く | Where、OrderBy、Skip、TakeをDBへ変換 |
+| 状態管理 | 画面がDataTableなどを保持 | DTOと総件数だけを画面へ返す |
+| 接続管理 | using NpgsqlConnectionを短時間開く | IDbContextFactoryから操作ごとにContextを作る |
+| 安全条件 | SQLパラメーター・台帳認可を呼び出し側で守る | 入力検証と台帳認可をサービス側で必ず行う |
+
+この表は実装方法の比較であり、EF Coreを導入するだけで認可や監査が完成することは意味しません。SQLパラメーターだけで列名は置き換えられないので、Dapperの場合でも固定の列名・SQL断片を許可リストから選ぶ。 このプロジェクトはWeb内のDataとServicesで完結し、学習のためにDomainやInfrastructureなどの別プロジェクトを作りません。ServerDataを使う画面のCancellationTokenはDbContext生成、CountAsync、ToListAsyncまで伝達します。取消を通常0件へ握りつぶすと古い検索の結果が画面へ戻るおそれがあるため、OperationCanceledExceptionと接続失敗の扱いを区別します。
+
+### 操作手順
+
+1. `/learn/44`へアクセスして日本語の表示と入力欄を確認します。2. 表の表示行数を確認してからページ送りと列見出しの並び替えを試します。3. DB未設定なら専用の未設定メッセージを確認し、正常な取得0件と区別します。4. PostgreSQL18の学習用DDLと架空データを用意できる場合だけDB検索を実行します。5. 検索条件の変更、再検索、ページ位置の変化を記録します。6. ソースのRazor→LearningPageQuery→LearningPageService→EF Core→Npgsqlの順に処理の実行場所を追跡します。7. Countと表示行を同じ条件で取得することを説明します。
+
+### 障害の切り分け表
+
+| 観察した症状 | 考える原因 | 確認・復旧方法 |
+| --- | --- | --- |
+| 一覧が空で「未設定」と出る | 開発DBの接続設定がない | ConnectionStrings__PostgreSQLと学習用DDLを確認する |
+| 条件を変えると空ページになる | 以前のPageが残っている | 検索開始時に先頭ページへ戻す動作を確認する |
+| ページの行数と総件数が違う | TotalCountは一致した全行数 | CountとTakeの意味を分けて確認する |
+| 同じ値の行が不安定に並ぶ | 一意な並び順がない | ソートの末尾にIdがあるかを確認する |
+| 読み込みに時間がかかる | SQLの計画、索引、ネットワーク等 | 専用DBで実行計画とサーバーログを確認する |
+| 不許可の列・範囲で失敗 | Validateの入力拒否 | サービスの許可リストと上限を確認する |
+
+### 演習と詳しい解答
+
+課題：DueDateが同じ10行をページ分割する場合の並びの不安定さと防止策、悪意あるSortByをどう拒否するか説明してください。
+
+**詳しい解答：** 解答：期限日だけの並びでは同順位の行順が未確定です。最後に主キーIdを追加して決定的な順序とします。UIだけでなくサービスValidateが列の許可リストと最大3列を検証し、任意のSQL文字列を組み立てません。ページ移動中の行増減への対策にはStep47のキーセット方式も検討します。
+
+### 業務データへ適用する前の安全確認
+
+このサンプルが操作するのは学習用の架空データです。実際の業務ではADで本人認証しユーザー名を取得しても、その事実だけでは対象レコードの閲覧・更新を許可できません。既存DBの利用者台帳または外部台帳を正本として、本人、所属、対象行、操作の条件を毎回確認します。画面に表示しないだけではDB取得の拒否にならず、Count、一覧、集計、CSVなどすべてのサービス経路に同じ認可条件を掛けます。権限失効、監査への記録失敗、不明な利用者などの失敗を成功として扱わず安全に拒否します。実AD、IIS、Kerberos、FDW、1万人を超える負荷の現地受入は別途必要です。
 
 ## 完了条件
 

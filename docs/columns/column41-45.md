@@ -41,3 +41,67 @@ A. 許可済み列をEF Coreの静的な式木に変換します。最後は一�
 ## 次へ
 
 Step46〜50ではDTO射影と関連テーブル、キーセットページング、描画仮想化、VirtualizeServerData、検索UXと障害対応を学びます。
+
+## 第13組の復習：学習順061〜065
+
+この復習では、画面表示の成功とPostgreSQL 18の実データ取得を混同せず、一覧パターンの選定、ページング、ソート、検索、安全拒否を同じ業務要件で検討します。
+
+| 学習順 | UI／入力 | サーバーで必ず行うこと |
+| --- | --- | --- |
+| 061 | 固定8件のItems | DBには接続せず、表示ページだけ変更 |
+| 062 | MudTable／TableState | ページ・検索・単一列ソートの変換 |
+| 063 | MudDataGrid／GridState | GridStateをDTOへ変換、短命Contextで検索 |
+| 064 | 複数列ソート | 最大3列の許可リスト、末尾Idで安定化 |
+| 065 | 検索語・完了・日付範囲 | 入力検査、同じWhereによるCountと行取得 |
+
+| WinForms＋Dapper | Blazor＋EF Core 10 | 注意する失敗 |
+| --- | --- | --- |
+| DataGridViewへ全件代入 | 固定少数ならItems、業務表はServerData | 全件取得の重さを隠さない |
+| QueryAsyncでOFFSET／LIMIT | Page・PageSizeをSkip／Takeへ変換 | 0始まりと上限50を守る |
+| SQLのORDER BYを手書き | SortDefinitionsを静的式へ変換 | SQLへ利用者入力の列名を直結しない |
+| WHEREとCOUNTを個別に記述 | 共通IQueryableのWhere→Count／行 | 部署認可や検索条件を片方で落とさない |
+
+### 例1：TableStateと総件数の契約
+
+```csharp
+var result = await Pages.LoadAsync(
+    new LearningPageQuery(Page: 2, PageSize: 5, Keyword: "点検"), ct);
+// Rowsは最大5件、TotalCountは同じ検索条件での一致総数。
+return new TableData<LearningTaskRow> {
+    Items = result.Rows, TotalItems = result.TotalCount
+};
+```
+
+### 例2：許可済みソートと検索範囲
+
+```csharp
+LearningPageService.Validate(new LearningPageQuery(
+    Page: 0, PageSize: 5, IsDone: false,
+    DueFrom: new DateOnly(2026, 10, 1),
+    DueTo: new DateOnly(2026, 10, 31),
+    Sorts: [new LearningSort("DueDate"), new LearningSort("Id")]));
+```
+
+### 実画面で操作する順序
+
+1. `/learn/41`でItemsの8件、DB問い合わせ0件を確認します。2. `/learn/42`で検索語を入力し、TableStateの0始まりページ番号と件数を確かめます。3. `/learn/43`でGridStateが行と件数を返す流れを読み、列フィルターが現在無効であることを確認します。4. `/learn/44`で複数ソートのIndex順と最後のIdを確認します。5. `/learn/45`で日付逆転と検索語100文字超の拒否を確認します。6. 開発用DB未設定の環境では、未設定表示の確認を実DB結合成功とは扱いません。
+
+### 障害切り分け表
+
+| 症状 | 原因候補 | 確認箇所 |
+| --- | --- | --- |
+| 初期表示が未設定 | 接続文字列不足 | LearningDbService.Configured |
+| 不正列で例外 | ソート列が許可外 | IsAllowedSortとValidate |
+| 0件なのにページが残る | 検索前のページ番号を保持 | SearchAsyncとReloadServerData |
+| 同順位が入れ替わる | ORDER BY末尾Id不足 | LearningPageService.AddOrder |
+| 取消後に古い結果が戻る | CancellationTokenの伝達不足 | CountAsyncとToListAsync |
+
+### 演習
+
+架空の課題100万件から、自部署の未完了案件を対象にタイトルの部分一致、期限日範囲と期限日昇順の5件ページを表示する設計を説明してください。RowsPerPage=5の表で3ページ目を表示した際のSkip、Count、認可の検査位置を答えてください。
+
+### 詳しい解答
+
+膨大なDB行をItemsへ渡す方式は選びません。ServerDataが検索条件とページ情報をDTOへ変換し、Webサービスが既存DB台帳に基づく部署・対象行・操作権限を毎回検証します。サービス側のWhereへ検索と認可を組み込み、同じ条件のCountAsyncと並び替え後の行取得を実行します。3ページ目はPage=2なのでSkip(10)とTake(5)です。期限日が同じ案件があるので一意のIdを末尾に追加します。取消トークンをDB操作へ伝え、監査記録に失敗したときはデータを返さず拒否します。ADログインだけでは業務認可が成立したことになりません。既存の学習用画面は実AD/IISの検証ではなく、実機受入は別に行います。
+
+次は第14組の学習順066〜070で、DTO射影・キーセットページング・仮想スクロール・検索UXへ進みます。
