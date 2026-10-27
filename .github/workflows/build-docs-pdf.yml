@@ -30,6 +30,10 @@ permissions:
 
 jobs:
   build-pdf:
+    # 教材v3 Draft PR #36はユーザーの明示的な再開指示までPDFを生成しない。
+    # CIの教材整合検査は別のアプリWorkflowで継続する。
+    # mainの正式Release工程や他のPRの既存挙動は変更しない。
+    if: github.event_name != 'pull_request' || github.event.pull_request.number != 36
     runs-on: ubuntu-24.04
     steps:
       - name: ソースを取得
