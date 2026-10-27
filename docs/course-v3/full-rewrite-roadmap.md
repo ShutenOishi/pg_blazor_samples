@@ -1,3 +1,13 @@
+## 2026-10-28 教材正式公開の承認と現地実機受入の未完了事項
+
+ユーザーの2026-10-28の明示指示に基づき、**PR #36のmainマージ・日本語教材PDFの正式Releaseに限って**以前の停止指示を解除する。これは教材公開の許可であり、業務システムの本番配置・現地実機試験・実AD/FDWへの変更の許可ではない。後記の「Draftをマージしない」「PDF停止」はこれ以前の履歴であり、本節が教材配布に関する新しい指示を記録する。
+
+GitHub GETで同一PR HEAD `8460562a2740d857a9cf32c620030e1f5a702c6c` のアプリ[Run 40551412178](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40551412178)がWindows/Linux/PostgreSQL18全3ジョブ**completed/SUCCESS**、[PDF Run 40551412530](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40551412530)が**completed/SKIPPED**と確認。教材の初稿30/30、全面改稿110/110、復習22/22、段階概要9/9は完成。成功済みCIの手動再実行と再改稿は不要。mainのPDF Workflowと正式Releaseを独立に検証し、その結果をPRコメントに記録する。
+
+**現地は引き続きPRE-01〜07未確定、SITE-01〜15：PASS 0/15、NOT_RUN 15/15。** 実機受入や本番Goは未承認である。DB台帳による都度操作・行認可、権限失効、`xmin`競合、監査失敗、FDW原子性不明時の安全拒否を維持する。
+
+現地受入のPRE責任者候補・評価値・原本証跡の割付は[現地実機受入計画](https://github.com/ShutenOishi/pg_blazor_samples/blob/main/docs/course-v3/on-site-acceptance-plan.md)を参照。実機をPASSへ変更していない。
+
 ## 2026-10-28 現地実機受入の未完了事項・証跡計画を策定（PDF停止継続）
 
 - **認証済みGitHub GETの基準正本**：Draft PR #36 `22aae38d3ddf3a27a611e07050efda783f9d8a7f` はopen/draft・main未マージ。[アプリCI 40548486534](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40548486534)はWindows/Linux/PG18の3ジョブすべてSUCCESS、[PDF Workflow 40548486604](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40548486604)はSKIPPED。[PRコメント #6448459478](https://github.com/ShutenOishi/pg_blazor_samples/pull/36#issuecomment-6448459478)を照合。成功済みCIは再実行していない。
