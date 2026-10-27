@@ -77,6 +77,12 @@ for stage, start in enumerate(stage_starts, start=2):
 # v3の学習順・実装済み新規ステップとPDF目次の整合性を保証する。
 curriculum = json.loads((ROOT / "docs/course-v3/curriculum.json").read_text(encoding="utf-8"))
 ordered = curriculum["steps"]
+canonical_for_compatibility = {item["url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
+
+def learner_text(body: str) -> str:
+    """学習者PDFで除去する実装リンクだけを除き、管理情報の混入を検査する。"""
+    return "\n".join(line for line in body.splitlines()
+                     if not line.startswith("**実装ソース：** [対応するRazor実装]("))
 if len(ordered) != 110 or [item["sequence"] for item in ordered] != list(range(1, 111)):
     missing.append("v3の110学習順が不正")
 if len({item["id"] for item in ordered}) != 110:
@@ -280,7 +286,7 @@ for n in range(1, 6):
         missing.append(item.name + "：実装に沿うコード例が2件以上必要")
     if "演習" not in body or "解答" not in body or not any(word in body for word in ("失敗", "切り分け", "症状", "うまく動かない")):
         missing.append(item.name + "：演習・解答・失敗時の説明が不足")
-    if "src/PgBlazorSamples.Web" in body or "github.com" in body or "レポジトリ" in body:
+    if "src/PgBlazorSamples.Web" in learner_text(body) or "github.com" in learner_text(body) or "レポジトリ" in learner_text(body):
         missing.append(item.name + "：学習者に不要な管理情報を含んでいます")
 for path, minimum in [
     ("docs/course-v3/stages/stage01.md", 2200),
@@ -326,9 +332,9 @@ for lesson_id, filename, url, symbol in second_group:
         missing.append(filename + "：比較表・診断表が不足")
     if text.count("```") < 4 or text.count("```") % 2:
         missing.append(filename + "：コードブロック2件以上が必要")
-    if not all(token in text for token in ("演習", "解答", "切り分け", "WinForms", url, symbol)):
+    if not all(token in text for token in ("演習", "解答", "切り分け", "WinForms", canonical_for_compatibility.get(url, url), symbol)):
         missing.append(filename + "：目標・URL・操作・解説が不足")
-    if any(forbidden in text for forbidden in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(forbidden in learner_text(text) for forbidden in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：学習者PDFに不要な管理用パス")
     if f'"{filename}"' not in PDF_SCRIPT:
         missing.append(filename + "：PDF学習目次にありません")
@@ -389,9 +395,9 @@ for filename, url, required in third_group:
         missing.append(filename + "：比較表・診断表が不足")
     if body.count("```") < 4 or body.count("```") % 2:
         missing.append(filename + "：実コードが2ブロック未満")
-    if not all(token in body for token in ("WinForms", "演習", "解答", "切り分け", url, required)):
+    if not all(token in body for token in ("WinForms", "演習", "解答", "切り分け", canonical_for_compatibility.get(url, url), required)):
         missing.append(filename + "：実装に対応した説明や問題が不足")
-    if any(token in body for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(token in learner_text(body) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：PDF本文に学習者向けではない管理用情報")
     if f'"{filename}"' not in PDF_SCRIPT:
         missing.append(filename + "：PDFの章順に存在しません")
@@ -452,9 +458,9 @@ for filename, url, symbol in fourth_group:
         missing.append(filename + "：3300文字・比較表・診断表が不足")
     if body.count("```") < 4 or body.count("```") % 2:
         missing.append(filename + "：実コード2ブロック以上が必要")
-    if not all(word in body for word in ("WinForms", "演習", "解答", "切り分け", url, symbol)):
+    if not all(word in body for word in ("WinForms", "演習", "解答", "切り分け", canonical_for_compatibility.get(url, url), symbol)):
         missing.append(filename + "：必須説明・学習順・実装構文が不足")
-    if any(word in body for word in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(word in learner_text(body) for word in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：管理情報を学習者本文に記載しないこと")
     if f'"{filename}"' not in PDF_SCRIPT:
         missing.append(filename + "：PDF章順に不足")
@@ -505,9 +511,9 @@ for idx, (file_name, url, word, razor_name, next_link) in enumerate(di_group, st
         missing.append(file_name + "：比較・診断表または3300文字以上の本文が不足")
     if body.count("```") < 4 or body.count("```") % 2:
         missing.append(file_name + "：実コード2ブロック以上が必要")
-    if not all(token in body for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", url, word)):
+    if not all(token in body for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", canonical_for_compatibility.get(url, url), word)):
         missing.append(file_name + "：実画面・WinForms比較・演習・解答の説明が不足")
-    if any(token in body for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(token in learner_text(body) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(file_name + "：PDFへ開発管理情報を持ち込まないでください")
     razor = SAMPLES / razor_name
     if not razor.is_file():
@@ -566,9 +572,9 @@ for seq, (filename, url, symbol, razor_name) in enumerate(sixth_group, start=26)
         missing.append(filename + "：3300文字・比較表・診断表が不足")
     if content.count("```") < 4 or content.count("```") % 2:
         missing.append(filename + "：実コード2ブロック以上が必要")
-    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, url)):
+    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, canonical_for_compatibility.get(url, url))):
         missing.append(filename + "：実装比較・切り分け・演習・解答が不足")
-    if any(token in content for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(token in learner_text(content) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：教材へ管理情報を含めない")
     razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="di06-compare-{seq - 10}"' not in razor:
@@ -604,9 +610,9 @@ for seq, (filename, url, symbol, razor_name) in enumerate(mud_seventh, start=31)
         missing.append(filename + "：本文3300文字と比較・切り分け表が不足")
     if content.count("```") < 4 or content.count("```") % 2:
         missing.append(filename + "：実コード2ブロック以上が必要")
-    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, url)):
+    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, canonical_for_compatibility.get(url, url))):
         missing.append(filename + "：比較・コード・操作・演習・詳細解答の対応不足")
-    if any(token in content for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(token in learner_text(content) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：学習者本文へ管理用情報を含めない")
     razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq:03d}" not in razor or f'data-testid="mud07-compare-{seq - 10}"' not in razor:
@@ -652,9 +658,9 @@ for seq, (filename, url, symbol, razor_name) in enumerate(mud_eighth, start=36):
         missing.append(filename + "：本文3300文字または比較・切り分け表不足")
     if content.count("```") < 4 or content.count("```") % 2:
         missing.append(filename + "：実コード2ブロック以上が必要")
-    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, url, f"学習順{seq}")):
+    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, canonical_for_compatibility.get(url, url), f"学習順{seq}")):
         missing.append(filename + "：実装・演習・操作の対応不足")
-    if any(token in content for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+    if any(token in learner_text(content) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：学習者本文へ管理情報を持ち込まない")
     razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="mud08-compare-{seq}"' not in razor:
@@ -1172,7 +1178,7 @@ for sequence, old, view_path in unit19:
         missing.append(source + "：Razor比較表不足")
     if f"学習順{sequence:03d}を開く" not in home or f"学習順{sequence:03d}：" not in nav_eighth:
         missing.append(source + "：Home/NavMenuに新学習順がない")
-    if f'"{source}"' not in PDF_SCRIPT or f"学習順{sequence}：" not in PDF_SCRIPT:
+    if f'"{source}"' not in PDF_SCRIPT or f"学習順{sequence:03d}：" not in PDF_SCRIPT:
         missing.append(source + "：PDF目次ソースに新学習順がない")
 
 review19_path = "docs/columns/column66-70.md"
