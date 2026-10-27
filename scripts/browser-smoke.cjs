@@ -1124,6 +1124,36 @@ async function waitText(page, selector, expected) {
         await page.getByRole("link", { name: "学習順091〜095を復習する" }).waitFor();
         console.log("第19組091〜095：旧URL、匿名拒否、比較表、前後導線、復習、Web目次を確認");
 
+        // 第20組096〜100：旧URL、比較表、サーバー側の匿名拒否、前後リンクを確認。
+        await page.goto(base + "/learn/stage/operations");
+        await page.locator('[data-testid="stage08-overview-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順096" }).waitFor();
+        const unit20Actions = [
+            [71, 96, "現在の台帳照合を確認"],
+            [72, 97, "Cookie認証と台帳照合を確認"],
+            [73, 98, "更新可能性を照合する"],
+            [74, 99, "監査を伴う一覧取得を確認"],
+            [75, 100, "本番運用の認可ゲートを照合"]
+        ];
+        for (const [oldId, seq, button] of unit20Actions) {
+            await page.goto(base + "/learn/" + oldId);
+            await page.waitForTimeout(700);
+            await page.locator('[data-testid="stage08-compare-' + String(seq).padStart(3, "0") + '"]').waitFor();
+            await page.getByRole("button", { name: button }).click();
+            await waitText(page, '[data-testid="step' + oldId + '-state"]', "拒否");
+        }
+        await page.goto(base + "/learn/71");
+        await page.getByRole("link", { name: "前へ" }).waitFor();
+        await page.getByRole("link", { name: "次へ" }).waitFor();
+        await page.goto(base + "/learn/75");
+        await page.getByRole("link", { name: "次へ" }).waitFor();
+        await page.goto(base + "/learn/column/75");
+        await page.locator('[data-testid="stage08-review20-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順101" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順096〜100を復習する" }).waitFor();
+        console.log("第20組096〜100：実Chromeの匿名安全拒否、Razor比較表、前後リンク、Web目次を確認");
+
         // 第9段階：実業務アクセスは必ず既存の認可サービスを通し、匿名時の拒否を確認。
         await page.goto(base + "/learn/stage/capstone");
         await page.getByRole("heading", { name: "第9段階の概要：業務アプリの通し演習" }).waitFor();
