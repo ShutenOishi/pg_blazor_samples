@@ -2,7 +2,7 @@
 @inject ISnackbar Snackbar
 
 <PageTitle>ステップ28：日本語通知と進捗｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ28 / Snackbar・進捗</p>
+<p class="eyebrow">学習順38 / Snackbar・進捗</p>
 <h1>通知・処理中・完了を使い分ける</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudStack Spacing="3">
@@ -19,6 +19,15 @@
     <h2>Snackbarの役割</h2>
     <p>処理完了の短い通知はSnackbar、現在の状態は読み上げ可能な本文、処理待ちには進捗表示を使います。</p>
     <p>画面を閉じたあとも継続する重い業務処理は、この短いTask.Delayの模倣とは別にサーバー側ジョブとして設計します。</p>
+</section>
+<section class="lesson-details" data-testid="mud08-compare-38">
+    <h2>学習順38：通知と状態の寿命を比較する</h2>
+    <p>WinForms＋Dapperの操作とWebの状態管理を分けて確認します。例示データや模擬処理は実業務の永続化・認可を表しません。</p>
+    <table><thead><tr><th>観点</th><th>この画面で確かめること</th></tr></thead><tbody>
+<tr><th>現在の実装</th><td>Disabledと_runningを併用</td></tr>
+<tr><th>利用者が確認すること</th><td>Snackbarは短い通知</td></tr>
+<tr><th>後続への接続</th><td>role=statusに結果を残す</td></tr>
+    </tbody></table>
 </section>
 <div class="page-navigation"><a href="/learn/27">前へ：ステップ27</a><a href="/learn/29">次へ：ステップ29</a></div>
 @code {

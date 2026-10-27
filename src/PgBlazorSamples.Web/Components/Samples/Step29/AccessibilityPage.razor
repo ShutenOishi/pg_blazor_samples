@@ -2,7 +2,7 @@
 @inject PgBlazorSamples.Web.Services.Learning.ThemePreferenceService ThemePreference
 
 <PageTitle>ステップ29：テーマと操作性｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ29 / アクセシビリティ</p>
+<p class="eyebrow">学習順39 / アクセシビリティ</p>
 <h1>ダークモードとキーボード操作を確認する</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudStack Spacing="3">
@@ -22,6 +22,15 @@
     <h2>視認性を含む操作確認</h2>
     <p>Tab・Shift+Tab・Enter・スペースによる操作、焦点表示、読み上げ、コントラスト、拡大時のレイアウトを確認します。色だけで成功や失敗を知らせないことも重要です。</p>
     <p>テーマはcircuitごとのScopedサービスから共通レイアウトのMudThemeProviderに反映します。OS全体のテーマ設定は変更しません。</p>
+</section>
+<section class="lesson-details" data-testid="mud08-compare-39">
+    <h2>学習順39：テーマと入力操作を比較する</h2>
+    <p>WinForms＋Dapperの操作とWebの状態管理を分けて確認します。例示データや模擬処理は実業務の永続化・認可を表しません。</p>
+    <table><thead><tr><th>観点</th><th>この画面で確かめること</th></tr></thead><tbody>
+<tr><th>現在の実装</th><td>Scopedサービスから共通レイアウトへ通知</td></tr>
+<tr><th>利用者が確認すること</th><td>Tabと拡大で操作性を確認</td></tr>
+<tr><th>後続への接続</th><td>テーマは永続保存しない</td></tr>
+    </tbody></table>
 </section>
 <div class="page-navigation"><a href="/learn/28">前へ：ステップ28</a><a href="/learn/30">次へ：ステップ30</a></div>
 @code {

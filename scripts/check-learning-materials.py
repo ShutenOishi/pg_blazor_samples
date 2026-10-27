@@ -627,6 +627,52 @@ for relative, next_link in [
 if not all(f"学習順{i:03d}を開く" in home for i in range(31, 36)) or "学習順031〜035の復習" not in home:
     missing.append("Web目次の第7組と復習の並びが不正")
 
+
+# 学習順036〜040：第8組の本文・Razor・Web/PDF目次・復習を同じ条件で検査する。
+mud_eighth = [
+    ("docs/samples/step26.md", "/learn/26", "QuickFilter", "Step26/DataGridPage.razor"),
+    ("docs/samples/step27.md", "/learn/27", "ShowMessageBoxAsync", "Step27/DialogPage.razor"),
+    ("docs/samples/step28.md", "/learn/28", "MudProgressLinear", "Step28/NotificationPage.razor"),
+    ("docs/samples/step29.md", "/learn/29", "ThemePreferenceService", "Step29/AccessibilityPage.razor"),
+    ("docs/samples/step30.md", "/learn/30", "PracticeUser", "Step30/UiPracticePage.razor"),
+]
+if [item["id"] for item in ordered[35:40]] != [f"step{n}" for n in range(26, 31)]:
+    missing.append("第8組の学習順036〜040が不一致")
+for seq, (filename, url, symbol, razor_name) in enumerate(mud_eighth, start=36):
+    content = (ROOT / filename).read_text(encoding="utf-8")
+    if len(content) < 3300 or content.count("| ---") < 2 or content.count(" | ") < 8:
+        missing.append(filename + "：本文3300文字または比較・切り分け表不足")
+    if content.count("```") < 4 or content.count("```") % 2:
+        missing.append(filename + "：実コード2ブロック以上が必要")
+    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, url, f"学習順{seq}")):
+        missing.append(filename + "：実装・演習・操作の対応不足")
+    if any(token in content for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+        missing.append(filename + "：学習者本文へ管理情報を持ち込まない")
+    razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
+    if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="mud08-compare-{seq}"' not in razor:
+        missing.append(razor_name + "：Razor学習順・表・URLの不一致")
+    if f'"{filename}"' not in PDF_SCRIPT or f"学習順{seq:03d}を開く" not in home:
+        missing.append(filename + "：PDF/Web索引の学習順不足")
+review8 = (ROOT / "docs/columns/column26-30.md").read_text(encoding="utf-8")
+review8_razor = (SAMPLES / "Columns/Column30Page.razor").read_text(encoding="utf-8")
+if len(review8) < 3300 or review8.count("| ---") < 2 or review8.count("```") < 4 or "詳しい解答" not in review8:
+    missing.append("第8組復習の長文・表・コード・詳しい解答が不足")
+if 'data-testid="mud08-review-table"' not in review8_razor or 'href="/learn/browser-01"' not in review8_razor:
+    missing.append("第8組復習Razorと次の041への導線不足")
+if "/learn/column/30" not in home or "学習順036〜040の復習" not in home:
+    missing.append("Web目次の第8組復習が不足")
+nav_eighth = (ROOT / "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor").read_text(encoding="utf-8")
+if "第8組の復習：036〜040" not in nav_eighth:
+    missing.append("第8組のナビゲーション不足")
+pdf_eighth = [PDF_SCRIPT.find(f'"{x[0]}"') for x in mud_eighth]
+pdf_review8 = PDF_SCRIPT.find('"docs/columns/column26-30.md"')
+pdf_browser01 = PDF_SCRIPT.find('"docs/course-v3/lessons/browser-01.md"')
+if -1 in pdf_eighth or pdf_eighth != sorted(pdf_eighth) or not (pdf_eighth[-1] < pdf_review8 < pdf_browser01):
+    missing.append("第8組036〜040→復習→041のPDF章順が不正")
+if 'href="/learn/column/30"' not in (SAMPLES / "Step30/UiPracticePage.razor").read_text(encoding="utf-8"):
+    missing.append("学習順040から第8組復習への導線不足")
+
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

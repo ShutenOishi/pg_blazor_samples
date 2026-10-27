@@ -3,7 +3,7 @@
 @inject ISnackbar Snackbar
 
 <PageTitle>ステップ30：日本語業務UI総合演習｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ30 / UI総合演習</p>
+<p class="eyebrow">学習順40 / UI総合演習</p>
 <h1>検索・入力・確認・通知を組み合わせる</h1>
 <p>架空の利用者管理画面です。保存先はこの画面のメモリだけです。認証・DB・実在の利用者情報は使いません。</p>
 <MudPaper Class="pa-4" Elevation="1">
@@ -29,6 +29,15 @@
     <h2>実業務へ接続する場合</h2>
     <p>現段階はItemsに固定上限のある練習用の小規模データです。DB導入後は入力と検索条件をApplicationサービスへ渡し、EF Coreの操作単位DbContextとServerDataへ段階的に切り替えます。</p>
     <p>確認ダイアログは操作補助であり、サーバー側認可・検証・楽観的排他の代わりではありません。</p>
+</section>
+<section class="lesson-details" data-testid="mud08-compare-40">
+    <h2>学習順40：架空一覧の総合演習を比較する</h2>
+    <p>WinForms＋Dapperの操作とWebの状態管理を分けて確認します。例示データや模擬処理は実業務の永続化・認可を表しません。</p>
+    <table><thead><tr><th>観点</th><th>この画面で確かめること</th></tr></thead><tbody>
+<tr><th>現在の実装</th><td>3名の架空データでUIを練習</td></tr>
+<tr><th>利用者が確認すること</th><td>確認後にListへ1件追加</td></tr>
+<tr><th>後続への接続</th><td>実利用者台帳は変更しない</td></tr>
+    </tbody></table>
 </section>
 <div class="page-navigation"><a href="/learn/29">前へ：ステップ29</a><a href="/learn/column/30">コラム07：5ステップの復習</a></div>
 @code {

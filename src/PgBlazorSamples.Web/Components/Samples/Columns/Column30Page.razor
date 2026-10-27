@@ -1,8 +1,18 @@
 @page "/learn/column/30"
 
 <PageTitle>学習コラム07：日本語UIからデータ連携へ｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム07 / ステップ26〜30</p>
+<p class="eyebrow">第8組の復習 / 学習順036〜040</p>
 <h1>一覧・確認・通知・テーマを設計に結び付ける</h1>
+<section class="lesson-details" data-testid="mud08-review-table">
+<h2>第8組の比較・切り分け表</h2>
+<table><thead><tr><th>学習順</th><th>確認する動作</th><th>実業務での注意</th></tr></thead><tbody>
+<tr><th>036</th><td>検索・列フィルター・ページング</td><td>ItemsはDBの全件取得を正当化しない</td></tr>
+<tr><th>037</th><td>明示的な実行と中止</td><td>確認後のサーバー認可が必要</td></tr>
+<tr><th>038</th><td>通知と処理中表示</td><td>Snackbarは監査証跡でない</td></tr>
+<tr><th>039</th><td>テーマ・Tab・拡大</td><td>Scoped状態は永続化しない</td></tr>
+<tr><th>040</th><td>架空リストへ追加</td><td>実台帳の登録ではない</td></tr>
+</tbody></table><p>WinForms＋DapperでDBから取得したデータと、Blazorの画面メモリを混同しないことがこの組の到達目標です。</p>
+</section>
 <section class="lesson-details">
     <h2>5ステップをつなぐ</h2>
     <ol>

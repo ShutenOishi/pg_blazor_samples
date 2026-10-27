@@ -741,6 +741,18 @@ async function waitText(page, selector, expected) {
         await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();
         console.log("ステップ30・コラム07：入力・検索・確認・追加を検証");
 
+        // 第8組の画面・比較表・前後導線を既存の操作試験に重ねて確認する。
+        for (const seq of [36, 37, 38, 39, 40]) {
+            await page.goto(base + "/learn/" + (seq - 10));
+            await page.locator('[data-testid="mud08-compare-' + seq + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/column/30");
+        await page.locator('[data-testid="mud08-review-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順041" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順036〜040の復習" }).waitFor();
+        console.log("学習順036〜040・第8組復習・Web目次と前後導線を検証");
+
         // Step31〜40：DBがなくても学べるEF Core基本と型変換の画面を確認。
         await page.goto(base + "/learn/31");
         await waitText(page, '[data-testid="step31-model"]', "EF Coreのモデルを学ぶ");

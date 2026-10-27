@@ -2,7 +2,7 @@
 @inject IDialogService Dialogs
 
 <PageTitle>ステップ27：確認ダイアログ｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ27 / Dialog</p>
+<p class="eyebrow">学習順37 / Dialog</p>
 <h1>実行と中止を確認ダイアログで分ける</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <p>この画面はデータベースを変更しません。ダイアログの結果だけを表示します。</p>
@@ -13,6 +13,15 @@
     <h2>ライブラリが提供するDIを使う</h2>
     <p>IDialogServiceを注入し、共有レイアウトのMudDialogProviderへ表示を任せます。OKはtrue、中止はnullとして扱います。</p>
     <p>確認ダイアログはサーバー側の認可や二重送信防止に代わりません。後続の業務処理では保存直前に権限・検証を実施します。</p>
+</section>
+<section class="lesson-details" data-testid="mud08-compare-37">
+    <h2>学習順37：確認ダイアログの結果を比較する</h2>
+    <p>WinForms＋Dapperの操作とWebの状態管理を分けて確認します。例示データや模擬処理は実業務の永続化・認可を表しません。</p>
+    <table><thead><tr><th>観点</th><th>この画面で確かめること</th></tr></thead><tbody>
+<tr><th>現在の実装</th><td>IDialogServiceをDIで呼ぶ</td></tr>
+<tr><th>利用者が確認すること</th><td>bool?がtrueのときだけ実行選択</td></tr>
+<tr><th>後続への接続</th><td>この画面では保存しない</td></tr>
+    </tbody></table>
 </section>
 <div class="page-navigation"><a href="/learn/26">前へ：ステップ26</a><a href="/learn/28">次へ：ステップ28</a></div>
 @code {
