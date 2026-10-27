@@ -1,6 +1,6 @@
 @page "/learn/60"
 <PageTitle>ステップ60：一覧方式の総合選定｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順80 / 10方式の総合演習</p>
+<p class="eyebrow">学習順080 / 10方式の総合演習</p>
 <h1>要件から一覧の取得・表示・更新方式を選ぶ</h1>
 <MudPaper Class="pa-4">
     <MudSelect T="string" Label="要件を選ぶ" @bind-Value="_scenario">
@@ -31,8 +31,8 @@
     <details><summary>否定演習：いつItems全件読み込みを選ばない？</summary><p>総件数が伸び続け、メモリと通信量が制御できない場合はServerDataや仮想化を選びます。</p></details>
     <details><summary>否定演習：Gridで行を隠せば認可できる？</summary><p>できません。Count・Items・詳細・CSV・更新すべてサーバー側で認可します（Step61〜70）。</p></details>
 
-    <h2>学習順80：WinForms＋Dapperとの比較</h2>
-    <table data-testid="stage06-compare-80">
+    <h2>学習順080：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-080">
         <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
         <tbody>
             <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>

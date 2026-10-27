@@ -5,7 +5,7 @@
 @inject LearningRangeExportService Ranges
 @inject LearningDbService Database
 <PageTitle>ステップ56：期間Range検索｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順76 / DateRange・PostgreSQL daterange</p>
+<p class="eyebrow">学習順076 / DateRange・PostgreSQL daterange</p>
 <h1>日本語の日付範囲とDBの期間の重なりを検索する</h1>
 <MudPaper Class="pa-4">
     <MudDateRangePicker Label="検索期間（開始日〜終了日）" @bind-DateRange="_range"
@@ -26,8 +26,8 @@
     <p>DueDateは単一のdate、AvailableDatesはdaterangeです。画面の終端を含む指定は、SQL検索で翌日を上端とする半開区間に直します。範囲が重なる行だけを抽出し、最大20行だけ表示します。</p>
     <p>NULL期間・開始が終了より後・過大な期間を否定試験します。データがないときとDB未設定を区別します。実業務では必ず行単位の認可を追加してください。</p>
 
-    <h2>学習順76：WinForms＋Dapperとの比較</h2>
-    <table data-testid="stage06-compare-76">
+    <h2>学習順076：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-076">
         <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
         <tbody>
             <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>

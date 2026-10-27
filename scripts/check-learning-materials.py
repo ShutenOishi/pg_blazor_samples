@@ -1022,9 +1022,9 @@ for sequence, (_, relative, view_path) in enumerate(unit16, start=76):
     for term in ("WinForms", "Dapper", "操作手順", "障害の切り分け", "詳しい解答"):
         if term not in body:
             missing.append(relative + "：" + term + "不足")
-    if f'data-testid="stage06-compare-{sequence}"' not in view:
+    if f'data-testid="stage06-compare-{sequence:03d}"' not in view:
         missing.append(relative + "：Razor比較表が不足")
-    if f"学習順{sequence}を開く" not in home or f"学習順{sequence}：" not in nav_eighth:
+    if f"学習順{sequence:03d}を開く" not in home or f"学習順{sequence:03d}：" not in nav_eighth:
         missing.append(relative + "：Home/NavMenuの学習順が不一致")
     if f'"{relative}"' not in PDF_SCRIPT or f"学習順{sequence}：" not in PDF_SCRIPT:
         missing.append(relative + "：PDF目次ソースの順序・名称が不一致")

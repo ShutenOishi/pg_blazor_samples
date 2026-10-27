@@ -2,7 +2,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningCacheLessonService Cache
 <PageTitle>ステップ57：キャッシュと認可の境界｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順77 / キャッシュのキー・失効・権限</p>
+<p class="eyebrow">学習順077 / キャッシュのキー・失効・権限</p>
 <h1>キャッシュを利用者と権限の境界から考える</h1>
 <MudPaper Class="pa-4">
     <MudSelect T="string" Label="架空利用者を選ぶ" @bind-Value="_actor">
@@ -20,8 +20,8 @@
     <p>この学習用キャッシュはScopedで、架空の利用者名と権限バージョンをキーに持つデモです。別ユーザーが同じキャッシュ行を受け取る事故を避ける考え方を確認します。</p>
     <p><strong>ここにAD認証・DBの認可はありません。</strong>画面でA/Bを選べても本人確認にはなりません。実運用時はStep61〜70で本人ID、対象行の認可、認可変更時の失効をサーバーで実装します。Blazor ServerのScopedは回線(circuit)単位であり、永続ユーザーデータの共有ストアではありません。</p>
 
-    <h2>学習順77：WinForms＋Dapperとの比較</h2>
-    <table data-testid="stage06-compare-77">
+    <h2>学習順077：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-077">
         <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
         <tbody>
             <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>

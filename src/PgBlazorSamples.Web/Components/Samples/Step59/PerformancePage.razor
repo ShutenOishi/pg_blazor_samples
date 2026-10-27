@@ -4,7 +4,7 @@
 @inject LearningPerformanceService Performance
 @inject LearningDbService Database
 <PageTitle>ステップ59：DB性能観察｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順79 / EXPLAIN・P95・P99</p>
+<p class="eyebrow">学習順079 / EXPLAIN・P95・P99</p>
 <h1>実データの索引利用と応答時間を観察する</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" Disabled="@_working" OnClick="ObserveAsync">読み取りを20回計測する</MudButton>
@@ -21,8 +21,8 @@
     <p>この数値は開発用DBに対する20回だけの小規模な観察値です。P95・P99の統計的精度は高くありません。接続、キャッシュ、同時実行、データ件数で変わるため、業務上の性能保証値として使用しません。</p>
     <p>SQLは固定のSELECTとEXPLAINのみで書込はしません。実運用の性能判断には十分なサンプル、測定環境の固定、実行計画、索引の前後比較、別系統の負荷試験が必要です。</p>
 
-    <h2>学習順79：WinForms＋Dapperとの比較</h2>
-    <table data-testid="stage06-compare-79">
+    <h2>学習順079：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-079">
         <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
         <tbody>
             <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>

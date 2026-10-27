@@ -4,7 +4,7 @@
 @inject LearningRangeExportService Export
 @inject LearningDbService Database
 <PageTitle>ステップ58：集計とCSV｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順78 / GroupBy・COUNT・CSV</p>
+<p class="eyebrow">学習順078 / GroupBy・COUNT・CSV</p>
 <h1>集計をDBで実行し、少量のCSVだけ安全に出力する</h1>
 <MudPaper Class="pa-4">
     <MudButton OnClick="SummarizeAsync" Color="Color.Primary">完了状態を集計</MudButton>
@@ -25,8 +25,8 @@
     <p>集計はGroupByとCountでDB側に任せます。CSVは最大100件だけ許可し101件以上なら全件出力を拒否します。Excel系の式注入への対策、UTF-8 BOMと引用符のエスケープを確認します。</p>
     <p>大規模データはページ表示と別の認可済みダウンロード経路、容量制限、監査、ストリーミングを設計します。この画面は開発用DB専用であり、利用者別の権限判定はありません。</p>
 
-    <h2>学習順78：WinForms＋Dapperとの比較</h2>
-    <table data-testid="stage06-compare-78">
+    <h2>学習順078：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-078">
         <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
         <tbody>
             <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>

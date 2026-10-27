@@ -1032,7 +1032,7 @@ async function waitText(page, selector, expected) {
         // 第16組：旧URL・比較表・復習・ホーム・前後導線をChromeで検査。
         for (const [sequence, oldId] of [[76, 56], [77, 57], [78, 58], [79, 59], [80, 60]]) {
             await page.goto(base + "/learn/" + oldId);
-            await page.locator('[data-testid="stage06-compare-' + sequence + '"]').waitFor();
+            await page.locator('[data-testid="stage06-compare-' + sequence.toString().padStart(3, "0") + '"]').waitFor();
         }
         await page.goto(base + "/learn/56");
         await page.getByRole("link", { name: "前へ：第15組の復習" }).waitFor();
