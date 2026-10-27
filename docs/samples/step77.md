@@ -1,4 +1,6 @@
-# ステップ77：キャッシュの有効期限と権限失効
+# 学習順102：キャッシュの有効期限と権限失効
+
+**第8段階・第21組／旧Step77・旧URL /learn/77**
 
 ## 到達目標
 
@@ -33,3 +35,74 @@ AuthorizedLessonHintCacheはScopedの小さなクラスで、キーに本人の�
 ## 次へ
 
 Step78では「アプリが動く」と「業務処理に必要なDB・認可・監査が使える」を分けます。
+
+
+## 実装・運用の詳しい検証
+
+この教材はWinForms＋Dapper経験者が、Blazor Interactive Serverのサーバー側処理と既存業務DBの境界を理解するためのものです。ADは本人を認証し信頼済みのドメイン付きログイン名を取得します。業務の閲覧・編集、部署・行単位の認可は既存DB台帳を操作ごとに照合します。Cookieやcircuitの保持値、画面に表示されたボタンだけでは業務権限を証明できません。
+
+### 実コード例1：画面の入口
+
+```csharp
+var permit = await Business.AuthorizeAsync();
+if (permit.Unit is null) { Cache.Clear(); _message = permit.Message; return; }
+var login = await Access.ReadTrustedCurrentLoginNameAsync();
+var current = await Access.ReadCurrentAsync();
+```
+
+
+この抜粋は、実際の呼出し経路を追うためのものです。画面で実行するC#は業務サービスを呼ぶ入口にすぎません。認可を通ったように見えても、対象行の部署、現在の権限、監査書込みを確認できなければ結果を公開しません。特に非同期操作をキャンセルした場合やDBから例外が返った場合、古い許可に戻して成功にする処理を追加しないでください。
+
+### 実コード例2：安全な境界の確認
+
+```csharp
+if (login is null || !current.CanRead || current.UnitCode != permit.Unit) { Cache.Clear(); return; }
+if (!Cache.TryGet(login, permit.Unit, current.AuthorizationVersion, out var hint))
+    Cache.Store(login, permit.Unit, current.AuthorizationVersion, "認可後の学習用ヒント");
+```
+
+### 実装と判断の詳しい説明
+
+AuthorizedLessonHintCacheはcircuit単位のScopedサービスで、本人名・部署・authorization_version・30秒の期限をキーに非機密の表示ヒントのみを保持します。業務行やCSV、Countをキャッシュしません。まずAuthorizeAsyncで現在の正本台帳と監査の前提を確認し、失効・DB障害ならClearして拒否します。30秒のTTLは30秒間閲覧を許可する意味ではありません。別circuitで同一キーを共有するものでもありません。分散キャッシュへの拡張は共有・失効・鍵・多ノードの受入が必要です。
+
+### WinForms＋Dapperとの比較
+
+| 観点 | WinForms＋Dapper | Blazor Interactive Server |
+| --- | --- | --- |
+| 操作イベント | 各端末のFormで受け付ける | サーバーのRazorとサービスで処理する |
+| 権限の正本 | Dapperで既存DBへ毎回照会する | SecuredLearningServiceで操作・行単位を都度判定する |
+| 表示状態 | フォーム内の値は古くなり得る | circuitの状態も権限の代わりにならない |
+| 監査 | SQLの実行結果と本人・操作を記録 | 永続監査に失敗する場合は業務を安全に拒否 |
+| 本番受入 | Windows端末とDB接続を確認 | IIS、Kerberos、SignalR、DBプールと鍵の管理を別途確認 |
+
+### 操作手順
+
+1. 新学習順の目次から旧URLで開く画面を表示し、前後リンクを確認します。
+2. 匿名の開発用ブラウザーで業務の確認ボタンを押し、本人とDB台帳の権限が確かめられないときに拒否されることを確認します。
+3. 肯定試験はCI専用の架空PrincipalとPostgreSQL18の架空テーブルだけで行います。本番台帳のレコードや資格情報を教材に投入しないでください。
+4. 操作前後の期待結果、実際の画面表示、相関ID、実行日時、コミットSHAを記録します。再操作時もDB正本を確認します。
+5. 実AD/IIS/Kerberos/FDWおよび1万人超負荷は、CIとは別に現地で受入票を作ります。
+
+### 障害の切り分け
+
+| 現象 | 最初に確かめる内容 | 合格条件 |
+| --- | --- | --- |
+| 匿名・台帳未登録・重複 | 認証ハンドラー、ドメイン付き名、照合の0/1/2件 | データを返さず拒否 |
+| 権限変更・部署違い | 正本の有効状態、can_read/can_edit、部署 | 過去の許可を再利用しない |
+| 競合・行ロック不可 | xmin、トランザクション、FDW条件 | 古いデータを自動上書きしない |
+| 監査INSERT・DB障害 | 監査権限、接続、相関ID、ロールバック | 機密の行やCSVを公開しない |
+| CI成功・実機未検証 | IIS、SPN、Kerberos、FDW、復旧と負荷 | 現地受入は未完了のままにする |
+
+利用者へSQLエラー、認証Cookie、接続文字列、他部署のデータを表示しません。運用ログは利用者画面と切り分けて保護します。権限失効は再ログインだけで直す問題と決めつけず、現在の正本を確かめます。成功、拒否、競合、通信障害を別の結果として記録してください。
+
+### 演習
+
+30秒以内のヒントキャッシュがある状態でcan_readを剥奪した。ヒントや業務一覧を返せるか。
+
+### 詳しい解答
+
+TTLに関係なくDB正本で現在の権限を確認し、拒否ならキャッシュを消して一覧を非公開にします。別circuitではScopedの値を共有しません。
+
+### 現場での確認票
+
+WinForms＋Dapperから移行しても認可の根拠は変わりません。本人を確かめたことと、その本人がどの行へどの操作をできるかを分け、監査が不能な場合は安全に拒否します。設定フラグだけで行ロックや監査の原子性が保証されるわけではありません。実AD、IIS、Kerberos、FDW、鍵の管理、1万人超登録アカウントと同時circuit、DBプールの負荷、復旧手順は現地実機で受入します。CI成功の意味を超えて運用を承認しないでください。
