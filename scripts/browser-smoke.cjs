@@ -79,6 +79,17 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="web01-count"]', "1");
         await page.goto(base + "/learn/web-02");
         await waitText(page, '[data-testid="web02-path"]', "/learn/web-02");
+        // 学習順002：存在するページと未登録パスへ実際にGETし、HTML描画とHTTP応答を区別する。
+        await page.goto(base + "/learn/002");
+        await page.locator('[data-testid="web02-known-get"]').waitFor();
+        await page.locator('[data-testid="web02-missing-get"]').waitFor();
+        const validDocument = await page.request.get(base + "/learn/002");
+        const absentDocument = await page.request.get(base + "/__learning_missing_page_for_http_404__");
+        if (validDocument.status() !== 200 || absentDocument.status() !== 404) {
+            throw new Error(`学習順002のGET結果が不正: 既存=${validDocument.status()}, 未登録=${absentDocument.status()}`);
+        }
+        console.log("学習順002：Document GET 200と未登録GET 404を確認");
+
         await page.goto(base + "/learn/web-03");
         await page.waitForTimeout(850);
         await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習太郎");

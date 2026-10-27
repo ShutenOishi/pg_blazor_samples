@@ -18,8 +18,14 @@
     </dl>
 </section>
 <section class="lesson-details">
-    <h2>ブラウザーで確認する</h2>
-    <p>画面の再読み込みと、前のステップのクリックは通信方法が異なります。Networkの項目名と種類を比較してください。</p>
+    <h2>実際のGETと404を比較する</h2>
+    <p>下の2つは学習用リンクです。新しいタブで開いても元の教材画面に戻れます。開発者ツールのNetworkでDocumentのGETとStatusを比較してください。</p>
+    <ul>
+        <li><a href="/learn/002" target="_blank" rel="noopener" data-testid="web02-known-get">存在する教材ページ（通常200）をGETする</a></li>
+        <li><a href="/__learning_missing_page_for_http_404__" target="_blank" rel="noopener" data-testid="web02-missing-get">存在しない学習用ページ（404）をGETする</a></li>
+    </ul>
+    <p>認証構成などによってはリダイレクトが先に発生します。実際のHTTPステータスとLocationヘッダーを確認し、画面の文字だけで判定しないでください。</p>
+    <p>学習順001のクリックによる対話型イベントとは通信経路が異なります。これらのリンクはDB・認証台帳を読み書きしません。</p>
 </section>
 <div class="page-navigation"><a href="/learn/001">前へ</a><a href="/learn/003">次へ：HTMLとCSS</a></div>
 @code {
