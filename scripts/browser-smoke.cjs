@@ -373,6 +373,23 @@ async function waitText(page, selector, expected) {
         await page.getByRole("link", { name: "学習順056〜060を復習" }).waitFor();
         console.log("第12組056〜060の比較表・DB非接続・復習導線をChromeで確認");
 
+
+        // 第13組：第6段階概要、旧URLの5画面、比較表と復習への導線。
+        await page.goto(base + "/learn/stage/data-list");
+        await page.locator('[data-testid="stage06-overview-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順061" }).waitFor();
+        for (const [seq, oldId] of [[61, 41], [62, 42], [63, 43], [64, 44], [65, 45]]) {
+            await page.goto(base + "/learn/" + oldId);
+            await page.locator('[data-testid="stage06-compare-' + seq.toString().padStart(3, "0") + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/column/45");
+        await page.locator('[data-testid="stage06-review-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順066" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順061〜065を復習" }).waitFor();
+        await page.getByRole("link", { name: "第6段階の概要ページを読む" }).waitFor();
+        console.log("第13組061〜065の比較表、段階概要、復習導線をChromeで確認");
+
         // 第7段階：本物の認証/認可を偽装せず、教材の模擬拒否とRazorのエンコードを確認。
         await page.goto(base + "/learn/stage/security");
         await page.getByRole("heading", { name: "第7段階の概要：Webセキュリティ・AD認証とDB認可" }).waitFor();

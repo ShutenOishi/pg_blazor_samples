@@ -32,6 +32,18 @@
         </MudDataGrid>
     </MudStack>
 </MudPaper>
+<section class="lesson-details" data-testid="stage06-compare-065">
+    <h2>学習順065：複合検索とWinForms＋Dapperの比較</h2>
+    <table>
+        <caption>検索条件をどこで適用するか</caption>
+        <thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th>検索入力</th><td>TextBoxと日付入力</td><td>MudTextFieldとMudDatePickerを型付き条件へ変換</td></tr>
+            <tr><th>件数</th><td>同じWHEREでCOUNTを実行</td><td>共通IQueryableへWhereしてCountAsync</td></tr>
+            <tr><th>安全</th><td>入力検証と台帳認可</td><td>逆転日付・100文字超を拒否し、権限はサービス側で都度判定</td></tr>
+        </tbody>
+    </table>
+</section>
 <section class="lesson-details">
     <h2>CountとItemsの絞り込みは同じ</h2>
     <p>文字、完了、開始日、終了日をEF CoreのWhereへ渡してからCountAsyncとSkip/Takeを実行します。SQLのパラメーター化と空欄・NULL・開始日が終了日より後の異常系を考えます。</p>
