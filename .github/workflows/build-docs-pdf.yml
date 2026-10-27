@@ -74,6 +74,7 @@ jobs:
           set -euo pipefail
           test -s dist/blazor_learning_textbook_ja.pdf
           test -s dist/blazor_learning_source_manifest.json
+          python - <<'PY'
           import hashlib
           import json
           import re
@@ -114,6 +115,7 @@ jobs:
           assert not missing_titles, f"PDF本文/目次から章見出しが欠落: {missing_titles[:8]}"
           assert len(reader.pages) >= 110, f"PDFページ数が少なすぎます: {len(reader.pages)}"
           print(f"日本語PDF検査成功: {len(reader.pages)}ページ / {len(chapters)}章 / 110学習順 / 9概要 / 22復習 / {pdf_path.stat().st_size} bytes")
+          PY
       # 教材v3はDraft PRで検証中のため、既存の正式教材Releaseには上書きしない。
       # 同一リポジトリの専用PRとアプリCI全成功を満たした場合のみプレビュー版を配布する。
       - name: 検証済み教材v3のPDFをプレビューReleaseへ反映
