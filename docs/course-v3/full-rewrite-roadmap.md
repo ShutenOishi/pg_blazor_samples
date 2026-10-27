@@ -1,3 +1,13 @@
+## 2026-10-27 第20組096〜100・復習・第8段階概要の全面改稿（PDF停止継続）
+
+- **改稿前の受入確定：** Draft PR #36 HEAD `0218641d342a00c9e0609653417ffa651f6c9bbf`。認証済みGitHub GETで同一HEADの[アプリCI 40517851741](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40517851741) は **SUCCESS（全3ジョブ：Windows Server 2025 Release/xUnit/静的教材検査、Ubuntu 24.04 Release/xUnit/Chrome、PostgreSQL18実DB・既存安全拒否）**。先にin_progressだったPostgreSQL18ジョブも `completed/success` をGETで確認。[PDF Workflow 40517851952](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40517851952) は同一HEADで **SKIPPED**。成功済みRunは再実行しない。これにより前工程の**95/110、通常復習19/22、段階概要7/9**を受入確定。
+- **今回の全面改稿：** 学習順096〜100（旧Step71〜75）を実`WindowsUserAccessService`、`SecuredLearningService`、`LearningAuditService`、`Program.cs`、PostgreSQL18架空台帳・監査SQLと照合して全面改稿。各本文3,300文字以上、実コード2例以上、WinForms＋Dapper比較、操作手順、障害の切り分け、演習と詳しい解答を整備。第20組復習`docs/columns/column71-75.md`と第8段階概要`docs/course-v3/stages/stage08.md`も同水準に改稿。第8段階の全10本文はまだ完成ではなく、101〜105は次工程。
+- **画面・品質ゲート：** 5つの実Razorの比較表と前後リンク、第20組復習表、新しい第8段階概要Razor、Home/NavMenu、旧80URLを維持。Web目次とPDF目次の**ソースのみ**を同期。静的`scripts/check-learning-materials.py`とChrome`scripts/browser-smoke.cjs`へ同一内容の検査を追加。既存サービスのAD本人認証／正本DBの操作・行単位都度認可、監査・権限失効・xmin・FDW原子性不明時の安全拒否は緩和しない。
+- **今回の予定進捗：新規初稿30/30、全面改稿100/110、通常復習20/22、段階概要8/9。** `curriculum.json`の改稿状態を同期したが、**この記録更新を含む新しい同一HEAD**でWindows/Linux Release、xUnit、Chrome実操作、PostgreSQL18実DBと既存安全拒否のアプリ全3ジョブSUCCESS・PDF Workflow SKIPPEDが成立したときだけ最終受入とする。CI結果は別途PRコメントへ記録し、旧HEADの成功を新HEADへ流用しない。
+- **絶対禁止継続：** ユーザーの明示再開指示までPDF生成・再生成、Preview Release・正式Release更新を一切しない。PDF停止Workflowを維持する。Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID `680751957`、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`を変更しない。Draft PR #36のままmainへマージしない。
+- **未受入：** 実AD/IIS/Kerberos/FDW、Data Protection鍵の本番保護、監査運用、1万人超の登録・同時利用者・circuit・DBプールの負荷および復旧の現地実機受入は未完了。CIの架空PrincipalやChromeを本番受入と扱わない。
+- **次工程：** 学習順101〜105（旧Step76〜80）と第21組復習を各3,300文字以上・実コード2例・比較表・演習詳答で全面改稿。第8段階概要は今回改稿済みなので再改稿しない。Razor・目次ソース・NavMenu・前後リンク・静的検査・Chromeを同期し、同一最新HEADの全CIとPDF SKIPPEDで受入。次回も短縮引き継ぎプロンプトを提示する。
+
 ## 2026-10-27 第19組091〜095・復習の全面改稿実装（PDF停止継続）
 
 - **編集前GitHub正本HEAD：`55cd2400b8f91004515587721e820c5d60760840`**。PR #36はDraft/open・main未マージ。認証済みGETで進捗、ロードマップ、curriculum、引き継ぎ、PRコメント #6442657157と同一HEADのアプリCI [40508494099](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40508494099) SUCCESS（全3ジョブ）、PDF Workflow [40508493970](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40508493970) SKIPPEDを確認。成功した旧CIは再実行しない。
