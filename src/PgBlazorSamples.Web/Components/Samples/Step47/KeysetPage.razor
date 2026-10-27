@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningAdvancedPageService Pages
 <PageTitle>ステップ47：キーセットページング｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ47 / オフセットとキーセット</p>
+<p class="eyebrow">学習順067（旧ステップ47） / オフセットとキーセット</p>
 <h1>最後の番号から次の10件を取得する</h1>
 <p>ページ番号をSkipで飛ばさず、最後に表示した一意の番号より後だけ読みます。</p>
 <MudPaper Class="pa-4">
@@ -19,6 +19,12 @@
     </MudTable>
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順067：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-067"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>次ページのキーセット</td><td>DapperでWHERE id > @cursorを指定</td><td>Where(Id > cursor)とTake(size+1)で取得</td></tr>
+    <tr><td>DBと業務の安全性</td><td>SQLと台帳に操作・行の認可条件を追加する</td><td>DTO取得と既存台帳の都度認可・監査を区別する</td></tr></tbody></table>
+    <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順067で確認します。</p>
+
     <h2>適用範囲</h2>
     <p>IDの昇順だけに固定したキーセットです。任意の複数列ソートで運用する場合は全ソートキーと一意IDをカーソルに含めます。途中で条件を変更したらカーソルをリセットしてください。</p>
 </section>

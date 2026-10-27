@@ -949,6 +949,28 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "step50.png") });
         await page.goto(base + "/learn/column/50");
         await page.getByText("JOIN・キーセット・仮想化を要件から選ぶ").waitFor();
+        // 第14組の比較表、学習順、旧URL、Web目次と前後導線を検証。
+        await page.goto(base + "/learn/46");
+        await page.locator('[data-testid="stage06-compare-066"]').waitFor();
+        await page.goto(base + "/learn/47");
+        await page.locator('[data-testid="stage06-compare-067"]').waitFor();
+        await page.goto(base + "/learn/48");
+        await page.locator('[data-testid="stage06-compare-068"]').waitFor();
+        await page.goto(base + "/learn/49");
+        await page.locator('[data-testid="stage06-compare-069"]').waitFor();
+        await page.goto(base + "/learn/50");
+        await page.locator('[data-testid="stage06-compare-070"]').waitFor();
+        await page.goto(base + "/learn/46");
+        await page.getByRole("link", { name: "前へ：第13組の復習" }).waitFor();
+        await page.goto(base + "/learn/50");
+        await page.getByRole("link", { name: "第14組の復習：一覧方式と検索UX" }).waitFor();
+        await page.goto(base + "/learn/column/50");
+        await page.locator('[data-testid="stage06-review14-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順071" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順066〜070を復習" }).waitFor();
+        console.log("第14組の比較表・復習・Web目次をChromeで確認");
+
         console.log("ステップ46〜50・コラム11：画面と操作の確認に成功");
 
         // Step51〜55：DBなしでも未設定状態・画面ナビ・コラムの表示を確認。

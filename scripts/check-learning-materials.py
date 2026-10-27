@@ -913,6 +913,52 @@ if (-1 in positions13 or positions13 != sorted(positions13)
         or not (review12_pos < stage06_pos < positions13[0] < positions13[-1] < review13_pos < step46_pos)):
     missing.append("PDF目次ソースの第12組→第6段階→061〜065→第13組→066順が不正")
 
+# 第14組066〜070：PDF停止中も教材本文と索引ソースのみを検査する。
+unit14 = [
+    ("step46", "docs/samples/step46.md", "Step46/RelatedDtoPage.razor"),
+    ("step47", "docs/samples/step47.md", "Step47/KeysetPage.razor"),
+    ("step48", "docs/samples/step48.md", "Step48/VirtualizeItemsPage.razor"),
+    ("step49", "docs/samples/step49.md", "Step49/VirtualizeDatabasePage.razor"),
+    ("step50", "docs/samples/step50.md", "Step50/SearchUxPage.razor"),
+]
+if [item["id"] for item in ordered[65:70]] != [entry[0] for entry in unit14]:
+    missing.append("第14組066〜070の学習順が不正")
+for sequence, (_, relative, page_name) in enumerate(unit14, start=66):
+    body = (ROOT / relative).read_text(encoding="utf-8")
+    razor = (SAMPLES / page_name).read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(relative + "：3300文字以上と比較・診断表が不足")
+    if body.count(chr(96) * 3) < 4 or body.count(chr(96) * 3) % 2:
+        missing.append(relative + "：実コード2例以上が必要")
+    for keyword in ("WinForms", "Dapper", "PostgreSQL", "操作", "演習", "詳しい解答"):
+        if keyword not in body:
+            missing.append(relative + "：説明不足 " + keyword)
+    if f"学習順{sequence:03d}" not in razor or f'data-testid="stage06-compare-{sequence:03d}"' not in razor:
+        missing.append(page_name + "：Razorの学習順・比較表が不一致")
+    if f"学習順{sequence:03d}を開く" not in home or f"学習順{sequence:03d}：" not in nav_eighth:
+        missing.append(relative + "：Home/NavMenuの学習順が不一致")
+    if f'"{relative}"' not in PDF_SCRIPT or f"学習順{sequence:03d}：" not in PDF_SCRIPT:
+        missing.append(relative + "：PDF目次ソースに学習順がない")
+review14_path = "docs/columns/column46-50.md"
+review14 = (ROOT / review14_path).read_text(encoding="utf-8")
+review14_view = (SAMPLES / "Columns/Column50Page.razor").read_text(encoding="utf-8")
+if len(review14) < 3300 or review14.count("| ---") < 2 or review14.count(chr(96) * 3) < 4 or "詳しい解答" not in review14:
+    missing.append("第14組復習の長文・比較表・コード・詳細解答が不足")
+if 'data-testid="stage06-review14-table"' not in review14_view or 'href="/learn/51"' not in review14_view:
+    missing.append("第14組復習Razorまたは学習順071への導線が不足")
+if 'href="/learn/column/45"' not in (SAMPLES / "Step46/RelatedDtoPage.razor").read_text(encoding="utf-8"):
+    missing.append("066から第13組復習への前後導線不足")
+if "学習順066〜070を復習" not in home or "第14組の復習：066〜070" not in nav_eighth:
+    missing.append("第14組のHome/NavMenu復習導線不足")
+positions14 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit14]
+review14_pos = PDF_SCRIPT.find(f'"{review14_path}"')
+review13_pos = PDF_SCRIPT.find('"docs/columns/column41-45.md"')
+next71_pos = PDF_SCRIPT.find('"docs/samples/step51.md"')
+if -1 in positions14 or positions14 != sorted(positions14) or not (
+    review13_pos < positions14[0] < positions14[-1] < review14_pos < next71_pos
+):
+    missing.append("第13組→066〜070→第14組→071のPDF索引順が不正")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

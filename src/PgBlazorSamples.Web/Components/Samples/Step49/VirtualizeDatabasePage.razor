@@ -4,7 +4,7 @@
 @inject LearningAdvancedPageService Pages
 @inject LearningDbService DbSettings
 <PageTitle>ステップ49：DB側の仮想化｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ49 / VirtualizeServerData</p>
+<p class="eyebrow">学習順069（旧ステップ49） / VirtualizeServerData</p>
 <h1>スクロール範囲だけPostgreSQLから取得する</h1>
 <p>GridStateVirtualizeのStartIndex・CountをEF CoreのSkip・Takeへ渡します。ここでは番号順を固定し、列ソートは無効にします。</p>
 <p role="status" data-testid="step49-state">@_message</p>
@@ -19,6 +19,12 @@
     </MudDataGrid>
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順069：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-069"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>DB側の範囲取得</td><td>スクロール位置をOFFSETとLIMITに変換</td><td>VirtualizeServerDataからSkip/Takeへ引き渡す</td></tr>
+    <tr><td>DBと業務の安全性</td><td>SQLと台帳に操作・行の認可条件を追加する</td><td>DTO取得と既存台帳の都度認可・監査を区別する</td></tr></tbody></table>
+    <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順069で確認します。</p>
+
     <h2>スクロールとページングを混同しない</h2>
     <p>表示領域の高さを固定し、要求されるCountの範囲だけ取得します。キャンセルはCountAsync・ToListAsyncにも渡します。極端に深いスクロールではOFFSETの負荷が残り、連続探索にはStep47が向きます。</p>
 </section>

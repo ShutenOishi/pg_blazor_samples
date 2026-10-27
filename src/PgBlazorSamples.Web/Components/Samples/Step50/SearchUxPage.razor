@@ -5,7 +5,7 @@
 @inject LearningPageService Pages
 @inject LearningDbService DbSettings
 <PageTitle>ステップ50：検索UXと再試行｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ50 / 検索UX・障害対策</p>
+<p class="eyebrow">学習順070（旧ステップ50） / 検索UX・障害対策</p>
 <h1>入力を待ってから検索し、障害時は再試行する</h1>
 <MudPaper Class="pa-4">
     <MudTextField T="string" Label="課題名で検索（400ミリ秒待機）"
@@ -28,11 +28,17 @@
     </MudDataGrid>
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順070：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-070"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>400ミリ秒の検索待機</td><td>Timerで入力待機してSQLを発行</td><td>Task.DelayとCancellationTokenで検索要求を制御</td></tr>
+    <tr><td>DBと業務の安全性</td><td>SQLと台帳に操作・行の認可条件を追加する</td><td>DTO取得と既存台帳の都度認可・監査を区別する</td></tr></tbody></table>
+    <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順070で確認します。</p>
+
     <h2>待機・空状態・障害の区別</h2>
     <p>入力のたびに直ちにDB検索せず400ミリ秒待機し、次の入力があれば前の待機を中止します。DBアクセスの中断はServerDataのCancellationTokenへ委ねます。0件とDB障害を異なる日本語で案内し、利用者が再試行できます。</p>
     <p>検索条件とDB上の認可は別の概念です。業務公開前には認可条件をCountとItemsの両方へ適用します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/49">前へ：ステップ49</a><a href="/learn/column/50">コラム11：一覧方式とUXの選び方</a></div>
+<div class="page-navigation"><a href="/learn/49">前へ：ステップ49</a><a href="/learn/column/50">第14組の復習：一覧方式と検索UX</a></div>
 @code {
     private MudDataGrid<LearningTaskRow>? _grid;
     private CancellationTokenSource? _pendingSearch;

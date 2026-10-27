@@ -1,8 +1,13 @@
 @page "/learn/column/50"
-<PageTitle>学習コラム11：一覧と仮想化｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム11 / Step46〜50</p>
+<PageTitle>第14組の復習：一覧と仮想化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第14組の復習 / 学習順066〜070</p>
 <h1>JOIN・キーセット・仮想化を要件から選ぶ</h1>
 <section class="lesson-details">
+    <h2>第14組：学習順066〜070の比較</h2>
+    <table data-testid="stage06-review14-table"><thead><tr><th>学習順</th><th>テーマ</th></tr></thead>
+    <tbody><tr><td>066</td><td>関連DTO射影</td></tr><tr><td>067</td><td>IDキーセット</td></tr>
+    <tr><td>068</td><td>Items仮想化</td></tr><tr><td>069</td><td>DB範囲仮想化</td></tr>
+    <tr><td>070</td><td>検索待機・取消</td></tr></tbody></table>
     <h2>5ステップのつながり</h2>
     <p>関連表をDTOへ射影し、連続閲覧はキーセット、既存Itemsの描画はVirtualize、DBと連動するスクロールはVirtualizeServerData、入力中の検索はデバウンスと取消を使います。</p>
     <table><thead><tr><th>要件</th><th>選択</th></tr></thead>
@@ -18,4 +23,4 @@
     <details><summary>確認：N+1を避けるには？</summary><p>行ごとの個別問い合わせではなく、必要な関連列をSelectでDTOへ射影します。</p></details>
     <details><summary>確認：DBの一部取得はどの方式？</summary><p>VirtualizeServerDataで開始位置・件数をサービスに渡します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/50">ステップ50へ戻る</a><a href="/">学習目次へ戻る</a></div>
+<div class="page-navigation"><a href="/learn/50">ステップ50へ戻る</a><a href="/learn/51">次へ：学習順071</a><a href="/">学習目次へ戻る</a></div>
