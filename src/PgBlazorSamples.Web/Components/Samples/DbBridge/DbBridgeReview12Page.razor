@@ -1,7 +1,22 @@
 @page "/learn/column/db-bridge-60"
 <PageTitle>第12組の復習：トランザクション・xmin・安全SQL｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順56〜60 / 第12組</p><h1>第12組の復習：トランザクション・xmin・安全SQL</h1>
-<section class="lesson-details"><ol><li>トランザクション</li><li>xmin</li><li>既存DBとFDW</li><li>FromSql/SqlQuery</li><li>実接続</li></ol>
-<details><summary>FDW越しの監査が原子的か分からない更新を実行してよいですか？</summary><p>いいえ。原子性と認可を保証できなければ更新を拒否します。</p></details>
-<p>実DBへアクセスした操作か、モデル・生成SQLだけを検査した操作かを区別してください。</p></section>
-<div class="page-navigation"><a href="/learn/40">前へ</a><a href="/learn/41">次へ</a></div>
+<p class="eyebrow">学習順056〜060 / 第12組</p>
+<h1>第12組の復習：トランザクション・xmin・安全SQL</h1>
+<section class="lesson-details">
+    <p>5つの操作をWinForms＋Dapperと比較します。画面の成功と専用PostgreSQL18の成功を区別し、認可・監査の省略を認めません。</p>
+    <table data-testid="dbbridge12-review-table">
+        <caption>第12組の学習順とDBへの実アクセス</caption>
+        <thead><tr><th scope="col">学習順</th><th scope="col">目的</th><th scope="col">DBへの接続</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">056</th><td>トランザクション</td><td>開発専用DBに2件追加</td></tr>
+            <tr><th scope="row">057</th><td>xmin競合</td><td>開発専用DBを読込・更新</td></tr>
+            <tr><th scope="row">058</th><td>既存台帳・キーなしビュー</td><td>モデルのみ・接続なし</td></tr>
+            <tr><th scope="row">059</th><td>FromSql／SqlQuery</td><td>生成SQLのみ・接続なし</td></tr>
+            <tr><th scope="row">060</th><td>PostgreSQL18実接続</td><td>開発専用DBから件数と行を検索</td></tr>
+        </tbody>
+    </table>
+    <details><summary>FDW越しの監査が原子的か不明でも更新できますか？</summary><p>いいえ。原子性・認可を保証できなければ更新を拒否します。</p></details>
+    <details><summary>ToQueryStringに成功したらDB結合試験も成功ですか？</summary><p>いいえ。実接続とSQLの型・DDL・xmin検証を別に行います。</p></details>
+    <p>詳しい演習と解答は第12組のMarkdown教材に記載しています。古い画面のVersionの再利用、匿名画面からの台帳参照、値のSQL構文への連結を避けてください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/40">前へ：学習順060</a><a href="/learn/41">次へ：学習順061</a></div>

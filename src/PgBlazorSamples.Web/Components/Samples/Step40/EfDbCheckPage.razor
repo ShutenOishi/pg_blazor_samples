@@ -1,7 +1,7 @@
 @page "/learn/40"
 @inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
 <PageTitle>ステップ40：PostgreSQL結合確認｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ40 / DB結合確認</p>
+<p class="eyebrow">第5段階 / 学習順060 / DB結合確認</p>
 <h1>DBの実接続と異常系を確認する</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CheckAsync">開発用DBへ接続して検索</MudButton>
@@ -12,6 +12,24 @@
     <p>画面が表示されたことはDB統合テスト成功を意味しません。開発用PostgreSQL 18を準備し、DDL、日付・Range・MultirangeのSQL、xmin競合を順番に検証します。</p>
     <p>database/testsに含むSQLをpsqlで実行し、EXPLAIN (ANALYZE, BUFFERS)で必要な索引を検討します。DBが未設定なら結果に未設定と表示します。</p>
     <p>この先は一覧UIとPostgreSQL連携の20ステップです。先にMudBlazorの用途別コンポーネントガイドを読んでください。</p>
+</section>
+
+<section class="lesson-details" aria-label="学習順060の比較と切り分け">
+    <h2>学習順060：WinForms＋Dapperとの比較</h2>
+    <table data-testid="dbbridge12-compare-060">
+        <caption>学習順060の操作と実行場所</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">Blazor＋EF Core</th><th scope="col">確認点</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">操作</th><td>開発用DBへSELECT</td><td>ブラウザーとサーバーの責任を分ける</td></tr>
+            <tr><th scope="row">WinForms＋Dapper</th><td>SQL組み立て成功</td><td>通信前の検証に限る</td></tr>
+            <tr><th scope="row">安全条件</th><td>既存台帳の都度認可・監査・安全拒否</td><td>学習操作と実業務の認可を混同しない</td></tr>
+        </tbody>
+    </table>
+    <h2>失敗の切り分け</h2>
+    <table><thead><tr><th scope="col">症状</th><th scope="col">確認内容</th></tr></thead>
+    <tbody><tr><th scope="row">PostgreSQLは未設定</th><td>サーバー設定とモードを確認</td></tr>
+    <tr><th scope="row">DBへ接続できません</th><td>DBログとアプリログを確認</td></tr></tbody></table>
+    <p>教材の説明と詳しい演習解答を確認してください。認証済みでも台帳認可と監査が成立しない業務処理は拒否します。</p>
 </section>
 <div class="page-navigation"><a href="/learn/39">前へ：ステップ39</a><a href="/learn/column/db-bridge-60">コラム09：DB編のまとめ</a><a href="/learn/column/mudblazor-guide">特別コラム：MudBlazor用途別ガイド</a></div>
 @code {
