@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Data
 
 <PageTitle>ステップ36：EF CoreのCRUD｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ36 / 登録・更新・削除</p>
+<p class="eyebrow">学習順054 / 旧ステップ36・登録・更新・削除</p>
 <h1>課題を登録し、状態を更新・削除する</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudTextField T="string" Label="課題名" @bind-Value="_title" />
@@ -22,6 +22,18 @@
     </MudTable>
 </MudPaper>
 <p>演習は専用の開発DBだけで行います。更新・削除前には最新のVersionを利用し、競合時には再読み込みします。後続では業務認可と確認ダイアログを追加します。</p>
+<section class="lesson-details" aria-label="学習順054の比較">
+    <h2>学習順054：WinForms＋DapperとBlazorの処理を比較する</h2>
+    <table data-testid="dbbridge11-compare-054">
+        <caption>学習順054の処理境界</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理</th><td>フォームイベントとQuery／Execute</td><td>Add・Toggle・DeleteとSaveChanges</td></tr>
+            <tr><th scope="row">確認</th><td>SQLの実行と戻り値を確認</td><td>開発DBのみ、xmin競合を拒否</td></tr>
+        </tbody>
+    </table>
+    <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
+</section>
 <div class="page-navigation"><a href="/learn/db-bridge-03">前へ：学習順053</a><a href="/learn/37">次へ：ステップ37</a></div>
 @code {
     private string _title = "";

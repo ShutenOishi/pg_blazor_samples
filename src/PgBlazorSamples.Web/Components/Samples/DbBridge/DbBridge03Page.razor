@@ -2,13 +2,25 @@
 @using PgBlazorSamples.Web.Data
 @inject IDbContextFactory<LearningDbContext> Factory
 @page "/learn/db-bridge-03"
-<PageTitle>学習順53：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">第5段階 / 学習順53</p><h1>Dapperの接続／ExecuteとDbContext・追跡・SaveChanges</h1>
+<PageTitle>学習順053：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順053</p><h1>Dapperの接続／ExecuteとDbContext・追跡・SaveChanges</h1>
 <p>DapperのExecuteは明示SQLを実行します。EF CoreではEntityの追跡状態を管理し、SaveChangesでDB操作を実行します。</p>
 <section class="lesson-details"><h2>変更追跡の状態を観察する</h2>
 <button type="button" @onclick="Inspect">追跡状態を再現する</button>
 <p role="status" data-testid="dbbridge03-state">@state</p>
 <p>生成時はDetached、追加時はAdded、Clear後はDetachedです。ここではSaveChangesを呼ばないため、DBは変更しません。</p></section>
+<section class="lesson-details" aria-label="学習順053の比較">
+    <h2>学習順053：WinForms＋DapperとBlazorの処理を比較する</h2>
+    <table data-testid="dbbridge11-compare-053">
+        <caption>学習順053の処理境界</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理</th><td>フォームイベントとQuery／Execute</td><td>Detached→Added→Detachedを確認</td></tr>
+            <tr><th scope="row">確認</th><td>SQLの実行と戻り値を確認</td><td>SaveChangesを呼ばず保存なし</td></tr>
+        </tbody>
+    </table>
+    <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
+</section>
 <div class="page-navigation"><a href="/learn/db-bridge-02">前へ</a><a href="/learn/36">次へ</a></div>
 @code {
     private string state = "未実行";
