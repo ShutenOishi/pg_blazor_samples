@@ -132,6 +132,7 @@ CHAPTERS = [
     ("学習順079：EXPLAINと応答時間計測", "docs/samples/step59.md"),
     ("学習順080：一覧パターンを要件から選ぶ", "docs/samples/step60.md"),
     ("第16組の復習：期間・キャッシュ・集計・性能・選定", "docs/columns/column56-60.md"),
+# 学習順081〜085・復習17・概要7のソース順だけを維持。PDF生成は禁止のまま。
     ("第7段階の概要：Webセキュリティ・AD認証とDB認可", "docs/course-v3/stages/stage07.md"),
     ("学習順081：Windows認証・Cookie・HTTP・circuit", "docs/course-v3/lessons/security-01.md"),
     ("学習順082：Middlewareの順序・HTTPS・IISの経路", "docs/course-v3/lessons/security-02.md"),

@@ -1048,6 +1048,50 @@ if -1 in positions16 or positions16 != sorted(positions16) or not (
 ):
     missing.append("第15組→076〜080→第16組→081のPDF目次ソース順序が不正")
 
+
+# 第17組081〜085：最終全面改稿の文章量・コード・画面と索引を検査する。
+security_unit17 = [(81, "security-01"), (82, "security-02"), (83, "security-03"), (84, "security-04"), (85, "security-05")]
+if [item["id"] for item in ordered[80:85]] != [key for _, key in security_unit17]:
+    missing.append("学習順081〜085が第17組と一致しません")
+for sequence, lesson_id in security_unit17:
+    relative = f"docs/course-v3/lessons/{lesson_id}.md"
+    body = (ROOT / relative).read_text(encoding="utf-8")
+    view = (SAMPLES / "Security" / f"Security0{sequence - 80}Page.razor").read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96)*3) < 4:
+        missing.append(relative + "：3300字・表・実コード2件が不足")
+    for term in ("WinForms", "Dapper", "操作手順", "障害の切り分け", "詳しい解答"):
+        if term not in body:
+            missing.append(relative + "：" + term + "不足")
+    if f'data-testid="stage07-compare-{sequence}"' not in view:
+        missing.append(relative + "：Razor比較表不足")
+    if f"学習順{sequence:03d}を開く" not in home or f"学習順{sequence:03d}：" not in nav_eighth:
+        missing.append(relative + "：Web目次とNavMenuの学習順不一致")
+    if f'"{relative}"' not in PDF_SCRIPT or f"学習順{sequence:03d}：" not in PDF_SCRIPT:
+        missing.append(relative + "：PDF目次ソースと本文の照合失敗")
+for relative in ("docs/course-v3/reviews/review-17.md", "docs/course-v3/stages/stage07.md"):
+    body = (ROOT / relative).read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96)*3) < 4:
+        missing.append(relative + "：3300字・表・実コード2件が不足")
+    if "WinForms" not in body or "Dapper" not in body or "障害の切り分け" not in body or "詳しい解答" not in body:
+        missing.append(relative + "：比較・切り分け・詳答が不足")
+rev17_view = (SAMPLES / "Security/SecurityReview17Page.razor").read_text(encoding="utf-8")
+stage7_view = (SAMPLES / "Security/SecurityOverviewPage.razor").read_text(encoding="utf-8")
+if 'data-testid="stage07-review17-table"' not in rev17_view or 'href="/learn/61"' not in rev17_view:
+    missing.append("第17組の復習表または学習順086への導線不足")
+if 'data-testid="stage07-overview-table"' not in stage7_view or 'href="/learn/security-01"' not in stage7_view:
+    missing.append("第7段階の概要表または081への導線不足")
+if "学習順081〜085を復習する" not in home or "第17組の復習：081〜085" not in nav_eighth:
+    missing.append("第17組のHome/NavMenu導線不足")
+positions17 = [PDF_SCRIPT.find(f'"docs/course-v3/lessons/{key}.md"') for _, key in security_unit17]
+stage7_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage07.md"')
+review17_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-17.md"')
+if -1 in positions17 or positions17 != sorted(positions17) or not (
+    PDF_SCRIPT.find('"docs/columns/column56-60.md"') < stage7_pos
+    < positions17[0] < positions17[-1] < review17_pos
+    < PDF_SCRIPT.find('"docs/samples/step61.md"')
+):
+    missing.append("第16組→第7段階概要→081〜085→第17組→086のPDF目次ソース順が不正")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

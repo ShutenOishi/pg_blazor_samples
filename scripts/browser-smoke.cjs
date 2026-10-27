@@ -1046,6 +1046,26 @@ async function waitText(page, selector, expected) {
         console.log("第16組076〜080の比較表・復習と前後導線をChromeで確認");
 
 
+
+        // 第17組：改稿画面の比較表・段階概要・前後リンク・復習表をChromeで確認する。
+        await page.goto(base + "/learn/stage/security");
+        await page.locator('[data-testid="stage07-overview-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順081" }).waitFor();
+        for (let n = 81; n <= 85; n++) {
+            await page.goto(base + "/learn/security-0" + (n - 80));
+            await page.locator('[data-testid="stage07-compare-' + n + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/security-01");
+        await page.getByRole("link", { name: "前へ：第16組の復習" }).waitFor();
+        await page.goto(base + "/learn/security-05");
+        await page.getByRole("link", { name: "次へ：第17組の復習" }).waitFor();
+        await page.goto(base + "/learn/column/security-85");
+        await page.locator('[data-testid="stage07-review17-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順086" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順081〜085を復習する" }).waitFor();
+        console.log("第17組081〜085の比較表・復習と前後導線をChromeで確認");
+
         // Step61〜65：未認証のままDB照合や権限付与を行わず、必ず拒否する。
         for (let step = 61; step <= 65; step++) {
             await page.goto(base + "/learn/" + step);
