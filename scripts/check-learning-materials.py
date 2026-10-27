@@ -409,7 +409,7 @@ next_group_pos = PDF_SCRIPT.find('"docs/samples/step09.md"')
 if -1 in third_pdf_indices or third_pdf_indices != sorted(third_pdf_indices) or not(third_pdf_indices[-1] < third_review_pos < next_group_pos):
     missing.append("第3組のPDF章順または復習位置が不正")
 # ホームは新学習順の正規URLへ案内する。以前のURLは内部の互換用経路。
-canonical_lookup = {item["app_url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
+canonical_lookup = {item["url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
 home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
 def indexed_home(url):
     canonical = canonical_lookup.get(url, url)
