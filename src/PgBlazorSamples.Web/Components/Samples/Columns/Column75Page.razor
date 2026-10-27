@@ -1,6 +1,6 @@
 @page "/learn/column/75"
-<PageTitle>学習コラム16：認証と運用の判断｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム16 / ステップ71〜75</p>
+<PageTitle>第20組の復習：認証と運用の判断｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第20組の復習 / 学習順096〜100（旧Step71〜75）</p>
 <h1>認証・認可・監査の本番移行を判断する</h1>
 <section class="lesson-details">
     <h2>5ステップのつながり</h2>
@@ -10,5 +10,20 @@
     <details><summary>FDWへSELECT FOR UPDATEを発行すればローカル更新も原子的？</summary><p>いいえ。接続先のトランザクション境界を別途確認し、保証できなければ拒否します。</p></details>
     <details><summary>監査SQLの失敗後も業務更新してよい？</summary><p>いいえ。同一トランザクションでロールバックします。</p></details>
     <details><summary>Chrome CIの成功でKerberosは受入済み？</summary><p>いいえ。実AD・IIS・SPN・TLSとCookie鍵を実機で検証します。</p></details>
+
+    <h2>第20組の復習表</h2>
+    <table data-testid="stage08-review20-table">
+        <caption>学習順096〜100と本番受入の区分</caption>
+        <thead><tr><th scope="col">学習順</th><th scope="col">確認</th><th scope="col">安全な結果</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">096</th><td>正規化と重複</td><td>0件・2件以上・無効なら拒否</td></tr>
+            <tr><th scope="row">097</th><td>Windows専用HTTP</td><td>GET発行なし、CSRF付きPOSTだけCookie</td></tr>
+            <tr><th scope="row">098</th><td>台帳ロックとxmin</td><td>失効・競合・FDW原子性不明なら拒否</td></tr>
+            <tr><th scope="row">099</th><td>本人・操作・対象・結果の永続監査</td><td>監査失敗なら業務データ非公開・更新取消</td></tr>
+            <tr><th scope="row">100</th><td>本番実機受入</td><td>CIとIIS/AD/FDW/負荷を区別</td></tr>
+        </tbody>
+    </table>
+    <p>WinForms＋Dapperでも、認証済み本人の確認、既存DB台帳での認可、同一トランザクション監査が必要です。Blazorでは画面のボタン状態やCookieの権限Claimで代用しません。</p>
+    <details><summary>画面を開いた後にDB台帳で編集権限が失効しました。保存してよいですか？</summary><p>いいえ。保存直前に操作・行単位の都度認可と台帳ロック・xmin・監査を確認し、失効または保証不明なら拒否します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/75">ステップ75へ戻る</a><a href="/">目次へ</a></div>
+<div class="page-navigation"><a href="/learn/75">前へ：学習順100</a><a href="/">目次へ</a><a href="/learn/76">次へ：学習順101</a></div>
