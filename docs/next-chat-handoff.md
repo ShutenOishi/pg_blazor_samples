@@ -1,3 +1,12 @@
+## 2026-10-27 第15組受入・次チャットへの引き継ぎ（PDF生成停止）
+
+- GitHubを唯一の正本として、Draft PR #36の最新HEAD、`docs/course-v3/progress.md`、`full-rewrite-roadmap.md`、`curriculum.json`、本引き継ぎ、最新PRコメント、同一HEADの全CIを**認証済みGET**で確認する。
+- **直近の実装HEAD：`b67bc7433c9f40fd5950f94d107478d48e61b8dc`**。アプリCI [40493578738](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40493578738)は全3ジョブSUCCESS、PDF Workflow [40493578748](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40493578748)はSKIPPED。**本記録更新の新HEADはさらに検証すること。**
+- 進捗は新規初稿30/30、全面改稿75/110、通常復習15/22、段階概要6/9。第6段階概要は改稿済み。第15組071〜075の教材・Razor・Web目次・PDF目次ソース・Chrome・静的検査の同期は実装HEADで完了。
+- **最優先：ユーザーの明示的な再開指示までPDFを生成・再生成せず、Preview/正式Releaseを更新しない。** PDF停止Workflowを維持。既存Preview生成元`5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`のまま。PDF関連受入は保留。
+- **次工程：学習順076〜080（旧Step56〜60）と第16組復習を全面改稿。** 実Razor/C#/SQLに照らして各本文3,300字以上、実コード2件以上、WinForms＋Dapper比較・表・操作・診断・演習と詳答を充実する。Razor/旧URL/Web/PDF目次**ソース**/NavMenu/前後リンク・静的品質検査・Chromeを同期し、新記録HEADのWindows/Linux Release、xUnit、Chrome、PG18実DB、安全拒否の全3ジョブSUCCESS後のみ80/110・16/22へ進む。
+- Draft PR #36・main未マージ・旧80 URL・AD本人認証とユーザー名取得・既存DB台帳での操作/行ごと都度認可・監査・失効/競合/監査障害の安全拒否を維持。実AD/IIS/Kerberos/FDW・1万人超負荷の実機受入は未完了。完了したらPRコメントに証跡・残課題・次工程を記録し、次チャット用のコピーボタン付き短縮プロンプトを返す。
+
 ## 2026-10-27 第14組066〜070・通常復習の全面改稿（PDF停止継続）
 
 - **本文・画面同期実装HEAD：`51243bbe6046456e5140959834c72eba5a37e966`**。初稿5本は合計30/30のまま。学習順066〜070（旧Step46〜50）は **4,731／4,703／4,673／4,941／5,091文字**へ全面改稿、第14組復習は **4,036文字**。各本文は実コード2例、WinForms＋Dapper比較、操作、障害切り分け、演習と詳しい解答を含む。
