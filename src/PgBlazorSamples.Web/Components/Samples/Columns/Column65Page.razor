@@ -1,10 +1,10 @@
 @page "/learn/column/65"
 <PageTitle>学習コラム14：Windows認証とDB認可｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム14 / Step61〜65</p>
+<p class="eyebrow">第18組の復習 / 学習順086〜090（旧Step61〜65）</p>
 <h1>本人認証と業務権限は別々に確認する</h1>
 <section class="lesson-details">
     <h2>5ステップを一連の流れで考える</h2>
-    <table><thead><tr><th>ステップ</th><th>入力</th><th>拒否する条件</th></tr></thead><tbody>
+    <table data-testid="stage07-review18-table"><thead><tr><th>ステップ</th><th>入力</th><th>拒否する条件</th></tr></thead><tbody>
         <tr><td>61</td><td>Windows認証</td><td>未認証・認証ハンドラーなし</td></tr>
         <tr><td>62</td><td>認証済みPrincipal</td><td>ドメイン付きユーザー名なし・不正形式・偽装値</td></tr>
         <tr><td>63</td><td>ドメイン付きユーザー名 → 既存利用者台帳</td><td>既存台帳に該当なし・重複・接続障害</td></tr>
@@ -16,4 +16,4 @@
     <details><summary>Q3：ボタンを非表示にすれば権限制御が完成する？</summary><p>いいえ。Step66〜70で画面とサービス両方を保護し、監査します。</p></details>
     <p>AD/IISの実機認証はCIでは代用できません。Windows Server 2025の検証環境でStep70として確認します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/65">ステップ65へ戻る</a><a href="/">学習目次へ戻る</a></div>
+<div class="page-navigation"><a href="/learn/65">前へ：学習順090</a><a href="/learn/column/auth-at-scale">次へ：1万人規模の認証</a><a href="/">学習目次へ戻る</a></div>

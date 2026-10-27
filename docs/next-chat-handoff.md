@@ -1,3 +1,13 @@
+## 2026-10-27 学習順086〜090・第18組復習の全面改稿（PDF停止継続）
+
+- GitHub正本を認証済みGETで照合。改稿前HEAD a3c650f3993a52444e3a59ace40cf082839e282b、アプリCI 40503800141全3ジョブSUCCESS、PDF Workflow 40503800130 SKIPPED、PR #36はDraft/open・main未マージ。
+- 旧Step61〜65の5教材本文は4,927／5,108／5,069／4,946／5,139文字、第18組復習4,370文字へ全面改稿。実WindowsUserAccessService、LearningDbContext、既存CI台帳SQL、Razorを照合し、各3,300文字以上、C#コード2例、WinForms＋Dapper比較表、操作手順、障害の切り分け、演習と詳しい解答を追加。
+- 5画面のRazor比較表、第18組復習表、Home/NavMenu、学習順085→086〜090→第18組→特別コラムの前後リンク、旧80URL、Web目次、PDF目次のソースだけ、静的教材検査・Chromeを同期。第7段階概要は受入済みで変更しない。
+- 改稿後の予定進捗：新規初稿30/30、全面改稿90/110、通常復習18/22、段階概要7/9。**この記録更新後の最新HEADでアプリCI全3ジョブSUCCESS、PDF Workflow SKIPPEDを確認した場合だけ受入確定。** 先行成功CIを最新HEADへ流用しない。
+- ユーザーからの明示的な再開指示までPDF生成・再生成、Preview Release・正式Release更新を一切禁止。既存Preview生成元SHA 5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71、Asset ID 680751957、1,468,826バイト、SHA256 276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23fを変更しない。PDF停止Workflowを維持する。
+- ADは本人認証・ユーザー名取得まで。既存DB台帳が操作・行単位の都度認可の正本。監査、権限失効、xmin競合、DB/FDW原子性不明の安全拒否を維持。実AD/IIS/Kerberos/FDWと1万人超負荷の現地実機受入は未完了。
+- 次工程：学習順091〜095（旧Step66〜70）と第19組復習を全面改稿。第7段階概要は改稿済みで再改稿しない。Web/PDF目次ソース、Razor/NavMenu/前後リンク、静的検査、Chromeを同期して最新記録HEADの全CIを受け入れる。PDF停止継続。
+
 ## 2026-10-27 学習順081〜085・第17組復習・第7段階概要の実装CI受入（PDF停止継続）
 
 - **同期実装HEAD：`ecff71ed29c14edfef4530605f813b69b63b1689`**。同一HEADの[アプリCI Run 40503079212](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40503079212)は**全3ジョブSUCCESS**（Windows Server 2025 Release・xUnit・静的教材検査、Ubuntu 24.04 Release・xUnit・Chrome実操作、PostgreSQL18実DB結合＋既存安全拒否）。先行成功Runは再実行していない。

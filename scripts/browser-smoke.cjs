@@ -1066,6 +1066,20 @@ async function waitText(page, selector, expected) {
         await page.getByRole("link", { name: "学習順081〜085を復習する" }).waitFor();
         console.log("第17組081〜085の比較表・復習と前後導線をChromeで確認");
 
+        // 第18組：比較表・旧URL・復習導線をChromeで確認する。
+        await page.goto(base + "/learn/61");
+        await page.getByRole("link", { name: "前へ：第17組の復習" }).waitFor();
+        for (let seq = 86; seq <= 90; seq++) {
+            await page.goto(base + "/learn/" + (seq - 25));
+            await page.locator('[data-testid="stage07-compare-' + seq + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/column/65");
+        await page.locator('[data-testid="stage07-review18-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：1万人規模の認証" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順086〜090を復習する" }).waitFor();
+        console.log("第18組086〜090の比較表と前後導線をChromeで確認");
+
         // Step61〜65：未認証のままDB照合や権限付与を行わず、必ず拒否する。
         for (let step = 61; step <= 65; step++) {
             await page.goto(base + "/learn/" + step);
