@@ -1,0 +1,29 @@
+@page "/learn/web-04"
+
+<PageTitle>学習順004：開発者ツール｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">新しい第1段階 / 学習順004</p>
+<h1>開発者ツールでDOM・Network・Consoleを調べる</h1>
+<p>DOMはブラウザー内に構築されたHTMLの要素構造です。Networkは通信、Consoleは実行時の診断に使います。</p>
+<section class="lesson-details">
+    <h2>DOMの変化を観察する</h2>
+    <button type="button" @onclick="ToggleDetails">追加の説明を表示・非表示</button>
+    <p data-testid="web04-state">状態：@(expanded ? "表示中" : "非表示")</p>
+    @if (expanded)
+    {
+        <p id="web04-added" data-testid="web04-added">この段落はRazorの条件分岐でDOMに追加されました。</p>
+    }
+</section>
+<section class="lesson-details">
+    <h2>確認する3つの場所</h2>
+    <ol>
+        <li>Elements（要素）：追加された段落のidを探す。</li>
+        <li>Network（ネットワーク）：ページ再読み込み時のDocument要求を確認する。</li>
+        <li>Console（コンソール）：エラーの有無を確認する。ここでは意図的にエラーを出さない。</li>
+    </ol>
+    <p>開発者ツールで見える通信情報や認証情報を公開しないでください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/web-03">前へ</a><a href="/learn/web-05">次へ：デバッグ</a></div>
+@code {
+    private bool expanded;
+    private void ToggleDetails() => expanded = !expanded;
+}

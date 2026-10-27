@@ -1,0 +1,30 @@
+@page "/learn/security-02"
+<PageTitle>学習順082：Middlewareの順序・HTTPS・IISの経路｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第7段階 / 学習順082</p>
+<h1>Middlewareの順序・HTTPS・IISの経路</h1>
+
+<p>サーバーのProgram.csでは、HTTPS、認証、認可、Antiforgery、Razorコンポーネントの設定を区別します。IISとリバースプロキシのHTTPS終端、Forwarded Headersの信頼設定は実機で確認します。</p>
+<section class="lesson-details">
+<h2>模擬操作：安全な変更要求を考える</h2>
+<label><input type="checkbox" @bind="https" /> HTTPS経路で受け取った</label>
+<label><input type="checkbox" @bind="sameOrigin" /> 送信元を検証済み</label>
+<label><input type="checkbox" @bind="tokenChecked" /> Antiforgeryトークンを検証済み</label>
+<label><input type="checkbox" @bind="authorized" /> サーバー側で業務認可済み</label>
+<button type="button" @onclick="Evaluate">変更要求の模擬判定</button>
+<p data-testid="security02-result" role="status">@result</p>
+<h2>サーバー側の構成例</h2>
+<ol><li>信頼するプロキシ・HTTPS終端を決定し、転送ヘッダーを検証する。</li><li>UseAuthentication（Windows認証を有効にした場合）。</li><li>UseAuthorization。</li><li>UseAntiforgery。</li><li>Razorコンポーネントのマッピングと業務サービスの認可。</li></ol>
+<p>順序だけでHTTPSやIISの安全性が保証されるわけではありません。IIS/Kerberos・SPN・証明書・ホスト設定は実機の検証事項です。</p>
+<h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-82"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<div class="page-navigation"><a href="/learn/security-01">前へ：学習順081</a><a href="/learn/security-03">次へ：学習順083</a></div>
+@code {
+    private bool https;
+    private bool sameOrigin;
+    private bool tokenChecked;
+    private bool authorized;
+    private string result = "未判定";
+    private void Evaluate() => result = PgBlazorSamples.Web.Services.Learning.SecurityLessonPolicy.PracticeAcceptsMutation(
+        https, sameOrigin, tokenChecked, authorized)
+        ? "模擬判定：4条件成立。実際のHTTP要求は送っていません。"
+        : "模擬判定：拒否。HTTPS・送信元・Antiforgery・認可を確認してください。";
+}

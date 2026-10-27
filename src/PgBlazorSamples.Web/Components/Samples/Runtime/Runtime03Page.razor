@@ -1,0 +1,41 @@
+@page "/learn/runtime-03"
+
+<PageTitle>学習順017：事前レンダリングと初期化の実行回数｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第2段階 / 学習順017</p>
+<h1>事前レンダリングと初期化の実行回数</h1>
+<p>Interactive Serverの事前レンダリングが有効な場合、最初のHTML生成と対話型コンポーネントの開始は別のインスタンスになります。OnInitializedは合計2回呼び出される場合があります。</p>
+<section class="lesson-details"><h2>現在の対話型インスタンスで数える</h2>
+<p>初期化回数：<strong data-testid="runtime03-init">@initialized</strong></p>
+<p>初回の描画後処理：<strong data-testid="runtime03-after">@afterFirstRender</strong></p>
+<button type="button" @onclick="Add">状態を変更する</button>
+<p>変更回数：<strong data-testid="runtime03-change">@changes</strong></p>
+<p>表示中の数字は現在のインスタンス内だけの回数です。事前レンダリング時の別インスタンスの初期化を足した値ではありません。</p>
+<p>OnAfterRenderは事前レンダリング時には呼ばれません。外部処理の重複実行を防ぐ設計を考えてください。</p></section>
+<section class="lesson-details">
+<h2>初期化と描画の違い</h2>
+<table><thead><tr><th>WinForms</th><th>Blazor</th><th>確認点</th></tr></thead><tbody>
+<tr><td>Load</td><td>OnInitialized</td><td>事前レンダリングの別インスタンスに注意</td></tr>
+<tr><td>Shown</td><td>OnAfterRender</td><td>事前レンダリング中は実行されない</td></tr>
+<tr><td>Click</td><td>Add</td><td>変更回数だけを増やす</td></tr>
+</tbody></table>
+<pre><code>protected override void OnInitialized() =&gt; initialized++;
+private void Add() =&gt; changes++;</code></pre>
+<details><summary>変更ボタンを2回押すと初期化も2回？</summary><p>いいえ。変更回数と初期化は別です。表示中の値は事前レンダリング側の呼出総数ではありません。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/09">前へ：学習順016</a><a href="/learn/10">次へ：学習順018</a></div>
+@code {
+    private int initialized;
+    private int afterFirstRender;
+    private int changes;
+    protected override void OnInitialized() => initialized++;
+    protected override void OnAfterRender(bool firstRender)
+    {
+        // 事前レンダリング時には実行されない。最初の対話型描画後のみ記録する。
+        if (firstRender)
+        {
+            afterFirstRender++;
+            _ = InvokeAsync(StateHasChanged);
+        }
+    }
+    private void Add() => changes++;
+}

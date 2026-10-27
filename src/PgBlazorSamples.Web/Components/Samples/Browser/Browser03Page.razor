@@ -1,0 +1,107 @@
+@using System.Text
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+@page "/learn/browser-03"
+<PageTitle>学習順043：CSV・PDFファイルのダウンロード｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第4段階 / 学習順043</p>
+<h1>CSV・PDFファイルのダウンロード</h1>
+
+<p>サーバーで作成した架空のファイルを、ブラウザーへ送信して保存します。業務データの出力には認可と出力上限が必要です。</p>
+<section class="lesson-details">
+    <h2>2種類のファイルを保存する</h2>
+    <button type="button" @onclick="SaveCsv">学習用CSVを保存する</button>
+    <button type="button" @onclick="SavePdf">学習用PDFを保存する</button>
+    <p data-testid="browser03-result" role="status">@message</p>
+    <p>CSVはUTF-8 BOM付きで日本語の架空データを出力します。PDFは追加フォント不要の英字を使った1ページの技術見本です。日本語PDFを本番生成する場合は日本語フォントの埋め込みを検討してください。</p>
+</section>
+<section class="lesson-details">
+    <h2>ダウンロードの処理順</h2>
+    <ol><li>C#で固定のテストデータを用意する。</li><li>ファイルの種類を指定してJSモジュールへ渡す。</li><li>ブラウザーでBlobを作り保存を開始する。</li><li>使用した一時URLを後から解放する。</li></ol>
+    <p>利用者入力をCSVへ出力する場合は、表計算ソフトの数式として実行されないように処理してください。実業務では必ずサーバー側で再認可してください。</p>
+</section>
+<section class="lesson-details">
+    <h2>学習順043：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-043">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>ローカルPCへのFile.WriteAllBytes</td><td>DotNetStreamReferenceとBlobによる保存開始</td><td>実業務のCSV・PDFは認可、件数、数式注入、文字コードを確認する。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>架空の日本語CSVと英字1ページPDFを保存し、実際の内容を開く。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>実業務のCSV・PDFは認可、件数、数式注入、文字コードを確認する。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/browser-02">前へ</a><a href="/learn/browser-04">次へ</a></div>
+@code {
+    private IJSObjectReference? module;
+    private string message = "種類を選んで保存してください。";
+
+    private async Task SaveCsv()
+    {
+        // 架空データだけを出力する。利用者入力や業務台帳を読み取らない。
+        const string content = "\uFEFF番号,課題名,完了\r\n1,画面を確認する,いいえ\r\n2,復習する,はい\r\n";
+        await SendFile("blazor_practice.csv", "text/csv;charset=utf-8", Encoding.UTF8.GetBytes(content));
+    }
+
+    private async Task SavePdf()
+    {
+        await SendFile("blazor_practice.pdf", "application/pdf", MakeOnePagePdf());
+    }
+
+    private async Task SendFile(string fileName, string mediaType, byte[] bytes)
+    {
+        try
+        {
+            module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/browser-learning.js");
+            using var stream = new MemoryStream(bytes);
+            using var reference = new DotNetStreamReference(stream);
+            await module.InvokeVoidAsync("downloadStream", fileName, mediaType, reference);
+            message = fileName + " の保存を開始しました。";
+        }
+        catch (JSDisconnectedException)
+        {
+            message = "接続が切れたため保存できませんでした。";
+        }
+        catch (JSException)
+        {
+            message = "ブラウザーでファイルを保存できませんでした。";
+        }
+    }
+
+    // PDFの最小構成を示す技術見本。文字列はASCIIのみで日本語フォントを不要にする。
+    private static byte[] MakeOnePagePdf()
+    {
+        const string content = "BT /F1 18 Tf 72 750 Td (Blazor PDF sample) Tj ET\n";
+        var objects = new[]
+        {
+            "<< /Type /Catalog /Pages 2 0 R >>",
+            "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+            "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+            "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+            $"<< /Length {content.Length} >>\nstream\n{content}endstream"
+        };
+        var pdf = new StringBuilder("%PDF-1.4\n");
+        var offsets = new List<int> { 0 };
+        for (var i = 0; i < objects.Length; i++)
+        {
+            offsets.Add(pdf.Length);
+            pdf.Append($"{i + 1} 0 obj\n{objects[i]}\nendobj\n");
+        }
+        var xref = pdf.Length;
+        pdf.Append($"xref\n0 {offsets.Count}\n0000000000 65535 f \n");
+        for (var i = 1; i < offsets.Count; i++)
+        {
+            pdf.Append($"{offsets[i]:D10} 00000 n \n");
+        }
+        pdf.Append($"trailer\n<< /Size {offsets.Count} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n");
+        return Encoding.ASCII.GetBytes(pdf.ToString());
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is null) return;
+        try { await module.DisposeAsync(); }
+        catch (JSDisconnectedException) { /* 切断後の解放失敗は表示を妨げない。 */ }
+    }
+}

@@ -1,0 +1,31 @@
+@page "/learn/column/browser-45"
+<PageTitle>第9組の復習：ブラウザー操作｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順041〜045 / 第9組</p>
+<h1>第9組の復習：ブラウザー機能と安全な操作</h1>
+<section class="lesson-details">
+    <ol>
+        <li>JS interopが必要な操作とC#だけで済む操作を分ける。</li>
+        <li>アップロードではサーバー側で拡張子とサイズを制限する。</li>
+        <li>CSVとPDFの保存を確認し、実データでは再認可する。</li>
+        <li>例外・取消・再試行の違いを説明する。</li>
+        <li>Tab操作、入力ラベル、200%拡大と読み上げに対応する。</li>
+    </ol>
+    <h2>学習順041〜045の対応を横断して確かめる</h2>
+    <table data-testid="browser09-review-table">
+        <thead><tr><th scope="col">学習順</th><th scope="col">操作</th><th scope="col">確認する安全条件</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">041</th><td>JavaScriptでHTMLのlangを確認する</td><td>認可をDOMの値で行わない</td></tr>
+            <tr><th scope="row">042</th><td>拡張子と64 KiB制限を確認する</td><td>ブラウザーのacceptだけを信用しない</td></tr>
+            <tr><th scope="row">043</th><td>架空のCSVとPDFを保存する</td><td>実データの出力ではサーバー側で再認可する</td></tr>
+            <tr><th scope="row">044</th><td>学習用例外の復旧と処理取消</td><td>DBコミットとUI復旧を分ける</td></tr>
+            <tr><th scope="row">045</th><td>Tab移動と200%拡大</td><td>結果を文字でも確認できる</td></tr>
+        </tbody>
+    </table>
+    <details><summary>実践課題：ダウンロード前の認可と取消の違いは？</summary>
+      <p>CSV・PDFの実データを扱う場合は、サービスが本人と既存DB台帳の権限・行範囲を出力直前に確認します。
+      CancelやErrorBoundary.Recoverは、既に確定したDB処理を元に戻しません。</p>
+    </details>
+    <details><summary>確認：accept属性だけで不正なアップロードを拒否できますか？</summary><p>いいえ。acceptはブラウザーでの選択を補助します。サーバー側でもファイルを検査してください。</p></details>
+    <details><summary>確認：ErrorBoundaryで処理中のDB更新が自動でロールバックされますか？</summary><p>いいえ。DBのトランザクションとアプリの例外表示は別です。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/browser-05">前へ</a><a href="/learn/db-bridge-01">次へ：学習順046</a></div>

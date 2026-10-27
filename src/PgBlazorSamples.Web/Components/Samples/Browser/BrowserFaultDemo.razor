@@ -1,0 +1,8 @@
+<section>
+    <p>学習用のエラーを発生させ、直近の子コンポーネントのErrorBoundaryで受け止めます。</p>
+    <button type="button" @onclick="ThrowSample">学習用の例外を発生させる</button>
+</section>
+@code {
+    // ErrorBoundaryの挙動を確認するための意図的な例外。
+    private void ThrowSample() => throw new InvalidOperationException("学習用の例外");
+}

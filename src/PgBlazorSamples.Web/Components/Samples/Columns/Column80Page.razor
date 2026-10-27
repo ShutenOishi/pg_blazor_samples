@@ -1,6 +1,6 @@
 @page "/learn/column/80"
 <PageTitle>学習コラム17：競合・監視・配布の実務｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム17 / ステップ76〜80</p>
+<p class="eyebrow">第21組の復習 / 学習順101〜105</p>
 <h1>速い仕組みでも安全条件を省略しない</h1>
 <section class="lesson-details">
     <h2>5ステップをつなぐ</h2>
@@ -10,4 +10,18 @@
     <details><summary>livenessが200ならFDWや監査も正常？</summary><p>いいえ。プロセスの応答のみを示します。readinessと監査は別の検証です。</p></details>
     <details><summary>CIでChrome操作が成功ならIIS/Kerberosも合格？</summary><p>いいえ。実ドメイン、SPN、鍵共有、接続切断・再接続を現地で確認します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/80">ステップ80へ戻る</a><a href="/">目次へ</a></div>
+<section class="lesson-details">
+    <h2>第21組の比較・確認</h2>
+    <table data-testid="stage08-review21-table">
+        <thead><tr><th>学習順</th><th>内容</th><th>省略できない条件</th></tr></thead>
+        <tbody>
+            <tr><td>101</td><td>xmin競合</td><td>台帳行ロックと監査</td></tr>
+            <tr><td>102</td><td>30秒ヒント</td><td>毎操作の再認可</td></tr>
+            <tr><td>103</td><td>liveness</td><td>DB・監査の別判定</td></tr>
+            <tr><td>104</td><td>結合/E2E</td><td>CIとAD実機受入の区別</td></tr>
+            <tr><td>105</td><td>IIS配布と復旧</td><td>鍵・FDW・監査の整合</td></tr>
+        </tbody>
+    </table>
+    <p>WinForms＋Dapperと同じく操作・行単位の権限は既存台帳を都度照合し、監査できない場合に機密データを返しません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/80">前へ：学習順105</a><a href="/learn/capstone-01">次へ：学習順106</a></div>

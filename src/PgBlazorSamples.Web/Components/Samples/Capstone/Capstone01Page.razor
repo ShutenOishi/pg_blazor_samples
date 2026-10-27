@@ -1,0 +1,37 @@
+@page "/learn/capstone-01"
+<PageTitle>学習順106：業務要件・画面遷移・WinForms移行の設計｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第9段階 / 学習順106</p>
+<h1>業務要件・画面遷移・WinForms移行の設計</h1>
+
+<p>WinForms＋Dapperの既存業務を、ブラウザーの入力、サーバーのサービス、PostgreSQL 18、認証と認可に分けて設計します。対象は架空の課題一覧・編集業務です。</p>
+<section class="lesson-details">
+<h2>要件を満たす画面遷移を検討する</h2>
+<label for="capstone01-requirement">要件を選ぶ</label>
+<select id="capstone01-requirement" @bind="_requirement">
+    <option value="list">部署内の一覧・検索・件数を表示</option>
+    <option value="edit">一件を編集し競合と取消を処理</option>
+    <option value="export">部署内のCSVを出力</option>
+</select>
+<button type="button" @onclick="Explain">設計の確認</button>
+<p role="status" data-testid="capstone01-result">@_result</p>
+<table><thead><tr><th scope="col">層</th><th scope="col">責任</th></tr></thead><tbody>
+<tr><td>ブラウザー</td><td>入力・選択・表示。本人や権限を証明しない</td></tr>
+<tr><td>Razor</td><td>表示状態を管理し、サービスを呼ぶ</td></tr>
+<tr><td>サービス</td><td>本人・既存台帳による認可、取得範囲、監査と更新を強制</td></tr>
+<tr><td>DB</td><td>検索・版管理・トランザクションと永続データを管理</td></tr>
+</tbody></table>
+<h2>画面の順番</h2>
+<ol><li>要件と画面遷移を決める。</li><li>本人・部署別に絞り込んだ検索とページングを実装する。</li><li>編集DTOと競合・取消を処理する。</li><li>認可と監査が拒否側でも成立することを確認する。</li><li>CIと実機受入、障害復旧を区別する。</li></ol>
+<table data-testid="capstone-compare-106"><thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor／EF Core／既存台帳</th></tr></thead><tbody><tr><td>操作</td><td>フォームイベントでSQLを呼ぶ</td><td>Razorから認可済み業務サービスに委譲する</td></tr><tr><td>認可</td><td>既存DB台帳を照会する</td><td>認証済み本人・部署・操作と行単位を都度確認する</td></tr><tr><td>安全拒否</td><td>例外・排他・監査を確認する</td><td>権限失効、xmin競合、監査不成立、FDW原子性不明では拒否する</td></tr></tbody></table><p>解説は <code>docs/course-v3/lessons/capstone-01.md</code> を参照してください。実AD/IIS/Kerberos/FDWと1万人超負荷の実機受入は別途必要です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/column/80">前へ</a><a href="/learn/capstone-02">次へ</a></div>
+@code {
+    private string _requirement = "list";
+    private string _result = "要件を選んでください。";
+    private void Explain() => _result = _requirement switch
+    {
+        "list" => "一覧：認証済み本人を既存台帳で認可し、CountとItemsの部署条件を一致させます。",
+        "edit" => "編集：詳細の再取得、入力検証、xmin競合、同一トランザクションの監査と取消を分けます。",
+        _ => "CSV：出力の直前に認可・部署範囲・件数上限・監査を適用します。"
+    };
+}

@@ -1,0 +1,43 @@
+@page "/learn/column/web-05"
+
+<PageTitle>第1組の復習：Webの基本｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順001〜005 / 復習コラム</p>
+<h1>Webの処理場所・通信・画面表示を整理する</h1>
+<section class="lesson-details">
+    <ol>
+        <li>学習順001：ブラウザーの表示とサーバーC#イベントを区別する。</li>
+        <li>学習順002：URL、HTTP、GET/POSTと応答ステータスを確認する。</li>
+        <li>学習順003：HTMLの意味とCSSの見た目を分ける。</li>
+        <li>学習順004：DOM・Network・Consoleを確認する。</li>
+        <li>学習順005：Kestrel起動とC#ブレークポイントを使う。</li>
+    </ol>
+    <h2>実習と確認箇所の対応</h2>
+    <table>
+      <thead><tr><th scope="col">症状</th><th scope="col">最初に確認する場所</th><th scope="col">次に確認すること</th></tr></thead>
+      <tbody>
+        <tr><td>画面が開かない</td><td>NetworkのDocumentとStatus</td><td>URLとWebサーバーの起動</td></tr>
+        <tr><td>クリックに反応しない</td><td>対話型接続</td><td>C#のイベントとサーバーログ</td></tr>
+        <tr><td>入力のプレビューが変わらない</td><td>Elementsの入力欄</td><td>@@bindと@@bind:event</td></tr>
+        <tr><td>説明文の表示が変わらない</td><td>ElementsのDOM</td><td>@@if (expanded)の条件</td></tr>
+      </tbody>
+    </table>
+    <h2>コードから実行場所を判断する</h2>
+    <pre><code>@@if (expanded)
+{
+    &lt;p id="web04-added"&gt;条件が成立したときだけ表示&lt;/p&gt;
+}</code></pre>
+    <p>実装上の段落は、ボタン操作でサーバー側の条件が変化したときにブラウザーのDOMへ追加されます。</p>
+    <details>
+        <summary>確認1：ボタンを押すとC#はどこで動きますか？</summary>
+        <p>この教材のInteractive Serverではサーバーで動き、表示結果がブラウザーへ反映されます。</p>
+    </details>
+    <details>
+        <summary>確認2：ブラウザーのNetworkですべてのクリックがHTTP POSTとして見えますか？</summary>
+        <p>いいえ。対話型のイベントはBlazorの接続を利用し、通常のフォームPOSTとは異なります。</p>
+    </details>
+    <details>
+        <summary>確認3：CSSを変更するとDBに保存されますか？</summary>
+        <p>いいえ。CSSは画面の外観を指定します。ここではDBアクセスを行っていません。</p>
+    </details>
+</section>
+<div class="page-navigation"><a href="/learn/web-05">前へ：Webデバッグ</a><a href="/learn/01">次へ：Razorの表示</a></div>

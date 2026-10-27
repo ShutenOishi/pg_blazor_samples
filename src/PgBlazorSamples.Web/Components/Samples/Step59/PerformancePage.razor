@@ -4,7 +4,7 @@
 @inject LearningPerformanceService Performance
 @inject LearningDbService Database
 <PageTitle>ステップ59：DB性能観察｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ59 / EXPLAIN・P95・P99</p>
+<p class="eyebrow">学習順079 / EXPLAIN・P95・P99</p>
 <h1>実データの索引利用と応答時間を観察する</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" Disabled="@_working" OnClick="ObserveAsync">読み取りを20回計測する</MudButton>
@@ -20,6 +20,18 @@
     <h2>測定の誤解を避ける</h2>
     <p>この数値は開発用DBに対する20回だけの小規模な観察値です。P95・P99の統計的精度は高くありません。接続、キャッシュ、同時実行、データ件数で変わるため、業務上の性能保証値として使用しません。</p>
     <p>SQLは固定のSELECTとEXPLAINのみで書込はしません。実運用の性能判断には十分なサンプル、測定環境の固定、実行計画、索引の前後比較、別系統の負荷試験が必要です。</p>
+
+    <h2>学習順079：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-079">
+        <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>
+            <tr><td>今回の処理</td><td>EXPLAINと応答時間計測のSQLと表示を管理</td><td>EXPLAINと応答時間計測を学習用サービスで処理</td></tr>
+            <tr><td>DBの接続</td><td>NpgsqlConnectionとSQLパラメーター</td><td>DbContextFactoryとLINQ／Npgsql</td></tr>
+            <tr><td>認可</td><td>業務台帳を都度照合</td><td>この学習画面は未実装、本番では既存台帳を操作・行ごと確認</td></tr>
+        </tbody>
+    </table>
+    <p>実コード・操作手順・障害の切り分け・演習と詳しい解答は docs/samples/step59.md に収録しています。</p>
 </section>
 <div class="page-navigation"><a href="/learn/58">前へ：ステップ58</a><a href="/learn/60">次へ：ステップ60</a></div>
 @code {

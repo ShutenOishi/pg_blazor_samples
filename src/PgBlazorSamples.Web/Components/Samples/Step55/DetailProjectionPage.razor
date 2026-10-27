@@ -5,7 +5,7 @@
 @inject LearningEditService Edits
 
 <PageTitle>ステップ55：詳細表示とN+1対策｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ55 / 詳細DTO・関連表示</p>
+<p class="eyebrow">学習順075（旧ステップ55） / 第15組</p>
 <h1>必要なときだけ関連情報つき詳細を取得する</h1>
 <p>一覧は少ない列だけ取得し、選択した1行の詳細を単一のSQLへ射影します。</p>
 <MudPaper Class="pa-4">
@@ -32,11 +32,16 @@
     }
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順075：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-075"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>詳細表示</td><td>JOINした列を単票のDTOへMappingする</td><td>AsNoTrackingとSelectで1行の詳細を取得</td></tr>
+    <tr><td>操作と行の安全性</td><td>既存DB台帳の都度認可をSQLの境界に置く</td><td>学習用DTOと本番の都度認可・監査を明確に区別する</td></tr></tbody></table>
+    <p>このステップの実コード2例、操作手順、失敗時の切り分け、演習と詳しい解答は日本語教材に掲載しています。実AD・既存台帳の本番認可はこの練習画面には未実装です。</p>
     <h2>関連データの取得</h2>
     <p>分類はAsNoTrackingとSelectでDTOへ射影します。子テーブルが多数ある業務では1対多の詳細一覧を別ページングで取得し、無制限のIncludeや行ごとのDB照会を避けます。</p>
     <p>この画面に業務認可はありません。実務では一覧だけでなく、詳細を開くサービスでも権限を検査します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/54">前へ：ステップ54</a><a href="/learn/column/55">コラム12：編集と競合の選択</a></div>
+<div class="page-navigation"><a href="/learn/54">前へ：ステップ54</a><a href="/learn/column/55">第15組の復習：編集・競合・詳細</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private LearningTaskDetail? _detail;

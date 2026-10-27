@@ -1,0 +1,39 @@
+@using PgBlazorSamples.Web.Services.Learning
+@page "/learn/security-01"
+<PageTitle>学習順081：Windows認証・Cookie・HTTP・circuit｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第7段階 / 学習順081</p>
+<h1>Windows認証・Cookie・HTTP・circuit</h1>
+
+<p>WinFormsのWindowsログオンと違い、WebのHTTP認証、Cookie、Blazorのcircuitは異なる寿命を持ちます。実際のADやCookieは操作せず、架空の入力で理解します。</p>
+<section class="lesson-details">
+<h2>模擬操作：本人と業務認可を分ける</h2>
+<label><input type="checkbox" @bind="authenticated" /> HTTP側で本人認証が成立</label>
+<label><input type="checkbox" @bind="ticketValid" /> Cookieチケットが有効</label>
+<label><input type="checkbox" @bind="ledgerActive" /> 既存DB台帳に本人が有効登録済み</label>
+<label><input type="checkbox" @bind="canRead" /> 既存台帳に対象業務の読み取り権限がある</label>
+<button type="button" @onclick="Evaluate">架空の条件を判定する</button>
+<p role="status" data-testid="security01-result">@result</p>
+<p>本画面のチェックは認証・認可機能ではありません。模擬判定から実データを取得する経路はありません。</p>
+<h2>3つの状態を区別する</h2>
+<table><thead><tr><th scope="col">仕組み</th><th scope="col">責任</th></tr></thead><tbody>
+<tr><td>HTTP認証</td><td>認証ミドルウェアが本人を検証</td></tr>
+<tr><td>Cookie</td><td>暗号化・署名したチケットと期限を管理</td></tr>
+<tr><td>circuit</td><td>対話的なUI状態。認証チケットや最新のDB権限の代わりではない</td></tr>
+</tbody></table><h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-81"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<div class="page-navigation"><a href="/learn/column/60">前へ：第16組の復習</a><a href="/learn/security-02">次へ：学習順082</a></div>
+@code {
+    private bool authenticated;
+    private bool ticketValid;
+    private bool ledgerActive;
+    private bool canRead;
+    private string result = "未判定";
+    // 残りの条件も満たさなければ業務操作は模擬上も拒否する。
+    private void Evaluate()
+    {
+        var allowed = SecurityLessonPolicy.PracticeAllowsOperation(
+            authenticated, ticketValid, ledgerActive, canRead,
+            sameUnit: true, sessionCurrent: true, auditAvailable: true);
+        result = allowed ? "模擬判定：条件成立。実際のDB認可は実行していません。"
+                         : "模擬判定：拒否。本人認証だけでは業務操作できません。";
+    }
+}

@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>ステップ69：権限付き編集｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ69 / 編集権限とxminの再判定</p>
+<p class="eyebrow">学習順094 / 第7段階・第19組（旧Step69）</p>
 <h1>編集時にも認可と競合を確認する</h1>
 <MudPaper Class="pa-4">
     <label for="edit-id">編集する架空課題の番号</label>
@@ -20,8 +20,15 @@
     <h2>確認ポイント</h2>
     <p>閲覧だけを許された利用者は保存できません。DB側の部署条件に一致しないIDも読み取り・更新できず、競合時は上書きしません。</p>
     <p>一括更新も権限と版を全件確認し、途中の1件だけを確定しません。</p>
+    <h2>WinForms＋DapperとBlazorの認可比較</h2>
+    <table data-testid="stage07-compare-94"><thead><tr><th>視点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core</th></tr></thead><tbody>
+        <tr><td>保存</td><td>SQL実行時に既存台帳の操作権限と部署条件を確認する</td><td>can_edit・部署・xminを再確認</td></tr>
+        <tr><td>安全拒否</td><td>ボタンの無効化だけで業務データを保護しない</td><td>原子性不明・競合・監査失敗は拒否</td></tr>
+        <tr><td>現地受入</td><td>Windows端末・DB運用の検査を別に行う</td><td>実AD・IIS・Kerberos・FDWと1万人超負荷は未完了</td></tr>
+    </tbody></table>
+    <p>教材本文は学習順094です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/68">前へ</a><a href="/learn/70">次へ</a></div>
+<div class="page-navigation"><a href="/learn/68">前へ：学習順093</a><a href="/learn/70">次へ：学習順095</a></div>
 @code {
     private long _id = 1;
     private LearningDetailResult? _detail;

@@ -1,0 +1,30 @@
+@page "/learn/runtime-05"
+
+<PageTitle>学習順020：circuit・ブラウザー・DBの状態保存の選択｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第2段階 / 学習順020</p>
+<h1>circuit・ブラウザー・DBの状態保存の選択</h1>
+<p>状態の保持先は寿命と機密性で決めます。ここで操作する値は現在のcircuit内のコンポーネントだけにあり、ブラウザーストレージやDBへの保存を実装した例ではありません。</p>
+<section class="lesson-details"><h2>用途から保存先を選ぶ</h2>
+<button type="button" @onclick='() => Select("circuit")'>画面の一時状態</button>
+<button type="button" @onclick='() => Select("browser")'>公開できる表示設定</button>
+<button type="button" @onclick='() => Select("database")'>業務の永続データ</button>
+<p data-testid="runtime05-choice">@(selected switch {
+"browser" => "候補：ブラウザーの保存領域。ただし改ざん可能で、認可の根拠にはできません。",
+"database" => "候補：データベース。認証済み本人と権限をサーバーで検証して保存します。",
+_ => "候補：circuit上の状態。切断や再起動で失われる可能性があります。"})</p>
+<h2>選定表</h2><table><thead><tr><th scope="col">場所</th><th scope="col">適する用途</th><th scope="col">注意</th></tr></thead><tbody>
+<tr><td>circuit</td><td>一時的な画面操作</td><td>永続性なし</td></tr>
+<tr><td>ブラウザー</td><td>機密性のないUI設定</td><td>本人確認や権限判定には使わない</td></tr>
+<tr><td>DB</td><td>複数端末で共有する業務データ</td><td>アクセス時と更新時の認可が必要</td></tr></tbody></table>
+<p>実際のDB連携と認可は後の段階で学びます。</p></section>
+<section class="lesson-details"><h2>保存先を選ぶ処理を読む</h2>
+<pre><code>private string selected = "circuit";
+// Selectは候補説明を切り替えるだけで、DBへ保存しない。
+private void Select(string value) =&gt; selected = value;</code></pre>
+<details><summary>「業務の永続データ」を押せば保存されますか？</summary><p>保存されません。既存台帳での認可とDB書込みは後の学習で扱います。</p></details>
+</section><div class="page-navigation"><a href="/learn/runtime-04">前へ：学習順019</a><a href="/learn/column/runtime-20">次へ：第4組の復習</a></div>
+@code {
+    private string selected = "circuit";
+    // 保存先の候補を説明する。実際の保存処理は行わない。
+    private void Select(string value) => selected = value;
+}

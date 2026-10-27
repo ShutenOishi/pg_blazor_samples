@@ -1,0 +1,47 @@
+@page "/learn/column/runtime-15"
+
+<PageTitle>第3組の復習：入力・部品・対話回線の復習｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順011〜015 / 第3組の復習</p>
+<h1>第3組の復習：入力・部品・対話回線の復習</h1>
+<p>入力から表示、親から子への値、子から親への通知、SignalRによる対話を5つの画面で確認します。画面状態とDBの保存結果を区別してください。</p>
+<section class="lesson-details">
+    <h2>学習順と実画面の対応</h2>
+    <table>
+        <thead><tr><th>学習順</th><th>画面で確認する動作</th><th>主な構文</th></tr></thead>
+        <tbody>
+            <tr><td>011</td><td>架空の名前を入力して即時表示・消去</td><td>@@bind:event="oninput"</td></tr>
+            <tr><td>012</td><td>4件を未完了2件へ絞り込む</td><td>@@if、@@foreach、@@key</td></tr>
+            <tr><td>013</td><td>親の入力が1枚目のカードだけ変える</td><td>[Parameter]</td></tr>
+            <tr><td>014</td><td>子の選択通知で親の回数が増える</td><td>EventCallback&lt;string&gt;</td></tr>
+            <tr><td>015</td><td>対話回数が再読込で初期値へ戻る</td><td>SignalR、circuit</td></tr>
+        </tbody>
+    </table>
+    <h2>順番に実行する確認課題</h2>
+    <ol>
+        <li><a href="/learn/05">011：双方向入力</a>で「テスト太郎」を入力し、消去して未入力表示へ戻します。</li>
+        <li><a href="/learn/06">012：条件と繰り返し</a>で4件から2件、再び4件に戻します。</li>
+        <li><a href="/learn/07">013：親から子</a>で入力を変え、2枚目のカードが変わらないことを確認します。</li>
+        <li><a href="/learn/08">014：子から親</a>で3回選択し、回数が3になることを確認します。</li>
+        <li><a href="/learn/runtime-02">015：SignalRとcircuit</a>で2回加算後に再読込し、0へ戻ることを確認します。</li>
+    </ol>
+    <h2>親子のコードを読む</h2>
+    <pre><code>&lt;TopicPicker SelectedTopic="@@selectedTopic" OnSelected="OnTopicSelected" /&gt;
+[Parameter] public EventCallback&lt;string&gt; OnSelected { get; set; }</code></pre>
+    <p>親は現在の値を子へ渡し、子が通知した結果を親で更新します。子のParameterを直接書き換えません。</p>
+    <details>
+        <summary>同じテーマを2回押すと、選択回数はいくつですか？</summary>
+        <p>2回です。親のOnTopicSelectedは同じ値であるかを調べず、通知ごとにselectionCountを増やします。</p>
+    </details>
+    <details>
+        <summary>SignalRが再接続すれば回数は必ず残りますか？</summary>
+        <p>いいえ。circuitの保持期間、サーバー再起動、接続条件によって失われます。回数はDBへ永続化していません。</p>
+    </details>
+    <details>
+        <summary>画面の絞り込みだけで部署外データの閲覧を拒否できますか？</summary>
+        <p>できません。表示条件とサーバー側の業務認可は別です。今の画面にはAD認証やDB台帳認可は実装されていません。</p>
+    </details>
+</section>
+<div class="page-navigation">
+    <a href="/learn/runtime-02">前へ：学習順015</a>
+    <a href="/learn/09">次へ：学習順016</a>
+</div>

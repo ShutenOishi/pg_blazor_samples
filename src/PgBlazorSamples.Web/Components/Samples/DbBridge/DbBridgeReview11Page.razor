@@ -1,0 +1,20 @@
+@page "/learn/column/db-bridge-55"
+<PageTitle>第11組の復習：LINQ・追跡・CRUD・型｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順51〜55 / 第11組</p><h1>第11組の復習：LINQ・追跡・CRUD・型</h1>
+<section class="lesson-details"><ol><li>LINQとAsNoTracking</li><li>SQLとLINQの対応</li><li>変更追跡</li><li>CRUD</li><li>DateOnly/Range</li></ol>
+<details><summary>ToQueryStringだけでDBは更新されますか？</summary><p>いいえ。SQL生成のみではSELECTも更新も実行されません。</p></details>
+<p>実DBへアクセスした操作か、モデル・生成SQLだけを検査した操作かを区別してください。</p></section>
+<section class="lesson-details" aria-label="第11組の学習内容を比較する">
+<table data-testid="dbbridge11-review-table">
+<caption>学習順051〜055とDB操作の有無</caption>
+<thead><tr><th scope="col">学習順</th><th scope="col">内容</th><th scope="col">DBへの操作</th></tr></thead>
+<tbody>
+<tr><th scope="row">051</th><td>AsNoTrackingと検索</td><td>専用DBへSELECT</td></tr>
+<tr><th scope="row">052</th><td>生成SQLの確認</td><td>接続なし</td></tr>
+<tr><th scope="row">053</th><td>変更追跡</td><td>保存なし</td></tr>
+<tr><th scope="row">054</th><td>CRUD</td><td>専用DBで保存</td></tr>
+<tr><th scope="row">055</th><td>DateOnlyとRange</td><td>値変換のみ</td></tr>
+</tbody></table>
+<p>WinForms＋Dapperとの違いを整理し、SQL生成・追跡と実DB保存を混同しないでください。AD本人認証だけで業務認可を省略してはいけません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/37">前へ</a><a href="/learn/38">次へ：学習順056</a></div>

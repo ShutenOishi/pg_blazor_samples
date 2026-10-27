@@ -30,6 +30,10 @@ permissions:
 
 jobs:
   build-pdf:
+    # 教材v3 Draft PR #36はユーザーの明示的な再開指示までPDFを生成しない。
+    # CIの教材整合検査は別のアプリWorkflowで継続する。
+    # mainの正式Release工程や他のPRの既存挙動は変更しない。
+    if: github.event_name != 'pull_request' || github.event.pull_request.number != 36
     runs-on: ubuntu-24.04
     steps:
       - name: ソースを取得
@@ -79,8 +83,8 @@ jobs:
           content = "\n".join(page.extract_text() or "" for page in reader.pages)
           for phrase in ("レポジトリ", "github.com", "README.md", "src/PgBlazorSamples.Web"):
               assert phrase not in content, f"学習者向けPDFに開発情報が混在しています: {phrase}"
-          assert "ステップ15：injectとコンストラクター注入" in content
-          assert "学習コラム03：DIとサービスの寿命" in content
+          assert "学習順025：injectとコンストラクター注入" in content
+          assert "第5組の復習：DIの登録・交換・寿命と注入" in content
           assert "ステップ20：DIで課題管理を作る" in content
           assert "学習コラム04：設定とサービス分離" in content
           assert "特別コラム05：ライブラリが提供するDI" in content
@@ -132,6 +136,56 @@ jobs:
           assert "特別コラム：1万人規模の認証・既存台帳認可・セッション・監査" in content
           print(f"学習者向け日本語PDFの内容確認: {len(reader.pages)}ページ")
           PY
+      # 教材v3はDraft PRで検証中のため、既存の正式教材Releaseには上書きしない。
+      # 同一リポジトリの専用PRとアプリCI全成功を満たした場合のみプレビュー版を配布する。
+      - name: 検証済み教材v3のPDFをプレビューReleaseへ反映
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository &&
+          github.event.pull_request.head.ref == 'docs/curriculum-v2-winforms-dapper-roadmap'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # PDFだけでなくWindows/Linux/Chrome/実DBのアプリCI成功も必須条件とする。
+          # 他のHEADの成功Runを流用しない。失敗した場合は公開せず停止する。
+          app_result="pending"
+          for attempt in {1..36}; do
+            app_result="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$SOURCE_SHA&per_page=30" \
+              --jq '[.workflow_runs[] | select(.name == "日本語Blazorアプリのビルドと画面疎通" and .event == "pull_request")][0].conclusion // "pending"')"
+            if [[ "$app_result" == "success" ]]; then
+              break
+            fi
+            if [[ "$app_result" == "failure" || "$app_result" == "cancelled" || "$app_result" == "timed_out" ]]; then
+              echo "::error::アプリCIが $app_result のため、プレビューPDFを公開しません。"
+              exit 1
+            fi
+            sleep 20
+          done
+          if [[ "$app_result" != "success" ]]; then
+            echo "::error::同一HEADのアプリCI成功が確認できませんでした。"
+            exit 1
+          fi
+          # 前のHEADの遅延CIが現在のプレビューを上書きしないようにする。
+          current_head="$(gh api "repos/$GITHUB_REPOSITORY/pulls/36" --jq '.head.sha')"
+          if [[ "$SOURCE_SHA" != "$current_head" ]]; then
+            echo "新HEADが存在するため古いPDFの公開を省略します。"
+            exit 0
+          fi
+          # 公開済みPreviewのPDFファイル名を固定し、ZIP化を避ける。
+          tag="learning-textbook-v3-preview"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$SOURCE_SHA" \
+              --title "Blazor実践学習テキスト v3（作成中プレビュー）" \
+              --notes "Draft PR #36の検証済み教材プレビュー。完成版ではありません。生成元: $SOURCE_SHA" \
+              --prerelease --latest=false
+          fi
+          gh release upload "$tag" dist/blazor_learning_textbook_ja.pdf --clobber
+          gh release edit "$tag" --prerelease --latest=false \
+            --notes "Draft PR #36の学習用プレビュー。Windows/Linux/Chrome/PostgreSQL18/PDF検査成功。生成元コミット: $SOURCE_SHA"
+          gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fx blazor_learning_textbook_ja.pdf
       # Actions Artifactは自動でZIPになるため学習者配布に使用しない。
       # mainの成功ビルドだけを直接PDFのRelease assetとして公開する。
       - name: PDFをZIP化せずGitHub Releaseで配布

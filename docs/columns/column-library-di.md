@@ -1,119 +1,127 @@
-# 特別コラム05：ライブラリが提供するDIを理解して使う
+# 特別コラム05：ライブラリのDIを理解して利用する
 
-**対象：ステップ11〜20を終えた方。MudBlazorの導入前に読む特別編。**
+**対象：Step11〜20の修了者。** MudBlazorを学ぶ前に、ASP.NET CoreやNuGetライブラリが用意する機能を安全に利用する方法を確認します。
 
-## なぜ、この理解がBlazorを始めやすくするのか
+## なぜライブラリのDIを学ぶのか
+DIというとインターフェイス・実装クラス・登録処理をすべて自作するように見えます。しかしBlazorの実務では、**既に用意されているDI登録方法を理解して使う作業**が少なくありません。
 
-Blazorでは、機能をすべて自作する必要はありません。ASP.NET Coreが用意する機能や、外部ライブラリの機能を、決められた手順で登録し利用できます。
+Step16の`IOptions<T>`、Step17の`ILogger<T>`、Razor画面の`NavigationManager`、MudBlazorのダイアログ・通知、EF CoreのDbContextFactoryなど、利用するライブラリが登録方法や寿命を定めています。WinFormsでNuGetパッケージやコントロールを導入した経験を、**登録 → 注入 → 実行条件の確認**という順序に置き換えて考えます。
 
-多くの入門者は「DIのインターフェイスや実装クラスを自分で作る方法」を覚えた段階で難しさを感じます。しかし実務では、**すでに用意されたサービスの登録方法と受け取り方を読めること**も同じくらい重要です。MudBlazorのダイアログ・通知、ログ、設定、HTTP通信、PostgreSQL接続などを組み合わせる土台になります。
+## 自作する部分とライブラリが担う部分
+| 利用場面 | 自分で作るもの | ライブラリが提供するもの |
+| --- | --- | --- |
+| 学習用設定 | `LearningOptions`と設定の項目 | `IOptions<LearningOptions>`、構成のバインド、DI |
+| 非同期処理のログ | どの操作をどのレベルで記録するか | `ILogger<T>`とログ基盤 |
+| 現在URLと画面遷移 | 行き先の決定、入力・表示 | `NavigationManager` |
+| MudBlazorのUI | 業務画面、入力項目、操作と認可 | コンポーネント、登録メソッド、Provider |
+| EF CoreとPostgreSQL | クエリ・サービス・トランザクション上の判断 | EF Core/NpgsqlのDBアクセス基盤 |
 
-**結論：まず「部品の中身」を作る前に、「使い方の契約」を読む。**
+ライブラリのDIがあるからといって、**画面固有の業務判断や権限検査まで提供されるわけではありません**。
 
-## 登録から利用まで：3つの責任
+## 登録・解決・画面表示の区別
+1. NuGetパッケージと対応する.NETバージョンを確認する。
+2. 必要な名前空間と`builder.Services.Add...()`などの登録方法を調べる。
+3. 登録が何を追加し、Singleton・Scoped・Transientのどれを使うか公式説明で確認する。
+4. Razorなら`@inject`、通常のC#サービスならコンストラクターから受け取る。
+5. UIライブラリならProvider、CSS、JavaScript、描画モードなど、DI以外に必要な要素も確認する。
+6. 正常動作だけでなく、未登録・寿命の不一致・必要なProviderの不足を切り分ける。
 
-```text
-(1) ライブラリ側：機能・契約・登録用Add...メソッドを提供
-                    ↓
-(2) Program.cs：利用する機能をサービス群へ登録
-                    ↓
-(3) RazorやC#クラス：@inject／コンストラクターで受け取る
-                    ↓
-       必要に応じてProviderの配置や描画モードを指定
+`IServiceCollection`は主として登録時に使い、`IServiceProvider`は登録済みの型を解決します。通常の業務サービスでは`IServiceProvider.GetRequiredService`を至るところで呼ぶより、必要な依存先をコンストラクターへ明示します。
+
+## この教材で動く実例：IOptions・ILogger・NavigationManager
+`/learn/column/library-di`を開いてください。教材名、現在の画面URL、ログ出力ボタンが表示されます。
+
+```razor
+@page "/learn/column/library-di"
+@using Microsoft.Extensions.Options
+@inject IOptions<LearningOptions> Settings
+@inject ILogger<ColumnLibraryDiPage> Logger
+@inject NavigationManager Navigation
+
+<p>Optionsが返す教材名：@Settings.Value.CourseTitle</p>
+<p>NavigationManagerが返す現在の画面：
+   @Navigation.ToBaseRelativePath(Navigation.Uri)</p>
+<button @onclick="WriteLog">ILoggerで学習用ログを書く</button>
+<p role="status">@message</p>
+
+@code {
+    private string message = "ログはまだ書き込んでいません。";
+
+    private void WriteLog()
+    {
+        Logger.LogInformation("ライブラリDIコラムの学習用操作を確認しました。");
+        message = "学習用ログを書き込みました。";
+    }
+}
 ```
 
-### 1. ライブラリのDI登録方法を探す
+実際のページには見出し・詳細説明・ナビゲーションもあります。画面を開くと、`Navigation.ToBaseRelativePath(Navigation.Uri)`はアプリのベースURLから相対的な現在パス（通常`learn/column/library-di`）を表示します。ログボタンを押すとサーバー側の`ILogger`が実行され、画面のメッセージが変わります。ログ本文を画面に直接出しているわけではありません。
 
-まず公式のインストール手順で次の項目を確認します。
-
-- NuGetパッケージ名、対象.NETバージョン
-- `using`が必要な名前空間
-- `builder.Services.Add...()`等の登録メソッドと必須の設定
-- 画面で注入するサービス型
-- Singleton／Scoped／Transientの寿命
-- Providerなど追加するRazorコンポーネントの有無
-- 対話型描画、サーバー実行、認証、接続管理などの要件
-
-`IServiceCollection`は**登録時**に使うサービス一覧です。`IServiceProvider`は**必要な部品を解決する**仕組みです。通常の画面やサービスは`IServiceProvider`から毎回手作業で取り出すのではなく、`@inject`やコンストラクターで必要な型を明示します。
-
-### 2. ASP.NET Coreの標準機能を使う
+`Program.cs`では学習用Optionsを登録しています。
 
 ```csharp
-// 起動時：学習用設定をOptionsへ登録します。
 builder.Services.Configure<LearningOptions>(
     builder.Configuration.GetSection("Learning"));
 ```
 
-```razor
-@inject IOptions<LearningOptions> Settings
-@inject ILogger<SomePage> Logger
-@inject NavigationManager Navigation
-```
+`ILogger<T>`と`NavigationManager`はASP.NET Core/Blazorの仕組みで提供されるため、このサンプルのための独自`AddLoggerService()`や`AddNavigationManager()`を追加していません。
 
-このうち`IOptions<T>`は設定を型付きで受け取る機能、`ILogger<T>`はログ記録機能、`NavigationManager`はURL・画面移動の機能です。後者の一部はフレームワークがすでに登録しており、独自の`AddLoggerService()`などを作る必要はありません。
-
-**実習：** `/learn/column/library-di` を開き、教材名と現在のURLが表示されることを確かめ、「ILoggerで学習用ログを書く」を押します。サービスの実装を自作せずに機能を使えます。
-
-### 3. 外部UIライブラリ：MudBlazorの例（今後のステップで実装）
-
-MudBlazorには、サービス登録用の拡張メソッドが用意されています。パッケージを導入したら、そのバージョンの公式手順に合わせます。
+## MudBlazorの例：DI登録だけで完成しない
+このリポジトリの現在のアプリには既にMudBlazorと`MudBlazor.Translations`が導入されています。**学習順としてはStep21で導入方法を初めて説明します**。現在のコードでの登録例は次のとおりです。
 
 ```csharp
 using MudBlazor.Services;
+using MudBlazor.Translations;
+
+// Program.cs
 builder.Services.AddMudServices();
+builder.Services.AddLocalization();
+builder.Services.AddMudTranslations();
 ```
 
-ただし、**登録だけでは完成しません**。ダイアログや通知の利用には`MudDialogProvider`・`MudSnackbarProvider`などのProviderコンポーネント、対応するテーマ・スクリプト・スタイル、**同じ対話型描画モード**が必要です。
+これに加えてテーマ、CSS・静的アセット、ダイアログや通知のProvider、Interactive Serverで動作するコンポーネントの配置を確認します。例えば`MudDialogProvider`・`MudSnackbarProvider`が必要な機能もあります。追加するパッケージ・Providerの要件は導入するバージョンの公式ドキュメントと実装を確認してください。
 
-「ダイアログが開かない」場合、DI登録、Provider、描画モードの順に確認すると、闇雲にコンポーネントを作り直さずに原因を絞り込めます。
+**「AddMudServicesを呼んだのにダイアログが出ない」場合の確認順**は、パッケージのバージョン、DI登録、Provider、描画モード、必要な静的アセット、ブラウザーのConsoleとサーバーログです。原因が分からないままProviderを重複配置しないでください。
 
-この教材のStep21より前にはMudBlazorはまだ導入していません。上記は公式の導入手順を読む練習です。
+翻訳パッケージが提供する定型文の日本語化と、業務アプリの独自ラベル・入力エラーの日本語化は別です。
 
-### 4. PostgreSQLライブラリ：Npgsqlの例（DB学習編で実装）
+## データアクセスの例：EF CoreとNpgsql
+後続のStep31〜40では`IDbContextFactory<LearningDbContext>`をWeb側に登録します。DbContextは操作に応じて短時間で生成・破棄し、Blazorの長寿命circuitに接続を保持し続ける設計と区別します。
 
-Npgsqlでは`NpgsqlDataSource`が接続設定・接続プールを管理します。アプリ全体で再利用するDataSourceと、操作ごとに開いて破棄する接続は、**生存期間が異なります**。
+Npgsqlの接続プールや`NpgsqlDataSource`をアプリ側で共有する場合と、SQL実行時に利用する`NpgsqlConnection`やDbContextの寿命も異なります。アプリ全体で一つのDB接続インスタンスを使い回す構成は避けます。このコラムの画面自体はDBへ接続しません。
 
-DI用拡張パッケージや登録方法は、使用するNpgsqlバージョンと構成に合わせて公式手順を確認します。`NpgsqlConnection`をSingletonに登録して使い回したり、長寿命Scopedの接続を対話回線に抱え続けたりしないでください。
+## 業務画面で考慮する必要があること
+DI登録の正しさと、セキュリティの保証は異なります。業務の本人認証はADの認証結果、認可は事前整備済みのDB台帳が正本です。画面コンポーネントを隠しただけではサービスの認可になりません。ライブラリに頼る範囲と、アプリが保証する範囲を区別してください。
 
-この学習ページはPostgreSQLへ接続せず、接続文字列・ID・パスワードの入力も必要ありません。
-
-### 5. 一覧で確認：自作することと利用すること
-
-| 何を使う？ | 自分で作る部分 | 用意されている部分 |
-| --- | --- | --- |
-| 課題管理 | ITodoService、InMemoryTodoService | ASP.NET Core DIコンテナー |
-| 設定の読み取り | LearningOptions | IOptions、設定バインド機能 |
-| ログ | どの場面で何を記録するか | ILogger、ログ基盤 |
-| MudBlazor | 画面構成・入力項目・認可 | UI部品、登録メソッド、Provider |
-| Npgsql | データ取得・更新の業務ルール | DataSource、接続プール、接続API |
-
-## 初学者が引っかかりやすい5つの落とし穴
-
-1. **Add...を呼べば全部動くと考える**：Providerや描画モード、設定が必要な場合があります。
-2. **NuGetパッケージの追加だけで登録されたと思う**：利用手順でDI登録を確認します。
-3. **すべてをSingletonにする**：利用者別の状態、長寿命接続、破棄が必要な部品に注意します。
-4. **見つからないサービスを`new`で回避する**：正しいライブラリ登録方法を確認し、根本原因を直します。
-5. **画面が動けば権限も問題ないと思う**：UI表示とサーバー側の認可は別です。
+## 間違えやすいこと
+- パッケージのインストールとDI登録を同じ作業だと思わない。
+- 注入が成功しても、Providerや描画モードが不要とは限らない。
+- Singletonなら何を格納してもよいと考えない。ユーザー別の可変状態やDB接続に注意する。
+- ライブラリで利用できる標準機能を、理由なく別名の自作サービスへ作り直さない。
+- バージョン間で公開APIが変わる可能性を考え、コードとドキュメントの対象バージョンをそろえる。
 
 ## 確認問題と解答
+**問1：** `ILogger<T>`を使うために、毎画面で`new`する専用ロガーを作る必要がありますか。
 
-**Q1. `ILogger<T>`が使えるのに、ログ用の実装クラスを新しく書くべき？**
+**解答：** このアプリでは不要です。フレームワークがDIで提供する`ILogger<T>`を注入します。
 
-A. 通常は不要です。標準のDIで受け取り、必要なログを記録します。
+**問2：** `AddMudServices()`を登録したのにダイアログが表示されません。DI登録をもう一度追加すればよいですか。
 
-**Q2. MudBlazorを導入し、`AddMudServices()`を呼んだのにダイアログが表示されません。まず何を調べる？**
+**解答：** 追加する前にProvider、対話型描画モード、必要なアセットとバージョンを確認します。
 
-A. 対応するProvider配置、対話型描画モード、パッケージと必要な静的アセット、バージョンに合った公式手順です。
+**問3：** `NpgsqlConnection`を一つのSingletonとして保持して全利用者でSQLを実行してよいですか。
 
-**Q3. NpgsqlDataSourceとNpgsqlConnectionは同じ寿命で保持する？**
+**解答：** その設計は避けます。接続プールを利用し、操作ごとに適切に接続・DbContextを生成・破棄します。
 
-A. 違います。DataSourceは共有・再利用する設計が一般的ですが、接続は利用ごとに取得・破棄します。
+**問4：** `IOptions<LearningOptions>`を注入できても、課題追加件数の拒否は自動的に実行されますか。
 
-**Q4. ライブラリから取得したサービスがユーザー別の情報を保持する場合は？**
+**解答：** されません。`InMemoryTodoService.TryAdd`が現在件数と設定上限を比較し、拒否します。
 
-A. ドキュメントのライフタイム仕様を確認し、ユーザー間で共有されるSingletonへの保管を避けます。
+**問5：** ログの文字列が日本語であれば機密情報も自由に書いてよいですか。
 
-## 次に読むもの
-Step21以降でMudBlazorの導入・画面部品・Providerを実際に操作し、本コラムで覚えた「公式手順を読む → 登録する → 注入する → 画面で使う」を再確認します。
+**解答：** いけません。内容、アクセス権、保存期間などを別に設計する必要があります。
 
-**参考資料：** [BlazorのDI（Microsoft Learn）](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-10.0)、[MudBlazor公式インストール手順](https://mudblazor.com/getting-started/installation)、[Npgsql公式Basic Usage](https://www.npgsql.org/doc/basic-usage.html)。
+## 次のステップ
+[Step21](../samples/step21.md)でMudBlazorの登録と日本語化を学び、以降のフォーム・表・ダイアログを使いながら、**ライブラリの機能・DI登録・Providerの役割**を再確認します。
+
+参考：[Microsoft Learn: BlazorのDI](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-10.0)、[MudBlazor公式Installation](https://mudblazor.com/getting-started/installation)、[Npgsql Basic Usage](https://www.npgsql.org/doc/basic-usage.html)。

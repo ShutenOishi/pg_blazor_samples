@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>ステップ67：部署で絞る一覧｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ67 / CountとItemsを同じ条件に</p>
+<p class="eyebrow">学習順092 / 第7段階・第19組（旧Step67）</p>
 <h1>部署別に許可された行だけを数える・表示する</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" OnClick="LoadAsync">認可付き一覧を取得する</MudButton>
@@ -22,8 +22,15 @@
     <h2>確認ポイント</h2>
     <p>WHERE unit_code はCount・Items・詳細・集計・CSV・更新で共通です。未認可の場合は総件数も0件を返します。</p>
     <details><summary>Q. 一覧だけを絞ってCountを全件集計したら？</summary><p>件数から他部署の情報が漏れます。Countにも同じ条件を適用します。</p></details>
+    <h2>WinForms＋DapperとBlazorの認可比較</h2>
+    <table data-testid="stage07-compare-92"><thead><tr><th>視点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core</th></tr></thead><tbody>
+        <tr><td>行条件</td><td>SQL実行時に既存台帳の操作権限と部署条件を確認する</td><td>部署条件をCountとItemsへ共通適用</td></tr>
+        <tr><td>安全拒否</td><td>ボタンの無効化だけで業務データを保護しない</td><td>他部署の件数と詳細を返さない</td></tr>
+        <tr><td>現地受入</td><td>Windows端末・DB運用の検査を別に行う</td><td>実AD・IIS・Kerberos・FDWと1万人超負荷は未完了</td></tr>
+    </tbody></table>
+    <p>教材本文は学習順092です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/66">前へ</a><a href="/learn/68">次へ</a></div>
+<div class="page-navigation"><a href="/learn/66">前へ：学習順091</a><a href="/learn/68">次へ：学習順093</a></div>
 @code {
     private LearningPageResult _result = new([], 0, "操作前です。");
     private async Task LoadAsync() => _result = await Business.LoadPageAsync(new LearningPageQuery(0, 10));

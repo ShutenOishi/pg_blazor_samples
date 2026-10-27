@@ -1,0 +1,44 @@
+@page "/learn/stage/web"
+
+<PageTitle>第1段階の概要：Web開発の前提｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第1段階の概要 / 学習順001〜005</p>
+<h1>第1段階の概要：Web開発の前提</h1>
+<p>WinFormsの画面とC#の処理を、ブラウザーとWebサーバーの役割に置き換えて学びます。DB・ADは不要です。</p>
+<section class="lesson-details">
+    <h2>この段階の到達目標</h2>
+    <p>HTTPによる画面取得、HTMLとCSS、開発者ツール、Visual StudioでのサーバーC#のデバッグを説明できることです。</p>
+    <h2>WinForms経験と照らして整理する</h2>
+    <table>
+        <thead><tr><th scope="col">対象</th><th scope="col">WinForms</th><th scope="col">この教材のInteractive Server</th></tr></thead>
+        <tbody>
+            <tr><td>画面</td><td>Windowsのフォーム</td><td>ブラウザーがHTML/CSSを描画</td></tr>
+            <tr><td>C#イベント</td><td>通常クライアントPC</td><td>Webサーバーで実行</td></tr>
+            <tr><td>診断</td><td>Visual Studioのデバッガー</td><td>Visual StudioとElements・Network・Console</td></tr>
+        </tbody>
+    </table>
+    <h2>画面で確認する短いコード</h2>
+    <pre><code>@@page "/learn/web-01"
+&lt;button type="button" @@onclick="Increment"&gt;サーバー側で1増やす&lt;/button&gt;
+@@code {
+    private int count;
+    private void Increment() =&gt; count++;
+}</code></pre>
+    <p>これは実装画面の主要部分です。実行場所・操作手順・失敗時の切り分けは日本語教材の各章で詳しく扱います。</p>
+    <h2>学ぶ順番</h2>
+    <ol>
+        <li><a href="/learn/web-01">学習順001：WinFormsとWeb</a></li>
+        <li><a href="/learn/web-02">学習順002：URLとHTTP</a></li>
+        <li><a href="/learn/web-03">学習順003：HTML・CSS</a></li>
+        <li><a href="/learn/web-04">学習順004：開発者ツール</a></li>
+        <li><a href="/learn/web-05">学習順005：Webのデバッグ</a></li>
+    </ol>
+    <p><a href="/learn/column/web-05">第1組の復習へ</a></p>
+</section>
+<section class="lesson-details">
+    <h2>確認課題</h2>
+    <p>Interactive Serverのボタンを押したとき、C#はどこで動きますか。</p>
+    <details><summary>解答の目安を見る</summary>
+        <p>C#のイベントはWebサーバー側で動き、表示の更新結果がブラウザーへ届きます。</p>
+    </details>
+</section>
+<div class="page-navigation"><a href="/">学習目次へ</a><a href="/learn/web-01">学習順001を始める</a></div>

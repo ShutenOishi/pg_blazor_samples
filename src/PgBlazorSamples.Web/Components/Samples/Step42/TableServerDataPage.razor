@@ -5,7 +5,7 @@
 @inject LearningDbService DbSettings
 
 <PageTitle>ステップ42：MudTableのServerData｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ42 / MudTable ServerData</p>
+<p class="eyebrow">学習順062 / MudTable ServerData</p>
 <h1>必要なページだけPostgreSQLから取得する</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudTextField T="string" Label="課題名を検索" @bind-Value="_keyword" Immediate="true"/>
@@ -26,6 +26,19 @@
         <PagerContent><MudTablePager PageSizeOptions="@(new int[] {5, 10, 20})"/></PagerContent>
     </MudTable>
 </MudPaper>
+<section class="lesson-details" data-testid="stage06-compare-062">
+    <h2>学習順062：MudTable ServerDataとWinForms＋Dapperの比較</h2>
+    <table>
+        <caption>学習順062：画面とデータ取得の役割</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">操作</th><td>画面イベントでSQLを実行する</td><td>TableStateの0始まりページと単一ソート</td></tr>
+            <tr><th scope="row">取得</th><td>SQLと結果集合を管理する</td><td>Countと表示行に同じ検索条件を使います</td></tr>
+            <tr><th scope="row">安全</th><td>DBパラメーターと権限の確認</td><td>入力検査と台帳に基づく都度認可はサービス側で行う</td></tr>
+        </tbody>
+    </table>
+    <p>この画面は学習用です。実際の業務ではADによる本人認証だけでなく、既存DB台帳の行・操作ごとの認可と監査が必要です。</p>
+</section>
 <section class="lesson-details">
     <h2>TableStateからDBへ渡す</h2>
     <p>Page・PageSize・SortLabel・SortDirectionをLearningPageQueryへ変換し、取消トークンもEF Coreに渡します。ItemsとServerDataは同時に使いません。</p>

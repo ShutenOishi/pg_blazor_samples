@@ -1,0 +1,11 @@
+.browser-accessibility {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+.browser-accessibility label { display:block; margin-block:0.7rem; }
+.browser-accessibility input { display:block; font:inherit; padding:0.6rem; max-width:100%; width:min(100%, 34rem); }
+.browser-accessibility button { font:inherit; margin:0.3rem; padding:0.55rem 0.8rem; }
+.browser-accessibility :focus-visible { outline:3px solid currentColor; outline-offset:3px; }
+.browser-accessibility.high-contrast { background:#111; color:#fff; }
+.browser-accessibility.high-contrast input { background:#fff; color:#111; border:2px solid #fff; }
+.browser-accessibility.high-contrast button { background:#fff; color:#111; border:2px solid #fff; }

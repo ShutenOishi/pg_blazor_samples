@@ -3,7 +3,7 @@
 @inject GreetingFormatter Formatter
 
 <PageTitle>ステップ15：injectとコンストラクター注入｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ15 / 注入方法</p>
+<p class="eyebrow">学習順025（旧Step15） / 注入方法を使い分ける</p>
 <h1>画面とC#クラスでサービスを受け取る</h1>
 <p>Razorコンポーネントは <code>@@inject</code>、通常のC#クラスはコンストラクター経由で必要なサービスを受け取れます。</p>
 
@@ -20,9 +20,24 @@
     <p><code>GreetingFormatter(GreetingService greeting)</code> では、C#クラスが別のサービスをコンストラクターで受け取ります。</p>
     <p>実装クラスと契約を分け、起動時に登録することで、画面の責任を小さくできます。</p>
 </section>
+<section class="lesson-details">
+    <h2>WinFormsとBlazorの実装を比べる</h2>
+    <table>
+        <thead><tr><th>方式・考え方</th><th>実装の要点</th><th>確認すること</th></tr></thead>
+        <tbody>
+            <tr><td>Razor</td><td><code>@@inject GreetingFormatter Formatter</code></td><td>画面へ型付きのサービスを注入する</td></tr>
+            <tr><td>通常のC#</td><td><code>GreetingFormatter(GreetingService greeting)</code></td><td>コンストラクターから依存先を受け取る</td></tr>
+        </tbody>
+    </table>
+    <h2>実コードと障害の切り分け</h2>
+    <pre><code>builder.Services.AddTransient&lt;GreetingFormatter&gt;();
+// Formatter → GreetingService → IClock</code></pre>
+    <p><strong>症状：</strong>Formatterを解決できない。<strong>確認：</strong>内側のGreetingServiceとIClockまで登録を確認。WinFormsのローカルイベントとは違い、Interactive Serverではサーバー側でC#を実行します。画面に表示された値だけでDBへの保存や業務認可が行われたと判断しないでください。</p>
+    <p>詳しい解説、2つ以上の実コード、比較表、症状別の切り分け、演習と詳しい解答は日本語教材の学習順025に掲載しています。</p>
+</section>
 <div class="page-navigation">
     <a href="/learn/14">前へ：ステップ14</a>
-    <a href="/learn/column/15">学習コラム03へ</a>
+    <a href="/learn/column/15">次へ：第5組の復習</a>
 </div>
 @code {
     private string learnerName = "練習太郎";

@@ -2,8 +2,8 @@
 @using PgBlazorSamples.Web.Data
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
-<PageTitle>ステップ74：業務の永続監査｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ74 / PostgreSQL 18の監査書込み</p>
+<PageTitle>学習順99：業務の永続監査｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順99（旧Step74） / PostgreSQL 18の監査書込み</p>
 <h1>業務操作の本人・対象・結果を記録する</h1>
 <MudPaper Class="pa-4">
     <p>サーバーが信頼済み認証情報から本人を取得し、業務の結果をPostgreSQLへ記録します。</p>
@@ -19,8 +19,22 @@
         <li>接続文字列の<code>application_name</code>はアプリ識別であり、本人監査にはならない。</li>
     </ul>
     <p>匿名・DB停止・ロックできない外部台帳での挙動、および監査の保存期間・改ざん対策を実環境でも検証します。</p>
+
+    <h2>学習順099の比較と確認</h2>
+    <table data-testid="stage08-compare-099">
+        <caption>学習順099：永続監査</caption>
+        <thead><tr><th scope="col">確認対象</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理の根拠</th><td>OSから検証済み本人を受け取り、SQLで正本を照合</td><td>操作・本人・対象・結果・相関IDとUTC</td></tr>
+            <tr><th scope="row">失敗時</th><td>DB更新と表示を止め、必要な監査を残す</td><td>監査INSERT失敗ならデータ非公開・保存取消</td></tr>
+            <tr><th scope="row">受入範囲</th><td>端末・既存DBの実環境で別途検証</td><td>CIの架空認証と実AD/IIS/FDWの現地受入を区別</td></tr>
+        </tbody>
+    </table>
+    <details><summary>この画面が表示できれば本番で許可されたと判断できますか？</summary>
+        <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
+    </details>
 </section>
-<div class="page-navigation"><a href="/learn/73">前へ</a><a href="/">目次へ</a></div>
+<div class="page-navigation"><a href="/learn/73">前へ</a><a href="/">目次へ</a><a href="/learn/75">次へ</a></div>
 @code {
     private string _status = "監査付き業務取得は未確認です。";
     private async Task CheckAsync()

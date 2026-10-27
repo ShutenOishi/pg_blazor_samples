@@ -1,7 +1,7 @@
 @page "/learn/column/15"
 
 <PageTitle>学習コラム03：DIのしくみを整理する｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習コラム03 / ステップ11〜15のまとめ</p>
+<p class="eyebrow">第5組の復習 / 学習順021〜025（旧Step11〜15）</p>
 <h1>DIを使うと、画面とサービスの何が変わる？</h1>
 <section class="lesson-details">
     <h2>5ステップのつながり</h2>
@@ -25,7 +25,32 @@
         <p>Step16では設定の受け取り、Step17ではログと非同期処理を扱います。役割の分離をさらに進めます。</p>
     </details>
 </section>
+<section class="lesson-details">
+    <h2>学習順021〜025を結び付ける</h2>
+    <table><thead><tr><th>学習順</th><th>注目する実装</th><th>確認すること</th></tr></thead><tbody>
+        <tr><td><a href="/learn/11">021</a></td><td>new / @@inject</td><td>生成する責任の違い</td></tr>
+        <tr><td><a href="/learn/12">022</a></td><td>IClock / FixedClock</td><td>固定時刻の挨拶</td></tr>
+        <tr><td><a href="/learn/13">023</a></td><td>GetRequiredService</td><td>Transientの追加解決</td></tr>
+        <tr><td><a href="/learn/14">024</a></td><td>EventCallback</td><td>親子の再描画通知</td></tr>
+        <tr><td><a href="/learn/15">025</a></td><td>GreetingFormatter</td><td>依存関係の連鎖</td></tr>
+    </tbody></table>
+    <h2>実装コードの関係</h2>
+    <pre><code>builder.Services.AddSingleton&lt;IClock, SystemClock&gt;();
+builder.Services.AddTransient&lt;GreetingService&gt;();
+builder.Services.AddTransient&lt;GreetingFormatter&gt;();
+builder.Services.AddScoped&lt;ScopedCounter&gt;();</code></pre>
+    <p>Razor画面からFormatterを受け取り、FormatterからGreetingService、GreetingServiceからIClockを受け取ります。別の練習では親子コンポーネントがScopedCounterを共有し、EventCallbackで再描画を通知します。</p>
+    <h2>失敗時の切り分け</h2>
+    <table><thead><tr><th>症状</th><th>確認すること</th></tr></thead><tbody>
+        <tr><td>画面が生成できない</td><td>DI登録とコンストラクターの依存先を確認</td></tr>
+        <tr><td>親の値が更新されない</td><td>OnChanged.InvokeAsyncからStateHasChangedまで確認</td></tr>
+        <tr><td>識別子が変わらない</td><td>再描画か新規解決か区別</td></tr>
+    </tbody></table>
+    <details><summary>演習：注入済みのTransientは再描画するたびに変わる？</summary><p>変わるとは限りません。今回のInitialTransientはコンポーネントが受け取った同じインスタンスを利用します。ボタンから別途解決すると新しい識別子を取得します。</p></details>
+    <details><summary>演習：子が同じScopedCounterを使えば親も必ず自動再描画する？</summary><p>いいえ。子からOnChanged.InvokeAsyncで親へ知らせ、親側がStateHasChangedを使って表示更新します。</p></details>
+    <p>日本語テキストの第5組には6題の演習、詳細な解答、比較表、診断表と実コードがあります。</p>
+</section>
 <div class="page-navigation">
     <a href="/learn/15">ステップ15へ戻る</a>
-    <a href="/">学習の目次へ戻る</a>
+    <a href="/learn/16">次へ：学習順026</a>
 </div>

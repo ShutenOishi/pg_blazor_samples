@@ -1,0 +1,37 @@
+@page "/learn/stage/di"
+<PageTitle>第3段階の概要：DI・サービスと単体テスト｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第3段階 / 学習順021〜030</p>
+<h1>第3段階の概要：DI・サービスと単体テスト</h1>
+<p>WinForms＋Dapperでフォームから直接作成していたクラスを、Blazorでは必要に応じてDIから受け取ります。登録、インターフェイス、サービスの生存期間、circuit、注入、Options、ログ、xUnit、サービス分離を10本で学びます。</p>
+<section class="lesson-details">
+    <h2>前提と到達目標</h2>
+    <p>第2段階でRazorのイベントと対話回線を学んだ人が対象です。追加のPostgreSQL・実AD・IIS環境は不要です。DIが何を生成し、どの範囲で共有し、何を保証しないのか説明できることを目指します。</p>
+    <h2>学習順の一覧</h2>
+    <table><thead><tr><th>学習順</th><th>テーマ</th><th>実際の練習</th></tr></thead><tbody>
+        <tr><td><a href="/learn/11">021</a></td><td>DIの基本</td><td>直接生成と注入による挨拶</td></tr>
+        <tr><td><a href="/learn/12">022</a></td><td>インターフェイス</td><td>固定時計の切替</td></tr>
+        <tr><td><a href="/learn/13">023</a></td><td>Singleton・Scoped・Transient</td><td>識別子の再取得</td></tr>
+        <tr><td><a href="/learn/14">024</a></td><td>circuitとScoped</td><td>親子カウンター</td></tr>
+        <tr><td><a href="/learn/15">025</a></td><td>注入方法</td><td>入力した名前の挨拶</td></tr>
+        <tr><td><a href="/learn/16">026</a></td><td>Options</td><td>設定を型付きで取得</td></tr>
+        <tr><td><a href="/learn/17">027</a></td><td>非同期とログ</td><td>開始・取消</td></tr>
+        <tr><td><a href="/learn/18">028</a></td><td>単体テスト</td><td>固定時計で結果を再現</td></tr>
+        <tr><td><a href="/learn/19">029</a></td><td>処理の分離</td><td>Applicationのサービス</td></tr>
+        <tr><td><a href="/learn/20">030</a></td><td>DI総合演習</td><td>課題の入力・追加</td></tr>
+    </tbody></table>
+    <h2>WinFormsとInteractive Serverの違い</h2>
+    <table><thead><tr><th>観点</th><th>WinForms</th><th>Blazor</th></tr></thead><tbody>
+        <tr><td>実行場所</td><td>クライアントのC#</td><td>サーバー側のC#</td></tr>
+        <tr><td>部品の生成</td><td>Form内のnewなど</td><td>Program.csの登録と注入</td></tr>
+        <tr><td>状態の寿命</td><td>Formなどの寿命</td><td>circuitやDIスコープ</td></tr>
+    </tbody></table>
+    <h2>コードで確認</h2>
+    <pre><code>builder.Services.AddSingleton&lt;IClock, SystemClock&gt;();
+builder.Services.AddTransient&lt;GreetingService&gt;();
+builder.Services.AddScoped&lt;ScopedCounter&gt;();</code></pre>
+    <p>登録だけでDB保存、既存台帳による都度認可、監査、AD本人認証が完成するわけではありません。</p>
+    <details><summary>確認問題：Transientを再描画ごとに作り直しますか？</summary><p>いいえ。新しい解決を要求した場合などに生成されます。注入済みサービスを保持したまま再描画するだけで新規生成されるとは限りません。</p></details>
+    <h2>復習と次の段階</h2>
+    <p>最初の5件の後は<a href="/learn/column/15">第5組の復習</a>、後半の5件の後は<a href="/learn/column/20">第6組の復習</a>へ進みます。学習順030の後にはライブラリが提供するDIの特別コラムがあります。</p>
+</section>
+<div class="page-navigation"><a href="/learn/column/runtime-20">前へ：第4組の復習</a><a href="/learn/11">学習順021を始める</a></div>

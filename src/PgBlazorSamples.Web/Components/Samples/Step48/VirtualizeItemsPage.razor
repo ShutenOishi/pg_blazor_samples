@@ -1,7 +1,7 @@
 @page "/learn/48"
 @using PgBlazorSamples.Web.Data
 <PageTitle>ステップ48：描画仮想化｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ48 / 描画仮想化</p>
+<p class="eyebrow">学習順068（旧ステップ48） / 描画仮想化</p>
 <h1>取得済み500件を画面に必要な分だけ描画する</h1>
 <p>Itemsを使う仮想化です。データ500件はすでにメモリ上にあるため、DBの取得件数は減りません。</p>
 <p role="status" data-testid="step48-count">メモリに保持：@_rows.Count 件／DB問い合わせ：0 件</p>
@@ -15,6 +15,12 @@
     </MudDataGrid>
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順068：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-068"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>取得済みデータの仮想描画</td><td>DataGridViewで可視行だけを描画</td><td>MudDataGridのItems＋Virtualizeで描画を制限</td></tr>
+    <tr><td>DBと業務の安全性</td><td>SQLと台帳に操作・行の認可条件を追加する</td><td>DTO取得と既存台帳の都度認可・監査を区別する</td></tr></tbody></table>
+    <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順068で確認します。</p>
+
     <h2>重要な違い</h2>
     <p>Virtualizeは描画行数を減らしますが、Itemsへのデータ取得は減らしません。高さと想定行高を設定し、可変高さの行を避けます。次のStep49はDBへの要求範囲まで制限します。</p>
 </section>

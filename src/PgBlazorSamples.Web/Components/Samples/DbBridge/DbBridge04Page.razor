@@ -1,0 +1,44 @@
+@using Microsoft.EntityFrameworkCore
+@using PgBlazorSamples.Web.Data
+@inject IDbContextFactory<LearningDbContext> Factory
+@page "/learn/db-bridge-04"
+<PageTitle>学習順58：既存DB・ビュー・キーなしモデル・FDWを扱う｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順58</p><h1>既存DB・ビュー・キーなしモデル・FDWを扱う</h1>
+<p>既存DBのビュー、キーなしモデル、FDWの扱いを学びます。匿名画面から利用者台帳を読み取りません。</p>
+<section class="lesson-details"><button type="button" @onclick="Inspect">キーなしモデル定義を確認する</button>
+<p role="status" data-testid="dbbridge04-state">@state</p>
+<ul><li>キーなしのビューは通常の追跡更新対象にできません。</li>
+<li>FDWは外部側の権限・性能・通信エラーを考慮します。</li>
+<li>外部DBの更新と監査の原子性を保証できない場合は更新を拒否します。</li></ul>
+<p>認証でユーザー名が得られても、個別の認可は既存台帳を根拠に行います。</p></section>
+
+<section class="lesson-details" aria-label="学習順058の比較と切り分け">
+    <h2>学習順058：WinForms＋Dapperとの比較</h2>
+    <table data-testid="dbbridge12-compare-058">
+        <caption>学習順058の操作と実行場所</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">Blazor＋EF Core</th><th scope="col">確認点</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">操作</th><td>EFモデルだけを検査（DBへのSELECTなし）</td><td>ブラウザーとサーバーの責任を分ける</td></tr>
+            <tr><th scope="row">WinForms＋Dapper</th><td>DapperのQueryAsync</td><td>匿名の定義確認では実行しない</td></tr>
+            <tr><th scope="row">安全条件</th><td>既存台帳の都度認可・監査・安全拒否</td><td>学習操作と実業務の認可を混同しない</td></tr>
+        </tbody>
+    </table>
+    <h2>失敗の切り分け</h2>
+    <table><thead><tr><th scope="col">症状</th><th scope="col">確認内容</th></tr></thead>
+    <tbody><tr><th scope="row">モデルが見つからない</th><td>DbContextと型の登録を照合</td></tr>
+    <tr><th scope="row">DBと接続できない</th><td>エラー発生元を切り分け、別の実DB試験で検証</td></tr></tbody></table>
+    <p>教材の説明と詳しい演習解答を確認してください。認証済みでも台帳認可と監査が成立しない業務処理は拒否します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/39">前へ</a><a href="/learn/db-bridge-05">次へ</a></div>
+@code {
+    private string state = "未確認";
+    // 認可のない画面から台帳の行を取得せず、EFのモデル定義だけを参照する。
+    private void Inspect()
+    {
+        using var db = Factory.CreateDbContext();
+        var model = db.Model.FindEntityType(typeof(ExistingUserAccessRow));
+        state = model is not null && model.FindPrimaryKey() is null
+            ? "既存台帳のモデルはキーなし（HasNoKey）。データは取得していません。"
+            : "モデルを確認できません。";
+    }
+}

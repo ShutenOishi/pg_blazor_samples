@@ -1,0 +1,22 @@
+@page "/learn/stage/data-list"
+<PageTitle>第6段階の概要：一覧データ連携・検索・編集｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第6段階 / 学習順061〜080</p>
+<h1>第6段階の概要：一覧データ連携・検索・編集</h1>
+<section class="lesson-details">
+    <p>WinForms＋DapperのDataGridViewから、Blazor＋EF Core10の一覧へ進みます。最初の5件はItems、MudTable、MudDataGrid、複数列ソート、複合検索です。学習順066〜080の全面改稿は次工程で進めます。</p>
+    <table data-testid="stage06-overview-table">
+        <caption>第6段階：最初の5ステップと学習目的</caption>
+        <thead><tr><th scope="col">学習順</th><th scope="col">テーマ</th><th scope="col">確認すること</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">061</th><td>Items</td><td>固定8件、DBアクセス0件</td></tr>
+            <tr><th scope="row">062</th><td>MudTable</td><td>TableStateからDBページングへ</td></tr>
+            <tr><th scope="row">063</th><td>MudDataGrid</td><td>GridStateからDTO・TotalCountへ</td></tr>
+            <tr><th scope="row">064</th><td>複数ソート</td><td>許可リストとIdの一意順序</td></tr>
+            <tr><th scope="row">065</th><td>複合検索</td><td>検索・認可の条件をCountと行に共有</td></tr>
+        </tbody>
+    </table>
+    <p>実業務のAD本人認証と既存DB台帳での都度認可、監査失敗時の拒否は省略できません。画面の表示成功は実AD/IIS/Kerberos/FDWと1万人超負荷の実機受入を意味しません。</p>
+    <details><summary>ItemsでDB100万件を先に全件取得してよいですか？</summary><p>いいえ。ServerDataを使いサービス側の条件・認可・Skip/Takeで取得範囲を制限します。</p></details>
+    <details><summary>Countを表示ページの件数から計算してよいですか？</summary><p>いいえ。共通のWhereで一致した総件数をCountAsyncで取得します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/40">前へ：学習順060</a><a href="/learn/41">次へ：学習順061</a></div>

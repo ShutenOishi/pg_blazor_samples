@@ -1,0 +1,29 @@
+@page "/learn/column/runtime-20"
+<PageTitle>第4組の復習：初期化・再読込・状態の復習｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順016〜020 / 第4組の復習</p>
+<h1>第4組の復習：初期化・再読込・状態の復習</h1>
+<p>インスタンスの寿命、事前レンダリング、フォームの日本語検証、URL、保存先の違いを実コードと画面で確認します。</p>
+<section class="lesson-details">
+<h2>5画面の操作順</h2>
+<table><thead><tr><th>学習順</th><th>画面操作</th><th>説明できること</th></tr></thead><tbody>
+<tr><td><a href="/learn/09">016</a></td><td>テーマ変更と子の再表示</td><td>Parameter更新とインスタンス生成</td></tr>
+<tr><td><a href="/learn/runtime-03">017</a></td><td>変更回数を2にする</td><td>初期化とOnAfterRenderの違い</td></tr>
+<tr><td><a href="/learn/10">018</a></td><td>空欄、短い入力、妥当な入力</td><td>日本語入力検証は業務認可ではない</td></tr>
+<tr><td><a href="/learn/runtime-04">019</a></td><td>tab=historyで再読込</td><td>tabは残りcountは0に戻る</td></tr>
+<tr><td><a href="/learn/runtime-05">020</a></td><td>3種類の候補を切り替える</td><td>選定の表示だけでは保存されない</td></tr>
+</tbody></table>
+<h2>コードの読み取り</h2>
+<pre><code>protected override void OnInitialized() =&gt; initialized++;
+private void Add() =&gt; changes++;</code></pre>
+<p>変更イベントが発生しても、初期化の回数が増えるわけではありません。表示中の初期化回数は、事前レンダリングで生成した別インスタンスを含む総数ではありません。</p>
+<pre><code>[SupplyParameterFromQuery(Name = "tab")]
+[Parameter] public string? Tab { get; set; }
+private int count;</code></pre>
+<p>URLに残る表示条件とサーバー側の一時フィールドの違いを復習してください。</p>
+<details><summary>入力検証に合格すればDBに保存されますか？</summary><p>いいえ。学習順018のOnValidSubmitは画面内の確認値を更新するだけです。</p></details>
+<details><summary>再表示された子の初期化が1から始まる理由は？</summary><p>非表示で子が破棄され、再表示で新しいインスタンスが作られるためです。</p></details>
+<details><summary>ブラウザーにある権限の値を認可の正本にしてよいですか？</summary><p>いけません。ADで認証済みの本人と事前整備済みDB・外部台帳をサーバー側で都度照合します。</p></details>
+<details><summary>「業務の永続データ」を選べばDBに書き込まれますか？</summary><p>いいえ。Selectは選択文字列を変更するだけで、DB保存・監査は行いません。</p></details>
+<p>日本語テキストには比較表、症状別の切り分け、8題の演習と詳しい解答があります。</p>
+</section>
+<div class="page-navigation"><a href="/learn/runtime-05">前へ：学習順020</a><a href="/learn/11">次へ：学習順021</a></div>

@@ -1,7 +1,7 @@
 @page "/learn/26"
 
-<PageTitle>ステップ26：MudDataGridで一覧を検索｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ26 / DataGrid</p>
+<PageTitle>学習順36：MudDataGridで一覧を検索｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順36 / DataGrid</p>
 <h1>MudDataGridの検索・列フィルター・ページャー</h1>
 <p>小規模な架空データを使い、画面内検索と列フィルターを学びます。データベースには接続しません。</p>
 <MudPaper Class="pa-4" Elevation="1">
@@ -31,7 +31,16 @@
     <p>行数が固定された6件で、全件取得に上限があるからです。ここでの絞り込みとソートは画面内の操作です。多数のDB行を扱うときは、Step41以降でServerDataとEF Coreによる検索に切り替えます。</p>
     <p>DataGridの列フィルターと上部の簡易検索は異なる機能です。両方を指定すると条件が組み合わされます。</p>
 </section>
-<div class="page-navigation"><a href="/learn/25">前へ：ステップ25</a><a href="/learn/27">次へ：ステップ27</a></div>
+<section class="lesson-details" data-testid="mud08-compare-36">
+    <h2>学習順36：MudDataGridの検索条件を比較する</h2>
+    <p>WinForms＋Dapperの操作とWebの状態管理を分けて確認します。例示データや模擬処理は実業務の永続化・認可を表しません。</p>
+    <table><thead><tr><th>観点</th><th>この画面で確かめること</th></tr></thead><tbody>
+<tr><th>現在の実装</th><td>Itemsは小規模な取得済み6件</td></tr>
+<tr><th>利用者が確認すること</th><td>QuickFilterはC#側の判定</td></tr>
+<tr><th>後続への接続</th><td>ServerDataはDB章で扱う</td></tr>
+    </tbody></table>
+</section>
+<div class="page-navigation"><a href="/learn/column/25">前へ：第7組の復習</a><a href="/learn/27">次へ：ステップ27</a></div>
 
 @code {
     private sealed record LearningItem(int Id, string Title, string Category, string Status);

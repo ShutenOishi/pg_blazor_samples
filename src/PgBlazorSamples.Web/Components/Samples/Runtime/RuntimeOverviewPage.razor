@@ -1,0 +1,26 @@
+@page "/learn/stage/runtime"
+<PageTitle>第2段階の概要：Blazorの基本と実行原理｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第2段階 / 学習順006〜020</p>
+<h1>第2段階の概要：Blazorの基本と実行原理</h1>
+<p>Webの要求と応答を学んだ後、Razor・イベント・SignalR・circuit・初期化・状態保存を15テーマで学びます。DBやADは必要ありません。</p>
+<section class="lesson-details"><h2>WinFormsとの違い</h2>
+<p>WinFormsでは同じPC内で実行されるイベントも、Interactive Serverではサーバー側で実行されます。Static SSRはHTMLを返すだけで対話型イベントを持たない方式です。</p>
+<h2>WinFormsとBlazorの対比</h2><table><thead><tr><th>項目</th><th>WinForms</th><th>Blazor</th></tr></thead><tbody><tr><td>画面</td><td>Form</td><td>RazorとHTML</td></tr><tr><td>イベント</td><td>通常は手元のC#</td><td>Interactive ServerではサーバーC#</td></tr><tr><td>状態</td><td>Formのフィールド</td><td>コンポーネントと接続の寿命に依存</td></tr></tbody></table>
+<h2>実際のコード</h2><pre><code>@@page "/learn/01"
+&lt;h1&gt;はじめてのBlazor画面&lt;/h1&gt;</code></pre><p>このコードは学習順006のURLと見出しです。第2組ではルートの表示と対話型イベントの成立を区別します。</p>
+<h2>学習の進め方</h2><ol>
+<li>学習順006〜010：Razor表示、URL、Static SSRと対話型、C#イベント。</li>
+<li>学習順011〜015：双方向入力、条件表示、親子のParameterとEventCallback、SignalRと再接続。第3組の復習へ進みます。</li>
+<li>学習順016〜020：ライフサイクル、事前レンダリング、フォーム、URLと保存先。</li>
+</ol><p>各5件の後に第2〜4組の復習を行ってください。</p>
+<h2>確認課題</h2><p>再読込後に画面状態を保持する必要がある場合、どこへ保存するか説明してください。</p>
+<details><summary>解答の目安</summary><p>公開してよい表示条件はURL、公開可能なUI設定はブラウザー、永続する業務データは認可を伴うDBなど、寿命と機密性で判断します。</p></details></section>
+<section class="lesson-details"><h2>第4組：学習順016〜020</h2>
+<table><thead><tr><th>順</th><th>内容</th><th>実画面で確認すること</th></tr></thead><tbody>
+<tr><td>016</td><td>初期化・破棄</td><td>子を隠して再表示</td></tr>
+<tr><td>017</td><td>事前レンダリング</td><td>初期化と描画後処理</td></tr>
+<tr><td>018</td><td>入力検証</td><td>日本語の必須・文字数エラー</td></tr>
+<tr><td>019</td><td>URLと再読込</td><td>tabは残りcountは初期値へ戻る</td></tr>
+<tr><td>020</td><td>保存先選択</td><td>circuit・ブラウザー・DBを比較</td></tr>
+</tbody></table><p><a href="/learn/09">学習順016を始める</a>。5件を終えたら<a href="/learn/column/runtime-20">第4組の復習</a>へ進んでください。</p>
+</section><div class="page-navigation"><a href="/learn/01">学習順006を始める</a><a href="/learn/05">学習順011：双方向入力を開く</a><a href="/learn/column/runtime-15">第3組の復習へ</a></div>

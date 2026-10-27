@@ -1,0 +1,24 @@
+@page "/learn/stage/operations"
+<PageTitle>第8段階の概要：監査・競合制御・Windows Server運用｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第8段階 / 学習順096〜105</p>
+<h1>第8段階の概要：監査・競合制御・Windows Server運用</h1>
+<section class="lesson-details">
+    <p>WinForms＋DapperからBlazor＋EF Coreへ移る際にも、AD本人認証と既存DB台帳での操作・行単位都度認可は別に判定します。正本ロック・xmin・永続監査・IIS受入の条件を学びます。学習順101〜105の全面改稿と現地実機受入は未完了です。</p>
+    <table data-testid="stage08-overview-table">
+        <caption>第8段階の学習順と安全な判定</caption>
+        <thead><tr><th scope="col">学習順</th><th scope="col">テーマ</th><th scope="col">確認</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">096</th><td>台帳キー・重複拒否</td><td>0件・2件以上は拒否</td></tr>
+            <tr><th scope="row">097</th><td>明示Windowsログイン</td><td>HTTP POSTとCSRF、10分Cookie</td></tr>
+            <tr><th scope="row">098</th><td>権限ロック</td><td>失効・xmin・FDW原子性を確認</td></tr>
+            <tr><th scope="row">099</th><td>永続監査</td><td>監査失敗時にはデータ非公開</td></tr>
+            <tr><th scope="row">100</th><td>実機受入</td><td>CIとAD/IIS/FDW・負荷を区別</td></tr>
+            <tr><th scope="row">101〜105</th><td>競合・監視・復旧</td><td>次の全面改稿対象</td></tr>
+        </tbody>
+    </table>
+    <h2>第20組と第21組の区切り</h2>
+    <p>学習順100の後で第20組を復習し、学習順101〜105の後に第21組を復習します。1万人超の台帳登録数と同時circuit数、Npgsql物理接続数は別の評価対象です。</p>
+    <details><summary>CIが成功したらKerberosの現地受入も完了ですか？</summary><p>いいえ。現地IIS・SPN、Data Protection鍵、FDW失効、監査と負荷の実機証跡が必要です。</p></details>
+    <details><summary>FDW原子性が不明な場合に保存してもよいですか？</summary><p>いいえ。既存正本の権限を同一確定単位で保証できない場合は書込みを拒否します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/column/70">前へ：第19組復習</a><a href="/learn/71">次へ：学習順096</a></div>

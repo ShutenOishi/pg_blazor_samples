@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningAdvancedPageService Pages
 <PageTitle>ステップ46：関連テーブルとDTO｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ46 / DTO射影・関連テーブル</p>
+<p class="eyebrow">学習順066（旧ステップ46） / DTO射影・関連テーブル</p>
 <h1>JOINした必要な列だけを表示する</h1>
 <p>課題と分類を関連付け、必要な3列だけをDTOとして取得します。未分類は「未分類」と表示します。</p>
 <MudPaper Class="pa-4">
@@ -16,11 +16,17 @@
     </MudTable>
 </MudPaper>
 <section class="lesson-details">
+    <h2>学習順066：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-066"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>関連表のDTO射影</td><td>DapperのLEFT JOIN SQLで必要列を取得</td><td>EF CoreがSelectで必要列のみCategoryTaskRowへ射影</td></tr>
+    <tr><td>DBと業務の安全性</td><td>SQLと台帳に操作・行の認可条件を追加する</td><td>DTO取得と既存台帳の都度認可・監査を区別する</td></tr></tbody></table>
+    <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順066で確認します。</p>
+
     <h2>なぜDTOに射影する？</h2>
     <p>Includeでエンティティ全体を増やすより、Selectで必要な列だけを取得します。N+1（行ごとに個別SQL）を避け、AsNoTrackingで一覧の変更追跡を省きます。</p>
     <p>上限20件の教材画面です。大量一覧では次のステップの方式を検討してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/45">前へ：ステップ45</a><a href="/learn/47">次へ：ステップ47</a></div>
+<div class="page-navigation"><a href="/learn/column/45">前へ：第13組の復習</a><a href="/learn/47">次へ：ステップ47</a></div>
 @code {
     private IReadOnlyList<CategoryTaskRow> _rows = [];
     private string _message = "開発用DBの読み込みを開始します。";

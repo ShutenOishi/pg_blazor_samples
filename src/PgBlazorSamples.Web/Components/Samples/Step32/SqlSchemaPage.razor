@@ -19,4 +19,19 @@
     </MudSimpleTable>
 </MudPaper>
 <p class="mt-3">同梱のSQLでは学習用テーブルだけを作り、既存業務スキーマは変更しません。初期化をアプリ起動時に自動実行しない方針です。</p>
+<section class="lesson-details">
+    <h2>学習順048：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="dbbridge10-compare-048">
+        <thead><tr><th scope="col">確認点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">実行場所</th><td>利用者端末のフォーム処理</td><td>サーバーのRazorイベントとサービス</td></tr>
+            <tr><th scope="row">DB列定義</th><td>DDLとSQLの列</td><td>DDLとOnModelCreating</td></tr>
+        </tbody>
+    </table>
+    <h2>障害の切り分け</h2>
+    <table><thead><tr><th scope="col">現象</th><th scope="col">確認すべき点</th></tr></thead>
+        <tbody><tr><td>画面表示だけではDDLを実行しない</td><td>設定・UI・実DBの確認を分ける</td></tr>
+        <tr><td>権限が確認できない</td><td>事前整備済みDB台帳で操作ごとに認可し、安全に拒否する</td></tr></tbody></table>
+    <p>実装の詳細、正常系・失敗例、演習と詳しい解答は対応する日本語教材を参照してください。</p>
+</section>
 <div class="page-navigation"><a href="/learn/31">前へ：ステップ31</a><a href="/learn/33">次へ：ステップ33</a></div>

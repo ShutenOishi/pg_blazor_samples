@@ -1,0 +1,13 @@
+@page "/learn/column/runtime-10"
+
+<PageTitle>第2組の復習：Razorと実行方式の復習｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順006〜010 / 第2組の復習</p>
+<h1>第2組の復習：Razorと実行方式の復習</h1>
+<section class="lesson-details"><h2>5テーマの確認</h2><ol>
+<li>最初のBlazor画面とURLを対応させる</li>
+<li>RazorでC#の表示とHTMLを組み立てる</li>
+<li>Static SSRと対話型の実行場所を区別する</li>
+<li>対話型のボタンがサーバーC#を呼び出すことを確かめる</li>
+</ol>
+<h2>実装の対応表</h2><table><thead><tr><th>学習順</th><th>確認する操作</th><th>主要コード</th></tr></thead><tbody><tr><td>006</td><td>見出しを表示</td><td>@@page、PageTitle</td></tr><tr><td>007</td><td>画面を遷移</td><td>NavLink、href</td></tr><tr><td>008</td><td>日付を表示</td><td>@@sampleDate.ToString</td></tr><tr><td>009</td><td>サーバーで回数を加算</td><td>@@onclick、Increment</td></tr><tr><td>010</td><td>0未満を防ぐ</td><td>disabledとif</td></tr></tbody></table><h2>コードの読み取り</h2><pre><code>&lt;button type="button" @@onclick="Decrement" disabled="@@(count == 0)"&gt;1減らす&lt;/button&gt;</code></pre><p>0のとき画面のボタンを無効にし、C#のDecrement()でもif(count &gt; 0)を確認します。処理側の制約は画面の無効化と別に必要です。</p><details><summary>Static SSRのHTML内のボタンを押すと、必ずC#の@onclickが動きますか？</summary><p>いいえ。Static SSRのみでは対話型C#イベントは動きません。Interactive Serverなどの対話設定が必要です。</p></details></section>
+<div class="page-navigation"><a href="/learn/04">前へ</a><a href="/learn/05">次へ</a></div>

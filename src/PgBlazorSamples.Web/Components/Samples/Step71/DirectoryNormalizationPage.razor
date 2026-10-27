@@ -1,8 +1,8 @@
 @page "/learn/71"
 @using PgBlazorSamples.Web.Services.Learning
 @inject WindowsUserAccessService Access
-<PageTitle>ステップ71：既存台帳とログイン名正規化｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ71 / 1万人規模の既存台帳と安全な照合</p>
+<PageTitle>学習順96：既存台帳とログイン名正規化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順96（旧Step71） / 1万人規模の既存台帳と安全な照合</p>
 <h1>同じ利用者名の表記揺れを拒否する</h1>
 <MudPaper Class="pa-4">
     <p>この操作はサーバーで認証済み本人と読み取り専用ビューを照合します。利用者名の入力欄や登録画面は作りません。</p>
@@ -20,8 +20,22 @@
     <h2>本番運用で検証すること</h2>
     <p>本教材の索引とビューは開発用の架空台帳です。FDWの検索条件pushdown、タイムアウト、切断、正本側の一意性を実機で検査してください。</p>
     <p><strong>注意：</strong>同じDOMAIN\userを別の人物へ再発行すると、名前だけで旧本人との区別はできません。正本で再利用を禁止するか、不変の識別子を追加する必要があります。</p>
+
+    <h2>学習順096の比較と確認</h2>
+    <table data-testid="stage08-compare-096">
+        <caption>学習順096：台帳キー・重複拒否</caption>
+        <thead><tr><th scope="col">確認対象</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理の根拠</th><td>OSから検証済み本人を受け取り、SQLで正本を照合</td><td>認証済みDOMAIN\userと台帳の正規化照合</td></tr>
+            <tr><th scope="row">失敗時</th><td>DB更新と表示を止め、必要な監査を残す</td><td>2件照合は許可ではなく重複拒否の根拠</td></tr>
+            <tr><th scope="row">受入範囲</th><td>端末・既存DBの実環境で別途検証</td><td>CIの架空認証と実AD/IIS/FDWの現地受入を区別</td></tr>
+        </tbody>
+    </table>
+    <details><summary>この画面が表示できれば本番で許可されたと判断できますか？</summary>
+        <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
+    </details>
 </section>
-<div class="page-navigation"><a href="/learn/70">前へ</a><a href="/">目次へ</a></div>
+<div class="page-navigation"><a href="/learn/column/70">前へ</a><a href="/">目次へ</a><a href="/learn/72">次へ</a></div>
 @code {
     private string _status = "台帳は未照合です。";
     private async Task CheckAsync()

@@ -1,0 +1,8 @@
+@page "/learn/column/capstone-110"
+<PageTitle>第22組の復習：総合演習｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第22組 / 学習順106〜110</p><h1>第22組の復習：業務アプリの通し演習</h1>
+<section class="lesson-details"><ol><li>WinFormsの画面とDapper SQLから、Razor・サービス・DBの責任に分割する。</li><li>一覧のCountとItemsを同じ認可条件とページ範囲で取得する。</li><li>編集DTO・取消・xmin・権限再照合・監査の原子性を確認する。</li><li>ADで認証されたユーザー名を既存DB台帳へ照合する。</li><li>Windows/Linux/Chrome/PG18のCIとIIS/AD/Kerberosの実機受入を分ける。</li></ol>
+<details><summary>確認：匿名ブラウザーから検索した場合も架空の課題一覧を出すべきですか？</summary><p>いいえ。総合演習の検索はSecuredLearningServiceを使い、本人と既存台帳、監査が成立しないとデータを出しません。</p></details>
+<details><summary>確認：GitHub Actionsが成功しただけでKerberosとIISの本番要件を満たしたと言えますか？</summary><p>いいえ。実機受入は独立した証跡が必要です。</p></details><table data-testid="capstone-review22-table"><thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor教材</th></tr></thead><tbody><tr><td>業務処理</td><td>フォームからDapper SQL</td><td>Razorから認可済み業務サービスへ委譲</td></tr><tr><td>競合と監査</td><td>トランザクションで確認</td><td>正本行ロック・xmin・監査失敗は安全拒否</td></tr><tr><td>運用受入</td><td>クライアント端末とDBを確認</td><td>CIと実AD/IIS/Kerberos/FDW・負荷の受入を区別</td></tr></tbody></table>
+</section>
+<div class="page-navigation"><a href="/learn/capstone-05">前へ</a><a href="/">次へ</a></div>
