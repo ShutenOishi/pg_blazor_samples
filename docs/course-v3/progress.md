@@ -1,3 +1,13 @@
+## 2026-10-27 第21組101〜105・復習：実装HEADのCI受入確定（PDF停止継続）
+
+- **認証済みGitHub GETによる受入証跡：** 改稿・Razor・目次ソース・静的/Chrome同期・権限版投影修正を含むHEAD `42d1970c1922b02fd0dfef3fc0603f23d7fe5a0d`。アプリ[Run 40530379119](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40530379119)はWorkflow **completed/SUCCESS**、Windows Server 2025 Release/xUnit/静的教材検査、Ubuntu 24.04 Release/xUnit/Chrome実操作、PostgreSQL18実DB結合と既存安全拒否の **全3ジョブcompleted/SUCCESS**。同一HEADの[PDF Workflow 40530379178](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40530379178)は **completed/SKIPPED**。旧成功Runを再実行していない。
+- **今回の確定改稿：** 学習順101〜105（旧Step76〜80）本文4,135／4,074／3,838／3,898／4,628文字、第21組復習3,701文字。6本文とも3,300文字以上、実コード2例以上、WinForms＋Dapper比較表、操作手順、障害切り分け、演習・詳しい解答。5つのRazor比較表・復習表、Home/NavMenu、旧80URL、前後リンク、Web/PDF目次**ソースのみ**、静的検査とChromeを同期。既受入の第8段階概要は変更なし。
+- **回帰修正：** `WindowsUserAccessService.ReadCurrentAsync`の認可成功時にDBの`AuthorizationVersion`が欠落していた問題を修正し、PostgreSQL18実DBの統合試験で版1の投影を検証済み。Step77の非機密キャッシュの本人・部署・権限版・30秒TTL契約を保持。
+- **確定進捗：** 新規初稿**30/30**、全面改稿**105/110**、通常復習**21/22**、段階概要**8/9**。**本記録追記でHEADがさらに変わるため、記録更新後の最新HEADでもアプリCI全3ジョブSUCCESSとPDF SKIPPEDを直接GETして最終受入する。** 前HEADの成功を新HEADへ代用しない。
+- **最優先禁止：** ユーザーの明示再開までPDF生成・再生成、Preview Release・正式Release更新を一切禁止。PDF停止Workflowを維持。既存Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`を変更しない。
+- **安全・未受入：** PR #36をDraft/open・main未マージで維持。ADは本人認証・ドメイン名取得のみ、業務の操作・行単位認可は既存DB台帳を都度確認。監査・権限失効・xmin・DB/FDW原子性不明時の安全拒否を維持。実AD/IIS/Kerberos/FDW、Data Protection鍵・監査運用、1万人超登録・同時circuit・DBプール負荷と復旧の現地実機受入は未完了。
+- **次工程：** 学習順106〜110（capstone-01〜05）、第22組復習、第9段階概要を3,300字以上・コード2例・比較表・操作手順・障害切り分け・演習詳答で全面改稿。Razor/Web・PDF目次**ソースのみ**/NavMenu/リンク/静的検査/Chromeを同期し、同一記録HEADのCIを受け入れる。次回もGitHubを唯一の正本とし、短い引き継ぎプロンプトを作る。
+
 ## 2026-10-27 第21組101〜105・復習の全面改稿（PDF停止継続）
 
 - **前回受入HEAD：** `f6c27a56d202dfb1813e75257564f50bdef762f3`。認証済みGitHub GETでDraft/open・main未マージ、[アプリCI 40523479216](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40523479216) Windows/Linux/PostgreSQL18の全3ジョブSUCCESS、同一HEADの[PDF Workflow 40523479478](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40523479478) SKIPPEDを確認。成功済みRunは再実行しない。
