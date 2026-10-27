@@ -1,3 +1,13 @@
+## 2026-10-28 現地実機受入の未完了事項・証跡計画を策定（PDF停止継続）
+
+- **認証済みGitHub GETの基準正本**：Draft PR #36 `22aae38d3ddf3a27a611e07050efda783f9d8a7f` はopen/draft・main未マージ。[アプリCI 40548486534](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40548486534)はWindows/Linux/PG18の3ジョブすべてSUCCESS、[PDF Workflow 40548486604](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40548486604)はSKIPPED。[PRコメント #6448459478](https://github.com/ShutenOishi/pg_blazor_samples/pull/36#issuecomment-6448459478)を照合。成功済みCIは再実行していない。
+- **進捗維持**：新規初稿**30/30**、全面改稿**110/110**、通常復習**22/22**、段階概要**9/9**。全110本と成功済み教材CIを再実施しない。`curriculum.json`は110ステップの全件`final-reviewed-ci-passed`、通常復習22件、段階概要9件をGET/JSON解析で確認済みで、教材の改稿状態は変更しない。
+- **新規成果**：[`docs/course-v3/on-site-acceptance-plan.md`](course-v3/on-site-acceptance-plan.md)にPRE-01〜07の前提、SITE-01〜15の現地試験手順・PASS条件・証跡・停止条件、秘匿化した原本の管理規則を整備。**実機試験は一件も実施しておらず、SITE PASS 0/15、NOT_RUN 15/15**。PRE-01〜07も未確定。
+- **未受入**：実AD/IIS/Kerberos/SPN/実FDW、操作・行権限失効、`xmin`競合、Data Protection鍵、監査の本番永続性、台帳10,001人以上と独立した同時circuit/RPS/DBプール、障害復旧・切戻し。CI/モックを実機受入とみなさない。
+- **安全境界**：ADは本人認証、操作・行単位認可は既存DB台帳を都度参照。監査・失効・競合・FDW原子性不明時の安全拒否を保持。Draft/open・main未マージのまま。
+- **絶対禁止**：明示的なユーザーの再開指示までPDF生成・再生成、Preview Release・正式Release更新禁止。停止Workflow維持。既存Previewの生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID `680751957`、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f` を変更しない。
+- **次工程**：PRE-01〜07の責任者・評価環境・基準・証跡保管先を確定し、許可済み環境でSITE-01〜15を段階的に実施。記録更新後の新HEADに対応するアプリ3ジョブSUCCESSとPDF Workflow SKIPPEDは別途GETで確認し、未完了なら完了扱いしない。
+
 ## 2026-10-28 第22組106〜110の改稿・同期HEAD全CI受入確定（PDF停止継続）
 
 - **認証済みGitHub GETの受入証跡：** 教材7本文・Razor/目次ソース/NavMenu/静的検査/Chrome・進捗/カリキュラムの同期HEAD `248a6deeb33ca33ff889cbbf84a07ea37b045b50` に対し、[アプリRun 40547653260](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40547653260) は **completed/SUCCESS**。Windows Server 2025 Release/xUnit/教材静的検査、Ubuntu 24.04 Release/xUnit/Chrome実操作、PostgreSQL18実DB結合/安全拒否の **3ジョブがすべてcompleted/SUCCESS**。同一HEADの [PDF Workflow 40547653349](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40547653349) は **completed/SKIPPED**。成功Runを手動再実行していない。
