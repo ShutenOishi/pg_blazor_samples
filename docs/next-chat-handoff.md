@@ -1,3 +1,13 @@
+## 2026-10-28 第21組101〜105・復習の最終受入確定（PDF停止継続）
+
+- **直近の同一HEAD受入：** `5e5d09a1e02b2af3ba6b4616edf67c23ec5b583d`、[アプリ Run 40532324525](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40532324525) は **completed/SUCCESS**。Windows Server 2025 Release・xUnit・教材静的検査、Ubuntu 24.04 Release・xUnit・Chrome実操作、PostgreSQL18実DB結合・既存安全拒否の **全3ジョブcompleted/SUCCESS** を認証済みGitHub GETで確認。[PDF Workflow 40532324527](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40532324527) は **completed/SKIPPED**。成功Runの再実行なし。
+- **Chrome復旧証跡：** 記録更新HEAD `bef45631bdcd6d83ec3e6ca404ab107eb739ae29` の[Run 40531472560](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40531472560)ではWindows/PG18 SUCCESS、Linux Chromeが旧Step70の匿名拒否メッセージの応答待ちでFAILURE。対話準備待ちを`scripts/browser-smoke.cjs`の第19組ループに追加し、修復HEAD `5e5d09a1e02b2af3ba6b4616edf67c23ec5b583d` で3ジョブ全SUCCESSを実証。旧成功Runの手動再実行はしていない。
+- **確定進捗：** 新規初稿 **30/30**、全面改稿 **105/110**、通常復習 **21/22**、段階概要 **8/9**。学習順101〜105（旧Step76〜80）と第21組復習の6本文は **4,135／4,074／3,838／3,898／4,628／3,701文字**。各3,300文字以上、実コード2例、WinForms＋Dapper比較表、操作手順、障害の切り分け、演習・詳しい解答を収録。Razor5画面と復習、Home/NavMenu、旧80URL、前後リンク、Web/PDF目次**ソースのみ**、静的教材検査、Chromeを同期。第8段階概要は既受入のため変更していない。
+- **修正点：** `WindowsUserAccessService.ReadCurrentAsync`が認可成功時にもDBの`AuthorizationVersion`を投影するよう修正し、PostgreSQL18実DB結合で検証。権限失効・xmin・監査INSERT・FDW原子性不明時の安全拒否は維持した。
+- **最優先禁止：** 私の明示的な再開指示までPDF生成・再生成、Preview Release・正式Release更新を一切禁止。PDF停止Workflowを維持。既存Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID 680751957、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f` を変更しない。
+- **未受入：** 実AD/IIS/Kerberos/FDW、Data Protection鍵・監査運用、1万人超登録・同時circuit・DB接続プールと切戻し負荷の実機受入。PR #36はDraft/open・main未マージ。ADは本人認証・ログイン名のみ、操作・行単位は既存DB台帳の都度認可。
+- **次工程：** 学習順106〜110（capstone-01〜05）・第22組復習・第9段階概要を各3,300文字以上・コード2例以上、WinForms＋Dapper比較・手順・障害切り分け・演習詳答で全面改稿し、Razor・Web/PDF目次**ソースのみ**・NavMenu・旧80URL・前後リンク・静的検査・Chromeを同期。記録更新後の新HEADのアプリCI全3ジョブSUCCESSとPDF SKIPPEDをGETで受け入れる。最後にPRコメントと引き継ぎ用短縮プロンプトを更新する。
+
 ## 2026-10-27 第21組101〜105・復習：実装HEADのCI受入確定（PDF停止継続）
 
 - **認証済みGitHub GETによる受入証跡：** 改稿・Razor・目次ソース・静的/Chrome同期・権限版投影修正を含むHEAD `42d1970c1922b02fd0dfef3fc0603f23d7fe5a0d`。アプリ[Run 40530379119](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40530379119)はWorkflow **completed/SUCCESS**、Windows Server 2025 Release/xUnit/静的教材検査、Ubuntu 24.04 Release/xUnit/Chrome実操作、PostgreSQL18実DB結合と既存安全拒否の **全3ジョブcompleted/SUCCESS**。同一HEADの[PDF Workflow 40530379178](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40530379178)は **completed/SKIPPED**。旧成功Runを再実行していない。
