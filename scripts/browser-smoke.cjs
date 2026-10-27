@@ -195,6 +195,16 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "業務の永続データ" }).click();
         await waitText(page, '[data-testid="runtime05-choice"]', "データベース");
+        // 正規URLで非機密のUI設定を保存し、再読込後に復元できることを確認する。
+        await page.goto(base + "/learn/020");
+        await page.getByLabel("表示の好み").selectOption("compact");
+        await page.getByRole("button", { name: "表示設定をブラウザーへ保存する" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "保存しました");
+        await page.reload();
+        await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "読み込みました");
+        if (await page.getByLabel("表示の好み").inputValue() !== "compact") throw new Error("学習順020のブラウザー保存が復元されません");
+        await page.evaluate(() => localStorage.removeItem("pgblazor-course-runtime05-display"));
         await page.getByRole("link", { name: "次へ：第4組の復習" }).click();
         await page.getByRole("heading", { name: "第4組の復習：初期化・再読込・状態の復習" }).waitFor();
         await page.getByRole("table").first().getByText("日本語入力検証").waitFor();

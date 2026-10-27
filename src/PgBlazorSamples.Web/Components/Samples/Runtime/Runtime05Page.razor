@@ -1,10 +1,12 @@
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
 @page "/learn/020"
 @page "/learn/runtime-05"
 
 <PageTitle>学習順020：circuit・ブラウザー・DBの状態保存の選択｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第2段階 / 学習順020</p>
 <h1>circuit・ブラウザー・DBの状態保存の選択</h1>
-<p>状態の保持先は寿命と機密性で決めます。ここで操作する値は現在のcircuit内のコンポーネントだけにあり、ブラウザーストレージやDBへの保存を実装した例ではありません。</p>
+<p>状態の保持先は寿命と機密性で決めます。選択候補はcircuit内の一時状態です。これとは別に、非機密の表示設定をブラウザーのlocalStorageへ保存して再読込する例を実装しています。業務データや権限は保存しません。</p>
 <section class="lesson-details"><h2>用途から保存先を選ぶ</h2>
 <button type="button" @onclick='() => Select("circuit")'>画面の一時状態</button>
 <button type="button" @onclick='() => Select("browser")'>公開できる表示設定</button>
@@ -18,6 +20,19 @@ _ => "候補：circuit上の状態。切断や再起動で失われる可能性�
 <tr><td>ブラウザー</td><td>機密性のないUI設定</td><td>本人確認や権限判定には使わない</td></tr>
 <tr><td>DB</td><td>複数端末で共有する業務データ</td><td>アクセス時と更新時の認可が必要</td></tr></tbody></table>
 <p>実際のDB連携と認可は後の段階で学びます。</p></section>
+<section class="lesson-details">
+<h2>非機密の表示設定をlocalStorageで保存する</h2>
+<p>保存するのは「標準」「コンパクト」の選択だけです。認証情報・利用者情報・権限・DBの内容は保存しません。</p>
+<label for="runtime05-display-setting">表示の好み</label>
+<select id="runtime05-display-setting" @bind="displaySetting" data-testid="runtime05-display-setting">
+<option value="comfortable">標準</option>
+<option value="compact">コンパクト</option>
+</select>
+<button type="button" @onclick="SaveDisplaySettingAsync">表示設定をブラウザーへ保存する</button>
+<button type="button" @onclick="LoadDisplaySettingAsync">ブラウザーから表示設定を読み込む</button>
+<p role="status" data-testid="runtime05-browser-state">@browserStatus</p>
+<p>保存後に再読み込みすると選択欄は初期値に戻りますが、「読み込む」を押すと端末に残った設定を再取得できます。localStorageは利用者が編集・削除できるため、認可の根拠には使いません。</p>
+</section>
 <section class="lesson-details"><h2>保存先を選ぶ処理を読む</h2>
 <pre><code>private string selected = "circuit";
 // Selectは候補説明を切り替えるだけで、DBへ保存しない。
@@ -28,4 +43,44 @@ private void Select(string value) =&gt; selected = value;</code></pre>
     private string selected = "circuit";
     // 保存先の候補を説明する。実際の保存処理は行わない。
     private void Select(string value) => selected = value;
+    private const string DisplaySettingStorageKey = "pgblazor-course-runtime05-display";
+    private string displaySetting = "comfortable";
+    private string browserStatus = "未確認";
+    private async Task SaveDisplaySettingAsync()
+    {
+        if (displaySetting is not ("comfortable" or "compact"))
+        {
+            browserStatus = "許可されていない表示設定です。";
+            return;
+        }
+        try
+        {
+            await JS.InvokeVoidAsync("localStorage.setItem", DisplaySettingStorageKey, displaySetting);
+            browserStatus = "非機密の表示設定を保存しました。";
+        }
+        catch (JSException)
+        {
+            browserStatus = "ブラウザーに保存できませんでした。";
+        }
+    }
+    private async Task LoadDisplaySettingAsync()
+    {
+        try
+        {
+            var stored = await JS.InvokeAsync<string?>("localStorage.getItem", DisplaySettingStorageKey);
+            if (stored is "comfortable" or "compact")
+            {
+                displaySetting = stored;
+                browserStatus = "ブラウザーから表示設定を読み込みました。";
+            }
+            else
+            {
+                browserStatus = "保存データがないか、許可されない値です。";
+            }
+        }
+        catch (JSException)
+        {
+            browserStatus = "ブラウザーから読み込めませんでした。";
+        }
+    }
 }

@@ -259,10 +259,11 @@
       "lesson_path": "docs/course-v3/lessons/runtime-05.md",
       "app_url": "/learn/runtime-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor",
-      "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "audit_state": "interactive",
+      "test_state": "browser-smoke-added-awaiting-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/020"
+      "canonical_url": "/learn/020",
+      "notes": "表示設定のlocalStorage保存・再読込・値検証を追加。選択候補自体はcircuit一時状態、DB操作なし。"
     },
     {
       "sequence": 21,
