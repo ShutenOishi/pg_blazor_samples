@@ -1189,6 +1189,67 @@ if -1 in positions19 or positions19 != sorted(positions19) or not (
     missing.append("特別コラム→091〜095→第19組復習→096のPDF索引順が不正")
 
 
+
+# 第20組096〜100：全面改稿・実画面・目次を検査する。PDFの生成はしない。
+unit20 = [
+    (96, 71, "Step71/DirectoryNormalizationPage.razor"),
+    (97, 72, "Step72/ExplicitWindowsLoginPage.razor"),
+    (98, 73, "Step73/TransactionalAuthorizationPage.razor"),
+    (99, 74, "Step74/DurableAuditPage.razor"),
+    (100, 75, "Step75/IisAcceptancePage.razor"),
+]
+if [item["id"] for item in ordered[95:100]] != [f"step{old}" for _, old, _ in unit20]:
+    missing.append("第20組096〜100の学習順が不正")
+for seq, old, view_rel in unit20:
+    source = f"docs/samples/step{old}.md"
+    body = (ROOT / source).read_text(encoding="utf-8")
+    view = (SAMPLES / view_rel).read_text(encoding="utf-8")
+    if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
+        missing.append(source + "：改稿状態の不一致")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96) * 3) < 4:
+        missing.append(source + "：3300文字以上・比較表・コード2例不足")
+    for term in ("WinForms", "Dapper", "操作手順", "障害の切り分け", "詳しい解答"):
+        if term not in body:
+            missing.append(source + "：" + term + "不足")
+    if f'data-testid="stage08-compare-{seq:03d}"' not in view:
+        missing.append(source + "：Razor比較表不足")
+    if f"学習順{seq:03d}を開く" not in home or f"学習順{seq:03d}：" not in nav_eighth:
+        missing.append(source + "：Web目次・NavMenu不足")
+    if f'"{source}"' not in PDF_SCRIPT or f"学習順{seq}：" not in PDF_SCRIPT:
+        missing.append(source + "：PDF目次ソース不足")
+    previous = "/learn/column/70" if seq == 96 else f"/learn/{old-1}"
+    following = "/learn/column/75" if seq == 100 else f"/learn/{old+1}"
+    if f'href="{previous}"' not in view or f'href="{following}"' not in view:
+        missing.append(source + "：前後導線不足")
+
+review20_path = "docs/columns/column71-75.md"
+review20 = (ROOT / review20_path).read_text(encoding="utf-8")
+review20_view = (SAMPLES / "Columns/Column75Page.razor").read_text(encoding="utf-8")
+if len(review20) < 3300 or review20.count("| ---") < 2 or review20.count(chr(96) * 3) < 4 or "詳しい解答" not in review20:
+    missing.append("第20組復習：長文・表・実コード・詳答不足")
+if 'data-testid="stage08-review20-table"' not in review20_view or 'href="/learn/76"' not in review20_view:
+    missing.append("第20組復習：比較表または101への次リンク不足")
+if "学習順096〜100を復習する" not in home or "第20組の復習：096〜100" not in nav_eighth:
+    missing.append("第20組復習：Web目次・NavMenu不足")
+stage08 = (ROOT / "docs/course-v3/stages/stage08.md").read_text(encoding="utf-8")
+stage08_view = (SAMPLES / "Step71/Stage08OverviewPage.razor").read_text(encoding="utf-8")
+if len(stage08) < 3300 or stage08.count("| ---") < 2 or stage08.count(chr(96) * 3) < 4 or "詳しい解答" not in stage08:
+    missing.append("第8段階概要：教材の長文・コード・表・詳答不足")
+if 'data-testid="stage08-overview-table"' not in stage08_view or 'href="/learn/71"' not in stage08_view:
+    missing.append("第8段階概要：Razor比較表・096導線不足")
+if "第8段階の概要を先に読む" not in home or 'href="/learn/stage/operations"' not in nav_eighth:
+    missing.append("第8段階概要：Web目次・NavMenu不足")
+positions20 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(71, 76)]
+review20_pos = PDF_SCRIPT.find('"docs/columns/column71-75.md"')
+stage08_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage08.md"')
+if -1 in positions20 or positions20 != sorted(positions20) or not (
+    PDF_SCRIPT.find('"docs/columns/column66-70.md"') < stage08_pos
+    < positions20[0] < positions20[-1] < review20_pos
+    < PDF_SCRIPT.find('"docs/samples/step76.md"')
+):
+    missing.append("第19組復習→第8段階概要→第20組096〜100→復習→101のPDF索引順不正")
+
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
