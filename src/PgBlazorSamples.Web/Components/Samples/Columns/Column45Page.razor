@@ -4,7 +4,7 @@
 <h1>第13組の復習：ItemsとServerDataを要件で使い分ける</h1>
 <section class="lesson-details">
     <h2>5ステップの関係</h2>
-    <p>Step41：少量のItems → Step42：MudTable ServerData → Step43：MudDataGrid ServerData → Step44：安全な複数列ソート → Step45：複合条件と総件数です。</p>
+    <p>学習順061：少量のItems → 学習順062：MudTable ServerData → 学習順063：MudDataGrid ServerData → 学習順064：安全な複数列ソート → 学習順065：複合条件と総件数です。</p>
     <p>DB側の検索・ソート・ページングはWebのLearningPageServiceが担当し、画面へ返すのはDTOと総件数だけです。</p>
     <h2>WinForms＋Dapperとの比較と障害切り分け</h2>
     <table data-testid="stage06-review-table">
@@ -19,4 +19,4 @@
     <details><summary>確認：SortByをSQLへ直接連結してよい？</summary><p>いいえ。許可リストのプロパティを使うEF Core式へ変換します。</p></details>
     <details><summary>確認：ServerDataの取消トークンはどこまで渡す？</summary><p>DbContextの作成、CountAsync、ToListAsyncまで引き継ぎます。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/45">前へ：学習順065</a><a href="/learn/46">次へ：学習順066</a></div>
+<div class="page-navigation"><a href="/learn/065">前へ：学習順065</a><a href="/learn/066">次へ：学習順066</a></div>

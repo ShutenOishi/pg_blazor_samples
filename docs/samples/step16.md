@@ -1,6 +1,8 @@
-# 学習順26（旧Step16）：Optionsで設定を受け取る
+# 学習順26：Optionsで設定を受け取る
 
-対象画面は`/learn/16`です。WinForms＋Dapperの経験と結び付けて理解します。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step16/OptionsPage.razor)。画面の正規URLは `/learn/026` です。
+
+対象画面は`/learn/026`です。WinForms＋Dapperの経験と結び付けて理解します。
 
 ## このステップでできるようになること
 WinFormsで設定ファイルの値をフォームから直接取得していた場合を思い出してください。ASP.NET Coreでは、設定を型付きのオブジェクトとしてDIから受け取る**Optionsパターン**を利用できます。設定を読む処理と画面表示を分離し、後続の課題管理でも同じ設定を使う方法を学びます。
@@ -8,7 +10,7 @@ WinFormsで設定ファイルの値をフォームから直接取得していた
 この画面のC#はBlazor Interactive Serverの**サーバー側**で動作し、ブラウザーへは教材名と課題上限の表示結果が送られます。ブラウザーがサーバーの`appsettings.json`を直接読むわけではありません。
 
 ## 前提・環境・操作
-Step11〜15のDI登録と`@inject`の知識が前提です。Webアプリを起動して`/learn/16`を開きます。DB・ADは不要です。
+学習順021〜15のDI登録と`@inject`の知識が前提です。Webアプリを起動して`/learn/026`を開きます。DB・ADは不要です。
 
 1. 「教材名：Blazorステップアップ学習」と「課題の上限：5件」を確認する。
 2. 「設定とDIの関係を確認」を押すと、`Program.cs`で登録し`IOptions<LearningOptions>`から受け取る説明が表示される。
@@ -44,7 +46,7 @@ builder.Services.Configure<LearningOptions>(
 Razor画面は設定ファイルのパスを知らず、型として受け取った値を表示します。
 
 ```razor
-@page "/learn/16"
+@page "/learn/026"
 @using Microsoft.Extensions.Options
 @inject IOptions<LearningOptions> Settings
 
@@ -64,7 +66,7 @@ Razor画面は設定ファイルのパスを知らず、型として受け取っ
 
 ## 操作が表示に届く流れ
 1. アプリの起動処理で設定ソースを構成し、`LearningOptions`のバインドをDIへ登録する。
-2. `/learn/16`のコンポーネントが`IOptions<LearningOptions>`を受け取る。
+2. `/learn/026`のコンポーネントが`IOptions<LearningOptions>`を受け取る。
 3. `Settings.Value`から`CourseTitle`と`MaxTasks`を取得して表示する。
 4. ブラウザーでボタンを押すとサーバー上の`showCode`が反転し、表示する段落が変わる。
 
@@ -73,7 +75,7 @@ Razor画面は設定ファイルのパスを知らず、型として受け取っ
 ## IOptions・IOptionsSnapshot・IOptionsMonitorの違い
 `IOptions<T>`は基本的な型付き設定の利用方法です。設定変更を即時反映したい場合は、`IOptionsSnapshot<T>`や`IOptionsMonitor<T>`などを用途に応じて選びます。ただし、**Blazor Interactive ServerのScopedが通常の1回のHTTP要求とは異なる**ため、「Snapshotならクリックごとに更新」とは考えません。この教材では動的変更を実装せず、`IOptions<T>`を用います。
 
-`MaxTasks=5`と画面に表示するだけでは件数の保証になりません。Step20では`InMemoryTodoService`が設定値を読み、追加処理の側で上限を確認します。
+`MaxTasks=5`と画面に表示するだけでは件数の保証になりません。学習順030では`InMemoryTodoService`が設定値を読み、追加処理の側で上限を確認します。
 
 ## よくある間違いと切り分け
 - `GetSection("Learning")`の名前がJSONと異なると、想定した値にバインドできません。
@@ -91,13 +93,13 @@ Razor画面は設定ファイルのパスを知らず、型として受け取っ
 **解答：** 表示上の制限は処理の実行を禁止する保証にはなりません。保存や追加を行うサービス自身が検査する必要があります。
 
 ## 学習順026：WinForms＋Dapperから設定を読む場所を変える
-`/learn/16`ではブラウザーが設定ファイルを取得するのではなく、サーバー上のRazorが`IOptions<LearningOptions>`から教材名と上限を取り出します。WinFormsでは`ConfigurationManager`などをフォームから直接呼ぶこともありますが、DIへ設定を登録することで、表示と設定の取得方法を分けられます。プログラム起動時の`Configure<LearningOptions>`が設定節を対応させ、Step20で同じ設定を使うサービスにも渡せます。Dapperの接続文字列や認証情報を画面へ表示する例と混同してはいけません。
+`/learn/026`ではブラウザーが設定ファイルを取得するのではなく、サーバー上のRazorが`IOptions<LearningOptions>`から教材名と上限を取り出します。WinFormsでは`ConfigurationManager`などをフォームから直接呼ぶこともありますが、DIへ設定を登録することで、表示と設定の取得方法を分けられます。プログラム起動時の`Configure<LearningOptions>`が設定節を対応させ、学習順030で同じ設定を使うサービスにも渡せます。Dapperの接続文字列や認証情報を画面へ表示する例と混同してはいけません。
 
 | 比較 | WinForms＋Dapper | Blazorでの対応 | 読み取る場所 |
 | --- | --- | --- | --- |
 | 設定値 | フォームで設定のキーを読むことがある | `IOptions<LearningOptions>`を注入 | サーバーC# |
 | 設定形式 | キーと文字列を個別に扱う | `CourseTitle`と`MaxTasks`の型付き値 | `LearningOptions` |
-| 入力制約 | TextBox側と保存処理で検査 | 表示と`TryAdd`を分けて検査 | Step20のサービス |
+| 入力制約 | TextBox側と保存処理で検査 | 表示と`TryAdd`を分けて検査 | 学習順030のサービス |
 | SQL | Dapperの接続設定が別途必要 | この画面はDBを使わない | DB演習は後続 |
 
 `IOptions<T>`で受け取る値が常に正しいとは限りません。たとえば`Learning:MaxTasks`を100に設定すると、画面は100件と表示しますが、`InMemoryTodoService`では`Math.Clamp(100, 1, 20)`により実際の上限が20件になります。表示値とサービスで採用した値が異なることはバグとは限りませんが、利用者に何を表示するかは別途設計する必要があります。`IOptionsSnapshot<T>`はHTTP要求単位のScopedという基本を持ち、Interactive Serverのクリックごとに設定を読み直す意味ではありません。このサンプルは自動再読込を実装していません。
@@ -110,9 +112,9 @@ Razor画面は設定ファイルのパスを知らず、型として受け取っ
 | 利用者別の権限が表示されると思った | 業務認可の取得元 | 権限は既存DB台帳から毎操作検査 |
 
 ### 追加演習と解答
-**演習3：** 上限を0にしたとき、Step16の表示とStep20の追加許可は同じですか。
+**演習3：** 上限を0にしたとき、学習順026の表示と学習順030の追加許可は同じですか。
 
-**解答：** Step16は0を表示しますが、Step20のサービスは上限1へ補正します。初期課題が2件あるため新規追加はできません。画面の表示を検査の代わりにはできません。
+**解答：** 学習順026は0を表示しますが、学習順030のサービスは上限1へ補正します。初期課題が2件あるため新規追加はできません。画面の表示を検査の代わりにはできません。
 
 **演習4：** ライブラリが提供する`IOptions<T>`を自作のクラスに置き換える必要はありますか。
 
@@ -123,4 +125,4 @@ Razor画面は設定ファイルのパスを知らず、型として受け取っ
 - [ ] Optionsがサーバー側で使われることを説明できる。
 - [ ] 表示制御とサービス側の上限検査を区別できる。
 
-次は[ステップ17：非同期処理・取消・ログ](step17.md)へ進みます。
+次は[学習順027：非同期処理・取消・ログ](step17.md)へ進みます。

@@ -1,6 +1,8 @@
 # 学習順104：実DB・ブラウザー・認可の結合/E2E試験
 
-**第8段階・第21組／旧Step79・旧URL /learn/79**
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step79/EndToEndAcceptancePage.razor)。画面の正規URLは `/learn/104` です。
+
+**第8段階・第21組／学習順104・旧URL /learn/104**
 
 ## 到達目標
 
@@ -12,10 +14,10 @@
 | --- | --- | --- |
 | xUnit単体 | Windows/Linux | Scopedのキャッシュが本人・部署・権限版・TTLをまたがず、破棄できる |
 | PostgreSQL 18結合 | CIの一時DB | EF Core、架空既存台帳の重複拒否・部署制限・xmin競合・監査失敗ロールバック |
-| Playwright/Chrome | Ubuntu CI | Step76〜80の画面がレンダリングされ、匿名の業務ボタンが拒否される |
+| Playwright/Chrome | Ubuntu CI | 学習順101〜80の画面がレンダリングされ、匿名の業務ボタンが拒否される |
 | 実機IIS/AD | Windows Server 2025 | SPN/Kerberos、HTTPS、短命Cookie、FDW、SignalR、複数ノード、負荷 |
 
-Step79画面のボタンはSecuredLearningService.LoadPageAsyncを通り、認可済みの部署内一覧を取得した場合でも返す前に永続監査を要求します。匿名や権限失効時にはデータを表示しません。
+学習順104画面のボタンはSecuredLearningService.LoadPageAsyncを通り、認可済みの部署内一覧を取得した場合でも返す前に永続監査を要求します。匿名や権限失効時にはデータを表示しません。
 
 ## テストデータ管理
 
@@ -39,7 +41,7 @@ Step79画面のボタンはSecuredLearningService.LoadPageAsyncを通り、認�
 
 ## 次へ
 
-Step80ではCIの成果物をWindows Server 2025/IISへ配布する受入と復旧手順を学びます。
+学習順105ではCIの成果物をWindows Server 2025/IISへ配布する受入と復旧手順を学びます。
 
 
 ## 実装・運用の詳しい検証
@@ -60,7 +62,7 @@ _message = result.Message;
 ### 実コード例2：安全な境界の確認
 
 ```javascript
-await page.goto(base + "/learn/79");
+await page.goto(base + "/learn/104");
 await page.getByRole("button", { name: "監査付き一覧のE2E経路を確認" }).click();
 await waitText(page, '[data-testid="step79-state"]', "拒否");
 ```

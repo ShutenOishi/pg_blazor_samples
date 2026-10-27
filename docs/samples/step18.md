@@ -1,12 +1,14 @@
-# 学習順28（旧Step18）：DIと単体テストを理解する
+# 学習順28：DIと単体テストを理解する
 
-対象画面は`/learn/18`です。WinForms＋Dapperの経験と結び付けて理解します。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step18/UnitTestPage.razor)。画面の正規URLは `/learn/028` です。
+
+対象画面は`/learn/028`です。WinForms＋Dapperの経験と結び付けて理解します。
 
 ## このステップでできるようになること
-実行する時刻やブラウザーの状態に左右されず、C#のサービスが正しい値を返すか確かめます。WinFormsでフォームを起動せずに業務計算クラスを試験するのと同じ考え方です。Step12で学んだ`IClock`を使い、実時刻への依存をテスト時に置き換えます。
+実行する時刻やブラウザーの状態に左右されず、C#のサービスが正しい値を返すか確かめます。WinFormsでフォームを起動せずに業務計算クラスを試験するのと同じ考え方です。学習順022で学んだ`IClock`を使い、実時刻への依存をテスト時に置き換えます。
 
 ## 前提と画面での確認
-Step11〜17が前提です。PostgreSQL・ADは不要です。`/learn/18`を開きます。
+学習順021〜17が前提です。PostgreSQL・ADは不要です。`/learn/028`を開きます。
 
 1. 「午前8時：おはようございます」「午後1時：こんにちは」を確認する。
 2. 「固定時計で再確認する」を押しても同じ結果になることを確認する。
@@ -105,7 +107,7 @@ dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj
 **解答：** 不要ではありません。コードの期待結果を独立した試験として実行・記録することに意味があります。
 
 ## 学習順028：固定時計とxUnitの切り分け
-`/learn/18`の画面では午前8時と午後1時を表示しますが、どちらも実際のサーバー時計から計算していません。`GreetingService`が`IClock`から時刻を取得するので、テスト時には`FixedClock`や`TestClock`を渡せます。WinFormsでもフォームを起動せずに計算クラスへ固定入力を渡す考え方が重要です。DapperのSQLを実DBで確認する試験とは別に、DB不要のC#サービス単体テストを作れると、失敗原因を短時間で絞れます。
+`/learn/028`の画面では午前8時と午後1時を表示しますが、どちらも実際のサーバー時計から計算していません。`GreetingService`が`IClock`から時刻を取得するので、テスト時には`FixedClock`や`TestClock`を渡せます。WinFormsでもフォームを起動せずに計算クラスへ固定入力を渡す考え方が重要です。DapperのSQLを実DBで確認する試験とは別に、DB不要のC#サービス単体テストを作れると、失敗原因を短時間で絞れます。
 
 | 対象 | WinForms＋Dapperでの例 | 今回の試験 | 起動するもの |
 | --- | --- | --- | --- |
@@ -138,4 +140,4 @@ dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj
 - [ ] テスト時だけ実時刻を置き換える理由を説明できる。
 - [ ] 11時・12時の境界条件を説明できる。
 
-次は[ステップ19：Applicationへの分離](step19.md)です。
+次は[学習順029：Applicationへの分離](step19.md)です。

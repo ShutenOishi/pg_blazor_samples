@@ -1,7 +1,9 @@
-# 学習順33：日本語で入力部品を使う（旧Step23）
+# 学習順33：日本語で入力部品を使う
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step23/MudInputsPage.razor)。画面の正規URLは `/learn/033` です。
 
 ## 学ぶ前に
-この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/23 です。
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/033 です。
 
 ## WinForms＋Dapperとの比較
 | 観点 | デスクトップでの経験 | MudBlazorでの対応 |
@@ -44,7 +46,7 @@ private DateTime? _studyDate = new(2026, 10, 26);
 WinFormsのTextBox、ComboBox、DateTimePickerに相当する入力機能を、MudBlazorの`MudTextField`・`MudSelect`・`MudDatePicker`で扱います。値とC#の状態の結び付け方、`DateTime?`の日付型、`ja-JP`による表示を理解します。
 
 ## 操作する画面
-`/learn/23`へ移動します。実DBとADは不要です。
+`/learn/033`へ移動します。実DBとADは不要です。
 
 1. 初期状態は氏名が空、学習テーマが「基礎」、学習予定日が2026年10月26日です。
 2. 架空の名前「練習太郎」を入力すると、入力確認欄に反映される。
@@ -111,7 +113,7 @@ WinFormsのTextBox、ComboBox、DateTimePickerに相当する入力機能を、M
 - [ ] 日付の初期値と書式を説明できる。
 - [ ] `DateTime?`と将来の`DateOnly`を区別できる。
 
-次は[ステップ24：フォーム検証](step24.md)です。
+次は[学習順034：フォーム検証](step24.md)です。
 
 
 ## 学習順33の追加確認

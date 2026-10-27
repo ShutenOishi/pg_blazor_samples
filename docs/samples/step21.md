@@ -1,7 +1,9 @@
-# 学習順31：MudBlazorと日本語翻訳を導入する（旧Step21）
+# 学習順31：MudBlazorと日本語翻訳を導入する
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step21/MudIntroductionPage.razor)。画面の正規URLは `/learn/031` です。
 
 ## 学ぶ前に
-この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/21 です。
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/031 です。
 
 ## WinForms＋Dapperとの比較
 | 観点 | デスクトップでの経験 | MudBlazorでの対応 |
@@ -46,13 +48,13 @@ builder.Services.AddMudTranslations();
 WinFormsのボタンや表と同様、Webでも共通UI部品を組み合わせて業務画面を作ります。MudBlazorはBlazor向けのUIコンポーネントライブラリです。ここでは、**NuGetパッケージ、DI登録、Provider、静的ファイル、Interactive Server、日本語翻訳**がそろって初めて画面が動くことを理解します。
 
 ## 学習の前提
-Step11〜20のDIと[特別コラム05](../columns/column-library-di.md)が前提です。PostgreSQL・ADは不要です。`/learn/21`を開いてください。
+学習順021〜20のDIと[特別コラム05](../columns/column-library-di.md)が前提です。PostgreSQL・ADは不要です。`/learn/031`を開いてください。
 
 ## 実際の画面を操作する
 1. `MudPaper`の枠内に「日本語UIの実習」と説明が表示される。
 2. 「日本語の通知を表示する」を押す。
 3. Snackbarとして「日本語の通知が表示されました。」が現れ、画面内の状態は「通知サービスを使いました。」になる。
-4. Step01〜20の画面へ戻り、引き続き利用できることを確認する。
+4. 学習順006〜20の画面へ戻り、引き続き利用できることを確認する。
 
 ## 新規プロジェクトなら公式テンプレート
 すでにある学習アプリを消さずに、別フォルダーへ生成して構成を比べます。コマンド例は次のとおりです（テンプレートの選択肢は導入済みバージョンのヘルプでも確認してください）。
@@ -63,7 +65,7 @@ dotnet new mudblazor --name MudBlazorPractice --output MudBlazorPractice --inter
 dotnet run --project MudBlazorPractice
 ```
 
-テンプレートはアプリ全体の構成を学ぶためのものです。既存Step01〜20を作り直す必要はありません。
+テンプレートはアプリ全体の構成を学ぶためのものです。既存学習順006〜20を作り直す必要はありません。
 
 ## 既存Webアプリの構成
 この教材で使うバージョンは`MudBlazor 9.11.0`と`MudBlazor.Translations 3.6.0`です。Webプロジェクトに両パッケージを導入しています。
@@ -96,7 +98,7 @@ builder.Services.AddMudTranslations();
 実際の`MudIntroductionPage.razor`は`ISnackbar`を注入します。
 
 ```razor
-@page "/learn/21"
+@page "/learn/031"
 @inject ISnackbar Snackbar
 
 <MudPaper Class="pa-4" Elevation="1">
@@ -145,7 +147,7 @@ UI部品を導入しても利用者の認証やデータの保存は行われま
 - [ ] DI・Provider・CSS/JS・描画モードの役割を説明できる。
 - [ ] 文化設定・共通翻訳・独自ラベルの違いを説明できる。
 
-次は[ステップ22：レイアウト](step22.md)です。
+次は[学習順032：レイアウト](step22.md)です。
 
 
 ## 学習順31の追加確認

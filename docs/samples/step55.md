@@ -1,4 +1,6 @@
-# ステップ55：詳細DTOとN+1の防止
+# 学習順075：詳細DTOとN+1の防止
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step55/DetailProjectionPage.razor)。画面の正規URLは `/learn/075` です。
 
 **学習順075・第6段階／第15組**
 
@@ -138,7 +140,7 @@ private async Task ShowAsync(long id)
 
 ## 完了条件
 
-- [ ] /learn/55の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] /learn/075の旧URLを維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 

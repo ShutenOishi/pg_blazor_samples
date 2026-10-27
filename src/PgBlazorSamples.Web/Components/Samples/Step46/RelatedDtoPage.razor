@@ -3,8 +3,8 @@
 @using PgBlazorSamples.Web.Data
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningAdvancedPageService Pages
-<PageTitle>ステップ46：関連テーブルとDTO｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順066（旧ステップ46） / DTO射影・関連テーブル</p>
+<PageTitle>学習順066：関連テーブルとDTO｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順066 / DTO射影・関連テーブル</p>
 <h1>JOINした必要な列だけを表示する</h1>
 <p>課題と分類を関連付け、必要な3列だけをDTOとして取得します。未分類は「未分類」と表示します。</p>
 <MudPaper Class="pa-4">
@@ -27,7 +27,7 @@
     <p>Includeでエンティティ全体を増やすより、Selectで必要な列だけを取得します。N+1（行ごとに個別SQL）を避け、AsNoTrackingで一覧の変更追跡を省きます。</p>
     <p>上限20件の教材画面です。大量一覧では次のステップの方式を検討してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/column/45">前へ：第13組の復習</a><a href="/learn/47">次へ：ステップ47</a></div>
+<div class="page-navigation"><a href="/learn/column/45">前へ：第13組の復習</a><a href="/learn/067">次へ：学習順067</a></div>
 @code {
     private IReadOnlyList<CategoryTaskRow> _rows = [];
     private string _message = "開発用DBの読み込みを開始します。";

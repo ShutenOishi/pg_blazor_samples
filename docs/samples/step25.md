@@ -1,7 +1,9 @@
-# 学習順35：MudTableで一覧とソート（旧Step25）
+# 学習順35：MudTableで一覧とソート
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step25/MudTablePage.razor)。画面の正規URLは `/learn/035` です。
 
 ## 学ぶ前に
-この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/25 です。
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/035 です。
 
 ## WinForms＋Dapperとの比較
 | 観点 | デスクトップでの経験 | MudBlazorでの対応 |
@@ -49,7 +51,7 @@ SortByは並べ替えに利用するプロパティを指定します。実DBの
 WinFormsのDataGridViewに相当する一覧表示を、MudBlazorの`MudTable`で作ります。今回は**4件の固定データ**をローカルなリストから表示し、ソートとページャーを試します。DBから必要なページだけを読み込む`ServerData`は後続のデータ連携編で学びます。
 
 ## 前提と操作
-Step21〜24のMudBlazorコンポーネントを使った画面に慣れたら`/learn/25`を開きます。DB・ADは不要です。
+学習順031〜24のMudBlazorコンポーネントを使った画面に慣れたら`/learn/035`を開きます。DB・ADは不要です。
 
 1. 「練習用の課題：4件」と表示されることを確認する。
 2. 表には「課題名」「難易度」「状態」が並ぶ。
@@ -118,7 +120,7 @@ private readonly Func<LearningRow, object> _sortLevel =
 ## ItemsとServerDataを使い分ける
 `Items`は少量の取得済みデータを扱うときに分かりやすい方式です。ただし大量のレコードを全件取得して`Items`へ渡すと、DB通信量・サーバーメモリ・応答性に問題が出ます。
 
-後続のStep42では`MudTable ServerData`、Step43では`MudDataGrid ServerData`、Step48〜49では仮想化を学びます。**ページャーが見えることは、DBでページングしていることの証明ではありません**。件数と使い方に応じて方式を選びます。
+後続の学習順062では`MudTable ServerData`、学習順063では`MudDataGrid ServerData`、学習順068〜49では仮想化を学びます。**ページャーが見えることは、DBでページングしていることの証明ではありません**。件数と使い方に応じて方式を選びます。
 
 ## 日本語化の分担
 業務固有の列名「課題名」「難易度」「状態」や行データはこの教材が日本語で定義しています。ページャーなどMudBlazorが備える共通表示には`MudBlazor.Translations`の翻訳リソースを使用します。

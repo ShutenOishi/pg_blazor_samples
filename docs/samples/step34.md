@@ -1,5 +1,7 @@
 # 学習順050：DbContextFactoryと接続プール
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step34/DbFactoryPage.razor)。画面の正規URLは `/learn/050` です。
+
 ## 到達目標・前提知識
 Blazor Interactive ServerでDbContextを安全に利用する単位を学びます。WinForms＋Dapperでクリックごとにusing var connectionとしていた考え方に近いものの、DbContextには変更追跡など独自の状態があります。Interactive ServerのScopedはcircuitの間続くことがあり、DbContextはスレッドセーフではありません。画面に長期間注入したDbContextを複数操作で共有せず、IDbContextFactoryで操作ごとに作ります。
 画面の「接続して一覧を取得」はLearningDbService.SearchAsyncを呼び、Messageをrole=statusで表示します。開発用DBが未設定なら接続を試さず案内を表示し、設定済みでDBが稼働すれば最大20件の検索を実行します。
@@ -52,7 +54,7 @@ var rows = await query.OrderBy(t => t.Id).Take(20)
 開発環境ではVisual Studio 2026、.NET 10、EF Core 10とNpgsql、専用PostgreSQL 18を用います。DBが必要な操作だけ専用環境を構成し、業務DBや実在利用者データを練習対象にしないでください。接続情報にパスワードが含まれる場合はGitへ記録しません。コード例は既存実装の主要部分を抜粋したものと、比較のためだけの参考例を区別します。
 
 ## 実際の画面操作手順
-1. /learn/34を開き初期文言「まだ実行していません。」を確認する。
+1. /learn/050を開き初期文言「まだ実行していません。」を確認する。
 2. DB未設定でボタンを押し未設定の日本語案内が出ることを確認する。
 3. 開発専用DBとDDLを用意した場合だけ実検索を実施する。
 4. 正常なら「DBから最大20件を取得しました。」と表示され、最大20件という上限を理解する。

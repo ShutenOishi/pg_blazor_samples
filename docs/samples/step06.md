@@ -1,9 +1,11 @@
 # 学習順012：条件分岐と繰り返しで表示する
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step06/ConditionsPage.razor)。画面の正規URLは `/learn/012` です。
+
 ## 到達目標と実習環境
 学習順011では入力した文字列を表示に反映しました。今回は、利用者の選択で条件を切り替え、同じデータから異なる一覧を描画する方法を学びます。`@if`・`@else`・`@foreach`・`@key`を組み合わせ、表示する配列と元のデータを区別して説明できることが目標です。WinFormsのCheckBox.CheckedやDataGridViewの行追加に慣れていても、Blazorでは「状態に応じて表示内容を宣言する」書き方を練習します。
 
-画面は`/learn/06`、実装は`ConditionsPage.razor`です。Visual Studio 2026、.NET 10、Chromeで起動します。ここでは架空の4件をC#に固定しており、PostgreSQL・Dapper・EF Core・AD・業務認可はいずれも呼び出しません。テーブルの実検索や権限制御の説明と、今実際に動く機能を混同しないでください。
+画面は`/learn/012`、実装は`ConditionsPage.razor`です。Visual Studio 2026、.NET 10、Chromeで起動します。ここでは架空の4件をC#に固定しており、PostgreSQL・Dapper・EF Core・AD・業務認可はいずれも呼び出しません。テーブルの実検索や権限制御の説明と、今実際に動く機能を混同しないでください。
 
 ## 表示とデータの処理場所を整理する
 | 観点 | WinForms＋Dapper | この教材のRazor |
@@ -71,7 +73,7 @@ private sealed record LearningTask(int Id, string Title, bool IsCompleted);
 C#の`record`を同一Razorファイル内で定義しているので、この学習のためだけにプロジェクトを増やす必要はありません。`readonly`は配列フィールドへの再代入を制限しますが、配列要素の完全な不変性を保証するものではありません。`Where`は条件に合う要素を抽出し、`ToArray`で配列化します。未完了はID3と4の2件です。真・偽によって`VisibleTasks`が別の配列を返すため、表示件数も4→2→4と変わります。計算量と再評価の仕組みは、業務で大量データを扱う際に別途考慮してください。
 
 ## 順番に操作する
-1. `/learn/06`を開き、全件4件・案内「すべての課題を表示しています。」を確認します。
+1. `/learn/012`を開き、全件4件・案内「すべての課題を表示しています。」を確認します。
 2. それぞれの行の完了・未完了を読み、前の2件だけが完了であることを確認します。
 3. 「未完了の課題だけ表示する」にチェックを入れ、2件・「未完了の課題に絞っています。」を確認します。
 4. ChromeのElementsで`data-testid="task-list"`のliが2件になっていることを確認します。

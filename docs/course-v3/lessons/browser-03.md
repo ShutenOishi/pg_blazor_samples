@@ -1,5 +1,7 @@
 # 学習順043：CSV・PDFファイルのダウンロード
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor)。画面の正規URLは `/learn/043` です。
+
 ## 到達目標
 学習順042ではファイルをブラウザーからサーバーへ送りました。ここでは方向を逆にして、サーバーで作った内容をブラウザーへ渡して保存します。Windows FormsならFile.WriteAllBytesなどでアプリを実行しているPC上に書き込めますが、Blazor Interactive ServerのC#はサーバー側で動くため、そのコードだけでは利用者のPCにファイルを保存できません。ブラウザーのダウンロード機能を使います。
 
@@ -83,7 +85,7 @@ export async function downloadStream(fileName, mediaType, streamReference) {
 PDFのボタンではMakeOnePagePdfが最小限のPDFオブジェクトを文字列で組み立て、ASCIIでbyte[]へ変換します。表示する文章は「Blazor PDF sample」で、英字の技術見本です。日本語PDFを正しく出力するには、日本語フォント・埋め込み・文字コードなどの追加実装が必要です。教材全体の日本語PDF作成処理とは別の、ファイル送信機構を示す画面だと理解してください。
 
 ## 操作手順
-1. /learn/browser-03を開き、ブラウザーのダウンロード許可設定を確認します。
+1. /learn/043を開き、ブラウザーのダウンロード許可設定を確認します。
 2. 「学習用CSVを保存する」を押し、保存したblazor_practice.csvをテキストエディターでも開きます。ヘッダーが「番号,課題名,完了」であること、行末が改行で区切られていること、架空データ2行であることを調べます。
 3. 表計算ソフトでCSVを開き、日本語の項目名が読めることを確認します。文字化けした場合はファイルのバイト列、BOM、ソフトの読込み設定を切り分けます。
 4. 「学習用PDFを保存する」を押し、blazor_practice.pdfが保存され、1ページで開けることを確認します。英字見本であり、日本語帳票ではありません。

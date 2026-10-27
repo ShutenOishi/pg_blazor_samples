@@ -1,9 +1,11 @@
-# ステップ50：検索UX・デバウンスと再試行
+# 学習順070：検索UX・デバウンスと再試行
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step50/SearchUxPage.razor)。画面の正規URLは `/learn/070` です。
 
 **学習順070・第6段階／第14組**
 
 ## 学習目標と前提
-WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。旧Step41〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
+WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。学習順061〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
 
 ## 処理の順序と現行実装
 MudTextFieldのImmediate=trueは入力を都度通知しますが、画面は400ミリ秒待ってから_appliedKeywordを確定します。OnKeywordChangedAsyncが以前のCancellationTokenSourceを取消・破棄し、100文字超ならエラーとして新規検索を行いません。LoadAsyncはGridStateとCancellationTokenをLearningPageService.LoadAsyncへ渡してDB取得します。
@@ -64,12 +66,12 @@ private async Task<GridData<LearningTaskRow>> LoadAsync(
 特に件数は四つの意味に分けて考えます。DBの総件数、検索条件に一致する件数、今回DBから返す行数、画面が実際に描画する行数です。目の前の表に10件しか見えないことから、DBが10件だけ返したとは推測できません。CountとRowsの条件が異なればページャーも正しく動作しません。必要ならPostgreSQL 18の学習用DBでToQueryString、EXPLAIN (ANALYZE, BUFFERS)を確認します。結果は索引、統計、データ量で変わるので一律の速さを断言しません。
 
 ## 操作手順
-1. ブラウザーから /learn/50 を開き、学習順070と説明を確認します。
+1. ブラウザーから /learn/070 を開き、学習順070と説明を確認します。
 2. DB未設定の環境では未設定の案内を確認し、実DBの取得成功と区別します。
 3. 検索語を連続入力して400ミリ秒待ち、「再読み込み」を押して状態を確認します。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順071へ進み、旧URL /learn/50 が維持されていることを確認します。
+6. 学習順071へ進み、旧URL /learn/070 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |
@@ -106,4 +108,4 @@ private async Task<GridData<LearningTaskRow>> LoadAsync(
 - [ ] 業務台帳による認可と安全拒否が別途必要と説明できる
 
 ## 次に学ぶ内容
-第14組の復習（/learn/column/50）で5つの方法を整理し、学習順071（/learn/51）へ進みます。
+第14組の復習（/learn/column/50）で5つの方法を整理し、学習順071（/learn/071）へ進みます。

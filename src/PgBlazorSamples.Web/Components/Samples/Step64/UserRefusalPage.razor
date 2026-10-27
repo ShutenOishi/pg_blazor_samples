@@ -2,8 +2,8 @@
 @page "/learn/64"
 @using PgBlazorSamples.Web.Services.Learning
 @inject WindowsUserAccessService UserAccess
-<PageTitle>ステップ64：未登録・無効利用者の拒否｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順89（旧Step64） / Windows認証と業務利用の境界</p>
+<PageTitle>学習順089：未登録・無効利用者の拒否｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順89 / Windows認証と業務利用の境界</p>
 <h1>未登録・無効利用者の拒否</h1>
 <MudPaper Class="pa-4">
     <h2>例外時もアクセスを拒否する</h2>
@@ -26,13 +26,13 @@
 </MudPaper>
 <section class="lesson-details">
     <h2>安全に確認する</h2>
-    <p>この時点ではStep31〜60のDBサービスを保護していません。実業務データは使用禁止です。</p>
+    <p>この時点では学習順047〜60のDBサービスを保護していません。実業務データは使用禁止です。</p>
     <details><summary>確認問題：本人認証が成功したら業務データを参照できる？</summary>
         <p>いいえ。既存台帳の利用者の有効性と、操作に対する権限をサーバー側で確認します。</p>
     </details>
-    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・KerberosはStep70で実機検証します。</p>
+    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・Kerberosは学習順095で実機検証します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/63">前のステップへ</a><a href="/learn/65">次へ進む</a></div>
+<div class="page-navigation"><a href="/learn/088">前のステップへ</a><a href="/learn/090">次へ進む</a></div>
 @code {
     private WindowsAccessSnapshot _snapshot = new("initial", "ボタンを押すと認証と既存台帳照合の状態を確認します。");
 

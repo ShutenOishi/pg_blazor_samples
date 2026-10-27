@@ -1,5 +1,7 @@
 # 学習順106：業務要件・画面遷移・WinForms移行の設計
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor)。画面の正規URLは `/learn/106` です。
+
 ## 業務の要件を画面とサービスへ分割する
 対象は架空の課題一覧・編集・CSVです。Capstone01Page.razorでlist、edit、exportを切り替えると要件の説明を表示します。この画面は説明用で、業務DBを直接更新しません。listでは所属部署のCountとItemsの同一条件、editでは詳細DTO・取消・保存直前認可・xmin・監査、exportでは100件上限・部署範囲・監査が必要です。WinFormsのフォームイベントからDapper SQLを直接実行していた場合、入力や画面遷移と認可処理が混在しがちです。Razorを表示の担当、SecuredLearningServiceを認可と処理の入口、DBを検索・更新・監査の担当と定めます。設計レビューでは未認証、部署変更、権限失効、監査障害、競合を失敗条件として書き出します。
 
@@ -60,7 +62,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
 
 ## 個別の操作手順
-/learn/capstone-01を開き、一覧、編集、CSVの順で選択して「設計の確認」を押します。表示された責任をメモし、次の学習順107で一覧の処理位置を照合します。
+/learn/106を開き、一覧、編集、CSVの順で選択して「設計の確認」を押します。表示された責任をメモし、次の学習順107で一覧の処理位置を照合します。
 
 ## 演習と詳しい解答
 **問題1：** 編集ボタンを隠せば編集権限の検査を省略できますか。

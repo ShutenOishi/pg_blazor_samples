@@ -3,8 +3,8 @@
 @implements IDisposable
 @inject ILogger<AsyncLoggingPage> Logger
 
-<PageTitle>ステップ17：非同期とログ｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順27 / 旧Step17 / 非同期処理</p>
+<PageTitle>学習順027：非同期とログ｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順27 / 学習順027 / 非同期処理</p>
 <h1>処理の完了と取り消しを画面で観察する</h1>
 <p>時間のかかる処理を模して、<code>Task.Delay</code> と <code>CancellationToken</code> を体験します。</p>
 <section class="lesson-details">
@@ -32,7 +32,7 @@
     <tbody><tr><td>取消の通知はDB更新の巻戻しではない</td><td>Task.Delayと現行処理を確認</td></tr></tbody></table>
   <p>実際のコードと詳しい解説、演習・解答は同じ学習順の日本語教材で確認します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/16">前へ：ステップ16</a><a href="/learn/18">次へ：ステップ18</a></div>
+<div class="page-navigation"><a href="/learn/026">前へ：学習順026</a><a href="/learn/028">次へ：学習順028</a></div>
 @code {
     private string state = "まだ実行していません。";
     private CancellationTokenSource? cancellation;
@@ -53,7 +53,7 @@
             if (ReferenceEquals(cancellation, current))
             {
                 state = "処理が完了しました。";
-                Logger.LogInformation("ステップ17の練習用非同期処理が完了しました。");
+                Logger.LogInformation("学習順027の練習用非同期処理が完了しました。");
             }
         }
         catch (OperationCanceledException)

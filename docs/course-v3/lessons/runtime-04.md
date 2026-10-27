@@ -1,12 +1,14 @@
 # 学習順019：URL・履歴・再読込と画面状態
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor)。画面の正規URLは `/learn/019` です。
+
 ## 到達目標
-`/learn/runtime-04`を操作し、URLに記録される表示条件と、コンポーネントのメモリだけに存在する操作回数を区別します。Webのページはアドレスをコピーでき、戻る・進む・再読込で表示できます。WinFormsではフォームのインスタンス変数を保持する設計が自然でも、WebではURLと画面の一時メモリを分けて扱う必要があります。業務DBの保存や利用者の権限までURLに委ねてはいけません。
+`/learn/019`を操作し、URLに記録される表示条件と、コンポーネントのメモリだけに存在する操作回数を区別します。Webのページはアドレスをコピーでき、戻る・進む・再読込で表示できます。WinFormsではフォームのインスタンス変数を保持する設計が自然でも、WebではURLと画面の一時メモリを分けて扱う必要があります。業務DBの保存や利用者の権限までURLに委ねてはいけません。
 
 学習順017では事前レンダリングと対話型インスタンスの違い、018では編集中の入力と確認済みの値の違いを学びました。今回使うのは一覧と履歴という公開可能な選択肢、および練習用カウンターだけです。Visual Studio 2026、.NET 10、ChromeのInteractive Server環境で確認し、ADやPostgreSQLには接続しません。
 
 ## URLのクエリ文字列はどう使われるか
-画面の `Tab` プロパティには `[SupplyParameterFromQuery(Name = "tab")]` が付いています。この指定により、`?tab=history` といったクエリ文字列の値をコンポーネントへ渡せます。`NavigationManager`を注入した `Navigation` は画面遷移に使います。「履歴をURLで選ぶ」を押すと、ページURLは `/learn/runtime-04?tab=history` になります。表示は `Tab == "history"` の場合に「履歴」、それ以外の場合に「一覧」となります。
+画面の `Tab` プロパティには `[SupplyParameterFromQuery(Name = "tab")]` が付いています。この指定により、`?tab=history` といったクエリ文字列の値をコンポーネントへ渡せます。`NavigationManager`を注入した `Navigation` は画面遷移に使います。「履歴をURLで選ぶ」を押すと、ページURLは `/learn/019?tab=history` になります。表示は `Tab == "history"` の場合に「履歴」、それ以外の場合に「一覧」となります。
 
 ```csharp
 @inject NavigationManager Navigation
@@ -17,7 +19,7 @@ private int count;
 
 // URLには公開可能な表示条件だけを含める。
 private void Choose(string value)
-    => Navigation.NavigateTo($"/learn/runtime-04?tab={value}");
+    => Navigation.NavigateTo($"/learn/019?tab={value}");
 
 private void Increase() => count++;
 ```
@@ -58,7 +60,7 @@ private void Increase() => count++;
 ブラウザーの履歴は、過去に訪れたURLを再訪するための仕組みです。サーバーのメモリ上の操作回数やDBの更新内容をすべて巻き戻す機能ではありません。対話型のナビゲーションによって同じコンポーネントが保持される場合もあるため、ページ移動時に必ず一律の回数へ戻るという説明は避け、再読込で新しいインスタンスを確かめるのが確実です。
 
 ## 操作手順
-1. `/learn/runtime-04` を開き、表示が「一覧」、操作回数が0であることを確認します。
+1. `/learn/019` を開き、表示が「一覧」、操作回数が0であることを確認します。
 2. 「履歴をURLで選ぶ」を押し、アドレス欄の `?tab=history` と画面の「履歴」表示を見比べます。
 3. 「操作回数を1増やす」を二度押します。画面が2になったこととURLが変化していないことを確認します。
 4. Chromeの再読込を実行します。アドレスに `tab=history` が残り、画面は「履歴」ですが、操作回数は0へ戻るはずです。
@@ -98,4 +100,4 @@ URLに含める候補は、公開して差し支えない画面のタブ名、�
 ## 完了条件と次の学習
 表示条件と操作回数のどちらが再読込後に残るかを、実際のコードとURLから説明できれば完了です。URLは公開可能な画面条件を表現する手段であり、永続化や認可の代わりではありません。学習順020では、画面の一時状態、ブラウザーの設定、業務DBへの記録のうち適切な保存先を選びます。
 
-前：[学習順018](/learn/10)／次：[学習順020](/learn/runtime-05)
+前：[学習順018](/learn/018)／次：[学習順020](/learn/020)

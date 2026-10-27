@@ -1,10 +1,12 @@
 # 学習順007：URLと画面遷移を理解する
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step02/NavigationPage.razor)。画面の正規URLは `/learn/007` です。
+
 ## 到達目標と前提
 
 WinFormsではボタンを押して別のFormを開きます。Webでは利用者がURLを指定しただけでも対象の画面が選ばれます。`@page`の値、リンクの`href`、ルーティングの解決結果を分けて観察すると、画面名とアドレスの不一致を早い段階で発見できます。今回のページは、戻る・進む・目次へ移動する3つのリンクを備えています。リンクをクリックした場合だけでなく、URLを直接入力した場合も同じページへ到達できることが目標です。
 
-この章の対象は .NET 10、Visual Studio 2026、Blazor Web App（Interactive Server）です。第1段階のHTTPとブラウザーの役割を学習済みであることを前提とします。教材画面の操作にはActive Directory・PostgreSQL・業務データを必要としません。実際の画面は **`/learn/02`** です。前のテーマから順に進んでも、この章だけを開いて確認できるよう、コードと操作方法を以下に示します。
+この章の対象は .NET 10、Visual Studio 2026、Blazor Web App（Interactive Server）です。第1段階のHTTPとブラウザーの役割を学習済みであることを前提とします。教材画面の操作にはActive Directory・PostgreSQL・業務データを必要としません。実際の画面は **`/learn/007`** です。前のテーマから順に進んでも、この章だけを開いて確認できるよう、コードと操作方法を以下に示します。
 
 ## 1. WinForms＋Dapperとの対応を確認する
 
@@ -24,13 +26,13 @@ WinFormsではボタンを押して別のFormを開きます。Webでは利用�
 次は実装中の主要部分の抜粋です。コンポーネント全体の他のHTMLや見出しは省略していますが、掲載した要素・表示文字列と識別子は現行実装に対応します。
 
 ```razor
-@page "/learn/02"
+@page "/learn/007"
 
 <PageTitle>ステップ02：画面遷移｜Blazor ステップアップ学習</PageTitle>
 <h1>URLとルーティング</h1>
 ```
 
-`NavigationPage.razor`の`@page "/learn/02"`がこのコンポーネントのルート定義です。`NavLink`はリンクの宛先を`href`に持ち、`Match="NavLinkMatch.All"`ではアドレス全体が一致したときに現在地の判定をします。`aria-label`はこの`nav`領域が何をする場所かを読み上げ側へ説明するためのものです。トップページと共通メニューからも同じ学習先に進めます。リンクの表示文字列を変更しても、`href`を変更しない限り移動先は変わりません。
+`NavigationPage.razor`の`@page "/learn/007"`がこのコンポーネントのルート定義です。`NavLink`はリンクの宛先を`href`に持ち、`Match="NavLinkMatch.All"`ではアドレス全体が一致したときに現在地の判定をします。`aria-label`はこの`nav`領域が何をする場所かを読み上げ側へ説明するためのものです。トップページと共通メニューからも同じ学習先に進めます。リンクの表示文字列を変更しても、`href`を変更しない限り移動先は変わりません。
 
 ## 3. C#または関連する実コードを確かめる
 
@@ -39,8 +41,8 @@ WinFormsではボタンを押して別のFormを開きます。Webでは利用�
 ```razor
 <nav aria-label="画面遷移の練習" class="practice-nav">
     <NavLink href="/" Match="NavLinkMatch.All">学習の目次</NavLink>
-    <NavLink href="/learn/01" Match="NavLinkMatch.All">学習順006へ戻る</NavLink>
-    <NavLink href="/learn/03" Match="NavLinkMatch.All">学習順008へ進む</NavLink>
+    <NavLink href="/learn/006" Match="NavLinkMatch.All">学習順006へ戻る</NavLink>
+    <NavLink href="/learn/008" Match="NavLinkMatch.All">学習順008へ進む</NavLink>
 </nav>
 ```
 
@@ -54,7 +56,7 @@ WinFormsではボタンを押して別のFormを開きます。Webでは利用�
 
 ## 5. 順番に操作して確かめる
 
-1. 起動中のWebアプリで`/learn/02`をアドレス欄に直接入力する。
+1. 起動中のWebアプリで`/learn/007`をアドレス欄に直接入力する。
 2. ページ内の「学習の目次」を押し、URLがトップへ移ることを確認する。
 3. 戻って「学習順006へ戻る」、続いて「学習順008へ進む」をそれぞれ開く。
 4. 開発者ツールのElementsでリンクの`href`を調べ、画面の表示文字列と宛先が別であることを確かめる。
@@ -103,6 +105,6 @@ URLを秘密にすると業務画面を保護できますか。
 - [ ] 正常な操作と、故障・想定された拒否を区別できた。
 - [ ] この学習用画面では業務DB・認証・監査を実証していないと説明できた。
 
-旧Step02のURLは`/learn/02`のままです。次は画面を移動したあと、そのHTMLにC#の値がどのように表示されるかを学びます。
+学習順007のURLは`/learn/007`のままです。次は画面を移動したあと、そのHTMLにC#の値がどのように表示されるかを学びます。
 
 次：[学習順008：Razorで値を表示](step03.md)

@@ -1,5 +1,7 @@
 # 学習順109：認証済み本人と既存台帳による権限・監査
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor)。画面の正規URLは `/learn/109` です。
+
 ## ADと業務権限の担当
 Active Directoryは本人認証とログイン名の取得までです。WindowsUserAccessServiceが既存PostgreSQL台帳の有効性、所属部署、閲覧・編集の権限を確認します。Capstone04Page.razorでは認可前提の確認と集計を別々のボタンで行います。集計はBusiness.CountByDoneAsyncを通して部署の完了・未完了件数を取得します。監査の永続化が失敗したら結果を返しません。匿名のChromeでは両ボタンとも拒否されることを確認します。WinForms＋Dapperでログオン名を取得しただけで業務を許可してはいけないのと同様、Blazorでも既存台帳の照合が必要です。ログイン名を画面に表示してデバッグしません。実IIS/NegotiateとKerberos/SPNの本人認証は現地受入に残ります。
 
@@ -64,7 +66,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
 
 ## 個別の操作手順
-/learn/capstone-04で権限前提を確認し、続いて集計を押します。匿名時には双方が拒否され、集計行や本人名が表示されないことを確認します。サービスのAuthorizeAsyncとCountByDoneAsyncの条件を照合します。
+/learn/109で権限前提を確認し、続いて集計を押します。匿名時には双方が拒否され、集計行や本人名が表示されないことを確認します。サービスのAuthorizeAsyncとCountByDoneAsyncの条件を照合します。
 
 ## 演習と詳しい解答
 **問題1：** AD認証が成功したが台帳が無効な場合は。

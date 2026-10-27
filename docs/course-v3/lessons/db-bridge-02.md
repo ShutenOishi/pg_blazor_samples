@@ -1,8 +1,10 @@
 # 学習順052：SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor)。画面の正規URLは `/learn/052` です。
+
 ## 到達目標と前提
 DbBridge02Page.razorは入力した架空キーワードをTrimしてLINQを作り、ToQueryStringでSQLを生成する画面です。データベースの問い合わせは行いません。WhereはSQLのWHERE、Categoryナビゲーションの参照は関連テーブルとの結合、OrderByとThenByはORDER BY、Take(10)は上限の指定につながります。Idで並び順を確定させ、ページングの行順が変動しないようにします。CategoryIdは任意なので、Category!というC#記号でDBのNULLが消えるわけではありません。生成されたJOINの形とNULLの扱いは確認が必要です。ContainsとDapperのILIKEは必ずしも同等条件になりません。SQL生成結果はSQLが実行された証拠でも実行計画でもありません。
-学習順052は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/db-bridge-02` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順052は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/052` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |
@@ -53,7 +55,7 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 最初に画面URLと初期状態を確認し、次に入力とイベント、続けて呼ばれるサービス、DbContextの生成・破棄、DBコマンドの有無、最終的な画面メッセージの順に調べます。問題が起きたら原因を飛ばして再実行するのではなく、未設定・入力検証・SQL生成・接続・DDL・権限・競合のどこまで進んだかを記録します。WinForms＋Dapperの経験を使い、SQLと処理場所を対比することで、同じC#でもWebサーバーと利用者端末では実行位置が違うことを確認してください。
 
 ## 実際の操作手順
-1. /learn/db-bridge-02を開く。
+1. /learn/052を開く。
 2. 架空の検索語を入力しSQL生成を押す。
 3. WHEREと並べ替えと結合、パラメーターを確認する。
 4. 結果がSQL文字列でありレコード一覧ではないと説明する。
@@ -80,4 +82,4 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 **詳しい解答：** 同じカテゴリ名が複数あるときの安定順を確保するためです。 この結論を画面、サービス、PostgreSQLのどこで確認するかも答え、正常な拒否と操作成功を分けて記録してください。
 
 ## 次へ進む前の確認
-本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/db-bridge-03` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。
+本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/053` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。

@@ -6,8 +6,8 @@
 @inject LearningEditService Edits
 @inject IDialogService Dialogs
 
-<PageTitle>ステップ52：編集ダイアログ｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順072（旧ステップ52） / 第15組</p>
+<PageTitle>学習順072：編集ダイアログ｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順072 / 第15組</p>
 <h1>入力と保存の責任をダイアログにまとめる</h1>
 <p>編集フォームは子コンポーネントです。取消はDBを書き換えず、成功したときだけ一覧を読み直します。</p>
 <MudPaper Class="pa-4">
@@ -30,7 +30,7 @@
     <h2>ライブラリDIを使う</h2>
     <p>IDialogServiceとMudDialogProviderを使います。Dialogは編集DTOのコピーを受け取り、成功したときだけ結果を返します。二重送信をガードし、保存前の入力検証はサーバー側でも行います。</p>
 </section>
-<div class="page-navigation"><a href="/learn/51">前へ：ステップ51</a><a href="/learn/53">次へ：ステップ53</a></div>
+<div class="page-navigation"><a href="/learn/071">前へ：学習順071</a><a href="/learn/073">次へ：学習順073</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private string _message = "一覧を読み込みます。";

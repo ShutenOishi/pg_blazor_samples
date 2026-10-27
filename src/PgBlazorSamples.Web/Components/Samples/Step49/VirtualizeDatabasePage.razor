@@ -4,8 +4,8 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningAdvancedPageService Pages
 @inject LearningDbService DbSettings
-<PageTitle>ステップ49：DB側の仮想化｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順069（旧ステップ49） / VirtualizeServerData</p>
+<PageTitle>学習順069：DB側の仮想化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順069 / VirtualizeServerData</p>
 <h1>スクロール範囲だけPostgreSQLから取得する</h1>
 <p>GridStateVirtualizeのStartIndex・CountをEF CoreのSkip・Takeへ渡します。ここでは番号順を固定し、列ソートは無効にします。</p>
 <p role="status" data-testid="step49-state">@_message</p>
@@ -27,9 +27,9 @@
     <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順069で確認します。</p>
 
     <h2>スクロールとページングを混同しない</h2>
-    <p>表示領域の高さを固定し、要求されるCountの範囲だけ取得します。キャンセルはCountAsync・ToListAsyncにも渡します。極端に深いスクロールではOFFSETの負荷が残り、連続探索にはStep47が向きます。</p>
+    <p>表示領域の高さを固定し、要求されるCountの範囲だけ取得します。キャンセルはCountAsync・ToListAsyncにも渡します。極端に深いスクロールではOFFSETの負荷が残り、連続探索には学習順067が向きます。</p>
 </section>
-<div class="page-navigation"><a href="/learn/48">前へ：ステップ48</a><a href="/learn/50">次へ：ステップ50</a></div>
+<div class="page-navigation"><a href="/learn/068">前へ：学習順068</a><a href="/learn/070">次へ：学習順070</a></div>
 @code {
     private string _message = "開発用DBから表示範囲を取得します。";
     protected override void OnInitialized()

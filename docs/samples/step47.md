@@ -1,9 +1,11 @@
-# ステップ47：IDキーセットページング
+# 学習順067：IDキーセットページング
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step47/KeysetPage.razor)。画面の正規URLは `/learn/067` です。
 
 **学習順067・第6段階／第14組**
 
 ## 学習目標と前提
-WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。旧Step41〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
+WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。学習順061〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
 
 ## 処理の順序と現行実装
 LoadAfterIdAsyncはafterIdが設定されていればId > cursorをWhereへ適用します。Id昇順でsize+1件を取得し、最大size件だけを画面へ返します。先読みした1件はHasMore判定用です。画面が受け取るNextIdは最後に返した行のIdで、先頭から読み直す場合はnullへ戻します。標準sizeは10です。
@@ -58,12 +60,12 @@ OFFSETは任意ページへジャンプできますが深いページの走査�
 特に件数は四つの意味に分けて考えます。DBの総件数、検索条件に一致する件数、今回DBから返す行数、画面が実際に描画する行数です。目の前の表に10件しか見えないことから、DBが10件だけ返したとは推測できません。CountとRowsの条件が異なればページャーも正しく動作しません。必要ならPostgreSQL 18の学習用DBでToQueryString、EXPLAIN (ANALYZE, BUFFERS)を確認します。結果は索引、統計、データ量で変わるので一律の速さを断言しません。
 
 ## 操作手順
-1. ブラウザーから /learn/47 を開き、学習順067と説明を確認します。
+1. ブラウザーから /learn/067 を開き、学習順067と説明を確認します。
 2. DB未設定の環境では未設定の案内を確認し、実DBの取得成功と区別します。
 3. 「次の10件」を押し、続きの有無と「先頭から読み直す」の効果を確認します。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順068へ進み、旧URL /learn/47 が維持されていることを確認します。
+6. 学習順068へ進み、旧URL /learn/067 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |
@@ -100,4 +102,4 @@ Id1〜26のデータを10件ずつキーセットで読みます。各回の行�
 - [ ] 業務台帳による認可と安全拒否が別途必要と説明できる
 
 ## 次に学ぶ内容
-学習順068（/learn/48）へ進みます。
+学習順068（/learn/068）へ進みます。

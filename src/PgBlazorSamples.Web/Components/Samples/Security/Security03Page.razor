@@ -19,7 +19,7 @@
 <ul><li>CSRF：状態を変更するHTTP要求のAntiforgery検証とCookie設定。</li>
 <li>SQL注入：EF Coreの補間式・LINQ、Dapperのパラメーターを使用する。</li>
 <li>確認ダイアログ、Hidden入力、画面非表示だけではサーバー側の認可にならない。</li></ul><h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-83"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
-<div class="page-navigation"><a href="/learn/security-02">前へ：学習順082</a><a href="/learn/security-04">次へ：学習順084</a></div>
+<div class="page-navigation"><a href="/learn/082">前へ：学習順082</a><a href="/learn/084">次へ：学習順084</a></div>
 @code {
     private string payload = "<script>alert('練習')</script>";
     private string encoded = "";

@@ -1,5 +1,7 @@
 # 学習順046：DapperとEF Coreの役割・選定を比較する
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor)。画面の正規URLは `/learn/046` です。
+
 ## 到達目標・前提知識
 DapperのQuery/ExecuteとEF CoreのLINQ/SaveChangesを、読み書きの要件から比較します。DapperはSQLの構造と実行を明示しやすく、EF Coreはモデルのマッピング、変更追跡、SaveChanges、競合検出を一貫して扱えます。どちらもPostgreSQLがSQLを実行する点は同じです。EF Coreなら自動で速くなる、SQLの知識が要らなくなる、認可が自動で成立するといった考え方は正しくありません。
 Webプロジェクト内のDataとServicesを使い、学習目的でDomain/Infrastructureなどを増設しません。学習画面では「一般的なCRUD」「既存の複雑なSQL」「大量一覧」を押すと、採用を検討する方式が文字で表示されます。この画面のボタンは実際のDB検索ではありません。選定の理由を言葉で説明する練習です。
@@ -48,7 +50,7 @@ var rows = await query.OrderBy(t => t.Id).Take(20)
 開発環境ではVisual Studio 2026、.NET 10、EF Core 10とNpgsql、専用PostgreSQL 18を用います。DBが必要な操作だけ専用環境を構成し、業務DBや実在利用者データを練習対象にしないでください。接続情報にパスワードが含まれる場合はGitへ記録しません。コード例は既存実装の主要部分を抜粋したものと、比較のためだけの参考例を区別します。
 
 ## 実際の画面操作手順
-1. /learn/db-bridge-01で一般的なCRUDを選択しEF Core候補という結果を読む。
+1. /learn/046で一般的なCRUDを選択しEF Core候補という結果を読む。
 2. 既存の複雑なSQLを選びDapperとFromSqlを比較する。
 3. 大量一覧を選び、どちらもDB側で件数制限が必要と確認する。
 4. 開発者ツールで画面操作がPostgreSQLへの直接接続ではないことを説明する。
@@ -57,7 +59,7 @@ var rows = await query.OrderBy(t => t.Id).Take(20)
 ## 障害の切り分け表
 | 現象 | 確認する場所 | 対処 |
 | --- | --- | --- |
-| ボタンは動くがDB行が出ない | 方式選定画面はDBへ接続しない | /learn/34で実DBを確認 |
+| ボタンは動くがDB行が出ない | 方式選定画面はDBへ接続しない | /learn/050で実DBを確認 |
 | 一覧が20行で止まる | Take(20)が意図的に適用される | 総件数と表示件数を区別 |
 | 結果順が安定しない | 一意のOrderBy指定を確認 | Id等を含めた安定順を使用 |
 

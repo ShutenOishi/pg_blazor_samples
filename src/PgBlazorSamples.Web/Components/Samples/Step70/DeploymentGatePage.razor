@@ -2,8 +2,8 @@
 @page "/learn/70"
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
-<PageTitle>ステップ70：IIS・監査の受入｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順095 / 第7段階・第19組（旧Step70）</p>
+<PageTitle>学習順095：IIS・監査の受入｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順095 / 第7段階・第19組</p>
 <h1>Windows Server 2025で安全性を受け入れる</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" OnClick="CheckAsync">現在の更新権限を確認</MudButton>
@@ -29,7 +29,7 @@
     </tbody></table>
     <p>教材本文は学習順095です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/69">前へ：学習順094</a><a href="/learn/column/70">次へ：第19組の復習</a></div>
+<div class="page-navigation"><a href="/learn/094">前へ：学習順094</a><a href="/learn/column/70">次へ：第19組の復習</a></div>
 @code {
     private string _status = "実機受入は未実施です。";
     private async Task CheckAsync()

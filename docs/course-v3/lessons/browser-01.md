@@ -1,12 +1,14 @@
 # 学習順041：JavaScript interopの利用判断
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor)。画面の正規URLは `/learn/041` です。
+
 ## 到達目標とこの画面の位置
 第4段階の最後の5本では、業務画面の見た目だけでなく、ブラウザーとサーバーの間を往復する機能を扱います。このステップでは、JavaScript interop（JS相互運用）を使う必要がある処理を見分けます。Blazor Interactive ServerではRazorのイベント処理がサーバー側で実行される一方、documentやDOM、ダウンロードなどのブラウザーAPIはブラウザーの中にあります。画面を作るために何でもJavaScriptへ置き換える必要はありません。
 
 到達条件は、(1) C#の状態更新とDOM操作の実行場所の違い、(2) IJSRuntimeとJavaScriptモジュールの呼び出し、(3) 切断と例外、(4) 必要な後始末、の4点を説明できることです。ここでは画面上の回数を増やし、HTML要素のlang属性を読みます。業務DBやActive Directoryには接続しません。
 
 ## 実装と実行環境
-Visual Studio 2026で.NET 10のWebアプリを起動し、学習順041のURL /learn/browser-01 にアクセスします。サーバーでRazorコンポーネント Browser01Page.razor が動き、ブラウザーから wwwroot/js/browser-learning.js をモジュールとして読み込みます。表示される日本語はアプリ独自のメッセージです。JavaScriptモジュールは認証情報を読みません。事前レンダリング段階ではブラウザー側のDOMはまだ呼び出せないため、実装はユーザーのクリックに続く対話イベントでJSを実行しています。
+Visual Studio 2026で.NET 10のWebアプリを起動し、学習順041のURL /learn/041 にアクセスします。サーバーでRazorコンポーネント Browser01Page.razor が動き、ブラウザーから wwwroot/js/browser-learning.js をモジュールとして読み込みます。表示される日本語はアプリ独自のメッセージです。JavaScriptモジュールは認証情報を読みません。事前レンダリング段階ではブラウザー側のDOMはまだ呼び出せないため、実装はユーザーのクリックに続く対話イベントでJSを実行しています。
 
 | WinForms＋Dapperでの経験 | この画面での対応 | 判断する理由 |
 | --- | --- | --- |
@@ -74,7 +76,7 @@ export function readLanguage() {
 呼び出しはIJSRuntimeを通る非同期通信であり、C#の同期メソッドから直接documentを扱うものではありません。JSDisconnectedExceptionはサーバーとの接続が切れた場合、JSExceptionはJSモジュール内の実行失敗などを表します。NetworkでJSモジュールの読込みが成功していても、回線切断があればその後の呼び出しは失敗し得ます。
 
 ## モジュールの寿命と動作順
-1. /learn/browser-01を開いた時点では、操作回数0、言語の表示は「まだ取得していません。」です。
+1. /learn/041を開いた時点では、操作回数0、言語の表示は「まだ取得していません。」です。
 2. 「C#だけで回数を増やす」を押すと、サーバー側のcountが増え、画面の数値が1になります。JSモジュールを使う必要はありません。
 3. 「JavaScriptでHTMLの言語設定を読む」を押すと、初回だけimportし、readLanguageがDOMを確認します。
 4. HTMLのlangがjaなら「HTMLの言語設定：ja」と表示されます。設定によっては異なる値または「未設定」になります。

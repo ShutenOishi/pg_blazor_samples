@@ -1,5 +1,7 @@
 # 学習順060：PostgreSQL 18の実接続確認
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step40/EfDbCheckPage.razor)。画面の正規URLは `/learn/060` です。
+
 ## 到達目標と実装の位置付け
 学習順060は、ここまでのモデル定義、SQL生成、追跡、CRUD、日付・Range、トランザクション、競合を、開発専用のPostgreSQL 18に対して整合確認する回です。画面の「開発用DBへ接続して検索」はLearningDbService.SearchAsyncを呼び、検索のメッセージと総件数を表示します。画面の表示成功、SQLのToQueryString成功、実DBから結果取得できたことはそれぞれ別の確認項目です。実AD、IIS、Kerberos、FDW、1万人超負荷はこのステップだけで検証済みになりません。
 
@@ -47,7 +49,7 @@ SELECT id, title FROM learning_task WHERE is_done = false ORDER BY id LIMIT 20;
 ## 画面の操作手順
 1. PostgreSQL 18の学習専用DBを用意し、database/schema/001_learning_task.sqlなど必要なDDLを適用する。
 2. サーバーのConnectionStrings__PostgreSQLを設定する。Windows認証を有効化した実業務モードで学習用無認可サービスを動かさない。
-3. /learn/40を開き「開発用DBへ接続して検索」を押し、成功メッセージと件数を確認する。
+3. /learn/060を開き「開発用DBへ接続して検索」を押し、成功メッセージと件数を確認する。
 4. psqlからdatabase/tests/001_learning_task_check.sqlを実行し、日付・期間・xminの各結果を記録する。
 5. 接続設定を外した場合、DB停止の場合を別々に検証し、未設定と接続失敗と認可拒否を区別する。
 
@@ -59,12 +61,12 @@ SELECT id, title FROM learning_task WHERE is_done = false ORDER BY id LIMIT 20;
 | PostgreSQLは未設定 | 接続文字列がない／無認可サービスを抑止 | サーバー設定とモードを確認 |
 | DBへ接続できません | サーバー停止・通信・DDL・認証情報の問題 | DBログとアプリログを確認 |
 | 件数は出るが型試験が失敗 | date/time/range定義とマッピングが不一致 | DDL・C#プロパティ・試験SQLを比較 |
-| 競合試験が失敗 | xminの版比較や更新競合の設定に差 | Step39と統合試験を再検証 |
+| 競合試験が失敗 | xminの版比較や更新競合の設定に差 | 学習順057と統合試験を再検証 |
 
 ## AD・既存台帳・監査との境界
 ADは本人認証とユーザー名の取得にのみ使います。権限の登録画面や自動同期テーブルを新しく作る前提にはしません。事前に整備されたDBの利用者台帳または外部台帳を参照し、ログイン名、所属、業務権限、対象行との対応、有効・失効状態を**要求のたびにサーバー側で**確認します。一覧・Count・集計・CSV・更新・削除はどれも別の出口であり、どれか一つの画面で認可済みでも他の操作を無条件に許可しません。
 
-この教材の旧Step31〜40のLearningDbServiceは、学習専用DBを扱うための簡素なサービスです。WindowsAuthentication:Enabledの場合には無認可サービスの実DB操作を止める安全策があります。実業務の権限済み処理はSecuredLearningServiceなどの安全な入口で設計・検証します。監査の失敗や権限失効、更新競合、FDWの原子性が不明な状態は成功として扱わず、必要な操作を拒否します。
+この教材の学習順047〜40のLearningDbServiceは、学習専用DBを扱うための簡素なサービスです。WindowsAuthentication:Enabledの場合には無認可サービスの実DB操作を止める安全策があります。実業務の権限済み処理はSecuredLearningServiceなどの安全な入口で設計・検証します。監査の失敗や権限失効、更新競合、FDWの原子性が不明な状態は成功として扱わず、必要な操作を拒否します。
 
 ## 演習
 演習1：モデルのSQL生成が成功しただけでDB結合の受入を完了してはいけない理由を述べてください。演習2：Countが100で実際の表示が20件のときに疑うべき問題と正常な理由を分けてください。演習3：CIでPostgreSQL18の結合試験に合格しても、実AD・IIS・FDW・1万人負荷の受入を完了扱いできるでしょうか。

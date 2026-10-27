@@ -1,9 +1,11 @@
 # 学習順015：SignalR・circuit・再接続
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor)。画面の正規URLは `/learn/015` です。
+
 ## 学習目標とここまでの接続
 学習順011では入力欄、012では条件付き一覧、013では親から子の値、014では子から親へのイベント通知を確認しました。どれもInteractive ServerではWebサーバーのC#処理とブラウザー表示が連携して動きます。今回の目的は、この対話を支えるSignalRとcircuitの役割、切断・再接続・再読込で何が保証されるかを説明できるようになることです。
 
-実習URLは`/learn/runtime-02`。Visual Studio 2026、.NET 10、Chromeを使います。ネットワークの不安定さを確認できる開発環境で行い、本番のネットワーク機器や認証設定を変えません。この画面はDB・AD・外部サービスに触れず、単なる整数`count`をサーバー側コンポーネントで保持します。個別のcircuit識別子、利用者情報、永続セッションを画面に表示する実装ではありません。学習者は「接続できること」と「以前の状態を復元できること」を区別して説明します。
+実習URLは`/learn/015`。Visual Studio 2026、.NET 10、Chromeを使います。ネットワークの不安定さを確認できる開発環境で行い、本番のネットワーク機器や認証設定を変えません。この画面はDB・AD・外部サービスに触れず、単なる整数`count`をサーバー側コンポーネントで保持します。個別のcircuit識別子、利用者情報、永続セッションを画面に表示する実装ではありません。学習者は「接続できること」と「以前の状態を復元できること」を区別して説明します。
 
 ## WinFormsとInteractive Serverを比較する
 | 観点 | WinForms＋Dapper | この教材のInteractive Server |
@@ -20,7 +22,7 @@ SignalRは双方向の対話を提供する仕組みであり、DBトランザ�
 
 ## 実コード1：カウンター表示と操作
 ```razor
-@page "/learn/runtime-02"
+@page "/learn/015"
 <PageTitle>学習順015：SignalR・circuit・再接続｜Blazor ステップアップ学習</PageTitle>
 <p>対話回数：<strong data-testid="runtime02-count">@count</strong></p>
 <button type="button" @onclick="Increase">対話回数を1増やす</button>
@@ -42,7 +44,7 @@ C#の`count`はブラウザーのlocalStorageやDBテーブルではなくサー
 このアプリの`App.razor`では`Routes`をInteractive Serverに設定しています。したがって学習画面のRazorイベントをサーバーで処理する構成です。学習順009のStatic SSRとの対比を思い出してください。最初のHTMLが見えてもサーバーとの対話回線が未成立なら、`@onclick`の処理が動くとは限りません。SSRの初期HTMLと、対話が始まった後のイベント処理は別の段階です。開発者ツールのNetworkで接続と再接続の挙動を確認できますが、ブラウザーやプロキシによって表示ラベルは変わります。
 
 ## 操作手順と観察対象
-1. `/learn/runtime-02`を開き、初期回数0を確認します。
+1. `/learn/015`を開き、初期回数0を確認します。
 2. 「対話回数を1増やす」を2回押し、数字が2になることを確認します。
 3. Chromeの開発者ツールでNetworkとConsoleを開き、最初のDocument取得と、その後の対話の通信を区別します。
 4. 開発環境で一時的なオフライン切替を試す場合は、保存されていない画面の値が失われる可能性を理解してから行います。本番環境や他人の端末では試さないでください。

@@ -44,12 +44,12 @@ db.ChangeTracker.Clear(); // Detached、SaveChangesなし
 一方の学習順054は実際にSaveChangesAsyncします。現在のxminと画面が持つVersionが一致しなければ拒否し、保存直前の競合もDbUpdateConcurrencyExceptionで区別します。自動再試行で他人の変更を上書きしません。
 
 ## 実際の操作と復習の順序
-1. /learn/35で架空データを検索し、TotalCountと最大20件の違いを見る。設定不足なら未接続のまま。
-2. /learn/db-bridge-02で架空キーワードからSQLを生成し、WHERE・JOIN・ORDER BYを読み取る。DBの結果を取得したとは記録しない。
-3. /learn/db-bridge-03で追跡状態を実演し、Detached→Added→Detached（保存なし）を読む。
-4. 専用PostgreSQL18を準備して/learn/36で登録・切替・削除する。競合時は再読み込みし、無条件上書きを避ける。
-5. /learn/37でDateOnlyの値とNpgsqlRange<DateTime>の半開期間を表示する。ここはDB非接続。
-6. 第11組の画面で5件の差と、次の/learn/38で扱うトランザクションを説明する。
+1. /learn/051で架空データを検索し、TotalCountと最大20件の違いを見る。設定不足なら未接続のまま。
+2. /learn/052で架空キーワードからSQLを生成し、WHERE・JOIN・ORDER BYを読み取る。DBの結果を取得したとは記録しない。
+3. /learn/053で追跡状態を実演し、Detached→Added→Detached（保存なし）を読む。
+4. 専用PostgreSQL18を準備して/learn/054で登録・切替・削除する。競合時は再読み込みし、無条件上書きを避ける。
+5. /learn/055でDateOnlyの値とNpgsqlRange<DateTime>の半開期間を表示する。ここはDB非接続。
+6. 第11組の画面で5件の差と、次の/learn/056で扱うトランザクションを説明する。
 
 ## 障害の切り分け
 | 現象 | 確認先 | 結論 |

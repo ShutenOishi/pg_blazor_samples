@@ -1,8 +1,10 @@
 # 学習順053：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor)。画面の正規URLは `/learn/053` です。
+
 ## 到達目標と前提
 DbBridge03Page.razorはDB非接続で状態の変化を再現します。new LearningTaskはDetachedです。db.Tasks.Add(entity)後はAddedです。ChangeTracker.Clearで追跡が解除されDetachedへ戻ります。SaveChangesAsyncは呼びません。DapperのExecuteはSQLを実行する操作ですが、EF CoreのAddはDbContextのメモリ上で『追加する予定』を記録するだけです。実際の登録・更新・削除は次の学習順054でSaveChangesAsyncを呼んで初めてDBコマンドを送ります。Blazorの複数イベントでDbContextを共有しないこと、状態を持つEntityと表示DTOを区別すること、追跡解除とDELETEを混同しないことが重要です。
-学習順053は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/db-bridge-03` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順053は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/053` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |
@@ -50,7 +52,7 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 最初に画面URLと初期状態を確認し、次に入力とイベント、続けて呼ばれるサービス、DbContextの生成・破棄、DBコマンドの有無、最終的な画面メッセージの順に調べます。問題が起きたら原因を飛ばして再実行するのではなく、未設定・入力検証・SQL生成・接続・DDL・権限・競合のどこまで進んだかを記録します。WinForms＋Dapperの経験を使い、SQLと処理場所を対比することで、同じC#でもWebサーバーと利用者端末では実行位置が違うことを確認してください。
 
 ## 実際の操作手順
-1. /learn/db-bridge-03を開いて未実行表示を読む。
+1. /learn/053を開いて未実行表示を読む。
 2. 『追跡状態を再現する』をクリックする。
 3. Detached→Added→Detached（保存なし）を確認する。
 4. DbContext追跡とPostgreSQLの永続化を区別する。
@@ -77,4 +79,4 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 **詳しい解答：** 避けます。並列実行で同じコンテキストを共有しないためです。 この結論を画面、サービス、PostgreSQLのどこで確認するかも答え、正常な拒否と操作成功を分けて記録してください。
 
 ## 次へ進む前の確認
-本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/36` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。
+本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/054` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。

@@ -1,8 +1,10 @@
 # 学習順054：EF Coreの登録・更新・削除
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step36/EfCrudPage.razor)。画面の正規URLは `/learn/054` です。
+
 ## 到達目標と前提
-Step36はLearningDbServiceのAddAsync、ToggleAsync、DeleteAsyncを画面から呼び出します。AddAsyncではConfiguredを検査し、Title.Trim後に1〜100文字を検証してからTasks.AddとSaveChangesAsyncを行います。ToggleAsyncとDeleteAsyncは画面のLearningTaskRowからIdとVersionを渡し、対象行を再取得してxminのVersionが一致するか確認します。更新直前の競合はDbUpdateConcurrencyExceptionで拒否し、最新データを無条件で上書きしません。操作後にはSearchAsyncを使い、画面表示を再読み込みします。実際の削除ボタンには確認ダイアログがなく、本番の業務アプリへそのまま転用しないでください。学習用の専用DBだけで操作します。
-学習順054は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/36` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順054はLearningDbServiceのAddAsync、ToggleAsync、DeleteAsyncを画面から呼び出します。AddAsyncではConfiguredを検査し、Title.Trim後に1〜100文字を検証してからTasks.AddとSaveChangesAsyncを行います。ToggleAsyncとDeleteAsyncは画面のLearningTaskRowからIdとVersionを渡し、対象行を再取得してxminのVersionが一致するか確認します。更新直前の競合はDbUpdateConcurrencyExceptionで拒否し、最新データを無条件で上書きしません。操作後にはSearchAsyncを使い、画面表示を再読み込みします。実際の削除ボタンには確認ダイアログがなく、本番の業務アプリへそのまま転用しないでください。学習用の専用DBだけで操作します。
+学習順054は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/054` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |
@@ -53,7 +55,7 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 
 ## 実際の操作手順
 1. 専用PostgreSQL18に架空のlearning_taskを用意する。
-2. /learn/36で課題名を入力して登録する。
+2. /learn/054で課題名を入力して登録する。
 3. 一覧再読み込み後、切り替えと削除を操作する。
 4. 設定不足・入力不正・競合のメッセージを区別する。
 各手順の完了後には日本語の状態表示を読み、未接続・未設定の状態を成功として扱わないでください。WinFormsのダイアログに慣れていても、サーバーログやDB統合試験とブラウザー画面の証跡を混ぜないことが重要です。
@@ -80,4 +82,4 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 **詳しい解答：** 違います。SaveChangesの後、SearchAsyncで再取得します。 この結論を画面、サービス、PostgreSQLのどこで確認するかも答え、正常な拒否と操作成功を分けて記録してください。
 
 ## 次へ進む前の確認
-本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/37` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。
+本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/055` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。

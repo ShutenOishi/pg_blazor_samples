@@ -3,7 +3,7 @@
 
 <PageTitle>学習順012：条件分岐と繰り返し｜Blazor ステップアップ学習</PageTitle>
 
-<p class="eyebrow">第2段階 / 学習順012（旧Step06）</p>
+<p class="eyebrow">第2段階 / 学習順012</p>
 <h1>条件で表示を切り替え、一覧を作る</h1>
 <p><code>@@if</code> で表示を切り替え、<code>@@foreach</code> で複数の項目を表示します。</p>
 
@@ -40,18 +40,18 @@
     <p><code>@@key</code> は、一覧の項目を識別して描画を安定させるために指定しています。</p>
 </section>
 <div class="page-navigation">
-    <a href="/learn/05">前へ：学習順011</a>
-    <a href="/learn/07">次へ：学習順013</a>
+    <a href="/learn/011">前へ：学習順011</a>
+    <a href="/learn/013">次へ：学習順013</a>
 </div>
 
 @code {
     // 学習用の架空データです。実際の利用者情報を使用しません。
     private readonly LearningTask[] tasks =
     [
-        new(1, "ステップ01：最初の画面を確認する", true),
-        new(2, "ステップ02：ページを移動する", true),
-        new(3, "ステップ04：ボタンを押してみる", false),
-        new(4, "ステップ05：入力を変更する", false)
+        new(1, "学習順006：最初の画面を確認する", true),
+        new(2, "学習順007：ページを移動する", true),
+        new(3, "学習順010：ボタンを押してみる", false),
+        new(4, "学習順011：入力を変更する", false)
     ];
 
     // チェックボックスと双方向バインディングして表示条件を保持します。

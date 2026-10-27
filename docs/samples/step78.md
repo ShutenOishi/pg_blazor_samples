@@ -1,6 +1,8 @@
 # 学習順103：ヘルスチェック・構造化ログ・運用監視
 
-**第8段階・第21組／旧Step78・旧URL /learn/78**
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step78/DiagnosticsPage.razor)。画面の正規URLは `/learn/103` です。
+
+**第8段階・第21組／学習順103・旧URL /learn/103**
 
 ## 到達目標
 
@@ -16,7 +18,7 @@ builder.Services.AddHealthChecks();
 app.MapHealthChecks("/health/live").AllowAnonymous();
 ~~~
 
-一方、Step78の画面の「業務利用の現在の認可を確認」ボタンでは、既存の業務サービスを通して毎回Windows認証済み本人・既存台帳・監査の設定が成立するかを検証します。匿名であれば結果を拒否します。
+一方、学習順103の画面の「業務利用の現在の認可を確認」ボタンでは、既存の業務サービスを通して毎回Windows認証済み本人・既存台帳・監査の設定が成立するかを検証します。匿名であれば結果を拒否します。
 
 本番でreadinessを追加する場合は、監視アカウント・接続タイムアウト・負荷制御・非公開のアクセス経路を別設計します。DBを絶えず高頻度で叩くlivenessにしたり、業務データを診断応答へ出力したりしません。
 
@@ -41,7 +43,7 @@ app.MapHealthChecks("/health/live").AllowAnonymous();
 
 ## 次へ
 
-Step79では実DB・偽Principal・Chrome・実IISを分けた試験の受入を設計します。
+学習順104では実DB・偽Principal・Chrome・実IISを分けた試験の受入を設計します。
 
 
 ## 実装・運用の詳しい検証

@@ -4,7 +4,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>学習順99：業務の永続監査｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順99（旧Step74） / PostgreSQL 18の監査書込み</p>
+<p class="eyebrow">学習順99 / PostgreSQL 18の監査書込み</p>
 <h1>業務操作の本人・対象・結果を記録する</h1>
 <MudPaper Class="pa-4">
     <p>サーバーが信頼済み認証情報から本人を取得し、業務の結果をPostgreSQLへ記録します。</p>
@@ -35,7 +35,7 @@
         <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
     </details>
 </section>
-<div class="page-navigation"><a href="/learn/73">前へ</a><a href="/">目次へ</a><a href="/learn/75">次へ</a></div>
+<div class="page-navigation"><a href="/learn/098">前へ</a><a href="/">目次へ</a><a href="/learn/100">次へ</a></div>
 @code {
     private string _status = "監査付き業務取得は未確認です。";
     private async Task CheckAsync()

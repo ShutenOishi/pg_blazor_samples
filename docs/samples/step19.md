@@ -1,12 +1,14 @@
-# 学習順29（旧Step19）：画面からApplicationの計算処理を分離する
+# 学習順29：画面からApplicationの計算処理を分離する
 
-対象画面は`/learn/19`です。WinForms＋Dapperの経験と結び付けて理解します。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step19/ApplicationPage.razor)。画面の正規URLは `/learn/029` です。
+
+対象画面は`/learn/029`です。WinForms＋Dapperの経験と結び付けて理解します。
 
 ## このステップでできるようになること
 WinFormsでフォーム内に置いていた計算や業務ルールを、画面と無関係なC#クラスへ移す考え方を学びます。教材ではその効果を見せるため、**一度だけ`PgBlazorSamples.Application`というクラスライブラリを使います**。以後のEF Core編でDomain・Infrastructureなどの層別プロジェクトを増やすことを要求するものではありません。
 
 ## 前提と期待結果
-Step11〜18のサービスとテストを理解してください。DB・ADは不要です。`/learn/19`へ移動します。
+学習順021〜18のサービスとテストを理解してください。DB・ADは不要です。`/learn/029`へ移動します。
 
 1. 最初は「0ステップを学習済み。残り60ステップです。」と表示される。
 2. 「5ステップ学習した」を押すと学習済み5、残り55に変わる。
@@ -50,7 +52,7 @@ builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 ```
 
 ```razor
-@page "/learn/19"
+@page "/learn/029"
 @inject IStepSummaryService Summary
 
 <p>学習済み：@completed ステップ</p>
@@ -94,7 +96,7 @@ builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 **解答：** この教材の方針では必要ありません。まずWeb内のサービスやDataで責務を分けます。
 
 ## 学習順029：サービス分離の判断とDapperの位置
-`/learn/19`では`ApplicationPage.razor`のボタンが`completed`を更新し、`IStepSummaryService.Describe`が進捗数を文章にします。実装は`StepSummaryService`で、範囲0〜60を超えた入力は`ArgumentOutOfRangeException`で拒否します。この60は練習用の定数であり、現在の全110学習ステップの総数ではありません。WinFormsでフォームのイベント処理から計算を別クラスへ移すのと同じ考え方です。DapperでDB検索するコードも同様にフォームから分離できますが、ここではDBアクセスを実装していません。
+`/learn/029`では`ApplicationPage.razor`のボタンが`completed`を更新し、`IStepSummaryService.Describe`が進捗数を文章にします。実装は`StepSummaryService`で、範囲0〜60を超えた入力は`ArgumentOutOfRangeException`で拒否します。この60は練習用の定数であり、現在の全110学習ステップの総数ではありません。WinFormsでフォームのイベント処理から計算を別クラスへ移すのと同じ考え方です。DapperでDB検索するコードも同様にフォームから分離できますが、ここではDBアクセスを実装していません。
 
 | 仕事 | WinForms＋Dapperでの例 | Blazorでの場所 | 意味 |
 | --- | --- | --- | --- |
@@ -127,4 +129,4 @@ builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 - [ ] 表示と計算を別々に変更・テストできる理由が分かる。
 - [ ] この画面の60は固定の練習条件であることを理解した。
 
-次は[ステップ20：課題管理のDI総合演習](step20.md)です。
+次は[学習順030：課題管理のDI総合演習](step20.md)です。

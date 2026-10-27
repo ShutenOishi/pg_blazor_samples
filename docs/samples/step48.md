@@ -1,9 +1,11 @@
-# ステップ48：Itemsの描画仮想化
+# 学習順068：Itemsの描画仮想化
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step48/VirtualizeItemsPage.razor)。画面の正規URLは `/learn/068` です。
 
 **学習順068・第6段階／第14組**
 
 ## 学習目標と前提
-WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。旧Step41〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
+WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。学習順061〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
 
 ## 処理の順序と現行実装
 画面はEnumerable.Range(1,500)で作った架空課題500件をIReadOnlyListで保持します。DB問い合わせは0回です。MudDataGridにItemsを渡し、Virtualize=true、Height=360px、ItemSize=50を指定します。DOMへ描画する行の数は可視領域付近へ絞れますが、Items内の500件は最初からメモリ上にあります。
@@ -48,17 +50,17 @@ private readonly IReadOnlyList<LearningTaskRow> _rows =
 | 安全性 | 入力値の検証、業務台帳の都度認可と監査 | 同じ条件をサービスのDB取得前に実施 |
 
 ## 実装を選ぶ理由と適用範囲
-行高が大きく変動すると仮想スクロールの位置計算が不正確になります。HeightとItemSizeは互いに関連する設定ですが、データベースのLIMITではありません。100万件の実DB行を最初にItemsへ全件取得したら、メモリ・ネットワーク・SQL実行の負荷は残ります。DB側取得を抑えるStep49と区別してください。
+行高が大きく変動すると仮想スクロールの位置計算が不正確になります。HeightとItemSizeは互いに関連する設定ですが、データベースのLIMITではありません。100万件の実DB行を最初にItemsへ全件取得したら、メモリ・ネットワーク・SQL実行の負荷は残ります。DB側取得を抑える学習順069と区別してください。
 
 特に件数は四つの意味に分けて考えます。DBの総件数、検索条件に一致する件数、今回DBから返す行数、画面が実際に描画する行数です。目の前の表に10件しか見えないことから、DBが10件だけ返したとは推測できません。CountとRowsの条件が異なればページャーも正しく動作しません。必要ならPostgreSQL 18の学習用DBでToQueryString、EXPLAIN (ANALYZE, BUFFERS)を確認します。結果は索引、統計、データ量で変わるので一律の速さを断言しません。
 
 ## 操作手順
-1. ブラウザーから /learn/48 を開き、学習順068と説明を確認します。
+1. ブラウザーから /learn/068 を開き、学習順068と説明を確認します。
 2. DB未設定の環境では未設定の案内を確認し、実DBの取得成功と区別します。
 3. 500件という表示とDB問い合わせ0件を確認してから後半の行までスクロールします。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順069へ進み、旧URL /learn/48 が維持されていることを確認します。
+6. 学習順069へ進み、旧URL /learn/068 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |
@@ -95,4 +97,4 @@ Itemsが500件のときVirtualizeを有効にした場合のメモリ保持数�
 - [ ] 業務台帳による認可と安全拒否が別途必要と説明できる
 
 ## 次に学ぶ内容
-学習順069（/learn/49）へ進みます。
+学習順069（/learn/069）へ進みます。

@@ -1,4 +1,6 @@
-# ステップ52：ダイアログで保存と取消を分ける
+# 学習順072：ダイアログで保存と取消を分ける
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step52/EditDialogPage.razor)。画面の正規URLは `/learn/072` です。
 
 **学習順072・第6段階／第15組**
 
@@ -138,7 +140,7 @@ private async Task SaveAsync()
 
 ## 完了条件
 
-- [ ] /learn/52の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] /learn/072の旧URLを維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 
@@ -148,4 +150,4 @@ private async Task SaveAsync()
 
 ## 次に学ぶ内容
 
-学習順073の旧Step53へ進みます。
+学習順073の学習順073へ進みます。

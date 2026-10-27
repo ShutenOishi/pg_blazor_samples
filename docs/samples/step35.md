@@ -1,8 +1,10 @@
 # 学習順051：LINQ検索とAsNoTracking
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step35/EfSearchPage.razor)。画面の正規URLは `/learn/051` です。
+
 ## 到達目標と前提
 LearningDbService.SearchAsyncは、Configuredを確認し、IDbContextFactoryでDbContextを作成します。AsNoTrackingで変更追跡を省き、空でない検索語をTrimしてWhere条件を付けます。CountAsyncで検索条件に一致する総件数を取得し、OrderBy(Id).Take(20).Selectで必要列のLearningTaskRowを作ってToListAsyncします。件数と20行の取得は別のSQLです。両者の処理中に他の更新があれば時点一致は保証されません。IQueryableのままRazorへ返さず、具体化したDTOを返すため、DbContextの寿命も明確です。Containsの大文字小文字の扱いはNpgsqlとDB照合規則を実DBで確認します。
-学習順051は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/35` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順051は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/051` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |
@@ -54,7 +56,7 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 最初に画面URLと初期状態を確認し、次に入力とイベント、続けて呼ばれるサービス、DbContextの生成・破棄、DBコマンドの有無、最終的な画面メッセージの順に調べます。問題が起きたら原因を飛ばして再実行するのではなく、未設定・入力検証・SQL生成・接続・DDL・権限・競合のどこまで進んだかを記録します。WinForms＋Dapperの経験を使い、SQLと処理場所を対比することで、同じC#でもWebサーバーと利用者端末では実行位置が違うことを確認してください。
 
 ## 実際の操作手順
-1. /learn/35を開き『検索前です。』を確認する。
+1. /learn/051を開き『検索前です。』を確認する。
 2. 検索語を入力して『DBを検索する』をクリックする。
 3. 総件数と取得行数を比べ、最大20件という制約を説明する。
 4. DB接続を外した学習用環境で『未設定』表示を確認する。
@@ -81,4 +83,4 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 **詳しい解答：** 必要な列を取得し、DbContextの寿命を越えて遅延実行しないためです。 この結論を画面、サービス、PostgreSQLのどこで確認するかも答え、正常な拒否と操作成功を分けて記録してください。
 
 ## 次へ進む前の確認
-本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/db-bridge-02` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。
+本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/052` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。

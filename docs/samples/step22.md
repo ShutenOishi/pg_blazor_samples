@@ -1,7 +1,9 @@
-# 学習順32：MudBlazorのレイアウトを学ぶ（旧Step22）
+# 学習順32：MudBlazorのレイアウトを学ぶ
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step22/MudLayoutPage.razor)。画面の正規URLは `/learn/032` です。
 
 ## 学ぶ前に
-この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/22 です。
+この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/032 です。
 
 ## WinForms＋Dapperとの比較
 | 観点 | デスクトップでの経験 | MudBlazorでの対応 |
@@ -25,7 +27,7 @@
 ```razor
 <MudDrawer @bind-Open="_menuOpen" Variant="DrawerVariant.Persistent"
            ClipMode="DrawerClipMode.Docked" Fixed="false" Overlay="false">
-    <MudNavMenu><MudNavLink Href="/learn/21">導入と翻訳</MudNavLink></MudNavMenu>
+    <MudNavMenu><MudNavLink Href="/learn/031">導入と翻訳</MudNavLink></MudNavMenu>
 </MudDrawer>
 ```
 
@@ -44,7 +46,7 @@ xs=12は狭い画面で列をすべて使い、sm=6は幅が広がると半分�
 WinFormsのフォーム上へToolStripやPanelを置くように、Blazorではレイアウト用のコンポーネントを組み合わせます。ここでは上部の`MudAppBar`、開閉式の`MudDrawer`、本文の`MudMainContent`、画面幅に応じた`MudGrid`を学びます。
 
 ## 前提と完成画面
-Step21を修了してから`/learn/22`を開きます。DB・ADは不要です。画面内に「練習用管理画面」とメニューボタン、左右2枚の情報カードが表示されます。
+学習順031を修了してから`/learn/032`を開きます。DB・ADは不要です。画面内に「練習用管理画面」とメニューボタン、左右2枚の情報カードが表示されます。
 
 1. 最初は「メニューを表示しています。」と表示される。
 2. メニューボタン「学習メニューを開閉」を押すと「メニューを閉じています。」に変わる。
@@ -67,8 +69,8 @@ Step21を修了してから`/learn/22`を開きます。DB・ADは不要です�
                ClipMode="DrawerClipMode.Docked"
                Fixed="false" Overlay="false">
       <MudNavMenu>
-        <MudNavLink Href="/learn/21">導入と翻訳</MudNavLink>
-        <MudNavLink Href="/learn/23">入力部品</MudNavLink>
+        <MudNavLink Href="/learn/031">導入と翻訳</MudNavLink>
+        <MudNavLink Href="/learn/033">入力部品</MudNavLink>
       </MudNavMenu>
     </MudDrawer>
     <MudMainContent Class="pa-3">
@@ -97,7 +99,7 @@ Step21を修了してから`/learn/22`を開きます。DB・ADは不要です�
 この操作で利用者の権限が変化するわけではありません。**メニューを閉じることと機能へのアクセスを禁止することは異なります**。
 
 ## アプリ全体のレイアウトとの区別
-このステップは`/learn/22`ページの**内側**に練習用`MudLayout`を置きます。`MainLayout.razor`は別に存在し、アプリ全体のヘッダー、ナビゲーション、本文、MudBlazorのProviderを扱います。ページ内だけでレイアウトの動作を試すため`Fixed="false"`としており、画面全体を覆う固定メニューの例ではありません。
+このステップは`/learn/032`ページの**内側**に練習用`MudLayout`を置きます。`MainLayout.razor`は別に存在し、アプリ全体のヘッダー、ナビゲーション、本文、MudBlazorのProviderを扱います。ページ内だけでレイアウトの動作を試すため`Fixed="false"`としており、画面全体を覆う固定メニューの例ではありません。
 
 ## つまずいたら
 - メニューボタンで開閉しない場合は`OnClick`・`_menuOpen`・`@bind-Open`を確認する。
@@ -114,7 +116,7 @@ Step21を修了してから`/learn/22`を開きます。DB・ADは不要です�
 - [ ] `MudGrid`の`xs`と`sm`の意味を説明できる。
 - [ ] 共通レイアウトとページ内の練習レイアウトを区別できる。
 
-次は[ステップ23：入力コンポーネント](step23.md)です。
+次は[学習順033：入力コンポーネント](step23.md)です。
 
 
 ## 学習順32の追加確認

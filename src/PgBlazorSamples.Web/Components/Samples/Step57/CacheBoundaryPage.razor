@@ -2,7 +2,7 @@
 @page "/learn/57"
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningCacheLessonService Cache
-<PageTitle>ステップ57：キャッシュと認可の境界｜Blazor ステップアップ学習</PageTitle>
+<PageTitle>学習順077：キャッシュと認可の境界｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">学習順077 / キャッシュのキー・失効・権限</p>
 <h1>キャッシュを利用者と権限の境界から考える</h1>
 <MudPaper Class="pa-4">
@@ -19,7 +19,7 @@
 <section class="lesson-details">
     <h2>なぜキャッシュを共有しないか</h2>
     <p>この学習用キャッシュはScopedで、架空の利用者名と権限バージョンをキーに持つデモです。別ユーザーが同じキャッシュ行を受け取る事故を避ける考え方を確認します。</p>
-    <p><strong>ここにAD認証・DBの認可はありません。</strong>画面でA/Bを選べても本人確認にはなりません。実運用時はStep61〜70で本人ID、対象行の認可、認可変更時の失効をサーバーで実装します。Blazor ServerのScopedは回線(circuit)単位であり、永続ユーザーデータの共有ストアではありません。</p>
+    <p><strong>ここにAD認証・DBの認可はありません。</strong>画面でA/Bを選べても本人確認にはなりません。実運用時は学習順086〜70で本人ID、対象行の認可、認可変更時の失効をサーバーで実装します。Blazor ServerのScopedは回線(circuit)単位であり、永続ユーザーデータの共有ストアではありません。</p>
 
     <h2>学習順077：WinForms＋Dapperとの比較</h2>
     <table data-testid="stage06-compare-077">
@@ -33,7 +33,7 @@
     </table>
     <p>実コード・操作手順・障害の切り分け・演習と詳しい解答は docs/samples/step57.md に収録しています。</p>
 </section>
-<div class="page-navigation"><a href="/learn/56">前へ：ステップ56</a><a href="/learn/58">次へ：ステップ58</a></div>
+<div class="page-navigation"><a href="/learn/076">前へ：学習順076</a><a href="/learn/078">次へ：学習順078</a></div>
 @code {
     private string _actor = "A";
     private int _permissionVersion = 1;

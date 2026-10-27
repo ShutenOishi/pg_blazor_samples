@@ -1,4 +1,6 @@
-# ステップ43：MudDataGrid ServerDataで検索を接続
+# 学習順063：MudDataGrid ServerDataで検索を接続
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step43/GridServerDataPage.razor)。画面の正規URLは `/learn/063` です。
 
 
 **学習順063・第6段階／第13組**
@@ -9,11 +11,11 @@ GridStateとEF Coreの一覧取得をつなぐ。今回のEF Core 10連携は、
 
 ## 前提
 
-Step31〜40でIDbContextFactory、DTO、日付型を学び、[MudBlazor用途別特別コラム](../columns/column-mudblazor-by-purpose.md)で表・DataGridを使い分けます。DBへ問い合わせる画面には**開発専用PostgreSQL 18**、学習用のDDLと架空データ、環境変数ConnectionStrings__PostgreSQLが必要です。資格情報はソースに記載しません。
+学習順047〜40でIDbContextFactory、DTO、日付型を学び、[MudBlazor用途別特別コラム](../columns/column-mudblazor-by-purpose.md)で表・DataGridを使い分けます。DBへ問い合わせる画面には**開発専用PostgreSQL 18**、学習用のDDLと架空データ、環境変数ConnectionStrings__PostgreSQLが必要です。資格情報はソースに記載しません。
 
 ## 実際に操作する
 
-1. /learn/43 を開き、日本語ラベルと表示件数を確認します。
+1. /learn/063 を開き、日本語ラベルと表示件数を確認します。
 2. DataGridのページャー・列ソートとDB検索を試す。初期ロードからServerDataを呼ぶ。
 3. DBが設定されない環境で、未接続を成功と誤認しないことを確認します。
 4. 小規模ItemsとServerDataを比較し、どの時点でDB検索が行われるか説明します。
@@ -41,7 +43,7 @@ ItemsとServerDataを同時指定せず、IQueryableやDbContextをBlazor画面�
 
 - UIのページ表示範囲、DB側の取得行数、絞り込み前のテーブル全件数、絞り込み後のCountは別の概念です。
 - 画面のフィルターは認可ではありません。本番業務では業務サービスのWhereに権限条件を追加し、Countにも必ず適用します。
-- PostgreSQLのILIKE/LIKEの挙動や照合順序は日本語検索に影響するため、性能・索引を後続のStep50・59で確認します。
+- PostgreSQLのILIKE/LIKEの挙動や照合順序は日本語検索に影響するため、性能・索引を後続の学習順070・59で確認します。
 - 大量行の実測ではEXPLAIN（ANALYZE, BUFFERS）、DbContext/接続プール、CancellationTokenを合わせて検証します。
 
 ## 確認問題
@@ -58,7 +60,7 @@ A. いいえ。許可リストに変換してEF Coreの式でソートします�
 
 ## 学習順063：実装に即した詳しい解説
 
-このテーマの中心はMudDataGridのGridStateです。GridState.SortDefinitionsをIndex順で並べ、Step43では先頭1列をLearningSortへ変換する。SortMode.Single、Filterable=falseのため組み込みフィルターは使用しない。 MudDataGridは列定義が豊富でも、サービスがDB検索を担当するという境界はMudTableと同じです。GridStateやIQueryableを画面内で持ち続けず、要求ごとに短命のDbContextを作り、結果だけをDTOと総件数で返します。
+このテーマの中心はMudDataGridのGridStateです。GridState.SortDefinitionsをIndex順で並べ、学習順063では先頭1列をLearningSortへ変換する。SortMode.Single、Filterable=falseのため組み込みフィルターは使用しない。 MudDataGridは列定義が豊富でも、サービスがDB検索を担当するという境界はMudTableと同じです。GridStateやIQueryableを画面内で持ち続けず、要求ごとに短命のDbContextを作り、結果だけをDTOと総件数で返します。
 
 ### 実コード例1：画面と検索条件
 
@@ -96,7 +98,7 @@ return new GridData<LearningTaskRow> {
 
 ### 操作手順
 
-1. `/learn/43`へアクセスして日本語の表示と入力欄を確認します。2. 表の表示行数を確認してからページ送りと列見出しの並び替えを試します。3. DB未設定なら専用の未設定メッセージを確認し、正常な取得0件と区別します。4. PostgreSQL18の学習用DDLと架空データを用意できる場合だけDB検索を実行します。5. 検索条件の変更、再検索、ページ位置の変化を記録します。6. ソースのRazor→LearningPageQuery→LearningPageService→EF Core→Npgsqlの順に処理の実行場所を追跡します。7. Countと表示行を同じ条件で取得することを説明します。
+1. `/learn/063`へアクセスして日本語の表示と入力欄を確認します。2. 表の表示行数を確認してからページ送りと列見出しの並び替えを試します。3. DB未設定なら専用の未設定メッセージを確認し、正常な取得0件と区別します。4. PostgreSQL18の学習用DDLと架空データを用意できる場合だけDB検索を実行します。5. 検索条件の変更、再検索、ページ位置の変化を記録します。6. ソースのRazor→LearningPageQuery→LearningPageService→EF Core→Npgsqlの順に処理の実行場所を追跡します。7. Countと表示行を同じ条件で取得することを説明します。
 
 ### 障害の切り分け表
 

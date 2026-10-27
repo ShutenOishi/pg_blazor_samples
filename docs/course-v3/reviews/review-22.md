@@ -1,7 +1,7 @@
 # 第22組の復習：総合演習
 
 ## 到達目標
-学習順106〜110の業務設計、認可付きDB検索、DTO編集・競合、ADと既存台帳、E2E/実機受入を総合復習します。/learn/capstone-01から/learn/capstone-05へ順番に移動し、それぞれの操作をRazor、SecuredLearningService、PostgreSQL18の証拠と照合してください。WinForms＋DapperのSQLと画面イベントの役割をBlazorでどこに分けたか説明します。
+学習順106〜110の業務設計、認可付きDB検索、DTO編集・競合、ADと既存台帳、E2E/実機受入を総合復習します。/learn/106から/learn/110へ順番に移動し、それぞれの操作をRazor、SecuredLearningService、PostgreSQL18の証拠と照合してください。WinForms＋DapperのSQLと画面イベントの役割をBlazorでどこに分けたか説明します。
 
 ## 実コード例1
 ```csharp

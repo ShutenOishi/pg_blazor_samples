@@ -1,6 +1,8 @@
-# 学習順27（旧Step17）：非同期処理とログを使う
+# 学習順27：非同期処理とログを使う
 
-対象画面は`/learn/17`です。WinForms＋Dapperの経験と結び付けて理解します。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step17/AsyncLoggingPage.razor)。画面の正規URLは `/learn/027` です。
+
+対象画面は`/learn/027`です。WinForms＋Dapperの経験と結び付けて理解します。
 
 ## このステップでできるようになること
 WinFormsの`async/await`による非同期イベント処理を、Blazor Interactive Serverの画面でも扱います。処理中・完了・取消の表示と、ASP.NET CoreがDIで提供する`ILogger<T>`を組み合わせます。
@@ -8,7 +10,7 @@ WinFormsの`async/await`による非同期イベント処理を、Blazor Interac
 この教材では**外部通信もDB書き込みも実行しません**。サーバー上で800ミリ秒待つ処理を使い、ブラウザーからの操作とサーバー側処理の関係を確認します。
 
 ## 前提と期待する動作
-Step11〜16を学んでから`/learn/17`を開きます。DB・ADは不要です。
+学習順021〜16を学んでから`/learn/027`を開きます。DB・ADは不要です。
 
 1. 初期表示「まだ実行していません。」を見る。
 2. 「非同期処理を開始する」を押し、「処理中です。」から「処理が完了しました。」へ変わるのを確認する。
@@ -19,7 +21,7 @@ Step11〜16を学んでから`/learn/17`を開きます。DB・ADは不要です
 サーバー側のコンポーネントは`IDisposable`を実装し、ログサービスを注入します。
 
 ```razor
-@page "/learn/17"
+@page "/learn/027"
 @implements IDisposable
 @inject ILogger<AsyncLoggingPage> Logger
 
@@ -103,7 +105,7 @@ public void Dispose()
 **解答：** いけません。ログに必要な識別子・結果のみを記録し、保存先とアクセス制御も考慮します。
 
 ## 学習順027：非同期・ログ・取消の責任を分ける
-`/learn/17`のイベントはブラウザー上のJavaScript処理ではありません。Interactive ServerのサーバーC#が`StartAsync`を実行し、`Task.Delay(800, current.Token)`で待機します。`await`はサーバースレッドを800ミリ秒間同期的に占有しないための構文であり、処理が高速になったという意味ではありません。WinFormsで`async void`イベントと`CancellationToken`を扱う経験は役立ちますが、サーバーでは複数利用者のイベントが同時に処理される点も考えます。
+`/learn/027`のイベントはブラウザー上のJavaScript処理ではありません。Interactive ServerのサーバーC#が`StartAsync`を実行し、`Task.Delay(800, current.Token)`で待機します。`await`はサーバースレッドを800ミリ秒間同期的に占有しないための構文であり、処理が高速になったという意味ではありません。WinFormsで`async void`イベントと`CancellationToken`を扱う経験は役立ちますが、サーバーでは複数利用者のイベントが同時に処理される点も考えます。
 
 | 観点 | WinForms＋Dapper | Blazor Interactive Server | この実装 |
 | --- | --- | --- | --- |
@@ -136,4 +138,4 @@ public void Dispose()
 - [ ] `CancellationTokenSource`と`CancellationToken`の役割を説明できる。
 - [ ] `ILogger`の受け取りと、ログの保存先は別問題だと理解した。
 
-次は[ステップ18：単体テスト](step18.md)です。
+次は[学習順028：単体テスト](step18.md)です。

@@ -3,8 +3,8 @@
 @inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
 @using PgBlazorSamples.Web.Data
 
-<PageTitle>ステップ35：AsNoTrackingと検索｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順051 / 旧ステップ35・EF Coreの検索</p>
+<PageTitle>学習順051：AsNoTrackingと検索｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順051 / 学習順051・EF Coreの検索</p>
 <h1>LINQで絞り込み、必要な行だけ取得する</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudTextField T="string" Label="課題名に含まれる文字" @bind-Value="_keyword" />
@@ -29,7 +29,7 @@
     </table>
     <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/column/db-bridge-50">前へ：第10組の復習</a><a href="/learn/column/35">コラム08：EF Coreの入門まとめ</a><a href="/learn/db-bridge-02">次へ：学習順052</a></div>
+<div class="page-navigation"><a href="/learn/column/db-bridge-50">前へ：第10組の復習</a><a href="/learn/column/35">コラム08：EF Coreの入門まとめ</a><a href="/learn/052">次へ：学習順052</a></div>
 @code {
     private string _keyword = "";
     private LearningTaskResult _data = new("検索前です。", []);

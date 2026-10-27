@@ -23,12 +23,12 @@
 [Parameter] public string? Tab { get; set; }
 private void Increase() =&gt; count++;</code></pre>
 <details><summary>URLを書き換えれば業務権限も変わりますか？</summary><p>いいえ。URLは表示条件であり、認可はサーバー側の既存台帳で確認します。</p></details>
-</section><div class="page-navigation"><a href="/learn/10">前へ：学習順018</a><a href="/learn/runtime-05">次へ：学習順020</a></div>
+</section><div class="page-navigation"><a href="/learn/018">前へ：学習順018</a><a href="/learn/020">次へ：学習順020</a></div>
 @code {
     [SupplyParameterFromQuery(Name = "tab")]
     [Parameter] public string? Tab { get; set; }
     private int count;
     // URLパラメーターには公開可能な表示条件だけを含める。
-    private void Choose(string value) => Navigation.NavigateTo($"/learn/runtime-04?tab={value}");
+    private void Choose(string value) => Navigation.NavigateTo($"/learn/019?tab={value}");
     private void Increase() => count++;
 }

@@ -6,8 +6,8 @@
 @inject LearningDbService Database
 @inject LearningEditService Edits
 
-<PageTitle>ステップ54：xmin競合の画面設計｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順074（旧ステップ54） / 第15組</p>
+<PageTitle>学習順074：xmin競合の画面設計｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順074 / 第15組</p>
 <h1>同時編集で古い変更を上書きしない</h1>
 <p>同じ行を2つのブラウザーで開いてから先に片方で保存し、後からもう片方で保存してください。</p>
 <MudPaper Class="pa-4">
@@ -45,7 +45,7 @@
     <h2>競合時に自動上書きしない</h2>
     <p>画面の版番号とDBのxminを照合し、保存直前のDbUpdateConcurrencyExceptionも捕捉します。競合時は最新値を別表示し、利用者が読み替えるまで編集データを勝手に変更しません。削除済みなら保存できません。</p>
 </section>
-<div class="page-navigation"><a href="/learn/53">前へ：ステップ53</a><a href="/learn/55">次へ：ステップ55</a></div>
+<div class="page-navigation"><a href="/learn/073">前へ：学習順073</a><a href="/learn/075">次へ：学習順075</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private LearningEditInput? _draft;

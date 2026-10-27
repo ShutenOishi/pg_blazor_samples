@@ -6,8 +6,8 @@
 @inject LearningEditService Edits
 @inject IDialogService Dialogs
 
-<PageTitle>ステップ53：選択と一括操作｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順073（旧ステップ53） / 第15組</p>
+<PageTitle>学習順073：選択と一括操作｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順073 / 第15組</p>
 <h1>選択した課題をまとめて完了にする</h1>
 <p>架空課題の練習専用です。上限50件、重複を拒否し、途中で1件でも変更されれば全体を中止します。</p>
 <MudPaper Class="pa-4">
@@ -35,7 +35,7 @@
     <h2>部分失敗の契約を先に決める</h2>
     <p>本ステップは原子的な全件成功・全件取消です。各行の読込時xminを送信し、DBトランザクション内で全件を検証して保存します。認可はこのサンプルには未実装であり、業務での一括承認へ転用するにはサーバー側の各行認可と監査が必要です。</p>
 </section>
-<div class="page-navigation"><a href="/learn/52">前へ：ステップ52</a><a href="/learn/54">次へ：ステップ54</a></div>
+<div class="page-navigation"><a href="/learn/072">前へ：学習順072</a><a href="/learn/074">次へ：学習順074</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private readonly Dictionary<long, uint> _selected = new();

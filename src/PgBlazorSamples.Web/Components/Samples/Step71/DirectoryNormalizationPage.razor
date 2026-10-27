@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject WindowsUserAccessService Access
 <PageTitle>学習順96：既存台帳とログイン名正規化｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順96（旧Step71） / 1万人規模の既存台帳と安全な照合</p>
+<p class="eyebrow">学習順96 / 1万人規模の既存台帳と安全な照合</p>
 <h1>同じ利用者名の表記揺れを拒否する</h1>
 <MudPaper Class="pa-4">
     <p>この操作はサーバーで認証済み本人と読み取り専用ビューを照合します。利用者名の入力欄や登録画面は作りません。</p>
@@ -36,7 +36,7 @@
         <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
     </details>
 </section>
-<div class="page-navigation"><a href="/learn/column/70">前へ</a><a href="/">目次へ</a><a href="/learn/72">次へ</a></div>
+<div class="page-navigation"><a href="/learn/column/70">前へ</a><a href="/">目次へ</a><a href="/learn/097">次へ</a></div>
 @code {
     private string _status = "台帳は未照合です。";
     private async Task CheckAsync()

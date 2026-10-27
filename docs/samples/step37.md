@@ -1,8 +1,10 @@
 # 学習順055：DateOnly・TimeOnly・Rangeの型変換
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step37/EfDateRangePage.razor)。画面の正規URLは `/learn/055` です。
+
 ## 到達目標と前提
 MudDatePickerはDateTime?、学習用テーブルのdateはDateOnly?、time without time zoneはTimeOnly?、daterangeはNpgsqlRange<DateTime>?で扱います。EfDateRangePageではja-JP形式で日付を選び、DateOnly.FromDateTimeで日だけに変換します。期間は開始日を含み、翌日の開始を含まない[当日,翌日)です。NpgsqlRange<DateTime>(start,true,endExclusive,false)の第4引数をfalseにするのが重要です。2引数形式で上限を含むと、PostgreSQLの日付範囲が正規化されて終端がずれる場合があります。DateOnly.MaxValueの翌日は作れないためAddDaysの前に拒否します。空の日付も拒否します。ここでは値の表示だけでDBに保存せず、datemultirangeや無限端の実DB検証とも分けます。
-学習順055は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/37` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順055は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/055` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |
@@ -52,7 +54,7 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 最初に画面URLと初期状態を確認し、次に入力とイベント、続けて呼ばれるサービス、DbContextの生成・破棄、DBコマンドの有無、最終的な画面メッセージの順に調べます。問題が起きたら原因を飛ばして再実行するのではなく、未設定・入力検証・SQL生成・接続・DDL・権限・競合のどこまで進んだかを記録します。WinForms＋Dapperの経験を使い、SQLと処理場所を対比することで、同じC#でもWebサーバーと利用者端末では実行位置が違うことを確認してください。
 
 ## 実際の操作手順
-1. /learn/37で日本語日付を選ぶ。
+1. /learn/055で日本語日付を選ぶ。
 2. 『DB用に変換』をクリックする。
 3. DateOnly表示と[開始,翌日)を確かめる。
 4. 最大日付・nullで拒否する理由を説明する。

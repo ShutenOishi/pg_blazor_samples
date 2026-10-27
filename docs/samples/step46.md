@@ -1,9 +1,11 @@
-# ステップ46：関連テーブルとDTO射影
+# 学習順066：関連テーブルとDTO射影
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step46/RelatedDtoPage.razor)。画面の正規URLは `/learn/066` です。
 
 **学習順066・第6段階／第14組**
 
 ## 学習目標と前提
-WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。旧Step41〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
+WinForms＋Dapperに慣れた学習者が、Blazor Interactive ServerとEF Core 10で同じ処理をどこに記述するか理解することが目標です。Visual Studio 2026、.NET 10、MudBlazor 9、PostgreSQL 18を前提とします。学習順061〜45で学んだItems、ServerData、並び順と検索を振り返ってからこの画面へ進んでください。例で扱うのは学習用の架空の課題データです。実ADや業務台帳を使った実機受入ではありません。
 
 ## 処理の順序と現行実装
 LoadCategoriesAsyncはDBのTasksにAsNoTrackingを指定し、CountAsyncで総件数を計算します。一覧はId昇順の先頭20行から、CategoryTaskRow(Id, Title, CategoryName)だけをSelectで射影します。関連CategoryがないときCategoryNameは未分類です。EF Coreがナビゲーション参照をSQLのJOINへ変換し、行ごとに分類を再取得するN+1を防ぎます。
@@ -53,12 +55,12 @@ Includeは関連Entity自体が必要な場合に選ぶ処理です。単に分�
 特に件数は四つの意味に分けて考えます。DBの総件数、検索条件に一致する件数、今回DBから返す行数、画面が実際に描画する行数です。目の前の表に10件しか見えないことから、DBが10件だけ返したとは推測できません。CountとRowsの条件が異なればページャーも正しく動作しません。必要ならPostgreSQL 18の学習用DBでToQueryString、EXPLAIN (ANALYZE, BUFFERS)を確認します。結果は索引、統計、データ量で変わるので一律の速さを断言しません。
 
 ## 操作手順
-1. ブラウザーから /learn/46 を開き、学習順066と説明を確認します。
+1. ブラウザーから /learn/066 を開き、学習順066と説明を確認します。
 2. DB未設定の環境では未設定の案内を確認し、実DBの取得成功と区別します。
 3. 「関連表を読み込む」を押して総件数と先頭20件、分類の表示を比較します。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順067へ進み、旧URL /learn/46 が維持されていることを確認します。
+6. 学習順067へ進み、旧URL /learn/066 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |
@@ -95,4 +97,4 @@ Includeは関連Entity自体が必要な場合に選ぶ処理です。単に分�
 - [ ] 業務台帳による認可と安全拒否が別途必要と説明できる
 
 ## 次に学ぶ内容
-学習順067（/learn/47）へ進みます。
+学習順067（/learn/067）へ進みます。

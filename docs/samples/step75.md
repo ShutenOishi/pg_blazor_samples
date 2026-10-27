@@ -1,6 +1,8 @@
 # 学習順100：IIS・Kerberos・負荷・障害の実機受入
 
-**第8段階・第20組／旧Step75・旧URL /learn/75**
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step75/IisAcceptancePage.razor)。画面の正規URLは `/learn/100` です。
+
+**第8段階・第20組／学習順100・旧URL /learn/100**
 
 ## 到達目標
 
@@ -121,4 +123,4 @@ LIMIT 2;
 
 ## 次へ
 
-コラム16で5つのステップを復習し、Step76〜80で監視、障害復旧、運用を発展的に学びます。
+コラム16で5つのステップを復習し、学習順101〜80で監視、障害復旧、運用を発展的に学びます。

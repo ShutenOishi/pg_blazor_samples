@@ -1,5 +1,7 @@
 # 学習順107：PostgreSQL検索とページング・生成SQL
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)。画面の正規URLは `/learn/107` です。
+
 ## SQLの変換とDB実行を分ける
 Capstone02Page.razorのSQL表示はFactory.CreateDbContextでLINQ式を組み立て、ToQueryStringで文字列を得る処理です。架空の部署DEMOはSQLの例示にだけ使い、本人の所属部署ではありません。「権限付き一覧を取得する」はBusiness.LoadPageAsyncを呼び、AuthorizeAsyncで実際の本人・台帳・監査を確認してからDBアクセスします。Visible(db, permit.Unit)のqueryへ検索条件を重ね、同じqueryでCountAsyncとID昇順のSkip/Takeを計算します。画面は最大10件、サービスのMaxPageSizeは50件です。WinForms＋Dapperの場合もWHERE句の認可条件を外したCountは情報漏えいになります。EF Coreが自動SQLを生成しても認可が自動で付くわけではありません。
 
@@ -66,7 +68,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
 
 ## 個別の操作手順
-/learn/capstone-02で「生成SQLだけを確認する」を押し、SELECTを確認します。続いて認可付き一覧を押し、匿名なら拒否・総件数0・表示0であることを確認します。CapstoneIntegrationTestsで12件中の先頭10件を検査する処理を追います。
+/learn/107で「生成SQLだけを確認する」を押し、SELECTを確認します。続いて認可付き一覧を押し、匿名なら拒否・総件数0・表示0であることを確認します。CapstoneIntegrationTestsで12件中の先頭10件を検査する処理を追います。
 
 ## 演習と詳しい解答
 **問題1：** SQLを表示できたら業務SELECTの許可が得られたことになりますか。

@@ -5,8 +5,8 @@
 @inject LearningDbService Database
 @inject LearningEditService Edits
 
-<PageTitle>ステップ55：詳細表示とN+1対策｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順075（旧ステップ55） / 第15組</p>
+<PageTitle>学習順075：詳細表示とN+1対策｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順075 / 第15組</p>
 <h1>必要なときだけ関連情報つき詳細を取得する</h1>
 <p>一覧は少ない列だけ取得し、選択した1行の詳細を単一のSQLへ射影します。</p>
 <MudPaper Class="pa-4">
@@ -42,7 +42,7 @@
     <p>分類はAsNoTrackingとSelectでDTOへ射影します。子テーブルが多数ある業務では1対多の詳細一覧を別ページングで取得し、無制限のIncludeや行ごとのDB照会を避けます。</p>
     <p>この画面に業務認可はありません。実務では一覧だけでなく、詳細を開くサービスでも権限を検査します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/54">前へ：ステップ54</a><a href="/learn/column/55">第15組の復習：編集・競合・詳細</a></div>
+<div class="page-navigation"><a href="/learn/074">前へ：学習順074</a><a href="/learn/column/55">第15組の復習：編集・競合・詳細</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private LearningTaskDetail? _detail;

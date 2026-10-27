@@ -3,7 +3,7 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
 <PageTitle>学習順98：権限変更と更新の競合｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順98（旧Step73） / トランザクションと行ロック</p>
+<p class="eyebrow">学習順98 / トランザクションと行ロック</p>
 <h1>権限を失った更新を確定させない</h1>
 <MudPaper Class="pa-4">
     <p>保存時のDB正本を確認し、正本の行ロックと業務更新を同じトランザクションで実行します。</p>
@@ -34,7 +34,7 @@
         <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
     </details>
 </section>
-<div class="page-navigation"><a href="/learn/72">前へ</a><a href="/">目次へ</a><a href="/learn/74">次へ</a></div>
+<div class="page-navigation"><a href="/learn/097">前へ</a><a href="/">目次へ</a><a href="/learn/099">次へ</a></div>
 @code {
     private string _status = "書込み契約は未確認です。";
     private async Task CheckAsync()

@@ -1,12 +1,14 @@
-# 学習順37（旧Step27）：確認ダイアログで実行と中止を分ける
+# 学習順37：確認ダイアログで実行と中止を分ける
 
-**実習URL：`/learn/27`。** 第4段階・第8組の2本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step27/DialogPage.razor)。画面の正規URLは `/learn/037` です。
+
+**実習URL：`/learn/037`。** 第4段階・第8組の2本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
 
 ## できるようになること
 WinFormsの`MessageBox.Show`に相当する確認画面を、MudBlazorの`IDialogService`で表示します。`MudDialogProvider`との関係、`bool?`で返る結果の意味、確認と保存・認可が別であることを学びます。
 
 ## 前提と操作
-Step21のDI登録とProvider、Step15の`@inject`が前提です。DB・ADは不要です。`/learn/27`を開きます。
+学習順031のDI登録とProvider、学習順025の`@inject`が前提です。DB・ADは不要です。`/learn/037`を開きます。
 
 1. 初期表示は「まだ選択していません。」です。
 2. 「確認ダイアログを開く」を押すと「架空の処理を実行しますか？」と表示される。
@@ -16,7 +18,7 @@ Step21のDI登録とProvider、Step15の`@inject`が前提です。DB・ADは不
 ## 実装の中心部分
 
 ```razor
-@page "/learn/27"
+@page "/learn/037"
 @inject IDialogService Dialogs
 
 <MudButton OnClick="ConfirmAsync">
@@ -92,7 +94,7 @@ builder.Services.AddMudServices();
 
 ## 操作の再現と切り分け
 
-1. `/learn/27`を開いて初期メッセージを読む。
+1. `/learn/037`を開いて初期メッセージを読む。
 2. 開くボタンを一度押し、ダイアログの見出しと質問を確認する。
 3. 「中止」を選択し、元の画面に「中止しました。」が出ることを確かめる。
 4. 再度開いて「実行する」を押し、「保存はしていません」の注意書きを読む。
@@ -126,4 +128,4 @@ builder.Services.AddMudServices();
 - [ ] DIサービスとProviderの役割を説明できる。
 - [ ] 確認と業務の認可・保存が別だと説明できる。
 
-次は[ステップ28：通知と処理中表示](step28.md)です。
+次は[学習順038：通知と処理中表示](step28.md)です。

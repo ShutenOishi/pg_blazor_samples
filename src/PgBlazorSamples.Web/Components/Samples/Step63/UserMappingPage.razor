@@ -2,8 +2,8 @@
 @page "/learn/63"
 @using PgBlazorSamples.Web.Services.Learning
 @inject WindowsUserAccessService UserAccess
-<PageTitle>ステップ63：ドメイン付きユーザー名とDB利用者の対応｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順88（旧Step63） / Windows認証と業務利用の境界</p>
+<PageTitle>学習順088：ドメイン付きユーザー名とDB利用者の対応｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順88 / Windows認証と業務利用の境界</p>
 <h1>ドメイン付きユーザー名とDB利用者の対応</h1>
 <MudPaper Class="pa-4">
     <h2>AD認証と既存利用者台帳の照合を分離する</h2>
@@ -30,9 +30,9 @@
     <details><summary>確認問題：本人認証が成功したら業務データを参照できる？</summary>
         <p>いいえ。既存台帳の利用者の有効性と、操作に対する権限をサーバー側で確認します。</p>
     </details>
-    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・KerberosはStep70で実機検証します。</p>
+    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・Kerberosは学習順095で実機検証します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/62">前のステップへ</a><a href="/learn/64">次へ進む</a></div>
+<div class="page-navigation"><a href="/learn/087">前のステップへ</a><a href="/learn/089">次へ進む</a></div>
 @code {
     private WindowsAccessSnapshot _snapshot = new("initial", "ボタンを押すと認証と既存台帳照合の状態を確認します。");
 

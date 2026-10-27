@@ -1,4 +1,6 @@
-# ステップ44：許可リスト・複数列ソート・安定した順序
+# 学習順064：許可リスト・複数列ソート・安定した順序
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step44/SafeSortPage.razor)。画面の正規URLは `/learn/064` です。
 
 
 **学習順064・第6段階／第13組**
@@ -9,11 +11,11 @@ SortDefinitionsのIndexで優先順を確定。今回のEF Core 10連携は、**
 
 ## 前提
 
-Step31〜40でIDbContextFactory、DTO、日付型を学び、[MudBlazor用途別特別コラム](../columns/column-mudblazor-by-purpose.md)で表・DataGridを使い分けます。DBへ問い合わせる画面には**開発専用PostgreSQL 18**、学習用のDDLと架空データ、環境変数ConnectionStrings__PostgreSQLが必要です。資格情報はソースに記載しません。
+学習順047〜40でIDbContextFactory、DTO、日付型を学び、[MudBlazor用途別特別コラム](../columns/column-mudblazor-by-purpose.md)で表・DataGridを使い分けます。DBへ問い合わせる画面には**開発専用PostgreSQL 18**、学習用のDDLと架空データ、環境変数ConnectionStrings__PostgreSQLが必要です。資格情報はソースに記載しません。
 
 ## 実際に操作する
 
-1. /learn/44 を開き、日本語ラベルと表示件数を確認します。
+1. /learn/064 を開き、日本語ラベルと表示件数を確認します。
 2. 複数の列見出しを選び、3列までのソートと主キーIdの末尾追加を確認。
 3. DBが設定されない環境で、未接続を成功と誤認しないことを確認します。
 4. 小規模ItemsとServerDataを比較し、どの時点でDB検索が行われるか説明します。
@@ -41,7 +43,7 @@ SortByを生SQLや動的式として実行しない。Id、Title、DueDate、Sta
 
 - UIのページ表示範囲、DB側の取得行数、絞り込み前のテーブル全件数、絞り込み後のCountは別の概念です。
 - 画面のフィルターは認可ではありません。本番業務では業務サービスのWhereに権限条件を追加し、Countにも必ず適用します。
-- PostgreSQLのILIKE/LIKEの挙動や照合順序は日本語検索に影響するため、性能・索引を後続のStep50・59で確認します。
+- PostgreSQLのILIKE/LIKEの挙動や照合順序は日本語検索に影響するため、性能・索引を後続の学習順070・59で確認します。
 - 大量行の実測ではEXPLAIN（ANALYZE, BUFFERS）、DbContext/接続プール、CancellationTokenを合わせて検証します。
 
 ## 確認問題
@@ -58,7 +60,7 @@ A. いいえ。許可リストに変換してEF Coreの式でソートします�
 
 ## 学習順064：実装に即した詳しい解説
 
-このテーマの中心は複数列ソートと一意のIdです。Step44はSortMode.MultipleでSortDefinitions.Indexの順に最大3列を選ぶ。サービス側はId、Title、DueDate、StartTime、IsDoneのみ許す。 複数列が同値のレコードが存在する場合、ページングのORDER BYに一意な最後の列がないと行順序が変化する可能性がある。LearningPageServiceは最後にIdをThenByし、一意な順序を作る。これでも検索の途中に挿入・削除があればOFFSETページングの行ずれはあり得る。
+このテーマの中心は複数列ソートと一意のIdです。学習順064はSortMode.MultipleでSortDefinitions.Indexの順に最大3列を選ぶ。サービス側はId、Title、DueDate、StartTime、IsDoneのみ許す。 複数列が同値のレコードが存在する場合、ページングのORDER BYに一意な最後の列がないと行順序が変化する可能性がある。LearningPageServiceは最後にIdをThenByし、一意な順序を作る。これでも検索の途中に挿入・削除があればOFFSETページングの行ずれはあり得る。
 
 ### 実コード例1：画面と検索条件
 
@@ -93,7 +95,7 @@ public static bool IsAllowedSort(string column) =>
 
 ### 操作手順
 
-1. `/learn/44`へアクセスして日本語の表示と入力欄を確認します。2. 表の表示行数を確認してからページ送りと列見出しの並び替えを試します。3. DB未設定なら専用の未設定メッセージを確認し、正常な取得0件と区別します。4. PostgreSQL18の学習用DDLと架空データを用意できる場合だけDB検索を実行します。5. 検索条件の変更、再検索、ページ位置の変化を記録します。6. ソースのRazor→LearningPageQuery→LearningPageService→EF Core→Npgsqlの順に処理の実行場所を追跡します。7. Countと表示行を同じ条件で取得することを説明します。
+1. `/learn/064`へアクセスして日本語の表示と入力欄を確認します。2. 表の表示行数を確認してからページ送りと列見出しの並び替えを試します。3. DB未設定なら専用の未設定メッセージを確認し、正常な取得0件と区別します。4. PostgreSQL18の学習用DDLと架空データを用意できる場合だけDB検索を実行します。5. 検索条件の変更、再検索、ページ位置の変化を記録します。6. ソースのRazor→LearningPageQuery→LearningPageService→EF Core→Npgsqlの順に処理の実行場所を追跡します。7. Countと表示行を同じ条件で取得することを説明します。
 
 ### 障害の切り分け表
 
@@ -110,7 +112,7 @@ public static bool IsAllowedSort(string column) =>
 
 課題：DueDateが同じ10行をページ分割する場合の並びの不安定さと防止策、悪意あるSortByをどう拒否するか説明してください。
 
-**詳しい解答：** 解答：期限日だけの並びでは同順位の行順が未確定です。最後に主キーIdを追加して決定的な順序とします。UIだけでなくサービスValidateが列の許可リストと最大3列を検証し、任意のSQL文字列を組み立てません。ページ移動中の行増減への対策にはStep47のキーセット方式も検討します。
+**詳しい解答：** 解答：期限日だけの並びでは同順位の行順が未確定です。最後に主キーIdを追加して決定的な順序とします。UIだけでなくサービスValidateが列の許可リストと最大3列を検証し、任意のSQL文字列を組み立てません。ページ移動中の行増減への対策には学習順067のキーセット方式も検討します。
 
 ### 業務データへ適用する前の安全確認
 

@@ -1,7 +1,7 @@
 # 学習コラム08：WebプロジェクトだけでEF Coreを始める
 
-## Step31〜35のつながり
-Step31でEntityとDTOを区別し、Step32でPostgreSQL型とDDLを確認し、Step33でEF Core 10プロバイダーを追加し、Step34でDbContextFactoryの寿命を扱い、Step35でAsNoTracking・Where・Selectによる検索を学びます。
+## 学習順047〜35のつながり
+学習順047でEntityとDTOを区別し、学習順048でPostgreSQL型とDDLを確認し、学習順049でEF Core 10プロバイダーを追加し、学習順050でDbContextFactoryの寿命を扱い、学習順051でAsNoTracking・Where・Selectによる検索を学びます。
 
 ## 余計な層を増やさない理由
 EF CoreはWeb内のData/LearningDbContext.csに置きます。SQL実行はServices/Learning/LearningDbService.csで完結します。別のDomain、Infrastructure、Repository、抽象インターフェイスが必須というわけではありません。必要なときにだけ取り出せます。
@@ -21,4 +21,4 @@ Blazorのcircuitは長く続くため、DbContextは1操作ごとに生成・破
 
 **Q. CRUDをするために新たな4層プロジェクトが必要？** A. いいえ。今回のWebプロジェクトだけで始めます。
 
-次：Step36〜40の更新・競合・期間・DBテスト。
+次：学習順054〜40の更新・競合・期間・DBテスト。

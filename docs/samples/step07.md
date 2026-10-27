@@ -1,7 +1,9 @@
 # 学習順013：親から子へ値を渡す
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step07/ParametersPage.razor)。画面の正規URLは `/learn/013` です。
+
 ## 到達目標と画面の前提
-この学習では、Razorコンポーネントを親画面と子部品に分ける理由を、実際の日本語カード表示を使って理解します。画面のURLは`/learn/07`、親は`ParametersPage.razor`、子は`GreetingCard.razor`です。学習順011の双方向バインディングと012の繰り返し・条件表示を理解していれば始められます。Visual Studio 2026、.NET 10とChromeを使い、AD・DB・Dapper・MudBlazorはこの実習には不要です。
+この学習では、Razorコンポーネントを親画面と子部品に分ける理由を、実際の日本語カード表示を使って理解します。画面のURLは`/learn/013`、親は`ParametersPage.razor`、子は`GreetingCard.razor`です。学習順011の双方向バインディングと012の繰り返し・条件表示を理解していれば始められます。Visual Studio 2026、.NET 10とChromeを使い、AD・DB・Dapper・MudBlazorはこの実習には不要です。
 
 WinFormsではUserControlをフォームに配置し、フォームからプロパティを設定する場合があります。Blazorでは子コンポーネントをHTMLタグに似た書き方で配置し、`[Parameter]`で公開した値を親が指定できます。ただしRazorのパラメーターは親が所有する入力です。子が受け取った値を勝手に書き換えると、親の次の描画で意図しない状態になります。この境界を守れることを目標にします。学習者は実装の2ファイルを開き、どの値が誰の所有物か説明してください。
 
@@ -17,7 +19,7 @@ WinFormsではUserControlをフォームに配置し、フォームからプロ�
 
 ## 実コード1：親の入力欄と2枚のカード
 ```razor
-@page "/learn/07"
+@page "/learn/013"
 @using PgBlazorSamples.Web.Components.Samples.Step07
 <label class="field-label" for="step07-name">練習用の表示名</label>
 <input id="step07-name" type="text" class="text-input" maxlength="20"
@@ -57,7 +59,7 @@ private string learnerName = "練習太郎";
 入力欄の初期表示も1枚目のカードも「練習太郎」です。この変数を子にコピーして保持するのではなく、親が現在の値を渡します。親が変わらない限り2枚目の固定カードも変わりません。WinFormsの複数フォームで同じ文字列を重複管理すると変更漏れが発生しやすいように、Webでも複数コンポーネントが同じ状態を勝手に所有すると整合性を失います。
 
 ## 手順：親の値がどの子へ届くか
-1. `/learn/07`を開き、2枚のカードが描画されていることを確かめます。
+1. `/learn/013`を開き、2枚のカードが描画されていることを確かめます。
 2. 1枚目の「親が入力した名前」には「練習太郎」、2枚目の「別の値でも同じ部品」には「架空の利用者」が表示されます。
 3. 「練習用の表示名」に「練習花子」を入力すると1枚目だけが更新されます。
 4. 入力欄を空にすると1枚目は名前のない挨拶になります。`GreetingCard`自体が消えるわけではありません。

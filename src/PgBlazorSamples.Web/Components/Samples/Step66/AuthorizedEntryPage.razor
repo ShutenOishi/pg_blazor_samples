@@ -2,8 +2,8 @@
 @page "/learn/66"
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
-<PageTitle>ステップ66：サービスで認可する｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順091 / 第7段階・第19組（旧Step66）</p>
+<PageTitle>学習順091：サービスで認可する｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順091 / 第7段階・第19組</p>
 <h1>画面だけでなくサービスでアクセスを拒否する</h1>
 <MudPaper Class="pa-4">
     <p>ボタンを隠すだけでは防げません。サーバーのサービスがWindows認証と既存台帳を照合します。</p>
@@ -12,7 +12,7 @@
 </MudPaper>
 <section class="lesson-details">
     <h2>確認ポイント</h2>
-    <p>旧Step31〜60のDB学習操作はWindows認証を有効にした環境で停止し、認可済みサービスのみ実データへ接続します。</p>
+    <p>学習順047〜60のDB学習操作はWindows認証を有効にした環境で停止し、認可済みサービスのみ実データへ接続します。</p>
     <details><summary>Q. 表示を非表示にしたら直接操作を防げる？</summary><p>いいえ。サービスの公開メソッドが必ず認可を確認する必要があります。</p></details>
     <h2>WinForms＋DapperとBlazorの認可比較</h2>
     <table data-testid="stage07-compare-91"><thead><tr><th>視点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core</th></tr></thead><tbody>
@@ -22,7 +22,7 @@
     </tbody></table>
     <p>教材本文は学習順091です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/column/auth-at-scale">前へ：1万人規模の認証</a><a href="/learn/67">次へ：学習順092</a></div>
+<div class="page-navigation"><a href="/learn/column/auth-at-scale">前へ：1万人規模の認証</a><a href="/learn/092">次へ：学習順092</a></div>
 @code {
     private string _status = "業務データはまだ読み込んでいません。";
     private async Task CheckAsync()

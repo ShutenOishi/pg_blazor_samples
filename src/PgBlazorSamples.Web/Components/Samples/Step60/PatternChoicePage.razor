@@ -1,6 +1,6 @@
 @page "/learn/080"
 @page "/learn/60"
-<PageTitle>ステップ60：一覧方式の総合選定｜Blazor ステップアップ学習</PageTitle>
+<PageTitle>学習順080：一覧方式の総合選定｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">学習順080 / 10方式の総合演習</p>
 <h1>要件から一覧の取得・表示・更新方式を選ぶ</h1>
 <MudPaper Class="pa-4">
@@ -30,7 +30,7 @@
     <h2>一つに決めつけない</h2>
     <p>この演習の正答は第一候補です。実務では検索、認可、DTO射影、ソート、ページングなどを組み合わせます。10方式のうち不要な複雑さを導入しないこと、失敗経路・限界・権限境界を説明できることが到達目標です。</p>
     <details><summary>否定演習：いつItems全件読み込みを選ばない？</summary><p>総件数が伸び続け、メモリと通信量が制御できない場合はServerDataや仮想化を選びます。</p></details>
-    <details><summary>否定演習：Gridで行を隠せば認可できる？</summary><p>できません。Count・Items・詳細・CSV・更新すべてサーバー側で認可します（Step61〜70）。</p></details>
+    <details><summary>否定演習：Gridで行を隠せば認可できる？</summary><p>できません。Count・Items・詳細・CSV・更新すべてサーバー側で認可します（学習順086〜70）。</p></details>
 
     <h2>学習順080：WinForms＋Dapperとの比較</h2>
     <table data-testid="stage06-compare-080">
@@ -44,7 +44,7 @@
     </table>
     <p>実コード・操作手順・障害の切り分け・演習と詳しい解答は docs/samples/step60.md に収録しています。</p>
 </section>
-<div class="page-navigation"><a href="/learn/59">前へ：ステップ59</a><a href="/learn/column/60">第16組の復習：期間・集計・性能</a></div>
+<div class="page-navigation"><a href="/learn/079">前へ：学習順079</a><a href="/learn/column/60">第16組の復習：期間・集計・性能</a></div>
 @code {
     private string _scenario = "paged";
     private string _choice = "grid";

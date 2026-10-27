@@ -1,8 +1,10 @@
-# 学習順023：Singleton・Scoped・Transient（旧Step13）
+# 学習順023：Singleton・Scoped・Transient
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step13/LifetimePage.razor)。画面の正規URLは `/learn/023` です。
 
 ## 学習の目的と対象
 
-前の第2段階で学習したRazorイベント、コンポーネントとcircuitを前提に、Singleton・Scoped・Transientを実際に操作しながら理解します。Visual Studio 2026と.NET 10のInteractive Serverアプリを起動し、ブラウザーで`/learn/13`を開いてください。DB接続・実AD認証・IISの現地構築は不要です。最後には設計上の理由をWinForms＋Dapperとの違いを含めて説明し、失敗の切り分けと演習解答まで実施します。
+前の第2段階で学習したRazorイベント、コンポーネントとcircuitを前提に、Singleton・Scoped・Transientを実際に操作しながら理解します。Visual Studio 2026と.NET 10のInteractive Serverアプリを起動し、ブラウザーで`/learn/023`を開いてください。DB接続・実AD認証・IISの現地構築は不要です。最後には設計上の理由をWinForms＋Dapperとの違いを含めて説明し、失敗の切り分けと演習解答まで実施します。
 
 ## まず観察すること
 
@@ -62,7 +64,7 @@ public sealed class TransientMarker
 
 ### イベントから描画まで
 
-1. `/learn/13`を開くと、Blazorがページを表示します。事前レンダリングがある構成では、静的HTMLの生成と対話用コンポーネントの生成を区別します。
+1. `/learn/023`を開くと、Blazorがページを表示します。事前レンダリングがある構成では、静的HTMLの生成と対話用コンポーネントの生成を区別します。
 2. 必要な依存先はProgram.csのサービス登録に従って渡されます。この段階で登録が足りなければ、イベント処理以前にサービス解決が失敗する場合があります。
 3. 「Transientをもう1つ取得する」を操作すると、対話可能な状態であればイベントがサーバーへ届きます。C#のイベント処理が画面状態やサービスを変更します。
 4. Razorは新しい値を評価し、変更された表示をブラウザーに反映します。再描画が発生しただけで全サービスが新規作成されたわけではありません。

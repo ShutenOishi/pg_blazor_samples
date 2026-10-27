@@ -1,6 +1,8 @@
 # 学習順97：明示Windowsログインと短命Cookie
 
-**第8段階・第20組／旧Step72・旧URL /learn/72**
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step72/ExplicitWindowsLoginPage.razor)。画面の正規URLは `/learn/097` です。
+
+**第8段階・第20組／学習順097・旧URL /learn/097**
 
 ## 到達目標
 
@@ -90,7 +92,7 @@ options.Cookie.IsEssential = true;
 
 ### 操作手順と障害の切り分け
 
-1. 無効構成で`/learn/72`を開き、明示ログインリンクが利用できないことを確認します。開発用環境で本番のADパスワードを入力しません。
+1. 無効構成で`/learn/097`を開き、明示ログインリンクが利用できないことを確認します。開発用環境で本番のADパスワードを入力しません。
 2. 実運用担当者がWindows認証との組合せを承認した検証IISだけで明示モードを有効にします。GETでCookieが新規発行されないこと、CSRFなしのPOSTが拒否されることを確認します。
 3. 検証済みWindows主体のPOST後に10分Cookieの属性を調べ、Secure・HttpOnly・SameSite・期限・永続化なしを確認します。匿名の任意Claimで本人になれないことも調べます。
 4. ログアウト、ブラウザー再読込、期限切れ、別タブ、別サーバー、鍵ローテーション、SignalR再接続、DB権限剥奪の順に、都度認可が有効であることを確かめます。
@@ -114,4 +116,4 @@ options.Cookie.IsEssential = true;
 
 ## 次へ
 
-Step73では、権限変更と書込み競合・外部台帳の原子性を扱います。
+学習順098では、権限変更と書込み競合・外部台帳の原子性を扱います。

@@ -20,10 +20,10 @@
         <tr><td>関連情報を詳しく表示</td><td>AsNoTracking + Select DTO</td><td>削除済み・取得失敗を区別</td></tr>
     </tbody></table>
     <h2>重要な落とし穴</h2>
-    <p>UIのボタン非表示は認可ではありません。入力検証と本人認証・行単位の業務認可は別です。Step61〜70までは架空の開発用データだけを操作してください。</p>
+    <p>UIのボタン非表示は認可ではありません。入力検証と本人認証・行単位の業務認可は別です。学習順086〜70までは架空の開発用データだけを操作してください。</p>
     <p>一括更新では「部分成功」か「全件取消」かを最初に決め、曖昧な成功通知を出さないことが重要です。</p>
     <details><summary>確認：DbContextを編集中ずっと保持する？</summary><p>いいえ。Factoryから操作単位で作り、UIにはDTOと読込時の版だけ保持します。</p></details>
     <details><summary>確認：xmin不一致なら自動再試行する？</summary><p>いいえ。意図しない上書きになるため、最新値を示して利用者に選ばせます。</p></details>
     <details><summary>確認：詳細取得のN+1を防ぐには？</summary><p>必要な関連列をSelectでDTOへ射影し、単一クエリで取得します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/55">ステップ55へ戻る</a><a href="/learn/56">次へ：学習順076</a><a href="/">学習目次へ戻る</a></div>
+<div class="page-navigation"><a href="/learn/075">学習順075へ戻る</a><a href="/learn/076">次へ：学習順076</a><a href="/">学習目次へ戻る</a></div>

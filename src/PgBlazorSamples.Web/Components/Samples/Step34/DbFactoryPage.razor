@@ -2,8 +2,8 @@
 @page "/learn/34"
 @inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
 
-<PageTitle>ステップ34：DbContextFactory｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ34 / 寿命管理</p>
+<PageTitle>学習順050：DbContextFactory｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順050 / 寿命管理</p>
 <h1>1操作ごとにDbContextを作って閉じる</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="LoadAsync">接続して一覧を取得</MudButton>
@@ -29,7 +29,7 @@
         <tr><td>権限が確認できない</td><td>事前整備済みDB台帳で操作ごとに認可し、安全に拒否する</td></tr></tbody></table>
     <p>実装の詳細、正常系・失敗例、演習と詳しい解答は対応する日本語教材を参照してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/33">前へ：ステップ33</a><a href="/learn/column/db-bridge-50">第10組の復習へ</a></div>
+<div class="page-navigation"><a href="/learn/049">前へ：学習順049</a><a href="/learn/column/db-bridge-50">第10組の復習へ</a></div>
 @code {
     private string _message = "まだ実行していません。";
     private async Task LoadAsync() => _message = (await Database.SearchAsync()).Message;

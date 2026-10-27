@@ -1,5 +1,7 @@
 # 学習順044：ErrorBoundary・取消・再試行
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor)。画面の正規URLは `/learn/044` です。
+
 ## 到達目標
 このステップでは、画面がエラーを表示すること、非同期処理を取り消すこと、データの更新を元に戻すことを明確に分けます。WinFormsのtry/catchやCancellationTokenの知識はそのまま役立ちますが、Blazor Interactive Serverではコンポーネント、circuit、ブラウザーとの接続も考慮する必要があります。ErrorBoundaryは子コンポーネントの例外を扱い、代わりのUIを表示する部品です。すでに確定したDB操作を自動で取り消すものではありません。
 
@@ -98,7 +100,7 @@ private void Cancel() => pending?.Cancel();
 ReferenceEqualsは、finallyで自分が開始した処理のpendingを片付けるための確認です。画面離脱時にはIDisposableのDisposeでpending?.Cancel()を実行しています。Cancelメソッドは処理が実際に完了することを待つ機構ではないため、実サービスで使うときは中断を待つ責務、所有するリソースの寿命、完了前後の競合も設計します。
 
 ## 実習を時系列で進める
-1. /learn/browser-04を開き、最初に「学習用の例外を発生させる」を押します。
+1. /learn/044を開き、最初に「学習用の例外を発生させる」を押します。
 2. 子コンポーネント部分が一般的な案内へ切り替わること、画面にInvalidOperationExceptionの詳細が表示されないことを確認します。Consoleとサーバーログの記録は利用者の案内とは別に観察します。
 3. 「エラー表示を復旧する」を押し、同じ子コンポーネントのボタンが再び現れることを確認します。この時点ではDBの復旧処理は何も行われていません。
 4. 「学習用の処理を開始する」を押し、表示が「処理中」となったら、完了前に「進行中の処理を取り消す」を押します。「処理を取り消しました。」に変わることを確認します。

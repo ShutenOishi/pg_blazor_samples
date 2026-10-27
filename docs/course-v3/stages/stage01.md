@@ -10,11 +10,11 @@
 
 | 学習順 | 主要テーマ | 動かすページ | 自分で確認する結果 |
 | --- | --- | --- | --- |
-| 001 | WinFormsとWebの実行場所 | `/learn/web-01` | クリック2回でC#の値が2になる |
-| 002 | URL、HTTP要求・応答 | `/learn/web-02` | NetworkのDocument GET、パス、Status |
-| 003 | HTML・CSS・フォーム | `/learn/web-03` | 名前の入力、ラベル関連付け、プレビュー |
-| 004 | DOM・Network・Console | `/learn/web-04` | 条件による`web04-added`要素の追加・削除 |
-| 005 | KestrelとWebのデバッグ | `/learn/web-05` | `BreakpointSample()`でサーバーC#停止 |
+| 001 | WinFormsとWebの実行場所 | `/learn/001` | クリック2回でC#の値が2になる |
+| 002 | URL、HTTP要求・応答 | `/learn/002` | NetworkのDocument GET、パス、Status |
+| 003 | HTML・CSS・フォーム | `/learn/003` | 名前の入力、ラベル関連付け、プレビュー |
+| 004 | DOM・Network・Console | `/learn/004` | 条件による`web04-added`要素の追加・削除 |
+| 005 | KestrelとWebのデバッグ | `/learn/005` | `BreakpointSample()`でサーバーC#停止 |
 | 復習01 | 5つの概念を結び付ける | `/learn/column/web-05` | 各診断道具と実行場所を選べる |
 
 ## 最初に知っておく言葉
@@ -33,7 +33,7 @@
 この段階の最小構成は、ページの`@page`ルート、`@onclick`イベント、`@bind`入力、`@if`条件描画です。詳しい概念はそれぞれ対応する画面で観察します。
 
 ```razor
-@page "/learn/web-01"
+@page "/learn/001"
 <button type="button" @onclick="Increment">サーバー側で1増やす</button>
 @code {
     private int count;

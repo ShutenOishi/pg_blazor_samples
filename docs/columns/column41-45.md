@@ -1,8 +1,8 @@
 # 学習コラム10：一覧のItemsとServerData、ソート・検索を要件から選ぶ
 
-## Step41〜45の流れ
+## 学習順061〜45の流れ
 
-Step41では「小さい・件数が決まっている一覧にItemsを使う」条件を復習します。Step42ではMudTable ServerData、Step43ではMudDataGrid ServerData、Step44では複数列ソートの許可リスト、Step45では文字・日付・完了状態の絞り込みを組み合わせます。
+学習順061では「小さい・件数が決まっている一覧にItemsを使う」条件を復習します。学習順062ではMudTable ServerData、学習順063ではMudDataGrid ServerData、学習順064では複数列ソートの許可リスト、学習順065では文字・日付・完了状態の絞り込みを組み合わせます。
 
 ## 選択の目安
 
@@ -13,7 +13,7 @@ Step41では「小さい・件数が決まっている一覧にItemsを使う」
 | 高機能・多列の業務一覧 | MudDataGrid ServerData | GridStateのSortDefinitionsと総件数 |
 | 複数列ソート | 許可リスト＋ThenBy | 列名を生SQLにしない、主キーの一意順序 |
 | 複合検索 | 共通のWhere→Count/Items | 列名や入力値の検証、認可条件の統一 |
-| スクロールの可視範囲だけDBから読む | VirtualizeServerData | Step49で高さ/取消/遅延を実装 |
+| スクロールの可視範囲だけDBから読む | VirtualizeServerData | 学習順069で高さ/取消/遅延を実装 |
 
 ## DbContextFactoryのDIとキャンセル
 
@@ -40,7 +40,7 @@ A. 許可済み列をEF Coreの静的な式木に変換します。最後は一�
 
 ## 次へ
 
-Step46〜50ではDTO射影と関連テーブル、キーセットページング、描画仮想化、VirtualizeServerData、検索UXと障害対応を学びます。
+学習順066〜50ではDTO射影と関連テーブル、キーセットページング、描画仮想化、VirtualizeServerData、検索UXと障害対応を学びます。
 
 ## 第13組の復習：学習順061〜065
 
@@ -84,7 +84,7 @@ LearningPageService.Validate(new LearningPageQuery(
 
 ### 実画面で操作する順序
 
-1. `/learn/41`でItemsの8件、DB問い合わせ0件を確認します。2. `/learn/42`で検索語を入力し、TableStateの0始まりページ番号と件数を確かめます。3. `/learn/43`でGridStateが行と件数を返す流れを読み、列フィルターが現在無効であることを確認します。4. `/learn/44`で複数ソートのIndex順と最後のIdを確認します。5. `/learn/45`で日付逆転と検索語100文字超の拒否を確認します。6. 開発用DB未設定の環境では、未設定表示の確認を実DB結合成功とは扱いません。
+1. `/learn/061`でItemsの8件、DB問い合わせ0件を確認します。2. `/learn/062`で検索語を入力し、TableStateの0始まりページ番号と件数を確かめます。3. `/learn/063`でGridStateが行と件数を返す流れを読み、列フィルターが現在無効であることを確認します。4. `/learn/064`で複数ソートのIndex順と最後のIdを確認します。5. `/learn/065`で日付逆転と検索語100文字超の拒否を確認します。6. 開発用DB未設定の環境では、未設定表示の確認を実DB結合成功とは扱いません。
 
 ### 障害切り分け表
 

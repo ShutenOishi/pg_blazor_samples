@@ -1,5 +1,7 @@
 # 学習順059：FromSql／SqlQueryのパラメーターとDapper併用
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor)。画面の正規URLは `/learn/059` です。
+
 ## 到達目標と実装の位置付け
 学習順059では、SQLの形を自分で書きたい場面でも利用者入力を構文へ混ぜないことを確認します。Web画面の入力欄は、あえてSQL注入を想定した値で初期化されています。「安全なSQLを生成する」を押すと、EF CoreのFromSqlInterpolatedとSqlQueryのToQueryStringがSQLとパラメーターを生成します。実データを取得するToListAsyncやCountAsyncは実行しません。SQLが画面に表示されることは、PostgreSQLへの接続が成功したことを意味しません。
 
@@ -45,7 +47,7 @@ Dapper比較ではCommandDefinitionの引数としてTermを渡すので、値�
 | 実DBへの接続 | ToListAsync等の実行時 | QueryAsyncの実行時 | ToQueryStringだけでは接続しない |
 
 ## 画面の操作手順
-1. /learn/db-bridge-05を開き、学習順059とDB非接続の説明を確認する。
+1. /learn/059を開き、学習順059とDB非接続の説明を確認する。
 2. 入力欄の初期値を変えずに「安全なSQLを生成する」を押す。
 3. FromSqlとSqlQueryの2つの生成SQLを見比べ、値がSQL本文に単純に埋め込まれていないことを確認する。
 4. 通常の日本語検索語でも再実行し、パラメーターの表現とSQLの構文が変わらないか調べる。
@@ -64,7 +66,7 @@ Dapper比較ではCommandDefinitionの引数としてTermを渡すので、値�
 ## AD・既存台帳・監査との境界
 ADは本人認証とユーザー名の取得にのみ使います。権限の登録画面や自動同期テーブルを新しく作る前提にはしません。事前に整備されたDBの利用者台帳または外部台帳を参照し、ログイン名、所属、業務権限、対象行との対応、有効・失効状態を**要求のたびにサーバー側で**確認します。一覧・Count・集計・CSV・更新・削除はどれも別の出口であり、どれか一つの画面で認可済みでも他の操作を無条件に許可しません。
 
-この教材の旧Step31〜40のLearningDbServiceは、学習専用DBを扱うための簡素なサービスです。WindowsAuthentication:Enabledの場合には無認可サービスの実DB操作を止める安全策があります。実業務の権限済み処理はSecuredLearningServiceなどの安全な入口で設計・検証します。監査の失敗や権限失効、更新競合、FDWの原子性が不明な状態は成功として扱わず、必要な操作を拒否します。
+この教材の学習順047〜40のLearningDbServiceは、学習専用DBを扱うための簡素なサービスです。WindowsAuthentication:Enabledの場合には無認可サービスの実DB操作を止める安全策があります。実業務の権限済み処理はSecuredLearningServiceなどの安全な入口で設計・検証します。監査の失敗や権限失効、更新競合、FDWの原子性が不明な状態は成功として扱わず、必要な操作を拒否します。
 
 ## 演習
 演習1：termに引用符やSQL構文に似た文字列を入れても、パラメーター化していれば何が変わらないでしょうか。演習2：FromSqlでLearningTaskのxminを省略すると何が起きるでしょうか。演習3：ソート列名を利用者入力から選ぶ必要がある場合、安全に実装する方法を説明してください。

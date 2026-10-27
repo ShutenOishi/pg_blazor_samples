@@ -1,4 +1,6 @@
-# ステップ53：複数選択と原子的な一括処理
+# 学習順073：複数選択と原子的な一括処理
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step53/BulkEditPage.razor)。画面の正規URLは `/learn/073` です。
 
 **学習順073・第6段階／第15組**
 
@@ -166,7 +168,7 @@ private async Task CompleteAsync()
 
 ## 完了条件
 
-- [ ] /learn/53の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] /learn/073の旧URLを維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 
@@ -176,4 +178,4 @@ private async Task CompleteAsync()
 
 ## 次に学ぶ内容
 
-学習順074の旧Step54へ進みます。
+学習順074の学習順074へ進みます。

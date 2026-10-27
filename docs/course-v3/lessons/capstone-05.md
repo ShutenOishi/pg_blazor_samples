@@ -1,5 +1,7 @@
 # 学習順110：E2E・障害復旧・IIS受入表
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor)。画面の正規URLは `/learn/110` です。
+
 ## 自動試験と現地受入
 Capstone05Page.razorには教材・実装の一致、CI証跡、拒否の検証、実IIS/AD/Kerberos・負荷・復旧の四項目があります。すべて選んでも「本番受入を宣言できません」と表示され、チェック欄だけで現地証拠を作らない仕様です。Windows Server 2025 Release、Linux Chrome、xUnit、PostgreSQL18のCIは自動検証です。CapstoneIntegrationTestsでは架空12行の検索、10行ページング、xmin競合とRollbackを試します。実IIS、Kerberos/SPN、HTTPS、Data Protection鍵、FDW、1万人超登録・同時circuit・DBプール、切戻しは未受入であり、実機と運用ログで検証します。WinForms＋Dapperのデスクトップ導入試験とWebサービスのサーバー側運用受入を同一視しません。
 
@@ -74,7 +76,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
 
 ## 個別の操作手順
-/learn/capstone-05で何も選ばず不足を確認します。その後全て選んで実行しても本番受入を宣言できないことを確認します。CIとPDFの結果を別々に記録し、実機項目には未試験でPASSを付けません。
+/learn/110で何も選ばず不足を確認します。その後全て選んで実行しても本番受入を宣言できないことを確認します。CIとPDFの結果を別々に記録し、実機項目には未試験でPASSを付けません。
 
 ## 演習と詳しい解答
 **問題1：** 全CIがSUCCESSならIIS移行も認可できますか。

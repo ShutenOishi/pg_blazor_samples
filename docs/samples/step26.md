@@ -1,12 +1,14 @@
-# 学習順36（旧Step26）：MudDataGridで検索・列フィルター・ページングする
+# 学習順36：MudDataGridで検索・列フィルター・ページングする
 
-**実習URL：`/learn/26`。** 第4段階・第8組の1本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step26/DataGridPage.razor)。画面の正規URLは `/learn/036` です。
+
+**実習URL：`/learn/036`。** 第4段階・第8組の1本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
 
 ## できるようになること
-WinFormsのDataGridViewで検索・ソートしていた処理を、MudBlazorの`MudDataGrid`で再現します。Step25の`MudTable`から進み、`PropertyColumn`・`QuickFilter`・列フィルター・複数列ソートを組み合わせます。**ここで扱う6件は既にサーバーのメモリにある固定データ**です。
+WinFormsのDataGridViewで検索・ソートしていた処理を、MudBlazorの`MudDataGrid`で再現します。学習順035の`MudTable`から進み、`PropertyColumn`・`QuickFilter`・列フィルター・複数列ソートを組み合わせます。**ここで扱う6件は既にサーバーのメモリにある固定データ**です。
 
 ## 前提と操作
-Step25の`Items`の意味が前提です。PostgreSQLとADは不要です。`/learn/26`を開いてください。
+学習順035の`Items`の意味が前提です。PostgreSQLとADは不要です。`/learn/036`を開いてください。
 
 1. 「簡易検索の一致件数：6件」と表示される。
 2. 「課題名を検索」に「Mud」を入力すると、`MudTable`と`MudDataGrid`の2件になる。
@@ -131,4 +133,4 @@ WinFormsのDataGridViewへDataTableを渡す場合、Dapperで取得した全件
 - [ ] `Items`と`ServerData`のデータ取得範囲の違いが分かる。
 - [ ] PostgreSQLへ接続していないことを説明できる。
 
-次は[ステップ27：確認ダイアログ](step27.md)へ進みます。
+次は[学習順037：確認ダイアログ](step27.md)へ進みます。

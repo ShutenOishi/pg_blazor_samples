@@ -20,7 +20,7 @@
 <tr><td>匿名のCI</td><td>必ず拒否し、実ADの試験成功と混同しない</td></tr>
 </tbody></table><table data-testid="capstone-compare-109"><thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor／EF Core／既存台帳</th></tr></thead><tbody><tr><td>操作</td><td>フォームイベントでSQLを呼ぶ</td><td>Razorから認可済み業務サービスに委譲する</td></tr><tr><td>認可</td><td>既存DB台帳を照会する</td><td>認証済み本人・部署・操作と行単位を都度確認する</td></tr><tr><td>安全拒否</td><td>例外・排他・監査を確認する</td><td>権限失効、xmin競合、監査不成立、FDW原子性不明では拒否する</td></tr></tbody></table><p>解説は <code>docs/course-v3/lessons/capstone-04.md</code> を参照してください。実AD/IIS/Kerberos/FDWと1万人超負荷の実機受入は別途必要です。</p>
 </section>
-<div class="page-navigation"><a href="/learn/capstone-03">前へ</a><a href="/learn/capstone-05">次へ</a></div>
+<div class="page-navigation"><a href="/learn/108">前へ</a><a href="/learn/110">次へ</a></div>
 @code {
     private string _status = "未確認です。";
     private string _summary = "未集計です。";

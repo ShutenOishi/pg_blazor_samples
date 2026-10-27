@@ -1,12 +1,14 @@
-# 学習順30（旧Step20）：DIで学習課題管理を作る
+# 学習順30：DIで学習課題管理を作る
 
-対象画面は`/learn/20`です。WinForms＋Dapperの経験と結び付けて理解します。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step20/TodoPage.razor)。画面の正規URLは `/learn/030` です。
+
+対象画面は`/learn/030`です。WinForms＋Dapperの経験と結び付けて理解します。
 
 ## このステップでできるようになること
 入力画面、業務サービスの契約、メモリ上の保存実装、設定のOptionsを一つの機能にまとめます。WinForms＋Dapper経験者にとっては、フォームから`ITodoService`のメソッドを呼ぶ形と似ていますが、今回はSQLやDB接続の代わりに**短時間だけ保持するメモリ上の一覧**を使います。
 
 ## 前提と完成画面
-Step11〜19のDI・Options・Scopedを学び、`/learn/20`を開いてください。DB・ADは不要です。
+学習順021〜19のDI・Options・Scopedを学び、`/learn/030`を開いてください。DB・ADは不要です。
 
 1. 初期課題「DIの登録を確認する」「ライブラリの利用手順を読む」の2件を確認する。
 2. 空欄で「課題を追加する」を押すと「課題名は1〜40文字で入力してください。」と表示される。
@@ -92,7 +94,7 @@ builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 画面は`ITodoService`を受け取るだけです。
 
 ```razor
-@page "/learn/20"
+@page "/learn/030"
 @inject ITodoService Tasks
 
 <input maxlength="40" @bind="newTitle" @bind:event="oninput" />
@@ -135,7 +137,7 @@ builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 ## 誤解しやすい点と安全上の注意
 - `AddScoped`の保存先はメモリです。**PostgreSQLに永続保存されません。** 接続終了やサーバー再起動で失われることがあります。
 - 利用者全員の課題をSingletonに置いてはいけません。画面ごとやcircuitごとの状態の寿命を理解してください。
-- 設定値の表示（Step16）と実際のサービス側制限は別です。
+- 設定値の表示（学習順026）と実際のサービス側制限は別です。
 - `maxlength="40"`はブラウザー入力の補助です。サービスの`TryAdd`が40文字超を拒否する処理は省略できません。
 - 将来DBへ移す場合でも、認可や同時編集、トランザクションを追加せずに保存先を変えるだけでは本番用になりません。
 
@@ -156,7 +158,7 @@ builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 **解答：** `ITodoService`の契約と画面が期待する振る舞いを維持できることです。具体的な実装を交換してDI登録を変更します。認証・認可・監査など、実務に必要な条件は別途追加します。
 
 ## 学習順030：DIの総合演習をWinForms＋Dapperに対応させる
-`/learn/20`で利用する`ITodoService`は課題一覧の取得・追加・完了反転を約束する型で、`InMemoryTodoService`が実際の処理を担当します。WinFormsでフォームからDapper経由のDB処理を呼ぶような責任分担を、DBを用意せずに練習する例です。ただし保存先はListであり、永続化・同時編集・監査を備えた業務アプリではありません。Scopedサービスの状態は対話回線に依存することがあり、サーバー再起動後まで残る保証はありません。
+`/learn/030`で利用する`ITodoService`は課題一覧の取得・追加・完了反転を約束する型で、`InMemoryTodoService`が実際の処理を担当します。WinFormsでフォームからDapper経由のDB処理を呼ぶような責任分担を、DBを用意せずに練習する例です。ただし保存先はListであり、永続化・同時編集・監査を備えた業務アプリではありません。Scopedサービスの状態は対話回線に依存することがあり、サーバー再起動後まで残る保証はありません。
 
 | 観点 | WinForms＋Dapperの例 | Blazorの学習用実装 | 本番で必要なこと |
 | --- | --- | --- | --- |

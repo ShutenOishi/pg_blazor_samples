@@ -6,8 +6,8 @@
 @inject LearningDbService Database
 @inject LearningEditService Edits
 
-<PageTitle>ステップ51：編集DTOと検証｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順071（旧ステップ51） / 第15組</p>
+<PageTitle>学習順071：編集DTOと検証｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順071 / 第15組</p>
 <h1>一覧で選んだ課題をDTOで編集する</h1>
 <p>開発用PostgreSQL 18を使用します。DbContextを画面に保持せず、版番号つきDTOだけを保持します。</p>
 <MudPaper Class="pa-4">
@@ -45,7 +45,7 @@
     <h2>実務での使い分け</h2>
     <p>編集用DTOは一覧行とは別のコピーです。保存時に必ずサーバー側で入力を検証し、xminが違う場合は上書きせず最新情報の確認を求めます。</p>
 </section>
-<div class="page-navigation"><a href="/learn/column/50">前へ：第14組の復習</a><a href="/learn/52">次へ：ステップ52</a></div>
+<div class="page-navigation"><a href="/learn/column/50">前へ：第14組の復習</a><a href="/learn/072">次へ：学習順072</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private LearningEditInput? _draft;

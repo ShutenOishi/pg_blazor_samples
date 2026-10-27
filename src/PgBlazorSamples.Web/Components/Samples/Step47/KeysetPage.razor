@@ -3,8 +3,8 @@
 @using PgBlazorSamples.Web.Data
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningAdvancedPageService Pages
-<PageTitle>ステップ47：キーセットページング｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順067（旧ステップ47） / オフセットとキーセット</p>
+<PageTitle>学習順067：キーセットページング｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順067 / オフセットとキーセット</p>
 <h1>最後の番号から次の10件を取得する</h1>
 <p>ページ番号をSkipで飛ばさず、最後に表示した一意の番号より後だけ読みます。</p>
 <MudPaper Class="pa-4">
@@ -29,7 +29,7 @@
     <h2>適用範囲</h2>
     <p>IDの昇順だけに固定したキーセットです。任意の複数列ソートで運用する場合は全ソートキーと一意IDをカーソルに含めます。途中で条件を変更したらカーソルをリセットしてください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/46">前へ：ステップ46</a><a href="/learn/48">次へ：ステップ48</a></div>
+<div class="page-navigation"><a href="/learn/066">前へ：学習順066</a><a href="/learn/068">次へ：学習順068</a></div>
 @code {
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private long? _cursor;

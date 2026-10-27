@@ -1,6 +1,8 @@
 # 学習順105：Windows Server 2025/IISの配布・切替・復旧
 
-**第8段階・第21組／旧Step80・旧URL /learn/80**
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step80/DeploymentPage.razor)。画面の正規URLは `/learn/105` です。
+
+**第8段階・第21組／学習順105・旧URL /learn/105**
 
 ## 到達目標
 

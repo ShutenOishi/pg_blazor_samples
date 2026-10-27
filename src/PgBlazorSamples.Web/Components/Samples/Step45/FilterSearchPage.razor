@@ -6,8 +6,8 @@
 @inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
 @inject LearningDbService DbSettings
 
-<PageTitle>ステップ45：検索と複合フィルター｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ45 / 検索・フィルター</p>
+<PageTitle>学習順065：検索と複合フィルター｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順065 / 検索・フィルター</p>
 <h1>文字・完了状態・日付をDBで絞り込む</h1>
 <MudPaper Class="pa-4" Elevation="1">
     <MudStack Spacing="2">
@@ -48,9 +48,9 @@
 <section class="lesson-details">
     <h2>CountとItemsの絞り込みは同じ</h2>
     <p>文字、完了、開始日、終了日をEF CoreのWhereへ渡してからCountAsyncとSkip/Takeを実行します。SQLのパラメーター化と空欄・NULL・開始日が終了日より後の異常系を考えます。</p>
-    <p>PostgreSQLの文字一致は照合順序に注意が必要です。大規模データの索引、検索入力のデバウンスはStep50で扱います。</p>
+    <p>PostgreSQLの文字一致は照合順序に注意が必要です。大規模データの索引、検索入力のデバウンスは学習順070で扱います。</p>
 </section>
-<div class="page-navigation"><a href="/learn/44">前へ：ステップ44</a><a href="/learn/column/45">次へ：第13組の復習</a></div>
+<div class="page-navigation"><a href="/learn/064">前へ：学習順064</a><a href="/learn/column/45">次へ：第13組の復習</a></div>
 @code {
     protected override void OnInitialized()
     {

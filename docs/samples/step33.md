@@ -1,5 +1,7 @@
 # 学習順049：EF Core 10をWebへ登録する
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step33/EfSetupPage.razor)。画面の正規URLは `/learn/049` です。
+
 ## 到達目標・前提知識
 WebプロジェクトのProgram.csにNpgsql.EntityFrameworkCore.PostgreSQL 10.0.3を使うDbContextFactoryを登録します。WinFormsのフォームごとに接続文字列を組み立てる構成と異なり、ASP.NET CoreのConfigurationから起動時に設定を取得します。画面ではDB接続先が設定されているかを表示しますが、表示内容は実ネットワーク接続の成功を保証しません。
 別のDomain/Infrastructureプロジェクトは増やさず、Program.csで登録し、Data/LearningDbContext.csでマッピングし、Services/Learning/LearningDbService.csから呼びます。Razorに資格情報やSQLの責務を置きません。
@@ -51,7 +53,7 @@ task.Property(x => x.Version).IsRowVersion(); // xmin
 開発環境ではVisual Studio 2026、.NET 10、EF Core 10とNpgsql、専用PostgreSQL 18を用います。DBが必要な操作だけ専用環境を構成し、業務DBや実在利用者データを練習対象にしないでください。接続情報にパスワードが含まれる場合はGitへ記録しません。コード例は既存実装の主要部分を抜粋したものと、比較のためだけの参考例を区別します。
 
 ## 実際の画面操作手順
-1. /learn/33で接続設定の有無を確認する。
+1. /learn/049で接続設定の有無を確認する。
 2. 開発用にConnectionStrings__PostgreSQLを設定して再起動する。
 3. 設定済みという表示と実DBへの接続は別と説明する。
 4. Program.cs、Data、Servicesの3か所を読み、資格情報をGitに含めないと確認する。
@@ -61,7 +63,7 @@ task.Property(x => x.Version).IsRowVersion(); // xmin
 | 現象 | 確認する場所 | 対処 |
 | --- | --- | --- |
 | DB未設定と表示 | ConnectionStrings__PostgreSQLが空 | 開発用設定を確認 |
-| 設定済みだが接続不能 | ホスト、ポート、DB、ロール、DDL | /learn/34で実操作 |
+| 設定済みだが接続不能 | ホスト、ポート、DB、ロール、DDL | /learn/050で実操作 |
 | 列の存在エラー | OnModelCreatingとDDL不一致 | 実DBの列定義と照合 |
 
 ## 演習問題と詳しい解答

@@ -1,10 +1,12 @@
 # 学習順009：Static SSRとInteractive Serverの違い
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor)。画面の正規URLは `/learn/009` です。
+
 ## 到達目標と前提
 
 Blazor Web Appで初めに混同しやすいのは「HTMLが見えたこと」と「ボタンのC#イベントが動くこと」です。Static Server-Side Rendering（Static SSR）は、要求に応じてサーバーがHTMLを作り、ブラウザーへ返す方式です。Interactive Serverは、対話型接続を通じてC#イベントをサーバーで実行できます。この教材の実画面は後者であり、サーバー側カウンターを使ってイベントを確認します。Static SSRだけの別アプリを起動する比較試験ではありません。
 
-この章の対象は .NET 10、Visual Studio 2026、Blazor Web App（Interactive Server）です。第1段階のHTTPとブラウザーの役割を学習済みであることを前提とします。教材画面の操作にはActive Directory・PostgreSQL・業務データを必要としません。実際の画面は **`/learn/runtime-01`** です。前のテーマから順に進んでも、この章だけを開いて確認できるよう、コードと操作方法を以下に示します。
+この章の対象は .NET 10、Visual Studio 2026、Blazor Web App（Interactive Server）です。第1段階のHTTPとブラウザーの役割を学習済みであることを前提とします。教材画面の操作にはActive Directory・PostgreSQL・業務データを必要としません。実際の画面は **`/learn/009`** です。前のテーマから順に進んでも、この章だけを開いて確認できるよう、コードと操作方法を以下に示します。
 
 ## 1. WinForms＋Dapperとの対応を確認する
 
@@ -28,7 +30,7 @@ Blazor Web Appで初めに混同しやすいのは「HTMLが見えたこと」�
 <button type="button" @onclick="Increment">サーバー側の回数を増やす</button>
 ```
 
-`Runtime01Page.razor`は`@page "/learn/runtime-01"`です。画面は`count`を表示し、「サーバー側の回数を増やす」を押すと`Increment()`がサーバーで実行されます。実際のアプリの`App.razor`では`<Routes @rendermode="InteractiveServer" />`を設定しています。したがってこの画面で行う操作はInteractive Server方式の試験です。表示された表のStatic SSR側は比較説明であり、「両方を実アプリで切り替えて実証した」という意味ではありません。
+`Runtime01Page.razor`は`@page "/learn/009"`です。画面は`count`を表示し、「サーバー側の回数を増やす」を押すと`Increment()`がサーバーで実行されます。実際のアプリの`App.razor`では`<Routes @rendermode="InteractiveServer" />`を設定しています。したがってこの画面で行う操作はInteractive Server方式の試験です。表示された表のStatic SSR側は比較説明であり、「両方を実アプリで切り替えて実証した」という意味ではありません。
 
 ## 3. C#または関連する実コードを確かめる
 
@@ -52,7 +54,7 @@ Blazor Web Appで初めに混同しやすいのは「HTMLが見えたこと」�
 
 ## 5. 順番に操作して確かめる
 
-1. `/learn/runtime-01`を開き、比較表と操作回数0を確認する。
+1. `/learn/009`を開き、比較表と操作回数0を確認する。
 2. Chrome開発者ツールのNetworkでDocumentの要求を調べ、最初のHTMLを取得したことを確認する。
 3. 対話型接続の準備が済んだ後、「サーバー側の回数を増やす」を2回押す。
 4. 画面に2が表示されることを確認し、必要に応じて`Increment()`のブレークポイントでサーバー側実行を確認する。
@@ -101,6 +103,6 @@ HTMLがすぐ表示されればInteractive Serverの接続も完了していま�
 - [ ] 正常な操作と、故障・想定された拒否を区別できた。
 - [ ] この学習用画面では業務DB・認証・監査を実証していないと説明できた。
 
-このステップの新規URLは`/learn/runtime-01`です。次は旧Step04のボタン画面へ進み、イベント処理と表示側の無効化、サーバー側の防御を確認します。
+このステップの新規URLは`/learn/009`です。次は学習順010のボタン画面へ進み、イベント処理と表示側の無効化、サーバー側の防御を確認します。
 
 次：[学習順010：ボタンのイベント](../../samples/step04.md)

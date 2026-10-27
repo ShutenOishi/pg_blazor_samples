@@ -5,8 +5,8 @@
 @using PgBlazorSamples.Web.Services.Learning
 @inject LearningPageService Pages
 @inject LearningDbService DbSettings
-<PageTitle>ステップ50：検索UXと再試行｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順070（旧ステップ50） / 検索UX・障害対策</p>
+<PageTitle>学習順070：検索UXと再試行｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順070 / 検索UX・障害対策</p>
 <h1>入力を待ってから検索し、障害時は再試行する</h1>
 <MudPaper Class="pa-4">
     <MudTextField T="string" Label="課題名で検索（400ミリ秒待機）"
@@ -39,7 +39,7 @@
     <p>入力のたびに直ちにDB検索せず400ミリ秒待機し、次の入力があれば前の待機を中止します。DBアクセスの中断はServerDataのCancellationTokenへ委ねます。0件とDB障害を異なる日本語で案内し、利用者が再試行できます。</p>
     <p>検索条件とDB上の認可は別の概念です。業務公開前には認可条件をCountとItemsの両方へ適用します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/49">前へ：ステップ49</a><a href="/learn/column/50">第14組の復習：一覧方式と検索UX</a></div>
+<div class="page-navigation"><a href="/learn/069">前へ：学習順069</a><a href="/learn/column/50">第14組の復習：一覧方式と検索UX</a></div>
 @code {
     private MudDataGrid<LearningTaskRow>? _grid;
     private CancellationTokenSource? _pendingSearch;

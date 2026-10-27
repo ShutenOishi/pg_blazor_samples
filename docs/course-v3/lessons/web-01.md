@@ -1,8 +1,10 @@
 # 学習順001：WinFormsとWebの処理場所を比較する
 
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor)。画面の正規URLは `/learn/001` です。
+
 ## 到達目標
 
-このステップでは、**ブラウザーに見える画面**と**画面の操作を処理するC#プログラム**が、必ずしも同じコンピューターに存在しないことを理解します。具体的には、`/learn/web-01`でボタンを2回押し、表示が「2回」に変わるまでに何が起きたかを自分の言葉で説明できることが目標です。
+このステップでは、**ブラウザーに見える画面**と**画面の操作を処理するC#プログラム**が、必ずしも同じコンピューターに存在しないことを理解します。具体的には、`/learn/001`でボタンを2回押し、表示が「2回」に変わるまでに何が起きたかを自分の言葉で説明できることが目標です。
 
 WinFormsでC#のイベント処理に慣れている人は、Blazorでも同じ`@onclick`を見て、C#がブラウザーで実行されると考えがちです。この教材は **Blazor Web AppのInteractive Server** を使用するため、イベントを処理するC#はサーバー上で動きます。最初にこの違いを理解すると、後のDI、DbContextFactory、認証・認可、通信切断の説明がつながります。
 
@@ -27,7 +29,7 @@ WinFormsでC#のイベント処理に慣れている人は、Blazorでも同じ`
 実際の画面の実装は`Web01Page.razor`です。以下は、この画面で使っているRazorの主要部分をそのまま抜粋したものです。
 
 ```razor
-@page "/learn/web-01"
+@page "/learn/001"
 
 <p>サーバー側で数えた操作回数：
     <strong data-testid="web01-count">@count</strong> 回</p>
@@ -83,7 +85,7 @@ private void button1_Click(object sender, EventArgs e)
 
 ## 5. 手を動かして確認する
 
-1. Visual Studio 2026で.NET 10のWebアプリを起動し、`/learn/web-01`を開きます。
+1. Visual Studio 2026で.NET 10のWebアプリを起動し、`/learn/001`を開きます。
 2. 初期表示「0回」を確認します。
 3. ボタンを1回押し、「1回」になることを確かめます。
 4. もう1回押し、「2回」になることを確かめます。

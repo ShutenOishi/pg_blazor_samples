@@ -1,5 +1,7 @@
 # 学習順047：モデルとDTOを理解する
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step31/EfModelPage.razor)。画面の正規URLは `/learn/047` です。
+
 ## 到達目標・前提知識
 DBの行を表すLearningTaskと、画面へ渡すLearningTaskRowを区別します。前者はEF CoreのEntityで、Id、Title、DueDate、StartTime、AvailableDates、IsDone、UnitCode、CategoryId、Category、Versionを持ちます。後者は一覧用のrecordで、Id、Title、DueDate、StartTime、IsDone、Versionに絞っています。WinForms＋DapperでSELECTの列をPOCOへ格納する経験は、そのままDTOの理解に使えます。
 この章のRazorは固定のLearningTaskRowを表示するためDB接続がなくても動きます。固定サンプルが画面に表示された事実と、PostgreSQLに保存された事実を混同しません。
@@ -51,7 +53,7 @@ private readonly LearningTaskRow _sample = new(
 開発環境ではVisual Studio 2026、.NET 10、EF Core 10とNpgsql、専用PostgreSQL 18を用います。DBが必要な操作だけ専用環境を構成し、業務DBや実在利用者データを練習対象にしないでください。接続情報にパスワードが含まれる場合はGitへ記録しません。コード例は既存実装の主要部分を抜粋したものと、比較のためだけの参考例を区別します。
 
 ## 実際の画面操作手順
-1. /learn/31を開き、架空のId・課題名・日付・完了表示を見る。
+1. /learn/047を開き、架空のId・課題名・日付・完了表示を見る。
 2. LearningTaskとLearningTaskRowを見比べ、画面のDTOにない列を挙げる。
 3. 日付は固定の2026/10/26でありDBから来たわけではないと説明する。
 4. 学習順046へ戻り、次へで048のDDL説明に進む。

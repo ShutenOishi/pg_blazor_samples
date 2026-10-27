@@ -5,7 +5,7 @@
 @inject IConfiguration Configuration
 @inject WindowsUserAccessService Access
 <PageTitle>学習順97：明示Windowsログイン｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順97（旧Step72） / Negotiate と短命Cookie</p>
+<p class="eyebrow">学習順97 / Negotiate と短命Cookie</p>
 <h1>必要な業務だけWindowsログインを明示する</h1>
 <MudPaper Class="pa-4">
     @if (Configuration.GetValue<bool>("WindowsAuthentication:ExplicitLoginEnabled"))
@@ -48,7 +48,7 @@
         <p>いいえ。認証済み本人、既存台帳の操作・行単位都度認可、永続監査、障害時の安全拒否が必要です。現地IIS・Kerberos・FDW・負荷の実機受入は未完了です。</p>
     </details>
 </section>
-<div class="page-navigation"><a href="/learn/71">前へ</a><a href="/">目次へ</a><a href="/learn/73">次へ</a></div>
+<div class="page-navigation"><a href="/learn/096">前へ</a><a href="/">目次へ</a><a href="/learn/098">次へ</a></div>
 @code {
     private string _status = "ログイン状態は未確認です。";
     private async Task CheckAsync()

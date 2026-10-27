@@ -2,7 +2,7 @@
 @page "/learn/38"
 @inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
 
-<PageTitle>ステップ38：トランザクション｜Blazor ステップアップ学習</PageTitle>
+<PageTitle>学習順056：トランザクション｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第5段階 / 学習順056 / 複数レコードの整合性</p>
 <h1>2件の登録をまとめて確定する</h1>
 <MudPaper Class="pa-4" Elevation="1">
@@ -29,7 +29,7 @@
     <tr><th scope="row">失敗のみ表示</th><td>サーバーログの例外とDB側ログを対照</td></tr></tbody></table>
     <p>教材の説明と詳しい演習解答を確認してください。認証済みでも台帳認可と監査が成立しない業務処理は拒否します。</p>
 </section>
-<div class="page-navigation"><a href="/learn/column/db-bridge-55">前へ：第11組の復習</a><a href="/learn/39">次へ：ステップ39</a></div>
+<div class="page-navigation"><a href="/learn/column/db-bridge-55">前へ：第11組の復習</a><a href="/learn/057">次へ：学習順057</a></div>
 @code {
     private string _result = "実行待ちです。";
     private async Task RunAsync() => _result = await Database.AddTwoInTransactionAsync();

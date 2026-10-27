@@ -1,7 +1,9 @@
 # 学習順014：子から親へ通知する
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step08/CallbackPage.razor)。画面の正規URLは `/learn/014` です。
+
 ## 何をできるようにするか
-学習順013では親が`[Parameter]`を使い、子に表示名を渡しました。次は、子のボタンを押したとき親の状態を変更する方法です。画面`/learn/08`の親`CallbackPage.razor`、子`TopicPicker.razor`を読み、値は親が保持し、子が`EventCallback<string>`を通じて通知する役割分担を理解します。WinFormsのUserControlが独自イベントを公開し、フォームがそのイベントを購読する設計に近いですが、Blazorではコンポーネント引数としてイベントの受け口を渡します。
+学習順013では親が`[Parameter]`を使い、子に表示名を渡しました。次は、子のボタンを押したとき親の状態を変更する方法です。画面`/learn/014`の親`CallbackPage.razor`、子`TopicPicker.razor`を読み、値は親が保持し、子が`EventCallback<string>`を通じて通知する役割分担を理解します。WinFormsのUserControlが独自イベントを公開し、フォームがそのイベントを購読する設計に近いですが、Blazorではコンポーネント引数としてイベントの受け口を渡します。
 
 Visual Studio 2026、.NET 10、ChromeのInteractive Server画面を使います。AD認証・DB・EF Core・Dapperは呼び出しません。選択肢は「Razor構文」「イベント処理」「双方向バインディング」の3つの固定文字列です。選択回数は永続的な操作履歴でも監査記録でもなく、親のフィールドです。子ボタンがサーバーでC#を実行するため、対話接続が必要です。
 
@@ -19,7 +21,7 @@ Visual Studio 2026、.NET 10、ChromeのInteractive Server画面を使います�
 
 ## 実コード1：親が選択値を渡し、通知を受ける
 ```razor
-@page "/learn/08"
+@page "/learn/014"
 @using PgBlazorSamples.Web.Components.Samples.Step08
 <TopicPicker SelectedTopic="@selectedTopic" OnSelected="OnTopicSelected" />
 <p role="status" data-testid="step08-selection">現在の選択：<strong>@selectedTopic</strong></p>
@@ -67,7 +69,7 @@ private void OnTopicSelected(string topic)
 ボタンの`@onclick`は、そのボタンに対応する`topic`を`ChooseAsync`へ渡します。`InvokeAsync(topic)`は指定した値を親の受け口へ通知し、戻り値の`Task`を返します。`aria-pressed`は親から渡された`SelectedTopic`と各ボタンの文字列を比較するため、選ばれているボタンの状態がわかります。`@key`には固定テーマの文字列を使っています。重複テーマを追加する場合には一意性を見直してください。
 
 ## 処理の順番を追跡する
-1. `/learn/08`を開くと親の`selectedTopic`は「まだ選択されていません」、`selectionCount`は0です。
+1. `/learn/014`を開くと親の`selectedTopic`は「まだ選択されていません」、`selectionCount`は0です。
 2. 親が子へ現在の値とイベントの受け口を渡して描画します。
 3. 「Razor構文」を押すと、そのボタンから`ChooseAsync("Razor構文")`が実行されます。
 4. 子の`OnSelected.InvokeAsync`が親の`OnTopicSelected`を通知します。
@@ -77,7 +79,7 @@ private void OnTopicSelected(string topic)
 8. 再読込すると回数が初期値に戻ります。保存・監査が実装されていないことを確認します。
 
 ## 画面実習
-Chromeで`/learn/08`を開き、最初はどのテーマも選択されていないことを確認してください。順番に3つのボタンを押し、画面下の現在選択と回数が変化することを観察します。Elementsで`aria-pressed`が選択に従い変わることを確認すると、見た目だけではわかりにくいアクセシビリティ情報も学べます。開発者ツールのNetworkで対話接続を確認し、ブラウザーの表示変更だけで処理が終わっていないことを理解してください。検証環境では、通知メソッドにブレークポイントを設定すると親子の呼び出し順がわかります。
+Chromeで`/learn/014`を開き、最初はどのテーマも選択されていないことを確認してください。順番に3つのボタンを押し、画面下の現在選択と回数が変化することを観察します。Elementsで`aria-pressed`が選択に従い変わることを確認すると、見た目だけではわかりにくいアクセシビリティ情報も学べます。開発者ツールのNetworkで対話接続を確認し、ブラウザーの表示変更だけで処理が終わっていないことを理解してください。検証環境では、通知メソッドにブレークポイントを設定すると親子の呼び出し順がわかります。
 
 ## 故障・失敗の切り分け
 | 症状 | 確認する箇所 | 考え方 |

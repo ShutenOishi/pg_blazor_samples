@@ -1,4 +1,6 @@
-# ステップ51：編集DTOをフォームで検証して保存する
+# 学習順071：編集DTOをフォームで検証して保存する
+
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step51/EditDtoPage.razor)。画面の正規URLは `/learn/071` です。
 
 **学習順071・第6段階／第15組**
 
@@ -169,7 +171,7 @@ public async Task<LearningEditResult> SaveAsync(LearningEditInput input, Cancell
 
 ## 完了条件
 
-- [ ] /learn/51の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] /learn/071の旧URLを維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 
@@ -179,4 +181,4 @@ public async Task<LearningEditResult> SaveAsync(LearningEditInput input, Cancell
 
 ## 次に学ぶ内容
 
-学習順072の旧Step52へ進みます。
+学習順072の学習順072へ進みます。

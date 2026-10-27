@@ -1,7 +1,9 @@
 # 学習順048：PostgreSQLで学習テーブルを定義する
 
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step32/SqlSchemaPage.razor)。画面の正規URLは `/learn/048` です。
+
 ## 到達目標・前提知識
-PostgreSQL 18の開発専用テーブルlearning_taskを定義し、EF CoreのLearningDbContextと一致させます。ステップ32のRazorは代表的な列を表で表示する説明画面で、開いただけでDDLを実行するものではありません。WinForms＋DapperでもDBの物理列を把握しましたが、EF CoreではOnModelCreatingで指定した名前・長さ・型とDDLの対応も確認します。
+PostgreSQL 18の開発専用テーブルlearning_taskを定義し、EF CoreのLearningDbContextと一致させます。学習順048のRazorは代表的な列を表で表示する説明画面で、開いただけでDDLを実行するものではありません。WinForms＋DapperでもDBの物理列を把握しましたが、EF CoreではOnModelCreatingで指定した名前・長さ・型とDDLの対応も確認します。
 学習用DDLにはid、title、due_date、start_time、available_dates、is_doneがあり、後続でcategory_idとunit_codeを追加します。idはIDENTITY、xminは手動作成しないシステム列です。実業務DBにこのSQLを適用してはいけません。
 前提は第4段階で学んだRazorイベント、DI、MudBlazorの日本語UIです。この章は既存80ステップのURLを維持したまま、全110本の学習順に従って読みます。必要に応じて開発用PostgreSQL 18を使用します。
 
@@ -55,7 +57,7 @@ ALTER TABLE learning_task ADD COLUMN IF NOT EXISTS
 
 ## 実際の画面操作手順
 1. 開発専用DBでSELECT current_database(), current_user;を実行して接続先を記録する。
-2. /learn/32で代表列の型を読み、まだテーブルは作られないと確認する。
+2. /learn/048で代表列の型を読み、まだテーブルは作られないと確認する。
 3. 開発用DBにdatabase/schema/001_learning_task.sqlを適用する。
 4. information_schema.columnsで列を照合し、SELECT id,title FROM learning_task ORDER BY id LIMIT 5を試す。
 正常系では説明用の結果と実DB操作の結果を分けて記録します。失敗例では設定未入力、サーバーからDBへの接続不能、DDL不一致、業務認可拒否、更新競合を同じエラーと見なさず、現象から原因を分類してください。

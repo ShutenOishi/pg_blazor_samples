@@ -3,8 +3,8 @@
 @using PgBlazorSamples.Web.Data
 @using PgBlazorSamples.Web.Services.Learning
 @inject SecuredLearningService Business
-<PageTitle>ステップ67：部署で絞る一覧｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順092 / 第7段階・第19組（旧Step67）</p>
+<PageTitle>学習順092：部署で絞る一覧｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順092 / 第7段階・第19組</p>
 <h1>部署別に許可された行だけを数える・表示する</h1>
 <MudPaper Class="pa-4">
     <MudButton Color="Color.Primary" OnClick="LoadAsync">認可付き一覧を取得する</MudButton>
@@ -31,7 +31,7 @@
     </tbody></table>
     <p>教材本文は学習順092です。正本台帳の都度認可、監査、失効時の安全拒否を確認してください。</p>
 </section>
-<div class="page-navigation"><a href="/learn/66">前へ：学習順091</a><a href="/learn/68">次へ：学習順093</a></div>
+<div class="page-navigation"><a href="/learn/091">前へ：学習順091</a><a href="/learn/093">次へ：学習順093</a></div>
 @code {
     private LearningPageResult _result = new([], 0, "操作前です。");
     private async Task LoadAsync() => _result = await Business.LoadPageAsync(new LearningPageQuery(0, 10));

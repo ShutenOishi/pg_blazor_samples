@@ -1,6 +1,8 @@
-# ステップ59：EXPLAINと応答時間計測
+# 学習順079：EXPLAINと応答時間計測
 
-**学習順079・第6段階／第16組・旧URL `/learn/59`**
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step59/PerformancePage.razor)。画面の正規URLは `/learn/079` です。
+
+**学習順079・第6段階／第16組・旧URL `/learn/079`**
 
 ## 学習目標と実行環境
 
@@ -63,7 +65,7 @@ await using var reader = await command.ExecuteReaderAsync(ct);
 ## 操作手順と確認方法
 
 1. まず学習用PostgreSQL18の設定状態を確認し、実運用DBや本番台帳を接続先として使っていないことを確かめます。
-2. `/learn/59` を開き、入力欄、選択肢、操作ボタン、状態表示を確認します。ホームの学習順079からも遷移できることを確かめます。
+2. `/learn/079` を開き、入力欄、選択肢、操作ボタン、状態表示を確認します。ホームの学習順079からも遷移できることを確かめます。
 3. 正常な架空データを用意して操作を一度実行し、Razorから呼び出されたメソッドと戻り値を記録します。表示された行や件数の意味を確認します。
 4. 同じ操作を繰り返し、重複クリックや以前の表示結果が残る条件を調べます。結果の取り消しや再実行が必要かを検討します。
 5. EXPLAIN SELECT id,title FROM learning_task ORDER BY due_date,id LIMIT 20は推定計画を表示します。EXPLAIN ANALYZEと違い本来のSELECTを実行して実測する計画ではありません。Seq Scan、Sort、Index Scanなどの表示を見ても、行数、索引、統計、検索条件、同時実行状況を合わせなければ妥当性を判断できません。固定SQLを使い学習用データだけを読みます。
