@@ -264,8 +264,9 @@ async function waitText(page, selector, expected) {
         for (let seq = 41; seq <= 45; seq++) {
             const id = "browser-0" + (seq - 40);
             await page.goto(base + "/learn/" + id);
-            await page.locator('[data-testid="browser09-compare-' + seq + '"]').waitFor();
-            await page.getByText("学習順" + seq + "：WinForms＋Dapperとの比較と操作確認").waitFor();
+            const serial = String(seq).padStart(3, "0");
+            await page.locator('[data-testid="browser09-compare-' + serial + '"]').waitFor();
+            await page.getByText("学習順" + serial + "：WinForms＋Dapperとの比較と操作確認").waitFor();
         }
         await page.getByRole("link", { name: "次へ" }).waitFor();
         await page.goto(base + "/learn/column/browser-45");
