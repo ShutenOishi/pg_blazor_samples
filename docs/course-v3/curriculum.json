@@ -1063,7 +1063,7 @@
       "source": "docs/samples/step71.md",
       "url": "/learn/71",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 97,
@@ -1074,7 +1074,7 @@
       "source": "docs/samples/step72.md",
       "url": "/learn/72",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 98,
@@ -1085,7 +1085,7 @@
       "source": "docs/samples/step73.md",
       "url": "/learn/73",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 99,
@@ -1096,7 +1096,7 @@
       "source": "docs/samples/step74.md",
       "url": "/learn/74",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 100,
@@ -1107,7 +1107,7 @@
       "source": "docs/samples/step75.md",
       "url": "/learn/75",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 101,
@@ -1321,7 +1321,8 @@
       "stage": 8,
       "from": 96,
       "to": 105,
-      "overview": "docs/course-v3/stages/stage08.md"
+      "overview": "docs/course-v3/stages/stage08.md",
+      "final_review": "ci-passed"
     },
     {
       "name": "業務アプリの通し演習",
@@ -1492,7 +1493,8 @@
       "after_sequence": 100,
       "path": "docs/columns/column71-75.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 21,
