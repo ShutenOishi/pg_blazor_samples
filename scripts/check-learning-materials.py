@@ -724,6 +724,52 @@ if -1 in positions09 or positions09 != sorted(positions09) or not (positions09[-
 if 'href="/learn/column/browser-45"' not in (SAMPLES / "Browser/Browser05Page.razor").read_text(encoding="utf-8"):
     missing.append("学習順045→第9組復習へのリンク不足")
 
+# 第10組046〜050：本文、Razor、Web目次、日本語PDF順と復習を一括検査する。
+db_unit_10 = [
+    ("db-bridge-01", "docs/course-v3/lessons/db-bridge-01.md", "DbBridge/DbBridge01Page.razor"),
+    ("step31", "docs/samples/step31.md", "Step31/EfModelPage.razor"),
+    ("step32", "docs/samples/step32.md", "Step32/SqlSchemaPage.razor"),
+    ("step33", "docs/samples/step33.md", "Step33/EfSetupPage.razor"),
+    ("step34", "docs/samples/step34.md", "Step34/DbFactoryPage.razor"),
+]
+if [item["id"] for item in ordered[45:50]] != [item[0] for item in db_unit_10]:
+    missing.append("第10組046〜050のカリキュラム順が不正")
+for seq, (lesson_id, path, razor_name) in enumerate(db_unit_10, start=46):
+    body = (ROOT / path).read_text(encoding="utf-8")
+    razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
+    if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
+        missing.append(path + "：3300文字・比較表・診断表の不足")
+    if body.count(chr(96) * 3) < 4 or body.count(chr(96) * 3) % 2:
+        missing.append(path + "：実コード2例の不足")
+    for item in ("WinForms", "Dapper", "操作", "演習", "詳しい解答", "PostgreSQL"):
+        if item not in body:
+            missing.append(path + "：教材の必要項目なし：" + item)
+    if f"学習順{seq:03d}" not in razor or f'data-testid="dbbridge10-compare-{seq:03d}"' not in razor:
+        missing.append(razor_name + "：Razorの学習順か比較表の不足")
+    if f"学習順{seq:03d}を開く" not in home or f"学習順{seq:03d}：" not in nav_eighth:
+        missing.append(path + "：Web目次・NavMenuの学習順が不正")
+    if f'"{path}"' not in PDF_SCRIPT:
+        missing.append(path + "：PDFの学習順にありません")
+review10 = (ROOT / "docs/course-v3/reviews/review-10.md").read_text(encoding="utf-8")
+stage05 = (ROOT / "docs/course-v3/stages/stage05.md").read_text(encoding="utf-8")
+review_page = (SAMPLES / "DbBridge/DbBridgeReview10Page.razor").read_text(encoding="utf-8")
+stage_page = (SAMPLES / "DbBridge/DbBridgeOverviewPage.razor").read_text(encoding="utf-8")
+if len(review10) < 3300 or review10.count("| ---") < 2 or review10.count(chr(96)*3) < 4:
+    missing.append("第10組復習の教材品質不足")
+if len(stage05) < 3000 or stage05.count("| ---") < 2 or stage05.count(chr(96)*3) < 4:
+    missing.append("第5段階概要の教材品質不足")
+if 'data-testid="dbbridge10-review-table"' not in review_page or 'data-testid="stage05-db-compare"' not in stage_page:
+    missing.append("第10組・第5段階概要のWeb比較表不足")
+if "学習順046〜050を復習" not in home or "第10組の復習：046〜050" not in nav_eighth:
+    missing.append("第10組のWeb目次・NavMenuの復習リンク不足")
+if 'href="/learn/column/db-bridge-50"' not in (SAMPLES / "Step34/DbFactoryPage.razor").read_text(encoding="utf-8"):
+    missing.append("学習順050から復習への遷移がありません")
+pos = [PDF_SCRIPT.find(f'"{path}"') for _, path, _ in db_unit_10]
+review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-10.md"')
+stage_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage05.md"')
+if -1 in pos or pos != sorted(pos) or not (stage_pos < pos[0] < pos[-1] < review_pos):
+    missing.append("第5段階概要→046〜050→第10組復習のPDF目次順序が不正")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

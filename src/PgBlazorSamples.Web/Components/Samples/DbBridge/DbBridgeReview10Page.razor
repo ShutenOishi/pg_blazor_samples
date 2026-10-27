@@ -1,7 +1,20 @@
 @page "/learn/column/db-bridge-50"
 <PageTitle>第10組の復習：DapperとEF Coreの入口｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順46〜50 / 第10組</p><h1>第10組の復習：DapperとEF Coreの入口</h1>
-<section class="lesson-details"><ol><li>DapperとEF Coreの役割</li><li>EntityとDTO</li><li>PostgreSQL DDL</li><li>DI登録</li><li>短命DbContextFactory</li></ol>
-<details><summary>Interactive ServerのScoped DbContextを全操作で共有すべきですか？</summary><p>いいえ。Factoryから操作ごとに短命DbContextを作ります。</p></details>
-<p>実DBへアクセスした操作か、モデル・生成SQLだけを検査した操作かを区別してください。</p></section>
-<div class="page-navigation"><a href="/learn/34">前へ</a><a href="/learn/35">次へ</a></div>
+<p class="eyebrow">学習順046〜050 / 第10組</p>
+<h1>第10組の復習：DapperとEF Coreの入口</h1>
+<section class="lesson-details">
+    <p>方式選定から短命DbContextの利用まで、5つの技術をつないで確認します。</p>
+    <table data-testid="dbbridge10-review-table"><thead><tr><th scope="col">学習順</th><th scope="col">確認する実装</th><th scope="col">誤認しない点</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">046</th><td>DapperとEF Coreの選定</td><td>選択ボタンはDB検索ではない</td></tr>
+            <tr><th scope="row">047</th><td>EntityとDTO</td><td>固定表示はDB取得結果ではない</td></tr>
+            <tr><th scope="row">048</th><td>開発用PostgreSQL DDL</td><td>xminは自動管理されるシステム列</td></tr>
+            <tr><th scope="row">049</th><td>DI登録と設定</td><td>接続先設定済みと接続成功は別</td></tr>
+            <tr><th scope="row">050</th><td>DbContextFactory</td><td>操作ごとにContextを作る</td></tr>
+        </tbody>
+    </table>
+    <details><summary>演習：Scoped DbContextを全操作で共有すべきですか？</summary><p>いいえ。Interactive ServerのScopedはcircuitの間続く場合があります。DbContextはスレッドセーフではないのでFactoryから操作ごとに生成します。</p></details>
+    <details><summary>演習：接続先が設定されていれば実DB試験は成功ですか？</summary><p>いいえ。設定の有無と、開発専用PostgreSQL 18への実際の問い合わせの成否は別です。</p></details>
+    <details><summary>演習：EF Coreを使えば認可も自動ですか？</summary><p>いいえ。ADは本人認証に用い、業務権限は既存DB台帳で毎操作判定します。権限失効・監査失敗・更新競合は安全に拒否します。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/34">前へ：学習順050</a><a href="/learn/35">次へ：学習順051</a></div>

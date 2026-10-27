@@ -13,6 +13,21 @@
     <p>Interactive ServerのScopedは画面を開いている間も存続します。スレッドセーフでないDbContextは共有せず、IDbContextFactoryから毎操作生成し、await usingで破棄します。</p>
     <p>Npgsqlの物理接続プールとDbContextそのものを再利用するプールは別です。最初の教材は後者を使用しません。</p>
 </section>
+<section class="lesson-details">
+    <h2>学習順050：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="dbbridge10-compare-050">
+        <thead><tr><th scope="col">確認点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">実行場所</th><td>利用者端末のフォーム処理</td><td>サーバーのRazorイベントとサービス</td></tr>
+            <tr><th scope="row">接続と寿命</th><td>using NpgsqlConnection</td><td>await using DbContext</td></tr>
+        </tbody>
+    </table>
+    <h2>障害の切り分け</h2>
+    <table><thead><tr><th scope="col">現象</th><th scope="col">確認すべき点</th></tr></thead>
+        <tbody><tr><td>DbContextの寿命と物理接続プールは別</td><td>設定・UI・実DBの確認を分ける</td></tr>
+        <tr><td>権限が確認できない</td><td>事前整備済みDB台帳で操作ごとに認可し、安全に拒否する</td></tr></tbody></table>
+    <p>実装の詳細、正常系・失敗例、演習と詳しい解答は対応する日本語教材を参照してください。</p>
+</section>
 <div class="page-navigation"><a href="/learn/33">前へ：ステップ33</a><a href="/learn/column/db-bridge-50">第10組の復習へ</a></div>
 @code {
     private string _message = "まだ実行していません。";

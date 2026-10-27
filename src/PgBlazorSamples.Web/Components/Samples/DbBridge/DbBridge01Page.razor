@@ -1,6 +1,6 @@
 @page "/learn/db-bridge-01"
-<PageTitle>学習順46：DapperとEF Coreの役割・選定を比較する｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">第5段階 / 学習順46</p><h1>DapperとEF Coreの役割・選定を比較する</h1>
+<PageTitle>学習順046：DapperとEF Coreの役割・選定を比較する｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順046</p><h1>DapperとEF Coreの役割・選定を比較する</h1>
 <p>WinForms＋DapperのSQL・Executeと、EF Core 10のLINQ・変更追跡・SaveChangesを比較します。</p>
 <section class="lesson-details"><h2>要件別に方式を選ぶ</h2>
 <button type="button" @onclick='() => Choose("一般的なCRUD")'>一般的なCRUD</button>
@@ -13,6 +13,21 @@
 <tr><td>一覧</td><td colspan="2">DBで条件・件数を制限し、本人認可はサーバーで強制</td></tr>
 </tbody></table>
 <p>EF Coreを中心に学びますが、既存SQLを無理に捨てる必要はありません。</p></section>
+<section class="lesson-details">
+    <h2>学習順046：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="dbbridge10-compare-046">
+        <thead><tr><th scope="col">確認点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">実行場所</th><td>利用者端末のフォーム処理</td><td>サーバーのRazorイベントとサービス</td></tr>
+            <tr><th scope="row">技術選定</th><td>SQLとQuery/Execute</td><td>LINQとSaveChanges</td></tr>
+        </tbody>
+    </table>
+    <h2>障害の切り分け</h2>
+    <table><thead><tr><th scope="col">現象</th><th scope="col">確認すべき点</th></tr></thead>
+        <tbody><tr><td>画面ボタンはDBアクセスを実行しない</td><td>設定・UI・実DBの確認を分ける</td></tr>
+        <tr><td>権限が確認できない</td><td>事前整備済みDB台帳で操作ごとに認可し、安全に拒否する</td></tr></tbody></table>
+    <p>実装の詳細、正常系・失敗例、演習と詳しい解答は対応する日本語教材を参照してください。</p>
+</section>
 <div class="page-navigation"><a href="/learn/column/browser-45">前へ</a><a href="/learn/31">次へ</a></div>
 @code {
     private string result = "未選択";

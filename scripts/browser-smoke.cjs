@@ -310,6 +310,26 @@ async function waitText(page, selector, expected) {
         await page.screenshot({ path: path.join(evidence, "db-bridge-review.png") });
         console.log("第5段階：db-bridge5画面と復習3件を確認");
 
+        // 第10組：比較表、実際のクリック、復習と旧URLの連続確認。
+        await page.goto(base + "/learn/stage/db-bridge");
+        await page.locator('[data-testid="stage05-db-compare"]').waitFor();
+        for (const [seq, url] of [[46, "db-bridge-01"], [47, "31"], [48, "32"], [49, "33"], [50, "34"]]) {
+            await page.goto(base + "/learn/" + url);
+            await page.locator('[data-testid="dbbridge10-compare-' + String(seq).padStart(3, "0") + '"]').waitFor();
+        }
+        await page.goto(base + "/learn/33");
+        await page.locator('[data-testid="step33-config"]').waitFor();
+        await page.goto(base + "/learn/34");
+        await page.getByRole("button", { name: "接続して一覧を取得" }).click();
+        await page.waitForFunction(() =>
+            document.querySelector('[data-testid="step34-result"]')?.textContent?.trim() !== "まだ実行していません.");
+        await page.goto(base + "/learn/column/db-bridge-50");
+        await page.locator('[data-testid="dbbridge10-review-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順051" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順046〜050を復習" }).waitFor();
+        console.log("第10組046〜050の5画面・比較表・実操作・復習・Web目次をChromeで確認");
+
         // 第7段階：本物の認証/認可を偽装せず、教材の模擬拒否とRazorのエンコードを確認。
         await page.goto(base + "/learn/stage/security");
         await page.getByRole("heading", { name: "第7段階の概要：Webセキュリティ・AD認証とDB認可" }).waitFor();
