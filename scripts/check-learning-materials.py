@@ -667,6 +667,8 @@ if "第8組の復習：036〜040" not in nav_eighth:
 pdf_eighth = [PDF_SCRIPT.find(f'"{x[0]}"') for x in mud_eighth]
 pdf_review8 = PDF_SCRIPT.find('"docs/columns/column26-30.md"')
 pdf_browser01 = PDF_SCRIPT.find('"docs/course-v3/lessons/browser-01.md"')
+if not all(f'学習順{seq:03d}：' in PDF_SCRIPT for seq in range(36, 41)) or "第8組の復習：検索・確認・通知・操作性" not in PDF_SCRIPT:
+    missing.append("第8組PDFの学習順・復習見出しが一致しません")
 if -1 in pdf_eighth or pdf_eighth != sorted(pdf_eighth) or not (pdf_eighth[-1] < pdf_review8 < pdf_browser01):
     missing.append("第8組036〜040→復習→041のPDF章順が不正")
 if 'href="/learn/column/30"' not in (SAMPLES / "Step30/UiPracticePage.razor").read_text(encoding="utf-8"):

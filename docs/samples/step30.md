@@ -169,4 +169,4 @@ private async Task AddAsync()
 - [ ] メモリ一覧とDBの権限付き一覧の違いを説明できる。
 - [ ] DI、Dialog、Snackbar、Razorの再描画のつながりを説明できる。
 
-[コラム07：MudBlazor実務画面の使い分け](../columns/column26-30.md)で第4段階の第8組を復習します。
+[第8組の復習：MudBlazor実務画面の使い分け](../columns/column26-30.md)で第4段階の第8組を復習します。
