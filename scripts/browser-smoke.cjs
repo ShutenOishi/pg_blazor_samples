@@ -1144,9 +1144,9 @@ async function waitText(page, selector, expected) {
         }
         await page.goto(base + "/learn/71");
         await page.getByRole("link", { name: "前へ" }).waitFor();
-        await page.getByRole("link", { name: "次へ" }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
         await page.goto(base + "/learn/75");
-        await page.getByRole("link", { name: "次へ" }).waitFor();
+        await page.getByRole("link", { name: "次へ", exact: true }).waitFor();
         await page.goto(base + "/learn/column/75");
         await page.locator('[data-testid="stage08-review20-table"]').waitFor();
         await page.getByRole("link", { name: "次へ：学習順101" }).waitFor();
