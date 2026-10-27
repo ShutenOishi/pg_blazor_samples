@@ -1,6 +1,6 @@
 # ステップ51：編集DTOをフォームで検証して保存する
 
-**学習順71・第6段階／第15組**
+**学習順071・第6段階／第15組**
 
 ## 目標：一覧と保存を切り分ける
 
@@ -179,4 +179,4 @@ public async Task<LearningEditResult> SaveAsync(LearningEditInput input, Cancell
 
 ## 次に学ぶ内容
 
-学習順72の旧Step52へ進みます。
+学習順072の旧Step52へ進みます。

@@ -5,7 +5,7 @@
 @inject LearningEditService Edits
 
 <PageTitle>ステップ55：詳細表示とN+1対策｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順75（旧ステップ55） / 第15組</p>
+<p class="eyebrow">学習順075（旧ステップ55） / 第15組</p>
 <h1>必要なときだけ関連情報つき詳細を取得する</h1>
 <p>一覧は少ない列だけ取得し、選択した1行の詳細を単一のSQLへ射影します。</p>
 <MudPaper Class="pa-4">
@@ -20,8 +20,8 @@
     @if (_detail is not null)
     {
         <section aria-label="選択した課題の詳細">
-            <h2>学習順75：WinForms＋Dapperとの比較</h2>
-    <table data-testid="stage06-compare-75"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+            <h2>学習順075：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-075"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
     <tbody><tr><td>詳細表示</td><td>JOINした列を単票のDTOへMappingする</td><td>AsNoTrackingとSelectで1行の詳細を取得</td></tr>
     <tr><td>操作と行の安全性</td><td>既存DB台帳の都度認可をSQLの境界に置く</td><td>学習用DTOと本番の都度認可・監査を明確に区別する</td></tr></tbody></table>
     <p>このステップの実コード2例、操作手順、失敗時の切り分け、演習と詳しい解答は日本語教材に掲載しています。実AD・既存台帳の本番認可はこの練習画面には未実装です。</p>
