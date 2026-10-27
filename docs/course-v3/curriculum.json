@@ -348,7 +348,7 @@
       "source": "docs/samples/step21.md",
       "url": "/learn/21",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 32,
@@ -359,7 +359,7 @@
       "source": "docs/samples/step22.md",
       "url": "/learn/22",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 33,
@@ -370,7 +370,7 @@
       "source": "docs/samples/step23.md",
       "url": "/learn/23",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 34,
@@ -381,7 +381,7 @@
       "source": "docs/samples/step24.md",
       "url": "/learn/24",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 35,
@@ -392,7 +392,7 @@
       "source": "docs/samples/step25.md",
       "url": "/learn/25",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 36,
@@ -1387,7 +1387,8 @@
       "after_sequence": 35,
       "path": "docs/columns/column21-25.md",
       "existing": true,
-      "requires_rewrite": true
+      "requires_rewrite": false,
+      "final_review": "ci-passed"
     },
     {
       "unit": 8,
