@@ -675,6 +675,55 @@ if 'href="/learn/column/30"' not in (SAMPLES / "Step30/UiPracticePage.razor").re
     missing.append("学習順040から第8組復習への導線不足")
 
 
+
+# 学習順041〜045：第9組の最終全面改稿は本文・Razor・Web・PDF・復習を一括検査する。
+browser_ninth = [
+    ("browser-01", "Browser01Page.razor", "JS.InvokeAsync"),
+    ("browser-02", "Browser02Page.razor", "OpenReadStream"),
+    ("browser-03", "Browser03Page.razor", "DotNetStreamReference"),
+    ("browser-04", "Browser04Page.razor", "CancellationToken"),
+    ("browser-05", "Browser05Page.razor", "focus-visible"),
+]
+if [item["id"] for item in ordered[40:45]] != [x[0] for x in browser_ninth]:
+    missing.append("第9組の学習順041〜045がカリキュラムと一致しません")
+for seq, (item_id, page_name, required_symbol) in enumerate(browser_ninth, start=41):
+    relative = f"docs/course-v3/lessons/{item_id}.md"
+    content = (ROOT / relative).read_text(encoding="utf-8")
+    razor = (SAMPLES / "Browser" / page_name).read_text(encoding="utf-8")
+    if len(content) < 3300 or content.count("| ---") < 2 or content.count(" | ") < 8:
+        missing.append(relative + "：本文3300字・比較/診断表が不足")
+    if content.count(chr(96) * 3) < 4 or content.count(chr(96) * 3) % 2:
+        missing.append(relative + "：実コード2ブロック以上が不足")
+    for keyword in ("WinForms", "Dapper", "操作", "演習", "解答", required_symbol):
+        if keyword not in content:
+            missing.append(relative + f"：必要な解説語 {keyword} がありません")
+    if f'@page "/learn/{item_id}"' not in razor or f"学習順{seq:03d}" not in razor:
+        missing.append(page_name + "：Razor URLか学習順が一致しません")
+    if f'data-testid="browser09-compare-{seq:03d}"' not in razor:
+        missing.append(page_name + "：第9組WinForms比較表がありません")
+    if f"/learn/{item_id}" not in home or f"/learn/{item_id}" not in nav_eighth:
+        missing.append(relative + "：WebトップかNavMenuの索引がありません")
+    if f'"{relative}"' not in PDF_SCRIPT or f"学習順{seq:03d}：" not in PDF_SCRIPT:
+        missing.append(relative + "：PDF章題/索引の学習順が不足")
+review09_doc = (ROOT / "docs/course-v3/reviews/review-09.md").read_text(encoding="utf-8")
+review09_page = (SAMPLES / "Browser/BrowserReview09Page.razor").read_text(encoding="utf-8")
+stage04_page = (SAMPLES / "Browser/BrowserOverviewPage.razor").read_text(encoding="utf-8")
+if len(review09_doc) < 3300 or review09_doc.count("| ---") < 2 or review09_doc.count(chr(96) * 3) < 4 or "詳しい解答" not in review09_doc:
+    missing.append("第9組復習の本文・比較表・実コード・詳しい解答が不足")
+if 'data-testid="browser09-review-table"' not in review09_page or 'href="/learn/db-bridge-01"' not in review09_page:
+    missing.append("第9組復習Razorの表か学習順046へのリンクがありません")
+if 'data-testid="stage04-browser-compare"' not in stage04_page:
+    missing.append("第4段階概要の041〜045比較表がありません")
+if "学習順041〜045を復習" not in home or "第9組の復習：041〜045" not in nav_eighth:
+    missing.append("第9組のWeb目次かNavMenuの復習導線がありません")
+positions09 = [PDF_SCRIPT.find(f'"docs/course-v3/lessons/{item_id}.md"') for item_id, _, _ in browser_ninth]
+review09_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-09.md"')
+bridge_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/db-bridge-01.md"')
+if -1 in positions09 or positions09 != sorted(positions09) or not (positions09[-1] < review09_pos < bridge_pos):
+    missing.append("第9組041〜045→復習→046のPDF順が不正")
+if 'href="/learn/column/browser-45"' not in (SAMPLES / "Browser/Browser05Page.razor").read_text(encoding="utf-8"):
+    missing.append("学習順045→第9組復習へのリンク不足")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

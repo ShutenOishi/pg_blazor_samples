@@ -16,6 +16,18 @@
         <ol><li>Tabキーで入力欄とボタンを順番に移動する。</li><li>入力後に結果がテキストで通知されることを確認する。</li><li>ブラウザーの拡大率を200%にして横スクロールや重なりを確認する。</li><li>文字サイズとコントラストを変えて操作する。</li></ol>
     </details>
 </section>
+<section class="lesson-details">
+    <h2>学習順045：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-045">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>Label・TabIndex・フォント倍率</td><td>labelとinput・focus-visible・status</td><td>色だけで結果を伝えず、Tab移動と200%拡大で操作を確認する。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>TabとShift+Tabで入力と切替を試し、200%拡大と読み上げを確認する。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>色だけで結果を伝えず、Tab移動と200%拡大で操作を確認する。</p></details>
+</section>
 <div class="page-navigation"><a href="/learn/browser-04">前へ</a><a href="/learn/column/browser-45">次へ</a></div>
 @code {
     private string note = "";

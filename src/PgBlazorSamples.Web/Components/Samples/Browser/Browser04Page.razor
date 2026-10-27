@@ -20,6 +20,18 @@
     <p role="status" data-testid="browser04-state">@state</p>
     <p>取り消しはCancellationTokenで処理へ通知します。取り消せる処理と、既に確定したDB更新の取り消しは別です。</p>
 </section>
+<section class="lesson-details">
+    <h2>学習順044：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-044">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>try/catchで失敗を扱う</td><td>ErrorBoundaryで子UIを切り替える</td><td>RecoverはDBロールバックではなく、取消は協調的な通知である。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>意図した例外をRecoverし、別の非同期処理で取消と正常完了を比べる。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>RecoverはDBロールバックではなく、取消は協調的な通知である。</p></details>
+</section>
 <div class="page-navigation"><a href="/learn/browser-03">前へ</a><a href="/learn/browser-05">次へ</a></div>
 @code {
     private ErrorBoundary? boundary;

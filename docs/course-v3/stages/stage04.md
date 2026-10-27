@@ -54,6 +54,41 @@ builder.Services.AddMudTranslations();
 
 
 
+## ブラウザー5本の通し実習と安全条件
+第9組では、ブラウザーとサーバーの処理場所を意識しながら、学習順041〜045を順番に操作します。C#で回数を増やすイベントはサーバー側で完結しますが、HTMLのlang属性はJS interopから読みます。ファイルアップロードはクライアントの選択内容をサーバーへ渡し、ダウンロードはサーバーで生成したバイト列をBlobへ渡します。
+
+| 学習順 | WinForms＋Dapperとの違い | 実演で確認する拒否・失敗 |
+| --- | --- | --- |
+| 041 JS interop | ローカルのコントロールではなくブラウザーのDOM | モジュール失敗と回線切断の区別 |
+| 042 アップロード | ローカルパスではなくIBrowserFileのストリーム | .pngと64 KiB超をサーバーで拒否 |
+| 043 ダウンロード | File.WriteAllBytesでは利用者PCへ配布できない | CSV文字コード、JS失敗、業務出力の再認可 |
+| 044 例外・取消 | RecoverとDBのRollbackは別 | 取消済みと完了済みの区別 |
+| 045 操作性 | LabelとTabIndexに加えてHTMLの意味を確認 | Tab操作、role=status、200%拡大 |
+
+```csharp
+// 041の実装では、ブラウザーDOMを読む場合だけJSを呼び出す。
+module ??= await JS.InvokeAsync<IJSObjectReference>(
+    "import", "./js/browser-learning.js");
+var language = await module.InvokeAsync<string>("readLanguage");
+```
+
+```csharp
+// 042の実装では、ファイルをサーバーで読むときにも容量上限を設定する。
+await using var input = file.OpenReadStream(maxAllowedSize: 64 * 1024);
+using var output = new MemoryStream();
+await input.CopyToAsync(output);
+```
+
+| 起きたこと | 最初に調べるもの | 完成判定で確認すること |
+| --- | --- | --- |
+| C#のボタンも動かない | circuitの接続・イベント | JS以前の通信状態を切り分ける |
+| ファイルの拒否が働かない | acceptではなくサーバーのifとOpenReadStream | 拡張子と実読込上限を守る |
+| 保存開始後に開けない | ブラウザーの保存設定・実バイト列 | サーバーの開始通知と保存成功を分ける |
+| Recover後に再びエラー | 元の処理・例外ログ | 画面復旧がDB更新を戻さないと理解する |
+| 拡大時に操作不能 | フォーカス・入力欄・ボタンの配置 | Tabと200%ズームで必要な操作を完了する |
+
+第4段階の15本は業務UIの学習用です。実データを扱う第5段階以降も、DOM・ボタン表示・アップロードしたファイル名を認可の根拠にはしません。認証済み本人と既存DB/外部台帳の権限をサーバーで操作ごとに照合する必要があります。実AD/IIS/FDW・大規模負荷の受入は、この演習とは別に行います。
+
 ## この段階でできるようになること
 日本語入力・一覧・ダイアログ・通知に加え、JS連携、ファイル操作、エラー、アクセシビリティを判断できる。
 
@@ -74,11 +109,11 @@ DataGridViewとは違い、Items全件保持とサーバー側取得を分け、
 - 学習順038：Snackbarと処理中の状態を表示する（旧Step28に対応）
 - 学習順039：ダークモードとキーボード操作を学ぶ（旧Step29に対応）
 - 学習順040：MudBlazor日本語UIを総合演習する（旧Step30に対応）
-- 学習順041：JavaScript interopの利用判断（新規初稿実装：browser-01）
-- 学習順042：ファイルアップロードと入力制約（新規初稿実装：browser-02）
-- 学習順043：CSV・PDFファイルのダウンロード（新規初稿実装：browser-03）
-- 学習順044：ErrorBoundary・取消・再試行（新規初稿実装：browser-04）
-- 学習順045：HTMLの意味・フォーカス・拡大表示の最終確認（新規初稿実装：browser-05）
+- 学習順041：JavaScript interopの利用判断（実装済み：browser-01）
+- 学習順042：ファイルアップロードと入力制約（実装済み：browser-02）
+- 学習順043：CSV・PDFファイルのダウンロード（実装済み：browser-03）
+- 学習順044：ErrorBoundary・取消・再試行（実装済み：browser-04）
+- 学習順045：HTMLの意味・フォーカス・拡大表示の最終確認（実装済み：browser-05）
 
 ## 5ステップごとに確認すること
 - 学習順035の後：第7組の復習。直前の5テーマの関係を説明し、動作を再確認する。

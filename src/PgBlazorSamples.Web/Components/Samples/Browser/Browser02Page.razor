@@ -24,6 +24,18 @@
         <li>OpenReadStream に読み取り上限を渡します。名前を保存先パスとして使いません。</li>
         <li>本番でのファイル内容・マルウェア検証はこの練習には含みません。</li>
     </ol></section>
+<section class="lesson-details">
+    <h2>学習順042：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-042">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>OpenFileDialogとファイル選択</td><td>InputFileとサーバー側ストリーム検査</td><td>acceptは選択補助。64 KiB上限と拡張子拒否を別々に確認する。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>小さな.txtのSHA-256を表示し、.pngと64 KiB超のファイルを拒否する。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>acceptは選択補助。64 KiB上限と拡張子拒否を別々に確認する。</p></details>
+</section>
 <div class="page-navigation"><a href="/learn/browser-01">前へ</a><a href="/learn/browser-03">次へ</a></div>
 @code {
     private const long Limit = 64 * 1024;

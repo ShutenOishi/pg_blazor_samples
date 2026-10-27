@@ -24,6 +24,18 @@
     </tbody></table>
     <p>事前レンダリング中にJSを呼ばず、対話型イベントで実行します。回線切断とJS実行失敗は別に扱います。</p>
 </section>
+<section class="lesson-details">
+    <h2>学習順041：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-041">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>回数増加：RazorとC#</td><td>DOMの言語設定：JSモジュール</td><td>JS切断時は再接続を促す。DOMの値を業務認可に使わない。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>C#の回数を1増やし、HTMLの言語設定を読み、ConsoleとNetworkでモジュールを確認する。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>JS切断時は再接続を促す。DOMの値を業務認可に使わない。</p></details>
+</section>
 <div class="page-navigation"><a href="/learn/column/30">前へ：第8組の復習</a><a href="/learn/browser-02">次へ</a></div>
 @code {
     private int count;

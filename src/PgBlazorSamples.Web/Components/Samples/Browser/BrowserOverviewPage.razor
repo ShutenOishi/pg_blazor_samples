@@ -17,6 +17,19 @@
       <tr><th>031</th><td>DIと共通翻訳</td></tr><tr><th>032</th><td>MudDrawerの表示状態</td></tr><tr><th>033</th><td>DateTime?と日本語入力</td></tr><tr><th>034</th><td>入力検証と認可を区別</td></tr><tr><th>035</th><td>Items全件と表示2件</td></tr>
     </tbody></table>
     <p><code>builder.Services.AddMudServices();</code>と<code>builder.Services.AddMudTranslations();</code>を確認し、アプリ固有の日本語と共通翻訳を分けてください。</p>
+    <h2>第9組：ブラウザーとの境界と安全な操作</h2>
+    <table data-testid="stage04-browser-compare">
+        <thead><tr><th scope="col">学習順</th><th scope="col">WinFormsとの主な違い</th><th scope="col">確認する操作</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">041</th><td>C#とDOMの処理場所</td><td>JavaScriptによる言語設定の読取り</td></tr>
+            <tr><th scope="row">042</th><td>ローカルファイルとサーバーストリーム</td><td>拡張子・64 KiBの拒否</td></tr>
+            <tr><th scope="row">043</th><td>サーバーの保存とブラウザーの保存</td><td>CSV・PDFの実ファイル確認</td></tr>
+            <tr><th scope="row">044</th><td>UI復旧と業務処理の原子性</td><td>ErrorBoundaryと処理取消</td></tr>
+            <tr><th scope="row">045</th><td>Tab順・拡大表示・状態通知</td><td>文字でも分かる結果表示</td></tr>
+        </tbody>
+    </table>
+    <p>操作できることと、認証済み本人がその業務を実施する権限を持つことは別です。
+    実業務では既存DB／外部台帳を正本として、出力・更新の都度サーバーで認可します。</p>
     <h2>確認すること</h2>
     <details><summary>ファイルアップロードの検査はブラウザー側だけで十分ですか？</summary><p>いいえ。拡張子とサイズの確認は必ずサーバー側でも行います。ブラウザーが送った情報を信用しません。</p></details>
     <p>この段階のファイルは架空データです。実業務のデータアクセスと認可は後続で学びます。</p>

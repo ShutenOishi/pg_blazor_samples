@@ -258,6 +258,22 @@ async function waitText(page, selector, expected) {
         await page.goto(base + "/learn/column/browser-45");
         await page.getByRole("heading", { name: "第9組の復習：ブラウザー機能と安全な操作" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "browser-review09.png") });
+        // 第9組：本文と同じ学習順、比較表、復習、前後リンク、Web目次を確認する。
+        await page.goto(base + "/learn/stage/browser");
+        await page.locator('[data-testid="stage04-browser-compare"]').waitFor();
+        for (let seq = 41; seq <= 45; seq++) {
+            const id = "browser-0" + (seq - 40);
+            await page.goto(base + "/learn/" + id);
+            await page.locator('[data-testid="browser09-compare-' + seq + '"]').waitFor();
+            await page.getByText("学習順" + seq + "：WinForms＋Dapperとの比較と操作確認").waitFor();
+        }
+        await page.getByRole("link", { name: "次へ" }).waitFor();
+        await page.goto(base + "/learn/column/browser-45");
+        await page.locator('[data-testid="browser09-review-table"]').waitFor();
+        await page.getByRole("link", { name: "次へ：学習順046" }).waitFor();
+        await page.goto(base + "/");
+        await page.getByRole("link", { name: "学習順041〜045を復習" }).waitFor();
+        console.log("第9組041〜045の比較表・復習・Web導線をChromeで検証");
         console.log("第4段階browser-01〜05と第9組の復習を実ブラウザーで確認");
 
         // 第5段階：生成SQLと変更追跡、KeylessモデルはDB未接続でも試す。
