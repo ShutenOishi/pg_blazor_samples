@@ -541,6 +541,45 @@ if "/learn/stage/di" not in nav_di or not all(f"学習順{seq:03d}：" in nav_di
 if 'href="/learn/column/runtime-20"' not in (SAMPLES / "Step11/DiIntroductionPage.razor").read_text(encoding="utf-8"):
     missing.append("学習順020の復習から021への接続が不足")
 
+
+# 第6組：学習順026〜030の本文・Razor画面・PDF・復習を検査する。
+sixth_group = [
+    ("docs/samples/step16.md", "/learn/16", "IOptions", "Step16/OptionsPage.razor"),
+    ("docs/samples/step17.md", "/learn/17", "CancellationToken", "Step17/AsyncLoggingPage.razor"),
+    ("docs/samples/step18.md", "/learn/18", "IClock", "Step18/UnitTestPage.razor"),
+    ("docs/samples/step19.md", "/learn/19", "StepSummaryService", "Step19/ApplicationPage.razor"),
+    ("docs/samples/step20.md", "/learn/20", "ITodoService", "Step20/TodoPage.razor"),
+]
+if [item["id"] for item in ordered[25:30]] != [f"step{n}" for n in range(16, 21)]:
+    missing.append("第6組学習順026〜030の対応が不一致")
+for seq, (filename, url, symbol, razor_name) in enumerate(sixth_group, start=26):
+    content = (ROOT / filename).read_text(encoding="utf-8")
+    if len(content) < 3300 or content.count("| ---") < 2 or content.count(" | ") < 8:
+        missing.append(filename + "：3300文字・比較表・診断表が不足")
+    if content.count("```") < 4 or content.count("```") % 2:
+        missing.append(filename + "：実コード2ブロック以上が必要")
+    if not all(token in content for token in ("WinForms", "Dapper", "演習", "解答", "切り分け", symbol, url)):
+        missing.append(filename + "：実装比較・切り分け・演習・解答が不足")
+    if any(token in content for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
+        missing.append(filename + "：教材へ管理情報を含めない")
+    razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
+    if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="di06-compare-{seq - 10}"' not in razor:
+        missing.append(razor_name + "：URL・表示順・比較表が不一致")
+    if url not in home or f'"{filename}"' not in PDF_SCRIPT:
+        missing.append(filename + "：Web/PDF索引が不足")
+pdf_six = [PDF_SCRIPT.find(f'"{filename}"') for filename, _, _, _ in sixth_group]
+pdf_review6 = PDF_SCRIPT.find('"docs/columns/column16-20.md"')
+pdf_library_di = PDF_SCRIPT.find('"docs/columns/column-library-di.md"')
+pdf_step21 = PDF_SCRIPT.find('"docs/samples/step21.md"')
+if -1 in pdf_six or pdf_six != sorted(pdf_six) or not (pdf_six[-1] < pdf_review6 < pdf_library_di < pdf_step21):
+    missing.append("第6組から復習・ライブラリDI・031へのPDF章順が不正")
+review6 = (ROOT / "docs/columns/column16-20.md").read_text(encoding="utf-8")
+if len(review6) < 3300 or review6.count("| ---") < 2 or review6.count("```") < 4 or "詳しい解答" not in review6:
+    missing.append("第6組復習の長文・コード・表・詳しい解答が不足")
+review_page = (SAMPLES / "Columns/Column20Page.razor").read_text(encoding="utf-8")
+if 'data-testid="di06-review-table"' not in review_page or 'href="/learn/column/library-di"' not in review_page:
+    missing.append("第6組復習Razorと特別コラムへの導線が不足")
+
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")

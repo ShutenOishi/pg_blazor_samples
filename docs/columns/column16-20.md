@@ -1,6 +1,6 @@
-# 学習コラム04：設定・非同期処理・単体テスト・分離を課題管理につなぐ
+# 第6組の復習（学習順026〜030）：設定・非同期・テスト・サービス分離
 
-**対象：Step16〜20。** Step11〜15で学んだDIの基本を使い、Webアプリの画面とサービスを動かした後に読む復習コラムです。
+**対象：学習順026〜030（旧Step16〜20）。** Step11〜15で学んだDIの基本を使い、Webアプリの画面とサービスを動かした後に読む復習コラムです。
 
 ## 5ステップで一つの仕組みを作った
 | ステップ | 新しく学んだこと | 次とのつながり |
@@ -83,3 +83,49 @@ Step19の残り60ステップは**学習用の固定条件**で、現在の全80
 「画面の入力」「DIの登録」「サービスの制約」「保存する場所」「試験の種類」の違いを説明できれば、この段階の中心事項を理解できています。
 
 続く[特別コラム05：ライブラリのDI](column-library-di.md)では、**自作のDIの仕組みを知ることに加え、既存ライブラリが用意したDIを読み、利用する方法**を学びます。その後のMudBlazorで実際に使います。
+
+## 第6組の比較・診断と実践課題
+
+| 学習順 | DIから受け取るもの | WinForms＋Dapperでの対応 | 確認する場所 |
+| --- | --- | --- | --- |
+| 026 | `IOptions<LearningOptions>` | 型付き設定の取得 | `/learn/16` |
+| 027 | `ILogger<AsyncLoggingPage>` | 非同期・取消・ログ | `/learn/17` |
+| 028 | `IClock` | 時刻依存のテスト容易化 | `/learn/18` |
+| 029 | `IStepSummaryService` | Formから計算を分離 | `/learn/19` |
+| 030 | `ITodoService` | 入力画面と処理を分離 | `/learn/20` |
+
+```csharp
+builder.Services.Configure<LearningOptions>(
+    builder.Configuration.GetSection("Learning"));
+builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
+builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
+```
+
+```razor
+@inject ITodoService Tasks
+@code {
+    private void Add()
+    {
+        var success = Tasks.TryAdd(newTitle, out message);
+        if (success) newTitle = "";
+    }
+}
+```
+
+| 症状 | 切り分けの場所 | 確認の基準 |
+| --- | --- | --- |
+| 設定上限の表示と追加結果が違う | `IOptions`と`Math.Clamp` | 画面は生の設定値、サービスは1〜20 |
+| 取消のあと完了表示になる | `Task.Delay`と`ReferenceEquals` | 現行処理以外が状態を変更しない |
+| 12時のテストが失敗 | `GreetingService` | 12時は午後の挨拶 |
+| 65ステップへ進める | `Math.Min`と`Describe` | 練習上限は60 |
+| 6件目を登録できる | `TryAdd` | 初期2件＋追加3件で上限5 |
+
+**統合演習6：** `ILogger<T>`を利用するため、アプリごとに自分でロガー実装を作り`AddScoped`する必要がありますか。
+
+**詳しい解答：** 必要ありません。標準のDIから`ILogger<T>`を取得できます。一方、`ITodoService`と`InMemoryTodoService`の対応はアプリ側で登録しています。ライブラリが何を登録してくれるのかを確認する点が重要です。
+
+**統合演習7：** `InMemoryTodoService`がScopedだからDB保存の代わりになりますか。
+
+**詳しい解答：** なりません。これはメモリ上の練習データであり、永続化、認証、認可、監査、更新競合の処理は実装されていません。実業務のDBへ移すには別途検証が必要です。
+
+復習画面`/learn/column/20`の後は、`/learn/column/library-di`へ進みます。ライブラリのDI登録やProviderを読み取る練習をしてから、MudBlazorを扱う学習順031〜035へ進んでください。

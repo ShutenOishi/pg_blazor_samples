@@ -1,4 +1,6 @@
-# ステップ19：画面からApplicationの計算処理を分離する
+# 学習順29（旧Step19）：画面からApplicationの計算処理を分離する
+
+対象画面は`/learn/19`です。WinForms＋Dapperの経験と結び付けて理解します。
 
 ## このステップでできるようになること
 WinFormsでフォーム内に置いていた計算や業務ルールを、画面と無関係なC#クラスへ移す考え方を学びます。教材ではその効果を見せるため、**一度だけ`PgBlazorSamples.Application`というクラスライブラリを使います**。以後のEF Core編でDomain・Infrastructureなどの層別プロジェクトを増やすことを要求するものではありません。
@@ -32,7 +34,7 @@ public sealed class StepSummaryService : IStepSummaryService
     {
         if (completedSteps is < 0 or > 60)
             throw new ArgumentOutOfRangeException(
-                nameof(completedSteps), "学習済み数は0〜60の範囲です.");
+                nameof(completedSteps), "学習済み数は0〜60の範囲です。");
 
         return completedSteps == 60
             ? "全60ステップを修了しました。"
@@ -90,6 +92,35 @@ builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 **演習2：** 現時点でEF Coreのためにさらに複数の層別プロジェクトを作る必要はありますか。
 
 **解答：** この教材の方針では必要ありません。まずWeb内のサービスやDataで責務を分けます。
+
+## 学習順029：サービス分離の判断とDapperの位置
+`/learn/19`では`ApplicationPage.razor`のボタンが`completed`を更新し、`IStepSummaryService.Describe`が進捗数を文章にします。実装は`StepSummaryService`で、範囲0〜60を超えた入力は`ArgumentOutOfRangeException`で拒否します。この60は練習用の定数であり、現在の全110学習ステップの総数ではありません。WinFormsでフォームのイベント処理から計算を別クラスへ移すのと同じ考え方です。DapperでDB検索するコードも同様にフォームから分離できますが、ここではDBアクセスを実装していません。
+
+| 仕事 | WinForms＋Dapperでの例 | Blazorでの場所 | 意味 |
+| --- | --- | --- | --- |
+| クリック | Formのイベント | `ApplicationPage.razor` | 入力を受け取る |
+| 計算規則 | Form内のメソッドまたは別クラス | `StepSummaryService` | 0〜60の値を検査 |
+| DI登録 | Formでnewする例 | `AddTransient<IStepSummaryService, StepSummaryService>()` | 実装を解決する |
+| DB | DapperでSQL | この教材では使わない | 保存先と別の責任 |
+
+`Math.Min(60, completed + 5)`が画面の増加を60に抑えます。それでもサービス側の範囲検査が不要にはなりません。画面以外から`Describe(61)`を呼ばれてもサービス自身が契約を守るためです。学習上の分割を示すため`Web → Application`という参照関係にしていますが、後続のEF Core学習でDomain/Infrastructureなどのプロジェクトを増やす必要はありません。`Web`内の`Services`と`Data`で責任を分ける方針を維持します。
+
+| 症状 | 切り分けの場所 | 判断 |
+| --- | --- | --- |
+| サービスを解決できない | DIのAddTransient登録 | 登録漏れの可能性 |
+| 数値が65へ進む | `Math.Min` | UI側の上限処理 |
+| 61をサービスが受理する | `Describe` | サービス側の入力検査 |
+| 再読込で進捗が消える | `completed`フィールド | この画面はDB保存なし |
+| レイヤーを増やしたい | 要求される責任分担 | 分割は目的ではない |
+
+### 追加演習と解答
+**演習3：** ボタンが60で止まるなら、`Describe(61)`を拒否しなくてもよいでしょうか。
+
+**解答：** いいえ。ほかの呼出元がサービスへ直接範囲外の値を渡せます。入力範囲の条件はサービス自身が検査します。
+
+**演習4：** この例から「業務画面ごとに新しいプロジェクトを追加する必要がある」と理解してよいでしょうか。
+
+**解答：** いいえ。ここは参照方向を学ぶ教材です。後続のEF Core 10ではWebプロジェクト内の小さなサービスを利用し、必要以上の層別化を避けます。
 
 ## 完了確認
 - [ ] WebからApplicationへの参照方向を説明できる。

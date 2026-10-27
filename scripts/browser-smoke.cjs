@@ -572,7 +572,8 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step16-title"]', "Blazorステップアップ学習");
         await page.getByRole("button", { name: "設定とDIの関係を確認" }).click();
         await waitText(page, '[data-testid="step16-explain"]', "IOptions");
-        console.log("ステップ16：Optionsで設定を読み取れました。");
+        await page.getByTestId("di06-compare-16").waitFor();
+        console.log("学習順026：Options表示と比較表を確認");
 
         await page.goto(base + "/learn/17");
         await page.waitForTimeout(1100);
@@ -582,20 +583,29 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "非同期処理を開始する" }).click({ noWaitAfter: true });
         await page.getByRole("button", { name: "処理を取り消す" }).click();
         await waitText(page, '[data-testid="step17-state"]', "処理を取り消しました");
-        console.log("ステップ17：非同期処理の完了と取り消しに成功");
+        await page.getByTestId("di06-compare-17").waitFor();
+        console.log("学習順027：非同期処理の完了・取消と診断表を確認");
 
         await page.goto(base + "/learn/18");
         await page.waitForTimeout(1100);
         await waitText(page, '[data-testid="step18-morning"]', "おはようございます");
         await waitText(page, '[data-testid="step18-afternoon"]', "こんにちは");
-        console.log("ステップ18：固定時計の結果を確認");
+        await page.getByTestId("di06-compare-18").waitFor();
+        console.log("学習順028：固定時計の結果と比較表を確認");
 
         await page.goto(base + "/learn/19");
         await page.waitForTimeout(1100);
         await waitText(page, '[data-testid="step19-summary"]', "残り60ステップ");
         await page.getByRole("button", { name: "5ステップ学習した" }).click();
         await waitText(page, '[data-testid="step19-summary"]', "残り55ステップ");
-        console.log("ステップ19：ApplicationサービスをDI経由で利用");
+        for (let i = 0; i < 11; i++) {
+            await page.getByRole("button", { name: "5ステップ学習した" }).click();
+        }
+        await waitText(page, '[data-testid="step19-summary"]', "全60ステップを修了");
+        await page.getByRole("button", { name: "5ステップ学習した" }).click();
+        await waitText(page, '[data-testid="step19-count"]', "60");
+        await page.getByTestId("di06-compare-19").waitFor();
+        console.log("学習順029：Applicationの練習用60件上限を確認");
 
         await page.goto(base + "/learn/20");
         await page.waitForTimeout(1100);
@@ -606,10 +616,21 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "課題を追加する" }).click();
         await waitText(page, '[data-testid="step20-count"]', "3");
         await page.getByRole("checkbox", { name: "ライブラリDIを復習する" }).check();
-        console.log("ステップ20：空欄拒否、追加、完了切替を確認");
+        await page.getByTestId("di06-compare-20").waitFor();
+        for (const title of ["追加課題A", "追加課題B"]) {
+            await page.getByRole("textbox", { name: "練習用の課題名（1〜40文字）" }).fill(title);
+            await page.getByRole("button", { name: "課題を追加する" }).click();
+        }
+        await waitText(page, '[data-testid="step20-count"]', "5");
+        await page.getByRole("textbox", { name: "練習用の課題名（1〜40文字）" }).fill("上限超過");
+        await page.getByRole("button", { name: "課題を追加する" }).click();
+        await waitText(page, '[data-testid="step20-message"]', "最大5件");
+        await waitText(page, '[data-testid="step20-count"]', "5");
+        console.log("学習順030：追加・完了・6件目拒否を確認");
 
         await page.goto(base + "/learn/column/20");
         await page.getByText("DIを利用して画面の責任を小さくする").waitFor();
+        await page.getByTestId("di06-review-table").waitFor();
         await page.goto(base + "/learn/column/library-di");
         await waitText(page, '[data-testid="library-di-title"]', "Blazorステップアップ学習");
         await page.getByRole("button", { name: "ILoggerで学習用ログを書く" }).click();

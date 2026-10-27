@@ -117,3 +117,10 @@
 旧Step11〜15に対応する各本文、第5組復習、第3段階概要を実コードと照合して改稿済み。第3段階のRazor概要、DI比較表、前後リンク、Web/PDF目次、品質ゲート、Chrome導線も同期した。実装HEAD `5472f4edf054b62c998f8d431a3222f874f6d739` のアプリ Run 40422500932、PDF Run 40422500829 はすべてSUCCESS。Preview Releaseの生成元SHAと日本語PDF単体Asset（1,243,463バイト、SHA256 `8875f5e4371134099a49fe4f17189d8c62a89ccc5f9da2dd704a7fedfc6a0cbd`）も認証済みGETで一致したため、25/110・第5組5/22・第3段階概要3/9を受入計上する。記録更新後の最新HEADについてもCIとPreview Release生成元を再照合する。
 
 次の第6組026〜030は旧Step16〜20である。順にOptions、非同期処理とログ、xUnit、Application分離、DI課題管理を全面改稿し、復習第6組と特別コラム（ライブラリDI）の後続導線を一致させる。既存の旧80ステップURLとDraft状態を維持する。
+
+## 2026-10-27 学習順026〜030・第6組復習の全面改稿実装（CI受入待ち）
+- 既存Razor/C#のOptions、ILoggerとCancellationToken、固定時計xUnit、Applicationの進捗サービス、ITodoServiceとInMemoryTodoServiceを読み、旧Step16〜20の本文を長文改稿。WinForms＋Dapper比較表、診断・切り分け表、実コード2ブロック以上、操作・演習・詳細解答を整備した。
+- 画面に学習順026〜030と比較・診断表を追加し、第6組復習の表、既存Web/ナビ/PDF順、ライブラリDI特別コラムへの導線を同期。Step17の重複開始で古い非同期処理の完了・取消が新しい表示を上書きする競合を現行CancellationTokenSourceの参照照合で防止した。
+- 教材品質ゲートを第6組の3300文字・複数表・コード・Web/PDF順へ拡張。Chrome E2Eに026〜030の表表示、Step19練習用60上限、Step20上限5件・6件目拒否、第6組復習を追加。Step19の60は全110本の教材総数と区別する。
+- **同一HEADのWindows Server 2025/Linux、xUnit、Chrome、PostgreSQL18実DBと安全拒否、日本語PDFの全CI成功、Preview Release生成元SHAとAsset照合が完了するまでは、確定進捗を新規初稿30/30、全面改稿25/110、通常復習5/22、段階概要3/9に据え置く。** 実AD/IIS/Kerberos/FDW未受入。正式main/Release、旧80 URL、Draft、認可・監査・安全拒否の条件を維持。
+- 成功受入後の次工程は学習順031〜035（旧Step21〜25：MudBlazor導入・レイアウト・日本語入力・MudForm・MudTable）、第7組復習と第4段階概要の改稿。実Razor・日本語長文・Web/PDF・品質ゲート・Chromeを揃えて検証する。

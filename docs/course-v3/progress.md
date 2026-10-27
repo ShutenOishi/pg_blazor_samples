@@ -160,3 +160,10 @@
 - [x] 実装HEAD `5472f4edf054b62c998f8d431a3222f874f6d739` のアプリCI [Run 40422500932](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40422500932) はWindows Server 2025/Linux・xUnit・Chrome実操作・PostgreSQL18実DB結合と既存安全拒否試験を含む全ジョブSUCCESS。PDF [Run 40422500829](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40422500829) もSUCCESS。
 - [x] [Preview Release](https://github.com/ShutenOishi/pg_blazor_samples/releases/tag/learning-textbook-v3-preview) にZIPなしの日本語PDF単体を同HEADから公開。認証済みGitHub GETで生成元SHA `5472f4ed...` とPDF Asset ID `679868970`、1,243,463バイト、SHA256 `8875f5e4371134099a49fe4f17189d8c62a89ccc5f9da2dd704a7fedfc6a0cbd` を照合。
 - **確定受入：新規初稿30/30、最終全面改稿25/110、通常復習5/22、段階概要3/9。** 次は026〜030・第6組復習、DI特別コラムとの接続を全面改稿する。記録更新後の最新HEADも新たに同一HEAD CIとPreview Asset GETで確認する。
+
+## 2026-10-27 学習順026〜030・第6組復習の全面改稿実装（CI受入待ち）
+- 既存Razor/C#のOptions、ILoggerとCancellationToken、固定時計xUnit、Applicationの進捗サービス、ITodoServiceとInMemoryTodoServiceを読み、旧Step16〜20の本文を長文改稿。WinForms＋Dapper比較表、診断・切り分け表、実コード2ブロック以上、操作・演習・詳細解答を整備した。
+- 画面に学習順026〜030と比較・診断表を追加し、第6組復習の表、既存Web/ナビ/PDF順、ライブラリDI特別コラムへの導線を同期。Step17の重複開始で古い非同期処理の完了・取消が新しい表示を上書きする競合を現行CancellationTokenSourceの参照照合で防止した。
+- 教材品質ゲートを第6組の3300文字・複数表・コード・Web/PDF順へ拡張。Chrome E2Eに026〜030の表表示、Step19練習用60上限、Step20上限5件・6件目拒否、第6組復習を追加。Step19の60は全110本の教材総数と区別する。
+- **同一HEADのWindows Server 2025/Linux、xUnit、Chrome、PostgreSQL18実DBと安全拒否、日本語PDFの全CI成功、Preview Release生成元SHAとAsset照合が完了するまでは、確定進捗を新規初稿30/30、全面改稿25/110、通常復習5/22、段階概要3/9に据え置く。** 実AD/IIS/Kerberos/FDW未受入。正式main/Release、旧80 URL、Draft、認可・監査・安全拒否の条件を維持。
+- 成功受入後の次工程は学習順031〜035（旧Step21〜25：MudBlazor導入・レイアウト・日本語入力・MudForm・MudTable）、第7組復習と第4段階概要の改稿。実Razor・日本語長文・Web/PDF・品質ゲート・Chromeを揃えて検証する。

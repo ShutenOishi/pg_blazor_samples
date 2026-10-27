@@ -3,7 +3,7 @@
 @inject ITodoService Tasks
 
 <PageTitle>ステップ20：DI総合演習｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ20 / DI総合演習</p>
+<p class="eyebrow">学習順30 / 旧Step20 / DI総合演習</p>
 <h1>DIサービスで学習課題の一覧を操作する</h1>
 <p>画面は <code>ITodoService</code> を使うだけです。保存先を知らずに課題の追加・完了を扱います。</p>
 <section class="lesson-details">
@@ -30,6 +30,17 @@
   <h2>学習のポイント</h2>
   <p>サービスはScoped登録です。DBは使わず、同じcircuitに限って練習用課題を保持します。画面を切断すると内容が失われる場合があります。</p>
   <p>続くコラムでは自作のDIを復習し、ライブラリが提供するDIの読み方も確認します。</p>
+</section>
+<section class="lesson-details" aria-label="学習順30の比較と切り分け">
+  <h2>WinForms＋Dapperとの比較</h2>
+  <table data-testid="di06-compare-20">
+    <thead><tr><th>対象</th><th>従来の設計</th><th>今回の実装</th></tr></thead>
+    <tbody><tr><td>課題一覧の管理</td><td>DapperでDB保存する設計もある</td><td>Scopedサービスのメモリ一覧を使う</td></tr></tbody>
+  </table>
+  <h2>症状から切り分ける</h2>
+  <table><thead><tr><th>症状・誤解</th><th>確認方法</th></tr></thead>
+    <tbody><tr><td>データベースへ永続化されない</td><td>TryAddの上限と入力制約を確認</td></tr></tbody></table>
+  <p>実際のコードと詳しい解説、演習・解答は同じ学習順の日本語教材で確認します。</p>
 </section>
 <div class="page-navigation"><a href="/learn/19">前へ：ステップ19</a><a href="/learn/column/20">コラム04：復習へ</a><a href="/learn/column/library-di">コラム05：ライブラリDIへ</a></div>
 @code {

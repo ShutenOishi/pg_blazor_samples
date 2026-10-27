@@ -3,7 +3,7 @@
 @inject ILogger<AsyncLoggingPage> Logger
 
 <PageTitle>ステップ17：非同期とログ｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ17 / 非同期処理</p>
+<p class="eyebrow">学習順27 / 旧Step17 / 非同期処理</p>
 <h1>処理の完了と取り消しを画面で観察する</h1>
 <p>時間のかかる処理を模して、<code>Task.Delay</code> と <code>CancellationToken</code> を体験します。</p>
 <section class="lesson-details">
@@ -19,6 +19,17 @@
   <h2>注意点</h2>
   <p>Blazor Interactive Serverではサーバーでイベントが実行されます。画面を離れるときに処理を中断する設計が重要です。</p>
   <p>本教材は外部通信を行わず、実際の業務データをログに記録しません。</p>
+</section>
+<section class="lesson-details" aria-label="学習順27の比較と切り分け">
+  <h2>WinForms＋Dapperとの比較</h2>
+  <table data-testid="di06-compare-17">
+    <thead><tr><th>対象</th><th>従来の設計</th><th>今回の実装</th></tr></thead>
+    <tbody><tr><td>非同期処理</td><td>WinFormsではPCでイベント処理する</td><td>Blazorではサーバーでイベントを処理する</td></tr></tbody>
+  </table>
+  <h2>症状から切り分ける</h2>
+  <table><thead><tr><th>症状・誤解</th><th>確認方法</th></tr></thead>
+    <tbody><tr><td>取消の通知はDB更新の巻戻しではない</td><td>Task.Delayと現行処理を確認</td></tr></tbody></table>
+  <p>実際のコードと詳しい解説、演習・解答は同じ学習順の日本語教材で確認します。</p>
 </section>
 <div class="page-navigation"><a href="/learn/16">前へ：ステップ16</a><a href="/learn/18">次へ：ステップ18</a></div>
 @code {
@@ -38,12 +49,16 @@
         try
         {
             await Task.Delay(800, current.Token);
-            state = "処理が完了しました。";
-            Logger.LogInformation("ステップ17の練習用非同期処理が完了しました。");
+            if (ReferenceEquals(cancellation, current))
+            {
+                state = "処理が完了しました。";
+                Logger.LogInformation("ステップ17の練習用非同期処理が完了しました。");
+            }
         }
         catch (OperationCanceledException)
         {
-            state = "処理を取り消しました。";
+            if (ReferenceEquals(cancellation, current))
+                state = "処理を取り消しました。";
         }
         finally
         {

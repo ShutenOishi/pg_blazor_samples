@@ -4,7 +4,7 @@
 @inject IOptions<LearningOptions> Settings
 
 <PageTitle>ステップ16：Optionsパターン｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">ステップ16 / 設定とDI</p>
+<p class="eyebrow">学習順26 / 旧Step16 / 設定とDI</p>
 <h1>設定ファイルの値を型付きサービスで受け取る</h1>
 <p>Optionsパターンを使うと、画面は設定ファイルの解析方法を知る必要がありません。</p>
 <section class="lesson-details">
@@ -21,6 +21,17 @@
   <h2>重要な区別</h2>
   <p><code>Configure&lt;LearningOptions&gt;(...)</code> は設定値をOptionsサービスに結び付ける登録です。毎回設定ファイルを読み直す仕組みではありません。</p>
   <p>学習用の上限値はサービス側でも検査します。画面表示だけでは入力制限になりません。</p>
+</section>
+<section class="lesson-details" aria-label="学習順26の比較と切り分け">
+  <h2>WinForms＋Dapperとの比較</h2>
+  <table data-testid="di06-compare-16">
+    <thead><tr><th>対象</th><th>従来の設計</th><th>今回の実装</th></tr></thead>
+    <tbody><tr><td>設定の受取り</td><td>WinFormsではフォームから設定を取得する場合がある</td><td>BlazorではIOptionsから値を取得する</td></tr></tbody>
+  </table>
+  <h2>症状から切り分ける</h2>
+  <table><thead><tr><th>症状・誤解</th><th>確認方法</th></tr></thead>
+    <tbody><tr><td>設定値と課題サービスの上限が異なる</td><td>Learning節とMath.Clampを確認</td></tr></tbody></table>
+  <p>実際のコードと詳しい解説、演習・解答は同じ学習順の日本語教材で確認します。</p>
 </section>
 <div class="page-navigation"><a href="/learn/15">前へ：ステップ15</a><a href="/learn/17">次へ：ステップ17</a></div>
 @code { private bool showCode; }
