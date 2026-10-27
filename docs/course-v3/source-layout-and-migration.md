@@ -1,0 +1,82 @@
+# 学習順001〜110：ソースコード構造の教材化と配置改善計画
+
+## 対象と受入の区別
+
+この教材はWeb画面の操作だけでなく、GitHubで実際のソースを開き、処理の入口からテストまで追うための教材でもある。ソースの構造・命名・依存関係自体が分かりにくければ改善する。
+
+**本資料は構造監査と移行計画の初稿。ファイル移動、全110件の依存追跡、移行後CIの完了を示すものではない。** 正本は[Issue #38](https://github.com/ShutenOishi/pg_blazor_samples/issues/38)と[カリキュラム](curriculum.json)。学習順001〜110を唯一の学習番号として使う。
+
+## 現在確認できる構造上の課題
+
+| 現行の場所 | 内容 | 学習者にとっての課題と改善候補 |
+| --- | --- | --- |
+| [Samples/Step01](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor) から Samples/Step80 | 既存80画面の格納 | 物理ディレクトリの番号が現在の学習順と一致しない。例：FirstPage.razorは学習順006。学習順のファイル名・段階分類へ段階的に移行する |
+| [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加30画面 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
+| [docs/samples](../samples/step01.md) と [course-v3/lessons](lessons/web-01.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
+| [Services/Learning](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[Data](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs) | 複数教材で共用する処理 | 何を共用し、どの画面から呼ぶかが教材の索引だけでは分からない。依存先を追加し、必要な責務分離を検討する |
+| [UnitTests](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)、[database](../../database/schema/001_learning_task.sql)、[JS](../../src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js) | 単体・結合・SQL・ブラウザー処理 | 画面から正常系・拒否系の試験と実装を一緒に見つけられるようにする |
+
+以上は**確認された配置と監査対象**を示す。個々のサービス・テストがどの学習順と直接対応するかは、呼出しとテストコードを調べて確定する。見た目の近さだけで対応を推測しない。
+
+## 目標とするファイル構成（未実装の例）
+
+次は候補であり、まだ存在するとは限らない。
+
+```text
+src/PgBlazorSamples.Web/
+  Components/Lessons/
+    Stage01/
+      L001WebExecutionPage.razor
+    Stage02/
+      L006FirstBlazorPage.razor
+    Stage05/
+      L052SqlAndLinqPage.razor
+  Services/Learning/
+    （責務ごとに整理した共通の業務・学習サービス）
+  Data/
+    （複数の教材で共用するDbContext・モデル）
+  wwwroot/js/
+    （明示的にJSを必要とする学習用モジュール）
+docs/course-v3/
+  lessons/
+    001-web-execution.md
+    006-first-blazor.md
+    052-sql-and-linq.md
+  reviews/  （復習22組）
+  stages/   （段階概要9件）
+  source-map.json
+tests/
+  （実装単位・機能単位の単体/結合テスト）
+database/
+  schema/
+  seed/
+  tests/
+```
+
+### 配置規則
+
+1. **学習入口は学習順**：Razor/教材の主ファイル名には3桁の学習順を置き、9段階のフォルダーから探せるようにする。旧番号の読み替えを要求しない。
+2. **共有コードは機能名で命名**：複数の学習項目が使う認可・DBアクセス・DTO・監査を学習順ごとに複製しない。共有サービスに不用意な学習番号を付けず、教材から実際の呼出箇所へリンクする。
+3. **イベント→サービス→DB/JS→テストをたどる**：Razorのコードから、必要な依存登録、DTO、EF Core/SQL、JavaScript、テストに進める。DBや認可を使わない学習項目に架空の依存を増やさない。
+4. **実例と説明用コードを区別**：実装抜粋は実際の署名・戻り値・失敗時動作と一致させる。模擬判定、SQL生成のみ、実DB接続、実AD/IIS/FDWは別扱いにする。
+5. **短い学習単位の維持**：内容に関係のない巨大Razorや、意味のない多層抽象化は避ける。UIとビジネスルールの分離は必要な範囲で行う。共通化のための重複も避ける。
+6. **移行と互換性を区別**：内部ファイル名やnamespaceは改善可能だが、既存の公開URLの別名は維持する。移動したパスを参照するリンク、CSS、JS、DI、テスト、PDF目次ソースを同期し、監査証跡は書き換えない。
+
+## 学習者がソースを追うための確認例
+
+**学習順006**：現在の[教材](../samples/step01.md)から[FirstPage.razor](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor)へ移動し、ページのルート、表示のHTML、学習順とファイル名の不一致を観察する。将来の物理移行後は「学習順006」からファイル名を直接見つけられることを確認する。
+
+**学習順052**：現在の[教材](lessons/db-bridge-02.md)から[DbBridge02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
+
+**学習順107**：現在の[教材](lessons/capstone-02.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
+
+## 移行順と合格条件
+
+- [ ] **監査**：110件すべての教材→Razor→C#/SQL/JS→テストの実際の参照関係を記録し、未検証を明示する。
+- [ ] **設計**：段階/ファイル名の規則と共通コードの責務を確定し、不要な移動・分割を避ける。
+- [ ] **小単位の移行**：学習順または段階単位で物理配置を変える。同じPR差分でRazorの参照、namespace、静的ファイル、教材、目次、全リンク、検査を修正する。
+- [ ] **自動検査**：110件の入口の一意性、リンク先の実在、重複・旧番号の利用者向け表示、互換URL、テストの対応を検査する。
+- [ ] **実動作受入**：各新HEADのWindows/Linuxビルド、xUnit、Chrome、PostgreSQL18学習用実DBの必要なCIがSUCCESSであることを確認する。成功済みCIは再実行しない。
+- [ ] **安全**：ADは本人認証のみ。既存DB台帳の都度認可、権限失効、監査失敗、xmin競合、FDW原子性不明時の安全拒否は維持。実機SITE PASS 0/15・NOT_RUN 15/15は無許可で変更しない。正式PDF Releaseは全残作業の受入前に更新しない。
+
+記録では **「画面が動く」「対応コードが読める」「構造が理解しやすい」「単体・実DB試験の根拠がある」「現地実機受入」** を別々の項目として判定し、完成率を混同しない。
