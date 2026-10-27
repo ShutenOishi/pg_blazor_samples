@@ -1,3 +1,14 @@
+## 2026-10-27 第16組076〜080・復習の全面改稿（PDF停止継続）
+
+- **教材・画面同期実装HEAD：`8e00e0c5b523a286ea25f7c8c77dcae51cddea2f`**。学習順076〜080（旧Step56〜60）の本文は **5,612／5,157／5,267／5,445／5,286文字**、第16組復習は **4,090文字**。いずれも3,300文字以上で、実コード2例以上、WinForms＋Dapper比較表、画面操作、障害切り分け、演習と詳しい解答を収録した。
+- PostgreSQL daterangeの半開区間とOverlaps、Scopedキャッシュの架空A/B・権限版、DB側GroupByとCSVの100件上限／101件拒否、固定SELECTのEXPLAINと20回のP95/P99、10方式の選定を実`LearningRangeExportService`／`LearningCacheLessonService`／`LearningPerformanceService`／Razorと照合した。学習用UIに実AD本人認証・業務認可が実装されているとは扱わない。
+- **同一実装HEADのアプリCI：** [Run 40498774402](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40498774402) **SUCCESS**。Windows Server 2025 Release・xUnit・静的教材品質検査、Ubuntu 24.04 Release・xUnit・実Chrome操作、PostgreSQL18実DB結合・既存安全拒否の全3ジョブSUCCESS。先行した検査のゼロ埋め／索引照合の不一致を修復しており、先行失敗Runを成功扱いしていない。
+- **PDF Workflow：** [Run 40498774601](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40498774601) **SKIPPED**。PDF生成・再生成、Preview Release・正式Release更新はユーザーの明示的な再開指示まで**一切禁止**。PDF目次の`scripts/build_docs_pdf.py`は**ソースの章名のみ**同期しておりスクリプトは実行しない。既存Preview生成元SHA `5d3d98cf8f9110f3cd2ea09014c1911bc7ff1c71`、Asset ID `680751957`、1,468,826バイト、SHA256 `276fed44ef3e004a67cf861122b659acfe0fce78c057f905c791e625296ba23f`を保持する。新HEADとPDF生成元SHAの差は意図どおりである。
+- 旧URL `/learn/56`〜`/learn/60`、第16組復習 `/learn/column/60`、Home/NavMenu、前後リンク（第15組復習→076〜080→第16組復習→081）、静的品質検査、ChromeとPDF目次**ソースのみ**を同期。第6段階概要は既改稿のため変更しない。
+- **教材実装検証後の進捗：新規初稿30/30、全面改稿80/110、通常復習16/22、段階概要6/9**。**本記録更新コミットでさらに最新HEADが変わるため、記録更新後の同一HEADについて全3アプリCI SUCCESSとPDF Workflow SKIPPEDを再照合してから最終受入確定する。** それまでは実装HEADの合格と記録更新HEADの受入を区別し、PDF関連受入は保留とする。
+- 安全条件：PR #36はDraft/openでmain未マージ、旧80 URLを維持。ADは本人認証とユーザー名取得のみ、操作・行単位の業務認可は既存DB／外部台帳を都度照合。監査・権限失効・xmin競合・FDW原子性不明時の安全拒否を維持。**実AD/IIS/Kerberos/FDWと1万人超の実機受入は未完了**でありCIと混同しない。
+- **次工程：学習順081〜085（security-01〜05）、第17組復習、第7段階概要**を実Razor/C#/SQLに照合して全面改稿し、本文3,300文字以上、実コード2件以上、WinForms＋Dapper比較表、手順、切り分け、演習・詳答、Web／PDF目次**ソースのみ**、静的検査、Chromeを同期する。次回も同一記録HEADのアプリCI全3成功を受入条件とする。PDF停止継続。
+
 ## 2026-10-27 第15組受入・次チャットへの引き継ぎ（PDF生成停止）
 
 - GitHubを唯一の正本として、Draft PR #36の最新HEAD、`docs/course-v3/progress.md`、`full-rewrite-roadmap.md`、`curriculum.json`、本引き継ぎ、最新PRコメント、同一HEADの全CIを**認証済みGET**で確認する。
