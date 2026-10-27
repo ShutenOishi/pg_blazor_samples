@@ -513,7 +513,7 @@
       "source": "docs/course-v3/lessons/db-bridge-01.md",
       "url": "/learn/db-bridge-01",
       "implementation": "implemented-ci-passed",
-      "rewrite": "first-draft"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 47,
@@ -524,7 +524,7 @@
       "source": "docs/samples/step31.md",
       "url": "/learn/31",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 48,
@@ -535,7 +535,7 @@
       "source": "docs/samples/step32.md",
       "url": "/learn/32",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 49,
@@ -546,7 +546,7 @@
       "source": "docs/samples/step33.md",
       "url": "/learn/33",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 50,
@@ -557,7 +557,7 @@
       "source": "docs/samples/step34.md",
       "url": "/learn/34",
       "implementation": "existing",
-      "rewrite": "recheck-required"
+      "rewrite": "final-reviewed-ci-passed"
     },
     {
       "sequence": 51,
