@@ -87,6 +87,8 @@ public sealed class WindowsAccessIntegrationTests
                     $"UPDATE learning_existing_user_ci SET can_read = {true}, authorization_version = authorization_version + 1 WHERE login_name = {login}");
             }
             Assert.Equal("allowed", (await access.ReadCurrentAsync()).Code);
+            // 権限許可時もDB正本の版を投影する。Scopedヒントキャッシュの失効キーとなる。
+            Assert.Equal(1L, (await access.ReadCurrentAsync()).AuthorizationVersion);
             Assert.Contains("learning.read", (await access.ReadCurrentAsync()).Permissions!);
             Assert.DoesNotContain(login, (await access.ReadCurrentAsync()).IdentityHint);
 

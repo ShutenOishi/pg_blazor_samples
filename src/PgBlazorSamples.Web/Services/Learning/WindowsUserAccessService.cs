@@ -117,7 +117,8 @@ public sealed class WindowsUserAccessService(
                 AuthorizationVersion: user.AuthorizationVersion);
 
             return new("allowed", "Windows認証済みユーザー名と既存台帳の有効状態・閲覧権限が成立しました。", hint,
-                user.DisplayName, Permissions: permissions, UnitCode: user.UnitCode);
+                user.DisplayName, Permissions: permissions, UnitCode: user.UnitCode,
+                AuthorizationVersion: user.AuthorizationVersion);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
