@@ -1588,9 +1588,17 @@
       "app_url": "/learn/capstone-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/110"
+      "canonical_url": "/learn/110",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L110AcceptanceLedger.cs",
+        "tests/PgBlazorSamples.UnitTests/L110AcceptanceLedgerTests.cs",
+        "scripts/browser-smoke.cjs",
+        "docs/course-v3/on-site-acceptance-plan.md"
+      ],
+      "notes": "Razor→L110AcceptanceLedgerの読み取り専用CI/PRE/SITE状態→xUnit/Chrome。実現地証拠未実施。新HEAD CI待ち。"
     }
   ]
 }

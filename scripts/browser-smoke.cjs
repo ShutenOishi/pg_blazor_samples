@@ -1592,8 +1592,12 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="capstone04-summary"]', "拒否");
         console.log("学習順109：匿名Chromeの閲覧/編集権限・部署一覧0件・集計を安全拒否。架空Negotiate主体・台帳失効・監査はPG18別試験");
 
-        await page.goto(base + "/learn/capstone-05");
+        await page.goto(base + "/learn/110");
         await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="capstone05-ci-state"]', "NOT_VERIFIED");
+        await waitText(page, '[data-testid="capstone05-site-summary"]', "SITE：PASS 0/15・NOT_RUN 15/15");
+        if (await page.locator('[data-testid="capstone05-acceptance-ledger"] tbody tr').count() !== 22)
+            throw new Error("学習順110：PRE 7件とSITE 15件の未実施台帳が必要です。");
         await page.getByRole("button", { name: "受入の不足を確認する" }).click();
         await waitText(page, '[data-testid="capstone05-result"]', "受入に不足");
         for (const label of ["コード・日本語教材・Web目次・PDFの内容が一致する",
@@ -1604,6 +1608,8 @@ async function waitText(page, selector, expected) {
         }
         await page.getByRole("button", { name: "受入の不足を確認する" }).click();
         await waitText(page, '[data-testid="capstone05-result"]', "本番受入を宣言できません");
+        await waitText(page, '[data-testid="capstone05-site-summary"]', "SITE：PASS 0/15・NOT_RUN 15/15");
+        console.log("学習順110：CI NOT_VERIFIED、PRE 7/7 NOT_RUN、SITE PASS0/15・NOT_RUN15/15。全チェック後も本番受入不可");
         await page.goto(base + "/learn/column/capstone-110");
         await page.getByRole("heading", { name: "第22組の復習：業務アプリの通し演習" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "capstone-review22.png") });

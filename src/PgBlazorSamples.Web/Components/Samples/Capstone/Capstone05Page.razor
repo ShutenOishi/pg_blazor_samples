@@ -1,5 +1,6 @@
 @page "/learn/110"
 @page "/learn/capstone-05"
+@using PgBlazorSamples.Web.Services.Learning
 <PageTitle>学習順110：E2E・障害復旧・IIS受入表｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第9段階 / 学習順110</p>
 <h1>E2E・障害復旧・IIS受入表</h1>
@@ -13,6 +14,20 @@
 <label><input type="checkbox" @bind="_serverVerified" /> 実IIS/AD/Kerberos・証明書・負荷・復旧の実機受入証跡がある</label>
 <button type="button" @onclick="Check">受入の不足を確認する</button>
 <p role="status" data-testid="capstone05-result">@_status</p>
+<h2>CI・PRE・SITEの独立した証拠区分</h2>
+<p data-testid="capstone05-ci-state">CI：@L110AcceptanceLedger.NotVerified（この画面はGitHubのRunとHEADを自動取得しません）</p>
+<p data-testid="capstone05-site-summary">PRE：NOT_RUN @L110AcceptanceLedger.PreCases.Count/@L110AcceptanceLedger.PreCases.Count、SITE：PASS 0/@L110AcceptanceLedger.SiteCases.Count・NOT_RUN @L110AcceptanceLedger.SiteCases.Count/@L110AcceptanceLedger.SiteCases.Count</p>
+<table data-testid="capstone05-acceptance-ledger"><thead><tr><th scope="col">証拠ID</th><th scope="col">現時点の状態</th></tr></thead><tbody>
+@foreach (var entry in L110AcceptanceLedger.PreCases)
+{
+<tr><td>@entry.Id</td><td>@entry.State</td></tr>
+}
+@foreach (var entry in L110AcceptanceLedger.SiteCases)
+{
+<tr><td>@entry.Id</td><td>@entry.State</td></tr>
+}
+</tbody></table>
+<p>PRE・SITEの正本は <code>docs/course-v3/on-site-acceptance-plan.md</code> です。状態は教材作成時点の未実施一覧であり、この画面のチェック操作では更新しません。CI、PRE、SITEを互いの代用にしません。</p>
 <h2>確認結果は実機合格の証明ではない</h2>
 <p>入力は自己点検です。実機受入の証跡なしに本番移行してはいけません。失敗時は更新の二重実行、監査欠落、鍵消失、権限失効、復旧時間を確認します。</p>
 <table><thead><tr><th scope="col">確認対象</th><th scope="col">検証場所</th></tr></thead><tbody>
@@ -30,13 +45,7 @@
     private string _status = "未確認です。";
     private void Check()
     {
-        var missing = new List<string>();
-        if (!_sourceVerified) missing.Add("教材とコードの整合");
-        if (!_ciVerified) missing.Add("自動CIの証跡");
-        if (!_denialsVerified) missing.Add("拒否・競合・監査失敗の検証");
-        if (!_serverVerified) missing.Add("Windows Server 2025/IIS/ADの実機受入");
-        _status = missing.Count > 0
-            ? "受入に不足： " + string.Join("、", missing)
-            : "自己点検の項目は選択されました。実機・CIの証跡が独立して確認できるまでは本番受入を宣言できません。";
+        _status = L110AcceptanceLedger.AssessSelfCheck(
+            _sourceVerified, _ciVerified, _denialsVerified, _serverVerified);
     }
 }

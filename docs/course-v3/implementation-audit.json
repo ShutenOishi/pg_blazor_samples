@@ -645,16 +645,22 @@
       "lesson_path": "docs/course-v3/lessons/capstone-05.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
       "canonical_url": "/learn/110",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L110AcceptanceLedger.cs",
+        "tests/PgBlazorSamples.UnitTests/L110AcceptanceLedgerTests.cs",
+        "scripts/browser-smoke.cjs",
+        "docs/course-v3/on-site-acceptance-plan.md"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "CIのHEAD/Run証拠とPRE-01〜07・SITE-01〜15の未実施状態を独立表示。自己点検の全チェックでも本番受入を禁止。xUnitで台帳7+15件とNOT_RUNを固定検証、Chromeで同一の安全拒否を確認対象とする。",
       "missing_behavior": "現状は自己点検。CI証跡と現地PRE/SITEを自動的に合格へ変更しない受入台帳への導線",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L110AcceptanceLedgerTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 CIはアプリで自動取得しないためNOT_VERIFIED。PRE 7件未承認、SITE 0/15 PASS・15/15 NOT_RUNを固定維持。全CI成功後でもSITE受入に変更しない。"
     }
   ]
 }

@@ -3,20 +3,14 @@
 **実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor)。画面の正規URLは `/learn/110` です。
 
 ## 自動試験と現地受入
-Capstone05Page.razorには教材・実装の一致、CI証跡、拒否の検証、実IIS/AD/Kerberos・負荷・復旧の四項目があります。すべて選んでも「本番受入を宣言できません」と表示され、チェック欄だけで現地証拠を作らない仕様です。Windows Server 2025 Release、Linux Chrome、xUnit、PostgreSQL18のCIは自動検証です。CapstoneIntegrationTestsでは架空12行の検索、10行ページング、xmin競合とRollbackを試します。実IIS、Kerberos/SPN、HTTPS、Data Protection鍵、FDW、1万人超登録・同時circuit・DBプール、切戻しは未受入であり、実機と運用ログで検証します。WinForms＋Dapperのデスクトップ導入試験とWebサービスのサーバー側運用受入を同一視しません。
+Capstone05Page.razorには教材・実装の一致、CI証跡、拒否の検証、実IIS/AD/Kerberos・負荷・復旧の四項目があります。加えてL110AcceptanceLedgerの読み取り専用未実施一覧を表示し、CIはNOT_VERIFIED、PRE-01〜07はNOT_RUN 7/7、SITE-01〜15はPASS 0/15・NOT_RUN 15/15と明示します。ここでいうNOT_VERIFIEDはGitHub CIが未成功という意味ではなく、画面が現在のHEADとRunを自動照合しないという意味です。正式な実証はGitHub上の同一HEAD CI、現地PRE承認、SITE実測と署名を独立に照合します。すべて選んでも「本番受入を宣言できません」と表示され、チェック欄だけで現地証拠を作らない仕様です。L110AcceptanceLedgerTestsではPRE/SITE件数と全NOT_RUN、すべての自己点検欄を選んでも判定が変わらないことを検証し、Chromeでも22行と独立区分、チェック操作後のPASS0を検査します。Windows Server 2025 Release、Linux Chrome、xUnit、PostgreSQL18のCIは自動検証です。CapstoneIntegrationTestsでは架空12行の検索、10行ページング、xmin競合とRollbackを試します。実IIS、Kerberos/SPN、HTTPS、Data Protection鍵、FDW、1万人超登録・同時circuit・DBプール、切戻しは未受入であり、実機と運用ログで検証します。WinForms＋Dapperのデスクトップ導入試験とWebサービスのサーバー側運用受入を同一視しません。
 
 ## 実コード例1
 ```csharp
 private void Check()
 {
-    var missing = new List<string>();
-    if (!_sourceVerified) missing.Add("教材とコードの整合");
-    if (!_ciVerified) missing.Add("自動CIの証跡");
-    if (!_denialsVerified) missing.Add("拒否・競合・監査失敗の検証");
-    if (!_serverVerified) missing.Add("Windows Server 2025/IIS/ADの実機受入");
-    _status = missing.Count > 0
-        ? "受入に不足： " + string.Join("、", missing)
-        : "自己点検の項目は選択されました。実機・CIの証跡が独立して確認できるまでは本番受入を宣言できません。";
+    _status = L110AcceptanceLedger.AssessSelfCheck(
+        _sourceVerified, _ciVerified, _denialsVerified, _serverVerified);
 }
 ```
 
@@ -73,7 +67,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 6. 画面の結果、期待値、実際のメッセージ、対象のサービス、コミットSHA、CI Run IDを記録します。拒否条件を緩和して検査を通すことはしません。
 
 ## 実機では別途受入が必要
-実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
+実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDF CIの検証と正式Releaseへの反映は別工程です。正式PDF Release learning-textbook（Asset ID 683032765）は更新しません。
 
 ## 個別の操作手順
 /learn/110で何も選ばず不足を確認します。その後全て選んで実行しても本番受入を宣言できないことを確認します。CIとPDFの結果を別々に記録し、実機項目には未試験でPASSを付けません。
