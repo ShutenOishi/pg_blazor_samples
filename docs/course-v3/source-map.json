@@ -732,7 +732,7 @@
       "app_url": "/learn/db-bridge-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor",
       "audit_state": "partial",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/053",
       "related_sources": [
@@ -742,7 +742,7 @@
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Data/LearningDbContext.cs"
       ],
-      "notes": "学習DBのDapper Execute/SELECTとEF Core SaveChangesのロールバック比較。CI待ち。"
+      "notes": "学習DBのDapper Execute/SELECTとEF Core SaveChangesのロールバック比較。CI待ち。 PR #39 コメント6459747830、HEAD 7235e09... アプリ40625418888全3ジョブ＋PDF40625418810 SUCCESS。"
     },
     {
       "sequence": 54,
@@ -805,9 +805,19 @@
       "app_url": "/learn/db-bridge-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/058"
+      "canonical_url": "/learn/058",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L058KeylessViewService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningKeylessDemoRow.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/L058KeylessViewTests.cs",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Program.cs"
+      ],
+      "notes": "固定架空値のみを返すキーなしビューの実SELECT。未設定時Chrome拒否、PG18専用結合検査。新HEAD同一CI待ち。業務台帳・FDW・SITE未実証。"
     },
     {
       "sequence": 59,

@@ -362,11 +362,11 @@
       "implemented_behavior": "Dapper ExecuteとSELECT、EF Core Add/SaveChangesを学習用PostgreSQL18の各取引内で実行し、ロールバックで不永続化を確認する",
       "missing_behavior": "Dapper Query/ExecuteとEF追跡/SaveChangesを学習用データで比較",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L053PersistenceComparisonTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADの同一CI未確定。Chromeは未設定時の拒否、PostgreSQL18専用ジョブは実取引/ロールバックを検証。業務更新ではない。"
+      "behavior_status": "POSTGRES18_VERIFIED",
+      "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
+      "ci_head": "7235e09efdc425b4c01f44315ffb3618e9b53404",
+      "ci_run": 40625418888,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADの同一CI未確定。Chromeは未設定時の拒否、PostgreSQL18専用ジョブは実取引/ロールバックを検証。業務更新ではない。 PR #39 コメント6459747830でHEAD 7235e09... のアプリ全3ジョブ、PDF40625418810、xUnit76件、PG18実DB25件を正式確認済み。"
     },
     {
       "sequence": "058",
@@ -374,16 +374,23 @@
       "lesson_path": "docs/course-v3/lessons/db-bridge-04.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor",
       "canonical_url": "/learn/058",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L058KeylessViewService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningKeylessDemoRow.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/L058KeylessViewTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "利用者認可台帳と無関係な固定架空値2件の専用キーなしPostgreSQLビューをEF Coreで実読取。未設定/Windows認証時拒否・通常Chrome拒否・PG18結合検査を追加",
       "missing_behavior": "HasNoKey定義確認に加え、学習用ビュー読取を検証。実FDW接続は現地受入まで行わない",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L058KeylessViewTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのアプリ全3ジョブ、PDFの同一HEAD最終成功までは未受入。既存台帳SELECT/実FDW/SITEはNOT_TESTED。"
     },
     {
       "sequence": "059",

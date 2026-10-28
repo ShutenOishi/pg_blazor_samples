@@ -572,6 +572,11 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "キーなしモデル定義を確認する" }).click();
         await waitText(page, '[data-testid="dbbridge04-state"]', "キーなし");
+        await page.getByRole("button", { name: "架空データのビューを読み取る" }).click();
+        await waitText(page, '[data-testid="l058-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l058-view-rows").count() !== 0)
+            throw new Error("学習順058：未設定時に学習ビューの結果を表示しました");
+        console.log("学習順058：Chromeで学習ビュー未設定時の安全拒否を確認。実ビューSELECTはPostgreSQL18ジョブのみ");
         await page.goto(base + "/learn/db-bridge-05");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "安全なSQLを生成する" }).click();

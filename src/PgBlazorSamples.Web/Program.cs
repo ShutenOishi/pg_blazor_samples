@@ -136,6 +136,8 @@ builder.Services.AddScoped<LearningDbService>();
 builder.Services.AddScoped<L046OrmComparisonService>();
 // 学習順053：DapperとEF Coreの書込みを学習用取引で比較し、ロールバックする。
 builder.Services.AddScoped<L053PersistenceComparisonService>();
+// 学習順058：固定架空値のキーなしビューだけを実読取する。
+builder.Services.AddScoped<L058KeylessViewService>();
 // Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
 builder.Services.AddScoped<LearningPageService>();
 // Step46〜49：JOIN・キーセット・仮想化の各パターンを操作単位のDbContextで実装。

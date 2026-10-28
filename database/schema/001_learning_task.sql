@@ -27,3 +27,12 @@ CREATE INDEX IF NOT EXISTS ix_learning_task_category_id ON learning_task (catego
 -- Step67：架空の課題を部署別に分離する。開発用DB専用で実業務には適用しない。
 ALTER TABLE learning_task ADD COLUMN IF NOT EXISTS unit_code varchar(32) NOT NULL DEFAULT 'DEMO';
 CREATE INDEX IF NOT EXISTS ix_learning_task_unit_id ON learning_task (unit_code, id);
+
+-- 学習順058：専用学習DB内の固定架空データだけを返すビュー。
+-- learning_user_access_v（認可台帳）や外部FDW、実在ユーザー情報を参照しない。
+CREATE OR REPLACE VIEW learning_keyless_demo_v AS
+SELECT sample.sort_order, sample.label
+FROM (VALUES
+    (1, 'キーなしビューの架空行'::text),
+    (2, '読取専用モデルの架空行'::text)
+) AS sample(sort_order, label);

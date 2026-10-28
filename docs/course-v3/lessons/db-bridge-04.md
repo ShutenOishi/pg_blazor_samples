@@ -3,7 +3,7 @@
 **実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor)。画面の正規URLは `/learn/058` です。
 
 ## 到達目標と実装の位置付け
-学習順058は、既存の台帳を業務アプリが登録し直さず参照するためのモデリングを理解する回です。新規ユーザーテーブルを作らず、事前に整備されたDBテーブルまたは外部テーブルを正本とします。画面の「キーなしモデル定義を確認する」はIDbContextFactoryからDbContextを一時的に作り、モデルのメタデータにPrimaryKeyが存在しないことを確認するだけです。実台帳へのSELECTやFDW通信は実行しません。匿名画面の結果を認可済みと判断してはいけません。
+学習順058は、既存の台帳を業務アプリが登録し直さず参照するためのモデリングを理解する回です。新規ユーザーテーブルを作らず、事前に整備されたDBテーブルまたは外部テーブルを正本とします。画面の「キーなしモデル定義を確認する」はIDbContextFactoryからDbContextを一時的に作り、モデルにPrimaryKeyがないことだけを確認します。別のボタンから、固定の架空値2件だけを返す学習専用ビューを実際にSELECTします。既存利用者台帳へのSELECTやFDW通信は実行しません。匿名画面の結果を認可済みと判断してはいけません。
 
 ## 実装を理解する
 既存のWinForms＋Dapperではビュー名と列名をSQLに直書きしてDTOへ読み出すことが多いでしょう。EF Core 10でもDB Firstのモデル定義をWebプロジェクトのData内に置けます。既存テーブルにEF専用のIdを追加する必要はなく、HasNoKeyで読み取り用ビューを定義できます。ただしキーなしモデルは変更追跡・通常の更新対象にできません。FDWはPostgreSQLから別DBのデータを見る仕組みであり、接続先の権限、通信経路、外部側のトランザクション境界を設計から排除できません。
@@ -18,7 +18,7 @@ access.Property(x => x.UnitCode).HasColumnName("unit_code");
 access.Property(x => x.AuthorizationVersion).HasColumnName("authorization_version");
 ```
 
-この定義はLearningDbContext.OnModelCreatingの要点です。ExistingUserAccessRowのlogin_nameなどの列は、既存台帳の構造と一致させます。HasNoKeyは「権限を確認しなくてよい」という意味ではありません。匿名利用者が見られるのはモデル定義の有無だけで、実在する利用者のログイン名・所属・権限は表示しません。ToViewは読み取り専用の意図をモデル上で示すもので、DBロールの権限やビュー定義の検証を代行しません。
+この定義はLearningDbContext.OnModelCreatingの要点です。ExistingUserAccessRowのlogin_nameなどの列は、既存台帳の構造と一致させます。HasNoKeyは「権限を確認しなくてよい」という意味ではありません。匿名利用者が見られるのはモデル定義と、Windows認証が無効かつ専用学習DB接続が設定済みの場合の固定架空値だけです。実在する利用者のログイン名・所属・権限は表示しません。ToViewは読み取り専用の意図をモデル上で示すもので、DBロールの権限やビュー定義の検証を代行しません。
 
 ### 実コード例2：比較または補助検証
 ```csharp
@@ -35,13 +35,13 @@ if (row is null || !row.IsActive || !row.CanRead)
 ## 実行場所・安全な前提
 ブラウザーはボタンと表示を扱い、C#の処理とDB接続はBlazor Interactive Serverのサーバー側で実行します。学習用PostgreSQL 18とdatabase/schemaのDDLを用意してください。Visual Studio 2026と.NET 10、EF Core 10、Npgsqlを前提とし、専用DB以外の既存業務データや実利用者の氏名・所属は使いません。接続文字列はサーバー環境変数ConnectionStrings__PostgreSQLなどで渡し、Gitへ書き込みません。
 
-この画面の確認範囲は**EFモデルだけを検査（DBへのSELECTなし）**です。Razorが表示されたこと、EF Coreのモデル定義が取得できたこと、生成SQLが作れたこと、実SQLがDBで成功したことはそれぞれ異なります。実DBへのアクセスが必要な確認は学習専用環境で別に実施します。障害の種類を混同すると、安全拒否が成功表示へ紛れ込みます。
+この画面の確認範囲は**既存台帳のEFモデル定義検査と、別の固定架空データ用ビューの実SELECT**です。後者の実接続は専用PostgreSQL18の結合テストだけで確認し、通常のChromeはDB未設定時の拒否を確認します。Razorが表示されたこと、EF Coreのモデル定義が取得できたこと、生成SQLが作れたこと、実SQLがDBで成功したことはそれぞれ異なります。実DBへのアクセスが必要な確認は学習専用環境で別に実施します。障害の種類を混同すると、安全拒否が成功表示へ紛れ込みます。
 
 ## WinForms＋Dapperとの比較
 | 観点 | Blazor＋EF Core 10 | WinForms＋Dapper | 判断の要点 |
 | --- | --- | --- | --- |
 | モデル定義 | HasNoKey／ToView | SELECTの結果をDTOへ対応付け | 新規台帳の作成は不要 |
-| 実データ取得 | 権限済みサーバーサービスでSELECT | DapperのQueryAsync | 匿名の定義確認では実行しない |
+| 実データ取得 | 固定の架空値ビューのみReadAsyncでSELECT | DapperのQueryAsync | 既存の利用者台帳は認可済みサービス以外から参照しない |
 | 認可基準 | 既存DB/外部ビューの都度確認 | SQL実行直前の台帳照合 | ADは本人とユーザー名のみ |
 | 更新 | Keylessは通常更新対象でない | 明示SQLでも更新を許可する根拠が必要 | 監査の原子性未確認なら拒否 |
 | FDW障害 | 遠隔ネットワーク／権限／接続先エラーを分離 | NpgsqlException等で原因分類 | 認可不明のまま許可に倒さない |
@@ -49,9 +49,10 @@ if (row is null || !row.IsActive || !row.CanRead)
 ## 画面の操作手順
 1. /learn/058を開き、表示が第5段階・学習順058であることを確認する。
 2. 「キーなしモデル定義を確認する」を押して、「データは取得していません」という表示を確かめる。
-3. LearningDbContext.OnModelCreatingのExistingUserAccessRowにHasNoKeyとToViewが設定されている箇所を読む。
-4. 既存のdatabase/schema/002_app_access.sqlを調べ、教育用の既存台帳ビューと実運用の外部台帳の違いを説明する。
-5. 匿名画面から実ユーザーデータを読む機能を追加しない。FDW更新が必要な業務要件があれば先に原子的監査の保証を設計する。
+3. 「架空データのビューを読み取る」を押し、未設定時は拒否されることを確認する。専用PostgreSQL18ジョブでは固定架空値2件の読取を検証する。
+4. LearningDbContext.OnModelCreatingのExistingUserAccessRowにHasNoKeyとToViewが設定されている箇所を読む。
+5. 既存のdatabase/schema/002_app_access.sqlを調べ、教育用の既存台帳ビューと実運用の外部台帳の違いを説明する。
+6. 匿名画面から実ユーザーデータを読む機能を追加しない。FDW更新が必要な業務要件があれば先に原子的監査の保証を設計する。
 
 操作前後のデータを混同しないよう、ボタンを押した回数、エラー表示、DBの検索条件と確認時刻を記録します。画面で処理を開始したユーザーとDBへ接続した主体は同じとは限りません。業務アプリではサーバーに認証済み本人がいても、業務データの参照・更新には別途その時点の権限照合が必要です。
 
@@ -59,7 +60,7 @@ if (row is null || !row.IsActive || !row.CanRead)
 | 表示・症状 | 疑う原因 | 検証・対処 |
 | --- | --- | --- |
 | モデルが見つからない | DbSetかOnModelCreatingの定義不足 | DbContextと型の登録を照合 |
-| DBと接続できない | この画面はDB接続を行わない | エラー発生元を切り分け、別の実DB試験で検証 |
+| DBと接続できない | 学習専用ビューの照会時だけ接続する | 未設定/Windows認証時は拒否し、PostgreSQL18ジョブで別途実証 |
 | 台帳を参照できない | ビュー権限やFDW接続など | 本人・業務認可を満たす別の専用検証で調査 |
 | 認可が確認できない | 失効・外部台帳の未取得・監査不可 | 必ず処理拒否し調査ログを保全 |
 
@@ -81,3 +82,11 @@ ADは本人認証とユーザー名の取得にのみ使います。権限の登
 - [ ] 認可・監査・安全拒否を本番受入から省略しない。
 
 次：学習順059
+
+## 学習順058の学習用ビュー実読取（追加検証）
+
+[キーなしDTO](../../../src/PgBlazorSamples.Web/Data/LearningKeylessDemoRow.cs)を`HasNoKey`と`ToView("learning_keyless_demo_v")`で対応付けます。[DDL](../../../database/schema/001_learning_task.sql)の`learning_keyless_demo_v`は`VALUES`から構成する固定架空値2件のみで、実ユーザーのログイン名、部署、権限台帳やFDWを参照しません。`HasNoKey`はDB権限を与える設定ではありません。
+
+[サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L058KeylessViewService.cs)は、接続文字列が設定されWindows認証が無効な学習環境だけで、短命DbContextの`AsNoTracking`、並び順、10件上限付き`ToListAsync`を実行します。読み取りに失敗したときは内部例外を画面へ出さず、行を返しません。
+
+[試験](../../../tests/PgBlazorSamples.UnitTests/L058KeylessViewTests.cs)は未設定拒否、Windows認証有効時の拒否、専用PostgreSQL18上のビューの実在・キーなし・固定架空値2件のSELECTを別々に確認します。通常のChromeでは未設定時の拒否だけを試験します。画面の成功を実AD、既存台帳の都度認可、実FDW、SITE受入の成功と混同しません。
