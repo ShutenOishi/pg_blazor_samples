@@ -1642,7 +1642,7 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(850);
         // 学習順080：既定値だけの見かけ上のPASSを避け、5要件の正答と誤答の実操作を確認する。
         const selectPattern080 = async (index, label) => {
-            await page.locator(".mud-select").nth(index).click();
+            await page.locator(".mud-select:not(.mud-input-control):not(.mud-select-input)").nth(index).click();
             await page.getByText(label, { exact: true }).last().click();
         };
         const checkPattern080 = async (scenario, choice, expected) => {
