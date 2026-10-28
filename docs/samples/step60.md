@@ -1,6 +1,6 @@
 # 学習順080：一覧パターンを要件から選ぶ
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step60/PatternChoicePage.razor)。画面の正規URLは `/learn/080` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L080PatternChoicePage.razor)。画面の正規URLは `/learn/080` です。
 
 **学習順080・第6段階／第16組・旧URL `/learn/080`**
 

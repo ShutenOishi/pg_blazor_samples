@@ -1,6 +1,6 @@
 # 学習順077：キャッシュと権限境界
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step57/CacheBoundaryPage.razor)。画面の正規URLは `/learn/077` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L077CacheBoundaryPage.razor)。画面の正規URLは `/learn/077` です。
 
 **学習順077・第6段階／第16組・旧URL `/learn/077`**
 

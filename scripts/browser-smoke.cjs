@@ -148,6 +148,18 @@ async function waitText(page, selector, expected) {
             }
         }
         console.log("学習順061〜070：正規・互換Document GET 200を全10件確認");
+        // 学習順071〜080：第6段階主Razor移行後の正規URLと旧互換URLを20経路確認。
+        // GET検証はDB更新、xmin競合、認可や現地受入の根拠にはしない。
+        for (let sequence = 71; sequence <= 80; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 20);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: "
+                    + responses.map(response => response.status()).join("/"));
+            }
+        }
+        console.log("学習順071〜080：正規・互換Document GET 200を全10件確認");
 
 
 

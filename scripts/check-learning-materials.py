@@ -100,6 +100,16 @@ _STAGE06_MOVED_PAGES = {
     68: "L068VirtualizeItemsPage.razor",
     69: "L069VirtualizeDatabasePage.razor",
     70: "L070SearchUxPage.razor",
+    71: "L071EditDtoPage.razor",
+    72: "L072EditDialogPage.razor",
+    73: "L073BulkEditPage.razor",
+    74: "L074ConflictEditorPage.razor",
+    75: "L075DetailProjectionPage.razor",
+    76: "L076RangeSearchPage.razor",
+    77: "L077CacheBoundaryPage.razor",
+    78: "L078StatisticsExportPage.razor",
+    79: "L079PerformancePage.razor",
+    80: "L080PatternChoicePage.razor",
 }
 
 def web_foundation_page(number: int) -> Path:
@@ -112,7 +122,7 @@ PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8"
 # 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
 # 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
 disk_steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
-moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}, 31: 47, 32: 48, 33: 49, 34: 50, 35: 51, 36: 54, 37: 55, 38: 56, 39: 57, 40: 60, **{i: i + 20 for i in range(41, 51)}}
+moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}, 31: 47, 32: 48, 33: 49, 34: 50, 35: 51, 36: 54, 37: 55, 38: 56, 39: 57, 40: 60, **{i: i + 20 for i in range(41, 51)}, **{i: i + 20 for i in range(51, 61)}}
 steps = sorted(set(disk_steps) | set(moved_steps))
 if not steps:
     raise SystemExit("教材検査エラー：実装済みのステップがありません。")
@@ -1102,17 +1112,17 @@ if -1 in positions14 or positions14 != sorted(positions14) or not (
 
 # 第15組071〜075：本文、Razor、Web/PDF索引のソースのみを検査。PDFは生成しない。
 unit15 = [
-    ("step51", "docs/samples/step51.md", "Step51/EditDtoPage.razor"),
-    ("step52", "docs/samples/step52.md", "Step52/EditDialogPage.razor"),
-    ("step53", "docs/samples/step53.md", "Step53/BulkEditPage.razor"),
-    ("step54", "docs/samples/step54.md", "Step54/ConflictEditorPage.razor"),
-    ("step55", "docs/samples/step55.md", "Step55/DetailProjectionPage.razor"),
+    ("step51", "docs/samples/step51.md", "L071EditDtoPage.razor"),
+    ("step52", "docs/samples/step52.md", "L072EditDialogPage.razor"),
+    ("step53", "docs/samples/step53.md", "L073BulkEditPage.razor"),
+    ("step54", "docs/samples/step54.md", "L074ConflictEditorPage.razor"),
+    ("step55", "docs/samples/step55.md", "L075DetailProjectionPage.razor"),
 ]
 if [item["id"] for item in ordered[70:75]] != [item[0] for item in unit15]:
     missing.append("第15組071〜075の学習順が不正")
 for sequence, (_, relative, view_path) in enumerate(unit15, start=71):
     body = (ROOT / relative).read_text(encoding="utf-8")
-    view = (SAMPLES / view_path).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage06" / view_path).read_text(encoding="utf-8")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
         missing.append(relative + "：3300字以上・比較と切り分け表が不足")
     if body.count(chr(96)*3) < 4 or "WinForms" not in body or "Dapper" not in body or "詳しい解答" not in body:
@@ -1130,7 +1140,7 @@ if len(review15) < 3300 or review15.count("| ---") < 2 or review15.count(chr(96)
     missing.append("第15組復習の長文・表・実コード・詳答が不足")
 if 'data-testid="stage06-review15-table"' not in review15_view or 'href="/learn/076"' not in review15_view:
     missing.append("第15組復習Razorと学習順076への導線不足")
-if 'href="/learn/column/50"' not in (SAMPLES / "Step51/EditDtoPage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/50"' not in (LESSONS / "Stage06/L071EditDtoPage.razor").read_text(encoding="utf-8"):
     missing.append("学習順071から第14組復習への前後リンク不足")
 if "学習順071〜075を復習" not in home or "第15組の復習：071〜075" not in nav_eighth:
     missing.append("第15組のHome/NavMenu復習導線が不足")
@@ -1147,17 +1157,17 @@ if -1 in positions15 or positions15 != sorted(positions15) or not (
 
 # 第16組076〜080：PDFを生成せず索引のソースと教材・Razor・Webを照合する。
 unit16 = [
-    ("step56", "docs/samples/step56.md", "Step56/RangeSearchPage.razor"),
-    ("step57", "docs/samples/step57.md", "Step57/CacheBoundaryPage.razor"),
-    ("step58", "docs/samples/step58.md", "Step58/StatisticsExportPage.razor"),
-    ("step59", "docs/samples/step59.md", "Step59/PerformancePage.razor"),
-    ("step60", "docs/samples/step60.md", "Step60/PatternChoicePage.razor"),
+    ("step56", "docs/samples/step56.md", "L076RangeSearchPage.razor"),
+    ("step57", "docs/samples/step57.md", "L077CacheBoundaryPage.razor"),
+    ("step58", "docs/samples/step58.md", "L078StatisticsExportPage.razor"),
+    ("step59", "docs/samples/step59.md", "L079PerformancePage.razor"),
+    ("step60", "docs/samples/step60.md", "L080PatternChoicePage.razor"),
 ]
 if [item["id"] for item in ordered[75:80]] != [item[0] for item in unit16]:
     missing.append("第16組076〜080の学習順が不正")
 for sequence, (_, relative, view_path) in enumerate(unit16, start=76):
     body = (ROOT / relative).read_text(encoding="utf-8")
-    view = (SAMPLES / view_path).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage06" / view_path).read_text(encoding="utf-8")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96)*3) < 4:
         missing.append(relative + "：3300字・比較/切り分け表・コード2例が不足")
     for term in ("WinForms", "Dapper", "操作手順", "障害の切り分け", "詳しい解答"):
@@ -1176,9 +1186,9 @@ if len(review16) < 3300 or review16.count("| ---") < 2 or review16.count(chr(96)
     missing.append("第16組復習の長文・表・コード・詳答が不足")
 if 'data-testid="stage06-review16-table"' not in review16_view or 'href="/learn/081"' not in review16_view:
     missing.append("第16組復習Razorまたは081導線が不足")
-if 'href="/learn/column/55"' not in (SAMPLES / "Step56/RangeSearchPage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/55"' not in (LESSONS / "Stage06/L076RangeSearchPage.razor").read_text(encoding="utf-8"):
     missing.append("学習順076→第15組復習へのリンク不足")
-if 'href="/learn/column/60"' not in (SAMPLES / "Step60/PatternChoicePage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/60"' not in (LESSONS / "Stage06/L080PatternChoicePage.razor").read_text(encoding="utf-8"):
     missing.append("学習順080→第16組復習へのリンク不足")
 if "学習順076〜080を復習" not in home or "第16組の復習：076〜080" not in nav_eighth:
     missing.append("第16組復習のHome/NavMenu不一致")

@@ -110,16 +110,16 @@
 | 068 | 取得済み一覧を部分描画する | [本文](../samples/step48.md) | `/learn/068` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor) |
 | 069 | DB取得と仮想スクロールを連携する | [本文](../samples/step49.md) | `/learn/069` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L069VirtualizeDatabasePage.razor) |
 | 070 | デバウンスと障害時の再試行 | [本文](../samples/step50.md) | `/learn/070` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L070SearchUxPage.razor) |
-| 071 | 編集DTOをフォームで検証して保存する | [本文](../samples/step51.md) | `/learn/071` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step51/EditDtoPage.razor) |
-| 072 | ダイアログで保存と取消を分ける | [本文](../samples/step52.md) | `/learn/072` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step52/EditDialogPage.razor) |
-| 073 | 複数選択と原子的な一括処理 | [本文](../samples/step53.md) | `/learn/073` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step53/BulkEditPage.razor) |
-| 074 | xmin競合と最新値の確認 | [本文](../samples/step54.md) | `/learn/074` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step54/ConflictEditorPage.razor) |
-| 075 | 詳細DTOとN+1の防止 | [本文](../samples/step55.md) | `/learn/075` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step55/DetailProjectionPage.razor) |
-| 076 | 日本語日付範囲とDB検索 | [本文](../samples/step56.md) | `/learn/076` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step56/RangeSearchPage.razor) |
-| 077 | キャッシュと権限境界 | [本文](../samples/step57.md) | `/learn/077` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step57/CacheBoundaryPage.razor) |
-| 078 | DB側集計とCSV出力 | [本文](../samples/step58.md) | `/learn/078` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step58/StatisticsExportPage.razor) |
-| 079 | EXPLAINと応答時間計測 | [本文](../samples/step59.md) | `/learn/079` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step59/PerformancePage.razor) |
-| 080 | 一覧パターンを要件から選ぶ | [本文](../samples/step60.md) | `/learn/080` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step60/PatternChoicePage.razor) |
+| 071 | 編集DTOをフォームで検証して保存する | [本文](../samples/step51.md) | `/learn/071` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L071EditDtoPage.razor) |
+| 072 | ダイアログで保存と取消を分ける | [本文](../samples/step52.md) | `/learn/072` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L072EditDialogPage.razor) |
+| 073 | 複数選択と原子的な一括処理 | [本文](../samples/step53.md) | `/learn/073` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L073BulkEditPage.razor) |
+| 074 | xmin競合と最新値の確認 | [本文](../samples/step54.md) | `/learn/074` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L074ConflictEditorPage.razor) |
+| 075 | 詳細DTOとN+1の防止 | [本文](../samples/step55.md) | `/learn/075` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L075DetailProjectionPage.razor) |
+| 076 | 日本語日付範囲とDB検索 | [本文](../samples/step56.md) | `/learn/076` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L076RangeSearchPage.razor) |
+| 077 | キャッシュと権限境界 | [本文](../samples/step57.md) | `/learn/077` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L077CacheBoundaryPage.razor) |
+| 078 | DB側集計とCSV出力 | [本文](../samples/step58.md) | `/learn/078` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L078StatisticsExportPage.razor) |
+| 079 | EXPLAINと応答時間計測 | [本文](../samples/step59.md) | `/learn/079` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L079PerformancePage.razor) |
+| 080 | 一覧パターンを要件から選ぶ | [本文](../samples/step60.md) | `/learn/080` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L080PatternChoicePage.razor) |
 
 ## 第7段階：Webセキュリティ・AD認証とDB認可（学習順081〜095）
 

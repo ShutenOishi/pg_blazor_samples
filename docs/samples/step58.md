@@ -1,6 +1,6 @@
 # 学習順078：DB側集計とCSV出力
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step58/StatisticsExportPage.razor)。画面の正規URLは `/learn/078` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L078StatisticsExportPage.razor)。画面の正規URLは `/learn/078` です。
 
 **学習順078・第6段階／第16組・旧URL `/learn/078`**
 

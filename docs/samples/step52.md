@@ -1,6 +1,6 @@
 # 学習順072：ダイアログで保存と取消を分ける
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step52/EditDialogPage.razor)。画面の正規URLは `/learn/072` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L072EditDialogPage.razor)。画面の正規URLは `/learn/072` です。
 
 **学習順072・第6段階／第15組**
 

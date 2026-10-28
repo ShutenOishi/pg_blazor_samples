@@ -1,6 +1,6 @@
 # 学習順076：日本語日付範囲とDB検索
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step56/RangeSearchPage.razor)。画面の正規URLは `/learn/076` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L076RangeSearchPage.razor)。画面の正規URLは `/learn/076` です。
 
 **学習順076・第6段階／第16組・旧URL `/learn/076`**
 

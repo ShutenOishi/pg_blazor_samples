@@ -1,6 +1,6 @@
 # 学習順074：xmin競合と最新値の確認
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step54/ConflictEditorPage.razor)。画面の正規URLは `/learn/074` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L074ConflictEditorPage.razor)。画面の正規URLは `/learn/074` です。
 
 **学習順074・第6段階／第15組**
 

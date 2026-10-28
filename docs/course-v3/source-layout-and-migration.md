@@ -148,3 +148,11 @@ database/
 - Items固定一覧、MudTable/MudDataGrid ServerData、ホワイトリストによるソート、複合フィルター、DTO、キーセット、Virtualize、デバウンスは既存LearningPageService・LearningAdvancedPageService、LearningDbService、DbContext、DTO、DB統合試験とブラウザー試験を共用する。共有サービス・認証/認可/監査・SQL・DI登録・テストは変更も複製もしない。
 - 教材10件の直接リンク、source-index、source-mapの関連実在ファイル、静的検査の旧主Razor固定参照、Chromeの正規/互換10組のDocument GETを同一変更で同期。関連ファイルの静的実在は意味的な依存・DB実操作・行認可・本番SITEの受入を保証しない。
 - **新HEADのWindows/Linux/Chrome/PG18とPDFソース検証の全必要CIがcompleted/SUCCESSになるまでは正式受入せず、60/110件を正式受入値に維持する。** 成功済みCIを再実行せず、Draft解除・mainマージ・正式PDF Release更新・未承認のPRE/SITE試験を禁止する。SITE PASS 0/15・NOT_RUN 15/15を維持。
+
+### 2026-10-28 学習順071〜080の第6段階主Razor10件一括移行（新HEAD CI判定待ち）
+
+- 編集フォーム・ダイアログ・一括処理・xmin競合・詳細DTO・期間Range・架空権限キャッシュ・DB集計/CSV・性能観察・方式選択の主Razor10件を `Components/Lessons/Stage06/L071〜L080*.razor` に配置し、旧主Razor10件を削除した。正規 `/learn/071〜080` と互換 `/learn/51〜60` は維持。
+- 学習順072の子 `Components/Samples/Step52/EditDialog.razor` は元の位置に維持し、新主ページに子コンポーネントの `@using` を追加。既存子Razorを複製・改名しない。
+- `LearningEditService`、`LearningRangeExportService`、`LearningPerformanceService`、`LearningCacheLessonService`、`LearningDbService`、`LearningDbContext`、DTO/SQL/DI/Program.cs/xUnit/安全拒否を変更しない。DB統合試験・Chromeの既存動作根拠を配置試験や現地受入と混同しない。
+- 教材10件の直接リンク、source-index、source-mapのRazorパス・関連実在ソース、静的検査の第15/16組、Chrome正規・互換URLのDocument GET 20経路を同一コミットで同期。
+- 全必要CI（Windows/Ubuntu Chrome/PostgreSQL18/PDFソース）が新HEADで completed/SUCCESS となるまでは構造移行の正式受入を70/110に維持する。成功済みCIの再実行、Draft解除、mainマージ、正式PDF Release更新、実AD/IIS/FDW・未承認PRE/SITE試験は禁止。SITE PASS 0/15・NOT_RUN 15/15。

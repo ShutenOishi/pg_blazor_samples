@@ -1,6 +1,6 @@
 # 学習順073：複数選択と原子的な一括処理
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step53/BulkEditPage.razor)。画面の正規URLは `/learn/073` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L073BulkEditPage.razor)。画面の正規URLは `/learn/073` です。
 
 **学習順073・第6段階／第15組**
 

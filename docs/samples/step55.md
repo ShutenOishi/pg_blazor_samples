@@ -1,6 +1,6 @@
 # 学習順075：詳細DTOとN+1の防止
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step55/DetailProjectionPage.razor)。画面の正規URLは `/learn/075` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L075DetailProjectionPage.razor)。画面の正規URLは `/learn/075` です。
 
 **学習順075・第6段階／第15組**
 

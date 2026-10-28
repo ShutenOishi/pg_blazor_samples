@@ -1,6 +1,6 @@
 # 学習順071：編集DTOをフォームで検証して保存する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step51/EditDtoPage.razor)。画面の正規URLは `/learn/071` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L071EditDtoPage.razor)。画面の正規URLは `/learn/071` です。
 
 **学習順071・第6段階／第15組**
 

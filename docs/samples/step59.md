@@ -1,6 +1,6 @@
 # 学習順079：EXPLAINと応答時間計測
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step59/PerformancePage.razor)。画面の正規URLは `/learn/079` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L079PerformancePage.razor)。画面の正規URLは `/learn/079` です。
 
 **学習順079・第6段階／第16組・旧URL `/learn/079`**
 
