@@ -77,6 +77,9 @@ async function waitText(page, selector, expected) {
         if (!new URL(page.url()).pathname.endsWith("/learn/007"))
             throw new Error("学習順007：学習順006から正規URLへ移動しません");
         await page.getByRole("heading", { name: "URLとルーティング" }).waitFor();
+        // 初回ルート遷移直後はBlazorの対話描画でリンクDOMが置換され得る。
+        // 切替が落ち着いてから、実際のリンクをクリックして正規遷移を検証する。
+        await page.waitForTimeout(800);
         await page.getByRole("link", { name: "学習順008へ進む" }).click();
         await page.getByRole("heading", { name: "C#の値を画面へ表示する" }).waitFor();
         await page.getByText("<重要>これは文字列です</重要>", { exact: true }).waitFor();
