@@ -184,6 +184,10 @@ if (windowsAuthEnabled) app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
+// 学習順082。実Antiforgeryを安全に観察する隔離経路。業務更新は不可。
+app.MapGet(L082HttpProbe.Path, L082HttpProbe.RenderForm);
+app.MapPost(L082HttpProbe.Path, L082HttpProbe.ValidateAndDenyAsync);
+
 // Step72：Cookie発行/破棄はBlazor circuitではなくHTTPレスポンスで実行する。
 // Negotiate経路の本人だけが短命Cookieを取得する。GETは同意用フォームの表示のみ。
 if (explicitLoginEnabled)

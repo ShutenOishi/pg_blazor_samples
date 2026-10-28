@@ -1,6 +1,6 @@
 # 学習順082：Middlewareの順序・HTTPS・IISの経路
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor)。画面の正規URLは `/learn/082` です。
+**実装ソース：** [Razor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor)、[実HTTP検証サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L082HttpProbe.cs)、[経路登録](../../../src/PgBlazorSamples.Web/Program.cs)、[xUnit](../../../tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs)、[Chrome](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/082` です。
 
 ## 到達目標
 ASP.NET Coreのパイプラインはリクエストが処理を通る順序で動きます。認証の前提が成り立たなければ業務操作へ進めません。証明書やTLS終端、Forwarded Headersを信頼してよいプロキシ範囲、IIS上でのNegotiateの構成は実機で確認します。
@@ -10,6 +10,11 @@ ASP.NET Coreのパイプラインはリクエストが処理を通る順序で�
 
 ## 画面で確認すること
 アプリの `/learn/082` を開き、架空の条件を変えてボタンを押してください。**表示される許可・拒否は学習用の模擬判定です。** Windows本人認証や実際の既存台帳認可を代行せず、DBにデータを書き込みません。
+
+## 実HTTP・Antiforgeryの隔離演習
+画面の「隔離HTTPフォームを開く」から `/learn/082/http-probe` をGETすると、ASP.NET Coreの `GetAndStoreTokens` が実トークンを発行します。フォームPOSTでは `ValidateRequestAsync` を実行し、有効なトークンでも業務操作なしで403を返します。欠落・改変トークンは400です。Chromeが実HTTP応答の200/403/400/400を検証します。
+
+**403は固定の安全拒否で、本人認証や既存DB台帳の認可結果ではありません。** HTTP/HTTPSの表示はサーバーが認識した値で、IIS、TLS終端、Forwarded Headers、Kerberosの実機受入にはなりません。元の4チェックは引き続き模擬です。
 
 ## コードを追いかける
 ```csharp
@@ -25,7 +30,7 @@ app.UseAntiforgery();
 デスクトップ画面の入力・イベントと違い、Webではブラウザーからの要求を信用できません。Blazorの対話イベントはサーバーのC#で動きますが、画面に表示される操作ボタンや保存済み状態だけで本人認証・部署別権限は保証できません。
 
 ## 間違えやすい点・安全な確認方法
-画面の4つのチェックはHTTPリクエストを発生させません。実際のAntiforgeryトークンはASP.NET Coreの検証機構へ任せます。ブラウザーから送信したフラグを信頼する設計は避けます。
+画面の4つのチェックはHTTPリクエストを発生させません。別の隔離フォームでは実トークンをASP.NET Coreの機構で検証します。ブラウザーから送信したフラグを信頼する設計は避けます。
 
 ## 演習問題
 HTTPSが正しくても、Antiforgery検証なしの状態変更POSTを許可してよいですか？
@@ -40,7 +45,7 @@ HTTPSが正しくても、Antiforgery検証なしの状態変更POSTを許可し
 ## Middlewareの順序・HTTPS・IISの経路の固有条件
 Program.csは非Development時にHSTSと例外処理を設定し、UseHttpsRedirection、UseRequestLocalization、必要時UseAuthentication、UseAuthorization、UseAntiforgeryの順に処理する。IIS/TLS終端やKerberos、SPNはこの順序だけでは受入済みにならない。
 
-教材画面のHTTPS・sameOrigin・tokenChecked・authorizedは架空の4条件で、実際のAntiforgeryトークンもHTTP POSTも検証していない。Program.csの実認証POSTではValidateRequestAsyncを使うが、教材の成功はその成否ではない。
+教材画面のHTTPS・sameOrigin・tokenChecked・authorizedは架空の4条件です。別の隔離フォームで実POSTを検証しますが、実業務認可の検証にはなりません。Program.csの実認証POSTではValidateRequestAsyncを使うが、教材の成功はその成否ではない。
 
 ### コード例1：現行実装の抜粋
 ```csharp
@@ -62,7 +67,7 @@ app.UseAntiforgery();
 実行しない。HTTPSとCookieだけでは状態変更POSTのCSRF防御やDB台帳の業務権限を保証しない。
 
 ## 実装照合とサーバー側の責任
-Program.csは非Development時にHSTSと例外処理を設定し、UseHttpsRedirection、UseRequestLocalization、必要時UseAuthentication、UseAuthorization、UseAntiforgeryの順に処理する。IIS/TLS終端やKerberos、SPNはこの順序だけでは受入済みにならない。 教材画面のHTTPS・sameOrigin・tokenChecked・authorizedは架空の4条件で、実際のAntiforgeryトークンもHTTP POSTも検証していない。Program.csの実認証POSTではValidateRequestAsyncを使うが、教材の成功はその成否ではない。
+Program.csは非Development時にHSTSと例外処理を設定し、UseHttpsRedirection、UseRequestLocalization、必要時UseAuthentication、UseAuthorization、UseAntiforgeryの順に処理する。IIS/TLS終端やKerberos、SPNはこの順序だけでは受入済みにならない。 教材画面のHTTPS・sameOrigin・tokenChecked・authorizedは架空の4条件です。別の隔離フォームで実POSTを検証しますが、実業務認可の検証にはなりません。Program.csの実認証POSTではValidateRequestAsyncを使うが、教材の成功はその成否ではない。
 Webの本人認証と業務認可は異なる責任です。Windows統合認証は信頼できる本人名を取得するために使い、部署・業務・操作・対象行の許可は既存のDB台帳を正本としてサービス側で毎回確かめます。Cookieが有効なこと、画面に保存ボタンがあること、circuitが接続できていることは行単位の許可の根拠になりません。データを読み取るときは一覧と件数にも同じ条件を適用し、集計とCSVから許可されない情報が漏れないようにします。
 
 学習の模擬画面はチェックボックスなどから安全条件を説明するためのものです。実ADを接続したり、本物の業務利用者の権限を発行したり、既存DBの台帳を更新したりしません。模擬上の正常という表示をWindows Server 2025の実機で本人を検証した証拠としてはいけません。AD/IIS/Kerberos、FDWを含む原子性と1万人超負荷の受入は別工程です。
@@ -88,7 +93,7 @@ WinFormsのボタンが無効なときに操作を防ぐ仕組みを、Webの最
 6. ブラウザーの開発者ツールでDOMやネットワークを観察します。架空の画面操作でADや既存台帳を更新したと考えてはいけません。
 7. 前後のリンクで次の教材へ移動し、学習順085のあとには第17組復習へ進みます。
 
-この操作は模擬条件だけで行います。実IISへの配備、SPN、証明書、Kerberos、Data Protection鍵の保存時保護、実FDW、監査の原子性は現地の別の手順と受入記録が必要です。
+チェックボックス操作は模擬ですが、隔離フォームでは実HTTPのトークン検証を行います。実IISへの配備、SPN、証明書、Kerberos、Data Protection鍵の保存時保護、実FDW、監査の原子性は現地の別の手順と受入記録が必要です。
 
 ## 障害の切り分け
 | 兆候 | 原因を調べる場所 | 安全な扱い |

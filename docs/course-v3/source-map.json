@@ -1122,7 +1122,7 @@
       "app_url": "/learn/security-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
       "audit_state": "simulation",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/081",
       "related_sources": [
@@ -1135,7 +1135,7 @@
         "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "架空Principalの契約を実Windows名検証コードで確認し、隔離サービスで許可・拒否・権限失効を観察。実PG18の業務認可は別の既存統合試験。新HEADのCI待ち。AD/IIS/実FDW/SITEはNOT_TESTED。"
+      "notes": "架空Principalの契約を実Windows名検証コードで確認し、隔離サービスで許可・拒否・権限失効を観察。実PG18の業務認可は別の既存統合試験。新HEADのCI待ち。AD/IIS/実FDW/SITEはNOT_TESTED。 正式受入HEAD 43bd77100831e2bec3a0019b81bd20918fe53a96、PRコメント #6460092602。"
     },
     {
       "sequence": 82,
@@ -1146,9 +1146,16 @@
       "app_url": "/learn/security-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/082"
+      "canonical_url": "/learn/082",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L082HttpProbe.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "学習用隔離実HTTP/Antiforgery GET200、正常POST403、欠落/改変POST400をChromeとxUnitで検証予定。業務認可・AD/IIS・SITE未実証。"
     },
     {
       "sequence": 83,

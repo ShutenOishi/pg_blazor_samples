@@ -713,6 +713,27 @@ async function waitText(page, selector, expected) {
         }
         await page.getByRole("button", { name: "変更要求の模擬判定" }).click();
         await waitText(page, '[data-testid="security02-result"]', "4条件成立");
+        await page.getByRole("link", { name: "隔離HTTPフォームを開く" }).waitFor();
+        const l082Get = await page.goto(base + "/learn/082/http-probe");
+        if (l082Get?.status() !== 200) throw new Error("学習順082 GETは200ではない");
+        await page.locator('[data-testid="l082-post-form"]').waitFor();
+        const l082Statuses = await page.evaluate(async () => {
+            const form = document.querySelector('[data-testid="l082-post-form"]');
+            if (!(form instanceof HTMLFormElement)) throw new Error("フォームなし");
+            const send = async body => (await fetch(form.action, {
+                method: "POST", body, credentials: "same-origin"
+            })).status;
+            const valid = await send(new FormData(form));
+            const missing = await send(new URLSearchParams());
+            const tamperedForm = new FormData(form);
+            const token = form.querySelector('input[type="hidden"]');
+            if (!token) throw new Error("トークンなし");
+            tamperedForm.set(token.name, "tampered-082");
+            return { valid, missing, tampered: await send(tamperedForm) };
+        });
+        if (l082Statuses.valid !== 403 || l082Statuses.missing !== 400 || l082Statuses.tampered !== 400)
+            throw new Error("学習順082 実HTTP検証が不一致 " + JSON.stringify(l082Statuses));
+        console.log("学習順082：実HTTP GET200、有効Antiforgery POST403、欠落/改変POST400。業務操作/IIS/ADは未実証");
 
         await page.goto(base + "/learn/security-03");
         await page.waitForTimeout(950);

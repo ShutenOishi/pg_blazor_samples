@@ -435,11 +435,11 @@
       "implemented_behavior": "実Windows名検証関数を固定の架空Principalから呼び、隔離台帳の現行読み取り権限をサービスで毎操作照合。失効/復帰・不正認証方式・監査不成立の単体試験とChrome操作を追加",
       "missing_behavior": "架空Principal＋架空台帳を使った真正サービスの許可/拒否の試験への導線",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs; tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 架空Principalは認証ハンドラーによる本人認証ではない。隔離台帳は実DBではない。既存のSecuredLearningIntegrationTestsはPG18本物のサービス経路を別途検査。新HEADの全CI最終成功まで081は受入に加算しない。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "43bd77100831e2bec3a0019b81bd20918fe53a96",
+      "ci_run": "40627791491; PDF 40627791454",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 架空Principalは認証ハンドラーによる本人認証ではない。隔離台帳は実DBではない。既存のSecuredLearningIntegrationTestsはPG18本物のサービス経路を別途検査。新HEADの全CI最終成功まで081は受入に加算しない。 正式受入証跡はPRコメント #6460092602、同一HEADアプリ40627791491・PDF40627791454成功。"
     },
     {
       "sequence": "082",
@@ -447,16 +447,21 @@
       "lesson_path": "docs/course-v3/lessons/security-02.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor",
       "canonical_url": "/learn/082",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L082HttpProbe.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "学習専用の実HTTP GETでAntiforgeryトークンを発行、POST実検証で正常トークン403安全拒否、欠落/改変400。模擬チェックとは独立。",
       "missing_behavior": "ミドルウェア順序、HTTPS、IIS逆プロキシ構成を隔離環境の試験として区分",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 実Chrome GET/POSTと単体試験は新HEAD CI待ち。403は固定拒否で実IIS/AD/業務台帳認可の実証ではない。"
     },
     {
       "sequence": "083",
