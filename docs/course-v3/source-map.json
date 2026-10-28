@@ -207,7 +207,7 @@
       "app_url": "/learn/runtime-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
       "audit_state": "partial",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/015",
       "related_sources": [
@@ -217,7 +217,7 @@
         "tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
         "src/PgBlazorSamples.Web/Components/App.razor"
       ],
-      "notes": "隔離ChromeのWebSocket切断・再接続・保持と再読込初期化、xUnitモデル試験を追加。同一HEAD CI待ち。長時間失効・業務認可は未実証。"
+      "notes": "隔離ChromeのWebSocket切断・再接続・保持と再読込初期化、xUnitモデル試験を追加。同一HEAD CI待ち。長時間失効・業務認可は未実証。 015はPRコメント6458156813/成功CIが正式受入根拠。"
     },
     {
       "sequence": 16,
@@ -574,9 +574,10 @@
       "app_url": "/learn/browser-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/042"
+      "canonical_url": "/learn/042",
+      "notes": "L042TextFileInspectorとxUnit/Chrome実バイト・負例・境界試験を追加。新HEADのCI成功待ち。"
     },
     {
       "sequence": 43,

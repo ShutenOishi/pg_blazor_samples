@@ -140,11 +140,11 @@
       "implemented_behavior": "学習用一時状態と非機密インスタンス値、xUnitの同一/新インスタンス試験、隔離Chrome WebSocketの切断・再接続・再読込試験を追加",
       "missing_behavior": "接続断・再接続・状態保持とセッション失効を区別する隔離試験",
       "evidence_test_id": "scripts/browser-circuit-smoke.cjs; tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。circuit保持期限超過、実セッション・業務権限の失効と実回線故障はNOT_TESTED。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
+      "ci_head": "e5c845838aa5c6ac0db381177c8430d96c48e30e",
+      "ci_run": 40614453069,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。circuit保持期限超過、実セッション・業務権限の失効と実回線故障はNOT_TESTED。 前HEAD e5c845838aa5c6ac0db381177c8430d96c48e30e のアプリ40614453069全3ジョブ・PDF40614453082成功。PRコメント6458156813が正式な受入証跡。"
     },
     {
       "sequence": "017",
@@ -226,16 +226,20 @@
       "lesson_path": "docs/course-v3/lessons/browser-02.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor",
       "canonical_url": "/learn/042",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L042TextFileInspector.cs",
+        "tests/PgBlazorSamples.UnitTests/L042TextFileInspectorTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": null,
+      "implemented_behavior": "上限付きストリーム読取、拡張子/MIME整合、UTF-8/制御文字/実長検査、実バイトSHA-256と拒否後消去のxUnit・Chrome試験",
       "missing_behavior": "上限・ファイル内容・拡張子/MIME不一致・拒否の検証",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L042TextFileInspectorTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。業務認可・マルウェア検査・実DB成功は主張しない。"
     },
     {
       "sequence": "043",

@@ -35,47 +35,30 @@
 
 サーバー側ではまずPath.GetExtension(file.Name)で拡張子を調べ、file.Sizeが64 KiBを超えていないか確認します。その後、OpenReadStreamにも同じ上限を渡します。前段のifだけで済ませず、実際の読み取り自体を制限する点が大切です。現在のサンプルは配列化してSHA-256を計算するため、小さいファイル専用です。
 
-```csharp
-private const long Limit = 64 * 1024;
-private string result = "ファイルを選択してください。";
-private string? digest;
+申告されたファイル名・MIMEと長さを検査し、OpenReadStreamにも64 KiBの上限を設定します。次は現行のInspectFileの検査部分です。
 
-private async Task InspectFile(InputFileChangeEventArgs args)
+```csharp
+var metadataError = L042TextFileInspector.ValidateMetadata(file.Name, file.ContentType, file.Size);
+if (metadataError is not null)
 {
-    digest = null;
-    var file = args.File;
-    var ext = Path.GetExtension(file.Name);
-    if (ext is not ".csv" and not ".txt")
-    {
-        result = "拒否：.txt または .csv のみ選択できます。";
-        return;
-    }
-    if (file.Size > Limit)
-    {
-        result = "拒否：64 KiBを超えるファイルは受け付けません。";
-        return;
-    }
-    try
-    {
-        await using var input = file.OpenReadStream(maxAllowedSize: Limit);
-        using var output = new MemoryStream();
-        await input.CopyToAsync(output);
-        var bytes = output.ToArray();
-        digest = Convert.ToHexString(SHA256.HashData(bytes));
-        result = $"検査完了：{bytes.Length} バイトを読み取りました。保存はしていません。";
-    }
-    catch (IOException)
-    {
-        result = "拒否：ファイルの読み取りに失敗しました。";
-    }
-    catch (InvalidOperationException)
-    {
-        result = "拒否：許可されたサイズを超えました。";
-    }
+    result = metadataError;
+    return;
 }
+await using var input = file.OpenReadStream(maxAllowedSize: L042TextFileInspector.MaxBytes);
+using var output = new MemoryStream();
+await input.CopyToAsync(output);
+var bytes = output.ToArray();
+var contentError = L042TextFileInspector.ValidateContent(bytes, file.Size);
+if (contentError is not null)
+{
+    result = contentError;
+    return;
+}
+digest = Convert.ToHexString(SHA256.HashData(bytes));
+result = $"検査完了：{bytes.Length} バイトを読み取りました。保存はしていません。";
 ```
 
-このコードは教材の現行実装です。サーバー側でSHA-256を計算する目的は、受信したバイト列が何であったかを確認できるようにすることです。ハッシュ一致はファイルの無害性や送信者の信頼性を示しません。また拡張子の判定は大文字と小文字を区別する現行の学習実装なので、たとえば大文字の.CSVは拒否対象となり得ます。本番での仕様は必要なファイル種別と実際の内容検査に合わせて設計します。
+[L042TextFileInspector.cs](../../../src/PgBlazorSamples.Web/Services/Learning/L042TextFileInspector.cs) は大文字の拡張子を許容し、.txtはtext/plain、.csvはtext/csv・text/plain・application/vnd.ms-excelのMIMEを許容します。MIMEも申告値であり、形式や安全性の証明にはなりません。厳格なUTF-8として復号できること、NULなどの制御文字がないこと、申告したバイト数と一致することを確認した後にだけSHA-256を表示します。64 KiBちょうどは許容し、1バイト超過は拒否します。業務認可・マルウェア・CSV構文全般の検査は行いません。
 
 ## ブラウザー操作を順に確認する
 1. 事前に数行の日本語を記述した小さな.txtを用意し、画面で選択します。表示が「検査完了」に変わり、受信バイト数とSHA-256が出ることを確認します。
@@ -83,7 +66,9 @@ private async Task InspectFile(InputFileChangeEventArgs args)
 3. 拡張子が.pngの小さなファイルを選択し、「拒否：.txt または .csv のみ選択できます。」を確認します。選択UIの制限を回避できる環境でもサーバーの検査が残ります。
 4. 64 KiBを超える.txtを選び、「拒否：64 KiBを超えるファイルは受け付けません。」を確認します。
 5. 拒否後にはSHA-256の表示が残っていないことを確かめます。これはInspectFileの冒頭でdigest = nullとしているためです。前の成功値を新しい検査結果と誤認させません。
-6. 開発者ツールのNetworkとサーバーログを併せて確認します。ファイル読込みはブラウザーとサーバーの通信を伴うため、通信障害とファイル制限違反を区別します。
+6. 拡張子とMIMEの不一致、不正なUTF-8、NUL入りテキストが拒否されることを確認します。
+7. 64 KiBちょうどは受理、1バイト超過は拒否されることを確認します。
+8. 開発者ツールのNetworkとサーバーログを併せて確認します。ファイル読込みはブラウザーとサーバーの通信を伴うため、通信障害とファイル制限違反を区別します。
 
 このサンプルはInputFileのイベント処理で1つのファイルを扱います。複数ファイルの上限、連続送信、認証後のアップロード権限、保存先、検疫状態の追跡は実装していません。利用者が任意に付けたファイル名を保存先のパスに結合する実装へ変更してはいけません。
 
@@ -91,7 +76,8 @@ private async Task InspectFile(InputFileChangeEventArgs args)
 | 表示・症状 | 確認箇所 | 正しい解釈・対応 |
 | --- | --- | --- |
 | .pngが選択できない | ブラウザーのファイル選択UI | acceptの選択補助でありサーバー側の拒否テストとは別 |
-| 拡張子の拒否文が出る | Path.GetExtensionと許可リスト | 名前に基づく制限。中身の保証ではない |
+| 拡張子・MIMEの拒否文が出る | L042TextFileInspector.ValidateMetadata | 申告メタデータの整合だけで内容の保証ではない |
+| UTF-8・制御文字の拒否文が出る | L042TextFileInspector.ValidateContent | 受信実バイトの限定的な検査でマルウェア判定ではない |
 | 64 KiB超で拒否される | file.SizeとOpenReadStreamの上限 | 前後両方の容量制限を確認する |
 | 読込み失敗の案内が出る | IOException、Network、circuit状態 | 通信やI/O失敗を大容量違反と混同しない |
 | 結果が更新されない | OnChange、Interactive Server接続 | イベントの配送から確認する |
@@ -114,7 +100,7 @@ DapperでアップロードのメタデータをDBへ登録するなら、SQLの
 
 ## 完了確認
 - [ ] 小さな.txtまたは.csvを選び、バイト数とSHA-256を確かめた。
-- [ ] 拡張子違反と容量違反の拒否をそれぞれ確認した。
+- [ ] 拡張子/MIME不一致、不正UTF-8、制御文字、容量違反の拒否をそれぞれ確認した。
 - [ ] ハッシュ・拡張子・MIMEが安全性の証明でないことを説明できる。
 - [ ] 業務データの登録前に認可と検疫が必要な理由を説明できる。
 

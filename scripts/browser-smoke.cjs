@@ -4,6 +4,7 @@
 const { chromium } = require("playwright-core");
 const { spawn, execFileSync } = require("node:child_process");
 const { mkdirSync } = require("node:fs");
+const { createHash } = require("node:crypto");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
@@ -413,14 +414,30 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
         await waitText(page, '[data-testid="browser01-language"]', "ja");
 
-        await page.goto(base + "/learn/browser-02");
+        // 学習順042：実バイトSHA-256、拒否・境界を独立確認。
+        await page.goto(base + "/learn/042");
         await page.waitForTimeout(950);
         const uploadInput = page.locator('#browser02-file');
-        await uploadInput.setInputFiles({ name: "練習.csv", mimeType: "text/csv", buffer: Buffer.from("番号,内容\\n1,テスト\\n") });
-        await waitText(page, '[data-testid="browser02-result"]', "検査完了");
-        await page.getByTestId("browser02-hash").waitFor();
-        await uploadInput.setInputFiles({ name: "拒否.png", mimeType: "image/png", buffer: Buffer.from("NG") });
-        await waitText(page, '[data-testid="browser02-result"]', "拒否");
+        const acceptedBytes = Buffer.from("番号,内容\n1,テスト\n", "utf8");
+        await uploadInput.setInputFiles({ name: "練習.csv", mimeType: "text/csv", buffer: acceptedBytes });
+        await waitText(page, '[data-testid="browser02-result"]', "検査完了：" + acceptedBytes.length + " バイト");
+        const expectedHash = createHash("sha256").update(acceptedBytes).digest("hex").toUpperCase();
+        if ((await page.getByTestId("browser02-hash").innerText()).trim() !== expectedHash)
+            throw new Error("学習順042：受信実バイトとSHA-256が一致しません");
+        async function rejectUpload(name, mimeType, buffer, expected) {
+            await uploadInput.setInputFiles({ name, mimeType, buffer });
+            await waitText(page, '[data-testid="browser02-result"]', expected);
+            if (await page.getByTestId("browser02-hash").count() !== 0)
+                throw new Error("学習順042：拒否後に以前のSHA-256が残りました");
+        }
+        await rejectUpload("拒否.png", "image/png", Buffer.from("NG"), "拒否：.txt");
+        await rejectUpload("不一致.csv", "image/png", Buffer.from("text"), "拒否：拡張子とMIME");
+        await rejectUpload("偽装.csv", "text/csv", Buffer.from([0x89, 0x50, 0x4e, 0x47]), "拒否：UTF-8");
+        await rejectUpload("制御.txt", "text/plain", Buffer.from([0, 65]), "拒否：テキスト以外");
+        await rejectUpload("上限超.txt", "text/plain", Buffer.alloc(65537, 0x61), "拒否：64 KiB");
+        await uploadInput.setInputFiles({ name: "上限ちょうど.TXT", mimeType: "text/plain", buffer: Buffer.alloc(65536, 0x61) });
+        await waitText(page, '[data-testid="browser02-result"]', "検査完了：65536 バイト");
+        console.log("学習順042：実バイトSHA-256、拡張子/MIME・不正UTF-8・制御文字・64 KiB境界・拒否時ハッシュ破棄を確認");
 
         await page.goto(base + "/learn/browser-03");
         await page.waitForTimeout(950);

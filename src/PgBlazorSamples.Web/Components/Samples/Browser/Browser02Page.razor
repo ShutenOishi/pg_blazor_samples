@@ -1,6 +1,7 @@
 @page "/learn/042"
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Security.Cryptography
+@using PgBlazorSamples.Web.Services.Learning
 @page "/learn/browser-02"
 <PageTitle>学習順042：ファイルアップロードと入力制約｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第4段階 / 学習順042</p>
@@ -16,14 +17,14 @@
     {
         <p>受信した内容のSHA-256：<code data-testid="browser02-hash">@digest</code></p>
     }
-    <p>内容はメモリで検査するだけで、サーバーのディスクやDBには保存しません。実業務では本人認可・ウイルス検査・保存先分離も必要です。</p>
+    <p>拡張子とMIMEの整合、UTF-8の実バイトと容量上限を確認します。内容はメモリで検査するだけで、サーバーのディスクやDBには保存しません。実業務では本人認可・ウイルス検査・保存先分離も必要です。</p>
 </section>
 <section class="lesson-details">
     <h2>検査すべき境界</h2><ol>
         <li>ブラウザーの accept は選択補助であり、セキュリティ検証の代わりではありません。</li>
-        <li>サーバーでファイルの拡張子とサイズを検査します。MIMEやファイル名は信用しません。</li>
+        <li>サーバーで拡張子・MIMEの整合とサイズを検査します。申告された情報だけでは安全性を保証できません。</li>
         <li>OpenReadStream に読み取り上限を渡します。名前を保存先パスとして使いません。</li>
-        <li>本番でのファイル内容・マルウェア検証はこの練習には含みません。</li>
+        <li>UTF-8・制御文字を検査します。マルウェア検査やCSVの完全な形式検証は含みません。</li>
     </ol></section>
 <section class="lesson-details">
     <h2>学習順042：WinForms＋Dapperとの比較と操作確認</h2>
@@ -39,32 +40,33 @@
 </section>
 <div class="page-navigation"><a href="/learn/041">前へ</a><a href="/learn/043">次へ</a></div>
 @code {
-    private const long Limit = 64 * 1024;
     private string result = "ファイルを選択してください。";
     private string? digest;
 
     private async Task InspectFile(InputFileChangeEventArgs args)
     {
-        digest = null;
+        digest = null; // 拒否時に前回の成功ハッシュを表示しない。
         var file = args.File;
-        var ext = Path.GetExtension(file.Name);
-        // 拡張子とサイズはサーバーで検査し、入力メタデータだけを信用しない。
-        if (ext is not ".csv" and not ".txt")
+        var metadataError = L042TextFileInspector.ValidateMetadata(file.Name, file.ContentType, file.Size);
+        if (metadataError is not null)
         {
-            result = "拒否：.txt または .csv のみ選択できます。";
+            result = metadataError;
             return;
         }
-        if (file.Size > Limit)
-        {
-            result = "拒否：64 KiBを超えるファイルは受け付けません。";
-            return;
-        }
+
         try
         {
-            await using var input = file.OpenReadStream(maxAllowedSize: Limit);
+            await using var input = file.OpenReadStream(maxAllowedSize: L042TextFileInspector.MaxBytes);
             using var output = new MemoryStream();
             await input.CopyToAsync(output);
             var bytes = output.ToArray();
+            var contentError = L042TextFileInspector.ValidateContent(bytes, file.Size);
+            if (contentError is not null)
+            {
+                result = contentError;
+                return;
+            }
+
             digest = Convert.ToHexString(SHA256.HashData(bytes));
             result = $"検査完了：{bytes.Length} バイトを読み取りました。保存はしていません。";
         }
