@@ -6,7 +6,8 @@
 <h1>Static SSRとInteractive Serverの違い</h1>
 <p>Static SSRはサーバーが要求ごとにHTMLを作って返します。単独ではBlazorのC#クリックイベントは動きません。Interactive Serverでは接続の準備後にC#イベントがサーバーで動きます。</p>
 <section class="lesson-details"><h2>対話型イベントの動作</h2>
-<p>このページはアプリ全体のInteractive Server設定で表示されています。初期HTMLもサーバーで事前レンダリングされるため、この画面単独ではStatic SSRの実機比較にはなりません。</p>
+<p>このページはアプリ全体のInteractive Server設定で表示されています。初期HTMLもサーバーで事前レンダリングされるため、この画面だけでStatic SSRには切り替わりません。別の学習専用Razor応答を使って両方式を実際に比較できます。</p>
+<p><a href="/__learning_static_ssr_009__" data-testid="runtime01-static-link">Static SSR実習ページを開く</a>。学習専用の隔離GETであり、業務DBや認可には接続しません。</p>
 <p>サーバーでの操作回数：<strong data-testid="runtime01-count">@count</strong></p>
 <button type="button" @onclick="Increment">サーバー側の回数を増やす</button>
 <h2>処理の違い</h2><table><thead><tr><th scope="col">方式</th><th scope="col">表示</th><th scope="col">C#クリック</th></tr></thead><tbody>

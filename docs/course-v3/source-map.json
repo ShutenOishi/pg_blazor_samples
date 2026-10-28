@@ -69,10 +69,10 @@
       "app_url": "/learn/web-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor",
       "audit_state": "interactive",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/005",
-      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。"
+      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。 受入HEAD 150bcd6511073b04737d4c0c70aff6f7b98f3f6d、アプリ40610990968・PDF40610990849 SUCCESS。"
     },
     {
       "sequence": 6,
@@ -122,9 +122,16 @@
       "app_url": "/learn/runtime-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/009"
+      "canonical_url": "/learn/009",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "隔離Static SSRのRazor応答とInteractive Serverを比較する新規Chrome試験。同一HEAD CI待ち。"
     },
     {
       "sequence": 10,

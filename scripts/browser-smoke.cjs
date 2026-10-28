@@ -260,6 +260,46 @@ async function waitText(page, selector, expected) {
         await page.getByRole("link", { name: "次へ：学習順016" }).click();
         if (!page.url().includes("/learn/016")) throw new Error("第3組の復習から学習順016へ移動できません");
         console.log("全面改稿011〜015の実画面・親子通知・一覧フィルター・復習への遷移を検証");
+        // 学習順009：専用のRazorComponentResultはC#イベントを実行できず、GETは新しいHTMLを作る。
+        const static09 = await page.goto(base + "/__learning_static_ssr_009__");
+        if (!static09 || static09.status() !== 200) throw new Error("009 Static SSR初期GETが200でない");
+        await waitText(page, '[data-testid="runtime09-static-count"]', "0");
+        let static09Nav = 0;
+        const trackStatic09 = req => {
+            if (req.isNavigationRequest() && req.resourceType() === "document") static09Nav++;
+        };
+        page.on("request", trackStatic09);
+        await page.getByRole("button", { name: "C#イベントを試す（Static SSRでは動きません）" }).click();
+        await page.waitForTimeout(300);
+        if ((await page.getByTestId("runtime09-static-count").textContent()).trim() !== "0" || static09Nav !== 0)
+            throw new Error("009 Static SSRのC#クリックが状態変更またはDocument再取得を発生させた");
+        page.off("request", trackStatic09);
+        const [static09Get] = await Promise.all([
+            page.waitForResponse(res => res.url().includes("/__learning_static_ssr_009__?count=1") && res.request().resourceType() === "document"),
+            page.getByRole("button", { name: "GETで新しいHTMLを取得する" }).click()
+        ]);
+        if (static09Get.status() !== 200) throw new Error("009 Static SSRの再GET失敗");
+        await waitText(page, '[data-testid="runtime09-static-count"]', "1");
+        if ((await page.request.get(base + "/__learning_static_ssr_009__?count=-1")).status() !== 400)
+            throw new Error("009 不正なGET値を400で拒否しなかった");
+        const interactive09 = await page.goto(base + "/learn/009");
+        if (!interactive09 || interactive09.status() !== 200) throw new Error("009 Interactive Server初期GET失敗");
+        await page.waitForTimeout(900);
+        let interactive09Nav = 0;
+        const trackInteractive09 = req => {
+            if (req.isNavigationRequest() && req.resourceType() === "document") interactive09Nav++;
+        };
+        page.on("request", trackInteractive09);
+        const interactive09Button = page.getByRole("button", { name: "サーバー側の回数を増やす" });
+        await interactive09Button.click();
+        await waitText(page, '[data-testid="runtime01-count"]', "1");
+        await interactive09Button.click();
+        await waitText(page, '[data-testid="runtime01-count"]', "2");
+        page.off("request", trackInteractive09);
+        if (interactive09Nav !== 0) throw new Error("009 対話型クリック中にDocument再取得が発生");
+        await page.reload();
+        await waitText(page, '[data-testid="runtime01-count"]', "0");
+        console.log("学習順009：Static SSRのC#クリック不動作・フォームGET・400拒否とInteractive Serverイベントを比較");
         await page.goto(base + "/learn/runtime-01");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "サーバー側の回数を増やす" }).click();

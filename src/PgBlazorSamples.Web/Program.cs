@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http.HttpResults;
+using PgBlazorSamples.Web.Components.Samples.Runtime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using System.Net;
@@ -247,6 +249,15 @@ if (explicitLoginEnabled)
 // デモ専用の固定パス。DB、認証台帳、秘密情報を参照しない。
 app.MapGet("/__learning_missing_page_for_http_404__", () => Results.NotFound())
     .AllowAnonymous();
+ // 学習順009：既存RoutesのInteractive Server設定は変更しない隔離Static SSR実習。
+ // 匿名GETで非機密の小さな固定値のみ扱い、業務DBや認可サービスには触れない。
+app.MapGet("/__learning_static_ssr_009__", (int? count) =>
+{
+    if (count is < 0 or > 2)
+        return (IResult)Results.BadRequest("学習用の回数は0〜2だけ指定できます。");
+    return (IResult)new RazorComponentResult<StaticSsr009Component>(
+        new Dictionary<string, object?> { ["Count"] = count ?? 0 });
+}).AllowAnonymous();
 app.MapHealthChecks("/health/live").AllowAnonymous();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()

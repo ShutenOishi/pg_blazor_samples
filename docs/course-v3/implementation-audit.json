@@ -95,11 +95,11 @@
       "implemented_behavior": "サーバー側C#イベントで更新前後の値を表示。2クリック・再読込時の初期化をChromeで検査",
       "missing_behavior": "デバッグ用メソッドの停止位置とVisual Studio操作手順の再現性",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 デバッガーのブレークポイント停止はVisual Studioで別途手動確認。新HEAD CI待ち。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "150bcd6511073b04737d4c0c70aff6f7b98f3f6d",
+      "ci_run": 40610990968,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 デバッガーのブレークポイント停止はVisual Studioで別途手動確認。新HEAD CI待ち。 005 Chrome個別ログ成功、アプリ40610990968全3ジョブとPDF40610990849成功。Visual Studio停止は手動未実証。"
     },
     {
       "sequence": "009",
@@ -107,16 +107,21 @@
       "lesson_path": "docs/course-v3/lessons/runtime-01.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
       "canonical_url": "/learn/009",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "隔離Razor Static SSRとInteractive Server、C#クリック不動作、フォームGET、400拒否、2クリック/再読込をブラウザーで比較",
       "missing_behavior": "Static SSRとInteractive Serverの具体的な動作比較",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF受入待ち。"
     },
     {
       "sequence": "015",
