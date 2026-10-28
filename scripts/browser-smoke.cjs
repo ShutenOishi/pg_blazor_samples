@@ -280,10 +280,18 @@ async function waitText(page, selector, expected) {
         await page.getByLabel("表示の好み").selectOption("compact");
         await page.getByRole("button", { name: "表示設定をブラウザーへ保存する" }).click();
         await waitText(page, '[data-testid="runtime05-browser-state"]', "保存しました");
+        const web20Stored = await page.evaluate(() => localStorage.getItem("pgblazor-course-runtime05-display"));
+        if (web20Stored !== "compact") throw new Error("学習順020の保存値が不正です: " + web20Stored);
         await page.reload();
+        // フルナビゲーション後のSSRとInteractive Server再接続を区別し、対話処理が戻るまで待つ。
+        await page.waitForTimeout(900);
+        const web20StoredAfterReload = await page.evaluate(() => localStorage.getItem("pgblazor-course-runtime05-display"));
+        if (web20StoredAfterReload !== "compact") throw new Error("学習順020の再読込で保存値が消えました: " + web20StoredAfterReload);
         await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
         await waitText(page, '[data-testid="runtime05-browser-state"]', "読み込みました");
-        if (await page.getByLabel("表示の好み").inputValue() !== "compact") throw new Error("学習順020のブラウザー保存が復元されません");
+        await page.waitForFunction(() =>
+            document.querySelector('[data-testid="runtime05-display-setting"]')?.value === "compact",
+            null, { timeout: 15000 });
         await page.evaluate(() => localStorage.removeItem("pgblazor-course-runtime05-display"));
         await page.getByRole("link", { name: "次へ：第4組の復習" }).click();
         await page.getByRole("heading", { name: "第4組の復習：初期化・再読込・状態の復習" }).waitFor();
