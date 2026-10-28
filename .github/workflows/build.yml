@@ -15,6 +15,7 @@ on:
       - "docs/course-v3/**"
       - "scripts/smoke-test.sh"
       - "scripts/check-learning-materials.py"
+      - "scripts/audit-source-trace.py"
       - "scripts/browser-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
@@ -30,6 +31,8 @@ on:
       - "docs/course-v3/**"
       - "scripts/smoke-test.sh"
       - "scripts/browser-smoke.cjs"
+      - "scripts/audit-source-trace.py"
+      - "scripts/check-learning-materials.py"
       - ".github/workflows/build.yml"
   workflow_dispatch:
 
@@ -55,6 +58,16 @@ jobs:
         run: dotnet restore PgBlazorSamples.slnx
       - name: 5ステップごとの学習コラムとPDF索引を検査
         run: python scripts/check-learning-materials.py
+      - name: 学習順110件のC#・SQL・JS・テスト参照の監査レポートを作成
+        if: runner.os == 'Linux'
+        run: python scripts/audit-source-trace.py --report dist/source-dependency-trace.json
+      - name: 依存参照監査レポートを保存
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: course-v3-source-trace-110
+          path: dist/source-dependency-trace.json
+          if-no-files-found: error
       - name: Releaseビルド
         run: dotnet build PgBlazorSamples.slnx -c Release --no-restore
       - name: UnitTestsの単体テストを実行
