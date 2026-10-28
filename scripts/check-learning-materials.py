@@ -92,7 +92,7 @@ if len(curriculum["stages"]) != 9 or len(curriculum["reviews"]) != 22:
 newpaths = []
 for n in range(1, 6):
     item = ordered[n-1]
-    razor = (SAMPLES / "Lessons" / "Stage01" / "L001WebExecutionPage.razor"
+    razor = (SAMPLES.parent / "Lessons" / "Stage01" / "L001WebExecutionPage.razor"
              if n == 1 else SAMPLES / "WebFoundation" / f"Web{n:02d}Page.razor")
     if item["id"] != f"web-{n:02d}" or not item["implementation"].startswith("implemented"):
         missing.append(f"web-{n:02d}の順序・実装状態が不一致")
@@ -303,7 +303,7 @@ for path, minimum in [
 # HTML画面、教材、PDF索引の実装を対応させる。
 web01 = SAMPLES / "WebFoundation"
 for n in range(1, 6):
-    page = (SAMPLES / "Lessons" / "Stage01" / "L001WebExecutionPage.razor"
+    page = (SAMPLES.parent / "Lessons" / "Stage01" / "L001WebExecutionPage.razor"
             if n == 1 else web01 / f"Web0{n}Page.razor")
     if not page.is_file() or f'@page "/learn/web-0{n}"' not in page.read_text(encoding="utf-8"):
         missing.append(f"web-0{n}：Razor画面とURLの不一致")
