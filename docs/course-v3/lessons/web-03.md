@@ -1,12 +1,12 @@
 # 学習順003：HTML・CSS・フォームの基礎
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor)。画面の正規URLは `/learn/003` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor)、[CSS](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor.css)、[Chrome試験](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/003` です。
 
 ## 到達目標
 
 Web画面の見た目や入力欄はWinFormsの`TextBox`や`Label`のようにC#だけで宣言されるのではなく、**HTMLが要素の意味を定義し、CSSが表示方法を指定**します。このステップでは、入力欄へ文字を入力してプレビューへ反映し、`label`と`input`の結び付け、Razorの双方向バインディング、CSSのスタイル指定を説明できることを目指します。
 
-対象ファイルは[Web03Page.razor](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor)と[Web03Page.razor.css](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor.css)です。実習では架空の名前だけを扱い、個人情報やDBは使用しません。検証の自動試験は[scripts/browser-smoke.cjs](../../../scripts/browser-smoke.cjs)で確認します。
+対象ファイルは`Web03Page.razor`と`Web03Page.razor.css`です。実習では架空の名前だけを扱い、個人情報やDBは使用しません。検証の自動試験は`scripts/browser-smoke.cjs`で確認します。
 
 ## 1. WinFormsコントロールとの対応
 
