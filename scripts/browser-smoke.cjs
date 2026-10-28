@@ -101,15 +101,73 @@ async function waitText(page, selector, expected) {
         console.log("学習順052：実DB検索と未設定の安全拒否の操作を検証");
 
 
-        await page.goto(base + "/learn/web-03");
+        // 学習順003：ラベルの意味、入力時反映、HTMLエンコードとC#側の空欄/上限拒否を実証する。
+        await page.goto(base + "/learn/003");
         await page.waitForTimeout(850);
-        await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習太郎");
+        const web03Input = page.getByRole("textbox", { name: "練習用の名前" });
+        await page.getByText("練習用の名前", { exact: true }).click();
+        if (!(await web03Input.evaluate(element => document.activeElement === element))) {
+            throw new Error("学習順003：labelのクリックで対応する入力欄にフォーカスが移りません");
+        }
+        if (await web03Input.getAttribute("maxlength") !== "30") {
+            throw new Error("学習順003：ブラウザー側の入力制限が30文字ではありません");
+        }
+        await web03Input.fill("練習太郎");
         await waitText(page, '[data-testid="web03-preview"]', "練習太郎");
-        await page.goto(base + "/learn/web-04");
+        await page.getByRole("button", { name: "サーバー側で入力を検証する" }).click();
+        await waitText(page, '[data-testid="web03-validation"]', "入力を受け付けました（保存はしていません）。");
+        await web03Input.fill(" ");
+        await waitText(page, '[data-testid="web03-preview"]', "未入力");
+        await waitText(page, '[data-testid="web03-validation"]', "未検証");
+        await page.getByRole("button", { name: "サーバー側で入力を検証する" }).click();
+        await waitText(page, '[data-testid="web03-validation"]', "未入力のため拒否しました。");
+        await web03Input.fill("<b>練習</b>");
+        await waitText(page, '[data-testid="web03-preview"]', "<b>練習</b>");
+        if (await page.getByTestId("web03-preview").locator("b").count() !== 0) {
+            throw new Error("学習順003：入力値がHTMLとして解釈されました");
+        }
+        // 開発者がHTML属性を変更しても、C#側の検証が独立して上限を拒否する。
+        await web03Input.evaluate(element => element.removeAttribute("maxlength"));
+        await web03Input.fill("あ".repeat(31));
+        await waitText(page, '[data-testid="web03-preview"]', "あ".repeat(31));
+        await page.getByRole("button", { name: "サーバー側で入力を検証する" }).click();
+        await waitText(page, '[data-testid="web03-validation"]', "30文字を超えたため拒否しました。");
+        console.log("学習順003：ラベル・入力反映・HTMLエンコード・空欄/上限のC#側拒否を検証");
+
+        // 学習順004：Document GETと、Documentを再取得せずDOMだけ変更する対話イベントを区別する。
+        const web04Document = await page.goto(base + "/learn/004");
+        if (!web04Document || web04Document.status() !== 200) {
+            throw new Error("学習順004：初期DocumentのGET 200を確認できません");
+        }
         await page.waitForTimeout(850);
-        await page.getByRole("button", { name: "追加の説明を表示・非表示" }).click();
+        await waitText(page, '[data-testid="web04-state"]', "非表示");
+        if (await page.getByTestId("web04-added").count() !== 0) {
+            throw new Error("学習順004：初期DOMに条件付き段落が存在します");
+        }
+        let web04UnexpectedDocuments = 0;
+        const web04PageErrors = [];
+        const trackWeb04Request = request => {
+            if (request.isNavigationRequest() && request.resourceType() === "document") {
+                web04UnexpectedDocuments += 1;
+            }
+        };
+        const trackWeb04Error = error => web04PageErrors.push(error.message);
+        page.on("request", trackWeb04Request);
+        page.on("pageerror", trackWeb04Error);
+        const web04Toggle = page.getByRole("button", { name: "追加の説明を表示・非表示" });
+        await web04Toggle.click();
         await waitText(page, '[data-testid="web04-state"]', "表示中");
         await page.getByTestId("web04-added").waitFor();
+        await web04Toggle.click();
+        await waitText(page, '[data-testid="web04-state"]', "非表示");
+        await page.getByTestId("web04-added").waitFor({ state: "detached" });
+        page.off("request", trackWeb04Request);
+        page.off("pageerror", trackWeb04Error);
+        if (web04UnexpectedDocuments !== 0 || web04PageErrors.length !== 0) {
+            throw new Error("学習順004：クリックで想定外のDocument取得/ページ例外が発生しました: " +
+                JSON.stringify({ web04UnexpectedDocuments, web04PageErrors }));
+        }
+        console.log("学習順004：初期GET 200・DOM追加削除・Document再取得なし・ページ例外なしを検証");
         await page.goto(base + "/learn/web-05");
         await page.waitForTimeout(850);
         await page.getByRole("button", { name: "デバッグ対象の処理を実行する" }).click();
