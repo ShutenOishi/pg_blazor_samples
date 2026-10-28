@@ -1,0 +1,55 @@
+@page "/learn/035"
+@page "/learn/25"
+
+<PageTitle>学習順035：MudBlazor一覧表｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順035 / 学習順035 / 一覧表</p>
+<h1>MudTableで課題を並べ替える</h1>
+<p>列の見出しを選び、昇順・降順の切替を試します。行データは練習用の固定値です。</p>
+<MudPaper Class="pa-3" Elevation="1">
+    <p data-testid="step25-count">練習用の課題：@_items.Count 件</p>
+    <MudTable T="LearningRow" Items="@_items" Hover="true" Striped="true" RowsPerPage="2">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel T="LearningRow" SortBy="@_sortTitle">課題名</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="LearningRow" SortBy="@_sortLevel">難易度</MudTableSortLabel></MudTh>
+            <MudTh>状態</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="課題名">@context.Title</MudTd>
+            <MudTd DataLabel="難易度">@context.Level</MudTd>
+            <MudTd DataLabel="状態">@(context.Done ? "完了" : "未完了")</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            @* 翻訳パッケージが提供する一覧操作の共通ラベルを利用する。 *@
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</MudPaper>
+<section class="lesson-details">
+    <h2>翻訳とテーブルの関係</h2>
+    <p>列名・実データはこの教材の日本語です。ページャーなどMudBlazorが提供する共通メッセージには登録済み翻訳リソースを利用します。</p>
+    <p>学習順036ではより高機能なMudDataGridを学びます。</p>
+</section>
+<section class="lesson-details" data-testid="mud07-compare-25">
+<h2>学習順035：WinForms＋Dapperとの比較と切り分け</h2>
+<table><thead><tr><th scope="col">学習の視点</th><th scope="col">確認する内容</th></tr></thead><tbody>
+<tr><th scope="row">固定一覧</th><td>Itemsは4件の架空データ。</td></tr>
+<tr><th scope="row">画面表示件数</th><td>RowsPerPageは2件の表示。</td></tr>
+<tr><th scope="row">DB検索件数</th><td>DB側ページングは後続ServerDataで扱う。</td></tr>
+</tbody></table>
+<p>実コードの状態を確認し、ブラウザーでの操作、サーバーでの実行、DBでの保存を混同しないでください。結果が変わらないときは対話型接続とイベントの更新箇所を先に調べます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/034">前へ：学習順034</a><a href="/learn/column/25">第7組の復習（031〜035）</a><a href="/learn/036">次へ：学習順036</a></div>
+
+@code {
+    // ここではDBアクセスを使わず、学習用の不変データで表の挙動を確認する。
+    private sealed record LearningRow(string Title, int Level, bool Done);
+    private readonly List<LearningRow> _items =
+    [
+        new("Razorの基本", 1, true),
+        new("DIの復習", 2, true),
+        new("日本語フォーム", 3, false),
+        new("一覧表の操作", 4, false)
+    ];
+    private readonly Func<LearningRow, object> _sortTitle = item => item.Title;
+    private readonly Func<LearningRow, object> _sortLevel = item => item.Level;
+}

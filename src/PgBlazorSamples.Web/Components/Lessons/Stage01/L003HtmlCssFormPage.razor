@@ -1,0 +1,41 @@
+@page "/learn/003"
+@page "/learn/web-03"
+
+<PageTitle>学習順003：HTMLとCSS｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第1段階 / 学習順003</p>
+<h1>HTML・CSS・フォームの基本を知る</h1>
+<p>HTMLは見出し・入力・本文の役割を表し、CSSは見た目を指定します。WinFormsのコントロール配置とは異なり、ブラウザーが文書を描画します。</p>
+<section class="lesson-details web-foundation-card">
+    <h2>ラベルと入力欄を使う</h2>
+    <label for="web03-name">練習用の名前</label>
+    <input id="web03-name" type="text" maxlength="30" @bind="name" @bind:event="oninput" @bind:after="ResetValidation" />
+    <p role="status" data-testid="web03-preview">入力内容：@(string.IsNullOrWhiteSpace(name) ? "未入力" : name)</p>
+    <button type="button" @onclick="ValidateName">サーバー側で入力を検証する</button>
+    <p role="status" aria-live="polite" data-testid="web03-validation">@validationMessage</p>
+    <p>maxlengthはブラウザー側の制限です。サーバー側でも未入力と30文字超を拒否し、結果だけを表示します。名前は保存しません。</p>
+    <p>ラベルのforと入力欄のidが対応します。枠線と余白はこの画面のCSSで変更できます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/002">前へ</a><a href="/learn/004">次へ：開発者ツール</a></div>
+@code {
+    private string name = "";
+    private string validationMessage = "未検証";
+
+    private void ResetValidation() => validationMessage = "未検証";
+
+    private void ValidateName()
+    {
+        // maxlength属性は開発者ツール等で変更できるため、C#でも条件を確認する。
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            validationMessage = "未入力のため拒否しました。";
+        }
+        else if (name.Length > 30)
+        {
+            validationMessage = "30文字を超えたため拒否しました。";
+        }
+        else
+        {
+            validationMessage = "入力を受け付けました（保存はしていません）。";
+        }
+    }
+}

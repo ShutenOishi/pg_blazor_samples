@@ -1,0 +1,93 @@
+@page "/learn/046"
+@page "/learn/db-bridge-01"
+@using PgBlazorSamples.Web.Services.Learning
+@inject L046OrmComparisonService Comparison
+<PageTitle>学習順046：DapperとEF Coreの役割・選定を比較する｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順046</p><h1>DapperとEF Coreの役割・選定を比較する</h1>
+<p>WinForms＋DapperのSQL・Executeと、EF Core 10のLINQ・変更追跡・SaveChangesを比較します。</p>
+<section class="lesson-details"><h2>要件別に方式を選ぶ</h2>
+<button type="button" @onclick='() => Choose("一般的なCRUD")'>一般的なCRUD</button>
+<button type="button" @onclick='() => Choose("既存の複雑なSQL")'>既存の複雑なSQL</button>
+<button type="button" @onclick='() => Choose("大量一覧")'>大量一覧</button>
+<p role="status" data-testid="dbbridge01-result">@result</p>
+<table><thead><tr><th scope="col">観点</th><th scope="col">Dapper</th><th scope="col">EF Core</th></tr></thead><tbody>
+<tr><td>検索</td><td>SQLを明示</td><td>LINQ/パラメーターSQL</td></tr>
+<tr><td>更新</td><td>Execute</td><td>SaveChanges</td></tr>
+<tr><td>一覧</td><td colspan="2">DBで条件・件数を制限し、本人認可はサーバーで強制</td></tr>
+</tbody></table>
+<p>EF Coreを中心に学びますが、既存SQLを無理に捨てる必要はありません。</p></section>
+<section class="lesson-details">
+    <h2>同じ学習用DBでDapperとEF Coreの実検索を比べる</h2>
+    <label for="l046-keyword">課題名の一部（1〜60文字）</label>
+    <input id="l046-keyword" @bind="keyword" maxlength="60" />
+    <button type="button" @onclick="CompareAsync" disabled="@loading">両方式で学習DBを検索する</button>
+    <p role="status" data-testid="l046-status">@comparisonStatus</p>
+    @if (comparison is { Queried: true })
+    {
+        <p data-testid="l046-matches">一致：@(comparison.Matches ? "はい" : "いいえ")</p>
+        <table data-testid="l046-dapper-rows">
+            <caption>Dapperで取得した最大10件</caption>
+            <thead><tr><th scope="col">ID</th><th scope="col">課題名</th></tr></thead>
+            <tbody>
+                @foreach (var row in comparison.DapperRows)
+                {
+                    <tr><td>@row.Id</td><td>@row.Title</td></tr>
+                }
+            </tbody>
+        </table>
+        <table data-testid="l046-ef-rows">
+            <caption>EF Coreで取得した最大10件</caption>
+            <thead><tr><th scope="col">ID</th><th scope="col">課題名</th></tr></thead>
+            <tbody>
+                @foreach (var row in comparison.EfRows)
+                {
+                    <tr><td>@row.Id</td><td>@row.Title</td></tr>
+                }
+            </tbody>
+        </table>
+    }
+    <p>学習用DBが未設定、またはWindows認証が有効な場合は検索しません。
+       読み取り専用の架空課題を対象とし、業務台帳の認可を代用しません。</p>
+</section>
+<section class="lesson-details">
+    <h2>学習順046：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="dbbridge10-compare-046">
+        <thead><tr><th scope="col">確認点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">実行場所</th><td>利用者端末のフォーム処理</td><td>サーバーのRazorイベントとサービス</td></tr>
+            <tr><th scope="row">技術選定</th><td>SQLとQuery/Execute</td><td>LINQとSaveChanges</td></tr>
+        </tbody>
+    </table>
+    <h2>障害の切り分け</h2>
+    <table><thead><tr><th scope="col">現象</th><th scope="col">確認すべき点</th></tr></thead>
+        <tbody><tr><td>画面ボタンはDBアクセスを実行しない</td><td>設定・UI・実DBの確認を分ける</td></tr>
+        <tr><td>権限が確認できない</td><td>事前整備済みDB台帳で操作ごとに認可し、安全に拒否する</td></tr></tbody></table>
+    <p>実装の詳細、正常系・失敗例、演習と詳しい解答は対応する日本語教材を参照してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/column/browser-45">前へ</a><a href="/learn/047">次へ</a></div>
+@code {
+    private string result = "未選択";
+    private string keyword = "架空";
+    private string comparisonStatus = "実DB検索は未実行です。";
+    private bool loading;
+    private L046ComparisonResult? comparison;
+    private async Task CompareAsync()
+    {
+        if (loading) return;
+        loading = true;
+        comparison = null;
+        comparisonStatus = "学習DBを照会しています。";
+        try
+        {
+            comparison = await Comparison.CompareAsync(keyword);
+            comparisonStatus = comparison.Status;
+        }
+        finally { loading = false; }
+    }
+    private void Choose(string kind) => result = kind switch
+    {
+        "一般的なCRUD" => "一般的なCRUD：EF Coreの短命DbContextが候補です。",
+        "既存の複雑なSQL" => "既存の複雑なSQL：Dapperとの併用やFromSqlを検討します。",
+        _ => "大量一覧：どちらもDB側で検索・取得件数を制限します。"
+    };
+}

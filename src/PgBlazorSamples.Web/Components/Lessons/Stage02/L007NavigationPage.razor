@@ -1,0 +1,21 @@
+@page "/learn/007"
+@page "/learn/02"
+
+<PageTitle>学習順007：画面遷移｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">第2段階 / 学習順007</p>
+<h1>URLとルーティング</h1>
+
+<p><code>@@page "/learn/007"</code> は、この画面のアドレスを指定しています。</p>
+
+<section class="lesson-details">
+    <h2>移動を試す</h2>
+    <p>次のリンクを選ぶと、別の学習画面に移動できます。</p>
+    <nav aria-label="画面遷移の練習" class="practice-nav">
+        <NavLink href="/" Match="NavLinkMatch.All">学習の目次</NavLink>
+        <NavLink href="/learn/006" Match="NavLinkMatch.All">学習順006へ戻る</NavLink>
+        <NavLink href="/learn/008" Match="NavLinkMatch.All">学習順008へ進む</NavLink>
+    </nav>
+</section>
+
+<p class="hint">画面左側の学習メニューからも移動できます。選択中の項目の表示にも注目してください。</p>

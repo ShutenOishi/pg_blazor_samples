@@ -1,0 +1,46 @@
+@page "/learn/011"
+@page "/learn/05"
+
+<PageTitle>学習順011：双方向バインディング｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">第2段階 / 学習順011</p>
+<h1>入力した文字をすぐに表示する</h1>
+<p><code>@@bind</code> を使うと、入力欄とC#の値を連動させられます。</p>
+
+<section class="lesson-details" aria-labelledby="binding-heading">
+    <h2 id="binding-heading">名前の入力練習</h2>
+    <label for="learner-name" class="field-label">表示する名前（架空の名前を入力）</label>
+    <input id="learner-name" class="text-input" type="text"
+           autocomplete="off" maxlength="40"
+           @bind="learnerName" @bind:event="oninput" />
+    <p class="example-output" data-testid="name-preview">
+        @if (string.IsNullOrWhiteSpace(learnerName))
+        {
+            <span>まだ名前が入力されていません。</span>
+        }
+        else
+        {
+            <span>こんにちは、@learnerName さん。</span>
+        }
+    </p>
+    <button type="button" class="secondary-button" @onclick="ClearName"
+            disabled="@string.IsNullOrEmpty(learnerName)">入力を消去する</button>
+</section>
+
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p><code>@@bind:event="oninput"</code> によって、文字を入力するたびに画面へ反映します。</p>
+    <p>文字列は通常のRazor表示でHTMLエンコードされます。個人情報は入力しないでください。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/column/runtime-10">前へ：第2組の復習</a>
+    <a href="/learn/012">次へ：学習順012</a>
+</div>
+
+@code {
+    // 入力値はこのページの状態に保持します。ADやDBには送信しません。
+    private string learnerName = "";
+
+    // 次の練習のために値を初期状態へ戻します。
+    private void ClearName() => learnerName = "";
+}

@@ -1,0 +1,36 @@
+@page "/learn/001"
+@page "/learn/web-01"
+
+<PageTitle>学習順001：WinFormsとWebの処理場所｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第1段階 / 学習順001</p>
+<h1>WinFormsとWebの処理場所を比較する</h1>
+<p>WinFormsのClickイベントは通常PC側で動きます。この教材のBlazor Interactive ServerではC#のClick処理をWebサーバー側で実行します。</p>
+<section class="lesson-details">
+    <h2>サーバーのC#イベントを確認する</h2>
+    <p>サーバー側で数えた操作回数：<strong data-testid="web01-count">@count</strong> 回</p>
+    <button type="button" @onclick="Increment">サーバー側で1増やす</button>
+    <p role="status" data-testid="web01-trace">@(trace.Count == 0 ? "まだ処理していません" : string.Join(" → ", trace))</p>
+    <p>上の履歴はサーバー側のC#イベント処理で追加した学習用の文字列です。ブラウザーには描画結果だけを返し、ホスト名や認証情報は含めません。</p>
+    <p>画面はブラウザーに表示されますが、カウントを増やすC#はサーバーで動きます。</p>
+</section>
+<section class="lesson-details">
+    <h2>処理場所の違い</h2>
+    <ol>
+        <li>ブラウザーが画面を表示する。</li>
+        <li>ボタン操作が対話型の接続を通じてWebサーバーへ届く。</li>
+        <li>サーバーのC#メソッドが値を変更する。</li>
+        <li>変更された表示がブラウザーへ反映される。</li>
+    </ol>
+    <p>ここではデータベース、Active Directory、機密情報は使いません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/002">次へ：HTTPの仕組み</a></div>
+@code {
+    private int count;
+    private readonly List<string> trace = new();
+    // サーバーの学習用イベントだけを記録し、ホスト・ユーザー・接続識別子は残さない。
+    private void Increment()
+    {
+        count++;
+        trace.Add($"サーバーC#：クリック{count}回目を処理");
+    }
+}

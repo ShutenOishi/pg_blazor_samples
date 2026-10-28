@@ -1,0 +1,632 @@
+{
+  "schema_version": 1,
+  "kind": "remaining-test-reference-audit",
+  "created_at_local": "2026-10-28 JST",
+  "baseline_head": "141095e756fe2b3a10d17bd9d2b5ca79662ebcb9",
+  "baseline_pr_comment": 6471029105,
+  "baseline": {
+    "declared_test_reference": 75,
+    "without_direct_xunit_reference": 35,
+    "application_run": 40701021137,
+    "pdf_source_run": 40701021139,
+    "windows_xunit_pass": 137,
+    "ubuntu_xunit_pass": 137,
+    "postgres18_xunit_pass": 33,
+    "ci_attempt": 1,
+    "acceptance": "ACCEPTED_ON_BASELINE_HEAD"
+  },
+  "proposed": {
+    "direct_xunit_sources": [
+      {
+        "sequence": 23,
+        "lesson_path": "docs/course-v3/lessons/Stage03/L023ServiceLifetimesPage.md",
+        "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L023ServiceLifetimesPage.razor",
+        "real_dependency_candidates": [
+          "src/PgBlazorSamples.Web/Program.cs",
+          "src/PgBlazorSamples.Web/Services/Lifetime/LifetimeMarkers.cs"
+        ],
+        "source_review": "Singleton/Scoped/Transientの登録とDI寿命。専用xUnitなし。",
+        "browser_source": "scripts/browser-smoke.cjs",
+        "browser_locator_hint": "step13",
+        "browser_locator_mentions": 6,
+        "browser_evidence": "IMPLEMENTED_IN_NEW_HEAD_SOURCE; SAME_HEAD_CI_PENDING",
+        "xunit_source": "tests/PgBlazorSamples.UnitTests/L023ServiceLifetimeTests.cs",
+        "xunit_scope": "xUnitで隔離DI容器のMarker生存期間を検査。ChromeでTransientを2回再解決し、同一circuitのSingleton/Scoped識別子を維持する正常/境界を追加。Program.cs実際のDI登録とcircuit寿命は別の確認範囲。",
+        "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+        "acceptance": "PENDING_REQUIRED_SAME_HEAD_CI"
+      },
+      {
+        "sequence": 24,
+        "lesson_path": "docs/course-v3/lessons/Stage03/L024CircuitScopedPage.md",
+        "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L024CircuitScopedPage.razor",
+        "real_dependency_candidates": [
+          "src/PgBlazorSamples.Web/Program.cs",
+          "src/PgBlazorSamples.Web/Services/Lifetime/ScopedCounter.cs",
+          "src/PgBlazorSamples.Web/Components/Samples/Step14/SharedCounter.razor"
+        ],
+        "source_review": "ScopedCounterと親子SharedCounter。専用xUnitなし。",
+        "browser_source": "scripts/browser-smoke.cjs",
+        "browser_locator_hint": "step14",
+        "browser_locator_mentions": 7,
+        "browser_evidence": "IMPLEMENTED_IN_NEW_HEAD_SOURCE; SAME_HEAD_CI_PENDING",
+        "xunit_source": "tests/PgBlazorSamples.UnitTests/L024ScopedCounterTests.cs",
+        "xunit_scope": "xUnitでScopedCounterの親子参照・加算/リセット・別インスタンス分離。Chromeで別ブラウザーコンテキストのcircuitから子操作し、元のカウントを保持することを検査。認証ユーザーの境界検証ではない。",
+        "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+        "acceptance": "PENDING_REQUIRED_SAME_HEAD_CI"
+      },
+      {
+        "sequence": 26,
+        "lesson_path": "docs/course-v3/lessons/Stage03/L026OptionsPatternPage.md",
+        "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L026OptionsPatternPage.razor",
+        "real_dependency_candidates": [
+          "src/PgBlazorSamples.Web/Program.cs",
+          "src/PgBlazorSamples.Web/Services/Learning/LearningOptions.cs"
+        ],
+        "source_review": "IOptions<LearningOptions>とProgram.csのDI設定。専用xUnitなし。",
+        "browser_source": "scripts/browser-smoke.cjs",
+        "browser_locator_hint": "step16",
+        "browser_locator_mentions": 2,
+        "browser_evidence": "IMPLEMENTED_IN_NEW_HEAD_SOURCE; SAME_HEAD_CI_PENDING",
+        "xunit_source": "tests/PgBlazorSamples.UnitTests/L026LearningOptionsTests.cs",
+        "xunit_scope": "xUnitでLearning節のIOptions型付き設定・欠落時の既定値。Chromeで設定値5と説明の開閉を検査。実Programの起動設定や本番Secret管理の証明ではない。",
+        "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+        "acceptance": "PENDING_REQUIRED_SAME_HEAD_CI"
+      }
+    ],
+    "declared_test_reference_after_new_commit": 78,
+    "without_direct_xunit_reference_after_new_commit": 32,
+    "chrome_script": "scripts/browser-smoke.cjs",
+    "same_head_ci": "PENDING_NOT_ACCEPTED",
+    "chrome_scope": "Only lessons 023/024/026 strengthened. No automatic acceptance for remaining 32.",
+    "postgres18_scope": "No new PG18-specific claims; existing 33 PG18 tests remain a separate workflow."
+  },
+  "lessons": [
+    {
+      "sequence": 1,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L001WebExecutionPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L001WebExecutionPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "Razor内のC#クリック履歴・再読込。専用xUnitなし。Chrome web01操作の個別検査は別軸。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "web01",
+      "browser_locator_mentions": 5,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 2,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L002HttpRequestResponsePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "source_review": "標準NavigationManagerとHTTP 200/404。専用xUnitなし。Chrome web02検査は別軸。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "web02",
+      "browser_locator_mentions": 3,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 3,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L003HtmlCssFormPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor.css"
+      ],
+      "source_review": "Razor入力検証とCSS isolation。専用xUnitなし。Chrome web03正常/負例は別軸。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "web03",
+      "browser_locator_mentions": 20,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 4,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L004DomNetworkConsolePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "source_review": "RazorのDOM表示変更とDocument再取得検出。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "web04",
+      "browser_locator_mentions": 23,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 5,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L005VisualStudioDebugPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "source_review": "Razor C#イベントとVisual Studioの手動デバッグ。ブレークポイント操作はCIで証明できない。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "web05",
+      "browser_locator_mentions": 11,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 6,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L006FirstBlazorPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "HTMLと@pageのみ。個別サービス/xUnit不要だが、表示とルート検証が必要。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step01",
+      "browser_locator_mentions": 0,
+      "browser_evidence": "ROUTE_ONLY_OR_INDIRECT; per-case normal/negative unverified",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 7,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L007NavigationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L007NavigationPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "NavLinkによる画面遷移。個別xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step02",
+      "browser_locator_mentions": 0,
+      "browser_evidence": "ROUTE_ONLY_OR_INDIRECT; per-case normal/negative unverified",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 8,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L008RazorSyntaxPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "Razor式とローカル値/CultureInfo。個別xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step03",
+      "browser_locator_mentions": 0,
+      "browser_evidence": "ROUTE_ONLY_OR_INDIRECT; per-case normal/negative unverified",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 9,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L009StaticSsrInteractivePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor"
+      ],
+      "source_review": "Static SSR用子コンポーネント、Program.cs描画設定。独立のSSR/Interactive差分をChromeで確認する必要がある。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step04",
+      "browser_locator_mentions": 1,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 10,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L010EventPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "Razorローカルカウンタ。個別xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step05",
+      "browser_locator_mentions": 1,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 11,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L011TwoWayBindingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L011TwoWayBindingPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "Razor @bindと空文字判定。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step06",
+      "browser_locator_mentions": 1,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 12,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L012ConditionalRenderingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L012ConditionalRenderingPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "Razorローカル一覧の条件表示。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step07",
+      "browser_locator_mentions": 1,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 13,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L013ComponentParametersPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L013ComponentParametersPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step07/GreetingCard.razor"
+      ],
+      "source_review": "子GreetingCardのParameter。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step08",
+      "browser_locator_mentions": 6,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 14,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L014EventCallbackPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L014EventCallbackPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step08/TopicPicker.razor"
+      ],
+      "source_review": "子TopicPickerのEventCallback。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step09",
+      "browser_locator_mentions": 7,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 16,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L016ComponentLifecyclePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L016ComponentLifecyclePage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step09/LifecycleTracker.razor"
+      ],
+      "source_review": "子LifecycleTrackerの初期化/破棄。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step11",
+      "browser_locator_mentions": 4,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 17,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L017PrerenderInitializationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "source_review": "Razor初期化の識別子と事前描画。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step12",
+      "browser_locator_mentions": 5,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 19,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L019UrlHistoryStatePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "NavigationManagerとURL履歴。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step14",
+      "browser_locator_mentions": 7,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 20,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L020StatePersistenceChoicePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "IJSRuntime/localStorageの非機密設定保存。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step15",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 27,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L027AsyncLoggingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L027AsyncLoggingPage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "ILogger/Task.Delay/CancellationTokenのイベント。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step17",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 31,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L031MudIntroductionPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L031MudIntroductionPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "source_review": "MudBlazor Provider/ISnackbarとProgram.cs依存。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step21",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 32,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L032MudLayoutPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L032MudLayoutPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "source_review": "MudLayout/DrawerをRazor内で使用。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step22",
+      "browser_locator_mentions": 3,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 33,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L033MudInputsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L033MudInputsPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "source_review": "Mud入力/日付選択をRazor内で使用。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step23",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 34,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L034MudValidationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L034MudValidationPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "source_review": "MudForm.ValidateAsyncの入力検証。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step24",
+      "browser_locator_mentions": 3,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 35,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L035MudTablePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L035MudTablePage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "source_review": "MudTableの固定配列とソート。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step25",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 36,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L036DataGridPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L036DataGridPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "source_review": "MudDataGridでのメモリ内検索。DBアクセスなし。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step26",
+      "browser_locator_mentions": 3,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 37,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L037DialogPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L037DialogPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "source_review": "IDialogService.ShowMessageBoxAsync。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step27",
+      "browser_locator_mentions": 3,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 38,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L038NotificationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "source_review": "ISnackbarとTask.Delay。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step28",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 40,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L040UiPracticePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "source_review": "架空メモリ一覧＋IDialogService/ISnackbar。実DBなし。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step30",
+      "browser_locator_mentions": 5,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 45,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L045AccessibilityReviewPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor.css",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "source_review": "ElementReference.FocusAsyncとCSS isolation。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "browser05",
+      "browser_locator_mentions": 3,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 61,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L061ItemsBoundaryPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L061ItemsBoundaryPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs"
+      ],
+      "source_review": "LearningTask型を使用したメモリ内8件のMudTable。DBアクセスなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step41",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 68,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L068VirtualizeItemsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor",
+      "real_dependency_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs"
+      ],
+      "source_review": "LearningTaskの表示型、メモリ内500件の仮想化。DB取得最適化とは別。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step48",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    },
+    {
+      "sequence": 80,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L080PatternChoicePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L080PatternChoicePage.razor",
+      "real_dependency_candidates": [],
+      "source_review": "Razor内の一覧手法の選択演習。専用xUnitなし。",
+      "browser_source": "scripts/browser-smoke.cjs",
+      "browser_locator_hint": "step60",
+      "browser_locator_mentions": 2,
+      "browser_evidence": "SOURCE_CONTAINS_LOCATOR_ONLY; per-case normal/negative review distinct",
+      "xunit_source": null,
+      "xunit_scope": "NO_DIRECT_TEST_ADDED; absence of xUnit not evidence of absent Chrome/DI behavior",
+      "postgres18_relation": "NO_INDIVIDUAL_PG18_EVIDENCE_ASSERTED; unrelated to the displayed in-memory or framework lesson unless otherwise separately proven",
+      "acceptance": "UNVERIFIED_INDIVIDUAL_CASE; NO_DIRECT_XUNIT_REFERENCE"
+    }
+  ],
+  "evidence_policy": "ソース存在、Chromeジョブ成功、テスト参照登録、個別正常/負例、PG18実DB、現地SITEは別々の証拠。GET 200とジョブPASSを個別試験認定へ自動変換しない。",
+  "safety": {
+    "draft": true,
+    "merged": false,
+    "release_updated": false,
+    "site_pass": 0,
+    "site_not_run": 15,
+    "pre_approved": false
+  }
+}

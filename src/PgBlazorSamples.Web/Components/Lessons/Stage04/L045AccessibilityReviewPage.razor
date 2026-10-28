@@ -1,0 +1,43 @@
+@page "/learn/045"
+@page "/learn/browser-05"
+<PageTitle>学習順045：HTMLの意味・フォーカス・拡大表示の最終確認｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第4段階 / 学習順045</p>
+<h1>HTMLの意味・フォーカス・拡大表示の最終確認</h1>
+
+<p>キーボードと拡大表示を前提に、入力項目のラベル、見出しの順序、フォーカスと通知の読み上げを確認します。</p>
+<section class="lesson-details browser-accessibility @(strongContrast ? "high-contrast" : "")" style="font-size:@(largeText ? "1.35rem" : "1rem")">
+    <h2>キーボードで操作する</h2>
+    <label for="browser05-note">練習用の表示内容</label>
+    <input id="browser05-note" type="text" @ref="focusTarget" @bind="note" @bind:event="oninput" placeholder="短いメモを入力" />
+    <p role="status" aria-live="polite" data-testid="browser05-preview">@(string.IsNullOrWhiteSpace(note) ? "まだ入力されていません。" : "入力内容：" + note)</p>
+    <button type="button" @onclick="ToggleText">文字の大きさを切り替える</button>
+    <button type="button" @onclick="ToggleContrast">表示のコントラストを切り替える</button>
+    <button type="button" @onclick="FocusInputAsync">入力欄へフォーカスを移す</button>
+    <p data-testid="browser05-settings">@(largeText ? "大きい文字" : "標準の文字") / @(strongContrast ? "高コントラスト" : "通常のコントラスト")</p>
+    <details><summary>表示を確認する手順</summary>
+        <ol><li>Tabキーで入力欄とボタンを順番に移動する。</li><li>入力後に結果がテキストで通知されることを確認する。</li><li>ブラウザーの拡大率を200%にして横スクロールや重なりを確認する。</li><li>文字サイズとコントラストを変えて操作する。</li></ol>
+    </details>
+</section>
+<section class="lesson-details">
+    <h2>学習順045：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-045">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>Label・TabIndex・フォント倍率</td><td>labelとinput・focus-visible・status</td><td>色だけで結果を伝えず、Tab移動と200%拡大で操作を確認する。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>TabとShift+Tabで入力と切替を試し、200%拡大と読み上げを確認する。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>色だけで結果を伝えず、Tab移動と200%拡大で操作を確認する。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/044">前へ</a><a href="/learn/column/browser-45">次へ</a></div>
+@code {
+    private string note = "";
+    private bool largeText;
+    private bool strongContrast;
+    // 装飾変更だけでは操作の結果が分からないため、テキストでも状態を伝える。
+    private void ToggleText() => largeText = !largeText;
+    private void ToggleContrast() => strongContrast = !strongContrast;
+    private ElementReference focusTarget;
+    private async Task FocusInputAsync() => await focusTarget.FocusAsync();
+}

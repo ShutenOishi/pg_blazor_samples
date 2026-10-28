@@ -44,11 +44,11 @@ var rows = await query.OrderBy(t => t.Id).Take(20)
 この検索の主要部分ではCountAsyncとToListAsyncが別のDBコマンドであり、TotalCountと行の最大数20は異なります。更新の多い業務で件数と明細の時点一致を要求する場合、トランザクションの分離レベルを検討します。SQLがPostgreSQLでどのように実行されるかは次の組で詳しく確認します。
 
 ## 画面を連続操作する
-1. /learn/db-bridge-01を開き「一般的なCRUD」「既存の複雑なSQL」「大量一覧」を順に押します。DapperとEF Coreの選択理由が切り替わりますが、DBアクセスはありません。
-2. /learn/31へ移動し、固定DTOのId、課題名、日付、完了状態を確認します。EntityにはUnitCodeやAvailableDatesなど別の列があることを確認します。
-3. /learn/32でDDLの型を確認し、開発専用DBでのみSQLを適用します。SELECT current_database(), current_user;で接続先を確認します。画面を開いただけではDBのテーブルを作りません。
-4. /learn/33でDB設定の有無を読み、設定済み表示は接続成功ではないと説明します。接続文字列をGitへ書き込みません。
-5. /learn/34で「接続して一覧を取得」を押します。未設定なら未設定案内、設定済みで実DBが利用できれば検索成功の案内を確認します。
+1. /learn/046を開き「一般的なCRUD」「既存の複雑なSQL」「大量一覧」を順に押します。DapperとEF Coreの選択理由が切り替わりますが、DBアクセスはありません。
+2. /learn/047へ移動し、固定DTOのId、課題名、日付、完了状態を確認します。EntityにはUnitCodeやAvailableDatesなど別の列があることを確認します。
+3. /learn/048でDDLの型を確認し、開発専用DBでのみSQLを適用します。SELECT current_database(), current_user;で接続先を確認します。画面を開いただけではDBのテーブルを作りません。
+4. /learn/049でDB設定の有無を読み、設定済み表示は接続成功ではないと説明します。接続文字列をGitへ書き込みません。
+5. /learn/050で「接続して一覧を取得」を押します。未設定なら未設定案内、設定済みで実DBが利用できれば検索成功の案内を確認します。
 6. /learn/column/db-bridge-50へ戻って処理の順番と失敗の分類を説明し、次の学習順051へ進みます。
 
 ## 障害の切り分け表

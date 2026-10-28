@@ -1,0 +1,48 @@
+@page "/learn/069"
+@page "/learn/49"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningAdvancedPageService Pages
+@inject LearningDbService DbSettings
+<PageTitle>学習順069：DB側の仮想化｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順069 / VirtualizeServerData</p>
+<h1>スクロール範囲だけPostgreSQLから取得する</h1>
+<p>GridStateVirtualizeのStartIndex・CountをEF CoreのSkip・Takeへ渡します。ここでは番号順を固定し、列ソートは無効にします。</p>
+<p role="status" data-testid="step49-state">@_message</p>
+<MudPaper Class="pa-4">
+    <MudDataGrid T="LearningTaskRow" Virtualize="true" Height="360px" ItemSize="50"
+                 VirtualizeServerData="LoadAsync" Dense="true" Filterable="false">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="番号" Sortable="false"/>
+            <PropertyColumn Property="x => x.Title" Title="課題名" Sortable="false"/>
+            <PropertyColumn Property="x => x.DueDate" Title="期限日" Sortable="false" Format="yyyy/MM/dd"/>
+        </Columns>
+    </MudDataGrid>
+</MudPaper>
+<section class="lesson-details">
+    <h2>学習順069：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-069"><thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+    <tbody><tr><td>DB側の範囲取得</td><td>スクロール位置をOFFSETとLIMITに変換</td><td>VirtualizeServerDataからSkip/Takeへ引き渡す</td></tr>
+    <tr><td>DBと業務の安全性</td><td>SQLと台帳に操作・行の認可条件を追加する</td><td>DTO取得と既存台帳の都度認可・監査を区別する</td></tr></tbody></table>
+    <p>実コード2例、PostgreSQL18の操作、障害の切り分け、演習と詳しい解答は日本語教材の学習順069で確認します。</p>
+
+    <h2>スクロールとページングを混同しない</h2>
+    <p>表示領域の高さを固定し、要求されるCountの範囲だけ取得します。キャンセルはCountAsync・ToListAsyncにも渡します。極端に深いスクロールではOFFSETの負荷が残り、連続探索には学習順067が向きます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/068">前へ：学習順068</a><a href="/learn/070">次へ：学習順070</a></div>
+@code {
+    private string _message = "開発用DBから表示範囲を取得します。";
+    protected override void OnInitialized()
+    {
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+    private async Task<GridData<LearningTaskRow>> LoadAsync(GridStateVirtualize<LearningTaskRow> state, CancellationToken token)
+    {
+        var count = Math.Min(state.Count, LearningAdvancedPageService.MaxWindowSize);
+        if (count < 1) return new() { Items = [], TotalItems = 0 };
+        var result = await Pages.LoadWindowAsync(state.StartIndex, count, token);
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+}

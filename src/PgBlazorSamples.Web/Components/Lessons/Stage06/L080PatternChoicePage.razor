@@ -1,0 +1,65 @@
+@page "/learn/080"
+@page "/learn/60"
+<PageTitle>学習順080：一覧方式の総合選定｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順080 / 10方式の総合演習</p>
+<h1>要件から一覧の取得・表示・更新方式を選ぶ</h1>
+<MudPaper Class="pa-4">
+    <MudSelect T="string" Label="要件を選ぶ" @bind-Value="_scenario">
+        <MudSelectItem T="string" Value="@("small")">50件の固定マスターを表示する</MudSelectItem>
+        <MudSelectItem T="string" Value="@("paged")">大量の業務データをページング・複数列ソートする</MudSelectItem>
+        <MudSelectItem T="string" Value="@("next")">数百万件を次へ・次へと読む</MudSelectItem>
+        <MudSelectItem T="string" Value="@("scroll")">巨大な一覧をスクロールで取り出す</MudSelectItem>
+        <MudSelectItem T="string" Value="@("export")">集計とCSVを利用者に提供する</MudSelectItem>
+    </MudSelect>
+    <MudSelect T="string" Label="採用する方式" @bind-Value="_choice">
+        <MudSelectItem T="string" Value="@("items")">Items全件読み込み</MudSelectItem>
+        <MudSelectItem T="string" Value="@("table")">MudTable ServerData</MudSelectItem>
+        <MudSelectItem T="string" Value="@("grid")">MudDataGrid ServerData</MudSelectItem>
+        <MudSelectItem T="string" Value="@("sort")">許可リスト式の複数列ソート</MudSelectItem>
+        <MudSelectItem T="string" Value="@("filter")">複合検索とCount一致</MudSelectItem>
+        <MudSelectItem T="string" Value="@("join")">関連テーブルのDTO射影</MudSelectItem>
+        <MudSelectItem T="string" Value="@("keyset")">キーセットページング</MudSelectItem>
+        <MudSelectItem T="string" Value="@("virtual")">取得済みItemsの描画仮想化</MudSelectItem>
+        <MudSelectItem T="string" Value="@("dbvirtual")">DB取得つき仮想スクロール</MudSelectItem>
+        <MudSelectItem T="string" Value="@("aggregate")">DB側GroupByと件数制限つきCSV</MudSelectItem>
+    </MudSelect>
+    <MudButton Color="Color.Primary" OnClick="CheckChoice">選定を確認する</MudButton>
+    <p role="status" data-testid="step60-state">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>一つに決めつけない</h2>
+    <p>この演習の正答は第一候補です。実務では検索、認可、DTO射影、ソート、ページングなどを組み合わせます。10方式のうち不要な複雑さを導入しないこと、失敗経路・限界・権限境界を説明できることが到達目標です。</p>
+    <details><summary>否定演習：いつItems全件読み込みを選ばない？</summary><p>総件数が伸び続け、メモリと通信量が制御できない場合はServerDataや仮想化を選びます。</p></details>
+    <details><summary>否定演習：Gridで行を隠せば認可できる？</summary><p>できません。Count・Items・詳細・CSV・更新すべてサーバー側で認可します（学習順086〜70）。</p></details>
+
+    <h2>学習順080：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-080">
+        <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>
+            <tr><td>今回の処理</td><td>一覧パターンを要件から選ぶのSQLと表示を管理</td><td>一覧パターンを要件から選ぶを学習用サービスで処理</td></tr>
+            <tr><td>DBの接続</td><td>NpgsqlConnectionとSQLパラメーター</td><td>DbContextFactoryとLINQ／Npgsql</td></tr>
+            <tr><td>認可</td><td>業務台帳を都度照合</td><td>この学習画面は未実装、本番では既存台帳を操作・行ごと確認</td></tr>
+        </tbody>
+    </table>
+    <p>実コード・操作手順・障害の切り分け・演習と詳しい解答は docs/samples/step60.md に収録しています。</p>
+</section>
+<div class="page-navigation"><a href="/learn/079">前へ：学習順079</a><a href="/learn/column/60">第16組の復習：期間・集計・性能</a></div>
+@code {
+    private string _scenario = "paged";
+    private string _choice = "grid";
+    private string _message = "選択して理由を確認してください。";
+    private void CheckChoice()
+    {
+        var (answer, reason) = _scenario switch
+        {
+            "small" => ("items", "固定の小規模一覧ならItemsで十分です。"),
+            "paged" => ("grid", "複数列ソートや列UIにはMudDataGrid ServerDataが第一候補です。許可ソートも併用します。"),
+            "next" => ("keyset", "単調なキーで次ページだけを取得し、深いOFFSETを避けます。"),
+            "scroll" => ("dbvirtual", "描画だけでなくDB取得も範囲で分割します。"),
+            "export" => ("aggregate", "DB側集計と少量CSV、大量出力の別設計を選びます。"),
+            _ => ("grid", "要件を指定してください。")
+        };
+        _message = _choice == answer ? "第一候補です。" + reason : "別の第一候補があります。" + reason;
+    }
+}

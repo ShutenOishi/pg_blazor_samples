@@ -16,16 +16,16 @@
 <section class="lesson-details">
     <h2>5ステップをつなぐ</h2>
     <ol>
-        <li>Step26：MudDataGridは小規模なItemsなら便利だが、DBの全件取得を推奨する意味ではない。</li>
-        <li>Step27：DialogServiceをDIで呼び、確認と中止を区別する。</li>
-        <li>Step28：処理中の状態とSnackbar通知、二重実行防止を分ける。</li>
-        <li>Step29：Scopedの設定サービスを通してテーマを共有し、キーボード・読み上げを確認する。</li>
-        <li>Step30：入力・検索・確認・通知を、架空データの画面として組み合わせる。</li>
+        <li>学習順036：MudDataGridは小規模なItemsなら便利だが、DBの全件取得を推奨する意味ではない。</li>
+        <li>学習順037：DialogServiceをDIで呼び、確認と中止を区別する。</li>
+        <li>学習順038：処理中の状態とSnackbar通知、二重実行防止を分ける。</li>
+        <li>学習順039：Scopedの設定サービスを通してテーマを共有し、キーボード・読み上げを確認する。</li>
+        <li>学習順040：入力・検索・確認・通知を、架空データの画面として組み合わせる。</li>
     </ol>
     <h2>次はブラウザー固有の操作へ</h2>
-    <p>学習順041〜045でJavaScript連携、ファイルの選択と保存、例外の扱い、キーボードと拡大表示を学びます。その後でStep31〜40のEF Core 10・Npgsql・DbContextFactoryへ進みます。</p>
+    <p>学習順041〜045でJavaScript連携、ファイルの選択と保存、例外の扱い、キーボードと拡大表示を学びます。その後で学習順047〜40のEF Core 10・Npgsql・DbContextFactoryへ進みます。</p>
     <details><summary>確認問題：ItemsとServerDataの違いは？</summary><p>Itemsは既に取得した行を画面に渡します。ServerDataはページング・検索条件などを受けてサーバーへ問い合わせます。</p></details>
     <details><summary>確認問題：確認ダイアログがあるので認可は不要？</summary><p>いいえ。確認はUXであり、保存直前のサーバー側認可・入力検証は別に必要です。</p></details>
     <details><summary>確認問題：テーマ状態をSingletonに保存してよい？</summary><p>個人の状態を全員で共有しないため、この教材ではScopedサービスを利用します。Interactive Serverではcircuitの寿命に注意します。</p></details>
 </section>
-<div class="page-navigation"><a href="/learn/30">ステップ30へ戻る</a><a href="/learn/browser-01">次へ：学習順041</a></div>
+<div class="page-navigation"><a href="/learn/040">学習順040へ戻る</a><a href="/learn/041">次へ：学習順041</a></div>

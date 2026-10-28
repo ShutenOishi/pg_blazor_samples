@@ -116,6 +116,68 @@ jobs:
           assert len(reader.pages) >= 110, f"PDFページ数が少なすぎます: {len(reader.pages)}"
           print(f"日本語PDF検査成功: {len(reader.pages)}ページ / {len(chapters)}章 / 110学習順 / 9概要 / 22復習 / {pdf_path.stat().st_size} bytes")
           PY
+      # ユーザーが2026-10-29に明示承認した一回限りの教材PDF公開。
+      # Draft PRは解除せず、正式版・既存Previewを更新しない。
+      - name: 一回限りの検証済み教材PDFスナップショット公開
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.number == 39 &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          tag="learning-textbook-v3-snapshot-20261029"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "一回限りのPDFは公開済み。再発行・上書きをしません。"
+            exit 0
+          fi
+          current_head="$(gh api "repos/$GITHUB_REPOSITORY/pulls/39" --jq '.head.sha')"
+          if [[ "$current_head" != "$SOURCE_SHA" ]]; then
+            echo "::error::PRの先端が変化したため旧HEADの公開を拒否します。"
+            exit 1
+          fi
+          # 別Workflowの同じソースHEADでWindows・Ubuntu実Chrome・PG18が全成功するまで公開しない。
+          app_run_id=""
+          for attempt in {1..45}; do
+            runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$SOURCE_SHA&event=pull_request&per_page=100")"
+            app_run_id="$(printf '%s' "$runs" | jq -r '[.workflow_runs[] | select(.name == "日本語Blazorアプリのビルドと画面疎通" and .head_sha == env.SOURCE_SHA)][0].id // empty')"
+            conclusion="$(printf '%s' "$runs" | jq -r '[.workflow_runs[] | select(.name == "日本語Blazorアプリのビルドと画面疎通" and .head_sha == env.SOURCE_SHA)][0].conclusion // "pending"')"
+            if [[ "$conclusion" == "success" && -n "$app_run_id" ]]; then
+              break
+            fi
+            if [[ "$conclusion" == "failure" || "$conclusion" == "cancelled" || "$conclusion" == "timed_out" ]]; then
+              echo "::error::同一HEADアプリCIが$conclusion。PDFの公開を拒否します。"
+              exit 1
+            fi
+            sleep 20
+          done
+          if [[ "$conclusion" != "success" || -z "$app_run_id" ]]; then
+            echo "::error::同一HEADアプリCI成功を確認できません。"
+            exit 1
+          fi
+          # ジョブ名・件数・成功を独立検査し、部分成功や別HEADの結果を流用しない。
+          jobs="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$app_run_id/jobs?per_page=100")"
+          printf '%s' "$jobs" | jq -e '([.jobs[] | select(.status == "completed" and .conclusion == "success") | .name] | sort) == (["PostgreSQL 18 実DB結合テスト","ubuntu-24.04 Releaseビルド","windows-2025 Releaseビルド"] | sort)' >/dev/null
+          current_head="$(gh api "repos/$GITHUB_REPOSITORY/pulls/39" --jq '.head.sha')"
+          if [[ "$current_head" != "$SOURCE_SHA" ]]; then
+            echo "::error::公開直前にPR先端が変化したため拒否します。"
+            exit 1
+          fi
+          # 固定の専用タグを一回だけ作る。既存のRelease・Assetは変更しない。
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "別のジョブによって同じスナップショットが公開済み。上書きしません。"
+            exit 0
+          fi
+          gh release create "$tag" dist/blazor_learning_textbook_ja.pdf \
+            --target "$SOURCE_SHA" \
+            --title "Blazor実践学習テキスト v3（2026-10-29 検証済みスナップショット）" \
+            --notes "Draft PR #39の同一HEADアプリ3ジョブ・PDFソース検査成功を条件とした一回限りの教材PDF。生成元HEAD: $SOURCE_SHA。現地PRE/SITEは未受入。正式learning-textbookと既存Previewは変更なし。" \
+            --prerelease --latest=false
+          gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fx blazor_learning_textbook_ja.pdf
+
       # 教材v3はDraft PRで検証中のため、既存の正式教材Releaseには上書きしない。
       # 同一リポジトリの専用PRとアプリCI全成功を満たした場合のみプレビュー版を配布する。
       - name: 検証済み教材v3のPDFをプレビューReleaseへ反映

@@ -8,6 +8,7 @@ public sealed class LearningDbContext(DbContextOptions<LearningDbContext> option
     public DbSet<LearningTask> Tasks => Set<LearningTask>();
     public DbSet<LearningCategory> Categories => Set<LearningCategory>();
     public DbSet<ExistingUserAccessRow> ExistingUserAccess => Set<ExistingUserAccessRow>();
+    public DbSet<LearningKeylessDemoRow> DemoView => Set<LearningKeylessDemoRow>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,6 +33,13 @@ public sealed class LearningDbContext(DbContextOptions<LearningDbContext> option
         category.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
         category.Property(x => x.Name).HasColumnName("name").HasMaxLength(60).IsRequired();
         category.HasIndex(x => x.Name).IsUnique();
+
+        // 学習順058：固定架空値だけの学習用ビュー。業務台帳の認可は代替しない。
+        var demoView = modelBuilder.Entity<LearningKeylessDemoRow>();
+        demoView.HasNoKey();
+        demoView.ToView("learning_keyless_demo_v");
+        demoView.Property(x => x.SortOrder).HasColumnName("sort_order");
+        demoView.Property(x => x.Label).HasColumnName("label");
 
         // 既存台帳の統一ビュー。新規テーブルを業務アプリから作成・更新しない。
         var externalAccess = modelBuilder.Entity<ExistingUserAccessRow>();

@@ -1,0 +1,44 @@
+@page "/learn/103"
+@page "/learn/78"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>学習順103：運用監視｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順103 / liveness・ログ・相関ID</p>
+<h1>稼働確認と業務の利用許可は別物</h1>
+<MudPaper Class="pa-4">
+    <p>アプリ起動だけを監視する /health/live と、本人・既存台帳・監査に依存する業務アクセスを区別します。</p>
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">業務利用の現在の認可を確認</MudButton>
+    <p role="status" data-testid="step78-state">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>運用監視の最小構成</h2>
+    <ul>
+        <li>liveness：プロセスがHTTPへ応答できるか。DB可用性や業務許可を保証しません。</li>
+        <li>readiness：実際のDB・FDW・監査・接続プールを計測する場合、過負荷にならない頻度・タイムアウト・非公開ネットワークで別設計します。</li>
+        <li>構造化ログには相関ID・操作種別・所要時間・結果コードを残し、パスワード・Cookie・CSVの本文・個人情報を記録しません。</li>
+        <li>アラートは認証失敗増加、DB接続待機、監査INSERT失敗、SignalR再接続率、P95/P99を測定します。</li>
+    </ul>
+    <p>匿名でも応答するlivenessは監視専用で、機密値を一切出さず、IISやプロキシでアクセス元を制限します。</p>
+</section>
+<section class="lesson-details">
+    <h2>学習順103：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage08-compare-103">
+        <thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor Interactive Server</th></tr></thead>
+        <tbody>
+            <tr><td>処理の入口</td><td>Windowsフォームで操作を受ける</td><td>Razorからサーバー側サービスを呼ぶ</td></tr>
+            <tr><td>本人・部署・操作</td><td>DB正本をSQL実行時に照会</td><td>業務サービスが既存台帳を都度照会</td></tr>
+            <tr><td>競合・監査</td><td>版とトランザクションを検証</td><td>xmin・権限と永続監査の安全拒否</td></tr>
+            <tr><td>本番受入</td><td>端末と接続先を検証</td><td>CIと実AD/IIS/FDW・負荷の現地受入を区別</td></tr>
+        </tbody>
+    </table>
+    <p>詳しい演習と解答は学習順103の教材本文にあります。匿名時の拒否は安全な動作です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/102">前へ</a><a href="/learn/104">次へ</a></div>
+@code {
+    private string _message = "業務の利用許可は未確認です。";
+    private async Task CheckAsync()
+    {
+        var result = await Business.AuthorizeAsync();
+        _message = result.Message;
+    }
+}

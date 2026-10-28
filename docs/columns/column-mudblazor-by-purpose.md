@@ -1,6 +1,6 @@
 # 特別コラム：用途から選ぶMudBlazorコンポーネント事典
 
-**学習順序：Step40 → この特別コラム → Step41。** 業務要件・利用者の操作・データ件数・アクセシビリティから選びます。全部のコンポーネントを覚える必要はありません。
+**学習順序：学習順060 → この特別コラム → 学習順061。** 業務要件・利用者の操作・データ件数・アクセシビリティから選びます。全部のコンポーネントを覚える必要はありません。
 
 ## 一覧・表・階層・集計
 
@@ -104,4 +104,4 @@
 - [MudDataGrid](https://mudblazor.com/api/MudDataGrid)
 - [MudDateRangePicker](https://mudblazor.com/components/daterangepicker)
 
-次はStep41から、要件に合った部品をEF Core 10とPostgreSQLに接続します。
+次は学習順061から、要件に合った部品をEF Core 10とPostgreSQLに接続します。

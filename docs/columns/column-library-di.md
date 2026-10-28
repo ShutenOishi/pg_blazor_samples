@@ -1,11 +1,11 @@
 # 特別コラム05：ライブラリのDIを理解して利用する
 
-**対象：Step11〜20の修了者。** MudBlazorを学ぶ前に、ASP.NET CoreやNuGetライブラリが用意する機能を安全に利用する方法を確認します。
+**対象：学習順021〜20の修了者。** MudBlazorを学ぶ前に、ASP.NET CoreやNuGetライブラリが用意する機能を安全に利用する方法を確認します。
 
 ## なぜライブラリのDIを学ぶのか
 DIというとインターフェイス・実装クラス・登録処理をすべて自作するように見えます。しかしBlazorの実務では、**既に用意されているDI登録方法を理解して使う作業**が少なくありません。
 
-Step16の`IOptions<T>`、Step17の`ILogger<T>`、Razor画面の`NavigationManager`、MudBlazorのダイアログ・通知、EF CoreのDbContextFactoryなど、利用するライブラリが登録方法や寿命を定めています。WinFormsでNuGetパッケージやコントロールを導入した経験を、**登録 → 注入 → 実行条件の確認**という順序に置き換えて考えます。
+学習順026の`IOptions<T>`、学習順027の`ILogger<T>`、Razor画面の`NavigationManager`、MudBlazorのダイアログ・通知、EF CoreのDbContextFactoryなど、利用するライブラリが登録方法や寿命を定めています。WinFormsでNuGetパッケージやコントロールを導入した経験を、**登録 → 注入 → 実行条件の確認**という順序に置き換えて考えます。
 
 ## 自作する部分とライブラリが担う部分
 | 利用場面 | 自分で作るもの | ライブラリが提供するもの |
@@ -67,7 +67,7 @@ builder.Services.Configure<LearningOptions>(
 `ILogger<T>`と`NavigationManager`はASP.NET Core/Blazorの仕組みで提供されるため、このサンプルのための独自`AddLoggerService()`や`AddNavigationManager()`を追加していません。
 
 ## MudBlazorの例：DI登録だけで完成しない
-このリポジトリの現在のアプリには既にMudBlazorと`MudBlazor.Translations`が導入されています。**学習順としてはStep21で導入方法を初めて説明します**。現在のコードでの登録例は次のとおりです。
+このリポジトリの現在のアプリには既にMudBlazorと`MudBlazor.Translations`が導入されています。**学習順としては学習順031で導入方法を初めて説明します**。現在のコードでの登録例は次のとおりです。
 
 ```csharp
 using MudBlazor.Services;
@@ -86,7 +86,7 @@ builder.Services.AddMudTranslations();
 翻訳パッケージが提供する定型文の日本語化と、業務アプリの独自ラベル・入力エラーの日本語化は別です。
 
 ## データアクセスの例：EF CoreとNpgsql
-後続のStep31〜40では`IDbContextFactory<LearningDbContext>`をWeb側に登録します。DbContextは操作に応じて短時間で生成・破棄し、Blazorの長寿命circuitに接続を保持し続ける設計と区別します。
+後続の学習順047〜40では`IDbContextFactory<LearningDbContext>`をWeb側に登録します。DbContextは操作に応じて短時間で生成・破棄し、Blazorの長寿命circuitに接続を保持し続ける設計と区別します。
 
 Npgsqlの接続プールや`NpgsqlDataSource`をアプリ側で共有する場合と、SQL実行時に利用する`NpgsqlConnection`やDbContextの寿命も異なります。アプリ全体で一つのDB接続インスタンスを使い回す構成は避けます。このコラムの画面自体はDBへ接続しません。
 
@@ -122,6 +122,6 @@ DI登録の正しさと、セキュリティの保証は異なります。業務
 **解答：** いけません。内容、アクセス権、保存期間などを別に設計する必要があります。
 
 ## 次のステップ
-[Step21](../samples/step21.md)でMudBlazorの登録と日本語化を学び、以降のフォーム・表・ダイアログを使いながら、**ライブラリの機能・DI登録・Providerの役割**を再確認します。
+[学習順031](../course-v3/lessons/Stage04/L031MudIntroductionPage.md)でMudBlazorの登録と日本語化を学び、以降のフォーム・表・ダイアログを使いながら、**ライブラリの機能・DI登録・Providerの役割**を再確認します。
 
 参考：[Microsoft Learn: BlazorのDI](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-10.0)、[MudBlazor公式Installation](https://mudblazor.com/getting-started/installation)、[Npgsql Basic Usage](https://www.npgsql.org/doc/basic-usage.html)。

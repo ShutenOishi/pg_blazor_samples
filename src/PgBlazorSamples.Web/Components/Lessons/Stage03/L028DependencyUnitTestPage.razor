@@ -1,0 +1,49 @@
+@page "/learn/028"
+@page "/learn/18"
+@using PgBlazorSamples.Web.Services.Clock
+
+<PageTitle>学習順028：DIと単体テスト｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順28 / 学習順028 / 単体テスト</p>
+<h1>固定時計で時間帯に左右されないテストを作る</h1>
+<p>時刻を外から受け取る設計なので、実際の時刻に関係なく結果を確認できます。</p>
+<section class="lesson-details">
+  <h2>同じ処理に異なる時計を渡す</h2>
+  <p>午前8時：<strong data-testid="step18-morning">@morningMessage</strong></p>
+  <p>午後1時：<strong data-testid="step18-afternoon">@afternoonMessage</strong></p>
+  <button type="button" @onclick="Compare">固定時計で再確認する</button>
+</section>
+<section class="lesson-details">
+  <h2>テストとの関係</h2>
+  <p>ユニットテストはブラウザーを立ち上げず、C#のサービスに偽の時計を渡し、期待した文字列と比較します。</p>
+  <p>この画面の表示だけでは単体テストに合格したことになりません。UnitTestsプロジェクトを使い、<code>dotnet test</code> で実行します。</p>
+</section>
+<section class="lesson-details" aria-label="学習順28の比較と切り分け">
+  <h2>WinForms＋Dapperとの比較</h2>
+  <table data-testid="di06-compare-18">
+    <thead><tr><th>対象</th><th>従来の設計</th><th>今回の実装</th></tr></thead>
+    <tbody><tr><td>固定時計の試験</td><td>WinFormsでも業務計算をFormから分離できる</td><td>IClockに固定時計を渡す</td></tr></tbody>
+  </table>
+  <h2>症状から切り分ける</h2>
+  <table><thead><tr><th>症状・誤解</th><th>確認方法</th></tr></thead>
+    <tbody><tr><td>画面表示だけではxUnitの成功を保証しない</td><td>11時・12時の境界とテスト結果を確認</td></tr></tbody></table>
+  <p>実際のコードと詳しい解説、演習・解答は同じ学習順の日本語教材で確認します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/027">前へ：学習順027</a><a href="/learn/029">次へ：学習順029</a></div>
+@code {
+    private string morningMessage = "";
+    private string afternoonMessage = "";
+
+    protected override void OnInitialized() => Compare();
+
+    private void Compare()
+    {
+        morningMessage = new GreetingService(new FixedClock()).GetMessage();
+        afternoonMessage = new GreetingService(new AfternoonClock()).GetMessage();
+    }
+
+    // テストにだけ必要な条件を最小限の実装で再現します。
+    private sealed class AfternoonClock : IClock
+    {
+        public DateTimeOffset GetNow() => new(2026, 1, 1, 13, 0, 0, TimeSpan.FromHours(9));
+    }
+}

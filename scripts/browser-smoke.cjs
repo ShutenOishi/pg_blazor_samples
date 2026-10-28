@@ -3,7 +3,8 @@
 // この試験は開発用の架空データだけを使用し、社内AD・DBには接続しない。
 const { chromium } = require("playwright-core");
 const { spawn, execFileSync } = require("node:child_process");
-const { mkdirSync } = require("node:fs");
+const { mkdirSync, readFileSync } = require("node:fs");
+const { createHash } = require("node:crypto");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
@@ -68,6 +69,136 @@ async function waitText(page, selector, expected) {
         const page = await browser.newPage({ locale: "ja-JP", viewport: { width: 1280, height: 850 } });
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
+        // 学習順011〜020：移行後も正規・互換Documentが両方HTTP 200を返すか確認する。
+        // 既存のC#イベント、親子、履歴、ブラウザー保存、circuit切断の実操作試験は別に継続。
+        for (const [sequence, compatibility] of [["011","/learn/05"],["012","/learn/06"],["013","/learn/07"],["014","/learn/08"],["015","/learn/runtime-02"],["016","/learn/09"],["017","/learn/runtime-03"],["018","/learn/10"],["019","/learn/runtime-04"],["020","/learn/runtime-05"]]) {
+            const responses = await Promise.all([
+                page.request.get(base + "/learn/" + sequence),
+                page.request.get(base + compatibility)
+            ]);
+            if (responses[0].status() !== 200 || responses[1].status() !== 200) {
+                throw new Error("学習順" + sequence + "の正規/互換GETが不正: " + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順011〜020：正規・互換Document GET 200を全10件確認");
+        // 学習順021〜030：第3段階の移行後も正規・互換DocumentがHTTP 200を返すか検証。
+        // DIサービス・共有コンポーネント・個別動作試験とは区別する。
+        for (let sequence = 21; sequence <= 30; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 10);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規/互換GETが不正: " + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順021〜030：正規・互換Document GET 200を全10件確認");
+        // 第4段階の物理移行：正規・互換Document GETを全10件一括照合する。
+        for (let sequence = 31; sequence <= 40; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 10);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規/互換GETが不正: " + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順031〜040：正規・互換Document GET 200を全10件確認");
+        // 041〜050移行後の正規URL・互換URLを独立に20件照合する。
+        const compatibility041to050 = [
+            "/learn/browser-01", "/learn/browser-02", "/learn/browser-03",
+            "/learn/browser-04", "/learn/browser-05", "/learn/db-bridge-01",
+            "/learn/31", "/learn/32", "/learn/33", "/learn/34"
+        ];
+        for (let i = 0; i < compatibility041to050.length; i++) {
+            const seq = String(41 + i).padStart(3, "0");
+            const responses = await Promise.all([
+                page.request.get(base + "/learn/" + seq),
+                page.request.get(base + compatibility041to050[i])
+            ]);
+            if (responses.some(r => r.status() !== 200)) {
+                throw new Error("学習順" + seq + "の正規・互換GETが失敗: "
+                    + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順041〜050：正規・互換Document GET 200を全10件確認");
+        // 第5段階051〜060：物理移行後も正規・互換Document GET 200を10件検証する。
+        // この疎通確認は実DB接続や認可成立の証拠ではない。
+        const compatibility051to060 = ["/learn/35","/learn/db-bridge-02","/learn/db-bridge-03","/learn/36","/learn/37","/learn/38","/learn/39","/learn/db-bridge-04","/learn/db-bridge-05","/learn/40"];
+        for (let i = 0; i < compatibility051to060.length; i++) {
+            const seq = String(51 + i).padStart(3, "0");
+            const responses = await Promise.all([
+                page.request.get(base + "/learn/" + seq),
+                page.request.get(base + compatibility051to060[i])
+            ]);
+            if (responses.some(r => r.status() !== 200)) {
+                throw new Error("学習順" + seq + "の正規・互換GETが失敗: "
+                    + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順051〜060：正規・互換Document GET 200を全10件確認");
+
+        // 第6段階061〜070：主Razor移行後の正規・互換URLを確認する。
+        // Document GETのみでは実DB、行認可やスクロール操作の証明にはならない。
+        for (let sequence = 61; sequence <= 70; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 20);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: "
+                    + responses.map(response => response.status()).join("/"));
+            }
+        }
+        console.log("学習順061〜070：正規・互換Document GET 200を全10件確認");
+        // 学習順071〜080：第6段階主Razor移行後の正規URLと旧互換URLを20経路確認。
+        // GET検証はDB更新、xmin競合、認可や現地受入の根拠にはしない。
+        for (let sequence = 71; sequence <= 80; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 20);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: "
+                    + responses.map(response => response.status()).join("/"));
+            }
+        }
+        console.log("学習順071〜080：正規・互換Document GET 200を全10件確認");
+        // 081〜090主Razor構造移行：正規と従来の互換URLをすべてDocument GET確認。
+        // 実AD/IIS、業務DB認可、監査、現地SITEの合格証拠としない。
+        for (let sequence = 81; sequence <= 90; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = sequence <= 85
+                ? "/learn/security-0" + (sequence - 80)
+                : "/learn/" + String(sequence - 25);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: "
+                    + responses.map(response => response.status()).join("/"));
+            }
+        }
+        console.log("学習順081〜090：正規・互換Document GET 200を全10件確認");
+        // 学習順091〜100：構造移行後の正規・互換20経路を確認する。
+        // GET 200は実AD/IIS/FDW、DB都度認可・永続監査・現地SITEの受入を示さない。
+        for (let sequence = 91; sequence <= 100; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 25);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: " + responses.map(response => response.status()).join("/"));
+            }
+        }
+        console.log("学習順091〜100：正規・互換Document GET 200を全10件確認");
+        // 101〜110の物理移行後の正規・互換20経路をDocument GETで確認する。
+        // GET 200だけではDB、認可、監査、現地PRE/SITEの受入を宣言しない。
+        for (let sequence = 101; sequence <= 110; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const alias = sequence <= 105 ? "/learn/" + String(sequence - 25) : "/learn/capstone-0" + String(sequence - 105);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + alias)]);
+            if (responses.some(response => response.status() !== 200))
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: " + responses.map(r => r.status()).join("/"));
+        }
+        console.log("学習順101〜110：正規・互換Document GET 200を全10件確認");
+
+
+
+
 
         // 新第1段階の概要・Web基礎・復習を実ブラウザーで確認する。
         await page.goto(base + "/learn/stage/web");
@@ -77,21 +208,159 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(1000);
         await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
         await waitText(page, '[data-testid="web01-count"]', "1");
+        await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
+        await waitText(page, '[data-testid="web01-count"]', "2");
+        await page.waitForFunction(() => {
+            const text = document.querySelector('[data-testid="web01-trace"]')?.textContent ?? "";
+            return text.includes("クリック1回目を処理") && text.includes("クリック2回目を処理");
+        }, null, { timeout: 15000 });
+        await page.reload();
+        await waitText(page, '[data-testid="web01-count"]', "0");
+        await waitText(page, '[data-testid="web01-trace"]', "まだ処理していません");
+        console.log("学習順001：C#イベント2回・履歴・再読込による一時状態初期化を確認");
         await page.goto(base + "/learn/web-02");
         await waitText(page, '[data-testid="web02-path"]', "/learn/web-02");
-        await page.goto(base + "/learn/web-03");
+        // 学習順002：存在するページと未登録パスへ実際にGETし、HTML描画とHTTP応答を区別する。
+        await page.goto(base + "/learn/002");
+        await page.locator('[data-testid="web02-known-get"]').waitFor();
+        await page.locator('[data-testid="web02-missing-get"]').waitFor();
+        const validDocument = await page.request.get(base + "/learn/002");
+        const compatibilityDocument = await page.request.get(base + "/learn/web-02");
+        const absentDocument = await page.request.get(base + "/__learning_missing_page_for_http_404__");
+        if (validDocument.status() !== 200 || compatibilityDocument.status() !== 200 || absentDocument.status() !== 404) {
+            throw new Error(`学習順002のGET結果が不正: 正規=${validDocument.status()}, 互換=${compatibilityDocument.status()}, 未登録=${absentDocument.status()}`);
+        }
+        console.log("学習順002：正規・互換Document GET 200と未登録GET 404を確認");
+        // 学習順052：画面にSQL生成とは別の実DB検索イベントがあることを検証。
+        await page.goto(base + "/learn/052");
+        // SSR表示直後はInteractive Serverのイベント接続が未確立のことがある。
+        await page.waitForTimeout(900);
+        await page.getByRole("button", { name: "学習DBで実際に検索する" }).click();
+        await page.waitForFunction(() => {
+            const status = document.querySelector('[data-testid="dbbridge02-live-status"]');
+            return status && status.textContent && !status.textContent.includes("学習DB検索は未実行");
+        }, null, { timeout: 10000 });
+        console.log("学習順052：実DB検索と未設定の安全拒否の操作を検証");
+
+
+        // 学習順003：ラベルの意味、入力時反映、HTMLエンコードとC#側の空欄/上限拒否を実証する。
+        for (const route of ["/learn/003", "/learn/web-03"]) {
+            const documentResponse = await page.goto(base + route);
+            if (!documentResponse || documentResponse.status() !== 200) {
+                throw new Error("学習順003：正規・互換Document GET 200を確認できません: " + route);
+            }
+            await page.waitForFunction(() => {
+                const card = document.querySelector(".web-foundation-card");
+                const input = document.querySelector("#web03-name");
+                if (!card || !input) return false;
+                const box = getComputedStyle(card);
+                const field = getComputedStyle(input);
+                return box.borderTopWidth === "2px"
+                    && box.borderTopStyle === "solid"
+                    && box.borderTopColor === "rgb(98, 138, 161)"
+                    && field.display === "block"
+                    && field.paddingTop !== "0px";
+            }, null, { timeout: 15000 });
+        }
+        console.log("学習順003：正規・互換Document GET 200とCSS isolationの枠線・入力欄への適用を確認");
+        await page.goto(base + "/learn/003");
         await page.waitForTimeout(850);
-        await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習太郎");
+        const web03Input = page.getByRole("textbox", { name: "練習用の名前" });
+        await page.getByText("練習用の名前", { exact: true }).click();
+        if (!(await web03Input.evaluate(element => document.activeElement === element))) {
+            throw new Error("学習順003：labelのクリックで対応する入力欄にフォーカスが移りません");
+        }
+        await web03Input.press("Tab");
+        await page.keyboard.press("Shift+Tab");
+        await page.waitForFunction(() => {
+            const input = document.querySelector("#web03-name");
+            if (!input || document.activeElement !== input) return false;
+            const focus = getComputedStyle(input);
+            return focus.outlineWidth === "3px"
+                && focus.outlineColor === "rgb(39, 92, 132)"
+                && focus.outlineStyle === "solid";
+        }, null, { timeout: 5000 });
+        console.log("学習順003：キーボードフォーカスのCSS isolation適用を確認");
+        if (await web03Input.getAttribute("maxlength") !== "30") {
+            throw new Error("学習順003：ブラウザー側の入力制限が30文字ではありません");
+        }
+        await web03Input.fill("練習太郎");
         await waitText(page, '[data-testid="web03-preview"]', "練習太郎");
-        await page.goto(base + "/learn/web-04");
+        await page.getByRole("button", { name: "サーバー側で入力を検証する" }).click();
+        await waitText(page, '[data-testid="web03-validation"]', "入力を受け付けました（保存はしていません）。");
+        await web03Input.fill(" ");
+        await waitText(page, '[data-testid="web03-preview"]', "未入力");
+        await waitText(page, '[data-testid="web03-validation"]', "未検証");
+        await page.getByRole("button", { name: "サーバー側で入力を検証する" }).click();
+        await waitText(page, '[data-testid="web03-validation"]', "未入力のため拒否しました。");
+        await web03Input.fill("<b>練習</b>");
+        await waitText(page, '[data-testid="web03-preview"]', "<b>練習</b>");
+        if (await page.getByTestId("web03-preview").locator("b").count() !== 0) {
+            throw new Error("学習順003：入力値がHTMLとして解釈されました");
+        }
+        // 開発者がHTML属性を変更しても、C#側の検証が独立して上限を拒否する。
+        await web03Input.evaluate(element => element.removeAttribute("maxlength"));
+        await web03Input.fill("あ".repeat(31));
+        await waitText(page, '[data-testid="web03-preview"]', "あ".repeat(31));
+        await page.getByRole("button", { name: "サーバー側で入力を検証する" }).click();
+        await waitText(page, '[data-testid="web03-validation"]', "30文字を超えたため拒否しました。");
+        console.log("学習順003：ラベル・入力反映・HTMLエンコード・空欄/上限のC#側拒否を検証");
+
+        // 学習順004：Document GETと、Documentを再取得せずDOMだけ変更する対話イベントを区別する。
+        const web04Document = await page.goto(base + "/learn/004");
+        const web04Compatibility = await page.request.get(base + "/learn/web-04");
+        if (web04Compatibility.status() !== 200) {
+            throw new Error("学習順004：互換Document GET 200を確認できません: " + web04Compatibility.status());
+        }
+        console.log("学習順004：正規・互換Document GET 200を確認");
+        if (!web04Document || web04Document.status() !== 200) {
+            throw new Error("学習順004：初期DocumentのGET 200を確認できません");
+        }
         await page.waitForTimeout(850);
-        await page.getByRole("button", { name: "追加の説明を表示・非表示" }).click();
+        await waitText(page, '[data-testid="web04-state"]', "非表示");
+        if (await page.getByTestId("web04-added").count() !== 0) {
+            throw new Error("学習順004：初期DOMに条件付き段落が存在します");
+        }
+        let web04UnexpectedDocuments = 0;
+        const web04PageErrors = [];
+        const trackWeb04Request = request => {
+            if (request.isNavigationRequest() && request.resourceType() === "document") {
+                web04UnexpectedDocuments += 1;
+            }
+        };
+        const trackWeb04Error = error => web04PageErrors.push(error.message);
+        page.on("request", trackWeb04Request);
+        page.on("pageerror", trackWeb04Error);
+        const web04Toggle = page.getByRole("button", { name: "追加の説明を表示・非表示" });
+        await web04Toggle.click();
         await waitText(page, '[data-testid="web04-state"]', "表示中");
         await page.getByTestId("web04-added").waitFor();
-        await page.goto(base + "/learn/web-05");
+        await web04Toggle.click();
+        await waitText(page, '[data-testid="web04-state"]', "非表示");
+        await page.getByTestId("web04-added").waitFor({ state: "detached" });
+        page.off("request", trackWeb04Request);
+        page.off("pageerror", trackWeb04Error);
+        if (web04UnexpectedDocuments !== 0 || web04PageErrors.length !== 0) {
+            throw new Error("学習順004：クリックで想定外のDocument取得/ページ例外が発生しました: " +
+                JSON.stringify({ web04UnexpectedDocuments, web04PageErrors }));
+        }
+        console.log("学習順004：初期GET 200・DOM追加削除・Document再取得なし・ページ例外なしを検証");
+        // 学習順005：実C#イベントの更新前後を確認し、再読込では一時状態を保持しないことを検証する。
+        await page.goto(base + "/learn/005");
         await page.waitForTimeout(850);
-        await page.getByRole("button", { name: "デバッグ対象の処理を実行する" }).click();
+        await waitText(page, '[data-testid="web05-count"]', "0");
+        await waitText(page, '[data-testid="web05-debug-state"]', "まだC#イベントを実行していません");
+        const web05Run = page.getByRole("button", { name: "デバッグ対象の処理を実行する" });
+        await web05Run.click();
         await waitText(page, '[data-testid="web05-count"]', "1");
+        await waitText(page, '[data-testid="web05-debug-state"]', "更新前 0 → 更新後 1");
+        await web05Run.click();
+        await waitText(page, '[data-testid="web05-count"]', "2");
+        await waitText(page, '[data-testid="web05-debug-state"]', "更新前 1 → 更新後 2");
+        await page.reload();
+        await waitText(page, '[data-testid="web05-count"]', "0");
+        await waitText(page, '[data-testid="web05-debug-state"]', "まだC#イベントを実行していません");
+        console.log("学習順005：C#イベントの2回更新と再読込初期化を確認（デバッガー停止は手動手順）");
         await page.goto(base + "/learn/column/web-05");
         await page.getByRole("table").first().getByText("NetworkのDocumentとStatus").waitFor();
         await page.getByRole("heading", { name: "Webの処理場所・通信・画面表示を整理する" }).waitFor();
@@ -156,8 +425,48 @@ async function waitText(page, selector, expected) {
         await page.getByRole("heading", { name: "第3組の復習：入力・部品・対話回線の復習" }).waitFor();
         await page.getByRole("table").first().getByText("EventCallback<string>").waitFor();
         await page.getByRole("link", { name: "次へ：学習順016" }).click();
-        if (!page.url().includes("/learn/09")) throw new Error("第3組の復習から学習順016へ移動できません");
+        if (!page.url().includes("/learn/016")) throw new Error("第3組の復習から学習順016へ移動できません");
         console.log("全面改稿011〜015の実画面・親子通知・一覧フィルター・復習への遷移を検証");
+        // 学習順009：専用のRazorComponentResultはC#イベントを実行できず、GETは新しいHTMLを作る。
+        const static09 = await page.goto(base + "/__learning_static_ssr_009__");
+        if (!static09 || static09.status() !== 200) throw new Error("009 Static SSR初期GETが200でない");
+        await waitText(page, '[data-testid="runtime09-static-count"]', "0");
+        let static09Nav = 0;
+        const trackStatic09 = req => {
+            if (req.isNavigationRequest() && req.resourceType() === "document") static09Nav++;
+        };
+        page.on("request", trackStatic09);
+        await page.getByRole("button", { name: "C#イベントを試す（Static SSRでは動きません）" }).click();
+        await page.waitForTimeout(300);
+        if ((await page.getByTestId("runtime09-static-count").textContent()).trim() !== "0" || static09Nav !== 0)
+            throw new Error("009 Static SSRのC#クリックが状態変更またはDocument再取得を発生させた");
+        page.off("request", trackStatic09);
+        const [static09Get] = await Promise.all([
+            page.waitForResponse(res => res.url().includes("/__learning_static_ssr_009__?count=1") && res.request().resourceType() === "document"),
+            page.getByRole("button", { name: "GETで新しいHTMLを取得する" }).click()
+        ]);
+        if (static09Get.status() !== 200) throw new Error("009 Static SSRの再GET失敗");
+        await waitText(page, '[data-testid="runtime09-static-count"]', "1");
+        if ((await page.request.get(base + "/__learning_static_ssr_009__?count=-1")).status() !== 400)
+            throw new Error("009 不正なGET値を400で拒否しなかった");
+        const interactive09 = await page.goto(base + "/learn/009");
+        if (!interactive09 || interactive09.status() !== 200) throw new Error("009 Interactive Server初期GET失敗");
+        await page.waitForTimeout(900);
+        let interactive09Nav = 0;
+        const trackInteractive09 = req => {
+            if (req.isNavigationRequest() && req.resourceType() === "document") interactive09Nav++;
+        };
+        page.on("request", trackInteractive09);
+        const interactive09Button = page.getByRole("button", { name: "サーバー側の回数を増やす" });
+        await interactive09Button.click();
+        await waitText(page, '[data-testid="runtime01-count"]', "1");
+        await interactive09Button.click();
+        await waitText(page, '[data-testid="runtime01-count"]', "2");
+        page.off("request", trackInteractive09);
+        if (interactive09Nav !== 0) throw new Error("009 対話型クリック中にDocument再取得が発生");
+        await page.reload();
+        await waitText(page, '[data-testid="runtime01-count"]', "0");
+        console.log("学習順009：Static SSRのC#クリック不動作・フォームGET・400拒否とInteractive Serverイベントを比較");
         await page.goto(base + "/learn/runtime-01");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "サーバー側の回数を増やす" }).click();
@@ -176,25 +485,99 @@ async function waitText(page, selector, expected) {
         await page.getByRole("link", { name: "次へ：学習順017" }).click();
         await page.getByRole("heading", { name: "事前レンダリングと初期化の実行回数" }).waitFor();
         await page.getByRole("table").first().getByText("OnInitialized").waitFor();
+        // 学習順017：初回Documentに埋め込まれた事前描画インスタンスと、対話開始後のインスタンスを比較。
+        const prerender17 = await page.goto(base + "/learn/017");
+        if (!prerender17 || prerender17.status() !== 200) throw new Error("017 初回Documentが200ではない");
+        const initial17Html = await prerender17.text();
+        const match17 = initial17Html.match(/data-testid="runtime03-instance"[^>]*>([0-9a-f]{32})/);
+        if (!match17) throw new Error("017 初回HTMLに事前描画の識別子がない");
+        if (!/data-testid="runtime03-after"[^>]*>0</.test(initial17Html))
+            throw new Error("017 事前描画でOnAfterRenderが実行済みとして表示された");
+        const static17Id = match17[1];
+        await page.waitForFunction(initial => {
+            const value = document.querySelector('[data-testid="runtime03-instance"]')?.textContent?.trim();
+            return /^[0-9a-f]{32}$/.test(value || "") && value !== initial;
+        }, static17Id, { timeout: 15000 });
+        const interactive17Id = (await page.getByTestId("runtime03-instance").textContent()).trim();
+        if (interactive17Id === static17Id) throw new Error("017 別インスタンスを確認できない");
+        await waitText(page, '[data-testid="runtime03-after"]', "1");
+        // 学習順017：再描画のたびに初期化・初回描画・インスタンスが作り直されないことも実操作で確かめる。
+        await page.getByRole("button", { name: "状態を変更する" }).click();
+        await page.getByRole("button", { name: "状態を変更する" }).click();
+        await waitText(page, '[data-testid="runtime03-change"]', "2");
+        await waitText(page, '[data-testid="runtime03-init"]', "1");
+        await waitText(page, '[data-testid="runtime03-after"]', "1");
+        if ((await page.getByTestId("runtime03-instance").textContent()).trim() !== interactive17Id)
+            throw new Error("学習順017：状態更新で対話型インスタンスが変わりました");
+        console.log("学習順017：事前描画と対話型IDの差、描画後処理0→1、2回更新後の初期化/インスタンス維持を確認");
         await page.goto(base + "/learn/runtime-03");
         await waitText(page, '[data-testid="runtime03-init"]', "1");
         await waitText(page, '[data-testid="runtime03-after"]', "1");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "状態を変更する" }).click();
         await waitText(page, '[data-testid="runtime03-change"]', "1");
-        await page.goto(base + "/learn/runtime-04");
+        // 学習順019：正規URL、戻る/進む、強制再読込と不正な公開クエリ値の境界を区別する。
+        await page.goto(base + "/learn/019");
         await page.waitForTimeout(900);
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await waitText(page, '[data-testid="runtime04-count"]', "0");
         await page.getByRole("button", { name: "履歴をURLで選ぶ" }).click();
         await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        if (!page.url().includes("tab=history")) throw new Error("学習順019：履歴クエリがURLに反映されません");
         await page.getByRole("button", { name: "操作回数を1増やす" }).click();
         await waitText(page, '[data-testid="runtime04-count"]', "1");
-        await page.reload();
+        await page.getByRole("button", { name: "一覧をURLで選ぶ" }).click();
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await page.goBack();
         await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        await page.goForward();
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await page.reload();
         await waitText(page, '[data-testid="runtime04-count"]', "0");
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await page.goto(base + "/learn/019?tab=history");
+        await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        await page.goto(base + "/learn/019?tab=admin");
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        console.log("学習順019：正規URL、履歴往復、再読込、未知クエリの安全な一覧表示を確認");
         await page.goto(base + "/learn/runtime-05");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "業務の永続データ" }).click();
         await waitText(page, '[data-testid="runtime05-choice"]', "データベース");
+        // 正規URLで非機密のUI設定を保存し、再読込後に復元できることを確認する。
+        await page.goto(base + "/learn/020");
+        // SSR表示だけでなくInteractive Serverがイベントを受理したことを先に確認する。
+        await page.getByRole("button", { name: "公開できる表示設定" }).click();
+        await waitText(page, '[data-testid="runtime05-choice"]', "ブラウザーの保存領域");
+        await page.getByLabel("表示の好み").selectOption("compact");
+        // @bindのonchangeがC#側へ反映される前に保存すると、初期値comfortableを保存してしまう。
+        await waitText(page, '[data-testid="runtime05-server-setting"]', "compact");
+        await page.getByRole("button", { name: "表示設定をブラウザーへ保存する" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "保存しました");
+        const web20Stored = await page.evaluate(() => localStorage.getItem("pgblazor-course-runtime05-display"));
+        if (web20Stored !== "compact") throw new Error("学習順020の保存値が不正です: " + web20Stored);
+        await page.reload();
+        // フルナビゲーション後のSSRとInteractive Server再接続を区別し、対話処理が戻るまで待つ。
+        await page.waitForTimeout(900);
+        const web20StoredAfterReload = await page.evaluate(() => localStorage.getItem("pgblazor-course-runtime05-display"));
+        if (web20StoredAfterReload !== "compact") throw new Error("学習順020の再読込で保存値が消えました: " + web20StoredAfterReload);
+        await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "読み込みました");
+        await page.waitForFunction(() =>
+            document.querySelector('[data-testid="runtime05-display-setting"]')?.value === "compact",
+            null, { timeout: 15000 });
+        // 学習順020：localStorageは利用者が編集できるため、未知の値を表示設定に採用しない。
+        await page.evaluate(() => localStorage.setItem("pgblazor-course-runtime05-display", "admin"));
+        await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "許可されない値");
+        if (await page.getByTestId("runtime05-display-setting").inputValue() !== "compact")
+            throw new Error("学習順020：改変したlocalStorage値が画面設定を変更した");
+        await page.evaluate(() => localStorage.removeItem("pgblazor-course-runtime05-display"));
+        await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "保存データがない");
+        if (await page.getByTestId("runtime05-display-setting").inputValue() !== "compact")
+            throw new Error("学習順020：未保存の値が画面設定を変更した");
+        console.log("学習順020：改変値・欠落値の復元拒否と画面設定維持をChrome確認。権限判定の試験ではない");
         await page.getByRole("link", { name: "次へ：第4組の復習" }).click();
         await page.getByRole("heading", { name: "第4組の復習：初期化・再読込・状態の復習" }).waitFor();
         await page.getByRole("table").first().getByText("日本語入力検証").waitFor();
@@ -215,15 +598,43 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="browser01-count"]', "1");
         await page.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
         await waitText(page, '[data-testid="browser01-language"]', "ja");
+        await waitText(page, '[data-testid="browser01-module-state"]', "参照取得済み");
+        // 学習用JS例外をブラウザー内で実発生させ、サーバーが生の内部情報を画面に出さないことを確認する。
+        await page.getByRole("button", { name: "学習用JS例外を発生させる" }).click();
+        await waitText(page, '[data-testid="browser01-language"]', "ブラウザーの処理に失敗しました");
+        if ((await page.getByTestId("browser01-language").textContent()).includes("L041_JS_ERROR_TEST_ONLY"))
+            throw new Error("学習順041：JSの内部例外文を画面に表示しました");
+        await page.getByRole("button", { name: "JSモジュール参照を解放する" }).click();
+        await waitText(page, '[data-testid="browser01-module-state"]', "参照解放済み");
+        await page.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
+        await waitText(page, '[data-testid="browser01-language"]', "HTMLの言語設定：ja");
+        await waitText(page, '[data-testid="browser01-module-state"]', "参照取得済み");
+        console.log("学習順041：JS成功・実JSExceptionの安全な画面表示・参照DisposeAsync/再importをChromeで確認。実切断時のJSDisconnectedException捕捉は未実証");
 
-        await page.goto(base + "/learn/browser-02");
+        // 学習順042：実バイトSHA-256、拒否・境界を独立確認。
+        await page.goto(base + "/learn/042");
         await page.waitForTimeout(950);
         const uploadInput = page.locator('#browser02-file');
-        await uploadInput.setInputFiles({ name: "練習.csv", mimeType: "text/csv", buffer: Buffer.from("番号,内容\\n1,テスト\\n") });
-        await waitText(page, '[data-testid="browser02-result"]', "検査完了");
-        await page.getByTestId("browser02-hash").waitFor();
-        await uploadInput.setInputFiles({ name: "拒否.png", mimeType: "image/png", buffer: Buffer.from("NG") });
-        await waitText(page, '[data-testid="browser02-result"]', "拒否");
+        const acceptedBytes = Buffer.from("番号,内容\n1,テスト\n", "utf8");
+        await uploadInput.setInputFiles({ name: "練習.csv", mimeType: "text/csv", buffer: acceptedBytes });
+        await waitText(page, '[data-testid="browser02-result"]', "検査完了：" + acceptedBytes.length + " バイト");
+        const expectedHash = createHash("sha256").update(acceptedBytes).digest("hex").toUpperCase();
+        if ((await page.getByTestId("browser02-hash").innerText()).trim() !== expectedHash)
+            throw new Error("学習順042：受信実バイトとSHA-256が一致しません");
+        async function rejectUpload(name, mimeType, buffer, expected) {
+            await uploadInput.setInputFiles({ name, mimeType, buffer });
+            await waitText(page, '[data-testid="browser02-result"]', expected);
+            if (await page.getByTestId("browser02-hash").count() !== 0)
+                throw new Error("学習順042：拒否後に以前のSHA-256が残りました");
+        }
+        await rejectUpload("拒否.png", "image/png", Buffer.from("NG"), "拒否：.txt");
+        await rejectUpload("不一致.csv", "image/png", Buffer.from("text"), "拒否：拡張子とMIME");
+        await rejectUpload("偽装.csv", "text/csv", Buffer.from([0x89, 0x50, 0x4e, 0x47]), "拒否：UTF-8");
+        await rejectUpload("制御.txt", "text/plain", Buffer.from([0, 65]), "拒否：テキスト以外");
+        await rejectUpload("上限超.txt", "text/plain", Buffer.alloc(65537, 0x61), "拒否：64 KiB");
+        await uploadInput.setInputFiles({ name: "上限ちょうど.TXT", mimeType: "text/plain", buffer: Buffer.alloc(65536, 0x61) });
+        await waitText(page, '[data-testid="browser02-result"]', "検査完了：65536 バイト");
+        console.log("学習順042：実バイトSHA-256、拡張子/MIME・不正UTF-8・制御文字・64 KiB境界・拒否時ハッシュ破棄を確認");
 
         await page.goto(base + "/learn/browser-03");
         await page.waitForTimeout(950);
@@ -231,11 +642,36 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "学習用CSVを保存する" }).click();
         const csvFile = await csvDownload;
         if (csvFile.suggestedFilename() !== "blazor_practice.csv") throw new Error("CSVのファイル名が違います。");
+        const csvBytes = readFileSync(await csvFile.path());
+        if (!csvBytes.subarray(0, 3).equals(Buffer.from([0xef, 0xbb, 0xbf])))
+            throw new Error("学習順043：実CSVにUTF-8 BOMがありません");
+        const csvText = csvBytes.toString("utf8");
+        if (!csvText.includes('"番号","課題名","完了"\r\n') ||
+            !csvText.includes('"3","\'=1+1","未完了"') ||
+            !csvText.includes('"カンマ,と""引用符"""') || csvText.includes('"=1+1"'))
+            throw new Error("学習順043：実CSVの改行・引用符・式記号対策が不正");
         const pdfDownload = page.waitForEvent("download");
         await page.getByRole("button", { name: "学習用PDFを保存する" }).click();
         const pdfFile = await pdfDownload;
-        if (pdfFile.suggestedFilename() !== "blazor_practice.pdf") throw new Error("PDFのファイル名が違います。");
+        if (pdfFile.suggestedFilename() !== "blazor_practice.pdf")
+            throw new Error("PDFのファイル名が違います。");
+        const pdfBytes = readFileSync(await pdfFile.path());
+        const pdfText = pdfBytes.toString("ascii");
+        const startxref = /startxref\n(\d+)\n%%EOF\n$/.exec(pdfText);
+        if (!pdfText.startsWith("%PDF-1.4\n") ||
+            !pdfText.includes("/Type /Pages /Kids [3 0 R] /Count 1") ||
+            !pdfText.includes("(Blazor PDF sample) Tj") || !startxref ||
+            !pdfText.slice(Number(startxref[1])).startsWith("xref\n"))
+            throw new Error("学習順043：実PDFの内容・xref構造が不正");
+        const lines = pdfText.slice(Number(startxref[1])).split("\n");
+        if (lines[1] !== "0 6") throw new Error("学習順043：PDF xrefオブジェクト数が不正");
+        for (let i = 1; i <= 5; i++) {
+            const offset = Number(lines[i + 2]?.slice(0, 10));
+            if (!Number.isInteger(offset) || !pdfText.slice(offset).startsWith(i + " 0 obj\n"))
+                throw new Error("学習順043：PDF xrefエントリ" + i + "が不正");
+        }
         await waitText(page, '[data-testid="browser03-result"]', "blazor_practice.pdf");
+        console.log("学習順043：Chrome実ダウンロードCSV/PDFバイトを検査。Excel等はNOT_TESTED");
 
         await page.goto(base + "/learn/browser-04");
         await page.waitForTimeout(950);
@@ -247,14 +683,44 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="browser04-state"]', "処理中");
         await page.getByRole("button", { name: "進行中の処理を取り消す" }).click();
         await waitText(page, '[data-testid="browser04-state"]', "取り消しました");
+        await waitText(page, '[data-testid="browser04-start-count"]', "1");
+        // Cancel後は同じページで安全に再試行できることと、実行中の多重開始不可を確認。
+        const start044 = page.getByRole("button", { name: "学習用の処理を開始する" });
+        await start044.click({ noWaitAfter: true });
+        await waitText(page, '[data-testid="browser04-state"]', "処理中");
+        await waitText(page, '[data-testid="browser04-start-count"]', "2");
+        if (!(await start044.isDisabled()))
+            throw new Error("学習順044：処理中に開始ボタンが有効です");
+        await waitText(page, '[data-testid="browser04-state"]', "処理が完了しました");
+        if (await start044.isDisabled())
+            throw new Error("学習順044：完了後の再試行ボタンが無効のままです");
+        console.log("学習順044：ErrorBoundary復帰・実取消・二重開始UI拒否・再試行正常完了をChromeで確認。離脱取消はxUnitモデル試験");
 
         await page.goto(base + "/learn/browser-05");
         await page.waitForTimeout(950);
-        await page.getByLabel("練習用の表示内容").fill("読み上げを確認");
+        const accessibilityInput = page.getByLabel("練習用の表示内容");
+        await accessibilityInput.fill("読み上げを確認");
         await waitText(page, '[data-testid="browser05-preview"]', "読み上げを確認");
+        if (await page.getByTestId("browser05-preview").getAttribute("aria-live") !== "polite")
+            throw new Error("学習順045：入力結果に読み上げ通知の指定がありません");
+        await accessibilityInput.focus();
+        await page.keyboard.press("Tab");
+        if (!(await page.getByRole("button", { name: "文字の大きさを切り替える" }).evaluate(el => document.activeElement === el)))
+            throw new Error("学習順045：Tabキーで次の操作ボタンへ移動できません");
+        await page.keyboard.press("Shift+Tab");
+        if (!(await accessibilityInput.evaluate(el => document.activeElement === el)))
+            throw new Error("学習順045：Shift+Tabキーで入力欄へ戻れません");
+        const originalFontSize = await page.locator(".browser-accessibility").evaluate(el => parseFloat(getComputedStyle(el).fontSize));
         await page.getByRole("button", { name: "文字の大きさを切り替える" }).click();
+        await page.waitForFunction(original => {
+            const el = document.querySelector(".browser-accessibility");
+            return el && parseFloat(getComputedStyle(el).fontSize) >= original * 1.3;
+        }, originalFontSize, { timeout: 5000 });
         await page.getByRole("button", { name: "表示のコントラストを切り替える" }).click();
+        await page.locator(".browser-accessibility.high-contrast").waitFor();
         await waitText(page, '[data-testid="browser05-settings"]', "高コントラスト");
+        await page.getByRole("button", { name: "入力欄へフォーカスを移す" }).click();
+        await page.waitForFunction(() => document.activeElement?.id === "browser05-note");
         await page.goto(base + "/learn/column/browser-45");
         await page.getByRole("heading", { name: "第9組の復習：ブラウザー機能と安全な操作" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "browser-review09.png") });
@@ -284,6 +750,11 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "一般的なCRUD" }).click();
         await waitText(page, '[data-testid="dbbridge01-result"]', "一般的なCRUD");
+        await page.getByRole("button", { name: "両方式で学習DBを検索する" }).click();
+        await waitText(page, '[data-testid="l046-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l046-dapper-rows").count() !== 0)
+            throw new Error("学習順046：DB未設定なのに行を表示しました");
+        console.log("学習順046：Chromeで未設定時の実DB拒否と選定操作を確認。実DB比較はPostgreSQL18ジョブのみ");
         await page.goto(base + "/learn/db-bridge-02");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "LINQからSQLを生成する" }).click();
@@ -293,16 +764,31 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "追跡状態を再現する" }).click();
         await waitText(page, '[data-testid="dbbridge03-state"]', "Added");
+        await page.getByRole("button", { name: "DapperとEF Coreの取引を試す" }).click();
+        await waitText(page, '[data-testid="l053-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l053-results").count() !== 0)
+            throw new Error("学習順053：DB未設定なのに取引結果を表示しました");
+        console.log("学習順053：ChromeでDB未設定時の安全拒否を確認。実DB取引は専用PostgreSQL18ジョブのみ");
         await page.goto(base + "/learn/db-bridge-04");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "キーなしモデル定義を確認する" }).click();
         await waitText(page, '[data-testid="dbbridge04-state"]', "キーなし");
+        await page.getByRole("button", { name: "架空データのビューを読み取る" }).click();
+        await waitText(page, '[data-testid="l058-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l058-view-rows").count() !== 0)
+            throw new Error("学習順058：未設定時に学習ビューの結果を表示しました");
+        console.log("学習順058：Chromeで学習ビュー未設定時の安全拒否を確認。実ビューSELECTはPostgreSQL18ジョブのみ");
         await page.goto(base + "/learn/db-bridge-05");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "安全なSQLを生成する" }).click();
         await waitText(page, '[data-testid="dbbridge05-state"]', "パラメーター化");
         await waitText(page, '[data-testid="dbbridge05-fromsql"]', "@");
         await waitText(page, '[data-testid="dbbridge05-sqlquery"]', "@");
+        await page.getByRole("button", { name: "学習DBで3方式を実検索する" }).click();
+        await waitText(page, '[data-testid="l059-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l059-results").count() !== 0)
+            throw new Error("学習順059：DB未設定なのに検索結果を表示しました");
+        console.log("学習順059：ChromeでSQL生成・DB未設定時拒否を確認。実検索はPostgreSQL18ジョブのみ");
         for (const end of ["50", "55", "60"]) {
             await page.goto(base + "/learn/column/db-bridge-" + end);
             await page.getByRole("heading", { name: /第1[012]組の復習/ }).waitFor();
@@ -406,6 +892,19 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "架空の条件を判定する" }).click();
         await waitText(page, '[data-testid="security01-result"]', "拒否");
 
+        // 学習順081：架空Principal→隔離サービス→台帳失効の実C#イベントを確認。
+        await page.getByRole("button", { name: "架空認可サービスで1件を読み取る" }).click();
+        await waitText(page, '[data-testid="l081-service-result"]', "固定の架空課題1件を許可");
+        await waitText(page, '[data-testid="l081-service-count"]', "架空課題件数：1 件");
+        await page.getByRole("button", { name: "隔離台帳の読み取り権限を失効" }).click();
+        await page.getByRole("button", { name: "架空認可サービスで1件を読み取る" }).click();
+        await waitText(page, '[data-testid="l081-service-result"]', "権限が失効");
+        await waitText(page, '[data-testid="l081-service-count"]', "架空課題件数：0 件");
+        await page.getByRole("button", { name: "隔離台帳を初期化" }).click();
+        await page.getByRole("button", { name: "架空認可サービスで1件を読み取る" }).click();
+        await waitText(page, '[data-testid="l081-service-result"]', "固定の架空課題1件を許可");
+        console.log("学習順081：Chromeで隔離認可サービスの許可・失効拒否・初期化を確認。実AD/台帳は未接続");
+
         await page.goto(base + "/learn/security-02");
         await page.waitForTimeout(950);
         await page.getByRole("button", { name: "変更要求の模擬判定" }).click();
@@ -415,6 +914,27 @@ async function waitText(page, selector, expected) {
         }
         await page.getByRole("button", { name: "変更要求の模擬判定" }).click();
         await waitText(page, '[data-testid="security02-result"]', "4条件成立");
+        await page.getByRole("link", { name: "隔離HTTPフォームを開く" }).waitFor();
+        const l082Get = await page.goto(base + "/learn/082/http-probe");
+        if (l082Get?.status() !== 200) throw new Error("学習順082 GETは200ではない");
+        await page.locator('[data-testid="l082-post-form"]').waitFor();
+        const l082Statuses = await page.evaluate(async () => {
+            const form = document.querySelector('[data-testid="l082-post-form"]');
+            if (!(form instanceof HTMLFormElement)) throw new Error("フォームなし");
+            const send = async body => (await fetch(form.action, {
+                method: "POST", body, credentials: "same-origin"
+            })).status;
+            const valid = await send(new FormData(form));
+            const missing = await send(new URLSearchParams());
+            const tamperedForm = new FormData(form);
+            const token = form.querySelector('input[type="hidden"]');
+            if (!token) throw new Error("トークンなし");
+            tamperedForm.set(token.name, "tampered-082");
+            return { valid, missing, tampered: await send(tamperedForm) };
+        });
+        if (l082Statuses.valid !== 403 || l082Statuses.missing !== 400 || l082Statuses.tampered !== 400)
+            throw new Error("学習順082 実HTTP検証が不一致 " + JSON.stringify(l082Statuses));
+        console.log("学習順082：実HTTP GET200、有効Antiforgery POST403、欠落/改変POST400。業務操作/IIS/ADは未実証");
 
         await page.goto(base + "/learn/security-03");
         await page.waitForTimeout(950);
@@ -423,6 +943,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="security03-result"]', "HTMLは実行していません");
         await waitText(page, '[data-testid="security03-encoded"]', "&lt;img");
         if (await page.locator('img[src="x"]').count() !== 0) throw new Error("未信頼文字列がHTMLのimgとして生成されています。");
+        await page.getByLabel("学習専用DBで検索する文字列").fill("' OR 1=1 --");
+        await page.getByRole("button", { name: "学習DBへ安全な値として問い合わせる" }).click();
+        await waitText(page, '[data-testid="l083-db-result"]', "PostgreSQLは未設定");
+        await waitText(page, '[data-testid="l083-db-count"]', "Dapper取得件数：0 件");
+        console.log("学習順083：ChromeでXSS非実行とSQL値入力の未設定安全拒否を確認。学習DB実検索/注入模擬値は既存PG18結合試験");
 
         await page.goto(base + "/learn/security-04");
         await page.waitForTimeout(950);
@@ -433,6 +958,15 @@ async function waitText(page, selector, expected) {
         }
         await page.getByRole("button", { name: "模擬構成を点検する" }).click();
         await waitText(page, '[data-testid="security04-result"]', "条件あり");
+        await page.getByRole("button", { name: "本番起動条件の拒否を確認する" }).click();
+        await waitText(page, '[data-testid="l084-startup-result"]', "起動拒否");
+        await page.getByLabel("架空の鍵保存先を設定済み").check();
+        await page.getByRole("button", { name: "本番起動条件の拒否を確認する" }).click();
+        await waitText(page, '[data-testid="l084-startup-result"]', "起動ガードは通過");
+        await page.getByLabel("架空Windows認証を有効化").uncheck();
+        await page.getByRole("button", { name: "本番起動条件の拒否を確認する" }).click();
+        await waitText(page, '[data-testid="l084-startup-result"]', "起動拒否");
+        console.log("学習順084：実Program.cs共通ガードの架空起動設定で鍵未指定拒否/指定通過/Windows認証不整合拒否をChrome確認。実Secret/鍵は未取得");
 
         await page.goto(base + "/learn/security-05");
         await page.waitForTimeout(950);
@@ -441,6 +975,26 @@ async function waitText(page, selector, expected) {
         await page.getByLabel("既存台帳の権限版が変更された").check();
         await page.getByRole("button", { name: "再接続後の条件を確認" }).click();
         await waitText(page, '[data-testid="security05-result"]', "拒否");
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-count"]', "架空課題件数：1 件");
+        await page.getByRole("button", { name: "架空台帳の権限を失効させる" }).click();
+        await page.getByRole("button", { name: "架空回線を再接続する" }).click();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-result"]', "拒否");
+        await waitText(page, '[data-testid="l085-service-count"]', "架空課題件数：0 件");
+        await page.getByRole("button", { name: "架空台帳を初期化する" }).click();
+        await page.getByLabel("架空チケットを期限切れにする").check();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-result"]', "拒否");
+        await page.getByLabel("架空チケットを期限切れにする").uncheck();
+        await page.getByLabel("架空監査を失敗させる").check();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-result"]', "拒否");
+        await page.getByLabel("架空監査を失敗させる").uncheck();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-count"]', "架空課題件数：1 件");
+        console.log("学習順085：Chromeで隔離サーバー側の都度再認可、架空失効後の再接続拒否、期限・監査拒否と復帰を確認。実AD/DBは別試験");
+
         await page.goto(base + "/learn/column/security-85");
         await page.getByRole("heading", { name: "第17組の復習：Webの安全境界" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "security-review17.png") });
@@ -621,7 +1175,17 @@ async function waitText(page, selector, expected) {
             throw new Error("ステップ13：サービス識別子の形式が不正です。");
         }
         await page.screenshot({ path: path.join(evidence, "step13.png") });
-        console.log("ステップ13：3種類の生存期間の識別子を確認");
+        // 学習順023：再解決したTransientと既存のSingleton/Scopedを分けて確認する。
+        await page.getByRole("button", { name: "Transientをもう1つ取得する" }).click();
+        await page.waitForFunction(previous => {
+            const value = document.querySelector('[data-testid="step13-transient-new"]')?.textContent?.trim();
+            return Boolean(value && value !== previous);
+        }, transientAfter, { timeout: 15000 });
+        if ((await page.locator('[data-testid="step13-singleton"]').textContent()).trim() !== singletonBefore
+            || (await page.locator('[data-testid="step13-scoped"]').textContent()).trim() !== scopedBefore) {
+            throw new Error("学習順023：同一circuitのSingleton/Scoped識別子が変化しました。");
+        }
+        console.log("学習順023：Transientの連続再解決とSingleton/Scopedの安定性を確認");
 
         await page.goto(base + "/learn/14");
         await page.waitForTimeout(1100);
@@ -632,14 +1196,35 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "子の表示から1増やす" }).click();
         await waitText(page, '[data-testid="step14-parent-count"]', "2");
         await waitText(page, '[data-testid="step14-child-count"]', "2");
+        // 学習順024：別ブラウザーコンテキストの新circuitへ状態が流出しないことを検査する。
+        const isolatedCircuitPage = await browser.newPage({ locale: "ja-JP" });
+        try {
+            await isolatedCircuitPage.goto(base + "/learn/024");
+            await isolatedCircuitPage.waitForTimeout(1100);
+            await waitText(isolatedCircuitPage, '[data-testid="step14-parent-count"]', "0");
+            await isolatedCircuitPage.getByRole("button", { name: "子の表示から1増やす" }).click();
+            await waitText(isolatedCircuitPage, '[data-testid="step14-parent-count"]', "1");
+            await waitText(isolatedCircuitPage, '[data-testid="step14-child-count"]', "1");
+            await waitText(page, '[data-testid="step14-parent-count"]', "2");
+            await waitText(page, '[data-testid="step14-child-count"]', "2");
+        } finally {
+            await isolatedCircuitPage.close();
+        }
         await page.getByRole("button", { name: "0に戻す" }).click();
         await waitText(page, '[data-testid="step14-parent-count"]', "0");
+        await waitText(page, '[data-testid="step14-child-count"]', "0");
         await page.screenshot({ path: path.join(evidence, "step14.png") });
         console.log("ステップ14：親子で同一Scoped状態を共有する操作に成功");
 
         await page.goto(base + "/learn/15");
         await page.waitForTimeout(1100);
-        await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習花子");
+        const injectionNameInput = page.getByRole("textbox", { name: "練習用の名前" });
+        await injectionNameInput.fill("練習花子");
+        await waitText(page, '[data-testid="step15-greeting"]', "練習花子さん");
+        // Formatterは入力検証器ではない。空欄が拒否されると誤認せず実際の動作を確認する。
+        await injectionNameInput.fill("");
+        await waitText(page, '[data-testid="step15-greeting"]', "さん、");
+        await injectionNameInput.fill("練習花子");
         await waitText(page, '[data-testid="step15-greeting"]', "練習花子さん");
         await page.screenshot({ path: path.join(evidence, "step15.png") });
         console.log("ステップ15：RazorとC#クラスのDI注入に成功");
@@ -670,6 +1255,14 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "設定とDIの関係を確認" }).click();
         await waitText(page, '[data-testid="step16-explain"]', "IOptions");
         await page.getByTestId("di06-compare-16").waitFor();
+        await waitText(page, '[data-testid="step16-limit"]', "5");
+        await page.getByRole("button", { name: "設定とDIの関係を確認" }).click();
+        // Blazor Serverの描画更新は非同期なので、即時count()ではなく消滅を待つ。
+        await page.locator('[data-testid="step16-explain"]').waitFor({
+            state: "detached",
+            timeout: 15000
+        });
+        console.log("学習順026：Learning設定値と説明表示の開閉を確認");
         console.log("学習順026：Options表示と比較表を確認");
 
         await page.goto(base + "/learn/17");
@@ -680,6 +1273,14 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "非同期処理を開始する" }).click({ noWaitAfter: true });
         await page.getByRole("button", { name: "処理を取り消す" }).click();
         await waitText(page, '[data-testid="step17-state"]', "処理を取り消しました");
+        // 旧Task.Delayの期限が経過しても取消状態が完了表示で上書きされないことを実証する。
+        await page.waitForTimeout(950);
+        if ((await page.getByTestId("step17-state").textContent()).trim() !== "処理を取り消しました。")
+            throw new Error("027 取消後に旧非同期処理が結果を上書きした");
+        if (await page.getByRole("button", { name: "処理を取り消す" }).isEnabled())
+            throw new Error("027 取消後の実行フラグが解除されていない");
+        await page.getByRole("button", { name: "非同期処理を開始する" }).click();
+        await waitText(page, '[data-testid="step17-state"]', "処理が完了しました");
         await page.getByTestId("di06-compare-17").waitFor();
         console.log("学習順027：非同期処理の完了・取消と診断表を確認");
 
@@ -741,6 +1342,8 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(1200);
         await page.getByRole("button", { name: "日本語の通知を表示する" }).click();
         await waitText(page, '[data-testid="step21-state"]', "通知サービスを使いました");
+        // 学習順031：C#の状態更新だけでなく、共有Snackbar Providerが実際にDOMを描画することを確認。
+        await page.locator(".mud-snackbar").filter({ hasText: "日本語の通知が表示されました。" }).first().waitFor();
         await page.locator('[data-testid="mud07-compare-21"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step21.png") });
 
@@ -757,6 +1360,10 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(1000);
         await page.getByRole("textbox", { name: "練習用の氏名" }).fill("練習太郎");
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎");
+        // 学習順033：文字入力に加え、MudSelectの実選択と既定の日付バインドを確認する。
+        await page.locator(".mud-select:not(.mud-input-control):not(.mud-select-input)").first().click();
+        await page.getByText("UI", { exact: true }).last().click();
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月26日");
         await page.locator('[data-testid="mud07-compare-23"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step23.png") });
 
@@ -770,6 +1377,14 @@ async function waitText(page, selector, expected) {
         await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("UIを学ぶ");
         await page.getByRole("button", { name: "入力を検証する" }).click();
         await waitText(page, '[data-testid="step24-result"]', "入力検証に合格しました");
+        // 学習順034：一度合格したフォームでも、必須項目を消せば再検証で失敗へ戻る。
+        await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("");
+        await page.getByRole("button", { name: "入力を検証する" }).click();
+        await waitText(page, '[data-testid="step24-result"]', "入力内容に不備があります");
+        await page.getByText("学習内容を入力してください。").waitFor();
+        await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("UIを学び直す");
+        await page.getByRole("button", { name: "入力を検証する" }).click();
+        await waitText(page, '[data-testid="step24-result"]', "入力検証に合格しました");
         await page.locator('[data-testid="mud07-compare-24"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step24.png") });
 
@@ -778,6 +1393,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step25-count"]', "4 件");
         await page.locator('[data-testid="mud07-compare-25"]').waitFor();
         await page.getByText("課題名", { exact: true }).last().click();
+        // ソート見出しを押した事実だけでなく、実際の先頭行が変わったことを検証する。
+        await page.waitForFunction(() => {
+            const firstCell = document.querySelector(".mud-table-body tr td");
+            return firstCell?.textContent?.trim() === "DIの復習";
+        }, null, { timeout: 15000 });
         await page.screenshot({ path: path.join(evidence, "step25.png") });
         await page.goto(base + "/learn/column/25");
         await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
@@ -790,6 +1410,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step26-count"]', "6 件");
         await page.getByRole("textbox", { name: "課題名を検索" }).fill("Mud");
         await waitText(page, '[data-testid="step26-count"]', "2 件");
+        // 正常な2件一致に加え、0件と検索解除の境界を確かめる。
+        await page.getByRole("textbox", { name: "課題名を検索" }).fill("絶対に存在しない架空検索語");
+        await waitText(page, '[data-testid="step26-count"]', "0 件");
+        await page.getByRole("textbox", { name: "課題名を検索" }).fill("");
+        await waitText(page, '[data-testid="step26-count"]', "6 件");
         await page.screenshot({ path: path.join(evidence, "step26.png") });
         console.log("ステップ26：DataGridのQuickFilterを検証");
 
@@ -806,18 +1431,34 @@ async function waitText(page, selector, expected) {
 
         await page.goto(base + "/learn/28");
         await page.waitForTimeout(1000);
-        await page.getByRole("button", { name: "練習用の処理を開始" }).click();
+        const noticeStart = page.getByRole("button", { name: "練習用の処理を開始" });
+        await noticeStart.click();
         await waitText(page, '[data-testid="step28-state"]', "完了しました");
+        // 本文だけでなく通知Providerの実表示、完了後の操作復帰と読み上げ状態を確認。
+        await page.locator(".mud-snackbar").filter({ hasText: "練習用の処理が完了しました。" }).first().waitFor();
+        if (await noticeStart.isDisabled()) {
+            throw new Error("学習順038：完了後も開始ボタンが無効です。");
+        }
+        if (await page.locator('[data-testid="step28-state"]').getAttribute("aria-live") !== "polite") {
+            throw new Error("学習順038：完了状態の読み上げ指定がありません。");
+        }
         await page.screenshot({ path: path.join(evidence, "step28.png") });
         console.log("ステップ28：Snackbarと完了表示を検証");
 
         await page.goto(base + "/learn/29");
         await page.waitForTimeout(900);
-        await page.getByText("ダークモードを有効にする").click();
+        const themeToggle = page.getByText("ダークモードを有効にする");
+        await themeToggle.click();
         await waitText(page, '[data-testid="step29-theme"]', "ダークモード");
-        await page.getByRole("textbox", { name: "操作確認の入力欄" }).fill("練習");
-        await page.getByRole("button", { name: "入力状態を確認する" }).click();
+        const keyboardInput = page.getByRole("textbox", { name: "操作確認の入力欄" });
+        const keyboardCheck = page.getByRole("button", { name: "入力状態を確認する" });
+        await keyboardCheck.click();
+        await waitText(page, '[data-testid="step29-state"]', "入力が空です。");
+        await keyboardInput.fill("練習");
+        await keyboardCheck.click();
         await waitText(page, '[data-testid="step29-state"]', "練習");
+        await themeToggle.click();
+        await waitText(page, '[data-testid="step29-theme"]', "ライトモード");
         await page.screenshot({ path: path.join(evidence, "step29.png") });
         console.log("ステップ29：テーマ変更と入力を検証");
 
@@ -830,9 +1471,21 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "確認して追加する" }).click();
         await page.getByRole("button", { name: "中止", exact: true }).click();
         await waitText(page, '[data-testid="step30-state"]', "中止しました");
+        await waitText(page, '[data-testid="step30-count"]', "3 件");
+        // 上限31文字は画面内で拒否し、確認ダイアログを出さない。
+        await page.getByRole("textbox", { name: "追加する架空の利用者名" }).fill("あ".repeat(31));
+        await page.getByRole("button", { name: "確認して追加する" }).click();
+        await waitText(page, '[data-testid="step30-state"]', "1〜30文字");
+        await waitText(page, '[data-testid="step30-count"]', "3 件");
+        await page.getByRole("textbox", { name: "追加する架空の利用者名" }).fill("テスト 四郎");
         await page.getByRole("button", { name: "確認して追加する" }).click();
         await page.getByRole("button", { name: "追加する", exact: true }).click();
         await waitText(page, '[data-testid="step30-count"]', "4 件");
+        // 検索0件・新規追加分だけ1件を画面上で確認する。DBは用いない。
+        await page.getByRole("textbox", { name: "利用者名を検索" }).fill("検索対象なし");
+        await waitText(page, '[data-testid="step30-count"]', "0 件");
+        await page.getByRole("textbox", { name: "利用者名を検索" }).fill("テスト 四郎");
+        await waitText(page, '[data-testid="step30-count"]', "1 件");
         await page.screenshot({ path: path.join(evidence, "step30.png") });
         await page.goto(base + "/learn/column/30");
         await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();
@@ -892,6 +1545,11 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(850);
         await waitText(page, '[data-testid="step41-count"]', "8 件");
         await page.getByText("架空の課題01").waitFor();
+        // 固定8件を全表示していないことと、DB問い合わせ0件の境界を別々に確認。
+        if (await page.locator(".mud-table-body tr").count() !== 3) {
+            throw new Error("学習順061：RowsPerPage=3の画面行数ではありません。");
+        }
+        await waitText(page, '[data-testid="step41-count"]', "DB問い合わせ：0 件");
         await page.screenshot({ path: path.join(evidence, "step41.png") });
         await page.goto(base + "/learn/42");
         await page.waitForTimeout(850);
@@ -935,6 +1593,12 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(850);
         await waitText(page, '[data-testid="step48-count"]', "500 件");
         await page.getByText("仮想化の架空課題 001").waitFor();
+        // メモリ内500件を保持しても、画面DOMへ500行を一度に生成しない。
+        await page.waitForFunction(() => {
+            const rows = document.querySelectorAll(".mud-table-body tr");
+            return rows.length > 0 && rows.length < 500;
+        }, null, { timeout: 15000 });
+        await waitText(page, '[data-testid="step48-count"]', "DB問い合わせ：0 件");
         await page.screenshot({ path: path.join(evidence, "step48.png") });
         await page.goto(base + "/learn/49");
         await page.waitForTimeout(850);
@@ -1022,8 +1686,42 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step59-state"]', "未設定");
         await page.goto(base + "/learn/60");
         await page.waitForTimeout(850);
+        // 学習順080：既定値だけの見かけ上のPASSを避け、5要件の正答と誤答の実操作を確認する。
+        const selectPattern080 = async (index, label) => {
+            await page.locator(".mud-select:not(.mud-input-control):not(.mud-select-input)").nth(index).click();
+            await page.getByText(label, { exact: true }).last().click();
+        };
+        const checkPattern080 = async (scenario, choice, expected) => {
+            await selectPattern080(0, scenario);
+            await selectPattern080(1, choice);
+            await page.getByRole("button", { name: "選定を確認する" }).click();
+            await page.waitForFunction(text =>
+                document.querySelector('[data-testid="step60-state"]')?.textContent?.trim() === text,
+                expected, { timeout: 15000 });
+        };
         await page.getByRole("button", { name: "選定を確認する" }).click();
-        await waitText(page, '[data-testid="step60-state"]', "第一候補");
+        await waitText(page, '[data-testid="step60-state"]', "第一候補です。複数列ソート");
+        await checkPattern080("50件の固定マスターを表示する", "Items全件読み込み",
+            "第一候補です。固定の小規模一覧ならItemsで十分です。");
+        await checkPattern080("50件の固定マスターを表示する", "MudDataGrid ServerData",
+            "別の第一候補があります。固定の小規模一覧ならItemsで十分です。");
+        await checkPattern080("大量の業務データをページング・複数列ソートする", "Items全件読み込み",
+            "別の第一候補があります。複数列ソートや列UIにはMudDataGrid ServerDataが第一候補です。許可ソートも併用します。");
+        await checkPattern080("大量の業務データをページング・複数列ソートする", "MudDataGrid ServerData",
+            "第一候補です。複数列ソートや列UIにはMudDataGrid ServerDataが第一候補です。許可ソートも併用します。");
+        await checkPattern080("数百万件を次へ・次へと読む", "キーセットページング",
+            "第一候補です。単調なキーで次ページだけを取得し、深いOFFSETを避けます。");
+        await checkPattern080("数百万件を次へ・次へと読む", "取得済みItemsの描画仮想化",
+            "別の第一候補があります。単調なキーで次ページだけを取得し、深いOFFSETを避けます。");
+        await checkPattern080("巨大な一覧をスクロールで取り出す", "DB取得つき仮想スクロール",
+            "第一候補です。描画だけでなくDB取得も範囲で分割します。");
+        await checkPattern080("巨大な一覧をスクロールで取り出す", "取得済みItemsの描画仮想化",
+            "別の第一候補があります。描画だけでなくDB取得も範囲で分割します。");
+        await checkPattern080("集計とCSVを利用者に提供する", "DB側GroupByと件数制限つきCSV",
+            "第一候補です。DB側集計と少量CSV、大量出力の別設計を選びます。");
+        await checkPattern080("集計とCSVを利用者に提供する", "Items全件読み込み",
+            "別の第一候補があります。DB側集計と少量CSV、大量出力の別設計を選びます。");
+        console.log("学習順080：5要件の第一候補と5誤選択を実Chromeで検証。実DB取得・業務認可は対象外");
         await page.goto(base + "/learn/column/60");
         await page.getByText("一覧は取得条件・権限・出力・性能まで一体で考える").waitFor();
         await page.screenshot({ path: path.join(evidence, "step60.png") });
@@ -1192,6 +1890,13 @@ async function waitText(page, selector, expected) {
         await page.getByLabel("要件を選ぶ").selectOption("edit");
         await page.getByRole("button", { name: "設計の確認" }).click();
         await waitText(page, '[data-testid="capstone01-result"]', "xmin");
+        // 106：説明だけでなく実業務サービスへ到達し、匿名・未設定では安全拒否。
+        for (const requirement of ["list", "edit", "export"]) {
+            await page.getByLabel("要件を選ぶ").selectOption(requirement);
+            await page.getByRole("button", { name: "認可付きサービス入口を実行する" }).click();
+            await waitText(page, '[data-testid="capstone01-service-result"]', "拒否");
+        }
+        console.log("学習順106：要件list/edit/exportから共有業務サービスへ委譲し、匿名時の安全拒否をChrome確認。実ADは未検証");
 
         await page.goto(base + "/learn/capstone-02");
         await page.waitForTimeout(850);
@@ -1200,23 +1905,44 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "権限付き一覧を取得する" }).click();
         await waitText(page, '[data-testid="capstone02-result"]', "拒否");
         await waitText(page, '[data-testid="capstone02-total"]', "総件数：0 件");
+        await waitText(page, '[data-testid="capstone02-page"]', "ページ：1");
+        if (await page.getByRole("button", { name: "前のページ" }).isEnabled() ||
+            await page.getByRole("button", { name: "次のページ" }).isEnabled())
+            throw new Error("学習順107：匿名拒否の一覧でページ送りを許可してはいけません。");
+        console.log("学習順107：匿名ChromeはSQL表示のみ許可、実一覧は拒否・0件、前後ページ送り不可。実DBの12件/10+2と監査はPG18試験");
 
-        await page.goto(base + "/learn/capstone-03");
+        await page.goto(base + "/learn/108");
         await page.waitForTimeout(850);
+        await page.getByLabel("編集する課題番号").fill("0");
+        await page.getByRole("button", { name: "認可付き詳細を取得する" }).click();
+        await waitText(page, '[data-testid="capstone03-result"]', "1以上");
+        await page.getByLabel("編集する課題番号").fill("1");
         await page.getByRole("button", { name: "認可付き詳細を取得する" }).click();
         await waitText(page, '[data-testid="capstone03-result"]', "拒否");
-        if (await page.getByRole("button", { name: "権限と競合を再検査して保存する" }).count() !== 0)
-            throw new Error("匿名画面に編集の保存ボタンを表示してはいけません。");
+        if (await page.getByRole("button", { name: "権限と競合を再検査して保存する" }).count() !== 0 ||
+            await page.getByLabel("課題名（最大100文字）").count() !== 0)
+            throw new Error("学習順108：匿名時は編集DTOと保存ボタンを表示してはいけません。");
+        console.log("学習順108：匿名Chromeで無効ID拒否・実詳細拒否・編集欄と保存ボタン非表示。保存/xmin/監査はPG18別試験");
 
-        await page.goto(base + "/learn/capstone-04");
+        await page.goto(base + "/learn/109");
         await page.waitForTimeout(850);
         await page.getByRole("button", { name: "現在の権限と監査の前提を確認" }).click();
         await waitText(page, '[data-testid="capstone04-result"]', "拒否");
+        await page.getByRole("button", { name: "編集操作の権限を再確認する" }).click();
+        await waitText(page, '[data-testid="capstone04-edit"]', "拒否");
+        await page.getByRole("button", { name: "認可付き部署一覧を取得する" }).click();
+        await waitText(page, '[data-testid="capstone04-list"]', "拒否");
+        await waitText(page, '[data-testid="capstone04-list"]', "総件数：0件");
         await page.getByRole("button", { name: "認可付き集計を取得する" }).click();
         await waitText(page, '[data-testid="capstone04-summary"]', "拒否");
+        console.log("学習順109：匿名Chromeの閲覧/編集権限・部署一覧0件・集計を安全拒否。架空Negotiate主体・台帳失効・監査はPG18別試験");
 
-        await page.goto(base + "/learn/capstone-05");
+        await page.goto(base + "/learn/110");
         await page.waitForTimeout(850);
+        await waitText(page, '[data-testid="capstone05-ci-state"]', "NOT_VERIFIED");
+        await waitText(page, '[data-testid="capstone05-site-summary"]', "SITE：PASS 0/15・NOT_RUN 15/15");
+        if (await page.locator('[data-testid="capstone05-acceptance-ledger"] tbody tr').count() !== 22)
+            throw new Error("学習順110：PRE 7件とSITE 15件の未実施台帳が必要です。");
         await page.getByRole("button", { name: "受入の不足を確認する" }).click();
         await waitText(page, '[data-testid="capstone05-result"]', "受入に不足");
         for (const label of ["コード・日本語教材・Web目次・PDFの内容が一致する",
@@ -1227,6 +1953,8 @@ async function waitText(page, selector, expected) {
         }
         await page.getByRole("button", { name: "受入の不足を確認する" }).click();
         await waitText(page, '[data-testid="capstone05-result"]', "本番受入を宣言できません");
+        await waitText(page, '[data-testid="capstone05-site-summary"]', "SITE：PASS 0/15・NOT_RUN 15/15");
+        console.log("学習順110：CI NOT_VERIFIED、PRE 7/7 NOT_RUN、SITE PASS0/15・NOT_RUN15/15。全チェック後も本番受入不可");
         await page.goto(base + "/learn/column/capstone-110");
         await page.getByRole("heading", { name: "第22組の復習：業務アプリの通し演習" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "capstone-review22.png") });

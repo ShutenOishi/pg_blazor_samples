@@ -3,6 +3,12 @@ export function readLanguage() {
     return document.documentElement.lang || "未設定";
 }
 
+// 学習順041：実際にJS例外を投げ、C#側のJSException処理を試験する。
+// ブラウザーや利用者の設定を書き換えず、認証情報にも触れない。
+export function throwLearningError() {
+    throw new Error("L041_JS_ERROR_TEST_ONLY");
+}
+
 // .NETストリームをブラウザーのBlobに変換する。URLは利用後に解放する。
 export async function downloadStream(fileName, mediaType, streamReference) {
     const bytes = await streamReference.arrayBuffer();

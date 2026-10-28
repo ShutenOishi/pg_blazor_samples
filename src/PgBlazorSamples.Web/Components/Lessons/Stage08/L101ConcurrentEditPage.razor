@@ -1,0 +1,83 @@
+@page "/learn/101"
+@page "/learn/76"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
+<PageTitle>学習順101：複数利用者の更新競合｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順101 / xminと権限行ロック</p>
+<h1>同時編集では古い版の上書きを拒否する</h1>
+<MudPaper Class="pa-4">
+    <p>開発用の架空課題IDを指定してください。読むだけなら変更しません。保存する場合のみ明示的に確認します。</p>
+    <label for="concurrent-id">課題ID</label>
+    <input id="concurrent-id" type="number" min="1" @bind="_id" />
+    <MudButton Color="Color.Primary" OnClick="CheckAsync">更新の認可を確認する</MudButton>
+    <MudButton OnClick="LoadAsync">現在の課題とxminを読む</MudButton>
+    @if (_snapshot?.Item is { } task)
+    {
+        <p>取得時のxmin：@task.Version（別タブで更新すると古い版になります）</p>
+        <label for="concurrent-title">課題名</label>
+        <input id="concurrent-title" maxlength="100" @bind="_title" />
+        <div><label><input type="checkbox" @bind="_confirm" /> 同じ課題を実際に保存する（架空データのみ）</label></div>
+        <MudButton Color="Color.Secondary" Disabled="@(!_confirm || _busy)" OnClick="SaveAsync">保存直前の権限と版を検査して保存</MudButton>
+    }
+    <p role="status" data-testid="step76-state">@_message</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>二つのブラウザーで確認</h2>
+    <p>同じ課題を二画面で読み込み、一方で保存してから、古いxminのまま他方で保存します。結果が競合なら自動上書きせず、読み直してください。</p>
+    <p>業務サービスは同一PostgreSQLトランザクションで既存台帳の行をロックし、xmin・部署・編集権限・永続監査を検査します。FDW等でこの条件を証明できない場合は更新を拒否します。</p>
+</section>
+<section class="lesson-details">
+    <h2>学習順101：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage08-compare-101">
+        <thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor Interactive Server</th></tr></thead>
+        <tbody>
+            <tr><td>処理の入口</td><td>Windowsフォームで操作を受ける</td><td>Razorからサーバー側サービスを呼ぶ</td></tr>
+            <tr><td>本人・部署・操作</td><td>DB正本をSQL実行時に照会</td><td>業務サービスが既存台帳を都度照会</td></tr>
+            <tr><td>競合・監査</td><td>版とトランザクションを検証</td><td>xmin・権限と永続監査の安全拒否</td></tr>
+            <tr><td>本番受入</td><td>端末と接続先を検証</td><td>CIと実AD/IIS/FDW・負荷の現地受入を区別</td></tr>
+        </tbody>
+    </table>
+    <p>詳しい演習と解答は学習順101の教材本文にあります。匿名時の拒否は安全な動作です。</p>
+</section>
+<div class="page-navigation"><a href="/learn/100">前へ</a><a href="/learn/102">次へ</a></div>
+@code {
+    private long _id = 1;
+    private LearningDetailResult? _snapshot;
+    private string _title = "";
+    private bool _confirm, _busy;
+    private string _message = "業務アクセスの認可は未確認です。";
+
+    private async Task CheckAsync()
+    {
+        var result = await Business.AuthorizeAsync(forEdit: true);
+        _message = result.Message;
+    }
+    private async Task LoadAsync()
+    {
+        _snapshot = null;
+        _confirm = false;
+        var result = await Business.GetDetailAsync(_id);
+        _snapshot = result;
+        _title = result.Item?.Title ?? "";
+        _message = result.Message;
+    }
+    private async Task SaveAsync()
+    {
+        var item = _snapshot?.Item;
+        if (_busy || !_confirm || item is null) return;
+        _busy = true;
+        try
+        {
+            var result = await Business.SaveAsync(new LearningEditInput
+            {
+                Id = item.Id, Version = item.Version, Title = _title, IsDone = item.IsDone
+            });
+            _message = result.Message;
+            // 成否に関わらず保存前の版を使い回さない。二重送信も防ぐ。
+            _snapshot = null;
+            _confirm = false;
+        }
+        finally { _busy = false; }
+    }
+}

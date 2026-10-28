@@ -1,0 +1,51 @@
+@page "/learn/032"
+@page "/learn/22"
+
+<PageTitle>学習順032：MudBlazorレイアウト｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順032 / 学習順032 / レイアウト</p>
+<h1>AppBarとDrawerで画面を組み立てる</h1>
+<p>画面上部の操作領域と開閉できるメニューの役割を確認します。</p>
+<MudPaper Class="pa-2" Elevation="1">
+    @* 固定でないAppBarとDrawerをこのページ内の学習エリアへ置く。 *@
+    <MudLayout Style="min-height: 380px; position:relative;">
+        <MudAppBar Fixed="false" Color="Color.Primary">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                           aria-label="学習メニューを開閉" OnClick="ToggleMenu" />
+            <MudText Typo="Typo.h6">練習用管理画面</MudText>
+        </MudAppBar>
+        <MudDrawer @bind-Open="_menuOpen" Variant="DrawerVariant.Persistent" ClipMode="DrawerClipMode.Docked"
+                   Fixed="false" Overlay="false">
+            <MudNavMenu>
+                <MudNavLink Href="/learn/031">導入と翻訳</MudNavLink>
+                <MudNavLink Href="/learn/033">入力部品</MudNavLink>
+            </MudNavMenu>
+        </MudDrawer>
+        <MudMainContent Class="pa-3">
+            <p role="status" data-testid="step22-state">@(_menuOpen ? "メニューを表示しています。" : "メニューを閉じています。")</p>
+            <MudGrid Class="mt-3">
+                <MudItem xs="12" sm="6"><MudPaper Class="pa-3" Outlined="true">左側の業務情報</MudPaper></MudItem>
+                <MudItem xs="12" sm="6"><MudPaper Class="pa-3" Outlined="true">右側の補助情報</MudPaper></MudItem>
+            </MudGrid>
+        </MudMainContent>
+    </MudLayout>
+</MudPaper>
+<section class="lesson-details">
+    <h2>公式テンプレートとの関係</h2>
+    <p>公式テンプレートでは<code>MudLayout</code>、<code>MudAppBar</code>、<code>MudDrawer</code>を使ったアプリ全体のレイアウトも学べます。このページは既存の学習メニューを保持するため、部品単位で仕組みを練習します。</p>
+    <p>操作の状態はC#で保持し、Razorが表示を切り替えます。メニューの開閉も学習順010のイベントの応用です。</p>
+</section>
+<section class="lesson-details" data-testid="mud07-compare-22">
+<h2>学習順032：WinForms＋Dapperとの比較と切り分け</h2>
+<table><thead><tr><th scope="col">学習の視点</th><th scope="col">確認する内容</th></tr></thead><tbody>
+<tr><th scope="row">上部バー</th><td>WinFormsのToolStripに対応するMudAppBar。</td></tr>
+<tr><th scope="row">開閉状態</th><td>_menuOpenでDrawerを開閉する。</td></tr>
+<tr><th scope="row">権限</th><td>メニュー非表示は認可ではない。</td></tr>
+</tbody></table>
+<p>実コードの状態を確認し、ブラウザーでの操作、サーバーでの実行、DBでの保存を混同しないでください。結果が変わらないときは対話型接続とイベントの更新箇所を先に調べます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/031">前へ：学習順031</a><a href="/learn/033">次へ：学習順033</a></div>
+
+@code {
+    private bool _menuOpen = true;
+    private void ToggleMenu() => _menuOpen = !_menuOpen;
+}

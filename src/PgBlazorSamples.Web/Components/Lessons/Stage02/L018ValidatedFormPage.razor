@@ -1,0 +1,74 @@
+@page "/learn/018"
+@page "/learn/10"
+@using Microsoft.AspNetCore.Components.Forms
+@using PgBlazorSamples.Web.Components.Samples.Step10
+
+<PageTitle>学習順018：入力フォーム｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">第2段階 / 学習順018 / EditForm・DataAnnotations</p>
+<h1>日本語メッセージで入力を検証する</h1>
+<p><code>EditForm</code> と入力検証属性で、入力不足や文字数を確認します。</p>
+
+<section class="lesson-details">
+    <h2>学習メモの入力練習</h2>
+    <p class="hint">架空のデータのみを入力してください。DBへの保存や外部送信は行いません。</p>
+    <EditForm Model="@entry" OnValidSubmit="ConfirmEntry" FormName="step10-practice">
+        <DataAnnotationsValidator />
+        <div class="form-field">
+            <label class="field-label" for="step10-display">練習用の表示名（2〜20文字・必須）</label>
+            <InputText id="step10-display" class="text-input" @bind-Value="entry.DisplayName" />
+            <ValidationMessage For="@(() => entry.DisplayName)" />
+        </div>
+        <div class="form-field">
+            <label class="field-label" for="step10-memo">学習メモ（3〜80文字・必須）</label>
+            <InputTextArea id="step10-memo" class="text-input" @bind-Value="entry.LearningMemo" />
+            <ValidationMessage For="@(() => entry.LearningMemo)" />
+        </div>
+        <div class="practice-actions">
+            <button type="submit">入力内容を確認する</button>
+        </div>
+    </EditForm>
+    @if (confirmedName is not null)
+    {
+        <div class="example-output" role="status" data-testid="step10-confirmation">
+            <p>入力検証に合格しました（画面内のみ）。</p>
+            <p>表示名：@confirmedName</p>
+            <p>学習メモ：@confirmedMemo</p>
+        </div>
+    }
+</section>
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p><code>[Required]</code> と <code>[StringLength]</code> のエラー文言は日本語です。</p>
+    <p><code>OnValidSubmit</code> は入力検証に合格した場合のみ呼び出されます。検証に失敗した入力は確認欄へ反映されません。</p>
+    <p>フォーム検証は業務権限の確認ではありません。DB保存や認可は後続のステップで学びます。</p>
+</section>
+<section class="lesson-details"><h2>WinFormsとBlazorの検証を比較する</h2>
+<table><thead><tr><th>WinForms</th><th>Blazor</th><th>違い</th></tr></thead><tbody>
+<tr><td>TextBoxとErrorProvider</td><td>InputTextとValidationMessage</td><td>モデルの属性で日本語エラーを表示</td></tr>
+<tr><td>OKボタン</td><td>OnValidSubmit</td><td>妥当なときだけ画面内の確認値を更新</td></tr>
+<tr><td>Dapper.Execute</td><td>この画面では未実装</td><td>DB保存はしていない</td></tr>
+</tbody></table>
+<pre><code>[Required(ErrorMessage = "表示名を入力してください。")]
+[StringLength(20, MinimumLength = 2)]
+public string DisplayName { get; set; } = "";</code></pre>
+<details><summary>不正な再送信後に以前の確認欄が見える理由は？</summary><p>編集中のentryと最後に確認したconfirmedNameは別の値です。新しい値が保存されたわけではありません。</p></details>
+</section>
+<div class="page-navigation">
+    <a href="/learn/017">前へ：学習順017</a>
+    <a href="/learn/019">次へ：学習順019</a>
+</div>
+
+@code {
+    // フォームの編集状態と、検証済みの確認結果を分けて保持します。
+    private readonly PracticeEntry entry = new();
+    private string? confirmedName;
+    private string? confirmedMemo;
+
+    private void ConfirmEntry()
+    {
+        // 学習用の画面内確認です。実DBへの書き込みはありません。
+        confirmedName = entry.DisplayName;
+        confirmedMemo = entry.LearningMemo;
+    }
+}

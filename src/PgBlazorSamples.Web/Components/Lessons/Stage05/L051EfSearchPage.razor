@@ -1,0 +1,37 @@
+@page "/learn/051"
+@page "/learn/35"
+@inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
+@using PgBlazorSamples.Web.Data
+
+<PageTitle>学習順051：AsNoTrackingと検索｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順051 / 学習順051・EF Coreの検索</p>
+<h1>LINQで絞り込み、必要な行だけ取得する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudTextField T="string" Label="課題名に含まれる文字" @bind-Value="_keyword" />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="LoadAsync">DBを検索する</MudButton>
+    <p role="status" data-testid="step35-status">@_data.Message</p>
+    <p>総件数：@_data.TotalCount 件／画面取得：@_data.Rows.Count 件</p>
+    <MudTable Items="@_data.Rows" Dense="true">
+        <HeaderContent><MudTh>番号</MudTh><MudTh>課題名</MudTh><MudTh>状態</MudTh></HeaderContent>
+        <RowTemplate><MudTd>@context.Id</MudTd><MudTd>@context.Title</MudTd><MudTd>@(context.IsDone ? "完了" : "未完了")</MudTd></RowTemplate>
+    </MudTable>
+</MudPaper>
+<p>検索条件をSQLへ文字列結合せずLINQを使い、AsNoTrackingでDTOを返します。取得は最大20件です。総件数は別クエリなので、その違いも確認してください。</p>
+<section class="lesson-details" aria-label="学習順051の比較">
+    <h2>学習順051：WinForms＋DapperとBlazorの処理を比較する</h2>
+    <table data-testid="dbbridge11-compare-051">
+        <caption>学習順051の処理境界</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理</th><td>フォームイベントとQuery／Execute</td><td>LINQとAsNoTrackingで最大20件取得</td></tr>
+            <tr><th scope="row">確認</th><td>SQLの実行と戻り値を確認</td><td>SQL実行あり、業務認可とは別</td></tr>
+        </tbody>
+    </table>
+    <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/column/db-bridge-50">前へ：第10組の復習</a><a href="/learn/column/35">コラム08：EF Coreの入門まとめ</a><a href="/learn/052">次へ：学習順052</a></div>
+@code {
+    private string _keyword = "";
+    private LearningTaskResult _data = new("検索前です。", []);
+    private async Task LoadAsync() => _data = await Database.SearchAsync(_keyword);
+}

@@ -1,0 +1,59 @@
+@page "/learn/023"
+@page "/learn/13"
+@using PgBlazorSamples.Web.Services.Lifetime
+@using Microsoft.Extensions.DependencyInjection
+@inject SingletonMarker Singleton
+@inject ScopedMarker Scoped
+@inject TransientMarker InitialTransient
+@inject IServiceProvider Services
+
+<PageTitle>学習順023：DIの生存期間｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順023 / 生存期間を観察する</p>
+<h1>サービスはいつ作られ、いつ共有される？</h1>
+<p>サービスの寿命を3種類の識別子で観察します。識別子は練習用の乱数で、個人情報ではありません。</p>
+
+<section class="lesson-details">
+    <h2>生成された部品を比べる</h2>
+    <dl class="value-list">
+        <div><dt>Singleton</dt><dd data-testid="step13-singleton">@Singleton.Id</dd></div>
+        <div><dt>Scoped</dt><dd data-testid="step13-scoped">@Scoped.Id</dd></div>
+        <div><dt>Transient（初回）</dt><dd data-testid="step13-transient-initial">@InitialTransient.Id</dd></div>
+        <div><dt>Transient（再取得）</dt><dd data-testid="step13-transient-new">@additionalTransientId</dd></div>
+    </dl>
+    <div class="practice-actions">
+        <button type="button" @onclick="ResolveAnother">Transientをもう1つ取得する</button>
+    </div>
+</section>
+<section class="lesson-details">
+    <h2>違いをどう理解する？</h2>
+    <p>Singletonはアプリ全体、ScopedはBlazorの対話回線（circuit）に関連する範囲で共有されます。Transientは要求するたびに作られます。</p>
+    <p>別のプライベートウィンドウと比較するとScopedの違いを観察できます。利用者固有の状態をSingletonに保存してはいけません。</p>
+</section>
+<section class="lesson-details">
+    <h2>WinFormsとBlazorの実装を比べる</h2>
+    <table>
+        <thead><tr><th>方式・考え方</th><th>実装の要点</th><th>確認すること</th></tr></thead>
+        <tbody>
+            <tr><td>Singleton</td><td><code>AddSingleton</code></td><td>アプリのサービス提供元で共有</td></tr>
+            <tr><td>Scoped</td><td><code>AddScoped</code></td><td>Interactive Serverでは対話中のcircuitに関連</td></tr>
+        </tbody>
+    </table>
+    <h2>実コードと障害の切り分け</h2>
+    <pre><code>builder.Services.AddTransient&lt;TransientMarker&gt;();
+additionalTransientId = Services.GetRequiredService&lt;TransientMarker&gt;().Id;</code></pre>
+    <p><strong>症状：</strong>再描画してもTransient初回IDが同じ。<strong>確認：</strong>再描画と新規DI解決を区別。WinFormsのローカルイベントとは違い、Interactive Serverではサーバー側でC#を実行します。画面に表示された値だけでDBへの保存や業務認可が行われたと判断しないでください。</p>
+    <p>詳しい解説、2つ以上の実コード、比較表、症状別の切り分け、演習と詳しい解答は日本語教材の学習順023に掲載しています。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/022">前へ：学習順022</a>
+    <a href="/learn/024">次へ：学習順024</a>
+</div>
+@code {
+    private string additionalTransientId = "まだ取得していません";
+
+    private void ResolveAnother()
+    {
+        // 操作のたびにDIコンテナーへ新しいTransientを要求します。
+        additionalTransientId = Services.GetRequiredService<TransientMarker>().Id;
+    }
+}

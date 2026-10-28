@@ -1,0 +1,74 @@
+@page "/learn/063"
+@page "/learn/43"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+@inject LearningDbService DbSettings
+
+<PageTitle>学習順063：MudDataGridのServerData｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順063 / MudDataGrid ServerData</p>
+<h1>GridStateをEF Coreの検索条件へ変換する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudTextField T="string" Label="課題名の検索語" @bind-Value="_keyword"/>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SearchAsync">DBを検索する</MudButton>
+    <p role="status" data-testid="step43-state">@_message</p>
+    <MudDataGrid T="LearningTaskRow" @ref="_grid" ServerData="LoadAsync"
+                 SortMode="SortMode.Single" Filterable="false"
+                 RowsPerPage="5" Dense="true" Hover="true">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="番号"/>
+            <PropertyColumn Property="x => x.Title" Title="課題名"/>
+            <PropertyColumn Property="x => x.DueDate" Title="期限日" Format="yyyy/MM/dd"/>
+            <PropertyColumn Property="x => x.IsDone" Title="完了"/>
+        </Columns>
+        <PagerContent><MudDataGridPager T="LearningTaskRow" PageSizeOptions="@(new int[] {5, 10, 20})"/></PagerContent>
+    </MudDataGrid>
+</MudPaper>
+<section class="lesson-details" data-testid="stage06-compare-063">
+    <h2>学習順063：MudDataGrid ServerDataとWinForms＋Dapperの比較</h2>
+    <table>
+        <caption>学習順063：画面とデータ取得の役割</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">操作</th><td>画面イベントでSQLを実行する</td><td>GridStateからDTOの行と総件数へ変換</td></tr>
+            <tr><th scope="row">取得</th><td>SQLと結果集合を管理する</td><td>SortMode.SingleとFilterable=falseの条件を確認します</td></tr>
+            <tr><th scope="row">安全</th><td>DBパラメーターと権限の確認</td><td>入力検査と台帳に基づく都度認可はサービス側で行う</td></tr>
+        </tbody>
+    </table>
+    <p>この画面は学習用です。実際の業務ではADによる本人認証だけでなく、既存DB台帳の行・操作ごとの認可と監査が必要です。</p>
+</section>
+<section class="lesson-details">
+    <h2>GridからEF CoreへIQueryableを返さない</h2>
+    <p>GridStateのページ番号、取得件数、ソートだけをサービスのLearningPageQueryへ渡し、DTOの行と総件数だけ返します。取消も引き継ぎます。</p>
+    <p>Gridの組み込み列フィルターはまだ使いません。安全なソートと複数の検索条件は学習順064〜45で扱います。</p>
+</section>
+<div class="page-navigation"><a href="/learn/062">前へ：学習順062</a><a href="/learn/064">次へ：学習順064</a></div>
+@code {
+    protected override void OnInitialized()
+    {
+        // ServerDataは子部品内のイベントなので、未設定を親画面で先に表示する。
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
+    private MudDataGrid<LearningTaskRow>? _grid;
+    private string _keyword = "";
+    private string _message = "初期表示を読み込みます。";
+
+    private async Task<GridData<LearningTaskRow>> LoadAsync(GridState<LearningTaskRow> state, CancellationToken ct)
+    {
+        var sorts = state.SortDefinitions
+            .OrderBy(s => s.Index)
+            .Take(1)
+            .Select(s => new LearningSort(s.SortBy, s.Descending)).ToArray();
+        var result = await Pages.LoadAsync(
+            new(state.Page, state.PageSize, _keyword, Sorts: sorts), ct);
+        _message = result.Message + $" 総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+
+    private async Task SearchAsync()
+    {
+        if (_grid is not null) await _grid.ReloadServerData();
+    }
+}

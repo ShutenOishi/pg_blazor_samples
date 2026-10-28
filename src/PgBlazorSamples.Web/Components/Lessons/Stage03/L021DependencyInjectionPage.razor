@@ -1,0 +1,61 @@
+@page "/learn/021"
+@page "/learn/11"
+@using PgBlazorSamples.Web.Services.Clock
+@inject GreetingService Greeting
+
+<PageTitle>学習順021：DIとは何か｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順021 / DIの基本</p>
+<h1>部品を直接作る方法と、DIで受け取る方法を比べる</h1>
+<p>DI（依存性注入）は、必要な部品を自分で作らず、外側で用意して渡してもらう仕組みです。</p>
+
+<section class="lesson-details">
+    <h2>2つの方法で挨拶を表示</h2>
+    <div class="practice-actions">
+        <button type="button" @onclick="Refresh">時刻を読み直す</button>
+    </div>
+    <dl class="value-list">
+        <div><dt>直接作成した時計</dt><dd data-testid="step11-direct">@directMessage</dd></div>
+        <div><dt>DIで受け取る時計</dt><dd data-testid="step11-injected">@injectedMessage</dd></div>
+    </dl>
+    <p class="hint">どちらも同じ時刻を使います。違いは「部品の用意の仕方」です。</p>
+</section>
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p><code>new SystemClock()</code> は画面側で部品を直接作ります。</p>
+    <p><code>@@inject GreetingService Greeting</code> は事前に登録したサービスを受け取ります。</p>
+    <p>今は結果が似ていますが、後から時計の実装を交換したい場合に違いが表れます。</p>
+</section>
+<section class="lesson-details">
+    <h2>WinFormsとBlazorの実装を比べる</h2>
+    <table>
+        <thead><tr><th>方式・考え方</th><th>実装の要点</th><th>確認すること</th></tr></thead>
+        <tbody>
+            <tr><td>直接生成</td><td><code>new GreetingService(new SystemClock())</code></td><td>画面が具体的な時計の生成を選ぶ</td></tr>
+            <tr><td>DIから受け取る</td><td><code>@@inject GreetingService Greeting</code></td><td>Program.csの登録を利用する</td></tr>
+        </tbody>
+    </table>
+    <h2>実コードと障害の切り分け</h2>
+    <pre><code>builder.Services.AddSingleton&lt;IClock, SystemClock&gt;();
+builder.Services.AddTransient&lt;GreetingService&gt;();</code></pre>
+    <p><strong>症状：</strong>DIの挨拶だけ表示できない。<strong>確認：</strong>IClockとGreetingServiceの登録を確認。WinFormsのローカルイベントとは違い、Interactive Serverではサーバー側でC#を実行します。画面に表示された値だけでDBへの保存や業務認可が行われたと判断しないでください。</p>
+    <p>詳しい解説、2つ以上の実コード、比較表、症状別の切り分け、演習と詳しい解答は日本語教材の学習順021に掲載しています。</p>
+</section>
+<div class="page-navigation">
+    <a href="/learn/column/runtime-20">前へ：第4組の復習</a>
+    <a href="/learn/022">次へ：学習順022</a>
+</div>
+@code {
+    private string directMessage = "";
+    private string injectedMessage = "";
+
+    protected override void OnInitialized() => Refresh();
+
+    private void Refresh()
+    {
+        // DIを使用しない場合：画面が必要な時計を直接作成しています。
+        directMessage = new GreetingService(new SystemClock()).GetMessage();
+
+        // DIを使用する場合：外側で組み立てたサービスを利用します。
+        injectedMessage = Greeting.GetMessage();
+    }
+}

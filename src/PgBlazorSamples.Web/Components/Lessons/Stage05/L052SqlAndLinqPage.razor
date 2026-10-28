@@ -1,0 +1,95 @@
+@page "/learn/052"
+@using Microsoft.EntityFrameworkCore
+@using PgBlazorSamples.Web.Data
+@inject IDbContextFactory<LearningDbContext> Factory
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningDbService Learning
+@page "/learn/db-bridge-02"
+<PageTitle>学習順052：SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第5段階 / 学習順052</p><h1>SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL</h1>
+<p>WHERE・JOIN・ORDER BYとLINQがどのように対応するか、DBへ問い合わせず生成SQLで確認します。</p>
+<section class="lesson-details"><label for="dbbridge02-keyword">架空の課題名に含まれる文字</label>
+<input id="dbbridge02-keyword" @bind="keyword" />
+<button type="button" @onclick="Generate">LINQからSQLを生成する</button>
+<button type="button" @onclick="SearchDatabaseAsync">学習DBで実際に検索する</button>
+<p role="status" data-testid="dbbridge02-state">@state</p>
+<pre data-testid="dbbridge02-sql" style="white-space:pre-wrap;overflow-wrap:anywhere">@sql</pre>
+<p>ToQueryStringはSQLを生成するだけで、実DBの結果や実行計画を保証しません。値はパラメーター化されます。</p>
+<p role="status" data-testid="dbbridge02-live-status">@liveStatus</p>
+@if (dbRows.Count > 0)
+{
+    <table data-testid="dbbridge02-live-rows">
+        <caption>学習用DBの検索結果（最大10件）</caption>
+        <thead><tr><th scope="col">ID</th><th scope="col">課題名</th><th scope="col">分類</th></tr></thead>
+        <tbody>
+        @foreach (var row in dbRows)
+        {
+            <tr><td>@row.Id</td><td>@row.Title</td><td>@row.Category</td></tr>
+        }
+        </tbody>
+    </table>
+}
+<p>実DB検索は学習用PostgreSQLが設定され、Windows認証が無効な環境に限ります。業務DBや既存の認可台帳へはアクセスしません。</p></section>
+<section class="lesson-details" aria-label="学習順052の比較">
+    <h2>学習順052：WinForms＋DapperとBlazorの処理を比較する</h2>
+    <table data-testid="dbbridge11-compare-052">
+        <caption>学習順052の処理境界</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理</th><td>フォームイベントとQuery／Execute</td><td>WHERE・JOIN・ORDER BYの生成SQL</td></tr>
+            <tr><th scope="row">確認</th><td>SQLの実行と戻り値を確認</td><td>SQL生成と学習DBの実検索を別操作で確認</td></tr>
+        </tbody>
+    </table>
+    <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/051">前へ</a><a href="/learn/053">次へ</a></div>
+@code {
+    private string keyword = "架空";
+    private string state = "生成前";
+    private string sql = "SQLはまだ生成していません。";
+    private string liveStatus = "学習DB検索は未実行です。";
+    private IReadOnlyList<BridgeTaskRow> dbRows = Array.Empty<BridgeTaskRow>();
+    private sealed record BridgeTaskRow(long Id, string Title, string Category);
+    private async Task SearchDatabaseAsync()
+    {
+        dbRows = Array.Empty<BridgeTaskRow>();
+        if (!Learning.Configured)
+        {
+            liveStatus = LearningDbService.NotConfigured;
+            return;
+        }
+        var term = keyword.Trim();
+        if (term.Length is < 1 or > 100)
+        {
+            liveStatus = "検索語は1〜100文字で入力してください。";
+            return;
+        }
+        try
+        {
+            await using var db = await Factory.CreateDbContextAsync();
+            dbRows = await db.Tasks.AsNoTracking()
+                .Where(task => task.Title.Contains(term))
+                .OrderBy(task => task.Category!.Name).ThenBy(task => task.Id)
+                .Select(task => new BridgeTaskRow(task.Id, task.Title,
+                    task.Category == null ? "未分類" : task.Category.Name))
+                .Take(10).ToListAsync();
+            liveStatus = dbRows.Count == 0
+                ? "学習DBへの検索は成功しましたが、該当する課題は0件でした。"
+                : $"学習DBから{dbRows.Count}件を取得しました。";
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            liveStatus = "学習DBへの接続または検索に失敗しました。設定と学習用DDLを確認してください。";
+        }
+    }
+    private void Generate()
+    {
+        using var db = Factory.CreateDbContext();
+        var term = keyword.Trim();
+        sql = db.Tasks.AsNoTracking().Where(task => task.Title.Contains(term))
+            .OrderBy(task => task.Category!.Name).ThenBy(task => task.Id)
+            .Select(task => new { task.Id, task.Title, Category = task.Category!.Name })
+            .Take(10).ToQueryString();
+        state = "SQL生成のみ完了しました。DBには接続していません。";
+    }
+}

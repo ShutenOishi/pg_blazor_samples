@@ -1,0 +1,731 @@
+{
+  "schema_version": 1,
+  "baseline_head": "549a90b387e67fd11c5e83e52060ea52d7bb2475",
+  "baseline_pr_comment": "6469938072",
+  "purpose": "旧HEAD時点で明示テスト参照が未登録だった45教材の実コード依存・既存試験対応を区別する監査。テストパス追加は機能合格宣言ではない。",
+  "audit_date": "2026-10-28",
+  "baseline": {
+    "lessons": 110,
+    "declared_test_ref": 65,
+    "without_declared_test_ref": 45,
+    "app_run": 40693880374,
+    "pdf_source_run": 40693880367,
+    "run_attempt": 1,
+    "ci_result": "completed/SUCCESS",
+    "end_to_end_verified": 0
+  },
+  "update": {
+    "new_test_ref_lessons": 7,
+    "now_declared_test_ref": 72,
+    "still_without_declared_test_ref": 38,
+    "scope": "metadata only; no src/tests/database changes",
+    "new_head_ci": "PENDING_NOT_ACCEPTED"
+  },
+  "caveats": [
+    "browser-smoke.cjsの登録や既存CI成功は各教材の全正常/負例の網羅を意味しない",
+    "実DBテストの環境変数が未設定のジョブでは一部テスト本文がreturnするため、PG18専用ジョブの成功と区別する",
+    "AD/IIS/Kerberos/FDWの現地試験とPRE/SITEは未実施",
+    "正式PDF Releaseは更新しない"
+  ],
+  "lessons": [
+    {
+      "sequence": 1,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L001WebExecutionPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L001WebExecutionPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor内のC#クリック履歴・再読込。専用xUnitなし。Chrome web01操作の個別検査は別軸。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 2,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L002HttpRequestResponsePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "標準NavigationManagerとHTTP 200/404。専用xUnitなし。Chrome web02検査は別軸。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 3,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L003HtmlCssFormPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor.css"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor入力検証とCSS isolation。専用xUnitなし。Chrome web03正常/負例は別軸。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 4,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L004DomNetworkConsolePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "RazorのDOM表示変更とDocument再取得検出。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 5,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L005VisualStudioDebugPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor C#イベントとVisual Studioの手動デバッグ。ブレークポイント操作はCIで証明できない。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 6,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L006FirstBlazorPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "HTMLと@pageのみ。個別サービス/xUnit不要だが、表示とルート検証が必要。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 7,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L007NavigationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L007NavigationPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "NavLinkによる画面遷移。個別xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 8,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L008RazorSyntaxPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor式とローカル値/CultureInfo。個別xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 9,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L009StaticSsrInteractivePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Static SSR用子コンポーネント、Program.cs描画設定。独立のSSR/Interactive差分をChromeで確認する必要がある。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 10,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L010EventPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razorローカルカウンタ。個別xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 11,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L011TwoWayBindingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L011TwoWayBindingPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor @bindと空文字判定。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 12,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L012ConditionalRenderingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L012ConditionalRenderingPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razorローカル一覧の条件表示。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 13,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L013ComponentParametersPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L013ComponentParametersPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step07/GreetingCard.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "子GreetingCardのParameter。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 14,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L014EventCallbackPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L014EventCallbackPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step08/TopicPicker.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "子TopicPickerのEventCallback。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 16,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L016ComponentLifecyclePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L016ComponentLifecyclePage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step09/LifecycleTracker.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "子LifecycleTrackerの初期化/破棄。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 17,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L017PrerenderInitializationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor初期化の識別子と事前描画。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 18,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L018ValidatedFormPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L018ValidatedFormPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step10/PracticeEntry.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "PracticeEntryのDataAnnotationsとEditForm。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 19,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L019UrlHistoryStatePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "NavigationManagerとURL履歴。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 20,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L020StatePersistenceChoicePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "IJSRuntime/localStorageの非機密設定保存。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 23,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L023ServiceLifetimesPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L023ServiceLifetimesPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Lifetime/LifetimeMarkers.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Singleton/Scoped/Transientの登録とDI寿命。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 24,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L024CircuitScopedPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L024CircuitScopedPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Lifetime/ScopedCounter.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Step14/SharedCounter.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "ScopedCounterと親子SharedCounter。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 25,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L025InjectionPatternsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L025InjectionPatternsPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Services/Clock/GreetingFormatter.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/GreetingService.cs",
+        "src/PgBlazorSamples.Web/Program.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "RazorはGreetingFormatter.Formatを呼ぶ。GreetingServiceTestsはGreetingServiceを検証し、Formatter.Formatは直接検証しないため未登録。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 26,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L026OptionsPatternPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L026OptionsPatternPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningOptions.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "IOptions<LearningOptions>とProgram.csのDI設定。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 27,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L027AsyncLoggingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L027AsyncLoggingPage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "ILogger/Task.Delay/CancellationTokenのイベント。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 29,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L029ApplicationLayerPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L029ApplicationLayerPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Application/IStepSummaryService.cs",
+        "src/PgBlazorSamples.Application/StepSummaryService.cs",
+        "src/PgBlazorSamples.Web/Program.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/GreetingServiceTests.cs",
+      "xunit_named_cases": [
+        "学習進捗は60から差し引く",
+        "範囲外の進捗を拒否する"
+      ],
+      "xunit_relation": "IStepSummaryService/StepSummaryService.Describeの戻り値と入力拒否。Razorの画面操作は対象外。",
+      "source_review": "Application層のIStepSummaryServiceをDIしDescribeを呼ぶ。関連xUnitはサービス単位のみ。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 31,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L031MudIntroductionPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L031MudIntroductionPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "MudBlazor Provider/ISnackbarとProgram.cs依存。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 32,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L032MudLayoutPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L032MudLayoutPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "MudLayout/DrawerをRazor内で使用。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 33,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L033MudInputsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L033MudInputsPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Mud入力/日付選択をRazor内で使用。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 34,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L034MudValidationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L034MudValidationPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "MudForm.ValidateAsyncの入力検証。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 35,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L035MudTablePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L035MudTablePage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "MudTableの固定配列とソート。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 36,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L036DataGridPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L036DataGridPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "MudDataGridでのメモリ内検索。DBアクセスなし。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 37,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L037DialogPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L037DialogPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "IDialogService.ShowMessageBoxAsync。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 38,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L038NotificationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "ISnackbarとTask.Delay。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 39,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L039AccessibilityPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L039AccessibilityPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/ThemePreferenceService.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "ThemePreferenceServiceをDIしてSetDarkMode。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 40,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L040UiPracticePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "架空メモリ一覧＋IDialogService/ISnackbar。実DBなし。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 45,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L045AccessibilityReviewPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor.css",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "ElementReference.FocusAsyncとCSS isolation。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 47,
+      "lesson_path": "docs/course-v3/lessons/Stage05/L047EfModelPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L047EfModelPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+      "xunit_named_cases": [
+        "PostgreSql18_DateOnly_TimeOnly_Range_Xmin_Transaction"
+      ],
+      "xunit_relation": "LearningTaskとLearningDbContextを実DBで利用。教材画面の表示検証ではない。",
+      "source_review": "LearningTask/LearningDbContextのモデル記述と実DBテストの接点。画面自体は表示中心。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 48,
+      "lesson_path": "docs/course-v3/lessons/Stage05/L048SqlSchemaPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L048SqlSchemaPage.razor",
+      "direct_dependency_file_candidates": [
+        "database/schema/001_learning_task.sql",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+      "xunit_named_cases": [
+        "PostgreSql18_DateOnly_TimeOnly_Range_Xmin_Transaction"
+      ],
+      "xunit_relation": "作成済み専用DBテーブルでCRUDを検証。DDLファイルの適用手順そのものは検証しない。",
+      "source_review": "schema/001_learning_task.sqlとLearningDbContextの関係。実DBテストはDDL自体の適用検査とは別。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 49,
+      "lesson_path": "docs/course-v3/lessons/Stage05/L049EfSetupPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L049EfSetupPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+      "xunit_named_cases": [
+        "PostgreSql18_ServerPaging_Filter_SafeSorting"
+      ],
+      "xunit_relation": "テスト用DI/DbContextFactoryとLearningDbService登録。Web本体Program.csの登録構成は別途検証が必要。",
+      "source_review": "WebのLearningDbService DIと設定表示。xUnit内の独立DI構築は本番登録との一致を保証しない。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 50,
+      "lesson_path": "docs/course-v3/lessons/Stage05/L050DbContextFactoryPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L050DbContextFactoryPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+      "xunit_named_cases": [
+        "PostgreSql18_ServerPaging_Filter_SafeSorting"
+      ],
+      "xunit_relation": "IDbContextFactory生成とLearningPageServiceによる読み取りを検証。RazorのSearchAsync操作は直接検証していない。",
+      "source_review": "RazorはLearningDbService.SearchAsyncを呼ぶ。関連xUnitのfactory実行は直接の画面呼出試験ではない。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 55,
+      "lesson_path": "docs/course-v3/lessons/Stage05/L055EfDateRangePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L055EfDateRangePage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+      "xunit_named_cases": [
+        "PostgreSql18_DateOnly_TimeOnly_Range_Xmin_Transaction"
+      ],
+      "xunit_relation": "DateOnly/TimeOnly/NpgsqlRangeの実DB変換と境界。MudDatePicker操作と画面側変換は直接検証していない。",
+      "source_review": "Razor内のDateOnly/RangeとMudDatePicker。DB型のxUnitはあるがUI境界は未検証。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 61,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L061ItemsBoundaryPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L061ItemsBoundaryPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "LearningTask型を使用したメモリ内8件のMudTable。DBアクセスなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 68,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L068VirtualizeItemsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "LearningTaskの表示型、メモリ内500件の仮想化。DB取得最適化とは別。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 77,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L077CacheBoundaryPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L077CacheBoundaryPage.razor",
+      "direct_dependency_file_candidates": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningCacheLessonService.cs"
+      ],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": "tests/PgBlazorSamples.UnitTests/LearningFinalIntegrationTests.cs",
+      "xunit_named_cases": [
+        "InclusivePeriod_CacheAndCsvGuards"
+      ],
+      "xunit_relation": "LearningCacheLessonService.Read/Clearのキー分離・版変更・例外をxUnitで検証。画面イベントの検証は別。",
+      "source_review": "LearningCacheLessonService.Read/Clearを呼ぶ。関連xUnitがキャッシュ分離を検証。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    },
+    {
+      "sequence": 80,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L080PatternChoicePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L080PatternChoicePage.razor",
+      "direct_dependency_file_candidates": [],
+      "browser_test_source": "scripts/browser-smoke.cjs",
+      "browser_case_coverage": "NOT_CERTIFIED_PER_LESSON",
+      "xunit_test_source": null,
+      "xunit_named_cases": [],
+      "xunit_relation": "NO_DIRECT_XUNIT_CASE_IDENTIFIED; browser/source-only evidence must be reviewed independently",
+      "source_review": "Razor内の一覧手法の選択演習。専用xUnitなし。",
+      "acceptance": "NOT_PER_LESSON_ACCEPTED"
+    }
+  ]
+}

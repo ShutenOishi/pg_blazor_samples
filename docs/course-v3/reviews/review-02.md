@@ -8,11 +8,11 @@
 
 | 学習順 | 実際の画面 | 主なコード | 観察すること |
 | --- | --- | --- | --- |
-| 006 | /learn/01 | @page、PageTitle、h1 | URLと静的な日本語表示 |
-| 007 | /learn/02 | NavLink、href、Match | 別のルートへの画面遷移 |
-| 008 | /learn/03 | @code、@displayName、ToString | C#の値と安全な文字列表示 |
-| 009 | /learn/runtime-01 | @onclick、Increment、count | Interactive ServerのC#イベント |
-| 010 | /learn/04 | disabled、Decrement、Reset | UI側と処理側の制約 |
+| 006 | /learn/006 | @page、PageTitle、h1 | URLと静的な日本語表示 |
+| 007 | /learn/007 | NavLink、href、Match | 別のルートへの画面遷移 |
+| 008 | /learn/008 | @code、@displayName、ToString | C#の値と安全な文字列表示 |
+| 009 | /learn/009 | @onclick、Increment、count | Interactive ServerのC#イベント |
+| 010 | /learn/010 | disabled、Decrement、Reset | UI側と処理側の制約 |
 
 ## 2. WinFormsとの比較
 
@@ -28,7 +28,7 @@
 ## 3. 学習済みの実コードを説明する
 
 ```razor
-@page "/learn/03"
+@page "/learn/008"
 <dl class="value-list">
     <div><dt>表示名</dt><dd>@displayName</dd></div>
     <div><dt>表示するステップ数</dt><dd>@stepCount</dd></div>
@@ -53,18 +53,18 @@ private void Decrement()
 
 ## 4. 5画面を通した実習
 
-1. `/learn/01`を開き、HTML見出しとブラウザーのタイトルを読みます。
-2. `/learn/02`で「ステップ03へ進む」を押し、URLが変わることを確認します。
-3. `/learn/03`で日付と山括弧の文字列を調べ、文字列がHTMLタグにならないことを確認します。
-4. `/learn/runtime-01`で2回クリックして数値を2にします。Documentの最初のHTTP要求とボタン操作を区別します。
-5. `/learn/04`で2回増やし、1回減らし、0に戻します。0のとき減らすボタンが無効なことを確認します。
+1. `/learn/006`を開き、HTML見出しとブラウザーのタイトルを読みます。
+2. `/learn/007`で「学習順008へ進む」を押し、URLが変わることを確認します。
+3. `/learn/008`で日付と山括弧の文字列を調べ、文字列がHTMLタグにならないことを確認します。
+4. `/learn/009`で2回クリックして数値を2にします。Documentの最初のHTTP要求とボタン操作を区別します。
+5. `/learn/010`で2回増やし、1回減らし、0に戻します。0のとき減らすボタンが無効なことを確認します。
 6. 再読み込みしたときに数値が0へ戻ることを見て、値がDBへ保存されたわけではないことを確認します。
 
 ## 5. 症状から判断する演習
 
 | 症状 | 確認箇所 | まず疑うこと |
 | --- | --- | --- |
-| /learn/02が開けない | URLと@page | ルートの不一致・サーバー未起動 |
+| /learn/007が開けない | URLと@page | ルートの不一致・サーバー未起動 |
 | 名前が表示されない | @displayNameと@code | 変数名・ビルドの誤り |
 | ボタンだけ動かない | 対話型接続とC#ログ | 初期HTMLとは別の通信障害 |
 | 0で減らすが押せない | disabled条件 | 仕様どおりの制限 |
@@ -84,7 +84,7 @@ private void Decrement()
 
 **解答C：** `disabled`は利用者が操作できないようにするための画面側の指定です。メソッドが守るべき条件はサーバー側でも明示し、想定外の経路でも値が0未満にならないようにするためです。
 
-**問題D：** `/learn/04`で数値が2になったことから、DBへの保存が成功したといえますか。
+**問題D：** `/learn/010`で数値が2になったことから、DBへの保存が成功したといえますか。
 
 **解答D：** いえません。数値はコンポーネント内のフィールドに保持しているだけで、永続化や監査記録は実装されていません。新しい画面へ戻ったり再読込したりすると初期値になります。
 
@@ -96,4 +96,4 @@ private void Decrement()
 - [ ] 増減ボタンを操作し、表示側とサーバー側の条件を確認できた。
 - [ ] DB保存・認証・監査をこの5本で実装したと誤解していない。
 
-次は[学習順011：双方向入力](../../samples/step05.md)です。
+次は[学習順011：双方向入力](../lessons/Stage02/L011TwoWayBindingPage.md)です。

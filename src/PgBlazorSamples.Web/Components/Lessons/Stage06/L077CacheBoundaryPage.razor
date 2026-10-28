@@ -1,0 +1,61 @@
+@page "/learn/077"
+@page "/learn/57"
+@using PgBlazorSamples.Web.Services.Learning
+@inject LearningCacheLessonService Cache
+<PageTitle>学習順077：キャッシュと認可の境界｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順077 / キャッシュのキー・失効・権限</p>
+<h1>キャッシュを利用者と権限の境界から考える</h1>
+<MudPaper Class="pa-4">
+    <MudSelect T="string" Label="架空利用者を選ぶ" @bind-Value="_actor">
+        <MudSelectItem T="string" Value="@("A")">部署Aの架空利用者</MudSelectItem>
+        <MudSelectItem T="string" Value="@("B")">部署Bの架空利用者</MudSelectItem>
+    </MudSelect>
+    <MudButton Color="Color.Primary" OnClick="Load">架空の一覧を表示</MudButton>
+    <MudButton OnClick="ChangePermissions">権限バージョンを更新</MudButton>
+    <MudButton OnClick="Clear">キャッシュを破棄</MudButton>
+    <p role="status" data-testid="step57-state">@_message</p>
+    <ul>@foreach (var title in _rows) { <li>@title</li> }</ul>
+</MudPaper>
+<section class="lesson-details">
+    <h2>なぜキャッシュを共有しないか</h2>
+    <p>この学習用キャッシュはScopedで、架空の利用者名と権限バージョンをキーに持つデモです。別ユーザーが同じキャッシュ行を受け取る事故を避ける考え方を確認します。</p>
+    <p><strong>ここにAD認証・DBの認可はありません。</strong>画面でA/Bを選べても本人確認にはなりません。実運用時は学習順086〜70で本人ID、対象行の認可、認可変更時の失効をサーバーで実装します。Blazor ServerのScopedは回線(circuit)単位であり、永続ユーザーデータの共有ストアではありません。</p>
+
+    <h2>学習順077：WinForms＋Dapperとの比較</h2>
+    <table data-testid="stage06-compare-077">
+        <thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><td>イベント</td><td>端末フォームの操作</td><td>サーバーのRazorイベントからサービスを呼ぶ</td></tr>
+            <tr><td>今回の処理</td><td>キャッシュと権限境界のSQLと表示を管理</td><td>キャッシュと権限境界を学習用サービスで処理</td></tr>
+            <tr><td>DBの接続</td><td>NpgsqlConnectionとSQLパラメーター</td><td>DbContextFactoryとLINQ／Npgsql</td></tr>
+            <tr><td>認可</td><td>業務台帳を都度照合</td><td>この学習画面は未実装、本番では既存台帳を操作・行ごと確認</td></tr>
+        </tbody>
+    </table>
+    <p>実コード・操作手順・障害の切り分け・演習と詳しい解答は docs/samples/step57.md に収録しています。</p>
+</section>
+<div class="page-navigation"><a href="/learn/076">前へ：学習順076</a><a href="/learn/078">次へ：学習順078</a></div>
+@code {
+    private string _actor = "A";
+    private int _permissionVersion = 1;
+    private IReadOnlyList<string> _rows = [];
+    private string _message = "架空利用者を選んでください。";
+
+    private void Load()
+    {
+        var result = Cache.Read(_actor, _permissionVersion);
+        _rows = result.Rows;
+        _message = $"{_actor} / 権限版{_permissionVersion}：{(result.CacheHit ? "キャッシュを再利用" : "新しい結果を格納")}。";
+    }
+    private void ChangePermissions()
+    {
+        _permissionVersion++;
+        _rows = [];
+        _message = "権限版を更新したため、古い版の結果は使いません。";
+    }
+    private void Clear()
+    {
+        Cache.Clear();
+        _rows = [];
+        _message = "キャッシュを破棄しました。";
+    }
+}

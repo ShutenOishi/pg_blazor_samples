@@ -1,0 +1,39 @@
+@page "/learn/014"
+@page "/learn/08"
+@using PgBlazorSamples.Web.Components.Samples.Step08
+
+<PageTitle>学習順014：イベント通知｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">第2段階 / 学習順014</p>
+<h1>子の操作を親へ知らせる</h1>
+<p>子コンポーネントは <code>EventCallback&lt;T&gt;</code> で親へ操作結果を通知できます。</p>
+
+<section class="lesson-details">
+    <h2>復習テーマを選ぶ</h2>
+    <TopicPicker SelectedTopic="@selectedTopic" OnSelected="OnTopicSelected" />
+    <p role="status" data-testid="step08-selection">現在の選択：<strong>@selectedTopic</strong></p>
+    <p>選択した回数：<strong data-testid="step08-count">@selectionCount</strong>回</p>
+</section>
+
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p>子の <code>OnSelected.InvokeAsync</code> が親の <code>OnTopicSelected</code> を呼び出します。</p>
+    <p>状態は親が管理します。子にDBや他の業務処理を直接持たせない設計の出発点です。</p>
+</section>
+
+<div class="page-navigation">
+    <a href="/learn/013">前へ：学習順013</a>
+    <a href="/learn/015">次へ：学習順015</a>
+</div>
+
+@code {
+    // 親が画面全体の状態を所有します。
+    private string selectedTopic = "まだ選択されていません";
+    private int selectionCount;
+
+    private void OnTopicSelected(string topic)
+    {
+        selectedTopic = topic;
+        selectionCount++;
+    }
+}

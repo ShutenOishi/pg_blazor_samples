@@ -1,16 +1,16 @@
 @page "/learn/column/15"
 
 <PageTitle>学習コラム03：DIのしくみを整理する｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">第5組の復習 / 学習順021〜025（旧Step11〜15）</p>
+<p class="eyebrow">第5組の復習 / 学習順021〜025（学習順021〜15）</p>
 <h1>DIを使うと、画面とサービスの何が変わる？</h1>
 <section class="lesson-details">
     <h2>5ステップのつながり</h2>
     <ol>
-        <li>Step11：自分で部品を作る方法と受け取る方法を比べた。</li>
-        <li>Step12：<code>IClock</code>という約束によって時計を交換した。</li>
-        <li>Step13：部品の生存期間を3種類の識別子で観察した。</li>
-        <li>Step14：同じ対話回線の親子がScoped状態を共有することを確認した。</li>
-        <li>Step15：<code>@@inject</code>とコンストラクター注入を比べた。</li>
+        <li>学習順021：自分で部品を作る方法と受け取る方法を比べた。</li>
+        <li>学習順022：<code>IClock</code>という約束によって時計を交換した。</li>
+        <li>学習順023：部品の生存期間を3種類の識別子で観察した。</li>
+        <li>学習順024：同じ対話回線の親子がScoped状態を共有することを確認した。</li>
+        <li>学習順025：<code>@@inject</code>とコンストラクター注入を比べた。</li>
     </ol>
     <details>
         <summary>確認問題：利用者ごとの値をSingletonに置いてよい？</summary>
@@ -22,17 +22,17 @@
     </details>
     <details>
         <summary>次の学習へ：DIだけで設定やログも管理できる？</summary>
-        <p>Step16では設定の受け取り、Step17ではログと非同期処理を扱います。役割の分離をさらに進めます。</p>
+        <p>学習順026では設定の受け取り、学習順027ではログと非同期処理を扱います。役割の分離をさらに進めます。</p>
     </details>
 </section>
 <section class="lesson-details">
     <h2>学習順021〜025を結び付ける</h2>
     <table><thead><tr><th>学習順</th><th>注目する実装</th><th>確認すること</th></tr></thead><tbody>
-        <tr><td><a href="/learn/11">021</a></td><td>new / @@inject</td><td>生成する責任の違い</td></tr>
-        <tr><td><a href="/learn/12">022</a></td><td>IClock / FixedClock</td><td>固定時刻の挨拶</td></tr>
-        <tr><td><a href="/learn/13">023</a></td><td>GetRequiredService</td><td>Transientの追加解決</td></tr>
-        <tr><td><a href="/learn/14">024</a></td><td>EventCallback</td><td>親子の再描画通知</td></tr>
-        <tr><td><a href="/learn/15">025</a></td><td>GreetingFormatter</td><td>依存関係の連鎖</td></tr>
+        <tr><td><a href="/learn/021">021</a></td><td>new / @@inject</td><td>生成する責任の違い</td></tr>
+        <tr><td><a href="/learn/022">022</a></td><td>IClock / FixedClock</td><td>固定時刻の挨拶</td></tr>
+        <tr><td><a href="/learn/023">023</a></td><td>GetRequiredService</td><td>Transientの追加解決</td></tr>
+        <tr><td><a href="/learn/024">024</a></td><td>EventCallback</td><td>親子の再描画通知</td></tr>
+        <tr><td><a href="/learn/025">025</a></td><td>GreetingFormatter</td><td>依存関係の連鎖</td></tr>
     </tbody></table>
     <h2>実装コードの関係</h2>
     <pre><code>builder.Services.AddSingleton&lt;IClock, SystemClock&gt;();
@@ -51,6 +51,6 @@ builder.Services.AddScoped&lt;ScopedCounter&gt;();</code></pre>
     <p>日本語テキストの第5組には6題の演習、詳細な解答、比較表、診断表と実コードがあります。</p>
 </section>
 <div class="page-navigation">
-    <a href="/learn/15">ステップ15へ戻る</a>
-    <a href="/learn/16">次へ：学習順026</a>
+    <a href="/learn/025">学習順025へ戻る</a>
+    <a href="/learn/026">次へ：学習順026</a>
 </div>

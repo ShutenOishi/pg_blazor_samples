@@ -1,0 +1,82 @@
+@page "/learn/042"
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Security.Cryptography
+@using PgBlazorSamples.Web.Services.Learning
+@page "/learn/browser-02"
+<PageTitle>学習順042：ファイルアップロードと入力制約｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第4段階 / 学習順042</p>
+<h1>ファイルアップロードと入力制約</h1>
+
+<p>WinFormsでローカルのファイルを開く操作と異なり、Webではブラウザーからサーバーへファイルの内容が送信されます。</p>
+<section class="lesson-details">
+    <h2>小さなテキストを検査する</h2>
+    <label for="browser02-file">練習用ファイル（.txt または .csv、最大64 KiB）</label>
+    <InputFile id="browser02-file" OnChange="InspectFile" accept=".txt,.csv,text/plain,text/csv" />
+    <p data-testid="browser02-result" role="status">@result</p>
+    @if (digest is not null)
+    {
+        <p>受信した内容のSHA-256：<code data-testid="browser02-hash">@digest</code></p>
+    }
+    <p>拡張子とMIMEの整合、UTF-8の実バイトと容量上限を確認します。内容はメモリで検査するだけで、サーバーのディスクやDBには保存しません。実業務では本人認可・ウイルス検査・保存先分離も必要です。</p>
+</section>
+<section class="lesson-details">
+    <h2>検査すべき境界</h2><ol>
+        <li>ブラウザーの accept は選択補助であり、セキュリティ検証の代わりではありません。</li>
+        <li>サーバーで拡張子・MIMEの整合とサイズを検査します。申告された情報だけでは安全性を保証できません。</li>
+        <li>OpenReadStream に読み取り上限を渡します。名前を保存先パスとして使いません。</li>
+        <li>UTF-8・制御文字を検査します。マルウェア検査やCSVの完全な形式検証は含みません。</li>
+    </ol></section>
+<section class="lesson-details">
+    <h2>学習順042：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-042">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>OpenFileDialogとファイル選択</td><td>InputFileとサーバー側ストリーム検査</td><td>acceptは選択補助。64 KiB上限と拡張子拒否を別々に確認する。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>小さな.txtのSHA-256を表示し、.pngと64 KiB超のファイルを拒否する。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>acceptは選択補助。64 KiB上限と拡張子拒否を別々に確認する。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/041">前へ</a><a href="/learn/043">次へ</a></div>
+@code {
+    private string result = "ファイルを選択してください。";
+    private string? digest;
+
+    private async Task InspectFile(InputFileChangeEventArgs args)
+    {
+        digest = null; // 拒否時に前回の成功ハッシュを表示しない。
+        var file = args.File;
+        var metadataError = L042TextFileInspector.ValidateMetadata(file.Name, file.ContentType, file.Size);
+        if (metadataError is not null)
+        {
+            result = metadataError;
+            return;
+        }
+
+        try
+        {
+            await using var input = file.OpenReadStream(maxAllowedSize: L042TextFileInspector.MaxBytes);
+            using var output = new MemoryStream();
+            await input.CopyToAsync(output);
+            var bytes = output.ToArray();
+            var contentError = L042TextFileInspector.ValidateContent(bytes, file.Size);
+            if (contentError is not null)
+            {
+                result = contentError;
+                return;
+            }
+
+            digest = Convert.ToHexString(SHA256.HashData(bytes));
+            result = $"検査完了：{bytes.Length} バイトを読み取りました。保存はしていません。";
+        }
+        catch (IOException)
+        {
+            result = "拒否：ファイルの読み取りに失敗しました。";
+        }
+        catch (InvalidOperationException)
+        {
+            result = "拒否：許可されたサイズを超えました。";
+        }
+    }
+}

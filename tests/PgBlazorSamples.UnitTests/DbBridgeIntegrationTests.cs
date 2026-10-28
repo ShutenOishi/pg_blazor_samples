@@ -60,4 +60,50 @@ public sealed class DbBridgeIntegrationTests
         Assert.Null(metadata.FindPrimaryKey());
         Assert.Equal("learning_user_access_v", metadata.GetViewName());
     }
+
+    [Fact]
+    public async Task PostgreSql18_LinqWhere_LeftJoin_StableSort_ExecutesOnTrainingDatabase()
+    {
+        var connection = Environment.GetEnvironmentVariable("ConnectionStrings__PostgreSQL");
+        if (string.IsNullOrWhiteSpace(connection)) return;
+        var options = new DbContextOptionsBuilder<LearningDbContext>().UseNpgsql(connection).Options;
+        var prefix = "dbbridge_join_" + Guid.NewGuid().ToString("N");
+        var categoryId = 0;
+        try
+        {
+            await using (var seed = new LearningDbContext(options))
+            {
+                var category = new LearningCategory { Name = prefix };
+                seed.Categories.Add(category);
+                await seed.SaveChangesAsync();
+                categoryId = category.Id;
+                seed.Tasks.AddRange(
+                    new LearningTask { Title = prefix + "_b", CategoryId = categoryId },
+                    new LearningTask { Title = prefix + "_a", CategoryId = categoryId },
+                    new LearningTask { Title = prefix + "_z", CategoryId = null });
+                await seed.SaveChangesAsync();
+            }
+            await using (var db = new LearningDbContext(options))
+            {
+                var rows = await db.Tasks.AsNoTracking()
+                    .Where(t => t.Title.Contains(prefix))
+                    .OrderBy(t => t.Category!.Name).ThenBy(t => t.Id)
+                    .Select(t => new { t.Id, t.Title,
+                        Category = t.Category == null ? "未分類" : t.Category.Name })
+                    .Take(10).ToListAsync();
+                Assert.Equal(3, rows.Count);
+                Assert.Contains(rows, x => x.Category == "未分類");
+                Assert.Equal(2, rows.Count(x => x.Category == prefix));
+                Assert.All(rows, x => Assert.StartsWith(prefix, x.Title));
+                Assert.Equal(rows.Count, rows.Select(x => x.Id).Distinct().Count());
+            }
+        }
+        finally
+        {
+            await using var cleanup = new LearningDbContext(options);
+            await cleanup.Tasks.Where(x => x.Title.StartsWith(prefix)).ExecuteDeleteAsync();
+            if (categoryId != 0)
+                await cleanup.Categories.Where(x => x.Id == categoryId).ExecuteDeleteAsync();
+        }
+    }
 }

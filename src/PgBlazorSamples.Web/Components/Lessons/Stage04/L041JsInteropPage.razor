@@ -1,0 +1,180 @@
+@page "/learn/041"
+@using Microsoft.JSInterop
+@using PgBlazorSamples.Web.Services.Learning
+@inject IJSRuntime JS
+@inject ILogger<L041JsInteropPage> Logger
+@implements IAsyncDisposable
+@page "/learn/browser-01"
+<PageTitle>学習順041：JavaScript interopの利用判断｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第4段階 / 学習順041</p>
+<h1>JavaScript interopの利用判断</h1>
+
+<p>RazorとC#で済む画面操作はJSなしで実装します。ブラウザーのDOMなど、Web APIが必要な場合にだけJavaScriptへ依頼します。</p>
+<section class="lesson-details">
+    <h2>比較する2つの操作</h2>
+    <button type="button" @onclick="Increase">C#だけで回数を増やす</button>
+    <p>操作回数：<strong data-testid="browser01-count">@count</strong></p>
+    <button type="button" @onclick="ReadLanguage">JavaScriptでHTMLの言語設定を読む</button>
+    <p data-testid="browser01-language" role="status">@message</p>
+    <p>HTMLの言語設定はブラウザーのDOMにあります。この画面のイベントはサーバーで動くため、JSモジュールを経由して読みます。</p>
+</section>
+<section class="lesson-details">
+    <h2>例外とモジュール参照の寿命を確認する</h2>
+    <button type="button" @onclick="TriggerLearningJsError">学習用JS例外を発生させる</button>
+    <button type="button" @onclick="ReleaseModule">JSモジュール参照を解放する</button>
+    <p data-testid="browser01-module-state" role="status">@moduleState</p>
+    <h3>切断後のJS呼び出しを隔離環境で検証する</h3>
+    <button type="button" @onclick="ProbeActualDisconnectAsync">切断捕捉の待機処理を開始する</button>
+    <p role="status" data-testid="browser01-disconnect-probe">@disconnectProbeState</p>
+    <p>この操作は回線を切りません。隔離Chrome試験だけが学習順041自身のWebSocketを実切断し、C#捕捉ログを独立して確認します。</p>
+    <p>例外内容は表示せず一般的な案内だけを出します。参照のDisposeAsyncはJavaScriptモジュールそのものをアンロードする保証ではありません。切断後の解放要求は届かない場合があります。</p>
+</section>
+<section class="lesson-details">
+    <h2>選定の目安</h2>
+    <table><thead><tr><th scope="col">操作</th><th scope="col">推奨する手段</th></tr></thead><tbody>
+    <tr><td>フォーム入力や画面上の計算</td><td>Razor・C#</td></tr>
+    <tr><td>DOMの属性を読む</td><td>必要な範囲のJS interop</td></tr>
+    <tr><td>業務認可</td><td>サーバーの既存DB台帳を都度確認</td></tr>
+    </tbody></table>
+    <p>事前レンダリング中にJSを呼ばず、対話型イベントで実行します。回線切断とJS実行失敗は別に扱います。</p>
+</section>
+<section class="lesson-details">
+    <h2>学習順041：WinForms＋Dapperとの比較と操作確認</h2>
+    <table data-testid="browser09-compare-041">
+        <thead><tr><th scope="col">WinFormsでの経験</th><th scope="col">Blazorでの対応</th><th scope="col">業務利用の注意</th></tr></thead>
+        <tbody><tr><td>回数増加：RazorとC#</td><td>DOMの言語設定：JSモジュール</td><td>JS切断時は再接続を促す。DOMの値を業務認可に使わない。</td></tr></tbody>
+    </table>
+    <h2>操作・障害の切り分け</h2>
+    <p>C#の回数を1増やし、HTMLの言語設定を読み、ConsoleとNetworkでモジュールを確認する。次に学習用JS例外を受け止め、モジュール参照を解放し、再取得する。</p>
+    <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
+       サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
+    <details><summary>演習の確認ポイント</summary><p>JS切断時は再接続を促す。DOMの値を業務認可に使わない。</p></details>
+</section>
+<div class="page-navigation"><a href="/learn/column/30">前へ：第8組の復習</a><a href="/learn/042">次へ</a></div>
+@code {
+    private int count;
+    private string message = "まだ取得していません。";
+    private string moduleState = "参照なし";
+    private string disconnectProbeState = "未実施";
+    private IJSObjectReference? module;
+
+    private void Increase() => count++;
+
+    private async Task ReadLanguage()
+    {
+        try
+        {
+            var current = await ImportModule();
+            var language = await current.InvokeAsync<string>("readLanguage");
+            message = "HTMLの言語設定：" + language;
+        }
+        catch (JSDisconnectedException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+        catch (JSException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+    }
+
+    private async Task TriggerLearningJsError()
+    {
+        try
+        {
+            var current = await ImportModule();
+            await current.InvokeVoidAsync("throwLearningError");
+            message = "例外が発生しませんでした。";
+        }
+        catch (JSDisconnectedException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+        catch (JSException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+    }
+
+    private async Task ProbeActualDisconnectAsync()
+    {
+        try
+        {
+            // DOMモジュールを接続中に取得する。隔離Chromeは待機表示を確認後、
+            // 041自身のWebSocketを閉じ、切断中にこのC#呼出しが走るようにする。
+            var current = await ImportModule();
+            disconnectProbeState = "実切断試験の待機中";
+            StateHasChanged();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            Logger.LogWarning("L041_PROBE_JS_INVOKE_START");
+            await current.InvokeAsync<string>("readLanguage");
+            Logger.LogWarning("L041_PROBE_JS_INVOKE_COMPLETED");
+            disconnectProbeState = "JS呼出しに成功しました。切断捕捉の証明ではありません。";
+        }
+        catch (JSDisconnectedException)
+        {
+            // 実切断でこの捕捉に達したことを、Chromeから独立したサーバーログで検証する。
+            Logger.LogWarning("L041_REAL_DISCONNECT_CAUGHT");
+            disconnectProbeState = "切断をC#で捕捉しました。再接続してください。";
+        }
+        catch (JSException)
+        {
+            Logger.LogWarning("L041_PROBE_JS_EXCEPTION_NOT_DISCONNECT");
+            disconnectProbeState = "ブラウザーの処理に失敗しました。切断捕捉の証明ではありません。";
+        }
+        catch (Exception exception)
+        {
+            Logger.LogWarning("L041_PROBE_OTHER_EXCEPTION_{Type}", exception.GetType().Name);
+            disconnectProbeState = "切断例外の捕捉は未確認です。";
+        }
+    }
+
+    private async Task<IJSObjectReference> ImportModule()
+    {
+        if (module is null)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/browser-learning.js");
+            moduleState = "参照取得済み";
+        }
+        return module;
+    }
+
+    private async Task ReleaseModule()
+    {
+        var current = module;
+        module = null;
+        if (current is null)
+        {
+            moduleState = "参照なし（解放対象なし）";
+            return;
+        }
+        try
+        {
+            await current.DisposeAsync();
+            moduleState = "参照解放済み（JSモジュール本体のアンロードは未確認）";
+        }
+        catch (JSDisconnectedException)
+        {
+            moduleState = "切断中のため解放要求の完了は未確認";
+        }
+        catch (JSException)
+        {
+            moduleState = "ブラウザー側の解放要求に失敗";
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        var current = module;
+        module = null;
+        if (current is null) return;
+        try { await current.DisposeAsync(); }
+        catch (JSDisconnectedException)
+        {
+            // 学習順041の隔離CIでは、実circuit破棄後の捕捉を独立に検証する。
+            // 通常運用でも内部例外の詳細や本人情報は記録しない。
+            Logger.LogWarning("L041_REAL_DISCONNECT_CAUGHT_DISPOSE");
+        }
+        catch (JSException) { /* Dispose後の画面へ内部例外を公開しない。 */ }
+    }
+}

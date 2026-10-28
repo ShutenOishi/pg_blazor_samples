@@ -1,0 +1,98 @@
+@page "/learn/065"
+@page "/learn/45"
+@using PgBlazorSamples.Web.Data
+@using PgBlazorSamples.Web.Services.Learning
+@using System.Globalization
+@inject PgBlazorSamples.Web.Services.Learning.LearningPageService Pages
+@inject LearningDbService DbSettings
+
+<PageTitle>学習順065：検索と複合フィルター｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順065 / 検索・フィルター</p>
+<h1>文字・完了状態・日付をDBで絞り込む</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudStack Spacing="2">
+        <MudTextField T="string" Label="課題名の部分一致" @bind-Value="_keyword"/>
+        <MudSelect T="string" Label="完了状態" @bind-Value="_done">
+            <MudSelectItem T="string" Value="@("all")">すべて</MudSelectItem>
+            <MudSelectItem T="string" Value="@("yes")">完了のみ</MudSelectItem>
+            <MudSelectItem T="string" Value="@("no")">未完了のみ</MudSelectItem>
+        </MudSelect>
+        <MudDatePicker Label="期限日（開始）" @bind-Date="_from" Culture="@Japanese" DateFormat="yyyy/MM/dd" Clearable="true"/>
+        <MudDatePicker Label="期限日（終了）" @bind-Date="_to" Culture="@Japanese" DateFormat="yyyy/MM/dd" Clearable="true"/>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SearchAsync">条件を適用する</MudButton>
+        <p role="status" data-testid="step45-state">@_message</p>
+        <MudDataGrid T="LearningTaskRow" @ref="_grid" ServerData="LoadAsync"
+                     Filterable="false" SortMode="SortMode.Single" RowsPerPage="5" Dense="true">
+            <Columns>
+                <PropertyColumn Property="x => x.Id" Title="番号"/>
+                <PropertyColumn Property="x => x.Title" Title="課題名"/>
+                <PropertyColumn Property="x => x.DueDate" Title="期限日" Format="yyyy/MM/dd"/>
+                <PropertyColumn Property="x => x.IsDone" Title="完了"/>
+            </Columns>
+            <PagerContent><MudDataGridPager T="LearningTaskRow" PageSizeOptions="@(new int[] {5, 10, 20})"/></PagerContent>
+        </MudDataGrid>
+    </MudStack>
+</MudPaper>
+<section class="lesson-details" data-testid="stage06-compare-065">
+    <h2>学習順065：複合検索とWinForms＋Dapperの比較</h2>
+    <table>
+        <caption>検索条件をどこで適用するか</caption>
+        <thead><tr><th>観点</th><th>WinForms＋Dapper</th><th>Blazor＋EF Core 10</th></tr></thead>
+        <tbody>
+            <tr><th>検索入力</th><td>TextBoxと日付入力</td><td>MudTextFieldとMudDatePickerを型付き条件へ変換</td></tr>
+            <tr><th>件数</th><td>同じWHEREでCOUNTを実行</td><td>共通IQueryableへWhereしてCountAsync</td></tr>
+            <tr><th>安全</th><td>入力検証と台帳認可</td><td>逆転日付・100文字超を拒否し、権限はサービス側で都度判定</td></tr>
+        </tbody>
+    </table>
+</section>
+<section class="lesson-details">
+    <h2>CountとItemsの絞り込みは同じ</h2>
+    <p>文字、完了、開始日、終了日をEF CoreのWhereへ渡してからCountAsyncとSkip/Takeを実行します。SQLのパラメーター化と空欄・NULL・開始日が終了日より後の異常系を考えます。</p>
+    <p>PostgreSQLの文字一致は照合順序に注意が必要です。大規模データの索引、検索入力のデバウンスは学習順070で扱います。</p>
+</section>
+<div class="page-navigation"><a href="/learn/064">前へ：学習順064</a><a href="/learn/column/45">次へ：第13組の復習</a></div>
+@code {
+    protected override void OnInitialized()
+    {
+        // ServerDataは子部品内のイベントなので、未設定を親画面で先に表示する。
+        if (!DbSettings.Configured) _message = LearningDbService.NotConfigured;
+    }
+
+    private static readonly CultureInfo Japanese = CultureInfo.GetCultureInfo("ja-JP");
+    private MudDataGrid<LearningTaskRow>? _grid;
+    private string _keyword = "";
+    private string _done = "all";
+    private DateTime? _from;
+    private DateTime? _to;
+    private string _message = "初期表示を読み込みます。";
+
+    private async Task<GridData<LearningTaskRow>> LoadAsync(GridState<LearningTaskRow> state, CancellationToken ct)
+    {
+        var sorts = state.SortDefinitions.OrderBy(s => s.Index).Take(1)
+            .Select(s => new LearningSort(s.SortBy, s.Descending)).ToArray();
+        var page = new LearningPageQuery(
+            state.Page, state.PageSize, _keyword,
+            _done == "yes" ? true : _done == "no" ? false : null,
+            _from is null ? null : DateOnly.FromDateTime(_from.Value),
+            _to is null ? null : DateOnly.FromDateTime(_to.Value), sorts);
+        if (page.DueFrom > page.DueTo)
+        {
+            _message = "開始日が終了日より後です。期間を確認してください。";
+            return new() { Items = [], TotalItems = 0 };
+        }
+        if (_keyword.Length > LearningPageService.MaxKeywordLength)
+        {
+            _message = "検索語は100文字以内にしてください。";
+            return new() { Items = [], TotalItems = 0 };
+        }
+        var result = await Pages.LoadAsync(page, ct);
+        _message = result.Message + $" 検索総件数：{result.TotalCount} 件";
+        await InvokeAsync(StateHasChanged);
+        return new() { Items = result.Rows, TotalItems = result.TotalCount };
+    }
+
+    private async Task SearchAsync()
+    {
+        if (_grid is not null) await _grid.ReloadServerData();
+    }
+}

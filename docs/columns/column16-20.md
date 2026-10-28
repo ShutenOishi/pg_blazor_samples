@@ -1,6 +1,6 @@
 # 第6組の復習（学習順026〜030）：設定・非同期・テスト・サービス分離
 
-**対象：学習順026〜030（旧Step16〜20）。** Step11〜15で学んだDIの基本を使い、Webアプリの画面とサービスを動かした後に読む復習コラムです。
+**対象：学習順026〜030（学習順026〜20）。** 学習順021〜15で学んだDIの基本を使い、Webアプリの画面とサービスを動かした後に読む復習コラムです。
 
 ## 5ステップで一つの仕組みを作った
 | ステップ | 新しく学んだこと | 次とのつながり |
@@ -16,7 +16,7 @@ WinFormsでフォームの中に設定読み込み、`Task.Delay`、ログ記録
 ## 課題追加の流れを最初から説明する
 1. `appsettings.json`にある`Learning:MaxTasks=5`を、`Program.cs`の`Configure<LearningOptions>`で登録する。
 2. `ITodoService`を`InMemoryTodoService`としてScoped登録する。
-3. ブラウザーから`/learn/20`を開くと、画面はDIで`ITodoService`を受け取る。
+3. ブラウザーから`/learn/030`を開くと、画面はDIで`ITodoService`を受け取る。
 4. `InMemoryTodoService`はコンストラクターで`IOptions<LearningOptions>`を受け取り、上限を1〜20件に収める。
 5. 入力欄の`oninput`が新しい課題名をRazorの状態に反映する。
 6. 追加ボタンが`TryAdd`を実行し、サービスで前後空白、1〜40文字、上限件数を検査する。
@@ -55,7 +55,7 @@ builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 | 単体テストと画面の動作確認 | `GreetingServiceTests`はC#の戻り値、ブラウザー試験は画面操作とイベントを確認 |
 | インターフェイスとクラスライブラリ | インターフェイスは約束、クラスライブラリへの分割は配置の選択 |
 
-Step19の残り60ステップは**学習用の固定条件**で、現在の全80ステップの収録数とは異なります。教材の総数を表示しているわけではありません。
+学習順029の残り60ステップは**学習用の固定条件**で、現在の全80ステップの収録数とは異なります。教材の総数を表示しているわけではありません。
 
 ## 統合演習：実務で発生する5つの場面
 
@@ -88,11 +88,11 @@ Step19の残り60ステップは**学習用の固定条件**で、現在の全80
 
 | 学習順 | DIから受け取るもの | WinForms＋Dapperでの対応 | 確認する場所 |
 | --- | --- | --- | --- |
-| 026 | `IOptions<LearningOptions>` | 型付き設定の取得 | `/learn/16` |
-| 027 | `ILogger<AsyncLoggingPage>` | 非同期・取消・ログ | `/learn/17` |
-| 028 | `IClock` | 時刻依存のテスト容易化 | `/learn/18` |
-| 029 | `IStepSummaryService` | Formから計算を分離 | `/learn/19` |
-| 030 | `ITodoService` | 入力画面と処理を分離 | `/learn/20` |
+| 026 | `IOptions<LearningOptions>` | 型付き設定の取得 | `/learn/026` |
+| 027 | `ILogger<AsyncLoggingPage>` | 非同期・取消・ログ | `/learn/027` |
+| 028 | `IClock` | 時刻依存のテスト容易化 | `/learn/028` |
+| 029 | `IStepSummaryService` | Formから計算を分離 | `/learn/029` |
+| 030 | `ITodoService` | 入力画面と処理を分離 | `/learn/030` |
 
 ```csharp
 builder.Services.Configure<LearningOptions>(

@@ -1,0 +1,59 @@
+@page "/learn/054"
+@page "/learn/36"
+@inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
+@using PgBlazorSamples.Web.Data
+
+<PageTitle>学習順054：EF CoreのCRUD｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順054 / 学習順054・登録・更新・削除</p>
+<h1>課題を登録し、状態を更新・削除する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudTextField T="string" Label="課題名" @bind-Value="_title" />
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="AddAsync">登録する</MudButton>
+    <MudButton Class="ml-2" OnClick="ReloadAsync">一覧を再読み込み</MudButton>
+    <p role="status" data-testid="step36-result">@_message</p>
+    <MudTable Items="@_data.Rows" Dense="true">
+        <HeaderContent><MudTh>課題名</MudTh><MudTh>状態</MudTh><MudTh>操作</MudTh></HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Title</MudTd><MudTd>@(context.IsDone ? "完了" : "未完了")</MudTd>
+            <MudTd>
+                <MudButton Size="Size.Small" OnClick="@(async () => await ToggleAsync(context))">切り替え</MudButton>
+                <MudButton Size="Size.Small" Color="Color.Error" OnClick="@(async () => await DeleteAsync(context))">削除</MudButton>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>
+<p>演習は専用の開発DBだけで行います。更新・削除前には最新のVersionを利用し、競合時には再読み込みします。後続では業務認可と確認ダイアログを追加します。</p>
+<section class="lesson-details" aria-label="学習順054の比較">
+    <h2>学習順054：WinForms＋DapperとBlazorの処理を比較する</h2>
+    <table data-testid="dbbridge11-compare-054">
+        <caption>学習順054の処理境界</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理</th><td>フォームイベントとQuery／Execute</td><td>Add・Toggle・DeleteとSaveChanges</td></tr>
+            <tr><th scope="row">確認</th><td>SQLの実行と戻り値を確認</td><td>開発DBのみ、xmin競合を拒否</td></tr>
+        </tbody>
+    </table>
+    <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/053">前へ：学習順053</a><a href="/learn/055">次へ：学習順055</a></div>
+@code {
+    private string _title = "";
+    private string _message = "操作待ちです。";
+    private LearningTaskResult _data = new("未読み込みです。", []);
+    private async Task ReloadAsync() => _data = await Database.SearchAsync();
+    private async Task AddAsync()
+    {
+        _message = await Database.AddAsync(_title);
+        await ReloadAsync();
+    }
+    private async Task ToggleAsync(LearningTaskRow row)
+    {
+        _message = await Database.ToggleAsync(row.Id, row.Version);
+        await ReloadAsync();
+    }
+    private async Task DeleteAsync(LearningTaskRow row)
+    {
+        _message = await Database.DeleteAsync(row.Id, row.Version);
+        await ReloadAsync();
+    }
+}

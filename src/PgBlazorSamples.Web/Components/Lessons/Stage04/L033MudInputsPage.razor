@@ -1,0 +1,42 @@
+@page "/learn/033"
+@page "/learn/23"
+@using System.Globalization
+
+<PageTitle>学習順033：MudBlazor入力部品｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順033 / 学習順033 / 入力部品</p>
+<h1>文字・選択・日付を日本語で入力する</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudStack Spacing="3">
+        <MudTextField T="string" Label="練習用の氏名" @bind-Value="_name" Immediate="true" />
+        <MudSelect T="string" Label="学習テーマ" @bind-Value="_topic">
+            <MudSelectItem T="string" Value="@("基礎")">基礎</MudSelectItem>
+            <MudSelectItem T="string" Value="@("DI")">DI</MudSelectItem>
+            <MudSelectItem T="string" Value="@("UI")">UI</MudSelectItem>
+        </MudSelect>
+        <MudDatePicker Label="学習予定日" @bind-Date="_studyDate"
+                       Culture="@Japanese" DateFormat="yyyy/MM/dd" />
+    </MudStack>
+    <MudDivider Class="my-3" />
+    <p role="status" data-testid="step23-preview">入力確認：@(_name ?? "未入力")／@_topic／@(_studyDate?.ToString("yyyy年M月d日", Japanese) ?? "日付未入力")</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>文化と言語は別の設定もある</h2>
+    <p>日付の形式は<code>Culture</code>と<code>DateFormat</code>で指定します。MudBlazorの部品内部の共通ラベルは翻訳パッケージに任せ、教材固有の項目名は日本語で直接指定します。</p>
+</section>
+<section class="lesson-details" data-testid="mud07-compare-23">
+<h2>学習順033：WinForms＋Dapperとの比較と切り分け</h2>
+<table><thead><tr><th scope="col">学習の視点</th><th scope="col">確認する内容</th></tr></thead><tbody>
+<tr><th scope="row">氏名入力</th><td>MudTextFieldはImmediateで状態へ反映。</td></tr>
+<tr><th scope="row">選択</th><td>MudSelectは選択値を保持。</td></tr>
+<tr><th scope="row">日付</th><td>MudDatePickerはDateTime?とCultureを扱う。</td></tr>
+</tbody></table>
+<p>実コードの状態を確認し、ブラウザーでの操作、サーバーでの実行、DBでの保存を混同しないでください。結果が変わらないときは対話型接続とイベントの更新箇所を先に調べます。</p>
+</section>
+<div class="page-navigation"><a href="/learn/032">前へ：学習順032</a><a href="/learn/034">次へ：学習順034</a></div>
+
+@code {
+    private static readonly CultureInfo Japanese = CultureInfo.GetCultureInfo("ja-JP");
+    private string _name = "";
+    private string _topic = "基礎";
+    private DateTime? _studyDate = new(2026, 10, 26);
+}

@@ -1,0 +1,54 @@
+@page "/learn/083"
+@using PgBlazorSamples.Web.Services.Learning
+@inject L059ParameterizedSqlService LearningSql
+@page "/learn/security-03"
+<PageTitle>学習順083：XSS・CSRF・SQL注入の防御境界｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第7段階 / 学習順083</p>
+<h1>XSS・CSRF・SQL注入の防御境界</h1>
+
+<p>入力値をそのまま信頼しないことを、HTMLエンコード、Antiforgery、SQLパラメーター化に分けて学びます。</p>
+<section class="lesson-details">
+<h2>XSS：Razorが文字列をエンコードする</h2>
+<label for="security03-input">学習用文字列（JavaScriptとして実行しません）</label>
+<input id="security03-input" @bind="payload" @bind:event="oninput" />
+<button type="button" @onclick="Check">表示用のHTMLエンコードを確認</button>
+<p role="status" data-testid="security03-result">@result</p>
+<p data-testid="security03-rendered">@payload</p>
+<pre data-testid="security03-encoded" style="white-space:pre-wrap;overflow-wrap:anywhere">@encoded</pre>
+<p>上段はRazorで文字列として表示し、下段にエンコード後の文字列を示します。MarkupStringは使用しません。</p>
+<h2>SQL注入：学習用DBへの実パラメーター照会</h2>
+<label for="l083-sql-term">学習専用DBで検索する文字列</label>
+<input id="l083-sql-term" @bind="sqlTerm" @bind:event="oninput" />
+<button type="button" @onclick="QueryLearningSql">学習DBへ安全な値として問い合わせる</button>
+<p role="status" data-testid="l083-db-result">@sqlResult</p>
+<p data-testid="l083-db-count">Dapper取得件数：@sqlRows 件。EF集計：@sqlCount 件。照合一致：@sqlMatches</p>
+<p>共有のL059ParameterizedSqlServiceを再利用し、入力文字列をDapper/EF Coreの値パラメーターとして送ります。開発用DBが未設定、またはWindows認証が有効なら、接続せず安全に拒否します。業務台帳・実FDWは参照しません。</p>
+<h2>その他の防御境界</h2>
+<ul><li>CSRF：状態を変更するHTTP要求のAntiforgery検証とCookie設定。</li>
+<li>SQL注入：EF Coreの補間式・LINQ、Dapperのパラメーターを使用する。実検索は学習用DBがあるときのみ。</li>
+<li>確認ダイアログ、Hidden入力、画面非表示だけではサーバー側の認可にならない。</li></ul><h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-83"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<div class="page-navigation"><a href="/learn/082">前へ：学習順082</a><a href="/learn/084">次へ：学習順084</a></div>
+@code {
+    private string sqlTerm = "' OR 1=1 --";
+    private string sqlResult = "実DB検索は未実行です。";
+    private int sqlRows;
+    private int sqlCount;
+    private bool sqlMatches;
+    private async Task QueryLearningSql()
+    {
+        var response = await LearningSql.QueryAsync(sqlTerm);
+        sqlResult = response.Status;
+        sqlRows = response.DapperRows.Count;
+        sqlCount = response.EfCount;
+        sqlMatches = response.Matches;
+    }
+    private string payload = "<script>alert('練習')</script>";
+    private string encoded = "";
+    private string result = "未確認";
+    private void Check()
+    {
+        // 入力をブラウザーへHTMLとして挿入せず、エンコード結果をテキストとして表示する。
+        encoded = SecurityLessonPolicy.EncodedExample(payload);
+        result = "エンコード済みの文字列です。HTMLは実行していません。";
+    }
+}

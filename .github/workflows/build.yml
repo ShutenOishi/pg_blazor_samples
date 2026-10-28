@@ -15,7 +15,9 @@ on:
       - "docs/course-v3/**"
       - "scripts/smoke-test.sh"
       - "scripts/check-learning-materials.py"
+      - "scripts/audit-source-trace.py"
       - "scripts/browser-smoke.cjs"
+      - "scripts/browser-circuit-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
     paths:
@@ -30,6 +32,9 @@ on:
       - "docs/course-v3/**"
       - "scripts/smoke-test.sh"
       - "scripts/browser-smoke.cjs"
+      - "scripts/browser-circuit-smoke.cjs"
+      - "scripts/audit-source-trace.py"
+      - "scripts/check-learning-materials.py"
       - ".github/workflows/build.yml"
   workflow_dispatch:
 
@@ -55,6 +60,16 @@ jobs:
         run: dotnet restore PgBlazorSamples.slnx
       - name: 5ステップごとの学習コラムとPDF索引を検査
         run: python scripts/check-learning-materials.py
+      - name: 学習順110件のC#・SQL・JS・テスト参照の監査レポートを作成
+        if: runner.os == 'Linux'
+        run: python scripts/audit-source-trace.py --report dist/source-dependency-trace.json
+      - name: 依存参照監査レポートを保存
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: course-v3-source-trace-110
+          path: dist/source-dependency-trace.json
+          if-no-files-found: error
       - name: Releaseビルド
         run: dotnet build PgBlazorSamples.slnx -c Release --no-restore
       - name: UnitTestsの単体テストを実行
@@ -100,6 +115,11 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: node scripts/browser-smoke.cjs
+
+      - name: 学習順015の隔離WebSocket切断・再接続をChromeで検証
+        if: runner.os == 'Linux'
+        shell: bash
+        run: node scripts/browser-circuit-smoke.cjs
 
       - name: 画面操作の証跡画像を保存
         if: runner.os == 'Linux' && always()
@@ -156,4 +176,4 @@ jobs:
       - name: date・time・daterange・multirange・xminのSQLを確認
         run: psql -v ON_ERROR_STOP=1 -f database/tests/001_learning_task_check.sql
       - name: PostgreSQL 18へのEF Core実接続・更新競合・ロールバック
-        run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --filter "FullyQualifiedName~LearningDbIntegrationTests|FullyQualifiedName~LearningAdvancedIntegrationTests|FullyQualifiedName~LearningEditIntegrationTests|FullyQualifiedName~LearningFinalIntegrationTests|FullyQualifiedName~WindowsAccessIntegrationTests|FullyQualifiedName~SecuredLearningIntegrationTests|FullyQualifiedName~DbBridgeIntegrationTests|FullyQualifiedName~CapstoneIntegrationTests"
+        run: dotnet test tests/PgBlazorSamples.UnitTests/PgBlazorSamples.UnitTests.csproj -c Release --filter "FullyQualifiedName~LearningDbIntegrationTests|FullyQualifiedName~LearningAdvancedIntegrationTests|FullyQualifiedName~LearningEditIntegrationTests|FullyQualifiedName~LearningFinalIntegrationTests|FullyQualifiedName~WindowsAccessIntegrationTests|FullyQualifiedName~SecuredLearningIntegrationTests|FullyQualifiedName~DbBridgeIntegrationTests|FullyQualifiedName~L046OrmComparisonTests|FullyQualifiedName~L053PersistenceComparisonTests|FullyQualifiedName~L058KeylessViewTests|FullyQualifiedName~L059ParameterizedSqlTests|FullyQualifiedName~CapstoneIntegrationTests"

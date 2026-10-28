@@ -1,0 +1,37 @@
+@page "/learn/005"
+@page "/learn/web-05"
+
+<PageTitle>学習順005：Webアプリの起動とデバッグ｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">第1段階 / 学習順005</p>
+<h1>Visual Studio 2026でWebアプリを起動し、C#をデバッグする</h1>
+<p>WebアプリはKestrelで待ち受け、ブラウザーからアクセスします。Visual Studioのブレークポイントは、この教材のC#サーバー側処理を追跡するために使います。</p>
+<section class="lesson-details">
+    <h2>ブレークポイントの練習</h2>
+    <p>クリックでサーバー側で実行した回数：<strong data-testid="web05-count">@clicks</strong> 回</p>
+    <button type="button" @onclick="BreakpointSample">デバッグ対象の処理を実行する</button>
+    <p role="status" data-testid="web05-debug-state">@debugState</p>
+    <ol>
+        <li>Visual Studio 2026でWebプロジェクトをデバッグ実行する。</li>
+        <li>L005VisualStudioDebugPage.razorのBreakpointSampleメソッド内のvar before = clicks;にブレークポイントを置く。</li>
+        <li>このボタンを押し、C#が実行される場所を確認する。</li>
+        <li>F10で進め、更新前のbeforeと更新後のclicksを比べる。</li>
+    </ol>
+</section>
+<section class="lesson-details">
+    <h2>HTTPSと開発・本番の区別</h2>
+    <p>HTTPSは通信経路を保護します。ローカルの開発証明書と、Windows Server 2025/IISで用いる本番証明書は運用が異なります。ブラウザー警告をむやみに無視しないでください。</p>
+    <p>ここではDB・Active Directoryへ接続しません。</p>
+</section>
+<div class="page-navigation"><a href="/learn/004">前へ</a><a href="/learn/column/web-05">5ステップの復習へ</a><a href="/learn/006">次へ：Razorの基本</a></div>
+@code {
+    private int clicks;
+    private string debugState = "まだC#イベントを実行していません";
+
+    private void BreakpointSample()
+    {
+        // ここにブレークポイントを置き、F10で更新前後の値を観察する。
+        var before = clicks;
+        clicks = before + 1;
+        debugState = $"更新前 {before} → 更新後 {clicks}";
+    }
+}

@@ -1,0 +1,48 @@
+@page "/learn/055"
+@page "/learn/37"
+@using System.Globalization
+@using NpgsqlTypes
+
+<PageTitle>学習順055：DateOnlyとRange｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順055 / 学習順055・日付・時刻・期間</p>
+<h1>MudDatePickerとDateOnly、PostgreSQLのRangeを結ぶ</h1>
+<MudPaper Class="pa-4" Elevation="1">
+    <MudDatePicker Label="業務日（日本語）" @bind-Date="_day" Culture="@Japanese" DateFormat="yyyy/MM/dd"/>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Convert">DB用に変換</MudButton>
+    <p role="status" data-testid="step37-result">@_result</p>
+</MudPaper>
+<section class="lesson-details">
+    <h2>データ型の注意</h2>
+    <p>MudDatePickerのDateTime?とPostgreSQLのdate（DateOnly）は同じ型ではありません。値を日付だけへ変換します。TimeOnlyは時刻だけの値です。</p>
+    <p>PostgreSQLのdaterangeはNpgsqlRange&lt;DateTime&gt;で表し、画面上の両端を含む期間とDBの上限を含まない半開区間を混同しません。</p>
+    <p>複数期間のdatemultirangeはSQLの集合演算で追加学習します。期間検索の実行時には境界・空期間・無限端を検証します。</p>
+</section>
+<section class="lesson-details" aria-label="学習順055の比較">
+    <h2>学習順055：WinForms＋DapperとBlazorの処理を比較する</h2>
+    <table data-testid="dbbridge11-compare-055">
+        <caption>学習順055の処理境界</caption>
+        <thead><tr><th scope="col">観点</th><th scope="col">WinForms＋Dapper</th><th scope="col">Blazor＋EF Core</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">処理</th><td>フォームイベントとQuery／Execute</td><td>DateOnlyからNpgsqlRangeへ変換</td></tr>
+            <tr><th scope="row">確認</th><td>SQLの実行と戻り値を確認</td><td>[開始,翌日)、DB非接続</td></tr>
+        </tbody>
+    </table>
+    <p>サーバー側の処理、保存の有無、未設定時の拒否を区別し、Markdown教材の操作手順と詳しい解答を確認してください。</p>
+</section>
+<div class="page-navigation"><a href="/learn/054">前へ：学習順054</a><a href="/learn/column/db-bridge-55">第11組の復習へ</a></div>
+@code {
+    private static readonly CultureInfo Japanese = CultureInfo.GetCultureInfo("ja-JP");
+    private DateTime? _day = new(2026, 10, 26);
+    private string _result = "まだ変換していません。";
+
+    private void Convert()
+    {
+        if (_day is null) { _result = "日付を選択してください。"; return; }
+        DateOnly date = DateOnly.FromDateTime(_day.Value);
+        if (date == DateOnly.MaxValue) { _result = "終了日の翌日を作れません。"; return; }
+        var period = new NpgsqlRange<DateTime>(
+            date.ToDateTime(TimeOnly.MinValue), true,
+            date.AddDays(1).ToDateTime(TimeOnly.MinValue), false);
+        _result = $"DateOnly：{date:yyyy/MM/dd} ／ daterange：[ {period.LowerBound:yyyy/MM/dd}, {period.UpperBound:yyyy/MM/dd} )";
+    }
+}

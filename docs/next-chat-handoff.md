@@ -1,3 +1,36 @@
+## 2026-10-28 Chromeの学習順020競合修復（再受入待ち）
+
+- 前回HEAD `45e40022483d044a9a1d98613501384a867b4ac5` のアプリRun40609115715で学習順001/019新規Chrome試験は個別PASS。ただし既存学習順020でUI選択変更がInteractive Server側へ届く前に保存が発生し、localStorageへ初期値`comfortable`を書いてChromeジョブFAIL。アプリ全体の受入は未成立。PDF Run40609115834は最新結果を再GETすること。
+- 020に非機密のサーバー側@bind値を画面表示する観察欄を追加し、Chromeは対話イベント成功→select変更→C#受信値`compact`の反映→保存を待つ。教材も同じ操作手順を追加。新しいHEADの全CI受入までPASSと宣言しない。
+- 003/004は前受入HEAD `7d7206e5c79225d9b1924730ff936c30f2a47128` で受入済み。001/019が新HEADで完了すれば8/30、残22件の監査は未完。mainマージ・正式PDF更新・現地SITE実施は禁止のまま。SITE PASS0/15、NOT_RUN15/15。
+
+---
+
+## 2026-10-28 教材v3 PR #39：学習順001・019のギャップ補強（新HEAD CI受入待ち）
+
+- 変更直前の認証済みGET受入HEAD：`7d7206e5c79225d9b1924730ff936c30f2a47128`。アプリ Run40606815694 のWindows/Ubuntu Chrome/PG18全3ジョブとPDF Run40606815676は同一HEADでSUCCESS。main=`3c3286016dd4bfbf5bad4f68e72b236c9e90abb9`、PR #39 Draft/open。
+- 学習順001：RazorのC#クリックごとに非機密の処理履歴を追加し、Chromeで2回操作と再読込の初期化を確認する試験・本文を更新。学習順019：正規URLの直接読込、履歴の戻る/進む、再読込、未知のtab値を区別するChrome試験・教材手順を追加。
+- 既受入003・004のJSON/source-mapに前HEADの同一HEAD CI受入を同期。001・019は**新コミットのアプリ3ジョブ・PDF検証SUCCESSが確認できるまで受入未確定**。6/30既受入、今回の候補2件、その他22/30の個別監査待ち（001・019が成功して初めて8/30）。
+- 110/110全面改稿、22/22復習、9/9段階概要は維持。110件の意味的なRazor→DI/サービス/SQL/JS/試験の追跡、物理配置移行、旧番号残存最終確認は未完了。
+- 安全：Draft PR #39をマージしない。正式PDF Release/Assetは更新しない。現地SITE PASS 0/15・NOT_RUN 15/15。実AD/IIS/FDW/負荷試験を無許可で行わず、既存認可・監査・失効・xmin安全拒否を変更しない。
+- **次回は最新PR HEAD・本節・Issue #38・監査JSON/source-map・最新PRコメント・同一HEAD CIをGETし、失敗した新規箇所のみ直す。成功した旧CIは手動再実行しない。**
+
+---
+
+## 2026-10-28 教材v3・Draft PR #39継続開発（最新の引き継ぎ・先頭が優先）
+
+**対象**：https://github.com/ShutenOishi/pg_blazor_samples ・[Issue #38](https://github.com/ShutenOishi/pg_blazor_samples/issues/38)・[Draft PR #39](https://github.com/ShutenOishi/pg_blazor_samples/pull/39)。GitHub認証済みGETを唯一の正本とし、最初にPR最新HEAD、Issue、`docs/course-v3/implementation-audit.json`、`source-map.json`、`source-layout-and-migration.md`、PR最新コメント、**最新HEADと一致するアプリ3ジョブおよびPDF検証CI**を取得する。本節の追記によりHEADが変わるので、下記のコミットを現在HEADと決めつけない。
+
+- **本節更新直前の実装HEAD**：`90de6ec76bd09481f1f7457e2a83640d044dda5e`。前の確定受入HEAD `cc3a997474cc9789df63839b63689321ec303c79` は、アプリ [40605109148](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40605109148) Windows/Ubuntu Chrome/PG18全3ジョブSUCCESS、PDF検証 [40605109201](https://github.com/ShutenOishi/pg_blazor_samples/actions/runs/40605109201) SUCCESSを認証済みGETで確認した。成功済みCIの手動再実行は不要。
+- **今回の追加**：学習順003 `Web03Page.razor`にHTML maxlengthとは別のC#未入力/30文字超拒否、入力変更時の検証結果リセット、保存しない受入表示を実装。Chromeでラベル→フォーカス、入力反映、HTMLエンコード、正常/空欄/31文字拒否を検証するコードを追加。学習順004はDocument GET 200、DOM追加削除、イベント時のDocument再取得なし、未処理ページ例外なしをChrome試験へ追加。教材003/004と`source-map.json`・`implementation-audit.json`を同期した。**これらの追加分は新HEADのCIが全件SUCCESSになるまで受入確定しない。**
+- **追加30テーマ監査台帳**：002・020・045・052がChrome/PG18等の対象CI受入済み4/30、003・004が実装済み・新HEAD CI待ち2/30、残る24/30は`AUDIT_PENDING`。既存画面があることは全機能PASSではない。002/052の証跡はHEAD `cc3a9974...` のアプリRun40605109148。
+- **教材進捗**：110/110本文全面改稿、通常復習22/22、段階概要9/9は完了済み。110正規URL `/learn/001`〜`/learn/110`とHome/NavMenuを統一、互換URLは維持。本文・画面・復習・概要・補足の学習番号表示を広く統一したが、旧番号残存の完全監査は未完了。物理ソース配置は未移行で、110件のRazor→サービス/DTO→EF/SQL/JS→テストの参照追跡も未完了。
+- **次工程の順序**：①新HEADアプリ3ジョブとPDF検証をGETし、新規失敗のみ修復、②追加30件の次の監査・機能補強（例：001/005または次の未監査テーマ）を正常/異常・Chrome/xUnit/学習専用PG18で実証、③110件の依存参照を実コードで確認し、段階単位で学習順に分かる物理配置へ安全に移行、④教材・source-map・audit・静的検査・Web/PDF目次ソースを各変更に同期、⑤全必要CIと残項目の受入後にPR #39のmainマージと正式PDF更新を別々に判断する。
+- **安全境界**：Draft PR #39は全工程受入までマージしない。正式Release `learning-textbook` のPDF Asset 683032765はこの作業で変更しない。学習DBだけを使用し、実AD/IIS/Kerberos/FDWや現地負荷試験は許可なしに行わない。PRE-01〜07は未確定、SITE PASS 0/15・NOT_RUN 15/15。既存DB台帳による操作・行認可、監査、権限失効、xmin競合、FDW原子性不明時の安全拒否を維持。
+- **毎回の必須引き継ぎ**：作業完了時にはPR #39へ受入根拠をコメントし、この引き継ぎ欄を最新化し、ユーザーへの回答末尾にも次回そのまま貼り付けられる引き継ぎプロンプトを作成する。未確認のCIや操作をPASSと記録しない。
+
+---
+
 ## 2026-10-28 教材正式公開の承認と現地実機受入の未完了事項
 
 ユーザーの2026-10-28の明示指示に基づき、**PR #36のmainマージ・日本語教材PDFの正式Releaseに限って**以前の停止指示を解除する。これは教材公開の許可であり、業務システムの本番配置・現地実機試験・実AD/FDWへの変更の許可ではない。後記の「Draftをマージしない」「PDF停止」はこれ以前の履歴であり、本節が教材配布に関する新しい指示を記録する。

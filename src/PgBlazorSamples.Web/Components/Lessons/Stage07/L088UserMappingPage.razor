@@ -1,0 +1,43 @@
+@page "/learn/088"
+@page "/learn/63"
+@using PgBlazorSamples.Web.Services.Learning
+@inject WindowsUserAccessService UserAccess
+<PageTitle>学習順088：ドメイン付きユーザー名とDB利用者の対応｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順88 / Windows認証と業務利用の境界</p>
+<h1>ドメイン付きユーザー名とDB利用者の対応</h1>
+<MudPaper Class="pa-4">
+    <h2>AD認証と既存利用者台帳の照合を分離する</h2>
+    <p>アプリで利用者は登録せず、既存のテーブル・外部テーブルを投影したlearning_user_access_vで認証済み名を検索します。</p>
+    <MudButton Color="Color.Primary" OnClick="InspectAsync">現在の認証・既存台帳照合状態を確認</MudButton>
+    <p role="status" data-testid="step63-state">@_snapshot.Message</p>
+    <p>登録状態：@_snapshot.IdentityHint</p>
+    @if (!string.IsNullOrWhiteSpace(_snapshot.DisplayName))
+    {
+        <p>既存台帳の表示名：@_snapshot.DisplayName</p>
+    }
+    @if (false && _snapshot.Roles is { Count: > 0 })
+    {
+        <h3>有効なロール</h3>
+        <ul>@foreach (var role in _snapshot.Roles) { <li>@role</li> }</ul>
+        <h3>許可コード</h3>
+        <ul>@foreach (var permissionCode in _snapshot.Permissions ?? Array.Empty<string>()) { <li>@permissionCode</li> }</ul>
+    }
+    <table data-testid="stage07-compare-88"><thead><tr><th>比較</th><th>WinForms＋Dapper</th><th>Blazorサーバー</th></tr></thead><tbody><tr><td>本人と台帳</td><td>端末の主体とSQLの認可を区別</td><td>認証済みPrincipalと既存台帳を都度照合</td></tr><tr><td>安全拒否</td><td>許可できない操作は実行しない</td><td>未登録・失効・DB障害なら拒否</td></tr></tbody></table>
+</MudPaper>
+<section class="lesson-details">
+    <h2>安全に確認する</h2>
+    <p>CIでは架空の既存台帳を使用します。アプリに登録画面やパスワード保存はありません。</p>
+    <details><summary>確認問題：本人認証が成功したら業務データを参照できる？</summary>
+        <p>いいえ。既存台帳の利用者の有効性と、操作に対する権限をサーバー側で確認します。</p>
+    </details>
+    <p>この教材画面は開発用の理解確認です。実際のドメイン接続・IIS・Kerberosは学習順095で実機検証します。</p>
+</section>
+<div class="page-navigation"><a href="/learn/087">前のステップへ</a><a href="/learn/089">次へ進む</a></div>
+@code {
+    private WindowsAccessSnapshot _snapshot = new("initial", "ボタンを押すと認証と既存台帳照合の状態を確認します。");
+
+    private async Task InspectAsync()
+    {
+        _snapshot = await UserAccess.ReadCurrentAsync();
+    }
+}

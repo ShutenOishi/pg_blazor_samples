@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http.HttpResults;
+using PgBlazorSamples.Web.Components.Samples.Runtime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using System.Net;
@@ -37,8 +39,10 @@ builder.Services.AddCascadingAuthenticationState();
 // CIや匿名の架空データ教材から、実ADの認証済み主体を偽造しない。
 var windowsAuthEnabled = builder.Configuration.GetValue<bool>("WindowsAuthentication:Enabled");
 var explicitLoginEnabled = builder.Configuration.GetValue<bool>("WindowsAuthentication:ExplicitLoginEnabled");
-if (explicitLoginEnabled && !windowsAuthEnabled)
-    throw new InvalidOperationException("明示ログインにはWindows認証の有効化が必要です。");
+// 実際の起動でも学習順084の共通ガードを使用する。鍵の実値は記録・画面出力しない。
+var dataProtectionKeysPath = builder.Configuration["WindowsAuthentication:DataProtectionKeysPath"];
+L084StartupPolicy.Validate(windowsAuthEnabled, explicitLoginEnabled,
+    builder.Environment.IsDevelopment(), dataProtectionKeysPath);
 
 if (windowsAuthEnabled)
 {
@@ -69,9 +73,7 @@ if (windowsAuthEnabled)
             .AddNegotiate();
 
         // 本番で鍵が消えるとセッションが失効する。共有先のACL/保存時暗号化は運用側で設定。
-        var keyPath = builder.Configuration["WindowsAuthentication:DataProtectionKeysPath"];
-        if (string.IsNullOrWhiteSpace(keyPath) && !builder.Environment.IsDevelopment())
-            throw new InvalidOperationException("明示ログインの本番利用にはDataProtectionKeysPathが必要です。");
+        var keyPath = dataProtectionKeysPath;
         if (!string.IsNullOrWhiteSpace(keyPath))
             builder.Services.AddDataProtection().SetApplicationName("PgBlazorSamples.Business")
                 .PersistKeysToFileSystem(new DirectoryInfo(keyPath));
@@ -90,9 +92,19 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddMudTranslations();
 
 // Step18でUnitTests、Step19でApplicationを段階的に追加する。
-// Step11からDIコンテナーへ時計サービスを登録する。
+// 学習順041：隔離CIの専用Developmentプロセスだけcircuit保持期間を短くする。
+// 通常Development/本番の挙動を変更せず、設定値が誤って本番で有効になっても適用しない。
+var isolatedL041CircuitTest = builder.Environment.IsDevelopment() &&
+    builder.Configuration.GetValue<bool>("LearningTests:L041ShortCircuitRetention");
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents(options =>
+    {
+        if (isolatedL041CircuitTest)
+        {
+            options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromSeconds(6);
+            options.JSInteropDefaultCallTimeout = TimeSpan.FromSeconds(15);
+        }
+    });
 
 // Step11〜12：時計の約束と差し替え可能な具象実装を登録する。
 builder.Services.AddSingleton<IClock, PgBlazorSamples.Web.Services.Clock.SystemClock>();
@@ -130,6 +142,14 @@ var pgApplicationConnection = new Npgsql.NpgsqlConnectionStringBuilder(
 builder.Services.AddDbContextFactory<LearningDbContext>(options =>
     options.UseNpgsql(pgApplicationConnection.ConnectionString));
 builder.Services.AddScoped<LearningDbService>();
+// 学習順046：DapperとEF Coreを同じ開発用PostgreSQLで比較する読取専用サービス。
+builder.Services.AddScoped<L046OrmComparisonService>();
+// 学習順053：DapperとEF Coreの書込みを学習用取引で比較し、ロールバックする。
+builder.Services.AddScoped<L053PersistenceComparisonService>();
+// 学習順058：固定架空値のキーなしビューだけを実読取する。
+builder.Services.AddScoped<L058KeylessViewService>();
+// 学習順059：Dapper、EF Core FromSql、SqlQueryの値パラメーター化を実DB照合する。
+builder.Services.AddScoped<L059ParameterizedSqlService>();
 // Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
 builder.Services.AddScoped<LearningPageService>();
 // Step46〜49：JOIN・キーセット・仮想化の各パターンを操作単位のDbContextで実装。
@@ -141,6 +161,9 @@ builder.Services.AddScoped<LearningRangeExportService>();
 builder.Services.AddScoped<LearningCacheLessonService>();
 builder.Services.AddScoped<LearningPerformanceService>();
 // Step61〜65：本人はASP.NET CoreのWindows認証が確定し、ドメイン付きユーザー名とDBを照合する。
+// 学習順081：架空Principal・隔離台帳で認可境界を観察する専用サービス。
+builder.Services.AddScoped<L081AuthorizationExercise>();
+builder.Services.AddScoped<L085ReauthorizationExercise>();
 builder.Services.AddScoped<WindowsUserAccessService>();
 // Step66〜70：本人と既存台帳を毎操作照合し、全SQLの部署条件を共通化する。
 builder.Services.AddScoped<LearningAuditService>();
@@ -171,6 +194,10 @@ app.UseRequestLocalization(new RequestLocalizationOptions()
 if (windowsAuthEnabled) app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
+
+// 学習順082。実Antiforgeryを安全に観察する隔離経路。業務更新は不可。
+app.MapGet(L082HttpProbe.Path, L082HttpProbe.RenderForm);
+app.MapPost(L082HttpProbe.Path, L082HttpProbe.ValidateAndDenyAsync);
 
 // Step72：Cookie発行/破棄はBlazor circuitではなくHTTPレスポンスで実行する。
 // Negotiate経路の本人だけが短命Cookieを取得する。GETは同意用フォームの表示のみ。
@@ -243,6 +270,19 @@ if (explicitLoginEnabled)
 
 // .NET 10の静的アセットを登録し、対話型サーバー側の描画を有効にする。
 // Step78：内容を公開しないliveness。IIS/プロキシで監視元を制限する。
+// 学習順002：未登録URLのHTTP 404を実際のDocument GETで確認するための専用応答。
+// デモ専用の固定パス。DB、認証台帳、秘密情報を参照しない。
+app.MapGet("/__learning_missing_page_for_http_404__", () => Results.NotFound())
+    .AllowAnonymous();
+ // 学習順009：既存RoutesのInteractive Server設定は変更しない隔離Static SSR実習。
+ // 匿名GETで非機密の小さな固定値のみ扱い、業務DBや認可サービスには触れない。
+app.MapGet("/__learning_static_ssr_009__", (int? count) =>
+{
+    if (count is < 0 or > 2)
+        return (IResult)Results.BadRequest("学習用の回数は0〜2だけ指定できます。");
+    return (IResult)new RazorComponentResult<StaticSsr009Component>(
+        new Dictionary<string, object?> { ["Count"] = count ?? 0 });
+}).AllowAnonymous();
 app.MapHealthChecks("/health/live").AllowAnonymous();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()

@@ -1,0 +1,66 @@
+@page "/learn/016"
+@page "/learn/09"
+@using PgBlazorSamples.Web.Components.Samples.Step09
+
+<PageTitle>学習順016：ライフサイクル｜Blazor ステップアップ学習</PageTitle>
+
+<p class="eyebrow">第2段階 / 学習順016 / ライフサイクル</p>
+<h1>初期化・更新・破棄の違いを見る</h1>
+<p>コンポーネントには、作成・パラメーター設定・破棄のタイミングがあります。</p>
+
+<section class="lesson-details">
+    <h2>子コンポーネントを操作する</h2>
+    <div class="practice-actions">
+        <button type="button" @onclick="ChangeTopic">テーマを変更する</button>
+        <button type="button" class="secondary-button" @onclick="ToggleChild">
+            @(showChild ? "子を非表示にする" : "子を再表示する")
+        </button>
+    </div>
+    @if (showChild)
+    {
+        <LifecycleTracker Topic="@currentTopic" />
+    }
+    else
+    {
+        <p role="status" data-testid="step09-hidden">子コンポーネントを破棄しました。再表示すると新しいインスタンスになります。</p>
+    }
+</section>
+<section class="lesson-details">
+    <h2>コードの注目点</h2>
+    <p>初期化はインスタンス単位、パラメーター設定は親からの更新時にも発生します。</p>
+    <p>子の削除時には <code>IDisposable.Dispose</code> でキャンセルトークンを解放します。</p>
+    <p>Interactive Serverの事前レンダリングでは、静的表示用と対話用で別々のインスタンスが初期化される場合があります。単純な「ページにつき一度」とは限りません。</p>
+</section>
+<section class="lesson-details">
+<h2>WinFormsとの比較と実行コード</h2>
+<table><thead><tr><th>WinForms</th><th>Blazor</th><th>確認点</th></tr></thead><tbody>
+<tr><td>Form.Load</td><td>OnInitializedAsync</td><td>インスタンスの初期化</td></tr>
+<tr><td>プロパティ変更</td><td>OnParametersSetAsync</td><td>親からの値を受け取る</td></tr>
+<tr><td>Form.Dispose</td><td>IDisposable.Dispose</td><td>子を取り除いたときに解放</td></tr>
+</tbody></table>
+<pre><code>protected override Task OnParametersSetAsync()
+{
+    parameterSetCount++;
+    return Task.CompletedTask;
+}</code></pre>
+<details><summary>子のテーマを変えても初期化が増えない理由は？</summary><p>同じ子インスタンスに新しいTopicが渡るからです。非表示の後の再表示は新しいインスタンスです。</p></details>
+</section><div class="page-navigation">
+    <a href="/learn/column/runtime-15">前へ：第3組の復習</a>
+    <a href="/learn/017">次へ：学習順017</a>
+</div>
+
+@code {
+    private bool showChild = true;
+    private int topicNumber;
+    private string currentTopic = "初回のテーマ";
+
+    // 親の状態が変わると、表示中の子へ新しいParameterが届きます。
+    private void ChangeTopic()
+    {
+        topicNumber++;
+        currentTopic = "変更後のテーマ " + topicNumber;
+    }
+
+    // 子を取り除くとDispose、再表示すると新しいインスタンスになります。
+    private void ToggleChild() => showChild = !showChild;
+}

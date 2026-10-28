@@ -50,23 +50,23 @@ builder.Services.AddMudTranslations();
 画面の状態と業務の権限を区別でき、比較表や障害の切り分け表を使って説明できたら学習順036に進みます。第4段階の残り036〜045と復習第8・9組は引き続き今後の最終改稿対象です。
 
 
-**対応：ステップ21〜25。** このコラムでは、UIライブラリを導入するところから一覧表示までを、WinFormsの開発経験と対応させて確認します。
+**対応：学習順031〜25。** このコラムでは、UIライブラリを導入するところから一覧表示までを、WinFormsの開発経験と対応させて確認します。
 
 ## この5ステップのつながり
 | 学習順 | 学んだこと | 実務上の区別 |
 | --- | --- | --- |
-| Step21 | MudBlazorの登録・日本語翻訳・通知 | DI、Provider、CSS/JS、描画モードを組み合わせる |
-| Step22 | AppBar・Drawer・Gridの構成 | レイアウトの表示状態と権限は異なる |
-| Step23 | テキスト・選択・日付の入力 | `Value`・`Date`とC#の型、文化設定を区別 |
-| Step24 | MudFormの必須入力検証 | 画面の入力検証とサービス側の制約・認可を区別 |
-| Step25 | MudTableのItems・ソート・ページャー | 表示のページングとDB側ページングを区別 |
+| 学習順031 | MudBlazorの登録・日本語翻訳・通知 | DI、Provider、CSS/JS、描画モードを組み合わせる |
+| 学習順032 | AppBar・Drawer・Gridの構成 | レイアウトの表示状態と権限は異なる |
+| 学習順033 | テキスト・選択・日付の入力 | `Value`・`Date`とC#の型、文化設定を区別 |
+| 学習順034 | MudFormの必須入力検証 | 画面の入力検証とサービス側の制約・認可を区別 |
+| 学習順035 | MudTableのItems・ソート・ページャー | 表示のページングとDB側ページングを区別 |
 
 ## 導入から通知表示までを追う
 1. パッケージ`MudBlazor`と`MudBlazor.Translations`を導入する。
 2. `Program.cs`で`AddMudServices`・`AddLocalization`・`AddMudTranslations`を登録する。
 3. `App.razor`でCSS/JSを読み、Interactive Serverを有効にする。
 4. `MainLayout.razor`で`MudSnackbarProvider`などを配置する。
-5. Step21が`@inject ISnackbar Snackbar`を受け取り、クリック時に`Snackbar.Add`を呼ぶ。
+5. 学習順031が`@inject ISnackbar Snackbar`を受け取り、クリック時に`Snackbar.Add`を呼ぶ。
 6. 日本語の通知が画面に現れ、Razorの状態メッセージも更新される。
 
 ライブラリの部品を使うためには、**パッケージ・サービス・描画・Providerの条件**が必要です。特別コラム05の「既存ライブラリが持つDIを読んで使う」という考え方がここで役立ちます。
@@ -91,7 +91,7 @@ Webではブラウザーに表示されても、Interactive Serverのイベン�
 共通翻訳を導入したからといって、業務固有のラベルや検証エラーが自動生成されるわけではありません。
 
 ## Itemsによる一覧の限界
-Step25の`RowsPerPage=2`は表示上のページサイズであり、4件は`Items`へ渡されています。全件を取得する方式は小規模なら簡単ですが、大規模データにそのまま適用しません。後続のStep41〜60では`MudTable/MudDataGrid ServerData`、検索、絞り込み、仮想化、競合と性能を比較します。
+学習順035の`RowsPerPage=2`は表示上のページサイズであり、4件は`Items`へ渡されています。全件を取得する方式は小規模なら簡単ですが、大規模データにそのまま適用しません。後続の学習順061〜60では`MudTable/MudDataGrid ServerData`、検索、絞り込み、仮想化、競合と性能を比較します。
 
 ## 確認問題と解答
 **問1：** `AddMudServices()`だけ実行すれば、どんな画面でも通知を表示できますか。
@@ -115,4 +115,4 @@ Step25の`RowsPerPage=2`は表示上のページサイズであり、4件は`Ite
 **答え：** されません。`Items`の4件を渡した後、表が2件ずつ表示します。この教材ではそもそもDBへ接続していません。
 
 ## 次のステップ
-Step26〜30ではMudDataGrid、Dialog、Snackbar、操作性、総合演習を学びます。**画面の見た目とデータ取得・業務の権限判定は別**という点を引き続き意識してください。
+学習順036〜30ではMudDataGrid、Dialog、Snackbar、操作性、総合演習を学びます。**画面の見た目とデータ取得・業務の権限判定は別**という点を引き続き意識してください。
