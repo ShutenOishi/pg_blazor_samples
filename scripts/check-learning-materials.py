@@ -1255,7 +1255,7 @@ security_unit17 = [(81, "security-01"), (82, "security-02"), (83, "security-03")
 if [item["id"] for item in ordered[80:85]] != [key for _, key in security_unit17]:
     missing.append("学習順081〜085が第17組と一致しません")
 for sequence, lesson_id in security_unit17:
-    relative = f"docs/course-v3/lessons/{lesson_id}.md"
+    relative = next(item["source"] for item in ordered if item["id"] == lesson_id)
     body = (ROOT / relative).read_text(encoding="utf-8")
     view = (LESSONS / "Stage07" / _STAGE07_MOVED_PAGES[sequence]).read_text(encoding="utf-8")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96)*3) < 4:
