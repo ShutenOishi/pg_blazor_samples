@@ -1550,6 +1550,19 @@ async function waitText(page, selector, expected) {
             throw new Error("学習順061：RowsPerPage=3の画面行数ではありません。");
         }
         await waitText(page, '[data-testid="step41-count"]', "DB問い合わせ：0 件");
+        // 学習順061：表示が3件であるだけでなく、Itemsの次頁・前頁で同じ8件の別行を示す。
+        const pager061 = page.locator(".mud-table-pagination-actions button");
+        const pager061Count = await pager061.count();
+        if (pager061Count < 2) throw new Error("学習順061：ページ操作ボタンがありません");
+        // MudTablePagerの2ボタン構成または先頭/前/次/末尾の4ボタン構成に対応。
+        await pager061.nth(pager061Count === 2 ? 1 : pager061Count - 2).click();
+        await page.getByText("架空の課題04", { exact: true }).waitFor();
+        if (await page.getByText("架空の課題01", { exact: true }).count() !== 0)
+            throw new Error("学習順061：次頁に前頁の課題01が残っています");
+        await pager061.nth(pager061Count === 2 ? 0 : 1).click();
+        await page.getByText("架空の課題01", { exact: true }).waitFor();
+        await waitText(page, '[data-testid="step41-count"]', "DB問い合わせ：0 件");
+        console.log("学習順061：8件を保持したItemsで3件ずつページ移動・前頁復帰、DB問い合わせ0件を確認");
         await page.screenshot({ path: path.join(evidence, "step41.png") });
         await page.goto(base + "/learn/42");
         await page.waitForTimeout(850);
@@ -1599,6 +1612,22 @@ async function waitText(page, selector, expected) {
             return rows.length > 0 && rows.length < 500;
         }, null, { timeout: 15000 });
         await waitText(page, '[data-testid="step48-count"]', "DB問い合わせ：0 件");
+        // 学習順068：初期DOM行数だけで仮想化合格とせず、実スクロールで末尾行を表示する。
+        // この例の500件は初期からメモリにあり、DB取得を分割した証拠ではない。
+        const virtualScroller068 = page.locator(".mud-table-container").first();
+        const scrollSize068 = await virtualScroller068.evaluate(el => ({
+            client: el.clientHeight, total: el.scrollHeight
+        }));
+        if (scrollSize068.total <= scrollSize068.client)
+            throw new Error("学習順068：仮想化一覧にスクロール可能な領域がありません");
+        await virtualScroller068.evaluate(el => { el.scrollTop = el.scrollHeight; });
+        await page.getByText("仮想化の架空課題 500", { exact: true }).waitFor({ timeout: 15000 });
+        if (await page.locator(".mud-table-body tr").count() >= 500)
+            throw new Error("学習順068：末尾へのスクロール後に全500行を一括描画しました");
+        await virtualScroller068.evaluate(el => { el.scrollTop = 0; });
+        await page.getByText("仮想化の架空課題 001", { exact: true }).waitFor({ timeout: 15000 });
+        await waitText(page, '[data-testid="step48-count"]', "DB問い合わせ：0 件");
+        console.log("学習順068：500件のメモリ内仮想化で先頭→末尾→先頭の行描画とDB問い合わせ0件を確認");
         await page.screenshot({ path: path.join(evidence, "step48.png") });
         await page.goto(base + "/learn/49");
         await page.waitForTimeout(850);
