@@ -1443,9 +1443,11 @@ async function snapshot007(page, phase) {
         await calendar033.waitFor();
         await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^31$/ }).click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月31日");
-        // MudDatePickerは既定でAutoClose=false。31日の選択後にEscapeで閉じ、
-        // 再度入力をクリックする操作がポップアップを閉じたままにする原因だった。
-        // 同じ実カレンダーを開いたまま次月へ移し、実際の11月1日を選ぶ。
+        // 日付選択後の閉鎖をAutoClose=trueで明示し、非同期閉鎖が完了してから
+        // 入力の実クリックで再度開く。開閉中の次月操作との競合を避ける。
+        await calendar033.waitFor({ state: "hidden", timeout: 10000 });
+        await dateInput033.click();
+        calendar033 = page.locator(".mud-picker-calendar:visible");
         await calendar033.waitFor({ state: "visible", timeout: 10000 });
         const calendarMonth033 = async (phase) => {
             const current = await calendar033.evaluate(node => ({
@@ -1470,7 +1472,17 @@ async function snapshot007(page, phase) {
             await firstOfNovember033.waitFor({ state: "visible", timeout: 10000 });
             await firstOfNovember033.click({ timeout: 10000 });
         } catch (error) {
-            await calendarMonth033("11月1日未成立");
+            // 再描画でカレンダーが消えた場合も、その場の画面状態を採取する。
+            // 消えたlocatorへのevaluateで元の失敗を上書きしない。
+            const failureState033 = await page.evaluate(() => ({
+                url: location.pathname,
+                preview: document.querySelector('[data-testid="step23-preview"]')?.textContent?.trim(),
+                calendars: [...document.querySelectorAll(".mud-picker-calendar")].map(node => ({
+                    visible: node.getClientRects().length > 0,
+                    text: node.textContent?.trim().slice(0, 350)
+                }))
+            }));
+            console.log("学習順033 11月1日未成立: " + JSON.stringify(failureState033));
             await page.screenshot({ path: path.join(evidence, "step033-calendar-failure.png"), fullPage: true });
             throw error;
         }
