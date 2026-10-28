@@ -11,7 +11,7 @@
 | 現行の場所 | 内容 | 学習者にとっての課題と改善候補 |
 | --- | --- | --- |
 | [Samples/Step01](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor) から Samples/Step80 | 既存80画面の格納 | 物理ディレクトリの番号が現在の学習順と一致しない。例：FirstPage.razorは学習順006。学習順のファイル名・段階分類へ段階的に移行する |
-| [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加30画面 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
+| [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加画面の未移行分 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
 | [docs/samples](../samples/step01.md) と [course-v3/lessons](lessons/web-01.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
 | [Services/Learning](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[Data](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs) | 複数教材で共用する処理 | 何を共用し、どの画面から呼ぶかが教材の索引だけでは分からない。依存先を追加し、必要な責務分離を検討する |
 | [UnitTests](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)、[database](../../database/schema/001_learning_task.sql)、[JS](../../src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js) | 単体・結合・SQL・ブラウザー処理 | 画面から正常系・拒否系の試験と実装を一緒に見つけられるようにする |
@@ -28,6 +28,8 @@ src/PgBlazorSamples.Web/
     Stage01/
       L001WebExecutionPage.razor
       L002HttpRequestResponsePage.razor
+      L003HtmlCssFormPage.razor
+      L003HtmlCssFormPage.razor.css
     Stage02/
       L006FirstBlazorPage.razor
     Stage05/
@@ -74,9 +76,10 @@ database/
 ## 段階的な移行記録
 
 - **学習順001の第1段階への配置変更（正式受入済み）**：主Razorを`Components/Lessons/Stage01/L001WebExecutionPage.razor`へ移動。`/learn/001`および`/learn/web-01`を新しいファイルで保持し、教材・source-map・監査JSON・直接索引・静的検査の参照を同期した。共有サービスは変更していない。
-- **学習順002の第1段階への配置変更（同一HEAD CI検証待ち）**：主Razorを`Components/Lessons/Stage01/L002HttpRequestResponsePage.razor`へ物理移動し、正規`/learn/002`と互換`/learn/web-02`を保持。教材・直接索引・監査JSON・source-map・静的検査を同期し、Chrome試験に両URLのHTTP 200照合を追加。`@inject NavigationManager`はBlazor標準のDIであり、`App.razor`のInteractiveServerとフレームワークJSを利用する。学習用GET 200/404以外のDB・SQL・独自JS・業務サービスは直接呼ばない。ファイル配置の変更と既存動作の証拠は別に記録し、同一HEADの全必要CIが成功するまでは正式受入しない。
+- **学習順002の第1段階への配置変更（正式受入済み）**：主Razorを`Components/Lessons/Stage01/L002HttpRequestResponsePage.razor`へ物理移動し、正規`/learn/002`と互換`/learn/web-02`を保持。教材・直接索引・監査JSON・source-map・静的検査を同期し、Chrome試験に両URLのHTTP 200照合を追加。`@inject NavigationManager`はBlazor標準のDIであり、`App.razor`のInteractiveServerとフレームワークJSを利用する。学習用GET 200/404以外のDB・SQL・独自JS・業務サービスは直接呼ばない。ファイル配置と実動作を別に確認し、HEAD `42947aae612cc990f2718975fd65569197eaf1f4` のアプリRun40654626049・PDF Run40654626053の同一HEAD成功をPRコメント #6464044026 で正式受入済み。
+- **学習順003の第1段階への配置変更（同一HEAD CI検証待ち）**：主Razorと隣接CSS isolationを`Components/Lessons/Stage01/L003HtmlCssFormPage.razor`・`.razor.css`へ一緒に移動。正規`/learn/003`と互換`/learn/web-03`を維持する。`App.razor`で生成CSSバンドルを読み込み、Chromeで両URLのHTTP 200、CSS適用（枠線・入力欄・キーボードフォーカス）と従来の入力検証を個別確認する。教材リンク、source-index、source-map、監査JSON、静的検査を同一差分で同期する。Razorに独自DI、C#サービス/DTO、SQL/独自JS呼出しはなく、`App.razor`のInteractiveServerとBlazorのバインディング/C#イベントを使用。配置・参照先の静的検査だけでChrome動作や実DBをPASSとしない。
 - **依存索引（今回の変更時点）**：001〜005は既存のChrome操作、CSS、App.razor等の実在する参照先を登録。041はJSモジュール・C#補助・xUnit・Chromeの参照を登録し直した。静的登録は個別試験の新しい合格を意味しない。
-- 物理配置を変更した主Razorは学習順001・002の2件、未移行108件。001は正式受入済み、002は同一HEADの全必要CIを待つ。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
+- 物理配置を変更した主Razorは学習順001・002・003の3件、未移行107件。001・002は正式受入済みで、003は変更HEADの全必要CIを待つ。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
 
 ## 移行順と合格条件
 

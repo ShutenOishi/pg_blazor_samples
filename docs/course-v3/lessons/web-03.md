@@ -1,12 +1,12 @@
 # 学習順003：HTML・CSS・フォームの基礎
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor)、[CSS](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor.css)、[Chrome試験](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/003` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor)、[CSS](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor.css)、[Chrome試験](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/003` です。
 
 ## 到達目標
 
 Web画面の見た目や入力欄はWinFormsの`TextBox`や`Label`のようにC#だけで宣言されるのではなく、**HTMLが要素の意味を定義し、CSSが表示方法を指定**します。このステップでは、入力欄へ文字を入力してプレビューへ反映し、`label`と`input`の結び付け、Razorの双方向バインディング、CSSのスタイル指定を説明できることを目指します。
 
-対象ファイルは`Web03Page.razor`と`Web03Page.razor.css`です。実習では架空の名前だけを扱い、個人情報やDBは使用しません。検証の自動試験は`scripts/browser-smoke.cjs`で確認します。
+対象ファイルは`L003HtmlCssFormPage.razor`と`L003HtmlCssFormPage.razor.css`です。実習では架空の名前だけを扱い、個人情報やDBは使用しません。検証の自動試験は`scripts/browser-smoke.cjs`で確認します。
 
 ## 1. WinFormsコントロールとの対応
 
@@ -23,7 +23,7 @@ Webでは`<div>`を並べるだけでなく、見出しには`<h1>`や`<h2>`、�
 
 ## 2. Razor画面の実際のコード
 
-以下は`Web03Page.razor`の主要部分です。文字入力と結果表示は同じC#フィールド`name`を使用しています。
+以下は`L003HtmlCssFormPage.razor`の主要部分です。文字入力と結果表示は同じC#フィールド`name`を使用しています。
 
 ```razor
 <section class="lesson-details web-foundation-card">
@@ -76,7 +76,7 @@ Webでは`<div>`を並べるだけでなく、見出しには`<h1>`や`<h2>`、�
 
 ## 3. CSSの実コードとスコープ
 
-`Web03Page.razor.css`には、このコンポーネント向けのCSSを記述しています。拡大表示やキーボード利用者を想定し、入力欄の幅とフォーカスの見た目を指定しています。
+`L003HtmlCssFormPage.razor.css`には、このコンポーネント向けのCSSを記述しています。拡大表示やキーボード利用者を想定し、入力欄の幅とフォーカスの見た目を指定しています。
 
 ```css
 /* HTMLの意味はRazorで定義し、色や余白はCSS側に分ける。 */
@@ -98,7 +98,7 @@ Webでは`<div>`を並べるだけでなく、見出しには`<h1>`や`<h2>`、�
 }
 ```
 
-`Web03Page.razor.css`はBlazorのCSS分離機能を利用したファイルです。クラス名は`web-foundation-card`で、同じ名前をHTML要素の`class`に記述しています。CSSはHTMLの意味やDBの保存内容を変更しません。
+`L003HtmlCssFormPage.razor.css`はBlazorのCSS分離機能を利用したファイルです。クラス名は`web-foundation-card`で、同じ名前をHTML要素の`class`に記述しています。CSSはHTMLの意味やDBの保存内容を変更しません。
 
 | CSSの指定 | 役割 | 観察ポイント |
 | --- | --- | --- |

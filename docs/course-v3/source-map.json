@@ -33,7 +33,7 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/002",
-      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。 学習順002の物理配置をStage01へ移行。NavigationManagerはBlazor標準DI、App.razorはInteractiveServerの設定。Chromeは正規・互換GET/未登録404を検証。変更HEADの新CI受入待ち。",
+      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。 学習順002の物理配置をStage01へ移行。NavigationManagerはBlazor標準DI、App.razorはInteractiveServerの設定。Chromeは正規・互換GET/未登録404を検証。構造移行はHEAD 42947aae612cc990f2718975fd65569197eaf1f4・アプリRun40654626049・PDF40654626053の同一HEAD SUCCESSとPRコメント #6464044026 で正式受入済み。",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/App.razor",
         "scripts/browser-smoke.cjs"
@@ -46,14 +46,14 @@
       "stage": 1,
       "lesson_path": "docs/course-v3/lessons/web-03.md",
       "app_url": "/learn/web-03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/003",
-      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。",
+      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。 学習順003の主Razorと同名CSS isolationをStage01へ物理移行。CSS適用と正規・互換URLは新HEADのChrome試験で確認予定。配置・参照先の静的確認は実動作の証拠とは別。移行HEADの同一HEAD CI受入待ち。",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor.css",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor.css",
         "scripts/browser-smoke.cjs"
       ]
     },

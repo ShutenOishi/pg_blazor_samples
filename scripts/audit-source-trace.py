@@ -79,6 +79,20 @@ def main():
         for related in declared_related:
             if not isinstance(related, str) or not (ROOT / related).is_file():
                 problems.append(f'{name}: 登録済み依存先が存在しません: {related}')
+        css_isolation = None
+        if sequence == 3:
+            css_relative = razor_path + '.css'
+            css_path = ROOT / css_relative
+            css_isolation = {
+                'path': css_relative,
+                'file_exists': css_path.is_file(),
+                'registered': css_relative in declared_related,
+                'app_stylesheet_declared': ('PgBlazorSamples.Web.styles.css' in
+                    (ROOT / 'src/PgBlazorSamples.Web/Components/App.razor').read_text(encoding='utf-8')),
+                'evidence_level': 'STATIC_FILE_AND_REFERENCE_ONLY',
+            }
+            if not all((css_isolation['file_exists'], css_isolation['registered'], css_isolation['app_stylesheet_declared'])):
+                problems.append('003: CSS isolationの物理配置・依存登録・バンドル参照に不一致')
         rows.append({
             'sequence': name,
             'stage': entry.get('stage'),
@@ -91,6 +105,7 @@ def main():
             'test_symbol_candidates': related_tests,
             'declared_related_sources': declared_related,
             'declared_related_sources_status': 'FILE_EXISTS_ONLY_NOT_EXECUTION_PROOF',
+            'css_isolation': css_isolation,
             'js_filename_references': [p.relative_to(ROOT).as_posix() for p in scripts if p.name in source],
             'sql_filename_references': [p.relative_to(ROOT).as_posix() for p in sql if p.name in source],
             'evidence_level': 'STATIC_TEXT_MATCH_ONLY',

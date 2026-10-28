@@ -16,6 +16,7 @@ LESSONS = SAMPLES.parent / "Lessons"
 _STAGE01_MOVED_PAGES = {
     1: "L001WebExecutionPage.razor",
     2: "L002HttpRequestResponsePage.razor",
+    3: "L003HtmlCssFormPage.razor",
 }
 
 
@@ -320,6 +321,12 @@ for n in range(1, 6):
     marker = f'"docs/course-v3/lessons/web-0{n}.md"'
     if marker not in PDF_SCRIPT:
         missing.append(f"web-0{n}：PDF目次へ未収録")
+web03 = web_foundation_page(3)
+web03_css = web03.with_name(web03.name + ".css")
+if not web03_css.is_file() or ".web-foundation-card" not in web03_css.read_text(encoding="utf-8"):
+    missing.append("学習順003：主Razorと隣接するCSS isolationファイルが見つかりません")
+if "PgBlazorSamples.Web.styles.css" not in (SAMPLES.parent / "App.razor").read_text(encoding="utf-8"):
+    missing.append("学習順003：App.razorのCSS isolationバンドル参照がありません")
 if not (web01 / "WebFoundationOverviewPage.razor").is_file() or not (web01 / "WebFoundationReviewPage.razor").is_file():
     missing.append("第1段階概要・第1組復習画面の欠落")
 

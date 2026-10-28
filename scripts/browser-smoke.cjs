@@ -114,6 +114,25 @@ async function waitText(page, selector, expected) {
 
 
         // 学習順003：ラベルの意味、入力時反映、HTMLエンコードとC#側の空欄/上限拒否を実証する。
+        for (const route of ["/learn/003", "/learn/web-03"]) {
+            const documentResponse = await page.goto(base + route);
+            if (!documentResponse || documentResponse.status() !== 200) {
+                throw new Error("学習順003：正規・互換Document GET 200を確認できません: " + route);
+            }
+            await page.waitForFunction(() => {
+                const card = document.querySelector(".web-foundation-card");
+                const input = document.querySelector("#web03-name");
+                if (!card || !input) return false;
+                const box = getComputedStyle(card);
+                const field = getComputedStyle(input);
+                return box.borderTopWidth === "2px"
+                    && box.borderTopStyle === "solid"
+                    && box.borderTopColor === "rgb(98, 138, 161)"
+                    && field.display === "block"
+                    && field.paddingTop !== "0px";
+            }, null, { timeout: 15000 });
+        }
+        console.log("学習順003：正規・互換Document GET 200とCSS isolationの枠線・入力欄への適用を確認");
         await page.goto(base + "/learn/003");
         await page.waitForTimeout(850);
         const web03Input = page.getByRole("textbox", { name: "練習用の名前" });
@@ -121,6 +140,17 @@ async function waitText(page, selector, expected) {
         if (!(await web03Input.evaluate(element => document.activeElement === element))) {
             throw new Error("学習順003：labelのクリックで対応する入力欄にフォーカスが移りません");
         }
+        await web03Input.press("Tab");
+        await page.keyboard.press("Shift+Tab");
+        await page.waitForFunction(() => {
+            const input = document.querySelector("#web03-name");
+            if (!input || document.activeElement !== input) return false;
+            const focus = getComputedStyle(input);
+            return focus.outlineWidth === "3px"
+                && focus.outlineColor === "rgb(39, 92, 132)"
+                && focus.outlineStyle === "solid";
+        }, null, { timeout: 5000 });
+        console.log("学習順003：キーボードフォーカスのCSS isolation適用を確認");
         if (await web03Input.getAttribute("maxlength") !== "30") {
             throw new Error("学習順003：ブラウザー側の入力制限が30文字ではありません");
         }
