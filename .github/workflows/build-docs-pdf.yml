@@ -171,10 +171,10 @@ jobs:
             echo "別のジョブによって同じスナップショットが公開済み。上書きしません。"
             exit 0
           fi
-          gh release create "$tag" dist/blazor_learning_textbook_ja.pdf \\
-            --target "$SOURCE_SHA" \\
-            --title "Blazor実践学習テキスト v3（2026-10-29 検証済みスナップショット）" \\
-            --notes "Draft PR #39の同一HEADアプリ3ジョブ・PDFソース検査成功を条件とした一回限りの教材PDF。生成元HEAD: $SOURCE_SHA。現地PRE/SITEは未受入。正式learning-textbookと既存Previewは変更なし。" \\
+          gh release create "$tag" dist/blazor_learning_textbook_ja.pdf \
+            --target "$SOURCE_SHA" \
+            --title "Blazor実践学習テキスト v3（2026-10-29 検証済みスナップショット）" \
+            --notes "Draft PR #39の同一HEADアプリ3ジョブ・PDFソース検査成功を条件とした一回限りの教材PDF。生成元HEAD: $SOURCE_SHA。現地PRE/SITEは未受入。正式learning-textbookと既存Previewは変更なし。" \
             --prerelease --latest=false
           gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fx blazor_learning_textbook_ja.pdf
 
