@@ -252,16 +252,21 @@
       "lesson_path": "docs/course-v3/lessons/browser-03.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor",
       "canonical_url": "/learn/043",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L043DownloadFileFactory.cs",
+        "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
+        "tests/PgBlazorSamples.UnitTests/L043DownloadFileFactoryTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": null,
+      "implemented_behavior": "固定架空CSVのUTF-8 BOM/CRLF/引用/式記号の単一引用符処理、1ページPDFの実バイト・xref生成、xUnitとChrome実ダウンロードバイト照合",
       "missing_behavior": "CSV/PDF実ダウンロードバイト、文字コード、悪意ある表計算入力の対策",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L043DownloadFileFactoryTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "同一HEADのCI最終SUCCESS未確認。Excel等の実ソフトにおけるCSV式解釈はNOT_TESTED。PDFの外部パーサー互換性・業務認可・実DBは未検証。"
     },
     {
       "sequence": "044",

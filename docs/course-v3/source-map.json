@@ -589,9 +589,10 @@
       "app_url": "/learn/browser-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/043"
+      "canonical_url": "/learn/043",
+      "notes": "Chromeの実ダウンロードバイトをCSV BOM/式記号引用/PDF xrefまで検査予定。Excel/LibreOffice上の動作は未検証。"
     },
     {
       "sequence": 44,

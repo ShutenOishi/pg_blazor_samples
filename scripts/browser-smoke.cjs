@@ -3,7 +3,7 @@
 // この試験は開発用の架空データだけを使用し、社内AD・DBには接続しない。
 const { chromium } = require("playwright-core");
 const { spawn, execFileSync } = require("node:child_process");
-const { mkdirSync } = require("node:fs");
+const { mkdirSync, readFileSync } = require("node:fs");
 const { createHash } = require("node:crypto");
 const path = require("node:path");
 
@@ -457,11 +457,35 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "学習用CSVを保存する" }).click();
         const csvFile = await csvDownload;
         if (csvFile.suggestedFilename() !== "blazor_practice.csv") throw new Error("CSVのファイル名が違います。");
+        const csvBytes = readFileSync(await csvFile.path());
+        if (!csvBytes.subarray(0, 3).equals(Buffer.from([0xef, 0xbb, 0xbf])))
+            throw new Error("学習順043：実CSVにUTF-8 BOMがありません");
+        const csvText = csvBytes.toString("utf8");
+        if (!csvText.includes('"番号","課題名","完了"\\r\\n'.replaceAll('\\r','\r').replaceAll('\\n','\n')) ||
+            !csvText.includes('"3","\'=1+1","未完了"') ||
+            !csvText.includes('"カンマ,と""引用符"""') || csvText.includes('"=1+1"'))
+            throw new Error("学習順043：実CSVの改行・引用符・先頭の式記号の保護が不正");
         const pdfDownload = page.waitForEvent("download");
         await page.getByRole("button", { name: "学習用PDFを保存する" }).click();
         const pdfFile = await pdfDownload;
         if (pdfFile.suggestedFilename() !== "blazor_practice.pdf") throw new Error("PDFのファイル名が違います。");
+        const pdfBytes = readFileSync(await pdfFile.path());
+        const pdfText = pdfBytes.toString("ascii");
+        const startxref = /startxref\\n(\\d+)\\n%%EOF\\n$/.exec(pdfText);
+        if (!pdfText.startsWith("%PDF-1.4\\n".replaceAll("\\\\n", "\n")) ||
+            !pdfText.includes("/Type /Pages /Kids [3 0 R] /Count 1") ||
+            !pdfText.includes("(Blazor PDF sample) Tj") || !startxref ||
+            !pdfText.slice(Number(startxref[1])).startsWith("xref\\n".replaceAll("\\\\n", "\n")))
+            throw new Error("学習順043：実PDFの内容・xref構造が不正");
+        const lines = pdfText.slice(Number(startxref[1])).split("\n");
+        if (lines[1] !== "0 6") throw new Error("学習順043：PDF xrefオブジェクト数が不正");
+        for (let i = 1; i <= 5; i++) {
+            const offset = Number(lines[i + 2]?.slice(0, 10));
+            if (!Number.isInteger(offset) || !pdfText.slice(offset).startsWith(i + " 0 obj\\n".replaceAll("\\\\n", "\n")))
+                throw new Error("学習順043：PDF xrefエントリ" + i + "が不正");
+        }
         await waitText(page, '[data-testid="browser03-result"]', "blazor_practice.pdf");
+        console.log("学習順043：Chrome実ダウンロードのCSV UTF-8 BOM/引用/式記号とPDF内容/xrefオフセットを確認（外部表計算ソフトの動作はNOT_TESTED）");
 
         await page.goto(base + "/learn/browser-04");
         await page.waitForTimeout(950);

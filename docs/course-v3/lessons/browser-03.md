@@ -37,6 +37,14 @@ private async Task SaveCsv()
 
 この固定データにはカンマや改行を含む値がありません。実業務で任意の文字列を書き出すときはCSVの引用符によるエスケープが必要です。また表計算ソフトは先頭が=、+、-、@などの文字列を数式として解釈する場合があります。値を引用符で囲むだけでは対策として十分とは限らないため、出力先ソフトの挙動を確認し、ポリシーに応じた無害化とテストを実施します。利用者が入力したセルをそのまま連結する実装は避けます。
 
+## 今回の補強：生成を分離し、実バイトを検査する
+
+固定の架空データの生成を [L043DownloadFileFactory](../../../src/PgBlazorSamples.Web/Services/Learning/L043DownloadFileFactory.cs) に分離しました。[xUnit](../../../tests/PgBlazorSamples.UnitTests/L043DownloadFileFactoryTests.cs) はCSVの先頭3バイト`EF BB BF`、CRLF、CSV引用符、先頭の`= + - @`、先頭空白の後に数式記号が来る値、PDFの1ページ宣言とxrefで指定した実バイト位置を検査します。[Chrome実操作](../../../scripts/browser-smoke.cjs)でも、保存イベント名だけでなくダウンロードされたファイルの内容を実際に読み、同様の構造を照合します。
+
+サンプルのCSVはすべてのセルを引用符で囲み、数式として解釈され得る値には先頭に単一引用符を追加します。ただしこれは例示した入力パターンの対処であり、Excel・LibreOffice等の各製品で実際にどのように解釈されるかの試験ではありません。全ソフトでの無害性や任意入力の安全性を保証しません。業務用のCSVでは、対象アプリケーション・利用時の操作・組織のルールを個別に試験し、都度認可・出力上限・監査を実装します。PDFも今回の検査は基本構造とxrefであり、すべてのPDF閲覧ソフトでの表示互換性を証明しません。
+
+現在のRazorは`L043DownloadFileFactory.CreateCsv()`と`CreateOnePagePdf()`で固定バイトを生成します。以降の説明にある固定CSVやPDF生成関数は処理の概念例であり、実際の生成コードは上記サービスファイルを参照してください。
+
 ## DotNetStreamReferenceとJavaScriptモジュール
 現在のRazor/C#実装はファイル種別とバイト列をSendFileへ渡し、初回にJSモジュールをimportします。MemoryStreamとDotNetStreamReferenceの寿命はusingで制御し、JSの呼び出しが完了するまで参照を保持します。JSDisconnectedExceptionとJSExceptionでは表示する失敗理由を分けています。
 
