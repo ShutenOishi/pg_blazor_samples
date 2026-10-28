@@ -279,8 +279,7 @@ if f'"{review09}"' in PDF_SCRIPT and f'"{v3_stage4[-1]}"' in PDF_SCRIPT:
 for n, seq in enumerate((46, 52, 53, 58, 59), 1):
     lesson_id = f"db-bridge-0{n}"
     item = ordered[seq - 1]
-    page = (LESSONS / "Stage05" / _STAGE05_MOVED_PAGES[46] if seq == 46 else
-            SAMPLES / "DbBridge" / f"DbBridge0{n}Page.razor")
+    page = LESSONS / "Stage05" / _STAGE05_MOVED_PAGES[seq]
     if item["id"] != lesson_id or not item["implementation"].startswith("implemented"):
         missing.append(lesson_id + "：学習順または実装状態が不正")
     if not page.is_file() or f'@page "/learn/{lesson_id}"' not in page.read_text(encoding="utf-8"):
