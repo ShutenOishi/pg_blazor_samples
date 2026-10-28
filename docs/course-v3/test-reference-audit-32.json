@@ -56,14 +56,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "C#イベント2回・処理履歴の実表示、再読込で0へ戻る。イベント処理場所の実機デバッグは主張しない。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "222-235",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -85,14 +89,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "正規・互換HTTP GET 200と未登録パス404。HTML/HTTP応答の操作範囲を確認。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "236-248",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -114,14 +122,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "label連動フォーカス・CSS isolation・HTML文字列・正常入力、空白/31文字をC#側で拒否。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "261-322",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -143,14 +155,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "Document GET 200、DOM表示→除去、追加Document取得なし、ページ例外なし。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "324-362",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -199,14 +215,17 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
-        "scope_and_next_action": "初画面の見出しをChromeで検査。新HEAD CI成功前は未受入。",
+        "classification": "既証明（新PRのChrome操作に限る）",
+        "scope_and_next_action": "初画面の見出し/正規routeを原本SUCCESSで確認。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -226,14 +245,17 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
-        "scope_and_next_action": "NavLinkの006→007→008正規遷移をChromeで検査。新HEAD CI成功前は未受入。",
+        "classification": "既証明（新PRのChrome操作に限る）",
+        "scope_and_next_action": "006→007→008のNavLink正規遷移を原本SUCCESSで確認。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -253,14 +275,17 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
-        "scope_and_next_action": "Razorの文字列表示とHTML要素化しない境界をChromeで検査。新HEAD CI成功前は未受入。",
+        "classification": "既証明（新PRのChrome操作に限る）",
+        "scope_and_next_action": "Razor特殊文字のHTML文字列表示と要素化防止を原本SUCCESSで確認。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -311,14 +336,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "加算2・減算1・リセット0・0で減算Disabled。残る実装部分は画面操作の範囲で判断。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "399-413;1123-1135",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -338,14 +367,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "双方向バインド、入力反映と消去時の未入力表示。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "415-421;1080-1095",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -365,14 +398,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "メモリ一覧4件→未完了2件→全4件へ復帰。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "421-427;1096-1102",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -394,14 +431,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "子GreetingCardのParameter、入力値と既定子カードを別々に表示。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "427-431;1103-1108",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -423,14 +464,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "子TopicPickerのEventCallback、選択した表示と2回押下の親カウント反映。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "431-435;1104-1109",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -452,14 +497,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "親Topic変更、子の非表示/再表示と再初期化1回を実操作。Disposeメソッド内部の資源解放はChrome DOMだけでは直接計測しない。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "495-500;1111-1121",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -623,14 +672,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "MudLayoutのメニュー開閉→閉状態/表示状態のバインドと画面遷移。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1365-1372",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -654,13 +707,14 @@
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
         "classification": "追加検証必要（不足する操作条件が特定済み）",
-        "scope_and_next_action": "既定日・MudSelect選択は証跡あり。MudDatePickerの別日選択と日付境界は未証明。",
+        "scope_and_next_action": "既定日/選択肢の正常系はc611原本確認。9cd3711で10月31日→11月1日の実カレンダー選択とバインド境界を新規追加。新HEAD CI原本SUCCESSまでは未受入。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "onsite_accepted": false,
+        "new_head_calendar_test": "scripts/browser-smoke.cjs（9cd3711、CI未受入）"
       }
     },
     {
@@ -805,14 +859,18 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
-        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "Snackbar実DOM、処理完了状態、再操作可能、aria-live属性。読み上げ音声自体は証明しない。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1447-1461",
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -867,13 +925,15 @@
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
         "classification": "追加検証必要（不足する操作条件が特定済み）",
-        "scope_and_next_action": "Tab/Shift+Tab・フォーカス・1.35倍文字・aria-liveは証跡あり。Chromeの実200%ズームと支援技術読み上げは未証明。",
+        "scope_and_next_action": "aria-live属性・Tab/Shift+Tab・フォーカス・1.35倍/CSSは既存成功。実ChromeブラウザーUIの200%ズーム、重なり・横スクロール確認、NVDA/VoiceOver等の音声通知の実測は別途NOT_TESTED。headlessのCSS zoom、CDP pinch-zoom、DPR変更は代用しない。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "onsite_accepted": false,
+        "real_browser_zoom_200pct": "NOT_TESTED",
+        "assistive_technology_readout": "NOT_TESTED"
       }
     },
     {
@@ -895,14 +955,17 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
-        "scope_and_next_action": "Items固定8件の次頁/前頁、表示行とDB問い合わせ0件を追加。新HEAD CI成功前は未受入。",
+        "classification": "既証明（新PRのChrome操作に限る）",
+        "scope_and_next_action": "8件Itemsの次頁/前頁とDB問い合わせ0を原本SUCCESSで確認。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -924,14 +987,17 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
-        "scope_and_next_action": "取得済み500件を先頭→末尾→先頭へスクロールし、描画行とDB問い合わせ0件を追加。新HEAD CI成功前は未受入。",
+        "classification": "既証明（新PRのChrome操作に限る）",
+        "scope_and_next_action": "500件Items仮想化の先頭→末尾→先頭とDB問い合わせ0を原本SUCCESSで確認。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_browser_run_id": 40778582672,
+        "evidence_browser_job_id": 123134149793,
+        "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
       }
     },
     {
@@ -971,29 +1037,48 @@
     "baseline_ci": "completed/SUCCESS; 4 jobs, 4 checks; prior receipt not rerun",
     "branch": "test/postrelease-semantic-audit-20261029",
     "scope": "直接xUnit参照未登録32件の分類であり、未テスト32件ではない。Chrome証跡の個別範囲に限って既証明とし、PG18実DB・PRE/SITE・PDF再発行には拡張しない。",
-    "new_chrome_cases_pending_ci": [
-      6,
-      7,
-      8,
-      61,
-      68
-    ],
+    "new_chrome_cases_pending_ci": [],
     "gaps_remaining": [
       33,
       45
     ],
     "manual_only_case": 5,
     "classification_counts": {
-      "追加検証必要（既存Chromeの個別正常/負例範囲を精査）": 12,
+      "既証明（記載したChrome操作に限る）": 24,
       "手動のみ（Visual Studioの停止操作）": 1,
-      "追加検証必要（新PRのChrome実装・CI待ち）": 5,
-      "既証明（記載したChrome操作に限る）": 12,
+      "既証明（新PRのChrome操作に限る）": 5,
       "追加検証必要（不足する操作条件が特定済み）": 2
     },
     "direct_xunit_references_at_base": 78,
     "direct_xunit_references_added": 0,
     "onsite_pre_approved": 0,
     "onsite_site_pass": 0,
-    "onsite_site_not_run": 15
+    "onsite_site_not_run": 15,
+    "accepted_new_chrome_cases_at_prior_head": [
+      6,
+      7,
+      8,
+      61,
+      68
+    ],
+    "accepted_prior_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321",
+    "accepted_prior_chrome_job_id": 123134149793,
+    "evidence_rechecked_12": [
+      1,
+      2,
+      3,
+      4,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      32,
+      38
+    ],
+    "current_033_calendar_case": "NEW_HEAD_CI_PENDING",
+    "current_045_real_zoom_and_screenreader": "NOT_TESTED",
+    "note": "個別証跡確認はc6117271の既存Chrome成功ログを再利用。今回の9cd3711以後のMudDatePicker変更は新HEAD成功まで未受入。実200%拡大やスクリーンリーダーは未実施。"
   }
 }
