@@ -26,9 +26,10 @@
       "app_url": "/learn/web-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/002"
+      "canonical_url": "/learn/002",
+      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
     },
     {
       "sequence": 3,
@@ -39,9 +40,10 @@
       "app_url": "/learn/web-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/003"
+      "canonical_url": "/learn/003",
+      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。"
     },
     {
       "sequence": 4,
@@ -52,9 +54,10 @@
       "app_url": "/learn/web-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/004"
+      "canonical_url": "/learn/004",
+      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。"
     },
     {
       "sequence": 5,
@@ -260,10 +263,10 @@
       "app_url": "/learn/runtime-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor",
       "audit_state": "interactive",
-      "test_state": "browser-smoke-added-awaiting-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/020",
-      "notes": "表示設定のlocalStorage保存・再読込・値検証を追加。選択候補自体はcircuit一時状態、DB操作なし。"
+      "notes": "表示設定のlocalStorage保存・再読込・値検証を追加。選択候補自体はcircuit一時状態、DB操作なし。 Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
     },
     {
       "sequence": 21,
@@ -586,10 +589,10 @@
       "app_url": "/learn/browser-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor",
       "audit_state": "interactive",
-      "test_state": "browser-smoke-added-awaiting-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/045",
-      "notes": "フォーカスを実際に入力欄へ移すElementReference.FocusAsyncとChrome activeElement検証を追加。画面読み上げ・200%ズームは別途実機確認。"
+      "notes": "フォーカスを実際に入力欄へ移すElementReference.FocusAsyncとChrome activeElement検証を追加。画面読み上げ・200%ズームは別途実機確認。 Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
     },
     {
       "sequence": 46,
@@ -678,9 +681,10 @@
       "app_url": "/learn/db-bridge-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/052"
+      "canonical_url": "/learn/052",
+      "notes": "学習用PG18統合とChromeを検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
     },
     {
       "sequence": 53,
