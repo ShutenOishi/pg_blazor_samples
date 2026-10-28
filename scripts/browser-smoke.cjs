@@ -1431,22 +1431,37 @@ async function snapshot007(page, phase) {
         await calendar033.waitFor();
         await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^31$/ }).click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月31日");
-        // Escapeによるポップアップ終了は非同期。閉じる途中で入力を再クリックすると
-        // トグルで再び閉じてしまうため、旧カレンダーが消えてから開き直す。
-        await page.keyboard.press("Escape");
-        await calendar033.waitFor({ state: "hidden", timeout: 10000 });
-        await dateInput033.click();
-        calendar033 = page.locator(".mud-picker-calendar:visible");
+        // MudDatePickerは既定でAutoClose=false。31日の選択後にEscapeで閉じ、
+        // 再度入力をクリックする操作がポップアップを閉じたままにする原因だった。
+        // 同じ実カレンダーを開いたまま次月へ移し、実際の11月1日を選ぶ。
         await calendar033.waitFor({ state: "visible", timeout: 10000 });
+        const calendarMonth033 = async (phase) => {
+            const current = await calendar033.evaluate(node => ({
+                text: node.textContent?.trim().slice(0, 350),
+                activeDays: [...node.querySelectorAll(".mud-picker-calendar-day:not(.mud-hidden)")].map(day => ({
+                    day: day.textContent?.trim(),
+                    disabled: day.hasAttribute("disabled"),
+                    hidden: day.getClientRects().length === 0
+                })).slice(0, 40)
+            }));
+            console.log("学習順033 カレンダー" + phase + ": " + JSON.stringify(current));
+        };
+        await calendarMonth033("10月31日選択後");
         await page.locator(".mud-picker-nav-button-next:visible").click();
+        await calendarMonth033("次月ボタン直後");
         // MudBlazorの月切替では日付ボタンが再描画される。10月31日が当月表示から消え、
         // 11月1日が現れて遷移が落ち着いてから実際のボタンをクリックする。
         const activeDays033 = calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)");
         await activeDays033.filter({ hasText: /^31$/ }).waitFor({ state: "hidden", timeout: 10000 });
         const firstOfNovember033 = activeDays033.filter({ hasText: /^1$/ });
-        await firstOfNovember033.waitFor({ state: "visible", timeout: 10000 });
-        await page.waitForTimeout(500);
-        await firstOfNovember033.click({ timeout: 10000 });
+        try {
+            await firstOfNovember033.waitFor({ state: "visible", timeout: 10000 });
+            await firstOfNovember033.click({ timeout: 10000 });
+        } catch (error) {
+            await calendarMonth033("11月1日未成立");
+            await page.screenshot({ path: path.join(evidence, "step033-calendar-failure.png"), fullPage: true });
+            throw error;
+        }
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年11月1日");
         await page.keyboard.press("Escape");
         console.log("学習順033：MudDatePicker実カレンダーの10月31日→11月1日選択とDateTime?反映を検証");
