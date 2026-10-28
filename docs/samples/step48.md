@@ -1,6 +1,6 @@
 # 学習順068：Itemsの描画仮想化
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step48/VirtualizeItemsPage.razor)。画面の正規URLは `/learn/068` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor)。画面の正規URLは `/learn/068` です。
 
 **学習順068・第6段階／第14組**
 

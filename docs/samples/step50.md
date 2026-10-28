@@ -1,6 +1,6 @@
 # 学習順070：検索UX・デバウンスと再試行
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step50/SearchUxPage.razor)。画面の正規URLは `/learn/070` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L070SearchUxPage.razor)。画面の正規URLは `/learn/070` です。
 
 **学習順070・第6段階／第14組**
 

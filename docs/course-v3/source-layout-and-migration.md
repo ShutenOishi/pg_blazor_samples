@@ -140,3 +140,11 @@ database/
 - 教材10件・source-index・source-map・追加30テーマ監査台帳の4件・静的検査・Chrome正規/互換10組を同期。共通LearningDbService・DbContext、学習専用PostgreSQL/SQL、L053/L058/L059サービス、DI、xUnit、安全拒否は変更・複製しない。
 - `related_sources`は実在する関連ファイルの静的な手掛かりであり、意味的依存をすべて実証したことや実DB・本番SITEの受入を意味しない。
 - **新HEADのWindows/Linux/Chrome/PG18およびPDFソース検証CIがすべてcompleted/SUCCESSになるまでは正式受入しない**。成功済みCI再実行、PDF生成・正式Release更新、PR Draft解除・マージ、現地無許可PRE/SITE実施は禁止。SITE PASS0/15・NOT_RUN15/15を維持。
+
+
+### 2026-10-28 学習順061〜070の第6段階主Razor10件一括移行（同一HEAD CI受入待ち）
+
+- 学習順061〜070の10主Razorを`Components/Lessons/Stage06/L061〜L070*.razor`へ配置し、旧`Samples/Step41〜Step50`の該当する主Razorのみ削除。第6段階概要`Samples/Step41/Stage06OverviewPage.razor`は移動しない。正規`/learn/061〜070`・互換`/learn/41〜50`の双方を保持。
+- Items固定一覧、MudTable/MudDataGrid ServerData、ホワイトリストによるソート、複合フィルター、DTO、キーセット、Virtualize、デバウンスは既存LearningPageService・LearningAdvancedPageService、LearningDbService、DbContext、DTO、DB統合試験とブラウザー試験を共用する。共有サービス・認証/認可/監査・SQL・DI登録・テストは変更も複製もしない。
+- 教材10件の直接リンク、source-index、source-mapの関連実在ファイル、静的検査の旧主Razor固定参照、Chromeの正規/互換10組のDocument GETを同一変更で同期。関連ファイルの静的実在は意味的な依存・DB実操作・行認可・本番SITEの受入を保証しない。
+- **新HEADのWindows/Linux/Chrome/PG18とPDFソース検証の全必要CIがcompleted/SUCCESSになるまでは正式受入せず、60/110件を正式受入値に維持する。** 成功済みCIを再実行せず、Draft解除・mainマージ・正式PDF Release更新・未承認のPRE/SITE試験を禁止する。SITE PASS 0/15・NOT_RUN 15/15を維持。

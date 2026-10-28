@@ -100,16 +100,16 @@
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 061 | Itemsを使う一覧の条件 | [本文](../samples/step41.md) | `/learn/061` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step41/ItemsBoundaryPage.razor) |
-| 062 | MudTableのServerDataでDB検索 | [本文](../samples/step42.md) | `/learn/062` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step42/TableServerDataPage.razor) |
-| 063 | MudDataGridのServerDataとEF Core | [本文](../samples/step43.md) | `/learn/063` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step43/GridServerDataPage.razor) |
-| 064 | 複数列ソートを安全に組み立てる | [本文](../samples/step44.md) | `/learn/064` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step44/SafeSortPage.razor) |
-| 065 | 日付と完了状態で絞り込む | [本文](../samples/step45.md) | `/learn/065` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step45/FilterSearchPage.razor) |
-| 066 | 関連テーブルをDTOへ射影する | [本文](../samples/step46.md) | `/learn/066` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step46/RelatedDtoPage.razor) |
-| 067 | キーセットページングを理解する | [本文](../samples/step47.md) | `/learn/067` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step47/KeysetPage.razor) |
-| 068 | 取得済み一覧を部分描画する | [本文](../samples/step48.md) | `/learn/068` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step48/VirtualizeItemsPage.razor) |
-| 069 | DB取得と仮想スクロールを連携する | [本文](../samples/step49.md) | `/learn/069` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step49/VirtualizeDatabasePage.razor) |
-| 070 | デバウンスと障害時の再試行 | [本文](../samples/step50.md) | `/learn/070` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step50/SearchUxPage.razor) |
+| 061 | Itemsを使う一覧の条件 | [本文](../samples/step41.md) | `/learn/061` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L061ItemsBoundaryPage.razor) |
+| 062 | MudTableのServerDataでDB検索 | [本文](../samples/step42.md) | `/learn/062` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L062TableServerDataPage.razor) |
+| 063 | MudDataGridのServerDataとEF Core | [本文](../samples/step43.md) | `/learn/063` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L063GridServerDataPage.razor) |
+| 064 | 複数列ソートを安全に組み立てる | [本文](../samples/step44.md) | `/learn/064` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L064SafeSortPage.razor) |
+| 065 | 日付と完了状態で絞り込む | [本文](../samples/step45.md) | `/learn/065` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L065FilterSearchPage.razor) |
+| 066 | 関連テーブルをDTOへ射影する | [本文](../samples/step46.md) | `/learn/066` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L066RelatedDtoPage.razor) |
+| 067 | キーセットページングを理解する | [本文](../samples/step47.md) | `/learn/067` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L067KeysetPage.razor) |
+| 068 | 取得済み一覧を部分描画する | [本文](../samples/step48.md) | `/learn/068` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor) |
+| 069 | DB取得と仮想スクロールを連携する | [本文](../samples/step49.md) | `/learn/069` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L069VirtualizeDatabasePage.razor) |
+| 070 | デバウンスと障害時の再試行 | [本文](../samples/step50.md) | `/learn/070` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L070SearchUxPage.razor) |
 | 071 | 編集DTOをフォームで検証して保存する | [本文](../samples/step51.md) | `/learn/071` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step51/EditDtoPage.razor) |
 | 072 | ダイアログで保存と取消を分ける | [本文](../samples/step52.md) | `/learn/072` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step52/EditDialogPage.razor) |
 | 073 | 複数選択と原子的な一括処理 | [本文](../samples/step53.md) | `/learn/073` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step53/BulkEditPage.razor) |

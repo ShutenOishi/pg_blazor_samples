@@ -1,6 +1,6 @@
 # 学習順061：Itemsを使用する条件と取得済み一覧
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step41/ItemsBoundaryPage.razor)。画面の正規URLは `/learn/061` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L061ItemsBoundaryPage.razor)。画面の正規URLは `/learn/061` です。
 
 
 **学習順061・第6段階／第13組**

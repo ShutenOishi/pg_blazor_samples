@@ -1168,11 +1168,15 @@
       "stage": 6,
       "lesson_path": "docs/samples/step41.md",
       "app_url": "/learn/41",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step41/ItemsBoundaryPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L061ItemsBoundaryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/061"
+      "canonical_url": "/learn/061",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 62,
@@ -1181,11 +1185,19 @@
       "stage": 6,
       "lesson_path": "docs/samples/step42.md",
       "app_url": "/learn/42",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step42/TableServerDataPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L062TableServerDataPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/062"
+      "canonical_url": "/learn/062",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningPageService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningPageQuery.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 63,
@@ -1194,11 +1206,19 @@
       "stage": 6,
       "lesson_path": "docs/samples/step43.md",
       "app_url": "/learn/43",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step43/GridServerDataPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L063GridServerDataPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/063"
+      "canonical_url": "/learn/063",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningPageService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningPageQuery.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 64,
@@ -1207,11 +1227,19 @@
       "stage": 6,
       "lesson_path": "docs/samples/step44.md",
       "app_url": "/learn/44",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step44/SafeSortPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L064SafeSortPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/064"
+      "canonical_url": "/learn/064",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningPageService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningPageQuery.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 65,
@@ -1220,11 +1248,19 @@
       "stage": 6,
       "lesson_path": "docs/samples/step45.md",
       "app_url": "/learn/45",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step45/FilterSearchPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L065FilterSearchPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/065"
+      "canonical_url": "/learn/065",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningPageService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningPageQuery.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 66,
@@ -1233,11 +1269,18 @@
       "stage": 6,
       "lesson_path": "docs/samples/step46.md",
       "app_url": "/learn/46",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step46/RelatedDtoPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L066RelatedDtoPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/066"
+      "canonical_url": "/learn/066",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAdvancedPageService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningAdvancedQueries.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningAdvancedIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 67,
@@ -1246,11 +1289,18 @@
       "stage": 6,
       "lesson_path": "docs/samples/step47.md",
       "app_url": "/learn/47",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step47/KeysetPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L067KeysetPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/067"
+      "canonical_url": "/learn/067",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAdvancedPageService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningAdvancedQueries.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningAdvancedIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 68,
@@ -1259,11 +1309,15 @@
       "stage": 6,
       "lesson_path": "docs/samples/step48.md",
       "app_url": "/learn/48",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step48/VirtualizeItemsPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/068"
+      "canonical_url": "/learn/068",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 69,
@@ -1272,11 +1326,18 @@
       "stage": 6,
       "lesson_path": "docs/samples/step49.md",
       "app_url": "/learn/49",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step49/VirtualizeDatabasePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L069VirtualizeDatabasePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/069"
+      "canonical_url": "/learn/069",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAdvancedPageService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningAdvancedQueries.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningAdvancedIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 70,
@@ -1285,11 +1346,18 @@
       "stage": 6,
       "lesson_path": "docs/samples/step50.md",
       "app_url": "/learn/50",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step50/SearchUxPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L070SearchUxPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/070"
+      "canonical_url": "/learn/070",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningPageService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningPageQuery.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 71,

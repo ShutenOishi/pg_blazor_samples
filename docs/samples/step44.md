@@ -1,6 +1,6 @@
 # 学習順064：許可リスト・複数列ソート・安定した順序
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step44/SafeSortPage.razor)。画面の正規URLは `/learn/064` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L064SafeSortPage.razor)。画面の正規URLは `/learn/064` です。
 
 
 **学習順064・第6段階／第13組**

@@ -1,6 +1,6 @@
 # 学習順067：IDキーセットページング
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step47/KeysetPage.razor)。画面の正規URLは `/learn/067` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L067KeysetPage.razor)。画面の正規URLは `/learn/067` です。
 
 **学習順067・第6段階／第14組**
 

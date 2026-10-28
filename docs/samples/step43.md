@@ -1,6 +1,6 @@
 # 学習順063：MudDataGrid ServerDataで検索を接続
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step43/GridServerDataPage.razor)。画面の正規URLは `/learn/063` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L063GridServerDataPage.razor)。画面の正規URLは `/learn/063` です。
 
 
 **学習順063・第6段階／第13組**

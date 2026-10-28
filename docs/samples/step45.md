@@ -1,6 +1,6 @@
 # 学習順065：複合条件の検索・Count・日付フィルター
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step45/FilterSearchPage.razor)。画面の正規URLは `/learn/065` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L065FilterSearchPage.razor)。画面の正規URLは `/learn/065` です。
 
 
 **学習順065・第6段階／第13組**

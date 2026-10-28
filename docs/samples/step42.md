@@ -1,6 +1,6 @@
 # 学習順062：MudTable ServerDataでDBページング
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step42/TableServerDataPage.razor)。画面の正規URLは `/learn/062` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L062TableServerDataPage.razor)。画面の正規URLは `/learn/062` です。
 
 
 **学習順062・第6段階／第13組**

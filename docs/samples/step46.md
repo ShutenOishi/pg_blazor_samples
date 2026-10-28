@@ -1,6 +1,6 @@
 # 学習順066：関連テーブルとDTO射影
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step46/RelatedDtoPage.razor)。画面の正規URLは `/learn/066` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L066RelatedDtoPage.razor)。画面の正規URLは `/learn/066` です。
 
 **学習順066・第6段階／第14組**
 

@@ -1,6 +1,6 @@
 # 学習順069：VirtualizeServerDataによるDB範囲取得
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step49/VirtualizeDatabasePage.razor)。画面の正規URLは `/learn/069` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage06/L069VirtualizeDatabasePage.razor)。画面の正規URLは `/learn/069` です。
 
 **学習順069・第6段階／第14組**
 
