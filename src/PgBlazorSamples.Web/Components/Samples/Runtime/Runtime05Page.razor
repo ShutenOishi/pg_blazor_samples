@@ -28,6 +28,7 @@ _ => "候補：circuit上の状態。切断や再起動で失われる可能性�
 <option value="comfortable">標準</option>
 <option value="compact">コンパクト</option>
 </select>
+<p data-testid="runtime05-server-setting">C#が受け取った表示設定：@displaySetting</p>
 <button type="button" @onclick="SaveDisplaySettingAsync">表示設定をブラウザーへ保存する</button>
 <button type="button" @onclick="LoadDisplaySettingAsync">ブラウザーから表示設定を読み込む</button>
 <p role="status" data-testid="runtime05-browser-state">@browserStatus</p>

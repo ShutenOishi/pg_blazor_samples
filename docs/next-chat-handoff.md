@@ -1,3 +1,11 @@
+## 2026-10-28 Chromeの学習順020競合修復（再受入待ち）
+
+- 前回HEAD `45e40022483d044a9a1d98613501384a867b4ac5` のアプリRun40609115715で学習順001/019新規Chrome試験は個別PASS。ただし既存学習順020でUI選択変更がInteractive Server側へ届く前に保存が発生し、localStorageへ初期値`comfortable`を書いてChromeジョブFAIL。アプリ全体の受入は未成立。PDF Run40609115834は最新結果を再GETすること。
+- 020に非機密のサーバー側@bind値を画面表示する観察欄を追加し、Chromeは対話イベント成功→select変更→C#受信値`compact`の反映→保存を待つ。教材も同じ操作手順を追加。新しいHEADの全CI受入までPASSと宣言しない。
+- 003/004は前受入HEAD `7d7206e5c79225d9b1924730ff936c30f2a47128` で受入済み。001/019が新HEADで完了すれば8/30、残22件の監査は未完。mainマージ・正式PDF更新・現地SITE実施は禁止のまま。SITE PASS0/15、NOT_RUN15/15。
+
+---
+
 ## 2026-10-28 教材v3 PR #39：学習順001・019のギャップ補強（新HEAD CI受入待ち）
 
 - 変更直前の認証済みGET受入HEAD：`7d7206e5c79225d9b1924730ff936c30f2a47128`。アプリ Run40606815694 のWindows/Ubuntu Chrome/PG18全3ジョブとPDF Run40606815676は同一HEADでSUCCESS。main=`3c3286016dd4bfbf5bad4f68e72b236c9e90abb9`、PR #39 Draft/open。

@@ -302,7 +302,12 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="runtime05-choice"]', "データベース");
         // 正規URLで非機密のUI設定を保存し、再読込後に復元できることを確認する。
         await page.goto(base + "/learn/020");
+        // SSR表示だけでなくInteractive Serverがイベントを受理したことを先に確認する。
+        await page.getByRole("button", { name: "公開できる表示設定" }).click();
+        await waitText(page, '[data-testid="runtime05-choice"]', "ブラウザーの保存領域");
         await page.getByLabel("表示の好み").selectOption("compact");
+        // @bindのonchangeがC#側へ反映される前に保存すると、初期値comfortableを保存してしまう。
+        await waitText(page, '[data-testid="runtime05-server-setting"]', "compact");
         await page.getByRole("button", { name: "表示設定をブラウザーへ保存する" }).click();
         await waitText(page, '[data-testid="runtime05-browser-state"]', "保存しました");
         const web20Stored = await page.evaluate(() => localStorage.getItem("pgblazor-course-runtime05-display"));
