@@ -30,7 +30,8 @@
     "xUnit不要のRazor表示・部品操作を無理に直接xUnitとして登録しない。",
     "Chrome原本で個別操作と否定/境界を確認。原本ログと同じHEADの全必要CI成功までは新補強を正式受入しない。",
     "PG18ジョブ成功を画面内メモリ教材の実DB試験としない。",
-    "PRE/SITE・正式PDF・認可・安全拒否・公開は禁止/維持。"
+    "PRE/SITE・正式PDF・認可・安全拒否・公開は禁止/維持。",
+    "学習順005と045の手動実機確認はユーザー判断により検証省略（NOT_TESTED・非PASS）。未実施を合格扱いせず、追加検証を要求しない。問題が発生した場合はユーザー報告を起点に管理する。現地PRE/SITEは別承認。"
   ],
   "classification_counts": {
     "RAZOR_LOCAL": 12,
@@ -188,14 +189,17 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "手動のみ（Visual Studioの停止操作）",
-        "scope_and_next_action": "ブラウザー操作とVisual Studioのブレークポイント停止の実機確認は別。後者はCIによる自動PASS不可。",
+        "classification": "ユーザー判断により検証省略（未実施・PASS認定なし）",
+        "scope_and_next_action": "Visual Studio実ブレークポイント停止は未実施。ユーザー判断により検証省略。CIの動作証跡と別軸のままPASSにしない。問題が発生した場合はユーザーから報告する。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "onsite_accepted": false,
+        "manual_verification_disposition": "SKIPPED_BY_USER_DECISION",
+        "manual_verification_execution": "NOT_TESTED",
+        "waiver_reason": "ユーザーは問題発生時に報告する運用を選択。追加手動検証は要求せず、教材整備・PR審査・マージを妨げない。"
       }
     },
     {
@@ -995,8 +999,8 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（不足する操作条件が特定済み）",
-        "scope_and_next_action": "aria-live属性・Tab/Shift+Tab・フォーカス・1.35倍/CSSは既存成功。実ChromeブラウザーUIの200%ズーム、重なり・横スクロール確認、NVDA/VoiceOver等の音声通知の実測は別途NOT_TESTED。headlessのCSS zoom、CDP pinch-zoom、DPR変更は代用しない。",
+        "classification": "ユーザー判断により検証省略（未実施・PASS認定なし）",
+        "scope_and_next_action": "実Chrome UIズーム200%、表示・キーボード、NVDA/VoiceOver音声は未実施（NOT_TESTED）。ユーザー判断により検証省略。既存aria-live/Tab/CSS検証を実機音声や200%実証とみなさず、問題が発生した場合はユーザーから報告する。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
@@ -1013,7 +1017,11 @@
           "DPR/deviceScaleFactor変更",
           "viewport幅変更だけ"
         ],
-        "manual_approval_plan": [
+        "manual_verification_disposition": "SKIPPED_BY_USER_DECISION",
+        "manual_verification_execution": "NOT_TESTED",
+        "waiver_reason": "ユーザーは問題発生時に報告する運用を選択。追加手動検証は要求せず、教材整備・PR審査・マージを妨げない。",
+        "manual_plan_status": "HISTORICAL_ONLY_NOT_REQUIRED",
+        "historical_manual_plan_not_to_execute": [
           "実機Chromeで100%表示・OS/ブラウザー版・表示解像度を記録し、ブラウザーUIのズームを200%にする。Chrome側200%表示を直接記録する。",
           "学習順045の入力/ラベル/メニュー/操作・通知を実200%のまま確認し、切れ・重なり・意図しない横スクロールの有無を証拠化する。",
           "実200%のままTab/Shift+Tabと文字拡大/高コントラスト/フォーカス移動を操作して結果を記録する。",
@@ -1130,15 +1138,11 @@
     "branch": "test/postrelease-semantic-audit-20261029",
     "scope": "直接xUnit参照未登録32件の分類であり、未テスト32件ではない。Chrome証跡の個別範囲に限って既証明とし、PG18実DB・PRE/SITE・PDF再発行には拡張しない。",
     "new_chrome_cases_pending_ci": [],
-    "gaps_remaining": [
-      45
-    ],
-    "manual_only_case": 5,
+    "gaps_remaining": [],
     "classification_counts": {
       "既証明（記載したChrome操作に限る）": 24,
       "既証明（新PRのChrome操作に限る）": 6,
-      "手動のみ（Visual Studioの停止操作）": 1,
-      "追加検証必要（不足する操作条件が特定済み）": 1
+      "ユーザー判断により検証省略（未実施・PASS認定なし）": 2
     },
     "direct_xunit_references_at_base": 78,
     "direct_xunit_references_added": 0,
@@ -1170,7 +1174,7 @@
     ],
     "current_033_calendar_case": "ACCEPTED_AT_HEAD_578814f2_RUN40785882254_JOB123158827905",
     "current_045_real_zoom_and_screenreader": "NOT_TESTED",
-    "note": "残12件を実Chrome成功原本と既存コードで個別照合。033実カレンダー境界は真正CI受入済み。045実200%ブラウザーUIと読み上げ音声は手動証拠待ち。005 VSデバッグも手動のみ。",
+    "note": "全32件の監査結論：限定既証明30、ユーザー判断により検証省略2（005 Visual Studio停止、045 実200%ズーム/支援技術音声）。検証省略はPASSを意味せず、追加手動検証は要求しない。問題はユーザー報告で取り扱う。直接xUnit78/110維持。PRE/SITEは別承認で未受入。",
     "evidence_rechecked_additional_12": [
       9,
       17,
@@ -1187,6 +1191,13 @@
     ],
     "additional_12_evidence_browser_run": 40785882254,
     "additional_12_evidence_browser_job": 123158827905,
-    "additional_12_evidence_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a"
+    "additional_12_evidence_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+    "historical_manual_only_case": 5,
+    "user_waived_manual_cases": [
+      5,
+      45
+    ],
+    "manual_waiver_status": "NOT_TESTED; SKIPPED_BY_USER_DECISION; NOT_PASS",
+    "policy_updated_local": "2026-10-29 JST"
   }
 }
