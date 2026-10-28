@@ -125,16 +125,16 @@
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 081 | Windows認証・Cookie・HTTP・circuit | [本文](../course-v3/lessons/security-01.md) | `/learn/081` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor) |
-| 082 | Middlewareの順序・HTTPS・IISの経路 | [本文](../course-v3/lessons/security-02.md) | `/learn/082` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor) |
-| 083 | XSS・CSRF・SQL注入の防御境界 | [本文](../course-v3/lessons/security-03.md) | `/learn/083` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor) |
-| 084 | 環境別設定・Secret・Data Protection鍵 | [本文](../course-v3/lessons/security-04.md) | `/learn/084` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor) |
-| 085 | 接続切断・セッション失効・権限再検証 | [本文](../course-v3/lessons/security-05.md) | `/learn/085` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor) |
-| 086 | Windows統合認証を構成する | [本文](../samples/step61.md) | `/learn/086` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step61/NegotiatePage.razor) |
-| 087 | 認証済みドメインユーザー名を扱う | [本文](../samples/step62.md) | `/learn/087` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step62/SidPage.razor) |
-| 088 | 認証済みユーザー名と既存台帳を結ぶ | [本文](../samples/step63.md) | `/learn/088` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step63/UserMappingPage.razor) |
-| 089 | 未登録・無効利用者を拒否する | [本文](../samples/step64.md) | `/learn/089` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step64/UserRefusalPage.razor) |
-| 090 | 既存台帳の業務権限を確認する | [本文](../samples/step65.md) | `/learn/090` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step65/RolePermissionPage.razor) |
+| 081 | Windows認証・Cookie・HTTP・circuit | [本文](../course-v3/lessons/security-01.md) | `/learn/081` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor) |
+| 082 | Middlewareの順序・HTTPS・IISの経路 | [本文](../course-v3/lessons/security-02.md) | `/learn/082` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L082MiddlewareHttpsPage.razor) |
+| 083 | XSS・CSRF・SQL注入の防御境界 | [本文](../course-v3/lessons/security-03.md) | `/learn/083` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor) |
+| 084 | 環境別設定・Secret・Data Protection鍵 | [本文](../course-v3/lessons/security-04.md) | `/learn/084` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L084SecretsKeysPage.razor) |
+| 085 | 接続切断・セッション失効・権限再検証 | [本文](../course-v3/lessons/security-05.md) | `/learn/085` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L085ReauthorizationPage.razor) |
+| 086 | Windows統合認証を構成する | [本文](../samples/step61.md) | `/learn/086` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L086NegotiatePage.razor) |
+| 087 | 認証済みドメインユーザー名を扱う | [本文](../samples/step62.md) | `/learn/087` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L087SidPage.razor) |
+| 088 | 認証済みユーザー名と既存台帳を結ぶ | [本文](../samples/step63.md) | `/learn/088` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L088UserMappingPage.razor) |
+| 089 | 未登録・無効利用者を拒否する | [本文](../samples/step64.md) | `/learn/089` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L089UserRefusalPage.razor) |
+| 090 | 既存台帳の業務権限を確認する | [本文](../samples/step65.md) | `/learn/090` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L090RolePermissionPage.razor) |
 | 091 | サービス側で認可を強制する | [本文](../samples/step66.md) | `/learn/091` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step66/AuthorizedEntryPage.razor) |
 | 092 | 部署ごとのCountとItems | [本文](../samples/step67.md) | `/learn/092` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step67/UnitScopedPage.razor) |
 | 093 | 集計とCSVにも認可を適用 | [本文](../samples/step68.md) | `/learn/093` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step68/ScopedExportPage.razor) |

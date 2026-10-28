@@ -1,6 +1,6 @@
 # 学習順86：Windows統合認証を構成する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step61/NegotiatePage.razor)。画面の正規URLは `/learn/086` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L086NegotiatePage.razor)。画面の正規URLは `/learn/086` です。
 
 **第7段階・第18組／旧URL /learn/086**
 

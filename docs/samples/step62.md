@@ -1,6 +1,6 @@
 # 学習順87：認証済みドメインユーザー名を扱う
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step62/SidPage.razor)。画面の正規URLは `/learn/087` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L087SidPage.razor)。画面の正規URLは `/learn/087` です。
 
 **第7段階・第18組／旧URL /learn/087**
 

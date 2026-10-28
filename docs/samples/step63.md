@@ -1,6 +1,6 @@
 # 学習順88：認証済みユーザー名と既存台帳を結ぶ
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step63/UserMappingPage.razor)。画面の正規URLは `/learn/088` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L088UserMappingPage.razor)。画面の正規URLは `/learn/088` です。
 
 **第7段階・第18組／旧URL /learn/088**
 

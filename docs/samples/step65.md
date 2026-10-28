@@ -1,6 +1,6 @@
 # 学習順90：既存台帳の業務権限を確認する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step65/RolePermissionPage.razor)。画面の正規URLは `/learn/090` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L090RolePermissionPage.razor)。画面の正規URLは `/learn/090` です。
 
 **第7段階・第18組／旧URL /learn/090**
 

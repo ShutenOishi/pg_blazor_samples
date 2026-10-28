@@ -431,10 +431,10 @@
       "sequence": "081",
       "lesson_id": "security-01",
       "lesson_path": "docs/course-v3/lessons/security-01.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor",
       "canonical_url": "/learn/081",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor",
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
@@ -457,7 +457,7 @@
       "sequence": "082",
       "lesson_id": "security-02",
       "lesson_path": "docs/course-v3/lessons/security-02.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L082MiddlewareHttpsPage.razor",
       "canonical_url": "/learn/082",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L082HttpProbe.cs",
@@ -479,10 +479,10 @@
       "sequence": "083",
       "lesson_id": "security-03",
       "lesson_path": "docs/course-v3/lessons/security-03.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor",
       "canonical_url": "/learn/083",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs",
         "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs",
@@ -503,7 +503,7 @@
       "sequence": "084",
       "lesson_id": "security-04",
       "lesson_path": "docs/course-v3/lessons/security-04.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L084SecretsKeysPage.razor",
       "canonical_url": "/learn/084",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L084StartupPolicy.cs",
@@ -525,7 +525,7 @@
       "sequence": "085",
       "lesson_id": "security-05",
       "lesson_path": "docs/course-v3/lessons/security-05.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L085ReauthorizationPage.razor",
       "canonical_url": "/learn/085",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L085ReauthorizationExercise.cs",

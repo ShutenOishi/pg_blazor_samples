@@ -160,6 +160,20 @@ async function waitText(page, selector, expected) {
             }
         }
         console.log("学習順071〜080：正規・互換Document GET 200を全10件確認");
+        // 081〜090主Razor構造移行：正規と従来の互換URLをすべてDocument GET確認。
+        // 実AD/IIS、業務DB認可、監査、現地SITEの合格証拠としない。
+        for (let sequence = 81; sequence <= 90; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = sequence <= 85
+                ? "/learn/security-0" + (sequence - 80)
+                : "/learn/" + String(sequence - 25);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: "
+                    + responses.map(response => response.status()).join("/"));
+            }
+        }
+        console.log("学習順081〜090：正規・互換Document GET 200を全10件確認");
 
 
 

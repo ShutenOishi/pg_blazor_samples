@@ -1,6 +1,6 @@
 # 学習順081：Windows認証・Cookie・HTTP・circuit
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor)。画面の正規URLは `/learn/081` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor)。画面の正規URLは `/learn/081` です。
 
 ## 到達目標
 WinFormsでログオン済みの状態は、その端末上のユーザーを前提としていることが多いです。WebではHTTP要求ごとの本人認証、Cookieのチケット管理、Blazor Interactive Serverのcircuit内UI状態の寿命が異なります。ADが証明するのは本人とユーザー名であり、各業務の参照・更新権限は既存DB台帳で照合します。
@@ -124,7 +124,7 @@ WinFormsのボタンが無効なときに操作を防ぐ仕組みを、Webの最
 
 ## 隔離認可サービスの実装演習
 
-[画面のRazorイベント](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor) → [DI登録（Program.cs）](../../../src/PgBlazorSamples.Web/Program.cs) → [隔離サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs) → [信頼名の検証関数](../../../src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs) → [xUnit正常・拒否・失効試験](../../../tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs) → [Chrome操作試験](../../../scripts/browser-smoke.cjs) の順に確認します。
+[画面のRazorイベント](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor) → [DI登録（Program.cs）](../../../src/PgBlazorSamples.Web/Program.cs) → [隔離サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs) → [信頼名の検証関数](../../../src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs) → [xUnit正常・拒否・失効試験](../../../tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs) → [Chrome操作試験](../../../scripts/browser-smoke.cjs) の順に確認します。
 
 「架空認可サービスで1件を読み取る」で固定の架空課題1件が許可されます。「隔離台帳の読み取り権限を失効」して同じ操作を繰り返すと0件・拒否となります。「隔離台帳を初期化」で元に戻します。単にチェックボックスを判定する処理と違い、別のC#サービスを呼び、毎操作でメモリー内の台帳を照合します。
 

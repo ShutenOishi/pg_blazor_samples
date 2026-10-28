@@ -1,6 +1,6 @@
 # 学習順084：環境別設定・Secret・Data Protection鍵
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor)、[共通起動ガード](../../../src/PgBlazorSamples.Web/Services/Learning/L084StartupPolicy.cs)、[本番経路から呼ぶProgram.cs](../../../src/PgBlazorSamples.Web/Program.cs)、[正常/拒否xUnit](../../../tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs)、[Chrome](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/084` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L084SecretsKeysPage.razor)、[共通起動ガード](../../../src/PgBlazorSamples.Web/Services/Learning/L084StartupPolicy.cs)、[本番経路から呼ぶProgram.cs](../../../src/PgBlazorSamples.Web/Program.cs)、[正常/拒否xUnit](../../../tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs)、[Chrome](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/084` です。
 
 ## 到達目標
 開発・検証・本番で接続先や証明書の構成は異なります。Secretsはソースコードや配布PDFへ含めず、適切なアクセス制御を持つ保管先で管理します。Cookie認証チケットを保護するData Protection鍵は、複数インスタンス間の共有と安全な保存、失効や復元の手順が必要です。

@@ -1,6 +1,6 @@
 # 学習順083：XSS・CSRF・SQL注入の防御境界
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor)、[実SQLサービス（059と共有）](../../../src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs)、[入力安全判定](../../../src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs)、[SQL実DB試験](../../../tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs)、[安全表示の単体試験](../../../tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs)、[Chrome試験](../../../scripts/browser-smoke.cjs)。正規URLは `/learn/083` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor)、[実SQLサービス（059と共有）](../../../src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs)、[入力安全判定](../../../src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs)、[SQL実DB試験](../../../tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs)、[安全表示の単体試験](../../../tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs)、[Chrome試験](../../../scripts/browser-smoke.cjs)。正規URLは `/learn/083` です。
 
 ## 到達目標
 XSSはHTMLやスクリプトの実行、CSRFは利用者のCookieを使った別サイトからの要求、SQL注入は入力値がSQLの構文として解釈される問題です。原因と対策は異なるため、それぞれの層で防御する必要があります。

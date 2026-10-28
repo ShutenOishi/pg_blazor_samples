@@ -1,6 +1,6 @@
 # 学習順89：未登録・無効利用者を拒否する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step64/UserRefusalPage.razor)。画面の正規URLは `/learn/089` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L089UserRefusalPage.razor)。画面の正規URLは `/learn/089` です。
 
 **第7段階・第18組／旧URL /learn/089**
 

@@ -1565,13 +1565,13 @@
       "stage": 7,
       "lesson_path": "docs/course-v3/lessons/security-01.md",
       "app_url": "/learn/security-01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor",
       "audit_state": "simulation",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/081",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor",
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
@@ -1589,7 +1589,7 @@
       "stage": 7,
       "lesson_path": "docs/course-v3/lessons/security-02.md",
       "app_url": "/learn/security-02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L082MiddlewareHttpsPage.razor",
       "audit_state": "simulation",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -1609,13 +1609,13 @@
       "stage": 7,
       "lesson_path": "docs/course-v3/lessons/security-03.md",
       "app_url": "/learn/security-03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor",
       "audit_state": "simulation",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/083",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs",
         "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs",
@@ -1631,7 +1631,7 @@
       "stage": 7,
       "lesson_path": "docs/course-v3/lessons/security-04.md",
       "app_url": "/learn/security-04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L084SecretsKeysPage.razor",
       "audit_state": "simulation",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -1651,7 +1651,7 @@
       "stage": 7,
       "lesson_path": "docs/course-v3/lessons/security-05.md",
       "app_url": "/learn/security-05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L085ReauthorizationPage.razor",
       "audit_state": "simulation",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -1673,11 +1673,17 @@
       "stage": 7,
       "lesson_path": "docs/samples/step61.md",
       "app_url": "/learn/61",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step61/NegotiatePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L086NegotiatePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/086"
+      "canonical_url": "/learn/086",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 87,
@@ -1686,11 +1692,17 @@
       "stage": 7,
       "lesson_path": "docs/samples/step62.md",
       "app_url": "/learn/62",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step62/SidPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L087SidPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/087"
+      "canonical_url": "/learn/087",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 88,
@@ -1699,11 +1711,17 @@
       "stage": 7,
       "lesson_path": "docs/samples/step63.md",
       "app_url": "/learn/63",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step63/UserMappingPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L088UserMappingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/088"
+      "canonical_url": "/learn/088",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 89,
@@ -1712,11 +1730,17 @@
       "stage": 7,
       "lesson_path": "docs/samples/step64.md",
       "app_url": "/learn/64",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step64/UserRefusalPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L089UserRefusalPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/089"
+      "canonical_url": "/learn/089",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 90,
@@ -1725,11 +1749,17 @@
       "stage": 7,
       "lesson_path": "docs/samples/step65.md",
       "app_url": "/learn/65",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step65/RolePermissionPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L090RolePermissionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/090"
+      "canonical_url": "/learn/090",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 91,

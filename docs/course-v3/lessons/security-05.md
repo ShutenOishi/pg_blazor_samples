@@ -1,6 +1,6 @@
 # 学習順085：接続切断・セッション失効・権限再検証
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor)。画面の正規URLは `/learn/085` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L085ReauthorizationPage.razor)。画面の正規URLは `/learn/085` です。
 
 ## 到達目標
 Interactive Serverのcircuitはネットワーク接続の影響を受けます。再接続できてもHTTP Cookieの期限切れや既存台帳の権限変更を無視して操作を続けてはいけません。表示済みUIや一時キャッシュは最新の認可を保証しません。

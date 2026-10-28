@@ -156,3 +156,10 @@ database/
 - `LearningEditService`、`LearningRangeExportService`、`LearningPerformanceService`、`LearningCacheLessonService`、`LearningDbService`、`LearningDbContext`、DTO/SQL/DI/Program.cs/xUnit/安全拒否を変更しない。DB統合試験・Chromeの既存動作根拠を配置試験や現地受入と混同しない。
 - 教材10件の直接リンク、source-index、source-mapのRazorパス・関連実在ソース、静的検査の第15/16組、Chrome正規・互換URLのDocument GET 20経路を同一コミットで同期。
 - 全必要CI（Windows/Ubuntu Chrome/PostgreSQL18/PDFソース）が新HEADで completed/SUCCESS となるまでは構造移行の正式受入を70/110に維持する。成功済みCIの再実行、Draft解除、mainマージ、正式PDF Release更新、実AD/IIS/FDW・未承認PRE/SITE試験は禁止。SITE PASS 0/15・NOT_RUN 15/15。
+
+### 2026-10-28 学習順081〜090の第7段階主Razor10件一括物理移行（新HEAD CI判定待ち）
+
+- 学習順081〜085のセキュリティ演習主Razorと086〜090のWindows本人認証・既存台帳照合主Razorを `Components/Lessons/Stage07/L081〜L090*.razor` に配置し、旧主10件を削除する。元の `Security` 段階概要・第17組復習や `Step61〜65` の共用処理、`@page` の正規URL・互換URLは維持する。
+- 081〜085は固定の架空Principal/隔離HTTP・安全拒否、086〜090は共通の `WindowsUserAccessService` による認証済みユーザーと既存台帳の照合を再利用する。共通DI/Program.cs・サービス・DB/SQL・監査・xUnit・安全拒否は一切変更・複製しない。
+- 教材10件の直接Razorリンク、source-index、source-map、監査台帳の対象5件、Python静的検査の旧物理パス、Chrome正規・互換のDocument GET検証を同一変更で同期する。静的参照の存在と実AD/IIS/Kerberos/FDW、DB実操作、監査・現地SITEの受入は混同しない。
+- 新HEADでWindows/Ubuntu実Chrome/PostgreSQL18/PDFソース検証の**全必要CI completed/SUCCESS**がそろうまで構造移行の正式受入は80/110のままとする。既存成功CI再実行・Draft解除・マージ・正式PDF Release更新・無許可PRE/SITE試験は禁止。SITE PASS **0/15**・NOT_RUN **15/15** を維持。
