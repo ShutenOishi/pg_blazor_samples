@@ -774,6 +774,26 @@ async function waitText(page, selector, expected) {
         await page.getByLabel("既存台帳の権限版が変更された").check();
         await page.getByRole("button", { name: "再接続後の条件を確認" }).click();
         await waitText(page, '[data-testid="security05-result"]', "拒否");
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-count"]', "架空課題件数：1 件");
+        await page.getByRole("button", { name: "架空台帳の権限を失効させる" }).click();
+        await page.getByRole("button", { name: "架空回線を再接続する" }).click();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-result"]', "拒否");
+        await waitText(page, '[data-testid="l085-service-count"]', "架空課題件数：0 件");
+        await page.getByRole("button", { name: "架空台帳を初期化する" }).click();
+        await page.getByLabel("架空チケットを期限切れにする").check();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-result"]', "拒否");
+        await page.getByLabel("架空チケットを期限切れにする").uncheck();
+        await page.getByLabel("架空監査を失敗させる").check();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-result"]', "拒否");
+        await page.getByLabel("架空監査を失敗させる").uncheck();
+        await page.getByRole("button", { name: "架空サービスで毎回再認可する" }).click();
+        await waitText(page, '[data-testid="l085-service-count"]', "架空課題件数：1 件");
+        console.log("学習順085：Chromeで隔離サーバー側の都度再認可、架空失効後の再接続拒否、期限・監査拒否と復帰を確認。実AD/DBは別試験");
+
         await page.goto(base + "/learn/column/security-85");
         await page.getByRole("heading", { name: "第17組の復習：Webの安全境界" }).waitFor();
         await page.screenshot({ path: path.join(evidence, "security-review17.png") });

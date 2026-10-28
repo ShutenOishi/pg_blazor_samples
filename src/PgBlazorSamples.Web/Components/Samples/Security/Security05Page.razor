@@ -1,5 +1,7 @@
 @page "/learn/085"
 @using PgBlazorSamples.Web.Services.Learning
+@using System.Security.Claims
+@inject L085ReauthorizationExercise ReauthorizationExercise
 @page "/learn/security-05"
 <PageTitle>学習順085：接続切断・セッション失効・権限再検証｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第7段階 / 学習順085</p>
@@ -17,8 +19,56 @@
 <h2>再確認の順序</h2>
 <ol><li>サーバーが最新の本人認証状態を検証する。</li><li>最新の既存DB台帳で有効性・部署・操作権限を再照合する。</li><li>更新する場合は排他・監査条件を満たしてから同一トランザクションで実行する。</li><li>拒否時は既存データ・集計・CSVを返さない。</li></ol>
 <h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-85"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<section class="lesson-details">
+<h2>隔離したサーバー側サービスで再接続と失効を検証する</h2>
+<p>学習順081と同じ固定の架空Principalを使い、実信頼名検証関数、現行の架空台帳、チケット期限、監査可否をサービス側で毎操作確認します。実AD、Cookie、業務DBを操作しません。</p>
+<label><input type="checkbox" @bind="serviceTicketExpired" /> 架空チケットを期限切れにする</label>
+<label><input type="checkbox" @bind="serviceAuditUnavailable" /> 架空監査を失敗させる</label>
+<button type="button" @onclick="ProbeReauthorization">架空サービスで毎回再認可する</button>
+<button type="button" @onclick="RevokeReauthorization">架空台帳の権限を失効させる</button>
+<button type="button" @onclick="ReconnectReauthorization">架空回線を再接続する</button>
+<button type="button" @onclick="ResetReauthorization">架空台帳を初期化する</button>
+<p role="status" data-testid="l085-service-result">@serviceResult</p>
+<p data-testid="l085-service-count">架空課題件数：@serviceRows 件／都度認可：@ReauthorizationExercise.Checks 回／架空再接続：@ReauthorizationExercise.Reconnects 回</p>
+<p>再接続後の呼出しでもサービスが認可し直します。実業務の都度認可、権限失効、監査・xmin・ロックによる安全拒否は共通のSecuredLearningServiceとSecuredLearningIntegrationTestsで確認します。架空画面の許可を実DB/実ADの受入に代用しません。</p>
+</section>
 <div class="page-navigation"><a href="/learn/084">前へ：学習順084</a><a href="/learn/column/security-85">次へ：第17組の復習</a></div>
 @code {
+    private static readonly DateTimeOffset DemoNow = new(2026, 10, 28, 0, 0, 0, TimeSpan.Zero);
+    private bool serviceTicketExpired;
+    private bool serviceAuditUnavailable;
+    private string serviceResult = "隔離サービスは未実行です。";
+    private int serviceRows;
+    private void ProbeReauthorization()
+    {
+        var fakePrincipal = new ClaimsPrincipal(new ClaimsIdentity(
+            [new Claim(ClaimTypes.Name, L081AuthorizationExercise.DemoLogin)], "Negotiate"));
+        var expires = serviceTicketExpired ? DemoNow : DemoNow.AddMinutes(10);
+        var outcome = ReauthorizationExercise.Read(fakePrincipal, DemoNow, expires,
+            auditAvailable: !serviceAuditUnavailable);
+        serviceRows = outcome.RowCount;
+        serviceResult = outcome.Message;
+    }
+    private void RevokeReauthorization()
+    {
+        ReauthorizationExercise.RevokeRead();
+        serviceRows = 0;
+        serviceResult = "架空台帳の権限を失効しました。次の呼出しで再認可します。";
+    }
+    private void ReconnectReauthorization()
+    {
+        ReauthorizationExercise.SimulateReconnect();
+        serviceRows = 0;
+        serviceResult = "架空の回線再接続を記録。権限は復活していません。";
+    }
+    private void ResetReauthorization()
+    {
+        ReauthorizationExercise.Reset();
+        serviceTicketExpired = false;
+        serviceAuditUnavailable = false;
+        serviceRows = 0;
+        serviceResult = "架空台帳を初期化。次の呼出しで再認可します。";
+    }
     private bool expired;
     private bool permissionRevoked;
     private bool disconnected;

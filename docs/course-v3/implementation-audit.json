@@ -503,11 +503,11 @@
       "implemented_behavior": "本番Program.csと共通の起動拒否ガードを実装し、Windows/明示ログイン不整合、本番鍵保存先未指定の実例外拒否をxUnit検証。架空条件で同じ関数をRazor/Chromeから実操作。実Secret/鍵内容は閲覧せず。",
       "missing_behavior": "本番Secretや鍵を露出せず設定不備の起動拒否と鍵管理の単体試験を示す",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 鍵保存先の存在・ACL・暗号化・共有・復旧やIIS/AD実機は未検証。新HEAD全CI成功まで正式受入不可。"
+      "behavior_status": "CHROME_XUNIT_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "63b0f0e63a94272f3bf909330d6bad7998bf78ea",
+      "ci_run": 40631377025,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 鍵保存先の存在・ACL・暗号化・共有・復旧やIIS/AD実機は未検証。新HEAD全CI成功まで正式受入不可。 同一HEADアプリRun40631377025全3ジョブとPDF40631377081のSUCCESS、PR正式受入#6460581202を確認。実鍵ACL等は未実証。"
     },
     {
       "sequence": "085",
@@ -515,16 +515,23 @@
       "lesson_path": "docs/course-v3/lessons/security-05.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor",
       "canonical_url": "/learn/085",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L085ReauthorizationExercise.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "tests/PgBlazorSamples.UnitTests/L085ReauthorizationExerciseTests.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "架空Principalとメモリー内台帳を用いたサーバー側都度再認可、権限版失効後の架空再接続拒否、期限境界・監査不可・無効主体のxUnitとChrome演習を追加。既存SecuredLearningServiceのPG18都度認可試験を参照。",
       "missing_behavior": "権限失効、切断、認可再評価がサーバーで拒否となる架空データの統合試験",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L085ReauthorizationExerciseTests.cs; tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 本機能の同一HEAD Windows/Ubuntu Chrome/PG18/PDF CI未受入。画面の架空再接続は実WebSocket/実Cookie再認証でない。PG18実業務試験は既存の共通サービスを再利用。"
     },
     {
       "sequence": "106",

@@ -153,6 +153,7 @@ builder.Services.AddScoped<LearningPerformanceService>();
 // Step61〜65：本人はASP.NET CoreのWindows認証が確定し、ドメイン付きユーザー名とDBを照合する。
 // 学習順081：架空Principal・隔離台帳で認可境界を観察する専用サービス。
 builder.Services.AddScoped<L081AuthorizationExercise>();
+builder.Services.AddScoped<L085ReauthorizationExercise>();
 builder.Services.AddScoped<WindowsUserAccessService>();
 // Step66〜70：本人と既存台帳を毎操作照合し、全SQLの部署条件を共通化する。
 builder.Services.AddScoped<LearningAuditService>();

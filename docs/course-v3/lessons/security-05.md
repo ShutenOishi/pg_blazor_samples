@@ -121,3 +121,21 @@ WinFormsのボタンが無効なときに操作を防ぐ仕組みを、Webの最
 - [ ] 操作手順に従い拒否を再現できる。
 - [ ] 障害の切り分けと演習の詳しい解答を確認した。
 - [ ] AD/IIS/Kerberos/FDWと1万人超負荷の未受入を維持する。
+
+## 追加演習：サービス側の都度再認可と失効（個別CI受入待ち）
+
+[架空再認可サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L085ReauthorizationExercise.cs) は学習順081と同じ架空のNegotiate主体で、信頼名検証、期限、台帳版・有効性・権限、監査可否を毎呼出しで検証する。サーバー側のscopedサービスであり、画面のチェック状態を認可の正本にしない。実認証ハンドラー・Cookie・既存DB台帳に接続しない。架空の再接続は回数を記録するだけで、失効した権限を戻さない。
+
+```csharp
+var outcome = exercise.Read(fakePrincipal, now, expiresAt,
+    ticketAuthorizationVersion: 2, auditAvailable: true);
+// 失効後にSimulateReconnect()しても、Readで台帳を再評価して0件を返す。
+```
+
+1. 「架空サービスで毎回再認可する」で1件を許可する。
+2. 権限失効→架空再接続→再認可で0件拒否を確認する。
+3. 初期化後にチケット期限切れと監査不可の拒否を個別に確認し、両方を戻して1件に復帰する。
+4. [独立xUnit](../../../tests/PgBlazorSamples.UnitTests/L085ReauthorizationExerciseTests.cs) で無認証・認証方式不一致・期限境界・旧版・失効後再接続を追跡する。
+5. 実業務の根拠は別に [SecuredLearningService](../../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs) → [PG18統合試験](../../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs) をたどる。サービスの都度台帳再取得、監査失敗時の行非公開、権限失効後の一覧/CSV/更新拒否、編集トランザクション中の台帳行ロックを検証する。CI内PG18と実AD/IIS/SITEは区別する。
+
+この追加演習は実WebSocket切断や実Cookie期限満了を引き起こさず、実業務のCookie再検証も代行しない。実AD/IIS/Kerberos/FDW、現地負荷・SITE、FDW原子性が不明な場合の更新は未受入として維持する。
