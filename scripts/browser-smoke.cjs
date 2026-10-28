@@ -558,7 +558,18 @@ async function waitText(page, selector, expected) {
         await page.waitForFunction(() =>
             document.querySelector('[data-testid="runtime05-display-setting"]')?.value === "compact",
             null, { timeout: 15000 });
+        // 学習順020：localStorageは利用者が編集できるため、未知の値を表示設定に採用しない。
+        await page.evaluate(() => localStorage.setItem("pgblazor-course-runtime05-display", "admin"));
+        await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "許可されない値");
+        if (await page.getByTestId("runtime05-display-setting").inputValue() !== "compact")
+            throw new Error("学習順020：改変したlocalStorage値が画面設定を変更した");
         await page.evaluate(() => localStorage.removeItem("pgblazor-course-runtime05-display"));
+        await page.getByRole("button", { name: "ブラウザーから表示設定を読み込む" }).click();
+        await waitText(page, '[data-testid="runtime05-browser-state"]', "保存データがない");
+        if (await page.getByTestId("runtime05-display-setting").inputValue() !== "compact")
+            throw new Error("学習順020：未保存の値が画面設定を変更した");
+        console.log("学習順020：改変値・欠落値の復元拒否と画面設定維持をChrome確認。権限判定の試験ではない");
         await page.getByRole("link", { name: "次へ：第4組の復習" }).click();
         await page.getByRole("heading", { name: "第4組の復習：初期化・再読込・状態の復習" }).waitFor();
         await page.getByRole("table").first().getByText("日本語入力検証").waitFor();
@@ -1629,8 +1640,42 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step59-state"]', "未設定");
         await page.goto(base + "/learn/60");
         await page.waitForTimeout(850);
+        // 学習順080：既定値だけの見かけ上のPASSを避け、5要件の正答と誤答の実操作を確認する。
+        const selectPattern080 = async (index, label) => {
+            await page.locator(".mud-select").nth(index).click();
+            await page.getByText(label, { exact: true }).last().click();
+        };
+        const checkPattern080 = async (scenario, choice, expected) => {
+            await selectPattern080(0, scenario);
+            await selectPattern080(1, choice);
+            await page.getByRole("button", { name: "選定を確認する" }).click();
+            await page.waitForFunction(text =>
+                document.querySelector('[data-testid="step60-state"]')?.textContent?.trim() === text,
+                expected, { timeout: 15000 });
+        };
         await page.getByRole("button", { name: "選定を確認する" }).click();
-        await waitText(page, '[data-testid="step60-state"]', "第一候補");
+        await waitText(page, '[data-testid="step60-state"]', "第一候補です。複数列ソート");
+        await checkPattern080("50件の固定マスターを表示する", "Items全件読み込み",
+            "第一候補です。固定の小規模一覧ならItemsで十分です。");
+        await checkPattern080("50件の固定マスターを表示する", "MudDataGrid ServerData",
+            "別の第一候補があります。固定の小規模一覧ならItemsで十分です。");
+        await checkPattern080("大量の業務データをページング・複数列ソートする", "Items全件読み込み",
+            "別の第一候補があります。複数列ソートや列UIにはMudDataGrid ServerDataが第一候補です。許可ソートも併用します。");
+        await checkPattern080("大量の業務データをページング・複数列ソートする", "MudDataGrid ServerData",
+            "第一候補です。複数列ソートや列UIにはMudDataGrid ServerDataが第一候補です。許可ソートも併用します。");
+        await checkPattern080("数百万件を次へ・次へと読む", "キーセットページング",
+            "第一候補です。単調なキーで次ページだけを取得し、深いOFFSETを避けます。");
+        await checkPattern080("数百万件を次へ・次へと読む", "取得済みItemsの描画仮想化",
+            "別の第一候補があります。単調なキーで次ページだけを取得し、深いOFFSETを避けます。");
+        await checkPattern080("巨大な一覧をスクロールで取り出す", "DB取得つき仮想スクロール",
+            "第一候補です。描画だけでなくDB取得も範囲で分割します。");
+        await checkPattern080("巨大な一覧をスクロールで取り出す", "取得済みItemsの描画仮想化",
+            "別の第一候補があります。描画だけでなくDB取得も範囲で分割します。");
+        await checkPattern080("集計とCSVを利用者に提供する", "DB側GroupByと件数制限つきCSV",
+            "第一候補です。DB側集計と少量CSV、大量出力の別設計を選びます。");
+        await checkPattern080("集計とCSVを利用者に提供する", "Items全件読み込み",
+            "別の第一候補があります。DB側集計と少量CSV、大量出力の別設計を選びます。");
+        console.log("学習順080：5要件の第一候補と5誤選択を実Chromeで検証。実DB取得・業務認可は対象外");
         await page.goto(base + "/learn/column/60");
         await page.getByText("一覧は取得条件・権限・出力・性能まで一体で考える").waitFor();
         await page.screenshot({ path: path.join(evidence, "step60.png") });
