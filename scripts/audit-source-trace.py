@@ -77,6 +77,37 @@ def main():
             'db_integration_verified': False,
             'site_verified': False,
         })
+    # 利用者に見える過去番号らしい文言を抽出する。誤検知の可能性があるため人手の確認候補とする。
+    legacy_label_candidates = []
+    prose_paths = [ROOT / x['lesson_path'] for x in mapping]
+    prose_paths += sorted((ROOT / 'docs/course-v3/reviews').glob('*.md'))
+    prose_paths += sorted((ROOT / 'docs/course-v3/stages').glob('*.md'))
+    prose_paths += [
+        ROOT / 'README.md',
+        ROOT / 'docs/course-v3/source-index.md',
+        ROOT / 'src/PgBlazorSamples.Web/Components/Pages/Home.razor',
+        ROOT / 'src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor',
+    ]
+    legacy = re.compile(r'旧(?:Step|ステップ|番号|URL)|以前の(?:Step|ステップ|番号)|(?<![A-Za-z])Step\s*0?[1-9][0-9]?\b')
+    for page in prose_paths:
+        if not page.is_file():
+            problems.append(f'{page.relative_to(ROOT)}: 表記監査対象が存在しません')
+            continue
+        in_code = False
+        for line_no, line in enumerate(page.read_text(encoding='utf-8').splitlines(), 1):
+            if line.lstrip().startswith(('~~~', chr(96) * 3)):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+            visible = re.sub(r'\]\([^)]+\)', ']', line)
+            visible = re.sub(chr(96) + '[^' + chr(96) + ']*' + chr(96), '', visible)
+            if legacy.search(visible):
+                legacy_label_candidates.append({
+                    'path': page.relative_to(ROOT).as_posix(),
+                    'line': line_no,
+                    'excerpt': visible.strip()[:180],
+                })
     report = {
         'schema_version': 1,
         'source': 'docs/course-v3/source-map.json',
@@ -91,8 +122,10 @@ def main():
             'lessons_with_code_symbol_references': sum(bool(r['code_symbol_references']) for r in rows),
             'lessons_with_test_symbol_candidates': sum(bool(r['test_symbol_candidates']) for r in rows),
             'end_to_end_verified': 0,
+            'legacy_label_candidates': len(legacy_label_candidates),
         },
         'lessons': rows,
+        'legacy_label_candidates': legacy_label_candidates,
     }
     if args.report:
         args.report.parent.mkdir(parents=True, exist_ok=True)
