@@ -12,6 +12,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Windowsランナーのシステム既定エンコーディングに依存せず日本語の検査結果を表示する。
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
 
 def contains_symbol(source, symbol):
     return re.search(r'(?<!\w)' + re.escape(symbol) + r'(?!\w)', source) is not None
