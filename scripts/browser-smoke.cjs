@@ -178,10 +178,22 @@ async function waitText(page, selector, expected) {
                 JSON.stringify({ web04UnexpectedDocuments, web04PageErrors }));
         }
         console.log("学習順004：初期GET 200・DOM追加削除・Document再取得なし・ページ例外なしを検証");
-        await page.goto(base + "/learn/web-05");
+        // 学習順005：実C#イベントの更新前後を確認し、再読込では一時状態を保持しないことを検証する。
+        await page.goto(base + "/learn/005");
         await page.waitForTimeout(850);
-        await page.getByRole("button", { name: "デバッグ対象の処理を実行する" }).click();
+        await waitText(page, '[data-testid="web05-count"]', "0");
+        await waitText(page, '[data-testid="web05-debug-state"]', "まだC#イベントを実行していません");
+        const web05Run = page.getByRole("button", { name: "デバッグ対象の処理を実行する" });
+        await web05Run.click();
         await waitText(page, '[data-testid="web05-count"]', "1");
+        await waitText(page, '[data-testid="web05-debug-state"]', "更新前 0 → 更新後 1");
+        await web05Run.click();
+        await waitText(page, '[data-testid="web05-count"]', "2");
+        await waitText(page, '[data-testid="web05-debug-state"]', "更新前 1 → 更新後 2");
+        await page.reload();
+        await waitText(page, '[data-testid="web05-count"]', "0");
+        await waitText(page, '[data-testid="web05-debug-state"]', "まだC#イベントを実行していません");
+        console.log("学習順005：C#イベントの2回更新と再読込初期化を確認（デバッガー停止は手動手順）");
         await page.goto(base + "/learn/column/web-05");
         await page.getByRole("table").first().getByText("NetworkのDocumentとStatus").waitFor();
         await page.getByRole("heading", { name: "Webの処理場所・通信・画面表示を整理する" }).waitFor();

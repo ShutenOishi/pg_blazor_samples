@@ -19,11 +19,11 @@
       "implemented_behavior": "C#イベントでのみ追加する学習用履歴、2クリックと再読込での破棄を実装・Chrome試験を追加",
       "missing_behavior": "サーバー実行位置とデスクトップイベントの差を安全なトレースで観察",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新しいHEADのCI全件SUCCESSとChrome実操作結果まで受入保留。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "499d64636831c347215b4880374e5d709c12d143",
+      "ci_run": 40609423073,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新しいHEADのCI全件SUCCESSとChrome実操作結果まで受入保留。 同一HEADアプリ全3ジョブ・PDF成功はPRコメント6457475760に記録。"
     },
     {
       "sequence": "002",
@@ -87,16 +87,19 @@
       "lesson_path": "docs/course-v3/lessons/web-05.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor",
       "canonical_url": "/learn/005",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/App.razor",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": null,
+      "implemented_behavior": "サーバー側C#イベントで更新前後の値を表示。2クリック・再読込時の初期化をChromeで検査",
       "missing_behavior": "デバッグ用メソッドの停止位置とVisual Studio操作手順の再現性",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 デバッガーのブレークポイント停止はVisual Studioで別途手動確認。新HEAD CI待ち。"
     },
     {
       "sequence": "009",
@@ -162,11 +165,11 @@
       "implemented_behavior": "正規URL/戻る/進む/再読込/未知tab値のChrome操作試験を追加",
       "missing_behavior": "直URL/戻る/進む/強制再読込時の状態変化を再現",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 一時カウントが履歴で巻き戻るとは判定しない。CIの同一HEAD成功まで受入保留。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "499d64636831c347215b4880374e5d709c12d143",
+      "ci_run": 40609423073,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 一時カウントが履歴で巻き戻るとは判定しない。CIの同一HEAD成功まで受入保留。 同一HEADアプリ全3ジョブ・PDF成功はPRコメント6457475760に記録。"
     },
     {
       "sequence": "020",

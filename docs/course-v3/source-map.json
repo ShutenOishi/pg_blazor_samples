@@ -13,10 +13,10 @@
       "app_url": "/learn/web-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor",
       "audit_state": "partial",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/001",
-      "notes": "サーバーC#イベント履歴の2回操作と再読込初期化をChromeで検証予定。"
+      "notes": "サーバーC#イベント履歴の2回操作と再読込初期化をChromeで検証予定。 前HEAD 499d646のアプリ全3ジョブとPDF成功CIで受入済み。"
     },
     {
       "sequence": 2,
@@ -69,9 +69,10 @@
       "app_url": "/learn/web-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/005"
+      "canonical_url": "/learn/005",
+      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。"
     },
     {
       "sequence": 6,
@@ -251,10 +252,10 @@
       "app_url": "/learn/runtime-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor",
       "audit_state": "partial",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/019",
-      "notes": "正規URL、戻る/進む、再読込、未知クエリ値をChromeで検証予定。"
+      "notes": "正規URL、戻る/進む、再読込、未知クエリ値をChromeで検証予定。 前HEAD 499d646のアプリ全3ジョブとPDF成功CIで受入済み。"
     },
     {
       "sequence": 20,
