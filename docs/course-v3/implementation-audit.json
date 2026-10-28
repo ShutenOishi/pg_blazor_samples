@@ -221,7 +221,7 @@
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
         "scripts/browser-circuit-smoke.cjs",
-        "docs/course-v3/lessons/browser-01.md",
+        "docs/course-v3/lessons/Stage04/L041JsInteropPage.md",
         "src/PgBlazorSamples.Web/Program.cs"
       ],
       "sample_kind": "既存操作あり",
@@ -552,7 +552,7 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
       "canonical_url": "/learn/106",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L106RequirementFlowPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L106RequirementFlow.cs",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
@@ -579,7 +579,7 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
       "canonical_url": "/learn/107",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
@@ -605,7 +605,7 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
       "canonical_url": "/learn/108",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L108DtoEditPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L108SubmissionGate.cs",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
@@ -633,7 +633,7 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
       "canonical_url": "/learn/109",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L109PermissionAuditPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
@@ -658,7 +658,7 @@
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
       "canonical_url": "/learn/110",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L110AcceptanceLedgerPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L110AcceptanceLedger.cs",
         "tests/PgBlazorSamples.UnitTests/L110AcceptanceLedgerTests.cs",
         "scripts/browser-smoke.cjs",

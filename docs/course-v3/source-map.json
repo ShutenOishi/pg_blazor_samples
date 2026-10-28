@@ -771,7 +771,7 @@
         "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
         "scripts/browser-circuit-smoke.cjs",
         "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
-        "docs/course-v3/lessons/browser-01.md",
+        "docs/course-v3/lessons/Stage04/L041JsInteropPage.md",
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
         "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs",
