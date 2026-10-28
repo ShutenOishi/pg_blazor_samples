@@ -3,7 +3,7 @@
 **実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor)。画面の正規URLは `/learn/109` です。
 
 ## ADと業務権限の担当
-Active Directoryは本人認証とログイン名の取得までです。WindowsUserAccessServiceが既存PostgreSQL台帳の有効性、所属部署、閲覧・編集の権限を確認します。Capstone04Page.razorでは認可前提の確認と集計を別々のボタンで行います。集計はBusiness.CountByDoneAsyncを通して部署の完了・未完了件数を取得します。監査の永続化が失敗したら結果を返しません。匿名のChromeでは両ボタンとも拒否されることを確認します。WinForms＋Dapperでログオン名を取得しただけで業務を許可してはいけないのと同様、Blazorでも既存台帳の照合が必要です。ログイン名を画面に表示してデバッグしません。実IIS/NegotiateとKerberos/SPNの本人認証は現地受入に残ります。
+Active Directoryは本人認証とログイン名の取得までです。WindowsUserAccessServiceが既存PostgreSQL台帳の有効性、所属部署、閲覧・編集の権限を確認します。Capstone04Page.razorでは閲覧の認可前提、編集権限の再確認、部署別一覧と完了別集計を別々のボタンで呼びます。編集の確認ボタンは保存を行いません。一覧はBusiness.LoadPageAsync(new(0, 10))、集計はBusiness.CountByDoneAsyncを呼び、いずれも現在の部署・既存台帳による都度認可と業務監査を通します。集計はBusiness.CountByDoneAsyncを通して部署の完了・未完了件数を取得します。監査の永続化が失敗したら結果を返しません。匿名Chromeでは閲覧/編集権限、部署一覧、集計の4経路が拒否され、業務件数は0件です。PostgreSQL18のSecuredLearningIntegrationTestsでは、固定の架空Negotiate主体で閲覧可・編集不可を区別し、台帳の編集権限変更、閲覧失効、無効化、台帳削除を同一業務サービスで再確認します。集計task.summaryの永続監査と部署分離は実DBで別途確認し、模擬Principalを実AD認証成功とは扱いません。WinForms＋Dapperでログオン名を取得しただけで業務を許可してはいけないのと同様、Blazorでも既存台帳の照合が必要です。ログイン名を画面に表示してデバッグしません。実IIS/NegotiateとKerberos/SPNの本人認証は現地受入に残ります。
 
 ## 実コード例1
 ```csharp
@@ -63,7 +63,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 6. 画面の結果、期待値、実際のメッセージ、対象のサービス、コミットSHA、CI Run IDを記録します。拒否条件を緩和して検査を通すことはしません。
 
 ## 実機では別途受入が必要
-実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
+実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDF CIの検証と正式Releaseへの反映は別工程です。正式PDF Release learning-textbook（Asset ID 683032765）は更新しません。
 
 ## 個別の操作手順
 /learn/109で権限前提を確認し、続いて集計を押します。匿名時には双方が拒否され、集計行や本人名が表示されないことを確認します。サービスのAuthorizeAsyncとCountByDoneAsyncの条件を照合します。

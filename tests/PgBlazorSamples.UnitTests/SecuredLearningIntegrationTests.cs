@@ -39,6 +39,7 @@ public sealed class SecuredLearningIntegrationTests
             .BuildServiceProvider();
         using var scope = provider.CreateScope();
         var business = scope.ServiceProvider.GetRequiredService<SecuredLearningService>();
+        var access = scope.ServiceProvider.GetRequiredService<WindowsUserAccessService>();
         var factory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningDbContext>>();
         var oldService = scope.ServiceProvider.GetRequiredService<LearningDbService>();
         Assert.False(oldService.Configured); // 認証ありモードでは無認可の旧教材DBを無効化
@@ -79,7 +80,9 @@ public sealed class SecuredLearningIntegrationTests
 
             // 読み取り権限のある本人は自部署だけ。CountとItemsは同じ検索範囲。
             auth.User = Principal(login, "Negotiate");
+            Assert.Equal("allowed", (await access.ReadCurrentAsync()).Code);
             Assert.Equal(unit, (await business.AuthorizeAsync()).Unit);
+            Assert.Null((await business.AuthorizeAsync(forEdit: true)).Unit); // 閲覧可、編集不可。
             var listing = await business.LoadPageAsync(new(0, 20, prefix));
             Assert.Equal(1, listing.TotalCount);
             Assert.Single(listing.Rows);
@@ -143,6 +146,10 @@ public sealed class SecuredLearningIntegrationTests
                     "SELECT COUNT(*)::integer AS \"Value\" FROM learning_operation_audit_ci WHERE actor_login = {0}",
                     login).SingleAsync();
                 Assert.True(entries >= 4); // 一覧・詳細・集計・CSV・保存の永続監査が成立
+                var summaries = await auditDb.Database.SqlQueryRaw<int>(
+                    "SELECT COUNT(*)::integer AS \"Value\" FROM learning_operation_audit_ci WHERE actor_login = {0} AND operation = 'task.summary' AND unit_code = {1} AND row_count = 1 AND outcome = 'success'",
+                    login, unit).SingleAsync();
+                Assert.True(summaries >= 1); // 109の集計は監査INSERT後に応答する。
             }
             // 学習順108：旧DTO再送は競合。入力不正も実業務サービス側で拒否。
             Assert.Equal(LearningEditStatus.Conflict, (await business.SaveAsync(edited)).Status);
@@ -179,6 +186,21 @@ public sealed class SecuredLearningIntegrationTests
             Assert.Null((await business.GetDetailAsync(ownId)).Item);
             Assert.Null((await business.ExportCsvAsync(prefix)).Base64);
             Assert.Equal(LearningEditStatus.Forbidden, (await business.SaveAsync(edited)).Status);
+            Assert.Equal("forbidden", (await access.ReadCurrentAsync()).Code);
+
+            // 109：有効だった主体でも台帳が無効なら拒否。台帳行がなくても自己登録しない。
+            await using (var db = await factory.CreateDbContextAsync())
+                await db.Database.ExecuteSqlInterpolatedAsync(
+                    $"UPDATE learning_existing_user_ci SET is_active = {false}, authorization_version = authorization_version + 1 WHERE login_name = {login}");
+            Assert.Equal("inactive", (await access.ReadCurrentAsync()).Code);
+            Assert.Empty((await business.CountByDoneAsync()).Rows);
+            Assert.Equal(0, (await business.LoadPageAsync(new(0, 10, prefix))).TotalCount);
+            await using (var db = await factory.CreateDbContextAsync())
+                await db.Database.ExecuteSqlInterpolatedAsync(
+                    $"DELETE FROM learning_existing_user_ci WHERE login_name = {login}");
+            Assert.Equal("unknown", (await access.ReadCurrentAsync()).Code);
+            Assert.Null((await business.AuthorizeAsync()).Unit);
+            Assert.Empty((await business.CountByDoneAsync()).Rows);
         }
         finally
         {

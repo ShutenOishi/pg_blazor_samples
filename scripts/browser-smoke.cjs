@@ -1579,12 +1579,18 @@ async function waitText(page, selector, expected) {
             throw new Error("学習順108：匿名時は編集DTOと保存ボタンを表示してはいけません。");
         console.log("学習順108：匿名Chromeで無効ID拒否・実詳細拒否・編集欄と保存ボタン非表示。保存/xmin/監査はPG18別試験");
 
-        await page.goto(base + "/learn/capstone-04");
+        await page.goto(base + "/learn/109");
         await page.waitForTimeout(850);
         await page.getByRole("button", { name: "現在の権限と監査の前提を確認" }).click();
         await waitText(page, '[data-testid="capstone04-result"]', "拒否");
+        await page.getByRole("button", { name: "編集操作の権限を再確認する" }).click();
+        await waitText(page, '[data-testid="capstone04-edit"]', "拒否");
+        await page.getByRole("button", { name: "認可付き部署一覧を取得する" }).click();
+        await waitText(page, '[data-testid="capstone04-list"]', "拒否");
+        await waitText(page, '[data-testid="capstone04-list"]', "総件数：0件");
         await page.getByRole("button", { name: "認可付き集計を取得する" }).click();
         await waitText(page, '[data-testid="capstone04-summary"]', "拒否");
+        console.log("学習順109：匿名Chromeの閲覧/編集権限・部署一覧0件・集計を安全拒否。架空Negotiate主体・台帳失効・監査はPG18別試験");
 
         await page.goto(base + "/learn/capstone-05");
         await page.waitForTimeout(850);

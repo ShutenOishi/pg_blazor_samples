@@ -10,6 +10,10 @@
 <section class="lesson-details">
 <button type="button" @onclick="CheckAsync">現在の権限と監査の前提を確認</button>
 <p role="status" data-testid="capstone04-result">@_status</p>
+<button type="button" @onclick="EditAccessAsync">編集操作の権限を再確認する</button>
+<p role="status" data-testid="capstone04-edit">@_editStatus</p>
+<button type="button" @onclick="ListAsync">認可付き部署一覧を取得する</button>
+<p role="status" data-testid="capstone04-list">@_list</p>
 <button type="button" @onclick="SummaryAsync">認可付き集計を取得する</button>
 <p role="status" data-testid="capstone04-summary">@_summary</p>
 <p>未認証・台帳未登録・無効・権限不足・監査不成立では、一覧も集計も表示しません。認可成立時のみ監査の永続化後に結果を返します。</p>
@@ -23,6 +27,8 @@
 <div class="page-navigation"><a href="/learn/108">前へ</a><a href="/learn/110">次へ</a></div>
 @code {
     private string _status = "未確認です。";
+    private string _editStatus = "未確認です。";
+    private string _list = "未取得です。";
     private string _summary = "未集計です。";
     private async Task CheckAsync()
     {
@@ -30,6 +36,17 @@
         _status = permit.Unit is null
             ? permit.Message
             : "業務の閲覧権限を確認しました。業務データと本人の名前は表示していません。";
+    }
+    private async Task EditAccessAsync()
+    {
+        // 画面のチェックではなく最新の正本を操作ごとに照会する。ここでは更新しない。
+        var permit = await Business.AuthorizeAsync(forEdit: true);
+        _editStatus = permit.Unit is null ? permit.Message : "現在の編集権限を確認しました。更新は実行していません。";
+    }
+    private async Task ListAsync()
+    {
+        var result = await Business.LoadPageAsync(new(0, 10));
+        _list = $"{result.Message} 表示件数：{result.Rows.Count}件／総件数：{result.TotalCount}件";
     }
     private async Task SummaryAsync()
     {
