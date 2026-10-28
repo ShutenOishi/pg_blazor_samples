@@ -78,6 +78,16 @@ _STAGE05_MOVED_PAGES = {
     48: "L048SqlSchemaPage.razor",
     49: "L049EfSetupPage.razor",
     50: "L050DbContextFactoryPage.razor",
+    51: "L051EfSearchPage.razor",
+    52: "L052SqlAndLinqPage.razor",
+    53: "L053PersistenceComparisonPage.razor",
+    54: "L054EfCrudPage.razor",
+    55: "L055EfDateRangePage.razor",
+    56: "L056EfTransactionPage.razor",
+    57: "L057EfConcurrencyPage.razor",
+    58: "L058KeylessViewPage.razor",
+    59: "L059ParameterizedSqlPage.razor",
+    60: "L060EfDbCheckPage.razor",
 }
 
 def web_foundation_page(number: int) -> Path:
@@ -90,7 +100,7 @@ PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8"
 # 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
 # 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
 disk_steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
-moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}, 31: 47, 32: 48, 33: 49, 34: 50}
+moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}, 31: 47, 32: 48, 33: 49, 34: 50, 35: 51, 36: 54, 37: 55, 38: 56, 39: 57, 40: 60}
 steps = sorted(set(disk_steps) | set(moved_steps))
 if not steps:
     raise SystemExit("教材検査エラー：実装済みのステップがありません。")
@@ -892,17 +902,17 @@ if -1 in pos or pos != sorted(pos) or not (stage_pos < pos[0] < pos[-1] < review
 
 # 第11組051〜055：PDF生成停止中は索引ソースの順序だけを検査する。
 unit11 = [
-    ("step35", "docs/samples/step35.md", "Step35/EfSearchPage.razor"),
-    ("db-bridge-02", "docs/course-v3/lessons/db-bridge-02.md", "DbBridge/DbBridge02Page.razor"),
-    ("db-bridge-03", "docs/course-v3/lessons/db-bridge-03.md", "DbBridge/DbBridge03Page.razor"),
-    ("step36", "docs/samples/step36.md", "Step36/EfCrudPage.razor"),
-    ("step37", "docs/samples/step37.md", "Step37/EfDateRangePage.razor"),
+    ("step35", "docs/samples/step35.md", "L051EfSearchPage.razor"),
+    ("db-bridge-02", "docs/course-v3/lessons/db-bridge-02.md", "L052SqlAndLinqPage.razor"),
+    ("db-bridge-03", "docs/course-v3/lessons/db-bridge-03.md", "L053PersistenceComparisonPage.razor"),
+    ("step36", "docs/samples/step36.md", "L054EfCrudPage.razor"),
+    ("step37", "docs/samples/step37.md", "L055EfDateRangePage.razor"),
 ]
 if [item["id"] for item in ordered[50:55]] != [x[0] for x in unit11]:
     missing.append("第11組051〜055の学習順が不正")
 for sequence, (_, relative, page_name) in enumerate(unit11, start=51):
     body = (ROOT / relative).read_text(encoding="utf-8")
-    view = (SAMPLES / page_name).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage05" / page_name).read_text(encoding="utf-8")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
         missing.append(relative + "：3300文字以上・比較表・切り分け表が必要")
     if body.count(chr(96) * 3) < 4 or body.count(chr(96) * 3) % 2:
@@ -923,7 +933,7 @@ if len(review11) < 3300 or review11.count("| ---") < 2 or review11.count(chr(96)
     missing.append("第11組復習は長文・比較表・実コード・詳しい解答が必要")
 if 'data-testid="dbbridge11-review-table"' not in review11_page or 'href="/learn/056"' not in review11_page:
     missing.append("第11組復習のRazor比較表・学習順056へのリンクなし")
-if 'href="/learn/column/db-bridge-55"' not in (SAMPLES / "Step37/EfDateRangePage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/db-bridge-55"' not in (LESSONS / "Stage05/L055EfDateRangePage.razor").read_text(encoding="utf-8"):
     missing.append("学習順055から復習への遷移がない")
 if "学習順051〜055を復習" not in home or "第11組の復習：051〜055" not in nav_eighth:
     missing.append("第11組復習のWeb目次・NavMenuからの導線がない")
@@ -937,17 +947,17 @@ if (-1 in positions11 or positions11 != sorted(positions11)
 
 # 第12組056〜060：PDF停止中も教材原稿と索引ソースのみを検査する。
 unit12 = [
-    ("step38", "docs/samples/step38.md", "Step38/EfTransactionPage.razor"),
-    ("step39", "docs/samples/step39.md", "Step39/EfConcurrencyPage.razor"),
-    ("db-bridge-04", "docs/course-v3/lessons/db-bridge-04.md", "DbBridge/DbBridge04Page.razor"),
-    ("db-bridge-05", "docs/course-v3/lessons/db-bridge-05.md", "DbBridge/DbBridge05Page.razor"),
-    ("step40", "docs/samples/step40.md", "Step40/EfDbCheckPage.razor"),
+    ("step38", "docs/samples/step38.md", "L056EfTransactionPage.razor"),
+    ("step39", "docs/samples/step39.md", "L057EfConcurrencyPage.razor"),
+    ("db-bridge-04", "docs/course-v3/lessons/db-bridge-04.md", "L058KeylessViewPage.razor"),
+    ("db-bridge-05", "docs/course-v3/lessons/db-bridge-05.md", "L059ParameterizedSqlPage.razor"),
+    ("step40", "docs/samples/step40.md", "L060EfDbCheckPage.razor"),
 ]
 if [item["id"] for item in ordered[55:60]] != [entry[0] for entry in unit12]:
     missing.append("第12組056〜060の学習順が不正")
 for sequence, (_, relative, page_name) in enumerate(unit12, start=56):
     body = (ROOT / relative).read_text(encoding="utf-8")
-    view = (SAMPLES / page_name).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage05" / page_name).read_text(encoding="utf-8")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(" | ") < 8:
         missing.append(relative + "：3300文字以上・比較表・切り分け表が必要")
     if body.count(chr(96) * 3) < 4 or body.count(chr(96) * 3) % 2:

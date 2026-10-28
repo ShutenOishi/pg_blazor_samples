@@ -1,6 +1,6 @@
 # 学習順054：EF Coreの登録・更新・削除
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step36/EfCrudPage.razor)。画面の正規URLは `/learn/054` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L054EfCrudPage.razor)。画面の正規URLは `/learn/054` です。
 
 ## 到達目標と前提
 学習順054はLearningDbServiceのAddAsync、ToggleAsync、DeleteAsyncを画面から呼び出します。AddAsyncではConfiguredを検査し、Title.Trim後に1〜100文字を検証してからTasks.AddとSaveChangesAsyncを行います。ToggleAsyncとDeleteAsyncは画面のLearningTaskRowからIdとVersionを渡し、対象行を再取得してxminのVersionが一致するか確認します。更新直前の競合はDbUpdateConcurrencyExceptionで拒否し、最新データを無条件で上書きしません。操作後にはSearchAsyncを使い、画面表示を再読み込みします。実際の削除ボタンには確認ダイアログがなく、本番の業務アプリへそのまま転用しないでください。学習用の専用DBだけで操作します。

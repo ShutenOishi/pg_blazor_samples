@@ -1,6 +1,6 @@
 # 学習順057：xmin楽観的排他を確認する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step39/EfConcurrencyPage.razor)。画面の正規URLは `/learn/057` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L057EfConcurrencyPage.razor)。画面の正規URLは `/learn/057` です。
 
 ## 到達目標と実装の位置付け
 学習順057では、画面に表示した行と、更新する瞬間のDB行が同じ版かを確認します。PostgreSQLのシステム列xminをuintのVersionへ割り当て、DbContextでIsRowVersionとして扱うことで、後から保存した操作が他人の変更を無言で上書きしない設計を学びます。現行画面は「DBの状態を読み直す」で最大20件を取得し、行ごとの「状態を更新」で事前に取得したVersionを渡します。操作後には一覧を再取得します。

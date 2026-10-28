@@ -120,6 +120,21 @@ async function waitText(page, selector, expected) {
             }
         }
         console.log("学習順041〜050：正規・互換Document GET 200を全10件確認");
+        // 第5段階051〜060：物理移行後も正規・互換Document GET 200を10件検証する。
+        // この疎通確認は実DB接続や認可成立の証拠ではない。
+        const compatibility051to060 = ["/learn/35","/learn/db-bridge-02","/learn/db-bridge-03","/learn/36","/learn/37","/learn/38","/learn/39","/learn/db-bridge-04","/learn/db-bridge-05","/learn/40"];
+        for (let i = 0; i < compatibility051to060.length; i++) {
+            const seq = String(51 + i).padStart(3, "0");
+            const responses = await Promise.all([
+                page.request.get(base + "/learn/" + seq),
+                page.request.get(base + compatibility051to060[i])
+            ]);
+            if (responses.some(r => r.status() !== 200)) {
+                throw new Error("学習順" + seq + "の正規・互換GETが失敗: "
+                    + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順051〜060：正規・互換Document GET 200を全10件確認");
 
 
 

@@ -345,7 +345,7 @@
       "sequence": "052",
       "lesson_id": "db-bridge-02",
       "lesson_path": "docs/course-v3/lessons/db-bridge-02.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor",
       "canonical_url": "/learn/052",
       "related_sources": [],
       "sample_kind": "部分的",
@@ -362,7 +362,7 @@
       "sequence": "053",
       "lesson_id": "db-bridge-03",
       "lesson_path": "docs/course-v3/lessons/db-bridge-03.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L053PersistenceComparisonPage.razor",
       "canonical_url": "/learn/053",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L053PersistenceComparisonService.cs",
@@ -384,7 +384,7 @@
       "sequence": "058",
       "lesson_id": "db-bridge-04",
       "lesson_path": "docs/course-v3/lessons/db-bridge-04.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L058KeylessViewPage.razor",
       "canonical_url": "/learn/058",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L058KeylessViewService.cs",
@@ -408,7 +408,7 @@
       "sequence": "059",
       "lesson_id": "db-bridge-05",
       "lesson_path": "docs/course-v3/lessons/db-bridge-05.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L059ParameterizedSqlPage.razor",
       "canonical_url": "/learn/059",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs",

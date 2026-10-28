@@ -85,16 +85,16 @@
 | 048 | PostgreSQLで学習テーブルを定義する | [本文](../samples/step32.md) | `/learn/048` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L048SqlSchemaPage.razor) |
 | 049 | EF Core 10をWebへ登録する | [本文](../samples/step33.md) | `/learn/049` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L049EfSetupPage.razor) |
 | 050 | DbContextFactoryと接続プール | [本文](../samples/step34.md) | `/learn/050` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L050DbContextFactoryPage.razor) |
-| 051 | LINQ検索とAsNoTracking | [本文](../samples/step35.md) | `/learn/051` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step35/EfSearchPage.razor) |
-| 052 | SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL | [本文](../course-v3/lessons/db-bridge-02.md) | `/learn/052` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor) |
-| 053 | Dapperの接続／ExecuteとDbContext・追跡・SaveChanges | [本文](../course-v3/lessons/db-bridge-03.md) | `/learn/053` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor) |
-| 054 | EF Coreの登録・更新・削除 | [本文](../samples/step36.md) | `/learn/054` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step36/EfCrudPage.razor) |
-| 055 | DateOnly・TimeOnly・Rangeの型変換 | [本文](../samples/step37.md) | `/learn/055` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step37/EfDateRangePage.razor) |
-| 056 | トランザクションを理解する | [本文](../samples/step38.md) | `/learn/056` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step38/EfTransactionPage.razor) |
-| 057 | xmin楽観的排他を確認する | [本文](../samples/step39.md) | `/learn/057` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step39/EfConcurrencyPage.razor) |
-| 058 | 既存DB・ビュー・キーなしモデル・FDWを扱う | [本文](../course-v3/lessons/db-bridge-04.md) | `/learn/058` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor) |
-| 059 | FromSql／SqlQueryのパラメーターとDapper併用 | [本文](../course-v3/lessons/db-bridge-05.md) | `/learn/059` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor) |
-| 060 | PostgreSQL 18の実接続確認 | [本文](../samples/step40.md) | `/learn/060` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step40/EfDbCheckPage.razor) |
+| 051 | LINQ検索とAsNoTracking | [本文](../samples/step35.md) | `/learn/051` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L051EfSearchPage.razor) |
+| 052 | SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL | [本文](../course-v3/lessons/db-bridge-02.md) | `/learn/052` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor) |
+| 053 | Dapperの接続／ExecuteとDbContext・追跡・SaveChanges | [本文](../course-v3/lessons/db-bridge-03.md) | `/learn/053` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L053PersistenceComparisonPage.razor) |
+| 054 | EF Coreの登録・更新・削除 | [本文](../samples/step36.md) | `/learn/054` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L054EfCrudPage.razor) |
+| 055 | DateOnly・TimeOnly・Rangeの型変換 | [本文](../samples/step37.md) | `/learn/055` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L055EfDateRangePage.razor) |
+| 056 | トランザクションを理解する | [本文](../samples/step38.md) | `/learn/056` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L056EfTransactionPage.razor) |
+| 057 | xmin楽観的排他を確認する | [本文](../samples/step39.md) | `/learn/057` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L057EfConcurrencyPage.razor) |
+| 058 | 既存DB・ビュー・キーなしモデル・FDWを扱う | [本文](../course-v3/lessons/db-bridge-04.md) | `/learn/058` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L058KeylessViewPage.razor) |
+| 059 | FromSql／SqlQueryのパラメーターとDapper併用 | [本文](../course-v3/lessons/db-bridge-05.md) | `/learn/059` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L059ParameterizedSqlPage.razor) |
+| 060 | PostgreSQL 18の実接続確認 | [本文](../samples/step40.md) | `/learn/060` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L060EfDbCheckPage.razor) |
 
 ## 第6段階：一覧データ連携・検索・編集（学習順061〜080）
 

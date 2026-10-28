@@ -1,6 +1,6 @@
 # 学習順060：PostgreSQL 18の実接続確認
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step40/EfDbCheckPage.razor)。画面の正規URLは `/learn/060` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L060EfDbCheckPage.razor)。画面の正規URLは `/learn/060` です。
 
 ## 到達目標と実装の位置付け
 学習順060は、ここまでのモデル定義、SQL生成、追跡、CRUD、日付・Range、トランザクション、競合を、開発専用のPostgreSQL 18に対して整合確認する回です。画面の「開発用DBへ接続して検索」はLearningDbService.SearchAsyncを呼び、検索のメッセージと総件数を表示します。画面の表示成功、SQLのToQueryString成功、実DBから結果取得できたことはそれぞれ別の確認項目です。実AD、IIS、Kerberos、FDW、1万人超負荷はこのステップだけで検証済みになりません。

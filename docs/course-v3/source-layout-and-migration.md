@@ -70,7 +70,7 @@ database/
 
 **学習順006**：[教材](../samples/step01.md)から[L006FirstBlazorPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor)へ移動し、ページのルート、表示のHTML、学習順とファイル名の不一致を観察する。学習順006の名前と実ファイルが一致することを確認する。
 
-**学習順052**：現在の[教材](lessons/db-bridge-02.md)から[DbBridge02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
+**学習順052**：現在の[教材](lessons/db-bridge-02.md)から[L052SqlAndLinqPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
 
 **学習順107**：現在の[教材](lessons/capstone-02.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
 
@@ -132,3 +132,11 @@ database/
 - 10教材の直接リンク、source-index、source-mapと明示依存、追加30テーマ監査台帳の041〜046、静的検査、Chrome正規/互換10組のGETを同一バッチで同期。静的パス存在と実DB・Chrome・現地受入は別の評価。
 - 現時点は**新コミットの必要CI判定待ち**であり、構造移行50/110の正式受入は未宣言。全必要CIと全ジョブcompleted/SUCCESSを独立GETで確認した場合のみ受入する。
 - 041の実切断後InvokeAsync自身、043のExcel/LibreOffice、044の実離脱取消、実AD/IIS/FDW、10,001人超の負荷・復旧、PRE/SITEは未実証。SITE PASS0/15・NOT_RUN15/15、Draft/未マージ、正式PDF Release未変更、旧成功CIの再実行禁止を維持。
+
+
+### 2026-10-28 学習順051〜060の第5段階主Razor10件一括移行（同一HEAD CI受入待ち）
+
+- 学習順051〜060の10主Razorを`Components/Lessons/Stage05/L051〜L060*.razor`に配置し、旧`Samples/Step35〜Step40`・`Samples/DbBridge`内の対応する主画面10件を削除。正規URLと互換URLは保持する。
+- 教材10件・source-index・source-map・追加30テーマ監査台帳の4件・静的検査・Chrome正規/互換10組を同期。共通LearningDbService・DbContext、学習専用PostgreSQL/SQL、L053/L058/L059サービス、DI、xUnit、安全拒否は変更・複製しない。
+- `related_sources`は実在する関連ファイルの静的な手掛かりであり、意味的依存をすべて実証したことや実DB・本番SITEの受入を意味しない。
+- **新HEADのWindows/Linux/Chrome/PG18およびPDFソース検証CIがすべてcompleted/SUCCESSになるまでは正式受入しない**。成功済みCI再実行、PDF生成・正式Release更新、PR Draft解除・マージ、現地無許可PRE/SITE実施は禁止。SITE PASS0/15・NOT_RUN15/15を維持。

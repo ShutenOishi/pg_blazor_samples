@@ -1,6 +1,6 @@
 # 学習順059：FromSql／SqlQueryのパラメーターとDapper併用
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor)。画面の正規URLは `/learn/059` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L059ParameterizedSqlPage.razor)。画面の正規URLは `/learn/059` です。
 
 ## 到達目標と実装の位置付け
 学習順059では、SQLの形を自分で書きたい場面でも利用者入力を構文へ混ぜないことを確認します。Web画面の入力欄は、あえてSQL注入を想定した値で初期化されています。「安全なSQLを生成する」を押すと、EF CoreのFromSqlInterpolatedとSqlQueryのToQueryStringがSQLとパラメーターを生成します。実データを取得するToListAsyncやCountAsyncは実行しません。SQLが画面に表示されることは、PostgreSQLへの接続が成功したことを意味しません。

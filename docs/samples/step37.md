@@ -1,6 +1,6 @@
 # 学習順055：DateOnly・TimeOnly・Rangeの型変換
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step37/EfDateRangePage.razor)。画面の正規URLは `/learn/055` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L055EfDateRangePage.razor)。画面の正規URLは `/learn/055` です。
 
 ## 到達目標と前提
 MudDatePickerはDateTime?、学習用テーブルのdateはDateOnly?、time without time zoneはTimeOnly?、daterangeはNpgsqlRange<DateTime>?で扱います。EfDateRangePageではja-JP形式で日付を選び、DateOnly.FromDateTimeで日だけに変換します。期間は開始日を含み、翌日の開始を含まない[当日,翌日)です。NpgsqlRange<DateTime>(start,true,endExclusive,false)の第4引数をfalseにするのが重要です。2引数形式で上限を含むと、PostgreSQLの日付範囲が正規化されて終端がずれる場合があります。DateOnly.MaxValueの翌日は作れないためAddDaysの前に拒否します。空の日付も拒否します。ここでは値の表示だけでDBに保存せず、datemultirangeや無限端の実DB検証とも分けます。

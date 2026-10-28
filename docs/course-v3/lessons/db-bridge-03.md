@@ -1,9 +1,9 @@
 # 学習順053：Dapperの接続／ExecuteとDbContext・追跡・SaveChanges
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor)。画面の正規URLは `/learn/053` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L053PersistenceComparisonPage.razor)。画面の正規URLは `/learn/053` です。
 
 ## 到達目標と前提
-DbBridge03Page.razorはDB非接続で状態の変化を再現します。new LearningTaskはDetachedです。db.Tasks.Add(entity)後はAddedです。ChangeTracker.Clearで追跡が解除されDetachedへ戻ります。SaveChangesAsyncは呼びません。DapperのExecuteはSQLを実行する操作ですが、EF CoreのAddはDbContextのメモリ上で『追加する予定』を記録するだけです。実際の登録・更新・削除は次の学習順054でSaveChangesAsyncを呼んで初めてDBコマンドを送ります。Blazorの複数イベントでDbContextを共有しないこと、状態を持つEntityと表示DTOを区別すること、追跡解除とDELETEを混同しないことが重要です。
+L053PersistenceComparisonPage.razorはDB非接続で状態の変化を再現します。new LearningTaskはDetachedです。db.Tasks.Add(entity)後はAddedです。ChangeTracker.Clearで追跡が解除されDetachedへ戻ります。SaveChangesAsyncは呼びません。DapperのExecuteはSQLを実行する操作ですが、EF CoreのAddはDbContextのメモリ上で『追加する予定』を記録するだけです。実際の登録・更新・削除は次の学習順054でSaveChangesAsyncを呼んで初めてDBコマンドを送ります。Blazorの複数イベントでDbContextを共有しないこと、状態を持つEntityと表示DTOを区別すること、追跡解除とDELETEを混同しないことが重要です。
 学習順053は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/053` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する

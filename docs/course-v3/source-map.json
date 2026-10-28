@@ -959,11 +959,19 @@
       "stage": 5,
       "lesson_path": "docs/samples/step35.md",
       "app_url": "/learn/35",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step35/EfSearchPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L051EfSearchPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/051"
+      "canonical_url": "/learn/051",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 52,
@@ -972,12 +980,21 @@
       "stage": 5,
       "lesson_path": "docs/course-v3/lessons/db-bridge-02.md",
       "app_url": "/learn/db-bridge-02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/052",
-      "notes": "学習用PG18統合とChromeを検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
+      "notes": "学習用PG18統合とChromeを検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs"
+      ]
     },
     {
       "sequence": 53,
@@ -986,7 +1003,7 @@
       "stage": 5,
       "lesson_path": "docs/course-v3/lessons/db-bridge-03.md",
       "app_url": "/learn/db-bridge-03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L053PersistenceComparisonPage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -1007,11 +1024,19 @@
       "stage": 5,
       "lesson_path": "docs/samples/step36.md",
       "app_url": "/learn/36",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step36/EfCrudPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L054EfCrudPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/054"
+      "canonical_url": "/learn/054",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 55,
@@ -1020,11 +1045,14 @@
       "stage": 5,
       "lesson_path": "docs/samples/step37.md",
       "app_url": "/learn/37",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step37/EfDateRangePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L055EfDateRangePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/055"
+      "canonical_url": "/learn/055",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 56,
@@ -1033,11 +1061,19 @@
       "stage": 5,
       "lesson_path": "docs/samples/step38.md",
       "app_url": "/learn/38",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step38/EfTransactionPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L056EfTransactionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/056"
+      "canonical_url": "/learn/056",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 57,
@@ -1046,11 +1082,19 @@
       "stage": 5,
       "lesson_path": "docs/samples/step39.md",
       "app_url": "/learn/39",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step39/EfConcurrencyPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L057EfConcurrencyPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/057"
+      "canonical_url": "/learn/057",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 58,
@@ -1059,7 +1103,7 @@
       "stage": 5,
       "lesson_path": "docs/course-v3/lessons/db-bridge-04.md",
       "app_url": "/learn/db-bridge-04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L058KeylessViewPage.razor",
       "audit_state": "partial",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -1082,7 +1126,7 @@
       "stage": 5,
       "lesson_path": "docs/course-v3/lessons/db-bridge-05.md",
       "app_url": "/learn/db-bridge-05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L059ParameterizedSqlPage.razor",
       "audit_state": "partial",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -1103,11 +1147,19 @@
       "stage": 5,
       "lesson_path": "docs/samples/step40.md",
       "app_url": "/learn/40",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step40/EfDbCheckPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L060EfDbCheckPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/060"
+      "canonical_url": "/learn/060",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/001_learning_task.sql",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 61,

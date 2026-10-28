@@ -1,6 +1,6 @@
 # 学習順056：トランザクションを理解する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step38/EfTransactionPage.razor)。画面の正規URLは `/learn/056` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L056EfTransactionPage.razor)。画面の正規URLは `/learn/056` です。
 
 ## 到達目標と実装の位置付け
 学習順056は、1回のボタン操作で複数レコードを登録し、途中で失敗した場合に一部だけ残る状態を防ぐ回です。既存のLearningDbService.AddTwoInTransactionAsyncが、DbContextFactoryで短命なDbContextを作り、BeginTransactionAsync、SaveChangesAsync、CommitAsyncを順に呼びます。実行すると学習専用のPostgreSQL 18に「取引の練習A」「取引の練習B」が追加されます。画面が表示されただけでは登録は発生しません。

@@ -1,6 +1,6 @@
 # 学習順058：既存DB・ビュー・キーなしモデル・FDWを扱う
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor)。画面の正規URLは `/learn/058` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L058KeylessViewPage.razor)。画面の正規URLは `/learn/058` です。
 
 ## 到達目標と実装の位置付け
 学習順058は、既存の台帳を業務アプリが登録し直さず参照するためのモデリングを理解する回です。新規ユーザーテーブルを作らず、事前に整備されたDBテーブルまたは外部テーブルを正本とします。画面の「キーなしモデル定義を確認する」はIDbContextFactoryからDbContextを一時的に作り、モデルにPrimaryKeyがないことだけを確認します。別のボタンから、固定の架空値2件だけを返す学習専用ビューを実際にSELECTします。既存利用者台帳へのSELECTやFDW通信は実行しません。匿名画面の結果を認可済みと判断してはいけません。
