@@ -315,8 +315,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "501-540",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "Static SSR無動作、GET200/400拒否、Interactiveイベント2回と再読込初期化",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -536,8 +542,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "559-583",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "SSR/Interactive識別子差、初回描画と2回更新後の状態維持",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -563,8 +575,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "590-613",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "URL履歴戻る/進む・再読込・未知クエリ境界",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -590,8 +608,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "619-651",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "localStorage保存/再読込、改変・欠落拒否、設定不変（認可試験ではない）",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -617,8 +641,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1339-1356",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "完了・取消・旧処理の上書き拒否・再試行",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -648,8 +678,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1412-1419",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "共有Snackbarの実DOM・状態更新",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -706,15 +742,20 @@
         "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
-        "classification": "追加検証必要（不足する操作条件が特定済み）",
-        "scope_and_next_action": "既定日/選択肢はc611原本確認。9cd3711の実カレンダー10/31→11/1試験は隣接月の同名日ボタンとのlocator二重一致で失敗（Run40779739812）。見える当月日ボタンのみに限定する原因修正を実施。新HEADのChrome原本成功までは未受入。",
+        "classification": "既証明（新PRのChrome操作に限る）",
+        "scope_and_next_action": "実MudDatePickerの2026/10/31クリック→DateTime?表示→翌月移動→2026/11/01クリック→DateTime?表示を実Chrome原本で確認。通常の既定日表示との区別を維持。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
+        "same_head_new_pr_ci_accepted": true,
         "onsite_accepted": false,
-        "new_head_calendar_test": "scripts/browser-smoke.cjs（当月の見える日ボタンに限定した新HEAD、CI未受入）"
+        "new_head_calendar_test": "scripts/browser-smoke.cjs（当月の見える日ボタンに限定した新HEAD、CI未受入）",
+        "evidence_script_lines": "1438-1493",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_artifact_id": 12859447710
       }
     },
     {
@@ -743,8 +784,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1495-1514",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "MudForm入力拒否/修正PASS/再消去拒否/再修正",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -773,8 +820,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1516-1526",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "MudTableソート後の先頭データ行変化",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -803,8 +856,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1532-1543",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "メモリQuickFilter 6→2→0→6件。DB操作なし",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -834,8 +893,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1546-1555",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "MudDialog実行・中止両分岐",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -900,8 +965,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1590-1617",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "架空メモリ一覧の入力境界/中止/追加/検索。DBなし",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     },
     {
@@ -933,7 +1004,22 @@
         "same_head_new_pr_ci_accepted": false,
         "onsite_accepted": false,
         "real_browser_zoom_200pct": "NOT_TESTED",
-        "assistive_technology_readout": "NOT_TESTED"
+        "assistive_technology_readout": "NOT_TESTED",
+        "real_browser_zoom_200": "NOT_TESTED",
+        "screen_reader_audio": "NOT_TESTED",
+        "not_equivalent_methods": [
+          "CSS zoom",
+          "CDP pinch zoom",
+          "DPR/deviceScaleFactor変更",
+          "viewport幅変更だけ"
+        ],
+        "manual_approval_plan": [
+          "実機Chromeで100%表示・OS/ブラウザー版・表示解像度を記録し、ブラウザーUIのズームを200%にする。Chrome側200%表示を直接記録する。",
+          "学習順045の入力/ラベル/メニュー/操作・通知を実200%のまま確認し、切れ・重なり・意図しない横スクロールの有無を証拠化する。",
+          "実200%のままTab/Shift+Tabと文字拡大/高コントラスト/フォーカス移動を操作して結果を記録する。",
+          "NVDAまたはVoiceOverを実際に起動し、ラベル・ボタン名・aria-live更新の音声通知を独立に確認する。",
+          "機密を含まない証跡、テスト担当・日付・使用環境・成否をIssue #40に登録する。未実施・不明・失敗をPASSにしない。"
+        ]
       }
     },
     {
@@ -1023,8 +1109,14 @@
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
-        "same_head_new_pr_ci_accepted": false,
-        "onsite_accepted": false
+        "same_head_new_pr_ci_accepted": true,
+        "onsite_accepted": false,
+        "evidence_script_lines": "1841-1878",
+        "evidence_browser_job_id": 123158827905,
+        "evidence_browser_run_id": 40785882254,
+        "evidence_browser_ci_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a",
+        "evidence_case_summary": "一覧方式5要件の正答5・誤答5。DB/認可試験対象外",
+        "evidence_origin": "同一HEADの成功Ubuntu実Chrome原本と既存スクリプト分岐の認証済みGET突合。既存CIを再実行しない。"
       }
     }
   ],
@@ -1039,15 +1131,14 @@
     "scope": "直接xUnit参照未登録32件の分類であり、未テスト32件ではない。Chrome証跡の個別範囲に限って既証明とし、PG18実DB・PRE/SITE・PDF再発行には拡張しない。",
     "new_chrome_cases_pending_ci": [],
     "gaps_remaining": [
-      33,
       45
     ],
     "manual_only_case": 5,
     "classification_counts": {
       "既証明（記載したChrome操作に限る）": 24,
+      "既証明（新PRのChrome操作に限る）": 6,
       "手動のみ（Visual Studioの停止操作）": 1,
-      "既証明（新PRのChrome操作に限る）": 5,
-      "追加検証必要（不足する操作条件が特定済み）": 2
+      "追加検証必要（不足する操作条件が特定済み）": 1
     },
     "direct_xunit_references_at_base": 78,
     "direct_xunit_references_added": 0,
@@ -1077,8 +1168,25 @@
       32,
       38
     ],
-    "current_033_calendar_case": "NEW_HEAD_CI_PENDING_AFTER_CALENDAR_DAY_SELECTOR_FIX",
+    "current_033_calendar_case": "ACCEPTED_AT_HEAD_578814f2_RUN40785882254_JOB123158827905",
     "current_045_real_zoom_and_screenreader": "NOT_TESTED",
-    "note": "元HEAD c6117271の既存成功Chromeを再利用。9cd3711の日付ピッカー試験は1日ボタン二重一致で失敗。新HEADで当月のみ選択する原因限定修正を検証待ち。実200%ブラウザー拡大・支援技術はNOT_TESTED。"
+    "note": "残12件を実Chrome成功原本と既存コードで個別照合。033実カレンダー境界は真正CI受入済み。045実200%ブラウザーUIと読み上げ音声は手動証拠待ち。005 VSデバッグも手動のみ。",
+    "evidence_rechecked_additional_12": [
+      9,
+      17,
+      19,
+      20,
+      27,
+      31,
+      34,
+      35,
+      36,
+      37,
+      40,
+      80
+    ],
+    "additional_12_evidence_browser_run": 40785882254,
+    "additional_12_evidence_browser_job": 123158827905,
+    "additional_12_evidence_head": "578814f2eb4fbde9c9bd676757e16e4d1e93e01a"
   }
 }
