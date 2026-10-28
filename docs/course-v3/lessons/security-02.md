@@ -1,6 +1,6 @@
 # 学習順082：Middlewareの順序・HTTPS・IISの経路
 
-**実装ソース：** [Razor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor)、[実HTTP検証サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L082HttpProbe.cs)、[経路登録](../../../src/PgBlazorSamples.Web/Program.cs)、[xUnit](../../../tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs)、[Chrome](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/082` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor)、[実HTTP検証サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L082HttpProbe.cs)、[経路登録](../../../src/PgBlazorSamples.Web/Program.cs)、[xUnit](../../../tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs)、[Chrome](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/082` です。
 
 ## 到達目標
 ASP.NET Coreのパイプラインはリクエストが処理を通る順序で動きます。認証の前提が成り立たなければ業務操作へ進めません。証明書やTLS終端、Forwarded Headersを信頼してよいプロキシ範囲、IIS上でのNegotiateの構成は実機で確認します。
