@@ -122,17 +122,17 @@ _STAGE07_MOVED_PAGES = {
     88: "L088UserMappingPage.razor",
     89: "L089UserRefusalPage.razor",
     90: "L090RolePermissionPage.razor",
-    91: "L91AuthorizedEntryPage.razor",
-    92: "L92UnitScopedPage.razor",
-    93: "L93ScopedExportPage.razor",
-    94: "L94SecuredEditPage.razor",
-    95: "L95DeploymentGatePage.razor",
+    91: "L091AuthorizedEntryPage.razor",
+    92: "L092UnitScopedPage.razor",
+    93: "L093ScopedExportPage.razor",
+    94: "L094SecuredEditPage.razor",
+    95: "L095DeploymentGatePage.razor",
 }
 _STAGE08_MOVED_PAGES = {
-    96: "L96DirectoryNormalizationPage.razor",
-    97: "L97ExplicitWindowsLoginPage.razor",
-    98: "L98TransactionalAuthorizationPage.razor",
-    99: "L99DurableAuditPage.razor",
+    96: "L096DirectoryNormalizationPage.razor",
+    97: "L097ExplicitWindowsLoginPage.razor",
+    98: "L098TransactionalAuthorizationPage.razor",
+    99: "L099DurableAuditPage.razor",
     100: "L100IisAcceptancePage.razor",
 }
 
@@ -1318,11 +1318,11 @@ if -1 in positions18 or positions18 != sorted(positions18) or not (
 
 # 第19組091〜095：全面改稿・画面比較表・Web/PDF目次を原本ソースで検査。PDFは生成しない。
 unit19 = [
-    (91, 66, "L91AuthorizedEntryPage.razor"),
-    (92, 67, "L92UnitScopedPage.razor"),
-    (93, 68, "L93ScopedExportPage.razor"),
-    (94, 69, "L94SecuredEditPage.razor"),
-    (95, 70, "L95DeploymentGatePage.razor"),
+    (91, 66, "L091AuthorizedEntryPage.razor"),
+    (92, 67, "L092UnitScopedPage.razor"),
+    (93, 68, "L093ScopedExportPage.razor"),
+    (94, 69, "L094SecuredEditPage.razor"),
+    (95, 70, "L095DeploymentGatePage.razor"),
 ]
 if [item["id"] for item in ordered[90:95]] != [f"step{old}" for _, old, _ in unit19]:
     missing.append("第19組091〜095の学習順が不正")
@@ -1353,9 +1353,9 @@ if 'data-testid="stage07-review19-table"' not in review19_view or 'href="/learn/
     missing.append("第19組復習の比較表または096への導線がない")
 if "学習順091〜095を復習する" not in home or "第19組の復習：091〜095" not in nav_eighth:
     missing.append("第19組復習のHome/NavMenu導線がない")
-if 'href="/learn/column/auth-at-scale"' not in (LESSONS / "Stage07/L91AuthorizedEntryPage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/auth-at-scale"' not in (LESSONS / "Stage07/L091AuthorizedEntryPage.razor").read_text(encoding="utf-8"):
     missing.append("学習順091の前リンクがない")
-if 'href="/learn/column/70"' not in (LESSONS / "Stage07/L95DeploymentGatePage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/70"' not in (LESSONS / "Stage07/L095DeploymentGatePage.razor").read_text(encoding="utf-8"):
     missing.append("学習順095の復習リンクがない")
 positions19 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(66, 71)]
 review19_pos = PDF_SCRIPT.find('"docs/columns/column66-70.md"')
@@ -1369,10 +1369,10 @@ if -1 in positions19 or positions19 != sorted(positions19) or not (
 
 # 第20組096〜100：全面改稿・実画面・目次を検査する。PDFの生成はしない。
 unit20 = [
-    (96, 71, "L96DirectoryNormalizationPage.razor"),
-    (97, 72, "L97ExplicitWindowsLoginPage.razor"),
-    (98, 73, "L98TransactionalAuthorizationPage.razor"),
-    (99, 74, "L99DurableAuditPage.razor"),
+    (96, 71, "L096DirectoryNormalizationPage.razor"),
+    (97, 72, "L097ExplicitWindowsLoginPage.razor"),
+    (98, 73, "L098TransactionalAuthorizationPage.razor"),
+    (99, 74, "L099DurableAuditPage.razor"),
     (100, 75, "L100IisAcceptancePage.razor"),
 ]
 if [item["id"] for item in ordered[95:100]] != [f"step{old}" for _, old, _ in unit20]:
