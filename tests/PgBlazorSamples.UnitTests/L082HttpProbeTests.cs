@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using PgBlazorSamples.Web.Services.Learning;
 using Xunit;
 
@@ -14,6 +15,7 @@ public sealed class L082HttpProbeTests
     public async Task PostAlwaysRefuses(bool valid, int expected)
     {
         var context = new DefaultHttpContext();
+        context.RequestServices = new ServiceCollection().AddLogging().BuildServiceProvider();
         var result = await L082HttpProbe.ValidateAndDenyAsync(context, new FakeAntiforgery(valid));
         await result.ExecuteAsync(context);
         Assert.Equal(expected, context.Response.StatusCode);
