@@ -105,7 +105,7 @@
             var current = await ImportModule();
             disconnectProbeState = "実切断試験の待機中";
             StateHasChanged();
-            await Task.Delay(TimeSpan.FromSeconds(3));
+            await Task.Delay(TimeSpan.FromSeconds(5));
             Logger.LogWarning("L041_PROBE_JS_INVOKE_START");
             await current.InvokeAsync<string>("readLanguage");
             Logger.LogWarning("L041_PROBE_JS_INVOKE_COMPLETED");

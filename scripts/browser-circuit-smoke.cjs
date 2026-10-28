@@ -162,6 +162,9 @@ async function getToken(page) {
             null, { timeout: 15000 });
         block041 = true;
         await socket041.close({ code: 1012, reason: "isolated-041-disconnect" });
+        // WebSocketだけでなく、再接続時のHTTP代替経路も隔離する。
+        // このBrowserContextに限定し、他のテスト・DB・外部ネットワークへは触れない。
+        await context041.setOffline(true);
         await page041.waitForFunction(() => {
             const el = document.getElementById("components-reconnect-modal");
             return !!el && ["components-reconnect-show", "components-reconnect-retrying",
@@ -176,11 +179,11 @@ async function getToken(page) {
             const completed = serverLog.includes("L041_PROBE_JS_INVOKE_COMPLETED");
             const jsError = serverLog.includes("L041_PROBE_JS_EXCEPTION_NOT_DISCONNECT");
             const otherError = serverLog.includes("L041_PROBE_OTHER_EXCEPTION_");
-            console.log("学習順041：041独立circuitの実WebSocket切断と再接続案内は検証。C# JSDisconnectedException捕捉はNOT_TESTED。" +
+            console.log("学習順041：041独立circuit実WebSocket切断・BrowserContext offline・再接続案内を検証。C# JSDisconnectedException捕捉はNOT_TESTED。" +
                 " invokeStarted=" + invoked + " invokeCompleted=" + completed +
                 " jsError=" + jsError + " otherError=" + otherError + "。捕捉ログ未成立につき正式受入禁止");
         } else {
-            console.log("学習順041：041独立circuit実WebSocket切断後、C# JSDisconnectedException catchのサーバーログ識別子を検証");
+            console.log("学習順041：041独立circuit実WebSocket切断・BrowserContext offline後、C# JSDisconnectedException catchのサーバーログ識別子を検証");
         }
         await context041.close();
     } catch (error) {
