@@ -1438,7 +1438,7 @@ if [x["id"] for x in ordered[100:105]] != [f"step{old}" for _, old, _ in unit21]
 for seq, old, view_rel in unit21:
     source = f"docs/samples/step{old}.md"
     text_body = (ROOT / source).read_text(encoding="utf-8")
-    view = (LESSONS / "Stage08" / view_rel).read_text(encoding="utf-8")
+    view = (SAMPLES / view_rel).read_text(encoding="utf-8")
     if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
         missing.append(source + "：改稿状態不一致")
     if len(text_body) < 3300 or text_body.count("| ---") < 2 or text_body.count(chr(96) * 3) < 4:
