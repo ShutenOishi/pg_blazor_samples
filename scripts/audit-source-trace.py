@@ -120,6 +120,8 @@ def main():
     prose_paths = [ROOT / x['lesson_path'] for x in mapping]
     prose_paths += sorted((ROOT / 'docs/course-v3/reviews').glob('*.md'))
     prose_paths += sorted((ROOT / 'docs/course-v3/stages').glob('*.md'))
+    # 現行PDFの復習本文に含まれる互換URL/旧番号混在も検査する。
+    prose_paths += [ROOT / f'docs/columns/column{start:02d}-{start+4:02d}.md' for start in (61, 66, 71, 76)]
     prose_paths += [
         ROOT / 'README.md',
         ROOT / 'docs/course-v3/source-index.md',
