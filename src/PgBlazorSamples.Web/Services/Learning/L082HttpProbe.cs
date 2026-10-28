@@ -17,7 +17,7 @@ public static class L082HttpProbe
         context.Response.Headers.CacheControl = "no-store";
         context.Response.Headers["X-Content-Type-Options"] = "nosniff";
         context.Response.Headers["Content-Security-Policy"] =
-            "default-src 'none'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'";
+            "default-src 'none'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'";
         var tokens = antiforgery.GetAndStoreTokens(context);
         var field = WebUtility.HtmlEncode(tokens.FormFieldName);
         var value = WebUtility.HtmlEncode(tokens.RequestToken);
