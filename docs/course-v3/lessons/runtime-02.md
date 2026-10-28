@@ -1,6 +1,6 @@
 # 学習順015：SignalR・circuit・再接続
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor)、[一時状態モデル](../../../src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs)、[隔離Chromeテスト](../../../scripts/browser-circuit-smoke.cjs)、[xUnitテスト](../../../tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs)。画面の正規URLは `/learn/015` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L015CircuitReconnectPage.razor)、[一時状態モデル](../../../src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs)、[隔離Chromeテスト](../../../scripts/browser-circuit-smoke.cjs)、[xUnitテスト](../../../tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs)。画面の正規URLは `/learn/015` です。
 
 ## 学習目標とここまでの接続
 学習順011では入力欄、012では条件付き一覧、013では親から子の値、014では子から親へのイベント通知を確認しました。どれもInteractive ServerではWebサーバーのC#処理とブラウザー表示が連携して動きます。今回の目的は、この対話を支えるSignalRとcircuitの役割、切断・再接続・再読込で何が保証されるかを説明できるようになることです。

@@ -1,6 +1,6 @@
 # 学習順011：入力値を双方向に結び付ける
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step05/BindingPage.razor)。画面の正規URLは `/learn/011` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L011TwoWayBindingPage.razor)。画面の正規URLは `/learn/011` です。
 
 ## この学習の到達目標
 フォームの入力値がどこで保持され、いつC#へ反映され、表示がなぜ変更されるかを理解します。WinFormsのTextBox.TextとTextChangedを知っていても、BlazorではブラウザーがHTMLの入力欄を描画し、Interactive Serverの場合は入力イベントが通信を経由してサーバー側のコンポーネントへ届きます。入力のたびにデータベースへ書き込まれるわけではありません。説明を読んだあと、入力・消去・HTMLエンコード・再読込を順に試し、値の寿命を区別してください。

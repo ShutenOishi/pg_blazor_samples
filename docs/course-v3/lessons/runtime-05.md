@@ -1,6 +1,6 @@
 # 学習順020：circuit・ブラウザー・DBの状態保存の選択
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor)。画面の正規URLは `/learn/020` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor)。画面の正規URLは `/learn/020` です。
 
 ## 到達目標と前提
 `/learn/020`で、画面の一時状態、公開してよい表示設定、複数端末で共有する業務データの保存先を選びます。WinForms＋Dapperでの経験を基に考えると、Formフィールド、ローカル設定、DBの三つを使い分けた場面が対応します。しかしBlazorのInteractive Serverはサーバーでコンポーネントの状態を持ち、ネットワークとcircuitの寿命に依存します。デスクトップのフォームと同じ期間保持されると考えないでください。

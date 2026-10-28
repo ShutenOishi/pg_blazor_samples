@@ -1,6 +1,6 @@
 # 学習順012：条件分岐と繰り返しで表示する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step06/ConditionsPage.razor)。画面の正規URLは `/learn/012` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L012ConditionalRenderingPage.razor)。画面の正規URLは `/learn/012` です。
 
 ## 到達目標と実習環境
 学習順011では入力した文字列を表示に反映しました。今回は、利用者の選択で条件を切り替え、同じデータから異なる一覧を描画する方法を学びます。`@if`・`@else`・`@foreach`・`@key`を組み合わせ、表示する配列と元のデータを区別して説明できることが目標です。WinFormsのCheckBox.CheckedやDataGridViewの行追加に慣れていても、Blazorでは「状態に応じて表示内容を宣言する」書き方を練習します。

@@ -81,15 +81,23 @@ database/
 - **学習順003の第1段階への配置変更（正式受入済み）**：主Razorと隣接CSS isolationを`Components/Lessons/Stage01/L003HtmlCssFormPage.razor`・`.razor.css`へ一緒に移動。正規`/learn/003`と互換`/learn/web-03`を維持する。`App.razor`で生成CSSバンドルを読み込み、Chromeで両URLのHTTP 200、CSS適用（枠線・入力欄・キーボードフォーカス）と従来の入力検証を個別確認する。教材リンク、source-index、source-map、監査JSON、静的検査を同一差分で同期する。Razorに独自DI、C#サービス/DTO、SQL/独自JS呼出しはなく、`App.razor`のInteractiveServerとBlazorのバインディング/C#イベントを使用。配置・参照先の静的検査とChrome動作を独立に確認し、HEAD `3cb5ee03f54c6009ecba9441d1ecfcfddebd57c7`・アプリRun40657167557・PDF40657167596の全成功をPRコメント #6464402707 で正式受入済み。
 - **学習順004の第1段階への配置変更（正式受入済み、PRコメント #6464528813）**：主Razorを`Components/Lessons/Stage01/L004DomNetworkConsolePage.razor`へ移動。正規`/learn/004`と互換`/learn/web-04`を維持し、教材・索引・監査・静的検査を同期。Chromeで正規/互換のDocument HTTP 200および既存のDOM追加削除・対話イベントのDocument再取得なしを検証する。Razorは標準のInteractiveServerとC#イベントを使用し、個別のDIサービス・DTO・SQL・独自JSは直接呼ばない。静的参照存在、Chrome試験、現地受入を混同しない。
 - **依存索引（今回の変更時点）**：001〜005は既存のChrome操作、CSS、App.razor等の実在する参照先を登録。041はJSモジュール・C#補助・xUnit・Chromeの参照を登録し直した。静的登録は個別試験の新しい合格を意味しない。
-- 物理配置を変更した主Razorは学習順001〜010の10件、未移行100件。001〜004は正式受入済み、005〜010は新HEADの全必要CI判定待ち。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
+- 物理配置を変更した主Razorは学習順001〜020の20件、未移行90件。001〜010は正式受入済み、011〜020は新HEADの全必要CI判定待ち。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
 
 
-### 2026-10-28 学習順005〜010バッチ移行（新HEAD CI判定待ち）
+### 2026-10-28 学習順005〜010バッチ移行（正式受入済み）
 
 - 第1段階005・第2段階006〜010の主Razor計6件を一度に移動。ルート定義とC#イベントは維持、009のStatic SSR専用コンポーネント、Program.cs、共通サービスは移動しない。
 - 教材6件・直接索引・source-map・implementation-auditの005/009・静的検査の配置規則を同期。正規URLと互換URLは両方保持する。
 - Gitツリー上の配置・参照先実在は静的証拠。Windows/Ubuntu/PG18/Chrome/PDFは新HEADのCIで確認し、現地実機受入や手動デバッガー実施と区別する。
-- 新HEADの必須CI全成功後、005〜010をまとめてPR #39へ正式受入コメントで記録する。011〜020も依存確認後5〜10件の単位で進める。成功済みCIの手動再実行はしない。
+- 学習順005〜010はHEAD `dc02bd231fdd94b3256c9fd0b88ef796d667c28d` のアプリRun40661222283（Windows/Ubuntu/PG18）・PDF Run40661222230の全SUCCESSを確認し、PRコメント #6465003839 で6件を一括正式受入済み。既存成功CIは再実行しない。
+
+### 2026-10-28 学習順011〜020の10件一括物理移行（新HEAD CI判定待ち）
+
+- Stage02へ次の10主Razorを配置し、旧主Razorを削除した。011 L011TwoWayBindingPage、012 L012ConditionalRenderingPage、013 L013ComponentParametersPage、014 L014EventCallbackPage、015 L015CircuitReconnectPage、016 L016ComponentLifecyclePage、017 L017PrerenderInitializationPage、018 L018ValidatedFormPage、019 L019UrlHistoryStatePage、020 L020StatePersistenceChoicePage。すべて3桁学習順で命名する。
+- 013はStep07/GreetingCard、014はStep08/TopicPicker、016はStep09/LifecycleTracker、018はStep10/PracticeEntryを実際に参照する。子部品と入力モデルは元の場所に残し、主画面の移行だけを理由に複製しない。
+- 015は既存L015CircuitCounter・xUnit・隔離Chromeの依存を維持。017は標準描画ライフサイクルとChrome試験、019はNavigationManagerと履歴試験、020は標準IJSRuntimeによる非機密localStorage保存とChrome試験の既存動作を変更しない。実AD/実Cookie/業務DB受入は示さない。
+- 教材10件、source-index、source-map、implementation-auditの対象4テーマ、静的検査のStage02共通配置規則、Chromeでの正規/互換Document GETを同じ変更単位で同期。静的参照存在と実挙動、実DB/現地受入は別証拠。
+- 新HEADのWindows/Ubuntu Chrome/PG18/PDFの全必要CIがcompleted/SUCCESSとなった場合のみPR #39に正式受入を記録する。既存成功CIの手動再実行、正式PDF Release更新を行わない。
 
 ## 移行順と合格条件
 

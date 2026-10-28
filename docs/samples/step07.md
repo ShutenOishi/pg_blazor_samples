@@ -1,6 +1,6 @@
 # 学習順013：親から子へ値を渡す
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step07/ParametersPage.razor)。画面の正規URLは `/learn/013` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L013ComponentParametersPage.razor)。画面の正規URLは `/learn/013` です。
 
 ## 到達目標と画面の前提
 この学習では、Razorコンポーネントを親画面と子部品に分ける理由を、実際の日本語カード表示を使って理解します。画面のURLは`/learn/013`、親は`ParametersPage.razor`、子は`GreetingCard.razor`です。学習順011の双方向バインディングと012の繰り返し・条件表示を理解していれば始められます。Visual Studio 2026、.NET 10とChromeを使い、AD・DB・Dapper・MudBlazorはこの実習には不要です。

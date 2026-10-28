@@ -1,6 +1,6 @@
 # 学習順014：子から親へ通知する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step08/CallbackPage.razor)。画面の正規URLは `/learn/014` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L014EventCallbackPage.razor)。画面の正規URLは `/learn/014` です。
 
 ## 何をできるようにするか
 学習順013では親が`[Parameter]`を使い、子に表示名を渡しました。次は、子のボタンを押したとき親の状態を変更する方法です。画面`/learn/014`の親`CallbackPage.razor`、子`TopicPicker.razor`を読み、値は親が保持し、子が`EventCallback<string>`を通じて通知する役割分担を理解します。WinFormsのUserControlが独自イベントを公開し、フォームがそのイベントを購読する設計に近いですが、Blazorではコンポーネント引数としてイベントの受け口を渡します。

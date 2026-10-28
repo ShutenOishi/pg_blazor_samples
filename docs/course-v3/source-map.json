@@ -188,11 +188,15 @@
       "stage": 2,
       "lesson_path": "docs/samples/step05.md",
       "app_url": "/learn/05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step05/BindingPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L011TwoWayBindingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/011"
+      "canonical_url": "/learn/011",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage02/L011TwoWayBindingPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 12,
@@ -201,11 +205,15 @@
       "stage": 2,
       "lesson_path": "docs/samples/step06.md",
       "app_url": "/learn/06",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step06/ConditionsPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L012ConditionalRenderingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/012"
+      "canonical_url": "/learn/012",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage02/L012ConditionalRenderingPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 13,
@@ -214,11 +222,16 @@
       "stage": 2,
       "lesson_path": "docs/samples/step07.md",
       "app_url": "/learn/07",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step07/ParametersPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L013ComponentParametersPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/013"
+      "canonical_url": "/learn/013",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step07/GreetingCard.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage02/L013ComponentParametersPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 14,
@@ -227,11 +240,16 @@
       "stage": 2,
       "lesson_path": "docs/samples/step08.md",
       "app_url": "/learn/08",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step08/CallbackPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L014EventCallbackPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/014"
+      "canonical_url": "/learn/014",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step08/TopicPicker.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage02/L014EventCallbackPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 15,
@@ -240,19 +258,18 @@
       "stage": 2,
       "lesson_path": "docs/course-v3/lessons/runtime-02.md",
       "app_url": "/learn/runtime-02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L015CircuitReconnectPage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/015",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs",
         "scripts/browser-circuit-smoke.cjs",
         "tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
         "src/PgBlazorSamples.Web/Components/App.razor"
       ],
-      "notes": "隔離ChromeのWebSocket切断・再接続・保持と再読込初期化、xUnitモデル試験を追加。同一HEAD CI待ち。長時間失効・業務認可は未実証。 015はPRコメント6458156813/成功CIが正式受入根拠。"
+      "notes": "隔離ChromeのWebSocket切断・再接続・保持と再読込初期化、xUnitモデル試験を追加。同一HEAD CI待ち。長時間失効・業務認可は未実証。 015はPRコメント6458156813/成功CIが正式受入根拠。 主RazorをStage02/L015CircuitReconnectPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 16,
@@ -261,11 +278,16 @@
       "stage": 2,
       "lesson_path": "docs/samples/step09.md",
       "app_url": "/learn/09",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step09/LifecyclePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L016ComponentLifecyclePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/016"
+      "canonical_url": "/learn/016",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step09/LifecycleTracker.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage02/L016ComponentLifecyclePage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 17,
@@ -274,17 +296,16 @@
       "stage": 2,
       "lesson_path": "docs/course-v3/lessons/runtime-03.md",
       "app_url": "/learn/runtime-03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/017",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/App.razor"
       ],
-      "notes": "初回Documentと対話型描画のインスタンス識別子を比較。新HEAD CI待ち。 後続受入記録によりHEAD 8bccd513d6f75962f0998f3f2bc1bad51c51b13e、アプリRun40612243279・PDF Run40612243285成功確認済み。"
+      "notes": "初回Documentと対話型描画のインスタンス識別子を比較。新HEAD CI待ち。 後続受入記録によりHEAD 8bccd513d6f75962f0998f3f2bc1bad51c51b13e、アプリRun40612243279・PDF Run40612243285成功確認済み。 主RazorをStage02/L017PrerenderInitializationPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 18,
@@ -293,11 +314,16 @@
       "stage": 2,
       "lesson_path": "docs/samples/step10.md",
       "app_url": "/learn/10",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step10/FormPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L018ValidatedFormPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/018"
+      "canonical_url": "/learn/018",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step10/PracticeEntry.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage02/L018ValidatedFormPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
     {
       "sequence": 19,
@@ -306,12 +332,15 @@
       "stage": 2,
       "lesson_path": "docs/course-v3/lessons/runtime-04.md",
       "app_url": "/learn/runtime-04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/019",
-      "notes": "正規URL、戻る/進む、再読込、未知クエリ値をChromeで検証予定。 前HEAD 499d646のアプリ全3ジョブとPDF成功CIで受入済み。"
+      "notes": "正規URL、戻る/進む、再読込、未知クエリ値をChromeで検証予定。 前HEAD 499d646のアプリ全3ジョブとPDF成功CIで受入済み。 主RazorをStage02/L019UrlHistoryStatePage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 20,
@@ -320,12 +349,15 @@
       "stage": 2,
       "lesson_path": "docs/course-v3/lessons/runtime-05.md",
       "app_url": "/learn/runtime-05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/020",
-      "notes": "表示設定のlocalStorage保存・再読込・値検証を追加。選択候補自体はcircuit一時状態、DB操作なし。 Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
+      "notes": "表示設定のlocalStorage保存・再読込・値検証を追加。選択候補自体はcircuit一時状態、DB操作なし。 Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。 主RazorをStage02/L020StatePersistenceChoicePage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 21,

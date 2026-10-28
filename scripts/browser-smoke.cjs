@@ -69,6 +69,19 @@ async function waitText(page, selector, expected) {
         const page = await browser.newPage({ locale: "ja-JP", viewport: { width: 1280, height: 850 } });
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
+        // 学習順011〜020：移行後も正規・互換Documentが両方HTTP 200を返すか確認する。
+        // 既存のC#イベント、親子、履歴、ブラウザー保存、circuit切断の実操作試験は別に継続。
+        for (const [sequence, compatibility] of [["011","/learn/05"],["012","/learn/06"],["013","/learn/07"],["014","/learn/08"],["015","/learn/runtime-02"],["016","/learn/09"],["017","/learn/runtime-03"],["018","/learn/10"],["019","/learn/runtime-04"],["020","/learn/runtime-05"]]) {
+            const responses = await Promise.all([
+                page.request.get(base + "/learn/" + sequence),
+                page.request.get(base + compatibility)
+            ]);
+            if (responses[0].status() !== 200 || responses[1].status() !== 200) {
+                throw new Error("学習順" + sequence + "の正規/互換GETが不正: " + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順011〜020：正規・互換Document GET 200を全10件確認");
+
 
         // 新第1段階の概要・Web基礎・復習を実ブラウザーで確認する。
         await page.goto(base + "/learn/stage/web");

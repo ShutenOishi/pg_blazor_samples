@@ -1,6 +1,6 @@
 # 学習順017：事前レンダリングと初期化の実行回数
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor)。画面の正規URLは `/learn/017` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor)。画面の正規URLは `/learn/017` です。
 
 ## この学習の目的
 `/learn/017`では、Interactive Serverの「最初にHTMLを返す処理」と「対話を受け付ける処理」を区別します。WinFormsではForm.Loadの実行を一回の画面起動に結び付けて考えがちですが、Blazorは事前レンダリングの設定によって最初の静的HTMLを作るインスタンスと、その後ブラウザーと対話するインスタンスが別になることがあります。表示中の初期化回数だけを見て、サーバー全体のOnInitialized実行回数を数えたつもりにならないでください。

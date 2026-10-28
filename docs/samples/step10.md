@@ -1,6 +1,6 @@
 # 学習順018：入力フォームを日本語で検証する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step10/FormPage.razor)。画面の正規URLは `/learn/018` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L018ValidatedFormPage.razor)。画面の正規URLは `/learn/018` です。
 
 ## 到達目標
 `/learn/018`でEditForm、DataAnnotationsValidator、InputText、InputTextArea、ValidationMessage、OnValidSubmitの関係を理解します。WinFormsでTextBoxやErrorProviderを使った経験があっても、Blazorではモデルの属性とフォームの送信イベントを組み合わせて検証します。この練習で扱うのは架空の表示名と学習メモだけです。DBへの保存、AD認証、業務権限の付与は行いません。

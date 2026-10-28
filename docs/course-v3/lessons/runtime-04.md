@@ -1,6 +1,6 @@
 # 学習順019：URL・履歴・再読込と画面状態
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor)。画面の正規URLは `/learn/019` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor)。画面の正規URLは `/learn/019` です。
 
 ## 到達目標
 `/learn/019`を操作し、URLに記録される表示条件と、コンポーネントのメモリだけに存在する操作回数を区別します。Webのページはアドレスをコピーでき、戻る・進む・再読込で表示できます。WinFormsではフォームのインスタンス変数を保持する設計が自然でも、WebではURLと画面の一時メモリを分けて扱う必要があります。業務DBの保存や利用者の権限までURLに委ねてはいけません。

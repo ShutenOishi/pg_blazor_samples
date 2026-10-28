@@ -132,10 +132,9 @@
       "sequence": "015",
       "lesson_id": "runtime-02",
       "lesson_path": "docs/course-v3/lessons/runtime-02.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L015CircuitReconnectPage.razor",
       "canonical_url": "/learn/015",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs",
         "scripts/browser-circuit-smoke.cjs",
         "tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
@@ -149,16 +148,15 @@
       "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
       "ci_head": "e5c845838aa5c6ac0db381177c8430d96c48e30e",
       "ci_run": 40614453069,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。circuit保持期限超過、実セッション・業務権限の失効と実回線故障はNOT_TESTED。 前HEAD e5c845838aa5c6ac0db381177c8430d96c48e30e のアプリ40614453069全3ジョブ・PDF40614453082成功。PRコメント6458156813が正式な受入証跡。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。circuit保持期限超過、実セッション・業務権限の失効と実回線故障はNOT_TESTED。 前HEAD e5c845838aa5c6ac0db381177c8430d96c48e30e のアプリ40614453069全3ジョブ・PDF40614453082成功。PRコメント6458156813が正式な受入証跡。 主RazorをStage02/L015CircuitReconnectPage.razorへ移行。構造移行は新HEAD CI判定待ち（既存個別機能の受入証拠は変更しない）。"
     },
     {
       "sequence": "017",
       "lesson_id": "runtime-03",
       "lesson_path": "docs/course-v3/lessons/runtime-03.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor",
       "canonical_url": "/learn/017",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/App.razor"
       ],
@@ -170,13 +168,13 @@
       "docs_status": "REVISED_PRIOR_ACCEPTANCE",
       "ci_head": "8bccd513d6f75962f0998f3f2bc1bad51c51b13e",
       "ci_run": 40612243279,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 ランダム識別子は学習用であり、circuitや本人識別子ではない。新HEAD同一CI待ち。 同一HEADのアプリRun40612243279全3ジョブ・PDF Run40612243285 SUCCESSをPRコメント6457848250で確認済み。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 ランダム識別子は学習用であり、circuitや本人識別子ではない。新HEAD同一CI待ち。 同一HEADのアプリRun40612243279全3ジョブ・PDF Run40612243285 SUCCESSをPRコメント6457848250で確認済み。 主RazorをStage02/L017PrerenderInitializationPage.razorへ移行。構造移行は新HEAD CI判定待ち（既存個別機能の受入証拠は変更しない）。"
     },
     {
       "sequence": "019",
       "lesson_id": "runtime-04",
       "lesson_path": "docs/course-v3/lessons/runtime-04.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor",
       "canonical_url": "/learn/019",
       "related_sources": [
         "scripts/browser-smoke.cjs"
@@ -189,15 +187,17 @@
       "docs_status": "REVISED_PRIOR_ACCEPTANCE",
       "ci_head": "499d64636831c347215b4880374e5d709c12d143",
       "ci_run": 40609423073,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 一時カウントが履歴で巻き戻るとは判定しない。CIの同一HEAD成功まで受入保留。 同一HEADアプリ全3ジョブ・PDF成功はPRコメント6457475760に記録。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 一時カウントが履歴で巻き戻るとは判定しない。CIの同一HEAD成功まで受入保留。 同一HEADアプリ全3ジョブ・PDF成功はPRコメント6457475760に記録。 主RazorをStage02/L019UrlHistoryStatePage.razorへ移行。構造移行は新HEAD CI判定待ち（既存個別機能の受入証拠は変更しない）。"
     },
     {
       "sequence": "020",
       "lesson_id": "runtime-05",
       "lesson_path": "docs/course-v3/lessons/runtime-05.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor",
       "canonical_url": "/learn/020",
-      "related_sources": [],
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
       "implemented_behavior": "localStorageによる非機密設定の保存・復元をChromeで確認",
       "missing_behavior": "現状は候補説明だけ。非機密ブラウザー設定の保存実習と認可済みDB例への導線",
@@ -206,7 +206,7 @@
       "docs_status": "REVISED_PRIOR_ACCEPTANCE",
       "ci_head": "668de9e6eadc6b504339fe406190fa38778d742e",
       "ci_run": 40600224239,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 主RazorをStage02/L020StatePersistenceChoicePage.razorへ移行。構造移行は新HEAD CI判定待ち（既存個別機能の受入証拠は変更しない）。"
     },
     {
       "sequence": "041",

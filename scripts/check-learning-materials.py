@@ -27,6 +27,16 @@ _STAGE02_MOVED_PAGES = {
     8: "L008RazorSyntaxPage.razor",
     9: "L009StaticSsrInteractivePage.razor",
     10: "L010EventPage.razor",
+    11: "L011TwoWayBindingPage.razor",
+    12: "L012ConditionalRenderingPage.razor",
+    13: "L013ComponentParametersPage.razor",
+    14: "L014EventCallbackPage.razor",
+    15: "L015CircuitReconnectPage.razor",
+    16: "L016ComponentLifecyclePage.razor",
+    17: "L017PrerenderInitializationPage.razor",
+    18: "L018ValidatedFormPage.razor",
+    19: "L019UrlHistoryStatePage.razor",
+    20: "L020StatePersistenceChoicePage.razor",
 }
 
 
@@ -40,7 +50,7 @@ PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8"
 # 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
 # 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
 disk_steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
-moved_steps = {1: 6, 2: 7, 3: 8, 4: 10}
+moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18}
 steps = sorted(set(disk_steps) | set(moved_steps))
 if not steps:
     raise SystemExit("教材検査エラー：実装済みのステップがありません。")
@@ -154,7 +164,8 @@ if len(newpaths) == 5:
 runtime_ids = ["runtime-01", "runtime-02", "runtime-03", "runtime-04", "runtime-05"]
 for n, lesson_id in enumerate(runtime_ids, 1):
     item = next((item for item in ordered if item["id"] == lesson_id), None)
-    razor = (LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[9]) if n == 1 else SAMPLES / "Runtime" / f"Runtime{n:02d}Page.razor"
+    seq = {1: 9, 2: 15, 3: 17, 4: 19, 5: 20}[n]
+    razor = LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[seq]
     if not item or not item["implementation"].startswith("implemented"):
         missing.append(lesson_id + "：学習順の実装状態が不正")
         continue
@@ -473,17 +484,19 @@ if not (
     < home.index('>学習順011〜015の復習</a>') < home.index('>学習順016を開く</a>')
 ):
     missing.append("Web目次内の第2・第3組の復習位置が不正")
-for relative, target in [
-    ("Step05/BindingPage.razor", 'href="/learn/012"'),
-    ("Step06/ConditionsPage.razor", 'href="/learn/013"'),
-    ("Step07/ParametersPage.razor", 'href="/learn/014"'),
-    ("Step08/CallbackPage.razor", 'href="/learn/015"'),
-    ("Runtime/Runtime02Page.razor", 'href="/learn/column/runtime-15"'),
-    ("Runtime/RuntimeReview03Page.razor", 'href="/learn/016"'),
+for number, target in [
+    (11, 'href="/learn/012"'),
+    (12, 'href="/learn/013"'),
+    (13, 'href="/learn/014"'),
+    (14, 'href="/learn/015"'),
+    (15, 'href="/learn/column/runtime-15"'),
 ]:
-    page = SAMPLES / relative
+    page = LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[number]
     if not page.is_file() or target not in page.read_text(encoding="utf-8"):
-        missing.append(relative + "：第3組の前後リンクが不正")
+        missing.append(str(page.relative_to(ROOT)) + "：第3組の前後リンクが不正")
+review_page = SAMPLES / "Runtime" / "RuntimeReview03Page.razor"
+if not review_page.is_file() or 'href="/learn/016"' not in review_page.read_text(encoding="utf-8"):
+    missing.append(str(review_page.relative_to(ROOT)) + "：第3組の前後リンクが不正")
 
 # 学習順016〜020・第4組の全面改稿品質とPDF・Web画面の導線を検査する。
 fourth_group = [
@@ -515,16 +528,19 @@ if -1 in fourth_positions or fourth_positions != sorted(fourth_positions) or not
 review_four = (ROOT / "docs/course-v3/reviews/review-04.md").read_text(encoding="utf-8")
 if len(review_four) < 2600 or review_four.count("| ---") < 2 or review_four.count("```") < 4 or "解答" not in review_four:
     missing.append("第4組の復習は長文・比較/診断表・コード・詳しい解答が必要")
-for relative, expected in [
-    ("Step09/LifecyclePage.razor", 'href="/learn/017"'),
-    ("Runtime/Runtime03Page.razor", 'href="/learn/018"'),
-    ("Step10/FormPage.razor", 'href="/learn/019"'),
-    ("Runtime/Runtime04Page.razor", 'href="/learn/020"'),
-    ("Runtime/Runtime05Page.razor", 'href="/learn/column/runtime-20"'),
-    ("Runtime/RuntimeReview04Page.razor", 'href="/learn/021"'),
+for number, expected in [
+    (16, 'href="/learn/017"'),
+    (17, 'href="/learn/018"'),
+    (18, 'href="/learn/019"'),
+    (19, 'href="/learn/020"'),
+    (20, 'href="/learn/column/runtime-20"'),
 ]:
-    if expected not in (SAMPLES / relative).read_text(encoding="utf-8"):
-        missing.append(relative + "：第4組の前後リンク不一致")
+    page = LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[number]
+    if not page.is_file() or expected not in page.read_text(encoding="utf-8"):
+        missing.append(str(page.relative_to(ROOT)) + "：第4組の前後リンク不一致")
+review_page = SAMPLES / "Runtime" / "RuntimeReview04Page.razor"
+if not review_page.is_file() or 'href="/learn/021"' not in review_page.read_text(encoding="utf-8"):
+    missing.append(str(review_page.relative_to(ROOT)) + "：第4組の前後リンク不一致")
 for _, url, _ in fourth_group:
     if not indexed_home(url):
         missing.append(url + "：Web目次に第4組の学習URLが不足")
@@ -1472,7 +1488,7 @@ for entry in mapped_lessons:
 
 # 互換用のページ定義は維持し、画面内の移動先は正規URLへ統一する。
 compatibility = {entry["app_url"] for entry in mapped_lessons}
-for view_file in SAMPLES.rglob("*.razor"):
+for view_file in list(SAMPLES.rglob("*.razor")) + list(LESSONS.rglob("*.razor")):
     view_text = view_file.read_text(encoding="utf-8")
     for target in re.findall(r'href="([^"]+)"', view_text):
         if target in compatibility:

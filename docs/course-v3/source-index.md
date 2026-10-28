@@ -30,16 +30,16 @@
 | 008 | RazorでC#の値を表示する | [本文](../samples/step03.md) | `/learn/008` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor) |
 | 009 | Static SSRとInteractive Serverの違い | [本文](../course-v3/lessons/runtime-01.md) | `/learn/009` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor) |
 | 010 | ボタンのイベントを扱う | [本文](../samples/step04.md) | `/learn/010` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor) |
-| 011 | 入力値を双方向に結び付ける | [本文](../samples/step05.md) | `/learn/011` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step05/BindingPage.razor) |
-| 012 | 条件分岐と繰り返しで表示する | [本文](../samples/step06.md) | `/learn/012` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step06/ConditionsPage.razor) |
-| 013 | 親から子へ値を渡す | [本文](../samples/step07.md) | `/learn/013` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step07/ParametersPage.razor) |
-| 014 | 子から親へ通知する | [本文](../samples/step08.md) | `/learn/014` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step08/CallbackPage.razor) |
-| 015 | SignalR・circuit・再接続 | [本文](../course-v3/lessons/runtime-02.md) | `/learn/015` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor) |
-| 016 | 初期化・更新・破棄を理解する | [本文](../samples/step09.md) | `/learn/016` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step09/LifecyclePage.razor) |
-| 017 | 事前レンダリングと初期化の実行回数 | [本文](../course-v3/lessons/runtime-03.md) | `/learn/017` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor) |
-| 018 | 入力フォームを日本語で検証する | [本文](../samples/step10.md) | `/learn/018` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step10/FormPage.razor) |
-| 019 | URL・履歴・再読込と画面状態 | [本文](../course-v3/lessons/runtime-04.md) | `/learn/019` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor) |
-| 020 | circuit・ブラウザー・DBの状態保存の選択 | [本文](../course-v3/lessons/runtime-05.md) | `/learn/020` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime05Page.razor) |
+| 011 | 入力値を双方向に結び付ける | [本文](../samples/step05.md) | `/learn/011` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L011TwoWayBindingPage.razor) |
+| 012 | 条件分岐と繰り返しで表示する | [本文](../samples/step06.md) | `/learn/012` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L012ConditionalRenderingPage.razor) |
+| 013 | 親から子へ値を渡す | [本文](../samples/step07.md) | `/learn/013` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L013ComponentParametersPage.razor) |
+| 014 | 子から親へ通知する | [本文](../samples/step08.md) | `/learn/014` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L014EventCallbackPage.razor) |
+| 015 | SignalR・circuit・再接続 | [本文](../course-v3/lessons/runtime-02.md) | `/learn/015` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L015CircuitReconnectPage.razor) |
+| 016 | 初期化・更新・破棄を理解する | [本文](../samples/step09.md) | `/learn/016` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L016ComponentLifecyclePage.razor) |
+| 017 | 事前レンダリングと初期化の実行回数 | [本文](../course-v3/lessons/runtime-03.md) | `/learn/017` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor) |
+| 018 | 入力フォームを日本語で検証する | [本文](../samples/step10.md) | `/learn/018` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L018ValidatedFormPage.razor) |
+| 019 | URL・履歴・再読込と画面状態 | [本文](../course-v3/lessons/runtime-04.md) | `/learn/019` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor) |
+| 020 | circuit・ブラウザー・DBの状態保存の選択 | [本文](../course-v3/lessons/runtime-05.md) | `/learn/020` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor) |
 
 ## 第3段階：DI・サービスと単体テスト（学習順021〜030）
 

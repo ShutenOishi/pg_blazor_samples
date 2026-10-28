@@ -1,6 +1,6 @@
 # 学習順016：初期化・更新・破棄を理解する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step09/LifecyclePage.razor)。画面の正規URLは `/learn/016` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L016ComponentLifecyclePage.razor)。画面の正規URLは `/learn/016` です。
 
 ## 到達目標と前提
 この学習では、Blazorのコンポーネントが生成されてから破棄されるまでの流れを、親と子の画面を操作して確認します。対象画面は `/learn/016` です。WinFormsでForm.Load、プロパティ変更、Form.Disposeを使った経験を活かしつつ、Blazor固有のライフサイクルの違いを理解してください。特に「画面の表示が変わった」「親から新しい値が届いた」「子のインスタンスを作り直した」は異なる出来事です。
