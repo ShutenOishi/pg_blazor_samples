@@ -6,7 +6,7 @@
 
 Web画面の見た目や入力欄はWinFormsの`TextBox`や`Label`のようにC#だけで宣言されるのではなく、**HTMLが要素の意味を定義し、CSSが表示方法を指定**します。このステップでは、入力欄へ文字を入力してプレビューへ反映し、`label`と`input`の結び付け、Razorの双方向バインディング、CSSのスタイル指定を説明できることを目指します。
 
-対象ファイルは`Web03Page.razor`と`Web03Page.razor.css`です。実習では日本語の架空の名前だけを扱い、個人情報やDBは使用しません。
+対象ファイルは[Web03Page.razor](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor)と[Web03Page.razor.css](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor.css)です。実習では架空の名前だけを扱い、個人情報やDBは使用しません。検証の自動試験は[scripts/browser-smoke.cjs](../../../scripts/browser-smoke.cjs)で確認します。
 
 ## 1. WinFormsコントロールとの対応
 
@@ -30,22 +30,49 @@ Webでは`<div>`を並べるだけでなく、見出しには`<h1>`や`<h2>`、�
     <h2>ラベルと入力欄を使う</h2>
     <label for="web03-name">練習用の名前</label>
     <input id="web03-name" type="text" maxlength="30"
-           @bind="name" @bind:event="oninput" />
+           @bind="name" @bind:event="oninput" @bind:after="ResetValidation" />
     <p role="status" data-testid="web03-preview">
         入力内容：@(string.IsNullOrWhiteSpace(name) ? "未入力" : name)
     </p>
+    <button type="button" @onclick="ValidateName">サーバー側で入力を検証する</button>
+    <p role="status" aria-live="polite" data-testid="web03-validation">@validationMessage</p>
 </section>
 
 @code {
     private string name = "";
+    private string validationMessage = "未検証";
+
+    private void ResetValidation() => validationMessage = "未検証";
+
+    private void ValidateName()
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            validationMessage = "未入力のため拒否しました。";
+        }
+        else if (name.Length > 30)
+        {
+            validationMessage = "30文字を超えたため拒否しました。";
+        }
+        else
+        {
+            validationMessage = "入力を受け付けました（保存はしていません）。";
+        }
+    }
 }
 ```
 
-`for="web03-name"`と`id="web03-name"`が一致しているため、ラベルをクリックすると対応する入力欄を操作できます。`maxlength="30"`はHTML側での入力文字数制限ですが、**サーバー側の業務入力検証の代わりにはなりません**。後のフォーム検証のステップで、サーバー側も検証する必要があることを学びます。
+`for="web03-name"`と`id="web03-name"`が一致しているため、ラベルをクリックすると対応する入力欄を操作できます。`maxlength="30"`はHTML側の入力文字数制限です。開発者ツールで属性を取り除くこともできるため、**C#側でも空欄と30文字超を別々に拒否します**。この教材は結果の表示までで、名前をDBやファイルに保存しません。業務の入力検証・認可・保存処理とは区別してください。
 
-`@bind="name"`はHTMLの入力とC#のフィールドを関連付けます。`@bind:event="oninput"`を指定しているので、このページでは入力のたびに`name`へ反映されます。既定の`onchange`とのタイミングの違いにも注意してください。`string.IsNullOrWhiteSpace(name)`は空文字や空白だけの入力を「未入力」と表示するためのC#式です。
+`@bind="name"`はHTMLの入力とC#のフィールドを関連付けます。入力後に`@bind:after="ResetValidation"`が呼ばれ、過去の検証結果を「未検証」に戻します。`@bind:event="oninput"`を指定しているので、このページでは入力のたびに`name`へ反映されます。既定の`onchange`とのタイミングの違いにも注意してください。`string.IsNullOrWhiteSpace(name)`は空文字や空白だけの入力を「未入力」と表示するためのC#式です。
 
 **Razorが文字列を表示する際はHTMLエンコードします。** たとえば入力した`<b>練習</b>`は通常の文字列として表示し、実際の太字タグにはしません。機密情報の入力を許可するという意味ではなく、HTMLとして解釈させない基本的な防御です。
+
+### C#側の検証を実際に動かす
+
+「サーバー側で入力を検証する」を押すと、`ValidateName()`がサーバー側で実行されます。通常の入力は受け付け、空欄・空白だけの入力、30文字超の入力は拒否します。`maxlength`を一時的に外して31文字入力した場合も、C#の`name.Length > 30`で拒否します。`name.Length`は.NET文字列のUTF-16コード単位で計数するため、文字の種類によって見た目の文字数とは異なる場合があります。ここでの学習条件は30コード単位までです。
+
+受け付けた場合も保存はしません。表示された「受け付けました」という結果だけで、業務DBへ登録されたとは判断できません。
 
 ## 3. CSSの実コードとスコープ
 
@@ -99,6 +126,9 @@ WinFormsで`TextBox.TextChanged`から`Label.Text`を更新する経験は役立
 5. キーボードのTabキーで入力欄へ移動し、フォーカスの輪郭を観察します。
 6. ブラウザーの拡大率を上げても、入力欄が親領域より不自然に広くならないか確認します。
 7. 文字列`<b>練習</b>`を入力し、HTML要素として実行・描画されないことを確認します。
+8. `練習太郎`を入力して「サーバー側で入力を検証する」を押し、保存なしの受入表示を確認します。
+9. 入力を空にして同じボタンを押し、「未入力のため拒否しました。」を確認します。
+10. 学習用ページでだけ開発者ツールから`maxlength`を外し、`あ`を31文字入力して検証します。「30文字を超えたため拒否しました。」となることを確認し、再読み込みして元の属性へ戻します。実際の業務入力や本番環境では実施しません。
 
 ## 6. エラー・失敗時の切り分け
 
@@ -109,6 +139,8 @@ WinFormsで`TextBox.TextChanged`から`Label.Text`を更新する経験は役立
 | 画面が更新されない | Blazorの接続が切れた | Networkと接続表示、サーバーログを確認 |
 | CSSが効かない | CSSファイル名やクラス名の違い | `.razor.css`と`class`を確認 |
 | タグのような文字が表示される | Razorが安全にエンコードしている | DOMに実際の`b`要素がないことを確認 |
+| 30文字超がC#で受理される | HTML側制限だけで判定している | `ValidateName()`の文字数条件とテストを確認 |
+| 入力を変えても古い判定が残る | `ResetValidation()`が呼ばれない | `@bind:after`と「未検証」への更新を確認 |
 
 ## 7. 演習と解答
 
@@ -134,5 +166,7 @@ WinFormsで`TextBox.TextChanged`から`Label.Text`を更新する経験は役立
 - [ ] `@bind`と`oninput`のタイミングを説明できた。
 - [ ] `.razor.css`の各プロパティと画面の対応を確認できた。
 - [ ] HTMLエンコードの結果と表示されるDOMを区別できた。
+- [ ] ブラウザー側の`maxlength`とC#側の空欄・上限拒否をそれぞれ確認できた。
+- [ ] [Chrome試験ソース](../../../scripts/browser-smoke.cjs)で正常系・異常系の期待値を確認できた。
 
 次は[学習順004：開発者ツール](web-04.md)で、実際のHTML要素と通信を観察します。
