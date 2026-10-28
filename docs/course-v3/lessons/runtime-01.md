@@ -1,6 +1,6 @@
 # 学習順009：Static SSRとInteractive Serverの違い
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor)。画面の正規URLは `/learn/009` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor)、[Static SSR用Razor](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor)、[GET経路のProgram.cs](../../../src/PgBlazorSamples.Web/Program.cs)。画面の正規URLは `/learn/009` です。
 
 ## 到達目標と前提
 
@@ -34,7 +34,7 @@ Blazor Web Appで初めに混同しやすいのは「HTMLが見えたこと」�
 
 ### Static SSRの実装と負例
 
-[静的Razorコンポーネント](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor) と [Program.csの専用GET経路](../../../src/PgBlazorSamples.Web/Program.cs)を確認します。`RazorComponentResult`はコンポーネントを静的HTMLとして返し、SignalRの対話回線を開始しません。
+冒頭の実装ソース欄にある`StaticSsr009Component.razor`と`Program.cs`の専用GET経路を確認します。`RazorComponentResult`はコンポーネントを静的HTMLとして返し、SignalRの対話回線を開始しません。
 
 ```csharp
 app.MapGet("/__learning_static_ssr_009__", (int? count) =>
