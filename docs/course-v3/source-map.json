@@ -2002,11 +2002,23 @@
       "stage": 8,
       "lesson_path": "docs/samples/step76.md",
       "app_url": "/learn/76",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step76/ConcurrentEditPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L101ConcurrentEditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/101"
+      "canonical_url": "/learn/101",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "tests/PgBlazorSamples.UnitTests/LearningFinalIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 102,
@@ -2015,11 +2027,20 @@
       "stage": 8,
       "lesson_path": "docs/samples/step77.md",
       "app_url": "/learn/77",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step77/AuthorizedCachePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L102AuthorizedCachePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/102"
+      "canonical_url": "/learn/102",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/AuthorizedLessonHintCache.cs",
+        "database/schema/002_app_access.sql",
+        "tests/PgBlazorSamples.UnitTests/AuthorizedLessonHintCacheTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 103,
@@ -2028,11 +2049,18 @@
       "stage": 8,
       "lesson_path": "docs/samples/step78.md",
       "app_url": "/learn/78",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step78/DiagnosticsPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L103DiagnosticsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/103"
+      "canonical_url": "/learn/103",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "database/schema/002_app_access.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 104,
@@ -2041,11 +2069,23 @@
       "stage": 8,
       "lesson_path": "docs/samples/step79.md",
       "app_url": "/learn/79",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step79/EndToEndAcceptancePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L104EndToEndAcceptancePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/104"
+      "canonical_url": "/learn/104",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 105,
@@ -2054,11 +2094,23 @@
       "stage": 8,
       "lesson_path": "docs/samples/step80.md",
       "app_url": "/learn/80",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step80/DeploymentPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L105DeploymentPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/105"
+      "canonical_url": "/learn/105",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs",
+        "docs/course-v3/on-site-acceptance-plan.md"
+      ]
     },
     {
       "sequence": 106,
@@ -2067,13 +2119,13 @@
       "stage": 9,
       "lesson_path": "docs/course-v3/lessons/capstone-01.md",
       "app_url": "/learn/capstone-01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L106RequirementFlowPage.razor",
       "audit_state": "simulation",
       "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/106",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L106RequirementFlowPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L106RequirementFlow.cs",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
@@ -2092,13 +2144,13 @@
       "stage": 9,
       "lesson_path": "docs/course-v3/lessons/capstone-02.md",
       "app_url": "/learn/capstone-02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/107",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
@@ -2116,13 +2168,13 @@
       "stage": 9,
       "lesson_path": "docs/course-v3/lessons/capstone-03.md",
       "app_url": "/learn/capstone-03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L108DtoEditPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/108",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L108DtoEditPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L108SubmissionGate.cs",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
@@ -2142,13 +2194,13 @@
       "stage": 9,
       "lesson_path": "docs/course-v3/lessons/capstone-04.md",
       "app_url": "/learn/capstone-04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L109PermissionAuditPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/109",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L109PermissionAuditPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
         "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
@@ -2165,13 +2217,13 @@
       "stage": 9,
       "lesson_path": "docs/course-v3/lessons/capstone-05.md",
       "app_url": "/learn/capstone-05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L110AcceptanceLedgerPage.razor",
       "audit_state": "simulation",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/110",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage09/L110AcceptanceLedgerPage.razor",
         "src/PgBlazorSamples.Web/Services/Learning/L110AcceptanceLedger.cs",
         "tests/PgBlazorSamples.UnitTests/L110AcceptanceLedgerTests.cs",
         "scripts/browser-smoke.cjs",

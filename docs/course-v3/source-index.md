@@ -150,21 +150,21 @@
 | 098 | 権限行ロックと更新の原子性 | [本文](../samples/step73.md) | `/learn/098` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L098TransactionalAuthorizationPage.razor) |
 | 099 | 本人・操作・結果を永続監査する | [本文](../samples/step74.md) | `/learn/099` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L099DurableAuditPage.razor) |
 | 100 | IIS・Kerberos・負荷・障害の実機受入 | [本文](../samples/step75.md) | `/learn/100` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L100IisAcceptancePage.razor) |
-| 101 | 二人の編集競合とxmin | [本文](../samples/step76.md) | `/learn/101` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step76/ConcurrentEditPage.razor) |
-| 102 | キャッシュの有効期限と権限失効 | [本文](../samples/step77.md) | `/learn/102` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step77/AuthorizedCachePage.razor) |
-| 103 | ヘルスチェック・構造化ログ・運用監視 | [本文](../samples/step78.md) | `/learn/103` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step78/DiagnosticsPage.razor) |
-| 104 | 実DB・ブラウザー・認可の結合/E2E試験 | [本文](../samples/step79.md) | `/learn/104` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step79/EndToEndAcceptancePage.razor) |
-| 105 | Windows Server 2025/IISの配布・切替・復旧 | [本文](../samples/step80.md) | `/learn/105` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step80/DeploymentPage.razor) |
+| 101 | 二人の編集競合とxmin | [本文](../samples/step76.md) | `/learn/101` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L101ConcurrentEditPage.razor) |
+| 102 | キャッシュの有効期限と権限失効 | [本文](../samples/step77.md) | `/learn/102` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L102AuthorizedCachePage.razor) |
+| 103 | ヘルスチェック・構造化ログ・運用監視 | [本文](../samples/step78.md) | `/learn/103` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L103DiagnosticsPage.razor) |
+| 104 | 実DB・ブラウザー・認可の結合/E2E試験 | [本文](../samples/step79.md) | `/learn/104` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L104EndToEndAcceptancePage.razor) |
+| 105 | Windows Server 2025/IISの配布・切替・復旧 | [本文](../samples/step80.md) | `/learn/105` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L105DeploymentPage.razor) |
 
 ## 第9段階：業務アプリの通し演習（学習順106〜110）
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 106 | 業務要件・画面遷移・WinForms移行の設計 | [本文](../course-v3/lessons/capstone-01.md) | `/learn/106` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor) |
-| 107 | PostgreSQL検索とページング・生成SQL | [本文](../course-v3/lessons/capstone-02.md) | `/learn/107` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor) |
-| 108 | DTO編集・競合・取消・例外の統合 | [本文](../course-v3/lessons/capstone-03.md) | `/learn/108` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor) |
-| 109 | 認証済み本人と既存台帳による権限・監査 | [本文](../course-v3/lessons/capstone-04.md) | `/learn/109` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor) |
-| 110 | E2E・障害復旧・IIS受入表 | [本文](../course-v3/lessons/capstone-05.md) | `/learn/110` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor) |
+| 106 | 業務要件・画面遷移・WinForms移行の設計 | [本文](../course-v3/lessons/capstone-01.md) | `/learn/106` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L106RequirementFlowPage.razor) |
+| 107 | PostgreSQL検索とページング・生成SQL | [本文](../course-v3/lessons/capstone-02.md) | `/learn/107` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor) |
+| 108 | DTO編集・競合・取消・例外の統合 | [本文](../course-v3/lessons/capstone-03.md) | `/learn/108` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L108DtoEditPage.razor) |
+| 109 | 認証済み本人と既存台帳による権限・監査 | [本文](../course-v3/lessons/capstone-04.md) | `/learn/109` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L109PermissionAuditPage.razor) |
+| 110 | E2E・障害復旧・IIS受入表 | [本文](../course-v3/lessons/capstone-05.md) | `/learn/110` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L110AcceptanceLedgerPage.razor) |
 
 ## 詳細照合
 

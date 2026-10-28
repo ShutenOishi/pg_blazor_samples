@@ -1,6 +1,6 @@
 # 学習順104：実DB・ブラウザー・認可の結合/E2E試験
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step79/EndToEndAcceptancePage.razor)。画面の正規URLは `/learn/104` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L104EndToEndAcceptancePage.razor)。画面の正規URLは `/learn/104` です。
 
 **第8段階・第21組／学習順104・旧URL /learn/104**
 

@@ -1,6 +1,6 @@
 # 学習順101：二人の編集競合とxmin
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step76/ConcurrentEditPage.razor)。画面の正規URLは `/learn/101` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L101ConcurrentEditPage.razor)。画面の正規URLは `/learn/101` です。
 
 **第8段階・第21組／学習順101・旧URL /learn/101**
 

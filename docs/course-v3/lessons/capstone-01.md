@@ -1,6 +1,6 @@
 # 学習順106：業務要件・画面遷移・WinForms移行の設計
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor)。画面の正規URLは `/learn/106` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L106RequirementFlowPage.razor)。画面の正規URLは `/learn/106` です。
 
 ## 業務の要件を画面とサービスへ分割する
 対象は架空の課題一覧・編集・CSVです。Capstone01Page.razorでlist、edit、exportを切り替えると要件の説明を表示します。「認可付きサービス入口を実行する」から、既存SecuredLearningServiceのLoadPageAsync・AuthorizeAsync(forEdit: true)＋GetDetailAsync・ExportCsvAsyncを選択してサーバーで呼び出します。認可と監査が成立しない場合は結果を公開せず拒否します。編集の保存は学習順108でのみ実行し、106ではDBを更新しません。listでは所属部署のCountとItemsの同一条件、editでは詳細DTO・取消・保存直前認可・xmin・監査、exportでは100件上限・部署範囲・監査が必要です。WinFormsのフォームイベントからDapper SQLを直接実行していた場合、入力や画面遷移と認可処理が混在しがちです。Razorを表示の担当、SecuredLearningServiceを認可と処理の入口、DBを検索・更新・監査の担当と定めます。設計レビューでは未認証、部署変更、権限失効、監査障害、競合を失敗条件として書き出します。

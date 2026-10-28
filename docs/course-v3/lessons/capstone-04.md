@@ -1,6 +1,6 @@
 # 学習順109：認証済み本人と既存台帳による権限・監査
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor)。画面の正規URLは `/learn/109` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L109PermissionAuditPage.razor)。画面の正規URLは `/learn/109` です。
 
 ## ADと業務権限の担当
 Active Directoryは本人認証とログイン名の取得までです。WindowsUserAccessServiceが既存PostgreSQL台帳の有効性、所属部署、閲覧・編集の権限を確認します。Capstone04Page.razorでは閲覧の認可前提、編集権限の再確認、部署別一覧と完了別集計を別々のボタンで呼びます。編集の確認ボタンは保存を行いません。一覧はBusiness.LoadPageAsync(new(0, 10))、集計はBusiness.CountByDoneAsyncを呼び、いずれも現在の部署・既存台帳による都度認可と業務監査を通します。集計はBusiness.CountByDoneAsyncを通して部署の完了・未完了件数を取得します。監査の永続化が失敗したら結果を返しません。匿名Chromeでは閲覧/編集権限、部署一覧、集計の4経路が拒否され、業務件数は0件です。PostgreSQL18のSecuredLearningIntegrationTestsでは、固定の架空Negotiate主体で閲覧可・編集不可を区別し、台帳の編集権限変更、閲覧失効、無効化、台帳削除を同一業務サービスで再確認します。集計task.summaryの永続監査と部署分離は実DBで別途確認し、模擬Principalを実AD認証成功とは扱いません。WinForms＋Dapperでログオン名を取得しただけで業務を許可してはいけないのと同様、Blazorでも既存台帳の照合が必要です。ログイン名を画面に表示してデバッグしません。実IIS/NegotiateとKerberos/SPNの本人認証は現地受入に残ります。

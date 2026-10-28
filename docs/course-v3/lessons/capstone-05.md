@@ -1,6 +1,6 @@
 # 学習順110：E2E・障害復旧・IIS受入表
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor)。画面の正規URLは `/learn/110` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L110AcceptanceLedgerPage.razor)。画面の正規URLは `/learn/110` です。
 
 ## 自動試験と現地受入
 Capstone05Page.razorには教材・実装の一致、CI証跡、拒否の検証、実IIS/AD/Kerberos・負荷・復旧の四項目があります。加えてL110AcceptanceLedgerの読み取り専用未実施一覧を表示し、CIはNOT_VERIFIED、PRE-01〜07はNOT_RUN 7/7、SITE-01〜15はPASS 0/15・NOT_RUN 15/15と明示します。ここでいうNOT_VERIFIEDはGitHub CIが未成功という意味ではなく、画面が現在のHEADとRunを自動照合しないという意味です。正式な実証はGitHub上の同一HEAD CI、現地PRE承認、SITE実測と署名を独立に照合します。すべて選んでも「本番受入を宣言できません」と表示され、チェック欄だけで現地証拠を作らない仕様です。L110AcceptanceLedgerTestsではPRE/SITE件数と全NOT_RUN、すべての自己点検欄を選んでも判定が変わらないことを検証し、Chromeでも22行と独立区分、チェック操作後のPASS0を検査します。Windows Server 2025 Release、Linux Chrome、xUnit、PostgreSQL18のCIは自動検証です。CapstoneIntegrationTestsでは架空12行の検索、10行ページング、xmin競合とRollbackを試します。実IIS、Kerberos/SPN、HTTPS、Data Protection鍵、FDW、1万人超登録・同時circuit・DBプール、切戻しは未受入であり、実機と運用ログで検証します。WinForms＋Dapperのデスクトップ導入試験とWebサービスのサーバー側運用受入を同一視しません。

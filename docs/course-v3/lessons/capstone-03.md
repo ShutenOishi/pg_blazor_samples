@@ -1,6 +1,6 @@
 # 学習順108：DTO編集・競合・取消・例外の統合
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor)。画面の正規URLは `/learn/108` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L108DtoEditPage.razor)。画面の正規URLは `/learn/108` です。
 
 ## 詳細DTOと保存直前認可
 Capstone03Page.razorは課題番号を指定してBusiness.GetDetailAsyncで認可済み詳細を読み込みます。結果を得る前に古い_detailと_titleを消し、匿名時には編集欄を表示しません。取消は画面のDTOを破棄し、DBを更新しません。読込中と保存中は関連フォームを無効にし、L108SubmissionGateが同じ画面の二重保存イベントを拒否します。終了時はfinallyでガードを解除します。画面の二重送信防止だけでは業務認可・DB排他を保証できず、サービスでも毎回検査します。保存時には課題名の1〜100文字を検証し、読込時のVersionを含むLearningEditInputをBusiness.SaveAsyncに渡します。サービスはAuthorizeAsync(forEdit: true)で最新の編集権限を確認し、同一トランザクションのCheckLockedEditAsyncで正本行をロックします。Version不一致ならConflict、監査INSERT失敗ならコミットせずエラーです。WinForms＋Dapperと同様に更新競合を扱いますが、Blazorのcircuitで以前読んだ権限を使い続けないことに注意します。

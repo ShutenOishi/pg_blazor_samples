@@ -1,6 +1,6 @@
 # 学習順103：ヘルスチェック・構造化ログ・運用監視
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step78/DiagnosticsPage.razor)。画面の正規URLは `/learn/103` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L103DiagnosticsPage.razor)。画面の正規URLは `/learn/103` です。
 
 **第8段階・第21組／学習順103・旧URL /learn/103**
 

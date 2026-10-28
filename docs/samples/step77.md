@@ -1,6 +1,6 @@
 # 学習順102：キャッシュの有効期限と権限失効
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step77/AuthorizedCachePage.razor)。画面の正規URLは `/learn/102` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L102AuthorizedCachePage.razor)。画面の正規URLは `/learn/102` です。
 
 **第8段階・第21組／学習順102・旧URL /learn/102**
 

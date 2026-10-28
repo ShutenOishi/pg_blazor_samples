@@ -1,6 +1,6 @@
 # 学習順107：PostgreSQL検索とページング・生成SQL
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)。画面の正規URLは `/learn/107` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor)。画面の正規URLは `/learn/107` です。
 
 ## SQLの変換とDB実行を分ける
 Capstone02Page.razorのSQL表示はFactory.CreateDbContextでLINQ式を組み立て、ToQueryStringで文字列を得る処理です。架空の部署DEMOはSQLの例示にだけ使い、本人の所属部署ではありません。「権限付き一覧を取得する」はBusiness.LoadPageAsyncを呼び、AuthorizeAsyncで実際の本人・台帳・監査を確認してからDBアクセスします。Visible(db, permit.Unit)のqueryへ検索条件を重ね、同じqueryでCountAsyncとID昇順のSkip/Takeを計算します。画面は1ページ最大10件で前後ページ操作ができ、サービスのMaxPageSizeは50件です。前後ページでは同じSecuredLearningService.LoadPageAsyncへ0始まりのページ番号を渡します。操作ごとに本人・台帳と部署・監査を再評価するため、画面に残るページ番号を認可の代用にしません。WinForms＋Dapperの場合もWHERE句の認可条件を外したCountは情報漏えいになります。EF Coreが自動SQLを生成しても認可が自動で付くわけではありません。

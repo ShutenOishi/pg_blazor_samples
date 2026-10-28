@@ -72,7 +72,7 @@ database/
 
 **学習順052**：現在の[教材](lessons/db-bridge-02.md)から[L052SqlAndLinqPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
 
-**学習順107**：現在の[教材](lessons/capstone-02.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
+**学習順107**：現在の[教材](lessons/capstone-02.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
 
 ## 段階的な移行記録
 
@@ -171,3 +171,10 @@ database/
 - 正規`/learn/091〜100`と互換`/learn/66〜75`を保ち、10教材のRazorリンク、source-index/mapの関連ソース、Python第19/20組と配置検査、Chromeの正規/互換20経路GETを同期する。
 - 091〜095・098〜100は既存`SecuredLearningService`、096〜097は`WindowsUserAccessService`を直接利用。行認可・`xmin`競合・永続監査・権限失効時拒否、LearningAuditService、DB/SQL、Program.cs/DI、既存テストは変更・複製しない。ファイル実在やGET 200だけで意味的依存・実DB・現地SITE合格とは判定しない。
 - 新HEADのWindows/Ubuntu実Chrome/PostgreSQL18/PDF**ソース検証のみ**の全必要CIと全ジョブ`completed/SUCCESS`までは正式構造受入を90/110で維持。既存SUCCESS CIの再実行、Draft解除、mainマージ、正式PDF Release更新、無許可PRE/SITEを禁止。SITE PASS 0/15・NOT_RUN 15/15、実AD/IIS/Kerberos/FDW・本番鍵・10,001人以上負荷の未受入を維持する。
+
+### 2026-10-28 学習順101〜110の主Razor10件一括構造移行（新HEAD CI判定待ち）
+
+- 直前正式受入はPRコメント #6468476208、HEAD `f1fdeb5300a758eeab816a59387505b0dc130f97`、構造移行100/110。101〜105は第8段階 `Components/Lessons/Stage08/L101〜L105*.razor`、106〜110は第9段階 `Components/Lessons/Stage09/L106〜L110*.razor` へ物理配置。旧主10件を削除するが、第8・第9段階概要、第21/22組復習、共有子部品は残す。
+- 正規 `/learn/101〜110` と互換 `/learn/76〜80`・`/learn/capstone-01〜05` を維持。教材10件・source-index・source-mapと全110件の明示関連実在ソース、静的検査の新旧主配置と両URL、Chrome正規/互換20経路のDocument GETを同一変更に同期する。
+- 既存 `SecuredLearningService`、`WindowsUserAccessService`、`AuthorizedLessonHintCache`、`L106RequirementFlow`、`L108SubmissionGate`、`L110AcceptanceLedger` などを再利用し、共通C#・学習DB・業務DB・認可・`xmin`・監査・DI/Program.cs・SQL・テストは改変/複製しない。静的ソース存在/画面GETと業務操作・現地受入は別証拠。
+- 110/110の正式受入は同一新HEADのWindows/Ubuntu実Chrome/PostgreSQL18実DB/PDFソース検証の全必要CIと全ジョブが `completed/SUCCESS` となった場合だけ。SITE PASS 0/15・NOT_RUN 15/15、現地PRE未承認、実AD/IIS/Kerberos/FDW、本番鍵、10,001人超負荷/復旧/切戻し未受入を維持。成功CI再実行、Draft解除・マージ、正式PDF Release更新・再発行、無許可現地試験は禁止。

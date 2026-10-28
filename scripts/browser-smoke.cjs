@@ -185,6 +185,16 @@ async function waitText(page, selector, expected) {
             }
         }
         console.log("学習順091〜100：正規・互換Document GET 200を全10件確認");
+        // 101〜110の物理移行後の正規・互換20経路をDocument GETで確認する。
+        // GET 200だけではDB、認可、監査、現地PRE/SITEの受入を宣言しない。
+        for (let sequence = 101; sequence <= 110; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const alias = sequence <= 105 ? "/learn/" + String(sequence - 25) : "/learn/capstone-0" + String(sequence - 105);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + alias)]);
+            if (responses.some(response => response.status() !== 200))
+                throw new Error("学習順" + sequence + "の正規・互換GETが失敗: " + responses.map(r => r.status()).join("/"));
+        }
+        console.log("学習順101〜110：正規・互換Document GET 200を全10件確認");
 
 
 
