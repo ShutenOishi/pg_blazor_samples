@@ -1,6 +1,6 @@
 # 学習順010：ボタンのイベントを扱う
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step04/EventPage.razor)。画面の正規URLは `/learn/010` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010L010EventPage.razor)。画面の正規URLは `/learn/010` です。
 
 ## 到達目標と前提
 
@@ -36,7 +36,7 @@
 </div>
 ```
 
-`EventPage.razor`には`count`、`Increment()`、`Decrement()`、`Reset()`が実装されています。値の初期値はC#の`int`の既定値0です。`disabled="@(count == 0)"`は0のとき減らすボタンを押せなくします。ただし画面上の無効化だけを業務上の制約として信頼してはいけません。実メソッド`Decrement()`の中でも`if (count > 0)`を確認しており、値を0未満へ減らしません。`role="status"`と`aria-live="polite"`は値の変化を支援技術へ伝えるための指定です。
+`L010EventPage.razor`には`count`、`Increment()`、`Decrement()`、`Reset()`が実装されています。値の初期値はC#の`int`の既定値0です。`disabled="@(count == 0)"`は0のとき減らすボタンを押せなくします。ただし画面上の無効化だけを業務上の制約として信頼してはいけません。実メソッド`Decrement()`の中でも`if (count > 0)`を確認しており、値を0未満へ減らしません。`role="status"`と`aria-live="polite"`は値の変化を支援技術へ伝えるための指定です。
 
 ## 3. C#または関連する実コードを確かめる
 

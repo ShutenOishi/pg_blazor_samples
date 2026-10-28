@@ -90,7 +90,7 @@
       "sequence": "005",
       "lesson_id": "web-05",
       "lesson_path": "docs/course-v3/lessons/web-05.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor",
       "canonical_url": "/learn/005",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/App.razor",
@@ -110,12 +110,12 @@
       "sequence": "009",
       "lesson_id": "runtime-01",
       "lesson_path": "docs/course-v3/lessons/runtime-01.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
       "canonical_url": "/learn/009",
       "related_sources": [
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
-        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
         "scripts/browser-smoke.cjs"
       ],
       "sample_kind": "部分的",

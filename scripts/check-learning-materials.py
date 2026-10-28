@@ -18,6 +18,7 @@ _STAGE01_MOVED_PAGES = {
     2: "L002HttpRequestResponsePage.razor",
     3: "L003HtmlCssFormPage.razor",
     4: "L004DomNetworkConsolePage.razor",
+    5: "L005VisualStudioDebugPage.razor",
 }
 
 
@@ -385,17 +386,27 @@ home_for_second_group = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.r
 second_urls = {item["url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
 if not all(f'href="{second_urls.get(url, url)}"' in home_for_second_group for _, _, url, _ in second_group):
     missing.append("学習順006〜010のWeb目次が不足")
-for path, target in [
-    ("Step01/FirstPage.razor", 'href="/learn/007"'),
-    ("Step02/NavigationPage.razor", 'href="/learn/008"'),
-    ("Step03/RazorSyntaxPage.razor", 'href="/learn/009"'),
-    ("Runtime/Runtime01Page.razor", 'href="/learn/010"'),
-    ("Step04/EventPage.razor", 'href="/learn/column/runtime-10"'),
-    ("Runtime/RuntimeReview02Page.razor", 'href="/learn/011"'),
+# 移行済み主Razorは学習順に対応する配置定義から参照する。
+_STAGE02_MOVED_PAGES = {
+    6: "L006FirstBlazorPage.razor",
+    7: "L007NavigationPage.razor",
+    8: "L008RazorSyntaxPage.razor",
+    9: "L009StaticSsrInteractivePage.razor",
+    10: "L010EventPage.razor",
+}
+for number, target in [
+    (6, 'href="/learn/007"'),
+    (7, 'href="/learn/008"'),
+    (8, 'href="/learn/009"'),
+    (9, 'href="/learn/010"'),
+    (10, 'href="/learn/column/runtime-10"'),
 ]:
-    source = SAMPLES / path
-    if not source.is_file() or target not in source.read_text(encoding="utf-8"):
-        missing.append(path + "：学習順の前後リンク不一致")
+    page = LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[number]
+    if not page.is_file() or target not in page.read_text(encoding="utf-8"):
+        missing.append(str(page) + "：学習順の前後リンク不一致")
+review_page = SAMPLES / "Runtime" / "RuntimeReview02Page.razor"
+if not review_page.is_file() or 'href="/learn/011"' not in review_page.read_text(encoding="utf-8"):
+    missing.append(str(review_page) + "：学習順の前後リンク不一致")
 
 
 

@@ -1,6 +1,6 @@
 # 学習順009：Static SSRとInteractive Serverの違い
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor)、[Static SSR用Razor](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor)、[GET経路のProgram.cs](../../../src/PgBlazorSamples.Web/Program.cs)。画面の正規URLは `/learn/009` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor)、[Static SSR用Razor](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor)、[GET経路のProgram.cs](../../../src/PgBlazorSamples.Web/Program.cs)。画面の正規URLは `/learn/009` です。
 
 ## 到達目標と前提
 
@@ -30,7 +30,7 @@ Blazor Web Appで初めに混同しやすいのは「HTMLが見えたこと」�
 <button type="button" @onclick="Increment">サーバー側の回数を増やす</button>
 ```
 
-`Runtime01Page.razor`は`@page "/learn/009"`です。画面は`count`を表示し、「サーバー側の回数を増やす」を押すと`Increment()`がサーバーで実行されます。実際のアプリの`App.razor`では`<Routes @rendermode="InteractiveServer" />`を設定しています。したがってこの画面で行う操作はInteractive Server方式の試験です。表示された表のStatic SSR側は比較説明であり、同じページのレンダーモードを切り替える実験ではなく、別のStatic SSR専用GET経路と比較します。
+`L009StaticSsrInteractivePage.razor`は`@page "/learn/009"`です。画面は`count`を表示し、「サーバー側の回数を増やす」を押すと`Increment()`がサーバーで実行されます。実際のアプリの`App.razor`では`<Routes @rendermode="InteractiveServer" />`を設定しています。したがってこの画面で行う操作はInteractive Server方式の試験です。表示された表のStatic SSR側は比較説明であり、同じページのレンダーモードを切り替える実験ではなく、別のStatic SSR専用GET経路と比較します。
 
 ### Static SSRの実装と負例
 

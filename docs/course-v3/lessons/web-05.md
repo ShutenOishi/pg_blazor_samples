@@ -1,6 +1,6 @@
 # 学習順005：Visual Studio 2026でWebアプリを起動・デバッグする
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor)。画面の正規URLは `/learn/005` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor)。画面の正規URLは `/learn/005` です。
 
 ## 到達目標
 
@@ -16,7 +16,7 @@ WinFormsの`Form_Load`や`Button.Click`を調べるときは、通常、自分�
 | フレームワーク | .NET 10 / ASP.NET Core | ビルド・実行ログ |
 | Webサーバー | Kestrel | サーバープロセスとポート |
 | 画面 | Chrome/Edgeなどのブラウザー | Elements・Network・Console |
-| C#イベント | `Web05Page.razor`の`BreakpointSample()` | Visual Studioのデバッガー |
+| C#イベント | `L005VisualStudioDebugPage.razor`の`BreakpointSample()` | Visual Studioのデバッガー |
 | HTTPS | 開発時のTLS接続 | 証明書の信頼状態、ブラウザー警告 |
 | 本番配置（別工程） | Windows Server 2025 / IIS | 実機構成・証明書・認証の受入 |
 
@@ -46,7 +46,7 @@ WinFormsの`Form_Load`や`Button.Click`を調べるときは、通常、自分�
 
 ## 3. C#メソッドとブレークポイント
 
-`Web05Page.razor`にある実装は次のとおりです。
+`L005VisualStudioDebugPage.razor`にある実装は次のとおりです。
 
 ```razor
 <p>クリックでサーバー側で実行した回数：
@@ -87,7 +87,7 @@ builder.Services.AddRazorComponents()
 // 実際のProgram.csには、このほか認証、DI、日本語表示、DB等の設定がある。
 ```
 
-`AddRazorComponents()`と`AddInteractiveServerComponents()`は、RazorコンポーネントとInteractive Serverの機能をサービスへ登録します。各ステップの画面は`@page`によりルーティングされます。起動プロジェクトは`PgBlazorSamples.Web`で、`Web05Page.razor`だけを個別のEXEとして実行するわけではありません。
+`AddRazorComponents()`と`AddInteractiveServerComponents()`は、RazorコンポーネントとInteractive Serverの機能をサービスへ登録します。各ステップの画面は`@page`によりルーティングされます。起動プロジェクトは`PgBlazorSamples.Web`で、`L005VisualStudioDebugPage.razor`だけを個別のEXEとして実行するわけではありません。
 
 ## 5. デバッガーと開発者ツールの役割分担
 
@@ -111,7 +111,7 @@ HTTPSは通信経路の保護です。それだけで利用者の本人認証や
 ## 7. 実習手順
 
 1. Webプロジェクトをスタートアップに設定します。
-2. `Web05Page.razor`の`BreakpointSample()`へブレークポイントを置きます。
+2. `L005VisualStudioDebugPage.razor`の`BreakpointSample()`へブレークポイントを置きます。
 3. Visual StudioでF5を押してデバッグ起動します。
 4. ブラウザーで`/learn/005`を開き、初期値「0回」を確認します。
 5. 「デバッグ対象の処理を実行する」を押して、Visual Studioで停止することを確認します。

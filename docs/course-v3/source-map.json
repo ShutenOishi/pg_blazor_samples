@@ -69,7 +69,7 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/004",
-      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。 学習順004の主RazorをStage01へ移行。標準InteractiveServerとC#イベントを利用。正規・互換Document HTTP200と既存DOM差分試験は新HEADのChrome実証待ち。静的参照登録は実行証拠とは別。",
+      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。 学習順004の主RazorをStage01へ移行。標準InteractiveServerとC#イベントを利用。正規・互換Document HTTP200と既存DOM差分試験はPRコメント #6464528813、HEAD 31d385842f3ed0f5caa690b86a2aec75ff4c7d02の同一HEADアプリ/PDF CIで正式受入済み。静的参照登録は実行証拠とは別。",
       "related_sources": [
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/App.razor"
@@ -82,12 +82,12 @@
       "stage": 1,
       "lesson_path": "docs/course-v3/lessons/web-05.md",
       "app_url": "/learn/web-05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/005",
-      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。 受入HEAD 150bcd6511073b04737d4c0c70aff6f7b98f3f6d、アプリ40610990968・PDF40610990849 SUCCESS。",
+      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。 受入HEAD 150bcd6511073b04737d4c0c70aff6f7b98f3f6d、アプリ40610990968・PDF40610990849 SUCCESS。 主Razorを学習順005の段階フォルダーに移行。URL・機能維持。構造移行新HEADのCI判定待ち。",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/App.razor",
         "scripts/browser-smoke.cjs"
@@ -100,11 +100,15 @@
       "stage": 2,
       "lesson_path": "docs/samples/step01.md",
       "app_url": "/learn/01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/006"
+      "canonical_url": "/learn/006",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主Razorを学習順006の段階フォルダーに移行。URL・機能維持。構造移行新HEADのCI判定待ち。"
     },
     {
       "sequence": 7,
@@ -113,11 +117,15 @@
       "stage": 2,
       "lesson_path": "docs/samples/step02.md",
       "app_url": "/learn/02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step02/NavigationPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L007NavigationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/007"
+      "canonical_url": "/learn/007",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主Razorを学習順007の段階フォルダーに移行。URL・機能維持。構造移行新HEADのCI判定待ち。"
     },
     {
       "sequence": 8,
@@ -126,11 +134,15 @@
       "stage": 2,
       "lesson_path": "docs/samples/step03.md",
       "app_url": "/learn/03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step03/RazorSyntaxPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/008"
+      "canonical_url": "/learn/008",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主Razorを学習順008の段階フォルダーに移行。URL・機能維持。構造移行新HEADのCI判定待ち。"
     },
     {
       "sequence": 9,
@@ -139,7 +151,7 @@
       "stage": 2,
       "lesson_path": "docs/course-v3/lessons/runtime-01.md",
       "app_url": "/learn/runtime-01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -147,10 +159,10 @@
       "related_sources": [
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
-        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "隔離Static SSRのRazor応答とInteractive Serverを比較する新規Chrome試験。同一HEAD CI待ち。 後続受入記録によりHEAD 20176b7590b0904bd29ad5c986c79a559ad9766a、アプリRun40611946688・PDF Run40611946829成功確認済み。"
+      "notes": "隔離Static SSRのRazor応答とInteractive Serverを比較する新規Chrome試験。同一HEAD CI待ち。 後続受入記録によりHEAD 20176b7590b0904bd29ad5c986c79a559ad9766a、アプリRun40611946688・PDF Run40611946829成功確認済み。 主Razorを学習順009の段階フォルダーに移行。URL・機能維持。構造移行新HEADのCI判定待ち。"
     },
     {
       "sequence": 10,
@@ -159,11 +171,15 @@
       "stage": 2,
       "lesson_path": "docs/samples/step04.md",
       "app_url": "/learn/04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step04/EventPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/010"
+      "canonical_url": "/learn/010",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主Razorを学習順010の段階フォルダーに移行。URL・機能維持。構造移行新HEADのCI判定待ち。"
     },
     {
       "sequence": 11,

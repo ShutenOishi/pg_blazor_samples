@@ -1,6 +1,6 @@
 # 学習順007：URLと画面遷移を理解する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step02/NavigationPage.razor)。画面の正規URLは `/learn/007` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L007L007NavigationPage.razor)。画面の正規URLは `/learn/007` です。
 
 ## 到達目標と前提
 
@@ -32,7 +32,7 @@ WinFormsではボタンを押して別のFormを開きます。Webでは利用�
 <h1>URLとルーティング</h1>
 ```
 
-`NavigationPage.razor`の`@page "/learn/007"`がこのコンポーネントのルート定義です。`NavLink`はリンクの宛先を`href`に持ち、`Match="NavLinkMatch.All"`ではアドレス全体が一致したときに現在地の判定をします。`aria-label`はこの`nav`領域が何をする場所かを読み上げ側へ説明するためのものです。トップページと共通メニューからも同じ学習先に進めます。リンクの表示文字列を変更しても、`href`を変更しない限り移動先は変わりません。
+`L007NavigationPage.razor`の`@page "/learn/007"`がこのコンポーネントのルート定義です。`NavLink`はリンクの宛先を`href`に持ち、`Match="NavLinkMatch.All"`ではアドレス全体が一致したときに現在地の判定をします。`aria-label`はこの`nav`領域が何をする場所かを読み上げ側へ説明するためのものです。トップページと共通メニューからも同じ学習先に進めます。リンクの表示文字列を変更しても、`href`を変更しない限り移動先は変わりません。
 
 ## 3. C#または関連する実コードを確かめる
 

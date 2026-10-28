@@ -1,6 +1,6 @@
 # 学習順008：RazorでC#の値を表示する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step03/RazorSyntaxPage.razor)。画面の正規URLは `/learn/008` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008L008RazorSyntaxPage.razor)。画面の正規URLは `/learn/008` です。
 
 ## 到達目標と前提
 
@@ -34,14 +34,14 @@
 <p class="example-output">@sampleText</p>
 ```
 
-`RazorSyntaxPage.razor`の`@code`に上記の固定値があります。画面の`@displayName`は文字列の値、`@stepCount`は整数3を表示します。日付は`CultureInfo.GetCultureInfo("ja-JP")`と`yyyy年M月d日`の書式を使い、2026年10月26日と表示します。`sampleText`には山括弧を含む文字列が入っていますが、普通の文字列として`@sampleText`を置くとHTMLタグとして実行されません。画面に見える文字列とDOMの要素構造をElementsで確認してください。これは出力時のHTMLエンコードを理解する学習用実装です。
+`L008RazorSyntaxPage.razor`の`@code`に上記の固定値があります。画面の`@displayName`は文字列の値、`@stepCount`は整数3を表示します。日付は`CultureInfo.GetCultureInfo("ja-JP")`と`yyyy年M月d日`の書式を使い、2026年10月26日と表示します。`sampleText`には山括弧を含む文字列が入っていますが、普通の文字列として`@sampleText`を置くとHTMLタグとして実行されません。画面に見える文字列とDOMの要素構造をElementsで確認してください。これは出力時のHTMLエンコードを理解する学習用実装です。
 
 ## 3. C#または関連する実コードを確かめる
 
 次も現行実装から抜き出した部分です。画面や状態の理解に必要な部分を残しています。先のコードと照らして、HTMLが担当する表示とサーバー側の処理を切り分けてください。
 
 ```csharp
-// Step03の値は架空の固定データです。DB・ADへの接続は行いません。
+// 学習順008の値は架空の固定データです。DB・ADへの接続は行いません。
 private readonly string displayName = "学習者";
 private readonly int stepCount = 3;
 private readonly DateTime sampleDate = new(2026, 10, 26);

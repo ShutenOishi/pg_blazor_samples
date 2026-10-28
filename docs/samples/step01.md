@@ -1,6 +1,6 @@
 # 学習順006：最初のBlazor画面を表示する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor)。画面の正規URLは `/learn/006` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor)。画面の正規URLは `/learn/006` です。
 
 ## 到達目標と前提
 
@@ -36,7 +36,7 @@
 <p>この文章は、Razorコンポーネントから表示しています。</p>
 ```
 
-`FirstPage.razor`の`@page`が`/learn/006`を割り当てます。`PageTitle`はブラウザーのタブに使われ、`h1`は画面内の文書見出しです。両者を同じ用途のラベルと考えないでください。`section`と`h2`は本文の区切り、`a href`は普通のHTMLリンクです。特別な画面遷移コードを書かなくても、共通のルーターが行き先のコンポーネントを見つけます。`@@page`と書かれた箇所は、画面に文字列「@page」を表示するためにRazorの記号をエスケープしています。実際のURL定義は先頭の`@page`です。
+`L006FirstBlazorPage.razor`の`@page`が`/learn/006`を割り当てます。`PageTitle`はブラウザーのタブに使われ、`h1`は画面内の文書見出しです。両者を同じ用途のラベルと考えないでください。`section`と`h2`は本文の区切り、`a href`は普通のHTMLリンクです。特別な画面遷移コードを書かなくても、共通のルーターが行き先のコンポーネントを見つけます。`@@page`と書かれた箇所は、画面に文字列「@page」を表示するためにRazorの記号をエスケープしています。実際のURL定義は先頭の`@page`です。
 
 ## 3. C#または関連する実コードを確かめる
 
@@ -68,7 +68,7 @@
 1. Visual Studio 2026で`PgBlazorSamples.slnx`を開き、Webプロジェクトを起動対象にする。
 2. F5またはCtrl+F5で起動し、起動時に表示されたURLを確認する。
 3. そのホストの`/learn/006`を開き、見出し「はじめてのBlazor画面」と説明文、ブラウザータブの題名を確認する。
-4. `FirstPage.razor`で説明の`<p>`内の文字だけを編集し、画面に反映されることを確かめる。
+4. `L006FirstBlazorPage.razor`で説明の`<p>`内の文字だけを編集し、画面に反映されることを確かめる。
 5. ブラウザーの開発者ツールのElementsで`h1`と`p`を確認し、HTMLとして配置されることを観察する。
 6. 元の文章に戻し、学習順007のリンクから次の画面へ進む。
 

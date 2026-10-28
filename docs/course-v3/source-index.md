@@ -19,17 +19,17 @@
 | 002 | URL・HTTPと要求／応答を理解する | [本文](../course-v3/lessons/web-02.md) | `/learn/002` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor) |
 | 003 | HTML・CSS・フォームの基礎 | [本文](../course-v3/lessons/web-03.md) | `/learn/003` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor) |
 | 004 | 開発者ツールでDOM・Network・Consoleを見る | [本文](../course-v3/lessons/web-04.md) | `/learn/004` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor) |
-| 005 | Visual Studio 2026でWebアプリを起動・デバッグする | [本文](../course-v3/lessons/web-05.md) | `/learn/005` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor) |
+| 005 | Visual Studio 2026でWebアプリを起動・デバッグする | [本文](../course-v3/lessons/web-05.md) | `/learn/005` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor) |
 
 ## 第2段階：Blazorの基本と実行原理（学習順006〜020）
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 006 | 最初のBlazor画面を表示する | [本文](../samples/step01.md) | `/learn/006` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor) |
-| 007 | URLと画面遷移を理解する | [本文](../samples/step02.md) | `/learn/007` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step02/NavigationPage.razor) |
-| 008 | RazorでC#の値を表示する | [本文](../samples/step03.md) | `/learn/008` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step03/RazorSyntaxPage.razor) |
-| 009 | Static SSRとInteractive Serverの違い | [本文](../course-v3/lessons/runtime-01.md) | `/learn/009` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor) |
-| 010 | ボタンのイベントを扱う | [本文](../samples/step04.md) | `/learn/010` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step04/EventPage.razor) |
+| 006 | 最初のBlazor画面を表示する | [本文](../samples/step01.md) | `/learn/006` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor) |
+| 007 | URLと画面遷移を理解する | [本文](../samples/step02.md) | `/learn/007` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L007NavigationPage.razor) |
+| 008 | RazorでC#の値を表示する | [本文](../samples/step03.md) | `/learn/008` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor) |
+| 009 | Static SSRとInteractive Serverの違い | [本文](../course-v3/lessons/runtime-01.md) | `/learn/009` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor) |
+| 010 | ボタンのイベントを扱う | [本文](../samples/step04.md) | `/learn/010` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor) |
 | 011 | 入力値を双方向に結び付ける | [本文](../samples/step05.md) | `/learn/011` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step05/BindingPage.razor) |
 | 012 | 条件分岐と繰り返しで表示する | [本文](../samples/step06.md) | `/learn/012` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step06/ConditionsPage.razor) |
 | 013 | 親から子へ値を渡す | [本文](../samples/step07.md) | `/learn/013` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step07/ParametersPage.razor) |
