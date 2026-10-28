@@ -1369,13 +1369,27 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "確認ダイアログを開く" }).click();
         await page.getByRole("button", { name: "実行する", exact: true }).click();
         await waitText(page, '[data-testid="step27-result"]', "実行を選びました");
+        // 肯定・中止のボタンに加え、Escによる閉じる操作も実行扱いしない。
+        await page.getByRole("button", { name: "確認ダイアログを開く" }).click();
+        await page.getByRole("button", { name: "中止", exact: true }).waitFor();
+        await page.keyboard.press("Escape");
+        await waitText(page, '[data-testid="step27-result"]', "中止しました");
         await page.screenshot({ path: path.join(evidence, "step27.png") });
         console.log("ステップ27：ダイアログの肯定とキャンセルを検証");
 
         await page.goto(base + "/learn/28");
         await page.waitForTimeout(1000);
-        await page.getByRole("button", { name: "練習用の処理を開始" }).click();
+        const noticeStart = page.getByRole("button", { name: "練習用の処理を開始" });
+        await noticeStart.click();
         await waitText(page, '[data-testid="step28-state"]', "完了しました");
+        // 本文だけでなく通知Providerの実表示、完了後の操作復帰と読み上げ状態を確認。
+        await page.locator(".mud-snackbar").filter({ hasText: "練習用の処理が完了しました。" }).first().waitFor();
+        if (await noticeStart.isDisabled()) {
+            throw new Error("学習順038：完了後も開始ボタンが無効です。");
+        }
+        if (await page.locator('[data-testid="step28-state"]').getAttribute("aria-live") !== "polite") {
+            throw new Error("学習順038：完了状態の読み上げ指定がありません。");
+        }
         await page.screenshot({ path: path.join(evidence, "step28.png") });
         console.log("ステップ28：Snackbarと完了表示を検証");
 
@@ -1479,6 +1493,11 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(850);
         await waitText(page, '[data-testid="step41-count"]', "8 件");
         await page.getByText("架空の課題01").waitFor();
+        // 固定8件を全表示していないことと、DB問い合わせ0件の境界を別々に確認。
+        if (await page.locator(".mud-table-body tr").count() !== 3) {
+            throw new Error("学習順061：RowsPerPage=3の画面行数ではありません。");
+        }
+        await waitText(page, '[data-testid="step41-count"]', "DB問い合わせ：0 件");
         await page.screenshot({ path: path.join(evidence, "step41.png") });
         await page.goto(base + "/learn/42");
         await page.waitForTimeout(850);
@@ -1522,6 +1541,12 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(850);
         await waitText(page, '[data-testid="step48-count"]', "500 件");
         await page.getByText("仮想化の架空課題 001").waitFor();
+        // メモリ内500件を保持しても、画面DOMへ500行を一度に生成しない。
+        await page.waitForFunction(() => {
+            const rows = document.querySelectorAll(".mud-table-body tr");
+            return rows.length > 0 && rows.length < 500;
+        }, null, { timeout: 15000 });
+        await waitText(page, '[data-testid="step48-count"]', "DB問い合わせ：0 件");
         await page.screenshot({ path: path.join(evidence, "step48.png") });
         await page.goto(base + "/learn/49");
         await page.waitForTimeout(850);
