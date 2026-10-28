@@ -1336,6 +1336,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step25-count"]', "4 件");
         await page.locator('[data-testid="mud07-compare-25"]').waitFor();
         await page.getByText("課題名", { exact: true }).last().click();
+        // ソート見出しを押した事実だけでなく、実際の先頭行が変わったことを検証する。
+        await page.waitForFunction(() => {
+            const firstCell = document.querySelector(".mud-table-body tr td");
+            return firstCell?.textContent?.trim() === "DIの復習";
+        }, null, { timeout: 15000 });
         await page.screenshot({ path: path.join(evidence, "step25.png") });
         await page.goto(base + "/learn/column/25");
         await page.getByText("公式テンプレートから日本語業務UIへ").waitFor();
@@ -1348,6 +1353,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="step26-count"]', "6 件");
         await page.getByRole("textbox", { name: "課題名を検索" }).fill("Mud");
         await waitText(page, '[data-testid="step26-count"]', "2 件");
+        // 正常な2件一致に加え、0件と検索解除の境界を確かめる。
+        await page.getByRole("textbox", { name: "課題名を検索" }).fill("絶対に存在しない架空検索語");
+        await waitText(page, '[data-testid="step26-count"]', "0 件");
+        await page.getByRole("textbox", { name: "課題名を検索" }).fill("");
+        await waitText(page, '[data-testid="step26-count"]', "6 件");
         await page.screenshot({ path: path.join(evidence, "step26.png") });
         console.log("ステップ26：DataGridのQuickFilterを検証");
 
@@ -1395,9 +1405,21 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "確認して追加する" }).click();
         await page.getByRole("button", { name: "中止", exact: true }).click();
         await waitText(page, '[data-testid="step30-state"]', "中止しました");
+        await waitText(page, '[data-testid="step30-count"]', "3 件");
+        // 上限31文字は画面内で拒否し、確認ダイアログを出さない。
+        await page.getByRole("textbox", { name: "追加する架空の利用者名" }).fill("あ".repeat(31));
+        await page.getByRole("button", { name: "確認して追加する" }).click();
+        await waitText(page, '[data-testid="step30-state"]', "1〜30文字");
+        await waitText(page, '[data-testid="step30-count"]', "3 件");
+        await page.getByRole("textbox", { name: "追加する架空の利用者名" }).fill("テスト 四郎");
         await page.getByRole("button", { name: "確認して追加する" }).click();
         await page.getByRole("button", { name: "追加する", exact: true }).click();
         await waitText(page, '[data-testid="step30-count"]', "4 件");
+        // 検索0件・新規追加分だけ1件を画面上で確認する。DBは用いない。
+        await page.getByRole("textbox", { name: "利用者名を検索" }).fill("検索対象なし");
+        await waitText(page, '[data-testid="step30-count"]', "0 件");
+        await page.getByRole("textbox", { name: "利用者名を検索" }).fill("テスト 四郎");
+        await waitText(page, '[data-testid="step30-count"]', "1 件");
         await page.screenshot({ path: path.join(evidence, "step30.png") });
         await page.goto(base + "/learn/column/30");
         await page.getByText("一覧・確認・通知・テーマを設計に結び付ける").waitFor();

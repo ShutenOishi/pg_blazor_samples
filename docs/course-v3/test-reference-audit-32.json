@@ -1,0 +1,549 @@
+{
+  "schema_version": 1,
+  "kind": "remaining-32-direct-xunit-reference-triage",
+  "created_at_local": "2026-10-29 JST",
+  "preceding_audit": "docs/course-v3/test-reference-audit-35.json",
+  "baseline_head": "9e9626c014e4d16dac6541aad0c727bb97da7d7b",
+  "baseline_acceptance_comment": 6472178576,
+  "baseline": {
+    "razor": 110,
+    "markdown": 110,
+    "direct_xunit_references": 78,
+    "remaining_without_direct_xunit_reference": 32,
+    "application_run": 40708637122,
+    "pdf_source_only_run": 40708637142,
+    "baseline_ci": "SUCCESS; four jobs; existing receipt"
+  },
+  "change": {
+    "new_head": "NEW_HEAD_PENDING_CI",
+    "changed_script": "scripts/browser-smoke.cjs",
+    "individual_chrome_cases_added": [
+      35,
+      36,
+      40
+    ],
+    "direct_xunit_reference_added": 0,
+    "remaining_without_direct_xunit_reference": 32
+  },
+  "rules": [
+    "未登録は直接xUnit参照未登録であり実試験の不存在ではない。",
+    "xUnit不要のRazor表示・部品操作を無理に直接xUnitとして登録しない。",
+    "Chrome原本で個別操作と否定/境界を確認。原本ログと同じHEADの全必要CI成功までは新補強を正式受入しない。",
+    "PG18ジョブ成功を画面内メモリ教材の実DB試験としない。",
+    "PRE/SITE・正式PDF・認可・安全拒否・公開は禁止/維持。"
+  ],
+  "classification_counts": {
+    "RAZOR_LOCAL": 12,
+    "CHILD_COMPONENT": 3,
+    "FRAMEWORK_DI_OR_BROWSER": 14,
+    "IN_MEMORY_DATA_OR_SELECTION": 3
+  },
+  "lessons": [
+    {
+      "sequence": 1,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L001WebExecutionPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L001WebExecutionPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "web01",
+      "existing_script_locator_mentions": 5,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor内のC#クリック履歴・再読込。専用xUnitなし。Chrome web01操作の個別検査は別軸。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 2,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L002HttpRequestResponsePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "web02",
+      "existing_script_locator_mentions": 3,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "標準NavigationManagerとHTTP 200/404。専用xUnitなし。Chrome web02検査は別軸。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 3,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L003HtmlCssFormPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor.css"
+      ],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "web03",
+      "existing_script_locator_mentions": 20,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor入力検証とCSS isolation。専用xUnitなし。Chrome web03正常/負例は別軸。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 4,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L004DomNetworkConsolePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "web04",
+      "existing_script_locator_mentions": 23,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "RazorのDOM表示変更とDocument再取得検出。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 5,
+      "lesson_path": "docs/course-v3/lessons/Stage01/L005VisualStudioDebugPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "web05",
+      "existing_script_locator_mentions": 11,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor C#イベントとVisual Studioの手動デバッグ。ブレークポイント操作はCIで証明できない。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 6,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L006FirstBlazorPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step01",
+      "existing_script_locator_mentions": 0,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "HTMLと@pageのみ。個別サービス/xUnit不要だが、表示とルート検証が必要。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 7,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L007NavigationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L007NavigationPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step02",
+      "existing_script_locator_mentions": 0,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "NavLinkによる画面遷移。個別xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 8,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L008RazorSyntaxPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step03",
+      "existing_script_locator_mentions": 0,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor式とローカル値/CultureInfo。個別xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 9,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L009StaticSsrInteractivePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/StaticSsr009Component.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step04",
+      "existing_script_locator_mentions": 1,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Static SSR用子コンポーネント、Program.cs描画設定。独立のSSR/Interactive差分をChromeで確認する必要がある。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 10,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L010EventPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step05",
+      "existing_script_locator_mentions": 1,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razorローカルカウンタ。個別xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 11,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L011TwoWayBindingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L011TwoWayBindingPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step06",
+      "existing_script_locator_mentions": 1,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor @bindと空文字判定。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 12,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L012ConditionalRenderingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L012ConditionalRenderingPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step07",
+      "existing_script_locator_mentions": 1,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razorローカル一覧の条件表示。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 13,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L013ComponentParametersPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L013ComponentParametersPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step07/GreetingCard.razor"
+      ],
+      "assessment": "CHILD_COMPONENT",
+      "existing_browser_hint": "step08",
+      "existing_script_locator_mentions": 6,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "子GreetingCardのParameter。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 14,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L014EventCallbackPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L014EventCallbackPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step08/TopicPicker.razor"
+      ],
+      "assessment": "CHILD_COMPONENT",
+      "existing_browser_hint": "step09",
+      "existing_script_locator_mentions": 7,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "子TopicPickerのEventCallback。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 16,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L016ComponentLifecyclePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L016ComponentLifecyclePage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Samples/Step09/LifecycleTracker.razor"
+      ],
+      "assessment": "CHILD_COMPONENT",
+      "existing_browser_hint": "step11",
+      "existing_script_locator_mentions": 4,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "子LifecycleTrackerの初期化/破棄。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 17,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L017PrerenderInitializationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step12",
+      "existing_script_locator_mentions": 5,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor初期化の識別子と事前描画。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 19,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L019UrlHistoryStatePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step14",
+      "existing_script_locator_mentions": 7,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "NavigationManagerとURL履歴。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 20,
+      "lesson_path": "docs/course-v3/lessons/Stage02/L020StatePersistenceChoicePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor",
+      "dependency_candidates": [],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step15",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "IJSRuntime/localStorageの非機密設定保存。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 27,
+      "lesson_path": "docs/course-v3/lessons/Stage03/L027AsyncLoggingPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L027AsyncLoggingPage.razor",
+      "dependency_candidates": [],
+      "assessment": "RAZOR_LOCAL",
+      "existing_browser_hint": "step17",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "ILogger/Task.Delay/CancellationTokenのイベント。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 31,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L031MudIntroductionPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L031MudIntroductionPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step21",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "MudBlazor Provider/ISnackbarとProgram.cs依存。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 32,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L032MudLayoutPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L032MudLayoutPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step22",
+      "existing_script_locator_mentions": 3,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "MudLayout/DrawerをRazor内で使用。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 33,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L033MudInputsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L033MudInputsPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step23",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Mud入力/日付選択をRazor内で使用。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 34,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L034MudValidationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L034MudValidationPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step24",
+      "existing_script_locator_mentions": 3,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "MudForm.ValidateAsyncの入力検証。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 35,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L035MudTablePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L035MudTablePage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step25",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "MudTableの固定配列とソート。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": "MudTable課題名ソート後に先頭の実行結果行を確認"
+    },
+    {
+      "sequence": 36,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L036DataGridPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L036DataGridPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step26",
+      "existing_script_locator_mentions": 3,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "MudDataGridでのメモリ内検索。DBアクセスなし。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": "DataGrid検索の2件一致、0件、検索解除6件"
+    },
+    {
+      "sequence": 37,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L037DialogPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L037DialogPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step27",
+      "existing_script_locator_mentions": 3,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "IDialogService.ShowMessageBoxAsync。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 38,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L038NotificationPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step28",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "ISnackbarとTask.Delay。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 40,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L040UiPracticePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "step30",
+      "existing_script_locator_mentions": 5,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "架空メモリ一覧＋IDialogService/ISnackbar。実DBなし。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": "追加中止後の件数保持、31文字入力拒否、追加後の0件/1件検索"
+    },
+    {
+      "sequence": 45,
+      "lesson_path": "docs/course-v3/lessons/Stage04/L045AccessibilityReviewPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor.css",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "assessment": "FRAMEWORK_DI_OR_BROWSER",
+      "existing_browser_hint": "browser05",
+      "existing_script_locator_mentions": 3,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "ElementReference.FocusAsyncとCSS isolation。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 61,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L061ItemsBoundaryPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L061ItemsBoundaryPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs"
+      ],
+      "assessment": "IN_MEMORY_DATA_OR_SELECTION",
+      "existing_browser_hint": "step41",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "LearningTask型を使用したメモリ内8件のMudTable。DBアクセスなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 68,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L068VirtualizeItemsPage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L068VirtualizeItemsPage.razor",
+      "dependency_candidates": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs"
+      ],
+      "assessment": "IN_MEMORY_DATA_OR_SELECTION",
+      "existing_browser_hint": "step48",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "LearningTaskの表示型、メモリ内500件の仮想化。DB取得最適化とは別。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    },
+    {
+      "sequence": 80,
+      "lesson_path": "docs/course-v3/lessons/Stage06/L080PatternChoicePage.md",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage06/L080PatternChoicePage.razor",
+      "dependency_candidates": [],
+      "assessment": "IN_MEMORY_DATA_OR_SELECTION",
+      "existing_browser_hint": "step60",
+      "existing_script_locator_mentions": 2,
+      "direct_xunit_reference": null,
+      "existing_scope_note": "Razor内の一覧手法の選択演習。専用xUnitなし。",
+      "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
+      "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
+      "new_head_browser_change": null
+    }
+  ]
+}
