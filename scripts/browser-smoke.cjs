@@ -54,6 +54,31 @@ async function waitText(page, selector, expected) {
     );
 }
 
+ // 学習順007：失敗時にSSRと対話描画後の実DOMを比較するための匿名ページ限定診断。
+ // テストを成功扱いにする再読込・強制クリック・直接URL遷移の代替は行わない。
+async function snapshot007(page, phase) {
+    const snapshot = await page.evaluate(() => {
+        const main = document.querySelector("#main-content");
+        const practice = main?.querySelector("nav.practice-nav");
+        const forward = main?.querySelector('a[href="/learn/008"]');
+        const reconnect = document.querySelector("#components-reconnect-modal");
+        return {
+            url: location.pathname,
+            readyState: document.readyState,
+            heading: main?.querySelector("h1")?.textContent?.trim() ?? null,
+            practiceNav: practice?.outerHTML?.slice(0, 1600) ?? null,
+            forwardLink: forward?.outerHTML?.slice(0, 400) ?? null,
+            mainText: main?.textContent?.trim().slice(0, 700) ?? null,
+            errorPanel: document.querySelector(".error-panel")?.textContent?.trim() ?? null,
+            reconnectClass: reconnect?.className ?? null,
+            blazorObject: typeof window.Blazor,
+            navigationEntries: performance.getEntriesByType("navigation").length
+        };
+    });
+    console.log("学習順007 DOM " + phase + ": " + JSON.stringify(snapshot));
+    return snapshot;
+}
+
 (async () => {
     let browser;
     try {
@@ -77,9 +102,25 @@ async function waitText(page, selector, expected) {
         if (!new URL(page.url()).pathname.endsWith("/learn/007"))
             throw new Error("学習順007：学習順006から正規URLへ移動しません");
         await page.getByRole("heading", { name: "URLとルーティング" }).waitFor();
-        // 初回ルート遷移直後はBlazorの対話描画でリンクDOMが置換され得る。
-        // 切替が落ち着いてから、実際のリンクをクリックして正規遷移を検証する。
+        // 学習順007の実DOMを初回SSR/対話描画前後で記録して原因を限定する。
+        // 800ms待機だけでは失敗を解消しなかったため、単なる待機延長はしない。
+        await snapshot007(page, "heading確認直後");
         await page.waitForTimeout(800);
+        const current007 = await snapshot007(page, "800ms後");
+        if (await page.getByRole("link", { name: "学習順008へ進む" }).count() !== 1) {
+            // 直接GETは「初回遷移の代替」ではなく、SSR原本との差分を記録する対照群。
+            const ssr007 = await page.request.get(base + "/learn/007");
+            const ssrBody007 = await ssr007.text();
+            console.log("学習順007 SSR対照: " + JSON.stringify({
+                status: ssr007.status(),
+                hasLink: ssrBody007.includes('href="/learn/008"'),
+                hasHeading: ssrBody007.includes("URLとルーティング")
+            }));
+            await page.screenshot({ path: path.join(evidence, "step007-dom-missing.png"), fullPage: true });
+            throw new Error("学習順007：実DOMの学習順008 NavLinkが欠落。診断結果とstep007画像を確認してください。" +
+                " 現表示=" + current007.heading + "、URL=" + current007.url);
+        }
+        // DOMが存在する場合も実リンクをクリックし、到達したRazor出力を検証する。
         await page.getByRole("link", { name: "学習順008へ進む" }).click();
         await page.getByRole("heading", { name: "C#の値を画面へ表示する" }).waitFor();
         await page.getByText("<重要>これは文字列です</重要>", { exact: true }).waitFor();
