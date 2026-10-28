@@ -1166,7 +1166,7 @@
       "app_url": "/learn/security-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
       "audit_state": "simulation",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/083",
       "related_sources": [
@@ -1177,7 +1177,7 @@
         "tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "実Razorエンコード、082実Antiforgery、059共有の値パラメーター実SQLを独立追跡。Chrome拒否＋既存PG18 SQL注入模擬試験。新HEAD CI待ち。"
+      "notes": "実Razorエンコード、082実Antiforgery、059共有の値パラメーター実SQLを独立追跡。Chrome拒否＋既存PG18 SQL注入模擬試験。新HEAD CI待ち。 正式受入HEAD e5c1fbe7f77dc2ca1500d43139d3f42e87a8f39f、PRコメント #6460502546。"
     },
     {
       "sequence": 84,
@@ -1188,9 +1188,16 @@
       "app_url": "/learn/security-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/084"
+      "canonical_url": "/learn/084",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L084StartupPolicy.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "Program.cs共通起動ガードの架空フラグ正常/拒否/空白境界xUnitとChrome。鍵保護/実本番構成/SITEは未実証。新HEAD CI待ち。"
     },
     {
       "sequence": 85,

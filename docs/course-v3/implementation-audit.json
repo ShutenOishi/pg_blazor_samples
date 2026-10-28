@@ -481,11 +481,11 @@
       "implemented_behavior": "実Razor文字列描画でXSSをエンコード、学習順082実Antiforgery、共有059サービスのDB値パラメーター照会を学習順083から実行。Chrome未設定拒否とPG18架空DB注入模擬値0件試験を独立区分。",
       "missing_behavior": "XSS/CSRF/SQL注入を学習専用入力で拒否できる負例と責任境界",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs; tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 DB実検索は既存059共有サービスのPG18専用試験、Chromeでは未設定拒否のみ。新HEADのWindows/Ubuntu Chrome/PG18/PDF成功待ち。XSS万能保証・実AD/IIS/業務台帳は未実証。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "e5c1fbe7f77dc2ca1500d43139d3f42e87a8f39f",
+      "ci_run": "40630743423; PDF 40630743460",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 DB実検索は既存059共有サービスのPG18専用試験、Chromeでは未設定拒否のみ。新HEADのWindows/Ubuntu Chrome/PG18/PDF成功待ち。XSS万能保証・実AD/IIS/業務台帳は未実証。 正式受入はPR #39コメント #6460502546、同一HEADアプリ/Chrome/PG18/PDF成功。"
     },
     {
       "sequence": "084",
@@ -493,16 +493,21 @@
       "lesson_path": "docs/course-v3/lessons/security-04.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor",
       "canonical_url": "/learn/084",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L084StartupPolicy.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "本番Program.csと共通の起動拒否ガードを実装し、Windows/明示ログイン不整合、本番鍵保存先未指定の実例外拒否をxUnit検証。架空条件で同じ関数をRazor/Chromeから実操作。実Secret/鍵内容は閲覧せず。",
       "missing_behavior": "本番Secretや鍵を露出せず設定不備の起動拒否と鍵管理の単体試験を示す",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 鍵保存先の存在・ACL・暗号化・共有・復旧やIIS/AD実機は未検証。新HEAD全CI成功まで正式受入不可。"
     },
     {
       "sequence": "085",

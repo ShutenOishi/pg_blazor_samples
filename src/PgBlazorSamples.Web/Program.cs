@@ -39,8 +39,10 @@ builder.Services.AddCascadingAuthenticationState();
 // CIや匿名の架空データ教材から、実ADの認証済み主体を偽造しない。
 var windowsAuthEnabled = builder.Configuration.GetValue<bool>("WindowsAuthentication:Enabled");
 var explicitLoginEnabled = builder.Configuration.GetValue<bool>("WindowsAuthentication:ExplicitLoginEnabled");
-if (explicitLoginEnabled && !windowsAuthEnabled)
-    throw new InvalidOperationException("明示ログインにはWindows認証の有効化が必要です。");
+// 実際の起動でも学習順084の共通ガードを使用する。鍵の実値は記録・画面出力しない。
+var dataProtectionKeysPath = builder.Configuration["WindowsAuthentication:DataProtectionKeysPath"];
+L084StartupPolicy.Validate(windowsAuthEnabled, explicitLoginEnabled,
+    builder.Environment.IsDevelopment(), dataProtectionKeysPath);
 
 if (windowsAuthEnabled)
 {
@@ -71,9 +73,7 @@ if (windowsAuthEnabled)
             .AddNegotiate();
 
         // 本番で鍵が消えるとセッションが失効する。共有先のACL/保存時暗号化は運用側で設定。
-        var keyPath = builder.Configuration["WindowsAuthentication:DataProtectionKeysPath"];
-        if (string.IsNullOrWhiteSpace(keyPath) && !builder.Environment.IsDevelopment())
-            throw new InvalidOperationException("明示ログインの本番利用にはDataProtectionKeysPathが必要です。");
+        var keyPath = dataProtectionKeysPath;
         if (!string.IsNullOrWhiteSpace(keyPath))
             builder.Services.AddDataProtection().SetApplicationName("PgBlazorSamples.Business")
                 .PersistKeysToFileSystem(new DirectoryInfo(keyPath));

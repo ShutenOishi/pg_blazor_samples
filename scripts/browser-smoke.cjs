@@ -757,6 +757,15 @@ async function waitText(page, selector, expected) {
         }
         await page.getByRole("button", { name: "模擬構成を点検する" }).click();
         await waitText(page, '[data-testid="security04-result"]', "条件あり");
+        await page.getByRole("button", { name: "本番起動条件の拒否を確認する" }).click();
+        await waitText(page, '[data-testid="l084-startup-result"]', "起動拒否");
+        await page.getByLabel("架空の鍵保存先を設定済み").check();
+        await page.getByRole("button", { name: "本番起動条件の拒否を確認する" }).click();
+        await waitText(page, '[data-testid="l084-startup-result"]', "起動ガードは通過");
+        await page.getByLabel("架空Windows認証を有効化").uncheck();
+        await page.getByRole("button", { name: "本番起動条件の拒否を確認する" }).click();
+        await waitText(page, '[data-testid="l084-startup-result"]', "起動拒否");
+        console.log("学習順084：実Program.cs共通ガードの架空起動設定で鍵未指定拒否/指定通過/Windows認証不整合拒否をChrome確認。実Secret/鍵は未取得");
 
         await page.goto(base + "/learn/security-05");
         await page.waitForTimeout(950);

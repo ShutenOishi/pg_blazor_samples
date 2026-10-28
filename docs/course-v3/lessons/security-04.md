@@ -1,6 +1,6 @@
 # 学習順084：環境別設定・Secret・Data Protection鍵
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor)。画面の正規URLは `/learn/084` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security04Page.razor)、[共通起動ガード](../../../src/PgBlazorSamples.Web/Services/Learning/L084StartupPolicy.cs)、[本番経路から呼ぶProgram.cs](../../../src/PgBlazorSamples.Web/Program.cs)、[正常/拒否xUnit](../../../tests/PgBlazorSamples.UnitTests/L084StartupPolicyTests.cs)、[Chrome](../../../scripts/browser-smoke.cjs)。画面の正規URLは `/learn/084` です。
 
 ## 到達目標
 開発・検証・本番で接続先や証明書の構成は異なります。Secretsはソースコードや配布PDFへ含めず、適切なアクセス制御を持つ保管先で管理します。Cookie認証チケットを保護するData Protection鍵は、複数インスタンス間の共有と安全な保存、失効や復元の手順が必要です。
@@ -10,6 +10,9 @@
 
 ## 画面で確認すること
 アプリの `/learn/084` を開き、架空の条件を変えてボタンを押してください。**表示される許可・拒否は学習用の模擬判定です。** Windows本人認証や実際の既存台帳認可を代行せず、DBにデータを書き込みません。
+
+## 実起動時ガードと架空条件による検証
+`Program.cs`が実際に`L084StartupPolicy.Validate`を呼びます。明示ログインを有効にしてWindows認証を無効にした組合せは起動拒否、本番で明示ログインを有効にして鍵保存先が未指定なら起動拒否とします。保存先が指定されたケースや開発環境はこのガードを通過できますが、鍵のACL・暗号化・共有・復旧の健全性は**未検証**です。xUnitは実ガードの正常・拒否・空白境界を検証します。Chromeでは画面が同じ関数を架空のフラグ・架空の鍵保存先で呼びます。実設定・実秘密値・実鍵ファイルはUIで取得も変更もしません。
 
 ## コードを追いかける
 ```csharp
@@ -87,7 +90,7 @@ WinFormsのボタンが無効なときに操作を防ぐ仕組みを、Webの最
 6. ブラウザーの開発者ツールでDOMやネットワークを観察します。架空の画面操作でADや既存台帳を更新したと考えてはいけません。
 7. 前後のリンクで次の教材へ移動し、学習順085のあとには第17組復習へ進みます。
 
-この操作は模擬条件だけで行います。実IISへの配備、SPN、証明書、Kerberos、Data Protection鍵の保存時保護、実FDW、監査の原子性は現地の別の手順と受入記録が必要です。
+画面入力は架空条件ですが、起動時に実Program.csが使う共通検証コードを呼び出します。実IISへの配備、SPN、証明書、Kerberos、Data Protection鍵の保存時保護、実FDW、監査の原子性は現地の別の手順と受入記録が必要です。
 
 ## 障害の切り分け
 | 兆候 | 原因を調べる場所 | 安全な扱い |
