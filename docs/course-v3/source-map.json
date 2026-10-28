@@ -564,7 +564,7 @@
       "test_state": "awaiting-independent-real-disconnect-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/041",
-      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。 041専用隔離WebSocket切断→C#捕捉ログを新HEAD CIで確認する。未成立はNOT_TESTED維持。",
+      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。 041専用隔離WebSocket切断→C#捕捉ログを新HEAD CIで確認する。未成立はNOT_TESTED維持。 Run40637853498の041対話開始待ち失敗を補修。新HEAD全CI成功・独立切断ログ成立までNOT_TESTED。",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
         "scripts/browser-circuit-smoke.cjs",

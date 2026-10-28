@@ -226,7 +226,7 @@
       "docs_status": "REVISED_AWAITING_REAL_DISCONNECT_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。 015とは独立した041の切断試験を追加。実捕捉ログ成立と全CI成功まで正式受入禁止。成功しなければNOT_TESTEDを維持。"
+      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。 015とは独立した041の切断試験を追加。実捕捉ログ成立と全CI成功まで正式受入禁止。成功しなければNOT_TESTEDを維持。 直前試験HEAD 79de862 のアプリRun40637853498は、041独立Document表示直後の対話開始前に言語ボタンをクリックして待機15秒でタイムアウト。015の隔離WSは成功。041実切断/C#捕捉まで未到達。対話開始をC#カウンター1回で確認後に実切断試験する補修差分を追加。"
     },
     {
       "sequence": "042",

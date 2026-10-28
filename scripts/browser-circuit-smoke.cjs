@@ -143,6 +143,13 @@ async function getToken(page) {
         const response041 = await page041.goto(base + "/learn/041");
         if (!response041 || response041.status() !== 200)
             throw new Error("学習順041：独立Document HTTP200なし");
+        // 初回Documentの静的事前描画とInteractive Server接続を区別する。
+        await page041.getByTestId("browser01-count").waitFor();
+        await page041.waitForTimeout(1100);
+        await page041.getByRole("button", { name: "C#だけで回数を増やす" }).click();
+        await page041.waitForFunction(() =>
+            document.querySelector('[data-testid="browser01-count"]')?.textContent?.trim() === "1",
+            null, { timeout: 15000 });
         await page041.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
         await page041.waitForFunction(() =>
             document.querySelector('[data-testid="browser01-language"]')?.textContent?.includes("HTMLの言語設定："),
