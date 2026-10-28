@@ -1392,7 +1392,14 @@ async function waitText(page, selector, expected) {
         calendar033 = page.locator(".mud-picker-calendar:visible");
         await calendar033.waitFor();
         await page.locator(".mud-picker-nav-button-next:visible").click();
-        await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^1$/ }).click();
+        // MudBlazorの月切替では日付ボタンが再描画される。10月31日が当月表示から消え、
+        // 11月1日が現れて遷移が落ち着いてから実際のボタンをクリックする。
+        const activeDays033 = calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)");
+        await activeDays033.filter({ hasText: /^31$/ }).waitFor({ state: "hidden", timeout: 10000 });
+        const firstOfNovember033 = activeDays033.filter({ hasText: /^1$/ });
+        await firstOfNovember033.waitFor({ state: "visible", timeout: 10000 });
+        await page.waitForTimeout(500);
+        await firstOfNovember033.click({ timeout: 10000 });
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年11月1日");
         await page.keyboard.press("Escape");
         console.log("学習順033：MudDatePicker実カレンダーの10月31日→11月1日選択とDateTime?反映を検証");
