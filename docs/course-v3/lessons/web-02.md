@@ -1,6 +1,6 @@
 # 学習順002：URL・HTTPの要求と応答を理解する
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor)。画面の正規URLは `/learn/002` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor)。画面の正規URLは `/learn/002` です。
 
 ## 到達目標
 
@@ -59,7 +59,7 @@ HTTPが200だったからといって「DB書込みに成功した」「認可�
 
 ## 3. 画面にあるC#コードを読む
 
-実装ファイル`Web02Page.razor`には、現在のパスを確認する次のコードがあります。
+実装ファイル`L002HttpRequestResponsePage.razor`には、現在のパスを確認する次のコードがあります。
 
 ```razor
 @page "/learn/002"

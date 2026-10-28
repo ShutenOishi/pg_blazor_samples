@@ -95,11 +95,12 @@ async function waitText(page, selector, expected) {
         await page.locator('[data-testid="web02-known-get"]').waitFor();
         await page.locator('[data-testid="web02-missing-get"]').waitFor();
         const validDocument = await page.request.get(base + "/learn/002");
+        const compatibilityDocument = await page.request.get(base + "/learn/web-02");
         const absentDocument = await page.request.get(base + "/__learning_missing_page_for_http_404__");
-        if (validDocument.status() !== 200 || absentDocument.status() !== 404) {
-            throw new Error(`学習順002のGET結果が不正: 既存=${validDocument.status()}, 未登録=${absentDocument.status()}`);
+        if (validDocument.status() !== 200 || compatibilityDocument.status() !== 200 || absentDocument.status() !== 404) {
+            throw new Error(`学習順002のGET結果が不正: 正規=${validDocument.status()}, 互換=${compatibilityDocument.status()}, 未登録=${absentDocument.status()}`);
         }
-        console.log("学習順002：Document GET 200と未登録GET 404を確認");
+        console.log("学習順002：正規・互換Document GET 200と未登録GET 404を確認");
         // 学習順052：画面にSQL生成とは別の実DB検索イベントがあることを検証。
         await page.goto(base + "/learn/052");
         // SSR表示直後はInteractive Serverのイベント接続が未確立のことがある。

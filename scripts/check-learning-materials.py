@@ -12,6 +12,18 @@ if hasattr(sys.stderr, "reconfigure"):
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES = ROOT / "src" / "PgBlazorSamples.Web" / "Components" / "Samples"
+LESSONS = SAMPLES.parent / "Lessons"
+_STAGE01_MOVED_PAGES = {
+    1: "L001WebExecutionPage.razor",
+    2: "L002HttpRequestResponsePage.razor",
+}
+
+
+def web_foundation_page(number: int) -> Path:
+    """第1段階の主Razorを一か所の配置定義から解決する。"""
+    if number in _STAGE01_MOVED_PAGES:
+        return LESSONS / "Stage01" / _STAGE01_MOVED_PAGES[number]
+    return SAMPLES / "WebFoundation" / f"Web{number:02d}Page.razor"
 PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8")
 
 steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
@@ -92,8 +104,7 @@ if len(curriculum["stages"]) != 9 or len(curriculum["reviews"]) != 22:
 newpaths = []
 for n in range(1, 6):
     item = ordered[n-1]
-    razor = (SAMPLES.parent / "Lessons" / "Stage01" / "L001WebExecutionPage.razor"
-             if n == 1 else SAMPLES / "WebFoundation" / f"Web{n:02d}Page.razor")
+    razor = web_foundation_page(n)
     if item["id"] != f"web-{n:02d}" or not item["implementation"].startswith("implemented"):
         missing.append(f"web-{n:02d}の順序・実装状態が不一致")
     if not razor.exists() or f'@page "/learn/web-{n:02d}"' not in razor.read_text(encoding="utf-8"):
@@ -303,8 +314,7 @@ for path, minimum in [
 # HTML画面、教材、PDF索引の実装を対応させる。
 web01 = SAMPLES / "WebFoundation"
 for n in range(1, 6):
-    page = (SAMPLES.parent / "Lessons" / "Stage01" / "L001WebExecutionPage.razor"
-            if n == 1 else web01 / f"Web0{n}Page.razor")
+    page = web_foundation_page(n)
     if not page.is_file() or f'@page "/learn/web-0{n}"' not in page.read_text(encoding="utf-8"):
         missing.append(f"web-0{n}：Razor画面とURLの不一致")
     marker = f'"docs/course-v3/lessons/web-0{n}.md"'

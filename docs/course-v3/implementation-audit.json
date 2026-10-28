@@ -29,9 +29,10 @@
       "sequence": "002",
       "lesson_id": "web-02",
       "lesson_path": "docs/course-v3/lessons/web-02.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor",
       "canonical_url": "/learn/002",
       "related_sources": [
+        "src/PgBlazorSamples.Web/Components/App.razor",
         "scripts/browser-smoke.cjs"
       ],
       "sample_kind": "部分的",
@@ -42,7 +43,7 @@
       "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
       "ci_head": "cc3a997474cc9789df63839b63689321ec303c79",
       "ci_run": 40605109148,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 Run40605109148のWindows/Ubuntu Chrome/PostgreSQL18全3ジョブSUCCESSを認証済みGETで確認。学習用の処理に限定。 Chromeの実Document GET・404検証を行うscripts/browser-smoke.cjsの参照を依存索引へ追加（過去CIの実証範囲は変更しない）。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 Run40605109148のWindows/Ubuntu Chrome/PostgreSQL18全3ジョブSUCCESSを認証済みGETで確認。学習用の処理に限定。 Chromeの実Document GET・404検証を行うscripts/browser-smoke.cjsの参照を依存索引へ追加（過去CIの実証範囲は変更しない）。 主RazorのStage01物理移行、App.razorの対話描画設定と標準NavigationManager DIの参照を追跡。DB/独自JS/独自業務サービスの直接呼出しなし。移行HEADの実CIは未判定で、既存受入結果を上書きしない。"
     },
     {
       "sequence": "003",

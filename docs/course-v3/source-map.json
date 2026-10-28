@@ -28,13 +28,14 @@
       "stage": 1,
       "lesson_path": "docs/course-v3/lessons/web-02.md",
       "app_url": "/learn/web-02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/002",
-      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。",
+      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。 学習順002の物理配置をStage01へ移行。NavigationManagerはBlazor標準DI、App.razorはInteractiveServerの設定。Chromeは正規・互換GET/未登録404を検証。変更HEADの新CI受入待ち。",
       "related_sources": [
+        "src/PgBlazorSamples.Web/Components/App.razor",
         "scripts/browser-smoke.cjs"
       ]
     },
