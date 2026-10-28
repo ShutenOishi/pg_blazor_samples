@@ -10,16 +10,16 @@
 <p>表示済みの値ではなく、本人認証と既存台帳の最新の操作権限、対象部署とxminの版を使います。取消はDBへ書き込まず、保存時は共通サービスの認可・監査とトランザクションを使います。</p>
 <section class="lesson-details">
 <label for="capstone03-id">編集する課題番号</label>
-<input id="capstone03-id" type="number" min="1" @bind="_id" />
-<button type="button" @onclick="LoadAsync">認可付き詳細を取得する</button>
+<input id="capstone03-id" type="number" min="1" @bind="_id" disabled="@(_loading || _gate.IsBusy)" />
+<button type="button" @onclick="LoadAsync" disabled="@(_loading || _gate.IsBusy)">認可付き詳細を取得する</button>
 @if (_detail?.Item is { } item)
 {
   <p>編集中の課題番号：@item.Id、読み取った版：@item.Version</p>
   <label for="capstone03-title">課題名（最大100文字）</label>
-  <input id="capstone03-title" maxlength="100" @bind="_title" />
-  <label><input type="checkbox" @bind="_isDone" /> 完了</label>
-  <button type="button" @onclick="SaveAsync">権限と競合を再検査して保存する</button>
-  <button type="button" @onclick="Cancel">編集を取り消す</button>
+  <input id="capstone03-title" maxlength="100" @bind="_title" disabled="@(_loading || _gate.IsBusy)" />
+  <label><input type="checkbox" @bind="_isDone" disabled="@(_loading || _gate.IsBusy)" /> 完了</label>
+  <button type="button" @onclick="SaveAsync" disabled="@(_loading || _gate.IsBusy)">権限と競合を再検査して保存する</button>
+  <button type="button" @onclick="Cancel" disabled="@(_loading || _gate.IsBusy)">編集を取り消す</button>
 }
 <p role="status" data-testid="capstone03-result">@_status</p>
 <details><summary>確認：表示後に部署権限が失効した場合は？</summary><p>SaveAsyncが保存直前に正本を再検査し、権限行ロック・xmin・監査記録を同一トランザクションで保証できなければ拒否します。</p></details>
@@ -32,35 +32,64 @@
     private bool _isDone;
     private string _status = "未読込です。";
     private LearningDetailResult? _detail;
+    private bool _loading;
+    private readonly L108SubmissionGate _gate = new();
+
     private async Task LoadAsync()
     {
-        _detail = null; // 以前の認可済みDTOが不正な入力の後も残らないようにする。
-        _title = "";
-        if (_id <= 0) { _status = "1以上の番号を指定してください。"; return; }
-        var result = await Business.GetDetailAsync(_id);
+        if (_loading || _gate.IsBusy) return;
+        _loading = true;
+        try
+        {
+            _detail = null;
+            _title = "";
+            _isDone = false;
+            if (_id <= 0) { _status = "1以上の番号を指定してください。"; return; }
+            await LoadDetailCoreAsync(_id);
+        }
+        finally { _loading = false; }
+    }
+
+    private async Task LoadDetailCoreAsync(long id)
+    {
+        var result = await Business.GetDetailAsync(id);
         _detail = result.Item is null ? null : result;
         _title = result.Item?.Title ?? "";
         _isDone = result.Item?.IsDone ?? false;
         _status = result.Message;
     }
+
     private void Cancel()
     {
+        if (_loading || _gate.IsBusy) return;
         _detail = null;
         _title = "";
+        _isDone = false;
         _status = "編集を取り消しました。DBの値は変更していません。";
     }
+
     private async Task SaveAsync()
     {
-        var item = _detail?.Item;
-        if (item is null) { _status = "保存対象はありません。"; return; }
-        if (string.IsNullOrWhiteSpace(_title) || _title.Trim().Length > 100)
-        { _status = "課題名は1〜100文字で入力してください。"; return; }
-        var result = await Business.SaveAsync(new LearningEditInput
-        { Id = item.Id, Version = item.Version, Title = _title, IsDone = _isDone });
-        _status = result.Message;
-        if (result.Status == LearningEditStatus.Success)
-            await LoadAsync();
-        else
-            _detail = null; // 競合・拒否後に古い入力を再送できないようにする。
+        // 二重送信は画面で抑止し、サーバー側も権限・xmin・監査を毎回検査する。
+        if (_loading || !_gate.TryBegin()) return;
+        try
+        {
+            var item = _detail?.Item;
+            if (item is null) { _status = "保存対象はありません。"; return; }
+            if (string.IsNullOrWhiteSpace(_title) || _title.Trim().Length > 100)
+            { _status = "課題名は1〜100文字で入力してください。"; return; }
+            var result = await Business.SaveAsync(new LearningEditInput
+            { Id = item.Id, Version = item.Version, Title = _title, IsDone = _isDone });
+            _status = result.Message;
+            _detail = null; // 保存・競合・失効・監査拒否の後に旧DTOを再送させない。
+            _title = "";
+            _isDone = false;
+            if (result.Status == LearningEditStatus.Success)
+            {
+                _id = item.Id;
+                await LoadDetailCoreAsync(item.Id); // 成功時も最新の認可・監査を通る。
+            }
+        }
+        finally { _gate.End(); }
     }
 }

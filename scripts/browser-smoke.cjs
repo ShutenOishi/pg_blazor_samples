@@ -1566,12 +1566,18 @@ async function waitText(page, selector, expected) {
             throw new Error("学習順107：匿名拒否の一覧でページ送りを許可してはいけません。");
         console.log("学習順107：匿名ChromeはSQL表示のみ許可、実一覧は拒否・0件、前後ページ送り不可。実DBの12件/10+2と監査はPG18試験");
 
-        await page.goto(base + "/learn/capstone-03");
+        await page.goto(base + "/learn/108");
         await page.waitForTimeout(850);
+        await page.getByLabel("編集する課題番号").fill("0");
+        await page.getByRole("button", { name: "認可付き詳細を取得する" }).click();
+        await waitText(page, '[data-testid="capstone03-result"]', "1以上");
+        await page.getByLabel("編集する課題番号").fill("1");
         await page.getByRole("button", { name: "認可付き詳細を取得する" }).click();
         await waitText(page, '[data-testid="capstone03-result"]', "拒否");
-        if (await page.getByRole("button", { name: "権限と競合を再検査して保存する" }).count() !== 0)
-            throw new Error("匿名画面に編集の保存ボタンを表示してはいけません。");
+        if (await page.getByRole("button", { name: "権限と競合を再検査して保存する" }).count() !== 0 ||
+            await page.getByLabel("課題名（最大100文字）").count() !== 0)
+            throw new Error("学習順108：匿名時は編集DTOと保存ボタンを表示してはいけません。");
+        console.log("学習順108：匿名Chromeで無効ID拒否・実詳細拒否・編集欄と保存ボタン非表示。保存/xmin/監査はPG18別試験");
 
         await page.goto(base + "/learn/capstone-04");
         await page.waitForTimeout(850);

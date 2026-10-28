@@ -1515,7 +1515,7 @@
       "app_url": "/learn/capstone-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
       "audit_state": "interactive",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/107",
       "related_sources": [
@@ -1528,7 +1528,7 @@
         "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "認可付き一覧を前後ページに対応。PG18自部署12件10+2、Count/Items一致、他部署遮断、監査保存を既存共有サービスの試験で個別照合。Chrome匿名拒否は別証拠。新HEAD全CI待ち。"
+      "notes": "認可付き一覧を前後ページに対応。PG18自部署12件10+2、Count/Items一致、他部署遮断、監査保存を既存共有サービスの試験で個別照合。Chrome匿名拒否は別証拠。新HEAD全CI待ち。 正式受入 #6461107881、HEAD 4bea7d82b878fb3a4a7ecc9e14d1fca608fd502a、アプリ40635300558/PDF40635300600全SUCCESS。"
     },
     {
       "sequence": 108,
@@ -1539,9 +1539,22 @@
       "app_url": "/learn/capstone-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/108"
+      "canonical_url": "/learn/108",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L108SubmissionGate.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/L108SubmissionGateTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "Razor→保存中ガード→共有サービス→台帳/PG18実DB→xUnit/Chromeの依存対応。新HEAD同一CI待ち。実AD/IIS未実証。"
     },
     {
       "sequence": 109,

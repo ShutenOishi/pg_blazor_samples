@@ -3,15 +3,16 @@
 **実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor)。画面の正規URLは `/learn/108` です。
 
 ## 詳細DTOと保存直前認可
-Capstone03Page.razorは課題番号を指定してBusiness.GetDetailAsyncで認可済み詳細を読み込みます。結果を得る前に古い_detailと_titleを消し、匿名時には編集欄を表示しません。取消は画面のDTOを破棄し、DBを更新しません。保存時には課題名の1〜100文字を検証し、読込時のVersionを含むLearningEditInputをBusiness.SaveAsyncに渡します。サービスはAuthorizeAsync(forEdit: true)で最新の編集権限を確認し、同一トランザクションのCheckLockedEditAsyncで正本行をロックします。Version不一致ならConflict、監査INSERT失敗ならコミットせずエラーです。WinForms＋Dapperと同様に更新競合を扱いますが、Blazorのcircuitで以前読んだ権限を使い続けないことに注意します。
+Capstone03Page.razorは課題番号を指定してBusiness.GetDetailAsyncで認可済み詳細を読み込みます。結果を得る前に古い_detailと_titleを消し、匿名時には編集欄を表示しません。取消は画面のDTOを破棄し、DBを更新しません。読込中と保存中は関連フォームを無効にし、L108SubmissionGateが同じ画面の二重保存イベントを拒否します。終了時はfinallyでガードを解除します。画面の二重送信防止だけでは業務認可・DB排他を保証できず、サービスでも毎回検査します。保存時には課題名の1〜100文字を検証し、読込時のVersionを含むLearningEditInputをBusiness.SaveAsyncに渡します。サービスはAuthorizeAsync(forEdit: true)で最新の編集権限を確認し、同一トランザクションのCheckLockedEditAsyncで正本行をロックします。Version不一致ならConflict、監査INSERT失敗ならコミットせずエラーです。WinForms＋Dapperと同様に更新競合を扱いますが、Blazorのcircuitで以前読んだ権限を使い続けないことに注意します。
 
 ## 実コード例1
 ```csharp
 var result = await Business.SaveAsync(new LearningEditInput
 { Id = item.Id, Version = item.Version, Title = _title, IsDone = _isDone });
 _status = result.Message;
-if (result.Status == LearningEditStatus.Success) await LoadAsync();
-else _detail = null;
+_detail = null;
+if (result.Status == LearningEditStatus.Success)
+    await LoadDetailCoreAsync(item.Id);
 ```
 
 ## 実コード例2
@@ -66,10 +67,10 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 6. 画面の結果、期待値、実際のメッセージ、対象のサービス、コミットSHA、CI Run IDを記録します。拒否条件を緩和して検査を通すことはしません。
 
 ## 実機では別途受入が必要
-実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
+実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDF CIの検証と正式Releaseへの反映は別工程です。正式PDF Release learning-textbook（Asset ID 683032765）は更新しません。
 
 ## 個別の操作手順
-/learn/108で正のIDを指定し、詳細取得を押します。匿名時に拒否され、保存ボタンが出ないことを確認します。実DBのCapstoneIntegrationTestsで二つのDbContextによるxmin競合を追います。
+/learn/108で正のIDを指定し、詳細取得を押します。匿名時に拒否され、保存ボタンが出ないことを確認します。匿名Chromeで無効ID・詳細拒否・編集欄非表示を確認します。PG18のCapstoneIntegrationTestsでは二つのDbContextでxmin競合と取消時ロールバックを確認します。SecuredLearningIntegrationTestsでは共有業務サービスの更新、旧DTO再送Conflict、他部署更新Missing、無効入力Invalid、権限失効Forbidden、監査書込み失敗Errorとロールバック、成功監査1件を確認します。L108SubmissionGateTestsは画面内の二重起動抑止の単体試験で、認証済み実Chromeの二重クリック実証とは区別します。
 
 ## 演習と詳しい解答
 **問題1：** 詳細を開いたあと編集権限が失効しても保存できますか。

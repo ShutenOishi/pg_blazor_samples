@@ -144,13 +144,30 @@ public sealed class SecuredLearningIntegrationTests
                     login).SingleAsync();
                 Assert.True(entries >= 4); // 一覧・詳細・集計・CSV・保存の永続監査が成立
             }
+            // 学習順108：旧DTO再送は競合。入力不正も実業務サービス側で拒否。
             Assert.Equal(LearningEditStatus.Conflict, (await business.SaveAsync(edited)).Status);
+            Assert.Equal(LearningEditStatus.Invalid, (await business.SaveAsync(new LearningEditInput
+                { Id = ownId, Version = dto.Version, Title = "　" })).Status);
+            Assert.Equal(LearningEditStatus.Invalid, (await business.SaveAsync(new LearningEditInput
+                { Id = ownId, Version = 0, Title = "不正な版" })).Status);
+            await using (var verifyEdit = await factory.CreateDbContextAsync())
+            {
+                var savedTask = await verifyEdit.Tasks.AsNoTracking().SingleAsync(t => t.Id == ownId);
+                Assert.Equal(prefix + "更新", savedTask.Title);
+                Assert.True(savedTask.IsDone);
+                var successfulWrites = await verifyEdit.Database.SqlQueryRaw<int>(
+                    "SELECT COUNT(*)::integer AS \"Value\" FROM learning_operation_audit_ci WHERE actor_login = {0} AND operation = 'task.update' AND target_row_id = {1} AND outcome = 'success'",
+                    login, ownId).SingleAsync();
+                Assert.Equal(1, successfulWrites); // 再送と不正値は更新・監査成功を増やさない。
+            }
 
-            // 他部署のIDを一括更新へ混入させると全体を拒否する。
+            // 他部署のIDを直接更新できない。一括更新にも混入できない。
             await using (var db = await factory.CreateDbContextAsync())
             {
                 var ownVersion = (await db.Tasks.AsNoTracking().SingleAsync(t => t.Id == ownId)).Version;
                 var otherVersion = (await db.Tasks.AsNoTracking().SingleAsync(t => t.Id == otherId)).Version;
+                Assert.Equal(LearningEditStatus.Missing, (await business.SaveAsync(new LearningEditInput
+                    { Id = otherId, Version = otherVersion, Title = "他部署更新拒否" })).Status);
                 Assert.Equal(LearningEditStatus.Conflict, (await business.CompleteSelectedAsync(
                     [new(ownId, ownVersion), new(otherId, otherVersion)])).Status);
             }
@@ -343,6 +360,7 @@ public sealed class SecuredLearningIntegrationTests
             Assert.Equal(LearningEditStatus.Error, result.Status);
             var actual = await readDb.Tasks.AsNoTracking().SingleAsync(t => t.Id == id);
             Assert.Equal("監査トランザクション"+suffix, actual.Title);
+            Assert.Equal(current.Version, actual.Version); // 監査失敗ではxminも変わらない。
             Assert.Equal(0, (await business.LoadPageAsync(new(0, 20, suffix))).TotalCount);
             Assert.Null((await business.ExportCsvAsync(suffix)).Base64);
         }
