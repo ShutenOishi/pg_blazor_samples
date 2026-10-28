@@ -2,7 +2,7 @@
 
 **実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L098TransactionalAuthorizationPage.razor)。画面の正規URLは `/learn/098` です。
 
-**第8段階・第20組／学習順098・旧URL /learn/098**
+**第8段階・第20組／学習順098・正規URL /learn/098**
 
 ## 到達目標
 

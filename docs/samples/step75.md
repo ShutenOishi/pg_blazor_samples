@@ -2,7 +2,7 @@
 
 **実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L100IisAcceptancePage.razor)。画面の正規URLは `/learn/100` です。
 
-**第8段階・第20組／学習順100・旧URL /learn/100**
+**第8段階・第20組／学習順100・正規URL /learn/100**
 
 ## 到達目標
 

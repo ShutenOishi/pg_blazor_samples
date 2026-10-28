@@ -60,7 +60,7 @@ private readonly IReadOnlyList<LearningTaskRow> _rows =
 3. 500件という表示とDB問い合わせ0件を確認してから後半の行までスクロールします。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順069へ進み、旧URL /learn/068 が維持されていることを確認します。
+6. 学習順069へ進み、正規URL /learn/068 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |

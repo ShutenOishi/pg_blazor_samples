@@ -4,7 +4,7 @@
 
 ## 到達目標と前提
 L052SqlAndLinqPage.razorは入力した架空キーワードをTrimしてLINQを作り、ToQueryStringでSQLを生成する画面です。「LINQからSQLを生成する」の操作ではDBへの問い合わせを行いません。「学習DBで実際に検索する」の操作では隔離した学習用PostgreSQL 18を検索し、最大10件を表示します。WhereはSQLのWHERE、Categoryナビゲーションの参照は関連テーブルとの結合、OrderByとThenByはORDER BY、Take(10)は上限の指定につながります。Idで並び順を確定させ、ページングの行順が変動しないようにします。CategoryIdは任意なので、Category!というC#記号でDBのNULLが消えるわけではありません。生成されたJOINの形とNULLの扱いは確認が必要です。ContainsとDapperのILIKEは必ずしも同等条件になりません。SQL生成結果はSQLが実行された証拠でも実行計画でもありません。
-学習順052は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/052` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順052は第5段階・第11組に含まれます。互換URLは変更せず、画面は `/learn/052` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |

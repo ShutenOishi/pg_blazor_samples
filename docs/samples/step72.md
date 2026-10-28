@@ -2,7 +2,7 @@
 
 **実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L097ExplicitWindowsLoginPage.razor)。画面の正規URLは `/learn/097` です。
 
-**第8段階・第20組／学習順097・旧URL /learn/097**
+**第8段階・第20組／学習順097・正規URL /learn/097**
 
 ## 到達目標
 

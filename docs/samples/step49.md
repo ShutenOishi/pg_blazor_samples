@@ -60,7 +60,7 @@ DBから受け取る行は一部にできますが、深いSkipにはOFFSETの�
 3. スクロールの移動による要求StartIndexとCountを観察し、TotalItemsと区別します。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順070へ進み、旧URL /learn/069 が維持されていることを確認します。
+6. 学習順070へ進み、正規URL /learn/069 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |

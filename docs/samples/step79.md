@@ -2,7 +2,7 @@
 
 **実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L104EndToEndAcceptancePage.razor)。画面の正規URLは `/learn/104` です。
 
-**第8段階・第21組／学習順104・旧URL /learn/104**
+**第8段階・第21組／学習順104・正規URL /learn/104**
 
 ## 到達目標
 
@@ -69,7 +69,7 @@ await waitText(page, '[data-testid="step79-state"]', "拒否");
 
 ### 実装と判断の詳しい説明
 
-xUnitは単体ロジック、PostgreSQL18実DBは台帳重複・部署制限・xmin・監査INSERT失敗のロールバック、Chromeは日本語画面と匿名拒否・旧URLを確認します。実IIS/AD/Kerberos/SPNやFDWと1万人超の負荷は現地の別試験です。CI用のNegotiateという名前のClaimsIdentityは本当のAD本人認証を保証しません。LoadPageAsyncは部署に絞ったCount/Itemsを監査後に返します。架空のCIデータだけを使用し本番台帳にINSERTしません。拒否が期待どおりなら安全試験としてPASSです。
+xUnitは単体ロジック、PostgreSQL18実DBは台帳重複・部署制限・xmin・監査INSERT失敗のロールバック、Chromeは日本語画面と匿名拒否・互換URLを確認します。実IIS/AD/Kerberos/SPNやFDWと1万人超の負荷は現地の別試験です。CI用のNegotiateという名前のClaimsIdentityは本当のAD本人認証を保証しません。LoadPageAsyncは部署に絞ったCount/Itemsを監査後に返します。架空のCIデータだけを使用し本番台帳にINSERTしません。拒否が期待どおりなら安全試験としてPASSです。
 
 ### WinForms＋Dapperとの比較
 
@@ -83,7 +83,7 @@ xUnitは単体ロジック、PostgreSQL18実DBは台帳重複・部署制限・x
 
 ### 操作手順
 
-1. 新学習順の目次から旧URLで開く画面を表示し、前後リンクを確認します。
+1. 新学習順の目次から正規URLで画面を表示し、前後リンクを確認します。
 2. 匿名の開発用ブラウザーで業務の確認ボタンを押し、本人とDB台帳の権限が確かめられないときに拒否されることを確認します。
 3. 肯定試験はCI専用の架空PrincipalとPostgreSQL18の架空テーブルだけで行います。本番台帳のレコードや資格情報を教材に投入しないでください。
 4. 操作前後の期待結果、実際の画面表示、相関ID、実行日時、コミットSHAを記録します。再操作時もDB正本を確認します。

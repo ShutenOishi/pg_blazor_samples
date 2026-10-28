@@ -60,7 +60,7 @@ Includeは関連Entity自体が必要な場合に選ぶ処理です。単に分�
 3. 「関連表を読み込む」を押して総件数と先頭20件、分類の表示を比較します。
 4. 開発用PostgreSQL 18と架空データを用意できる場合は、同じ操作でDBの結果と画面を照合します。
 5. Razor→LearningAdvancedPageService又はLearningPageService→DbContext→SQL→DTO→表示の順に呼出しを追います。
-6. 学習順067へ進み、旧URL /learn/066 が維持されていることを確認します。
+6. 学習順067へ進み、正規URL /learn/066 が維持されていることを確認します。
 
 ## 障害の切り分け
 | 症状 | 考えられる原因 | 確認と対処 |

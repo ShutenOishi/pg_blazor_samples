@@ -4,7 +4,7 @@
 
 ## 到達目標と前提
 MudDatePickerはDateTime?、学習用テーブルのdateはDateOnly?、time without time zoneはTimeOnly?、daterangeはNpgsqlRange<DateTime>?で扱います。EfDateRangePageではja-JP形式で日付を選び、DateOnly.FromDateTimeで日だけに変換します。期間は開始日を含み、翌日の開始を含まない[当日,翌日)です。NpgsqlRange<DateTime>(start,true,endExclusive,false)の第4引数をfalseにするのが重要です。2引数形式で上限を含むと、PostgreSQLの日付範囲が正規化されて終端がずれる場合があります。DateOnly.MaxValueの翌日は作れないためAddDaysの前に拒否します。空の日付も拒否します。ここでは値の表示だけでDBに保存せず、datemultirangeや無限端の実DB検証とも分けます。
-学習順055は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/055` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順055は第5段階・第11組に含まれます。互換URLは変更せず、画面は `/learn/055` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |

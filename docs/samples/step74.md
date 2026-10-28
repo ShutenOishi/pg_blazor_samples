@@ -2,7 +2,7 @@
 
 **実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L099DurableAuditPage.razor)。画面の正規URLは `/learn/099` です。
 
-**第8段階・第20組／学習順099・旧URL /learn/099**
+**第8段階・第20組／学習順099・正規URL /learn/099**
 
 ## 到達目標
 

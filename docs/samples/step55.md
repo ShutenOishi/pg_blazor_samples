@@ -140,7 +140,7 @@ private async Task ShowAsync(long id)
 
 ## 完了条件
 
-- [ ] /learn/075の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] 正規URL /learn/075を維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 

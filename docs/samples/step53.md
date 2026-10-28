@@ -168,7 +168,7 @@ private async Task CompleteAsync()
 
 ## 完了条件
 
-- [ ] /learn/073の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] 正規URL /learn/073を維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 

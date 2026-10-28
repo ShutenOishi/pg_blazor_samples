@@ -171,7 +171,7 @@ public async Task<LearningEditResult> SaveAsync(LearningEditInput input, Cancell
 
 ## 完了条件
 
-- [ ] /learn/071の旧URLを維持し、画面とサービスの対応を説明できる
+- [ ] 正規URL /learn/071を維持し、画面とサービスの対応を説明できる
 
 - [ ] 2種類の実コードを読んでVersionや確定時点を確認した
 

@@ -4,7 +4,7 @@
 
 ## 到達目標と前提
 LearningDbService.SearchAsyncは、Configuredを確認し、IDbContextFactoryでDbContextを作成します。AsNoTrackingで変更追跡を省き、空でない検索語をTrimしてWhere条件を付けます。CountAsyncで検索条件に一致する総件数を取得し、OrderBy(Id).Take(20).Selectで必要列のLearningTaskRowを作ってToListAsyncします。件数と20行の取得は別のSQLです。両者の処理中に他の更新があれば時点一致は保証されません。IQueryableのままRazorへ返さず、具体化したDTOを返すため、DbContextの寿命も明確です。Containsの大文字小文字の扱いはNpgsqlとDB照合規則を実DBで確認します。
-学習順051は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/051` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順051は第5段階・第11組に含まれます。互換URLは変更せず、画面は `/learn/051` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |

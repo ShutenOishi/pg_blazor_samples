@@ -2,7 +2,7 @@
 
 **実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L096DirectoryNormalizationPage.razor)。画面の正規URLは `/learn/096` です。
 
-**第8段階・第20組／学習順096・旧URL /learn/096**
+**第8段階・第20組／学習順096・正規URL /learn/096**
 
 ## 到達目標
 

@@ -104,6 +104,8 @@ def main():
             'code_symbol_references': [p.relative_to(ROOT).as_posix() for p, _ in references],
             'test_symbol_candidates': related_tests,
             'declared_related_sources': declared_related,
+            'declared_test_source_paths': [p for p in declared_related if p.startswith('tests/') and p.endswith('.cs')],
+            'declared_test_status': 'PATH_ONLY_NOT_BEHAVIOR_PROOF',
             'declared_related_sources_status': 'FILE_EXISTS_ONLY_NOT_EXECUTION_PROOF',
             'css_isolation': css_isolation,
             'js_filename_references': [p.relative_to(ROOT).as_posix() for p in scripts if p.name in source],
@@ -158,6 +160,8 @@ def main():
             'lessons_with_code_symbol_references': sum(bool(r['code_symbol_references']) for r in rows),
             'lessons_with_declared_related_sources': sum(bool(r['declared_related_sources']) for r in rows),
             'lessons_with_test_symbol_candidates': sum(bool(r['test_symbol_candidates']) for r in rows),
+            'lessons_with_declared_test_sources': sum(bool(r['declared_test_source_paths']) for r in rows),
+            'lessons_without_declared_test_sources': sum(not r['declared_test_source_paths'] for r in rows),
             'end_to_end_verified': 0,
             'legacy_label_candidates': len(legacy_label_candidates),
         },
@@ -168,6 +172,8 @@ def main():
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print('110教材の参照静的監査: ' + json.dumps(report['coverage'], ensure_ascii=False))
+    if legacy_label_candidates:
+        problems.append(f'利用者向け教材に旧番号・旧URL表記が残っています: {len(legacy_label_candidates)}件')
     if len(rows) != 110:
         problems.append('110件の完全追跡に失敗')
     if problems:

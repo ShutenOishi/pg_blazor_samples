@@ -4,7 +4,7 @@
 
 ## 到達目標と前提
 学習順054はLearningDbServiceのAddAsync、ToggleAsync、DeleteAsyncを画面から呼び出します。AddAsyncではConfiguredを検査し、Title.Trim後に1〜100文字を検証してからTasks.AddとSaveChangesAsyncを行います。ToggleAsyncとDeleteAsyncは画面のLearningTaskRowからIdとVersionを渡し、対象行を再取得してxminのVersionが一致するか確認します。更新直前の競合はDbUpdateConcurrencyExceptionで拒否し、最新データを無条件で上書きしません。操作後にはSearchAsyncを使い、画面表示を再読み込みします。実際の削除ボタンには確認ダイアログがなく、本番の業務アプリへそのまま転用しないでください。学習用の専用DBだけで操作します。
-学習順054は第5段階・第11組に含まれます。旧ステップURLは変更せず、画面は `/learn/054` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
+学習順054は第5段階・第11組に含まれます。互換URLは変更せず、画面は `/learn/054` です。Visual Studio 2026と.NET 10、EF Core 10・Npgsql・PostgreSQL 18の構成を前提にします。前のページで学んだFactoryの役割を使い、処理がブラウザー、Webサーバー、DBのどこで行われるのかを説明してください。
 
 ## WinForms＋Dapperと実装を比較する
 | 観点 | WinForms＋Dapper | Blazor Server＋EF Core | 注意すること |
