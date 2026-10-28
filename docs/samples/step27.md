@@ -1,6 +1,6 @@
 # 学習順37：確認ダイアログで実行と中止を分ける
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step27/DialogPage.razor)。画面の正規URLは `/learn/037` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L037DialogPage.razor)。画面の正規URLは `/learn/037` です。
 
 **実習URL：`/learn/037`。** 第4段階・第8組の2本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
 

@@ -52,6 +52,18 @@ _STAGE03_MOVED_PAGES = {
     30: "L030TodoServicePage.razor",
 }
 
+_STAGE04_MOVED_PAGES = {
+    31: "L031MudIntroductionPage.razor",
+    32: "L032MudLayoutPage.razor",
+    33: "L033MudInputsPage.razor",
+    34: "L034MudValidationPage.razor",
+    35: "L035MudTablePage.razor",
+    36: "L036DataGridPage.razor",
+    37: "L037DialogPage.razor",
+    38: "L038NotificationPage.razor",
+    39: "L039AccessibilityPage.razor",
+    40: "L040UiPracticePage.razor",
+}
 
 def web_foundation_page(number: int) -> Path:
     """第1段階の主Razorを一か所の配置定義から解決する。"""
@@ -63,7 +75,7 @@ PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8"
 # 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
 # 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
 disk_steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
-moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 21)}}
+moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}}
 steps = sorted(set(disk_steps) | set(moved_steps))
 if not steps:
     raise SystemExit("教材検査エラー：実装済みのステップがありません。")
@@ -74,7 +86,9 @@ missing = []
 for number in steps:
     if number in moved_steps:
         sequence = moved_steps[number]
-        source = (LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[sequence]) if sequence <= 20 else (LESSONS / "Stage03" / _STAGE03_MOVED_PAGES[sequence])
+        source = ((LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[sequence]) if sequence <= 20
+                  else (LESSONS / "Stage03" / _STAGE03_MOVED_PAGES[sequence]) if sequence <= 30
+                  else (LESSONS / "Stage04" / _STAGE04_MOVED_PAGES[sequence]))
         if not source.is_file():
             missing.append(f"{source.relative_to(ROOT)}：移行済みRazor画面なし")
     else:
@@ -667,11 +681,11 @@ if 'data-testid="di06-review-table"' not in review_page or 'href="/learn/column/
 
 # 第7組031〜035の実装・教材・復習・PDF章順をまとめて受入検査する。
 mud_seventh = [
-    ("docs/samples/step21.md", "/learn/21", "AddMudServices", "Step21/MudIntroductionPage.razor"),
-    ("docs/samples/step22.md", "/learn/22", "MudDrawer", "Step22/MudLayoutPage.razor"),
-    ("docs/samples/step23.md", "/learn/23", "MudDatePicker", "Step23/MudInputsPage.razor"),
-    ("docs/samples/step24.md", "/learn/24", "ValidateAsync", "Step24/MudValidationPage.razor"),
-    ("docs/samples/step25.md", "/learn/25", "RowsPerPage", "Step25/MudTablePage.razor"),
+    ("docs/samples/step21.md", "/learn/21", "AddMudServices", "L031MudIntroductionPage.razor"),
+    ("docs/samples/step22.md", "/learn/22", "MudDrawer", "L032MudLayoutPage.razor"),
+    ("docs/samples/step23.md", "/learn/23", "MudDatePicker", "L033MudInputsPage.razor"),
+    ("docs/samples/step24.md", "/learn/24", "ValidateAsync", "L034MudValidationPage.razor"),
+    ("docs/samples/step25.md", "/learn/25", "RowsPerPage", "L035MudTablePage.razor"),
 ]
 if [item["id"] for item in ordered[30:35]] != [f"step{n}" for n in range(21, 26)]:
     missing.append("第7組031〜035の学習順が不正")
@@ -685,7 +699,7 @@ for seq, (filename, url, symbol, razor_name) in enumerate(mud_seventh, start=31)
         missing.append(filename + "：比較・コード・操作・演習・詳細解答の対応不足")
     if any(token in learner_text(content) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：学習者本文へ管理用情報を含めない")
-    razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
+    razor = (LESSONS / "Stage04" / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq:03d}" not in razor or f'data-testid="mud07-compare-{seq - 10}"' not in razor:
         missing.append(razor_name + "：URL・学習順・比較表が不一致")
     if f'"{filename}"' not in PDF_SCRIPT or not indexed_home(url):
@@ -703,7 +717,7 @@ if -1 in positions or positions != sorted(positions) or not (
 ):
     missing.append("第7組の段階概要・本文・復習・次の章のPDF順が不正")
 for relative, next_link in [
-    ("Step25/MudTablePage.razor", 'href="/learn/column/25"'),
+    ("../Lessons/Stage04/L035MudTablePage.razor", 'href="/learn/column/25"'),
     ("Columns/Column25Page.razor", 'href="/learn/036"'),
     ("Browser/BrowserOverviewPage.razor", 'href="/learn/031"'),
 ]:
@@ -715,11 +729,11 @@ if not all(f"学習順{i:03d}を開く" in home for i in range(31, 36)) or "学�
 
 # 学習順036〜040：第8組の本文・Razor・Web/PDF目次・復習を同じ条件で検査する。
 mud_eighth = [
-    ("docs/samples/step26.md", "/learn/26", "QuickFilter", "Step26/DataGridPage.razor"),
-    ("docs/samples/step27.md", "/learn/27", "ShowMessageBoxAsync", "Step27/DialogPage.razor"),
-    ("docs/samples/step28.md", "/learn/28", "MudProgressLinear", "Step28/NotificationPage.razor"),
-    ("docs/samples/step29.md", "/learn/29", "ThemePreferenceService", "Step29/AccessibilityPage.razor"),
-    ("docs/samples/step30.md", "/learn/30", "PracticeUser", "Step30/UiPracticePage.razor"),
+    ("docs/samples/step26.md", "/learn/26", "QuickFilter", "L036DataGridPage.razor"),
+    ("docs/samples/step27.md", "/learn/27", "ShowMessageBoxAsync", "L037DialogPage.razor"),
+    ("docs/samples/step28.md", "/learn/28", "MudProgressLinear", "L038NotificationPage.razor"),
+    ("docs/samples/step29.md", "/learn/29", "ThemePreferenceService", "L039AccessibilityPage.razor"),
+    ("docs/samples/step30.md", "/learn/30", "PracticeUser", "L040UiPracticePage.razor"),
 ]
 if [item["id"] for item in ordered[35:40]] != [f"step{n}" for n in range(26, 31)]:
     missing.append("第8組の学習順036〜040が不一致")
@@ -733,7 +747,7 @@ for seq, (filename, url, symbol, razor_name) in enumerate(mud_eighth, start=36):
         missing.append(filename + "：実装・演習・操作の対応不足")
     if any(token in learner_text(content) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：学習者本文へ管理情報を持ち込まない")
-    razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
+    razor = (LESSONS / "Stage04" / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="mud08-compare-{seq}"' not in razor:
         missing.append(razor_name + "：Razor学習順・表・URLの不一致")
     if f'"{filename}"' not in PDF_SCRIPT or f"学習順{seq:03d}を開く" not in home:
@@ -756,7 +770,7 @@ if not all(f'学習順{seq:03d}：' in PDF_SCRIPT for seq in range(36, 41)) or "
     missing.append("第8組PDFの学習順・復習見出しが一致しません")
 if -1 in pdf_eighth or pdf_eighth != sorted(pdf_eighth) or not (pdf_eighth[-1] < pdf_review8 < pdf_browser01):
     missing.append("第8組036〜040→復習→041のPDF章順が不正")
-if 'href="/learn/column/30"' not in (SAMPLES / "Step30/UiPracticePage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/30"' not in (LESSONS / "Stage04/L040UiPracticePage.razor").read_text(encoding="utf-8"):
     missing.append("学習順040から第8組復習への導線不足")
 
 

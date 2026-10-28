@@ -60,16 +60,16 @@
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 031 | MudBlazorと日本語翻訳を導入する | [本文](../samples/step21.md) | `/learn/031` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step21/MudIntroductionPage.razor) |
-| 032 | MudBlazorのレイアウトを学ぶ | [本文](../samples/step22.md) | `/learn/032` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step22/MudLayoutPage.razor) |
-| 033 | 日本語で入力部品を使う | [本文](../samples/step23.md) | `/learn/033` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step23/MudInputsPage.razor) |
-| 034 | MudFormの入力検証を学ぶ | [本文](../samples/step24.md) | `/learn/034` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step24/MudValidationPage.razor) |
-| 035 | MudTableで一覧とソート | [本文](../samples/step25.md) | `/learn/035` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step25/MudTablePage.razor) |
-| 036 | MudDataGridで検索・並べ替えする | [本文](../samples/step26.md) | `/learn/036` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step26/DataGridPage.razor) |
-| 037 | 確認ダイアログで実行と中止を選ぶ | [本文](../samples/step27.md) | `/learn/037` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step27/DialogPage.razor) |
-| 038 | Snackbarと処理中の状態を表示する | [本文](../samples/step28.md) | `/learn/038` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step28/NotificationPage.razor) |
-| 039 | ダークモードとキーボード操作を学ぶ | [本文](../samples/step29.md) | `/learn/039` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step29/AccessibilityPage.razor) |
-| 040 | MudBlazor日本語UIを総合演習する | [本文](../samples/step30.md) | `/learn/040` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step30/UiPracticePage.razor) |
+| 031 | MudBlazorと日本語翻訳を導入する | [本文](../samples/step21.md) | `/learn/031` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L031MudIntroductionPage.razor) |
+| 032 | MudBlazorのレイアウトを学ぶ | [本文](../samples/step22.md) | `/learn/032` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L032MudLayoutPage.razor) |
+| 033 | 日本語で入力部品を使う | [本文](../samples/step23.md) | `/learn/033` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L033MudInputsPage.razor) |
+| 034 | MudFormの入力検証を学ぶ | [本文](../samples/step24.md) | `/learn/034` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L034MudValidationPage.razor) |
+| 035 | MudTableで一覧とソート | [本文](../samples/step25.md) | `/learn/035` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L035MudTablePage.razor) |
+| 036 | MudDataGridで検索・並べ替えする | [本文](../samples/step26.md) | `/learn/036` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L036DataGridPage.razor) |
+| 037 | 確認ダイアログで実行と中止を選ぶ | [本文](../samples/step27.md) | `/learn/037` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L037DialogPage.razor) |
+| 038 | Snackbarと処理中の状態を表示する | [本文](../samples/step28.md) | `/learn/038` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor) |
+| 039 | ダークモードとキーボード操作を学ぶ | [本文](../samples/step29.md) | `/learn/039` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L039AccessibilityPage.razor) |
+| 040 | MudBlazor日本語UIを総合演習する | [本文](../samples/step30.md) | `/learn/040` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor) |
 | 041 | JavaScript interopの利用判断 | [本文](../course-v3/lessons/browser-01.md) | `/learn/041` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor) |
 | 042 | ファイルアップロードと入力制約 | [本文](../course-v3/lessons/browser-02.md) | `/learn/042` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor) |
 | 043 | CSV・PDFファイルのダウンロード | [本文](../course-v3/lessons/browser-03.md) | `/learn/043` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor) |

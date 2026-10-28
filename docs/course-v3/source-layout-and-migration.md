@@ -81,7 +81,7 @@ database/
 - **学習順003の第1段階への配置変更（正式受入済み）**：主Razorと隣接CSS isolationを`Components/Lessons/Stage01/L003HtmlCssFormPage.razor`・`.razor.css`へ一緒に移動。正規`/learn/003`と互換`/learn/web-03`を維持する。`App.razor`で生成CSSバンドルを読み込み、Chromeで両URLのHTTP 200、CSS適用（枠線・入力欄・キーボードフォーカス）と従来の入力検証を個別確認する。教材リンク、source-index、source-map、監査JSON、静的検査を同一差分で同期する。Razorに独自DI、C#サービス/DTO、SQL/独自JS呼出しはなく、`App.razor`のInteractiveServerとBlazorのバインディング/C#イベントを使用。配置・参照先の静的検査とChrome動作を独立に確認し、HEAD `3cb5ee03f54c6009ecba9441d1ecfcfddebd57c7`・アプリRun40657167557・PDF40657167596の全成功をPRコメント #6464402707 で正式受入済み。
 - **学習順004の第1段階への配置変更（正式受入済み、PRコメント #6464528813）**：主Razorを`Components/Lessons/Stage01/L004DomNetworkConsolePage.razor`へ移動。正規`/learn/004`と互換`/learn/web-04`を維持し、教材・索引・監査・静的検査を同期。Chromeで正規/互換のDocument HTTP 200および既存のDOM追加削除・対話イベントのDocument再取得なしを検証する。Razorは標準のInteractiveServerとC#イベントを使用し、個別のDIサービス・DTO・SQL・独自JSは直接呼ばない。静的参照存在、Chrome試験、現地受入を混同しない。
 - **依存索引（今回の変更時点）**：001〜005は既存のChrome操作、CSS、App.razor等の実在する参照先を登録。041はJSモジュール・C#補助・xUnit・Chromeの参照を登録し直した。静的登録は個別試験の新しい合格を意味しない。
-- 物理配置を変更した主Razorは学習順001〜030の30件、未移行80件。001〜020は旧HEADまでの全必要CI成功で正式受入済み、021〜030は新HEADのCI判定待ち。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
+- 物理移行001〜030の30件は正式受入済み（021〜030はHEAD `e8f53fc0f699f6726349e9ac86edf685c6e5cd4d`、PRコメント #6465382248）。今回031〜040の10件を第4段階へ一括移行し、新HEADの全必要CI判定待ち。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
 
 
 ### 2026-10-28 学習順005〜010バッチ移行（正式受入済み）
@@ -110,10 +110,17 @@ database/
 
 記録では **「画面が動く」「対応コードが読める」「構造が理解しやすい」「単体・実DB試験の根拠がある」「現地実機受入」** を別々の項目として判定し、完成率を混同しない。
 
-### 2026-10-28 学習順021〜030の第3段階10件一括物理移行（新HEAD CI判定待ち）
+### 2026-10-28 学習順021〜030の第3段階10件一括物理移行（正式受入済み）
 
 - 主Razor10件を`Components/Lessons/Stage03/L021〜L030*.razor`へ移行し、旧主ファイルを削除。正規`/learn/021〜030`と互換`/learn/11〜20`を維持した。
 - 10件の教材直接リンク・source-index・source-map・静的検査・Chromeの両URL GETを同期。027はRazorクラス名変更に合わせ`ILogger<L027AsyncLoggingPage>`へ変更した。
 - `Step11/DiOverviewPage`、`Step14/SharedCounter`等の共有子コンポーネント、DI登録、サービス、Application契約、xUnit試験は移動・複製しない。source-mapの関連ソース登録は静的な参照であり、全件の意味的依存追跡や実動作受入の完了を示さない。
-- 同一HEADのWindows/Linux/xUnit/Chrome/PG18/PDFの全必要CI成功を確認するまで今回の10件は未受入。実機PRE/SITEは未実施、SITE PASS 0/15、PR Draft/未マージ、正式PDF Release変更なし。
+- HEAD `e8f53fc0f699f6726349e9ac86edf685c6e5cd4d` のアプリRun40663589348とPDF Run40663589353の全必要CI成功をPRコメント #6465382248 で正式受入。実機PRE/SITE未実施、SITE PASS 0/15、PR Draft/未マージ、正式PDF Release変更なし。
 - 次の候補は031〜040の第4段階。主Razor・子Razor・MudBlazor/DIと各教材を確認し、一括移行できる範囲を決める。
+
+### 2026-10-28 学習順031〜040の第4段階10件一括物理移行（新HEAD CI判定待ち）
+
+- 主Razor10件を`Components/Lessons/Stage04/L031〜L040*.razor`へ移動し、旧`Samples/Step21〜Step30`の主Razor10件を削除。正規`/learn/031〜040`と互換`/learn/21〜30`は維持。
+- 教材10件・source-index・source-mapの依存参照・静的検査・Chromeの正規/互換Document GETを同期。既存MudBlazor日本語翻訳、共通DI・Provider、ThemePreferenceServiceの実装や共有業務処理を変更・複製しない。
+- 既存Chrome操作（通知、Drawer、入力、検証、Table、DataGrid、ダイアログ、Snackbar、テーマ、架空一覧）と今回追加したGET10件を、新HEAD Windows/Linux/xUnit/PG18/PDFの全必要CI completed/SUCCESS後のみ受入。成功CIは手動再実行しない。
+- 追加30テーマの実装受入30/30と構造移行は別指標。SITE PASS 0/15・NOT_RUN 15/15、実AD/IIS/FDWと10,001人負荷は未受入、PR Draft/未マージ、正式PDF Release未変更。次は041〜050のJSとDB依存を先に監査する。

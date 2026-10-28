@@ -1,6 +1,6 @@
 # 学習順39：ダークモードとキーボード操作を確認する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step29/AccessibilityPage.razor)。画面の正規URLは `/learn/039` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L039AccessibilityPage.razor)。画面の正規URLは `/learn/039` です。
 
 **実習URL：`/learn/039`。** 第4段階・第8組の4本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
 

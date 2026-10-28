@@ -1,6 +1,6 @@
 # 学習順38：Snackbar・処理中・完了を使い分ける
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step28/NotificationPage.razor)。画面の正規URLは `/learn/038` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor)。画面の正規URLは `/learn/038` です。
 
 **実習URL：`/learn/038`。** 第4段階・第8組の3本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
 

@@ -1,6 +1,6 @@
 # 学習順31：MudBlazorと日本語翻訳を導入する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step21/MudIntroductionPage.razor)。画面の正規URLは `/learn/031` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L031MudIntroductionPage.razor)。画面の正規URLは `/learn/031` です。
 
 ## 学ぶ前に
 この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/031 です。

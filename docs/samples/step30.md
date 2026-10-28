@@ -1,6 +1,6 @@
 # 学習順40：検索・入力・確認・通知の総合演習
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step30/UiPracticePage.razor)。画面の正規URLは `/learn/040` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor)。画面の正規URLは `/learn/040` です。
 
 **実習URL：`/learn/040`。** 第4段階・第8組の5本目です。ここで扱う架空データ・模擬処理は業務DBに保存されません。
 

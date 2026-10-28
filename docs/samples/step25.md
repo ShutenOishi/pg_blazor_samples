@@ -1,6 +1,6 @@
 # 学習順35：MudTableで一覧とソート
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step25/MudTablePage.razor)。画面の正規URLは `/learn/035` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L035MudTablePage.razor)。画面の正規URLは `/learn/035` です。
 
 ## 学ぶ前に
 この教材はWinForms＋Dapperを使ってきた開発者が、WebのUIとサーバー側C#の境界を理解するためのものです。学習用の架空データで試し、認証・認可や実業務の保存が成立したとは見なしません。対象画面は /learn/035 です。

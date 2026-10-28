@@ -565,11 +565,18 @@
       "stage": 4,
       "lesson_path": "docs/samples/step21.md",
       "app_url": "/learn/21",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step21/MudIntroductionPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L031MudIntroductionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/031"
+      "canonical_url": "/learn/031",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "notes": "主RazorをStage04/L031MudIntroductionPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 32,
@@ -578,11 +585,17 @@
       "stage": 4,
       "lesson_path": "docs/samples/step22.md",
       "app_url": "/learn/22",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step22/MudLayoutPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L032MudLayoutPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/032"
+      "canonical_url": "/learn/032",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "主RazorをStage04/L032MudLayoutPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 33,
@@ -591,11 +604,17 @@
       "stage": 4,
       "lesson_path": "docs/samples/step23.md",
       "app_url": "/learn/23",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step23/MudInputsPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L033MudInputsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/033"
+      "canonical_url": "/learn/033",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "主RazorをStage04/L033MudInputsPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 34,
@@ -604,11 +623,17 @@
       "stage": 4,
       "lesson_path": "docs/samples/step24.md",
       "app_url": "/learn/24",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step24/MudValidationPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L034MudValidationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/034"
+      "canonical_url": "/learn/034",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "主RazorをStage04/L034MudValidationPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 35,
@@ -617,11 +642,17 @@
       "stage": 4,
       "lesson_path": "docs/samples/step25.md",
       "app_url": "/learn/25",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step25/MudTablePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L035MudTablePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/035"
+      "canonical_url": "/learn/035",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "主RazorをStage04/L035MudTablePage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 36,
@@ -630,11 +661,17 @@
       "stage": 4,
       "lesson_path": "docs/samples/step26.md",
       "app_url": "/learn/26",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step26/DataGridPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L036DataGridPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/036"
+      "canonical_url": "/learn/036",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "主RazorをStage04/L036DataGridPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 37,
@@ -643,11 +680,18 @@
       "stage": 4,
       "lesson_path": "docs/samples/step27.md",
       "app_url": "/learn/27",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step27/DialogPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L037DialogPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/037"
+      "canonical_url": "/learn/037",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "notes": "主RazorをStage04/L037DialogPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 38,
@@ -656,11 +700,18 @@
       "stage": 4,
       "lesson_path": "docs/samples/step28.md",
       "app_url": "/learn/28",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step28/NotificationPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/038"
+      "canonical_url": "/learn/038",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "notes": "主RazorをStage04/L038NotificationPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 39,
@@ -669,11 +720,19 @@
       "stage": 4,
       "lesson_path": "docs/samples/step29.md",
       "app_url": "/learn/29",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step29/AccessibilityPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L039AccessibilityPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/039"
+      "canonical_url": "/learn/039",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/ThemePreferenceService.cs"
+      ],
+      "notes": "主RazorをStage04/L039AccessibilityPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 40,
@@ -682,11 +741,18 @@
       "stage": 4,
       "lesson_path": "docs/samples/step30.md",
       "app_url": "/learn/30",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step30/UiPracticePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/040"
+      "canonical_url": "/learn/040",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Components/_Imports.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor"
+      ],
+      "notes": "主RazorをStage04/L040UiPracticePage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },
     {
       "sequence": 41,
