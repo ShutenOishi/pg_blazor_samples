@@ -1140,7 +1140,17 @@ async function waitText(page, selector, expected) {
             throw new Error("ステップ13：サービス識別子の形式が不正です。");
         }
         await page.screenshot({ path: path.join(evidence, "step13.png") });
-        console.log("ステップ13：3種類の生存期間の識別子を確認");
+        // 学習順023：再解決したTransientと既存のSingleton/Scopedを分けて確認する。
+        await page.getByRole("button", { name: "Transientをもう1つ取得する" }).click();
+        await page.waitForFunction(previous => {
+            const value = document.querySelector('[data-testid="step13-transient-new"]')?.textContent?.trim();
+            return Boolean(value && value !== previous);
+        }, transientAfter, { timeout: 15000 });
+        if ((await page.locator('[data-testid="step13-singleton"]').textContent()).trim() !== singletonBefore
+            || (await page.locator('[data-testid="step13-scoped"]').textContent()).trim() !== scopedBefore) {
+            throw new Error("学習順023：同一circuitのSingleton/Scoped識別子が変化しました。");
+        }
+        console.log("学習順023：Transientの連続再解決とSingleton/Scopedの安定性を確認");
 
         await page.goto(base + "/learn/14");
         await page.waitForTimeout(1100);
@@ -1151,8 +1161,23 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "子の表示から1増やす" }).click();
         await waitText(page, '[data-testid="step14-parent-count"]', "2");
         await waitText(page, '[data-testid="step14-child-count"]', "2");
+        // 学習順024：別ブラウザーコンテキストの新circuitへ状態が流出しないことを検査する。
+        const isolatedCircuitPage = await browser.newPage({ locale: "ja-JP" });
+        try {
+            await isolatedCircuitPage.goto(base + "/learn/024");
+            await isolatedCircuitPage.waitForTimeout(1100);
+            await waitText(isolatedCircuitPage, '[data-testid="step14-parent-count"]', "0");
+            await isolatedCircuitPage.getByRole("button", { name: "子の表示から1増やす" }).click();
+            await waitText(isolatedCircuitPage, '[data-testid="step14-parent-count"]', "1");
+            await waitText(isolatedCircuitPage, '[data-testid="step14-child-count"]', "1");
+            await waitText(page, '[data-testid="step14-parent-count"]', "2");
+            await waitText(page, '[data-testid="step14-child-count"]', "2");
+        } finally {
+            await isolatedCircuitPage.close();
+        }
         await page.getByRole("button", { name: "0に戻す" }).click();
         await waitText(page, '[data-testid="step14-parent-count"]', "0");
+        await waitText(page, '[data-testid="step14-child-count"]', "0");
         await page.screenshot({ path: path.join(evidence, "step14.png") });
         console.log("ステップ14：親子で同一Scoped状態を共有する操作に成功");
 
@@ -1195,6 +1220,12 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "設定とDIの関係を確認" }).click();
         await waitText(page, '[data-testid="step16-explain"]', "IOptions");
         await page.getByTestId("di06-compare-16").waitFor();
+        await waitText(page, '[data-testid="step16-limit"]', "5");
+        await page.getByRole("button", { name: "設定とDIの関係を確認" }).click();
+        if (await page.locator('[data-testid="step16-explain"]').count() !== 0) {
+            throw new Error("学習順026：説明を閉じても要素が残っています。");
+        }
+        console.log("学習順026：Learning設定値と説明表示の開閉を確認");
         console.log("学習順026：Options表示と比較表を確認");
 
         await page.goto(base + "/learn/17");

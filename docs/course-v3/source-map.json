@@ -418,7 +418,8 @@
       "related_sources": [
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Services/Lifetime/LifetimeMarkers.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/L023ServiceLifetimeTests.cs"
       ],
       "notes": " 主RazorをStage03/L023ServiceLifetimesPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
@@ -438,7 +439,8 @@
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Services/Lifetime/ScopedCounter.cs",
         "src/PgBlazorSamples.Web/Components/Samples/Step14/SharedCounter.razor",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/L024ScopedCounterTests.cs"
       ],
       "notes": " 主RazorをStage03/L024CircuitScopedPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
@@ -478,7 +480,8 @@
       "related_sources": [
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Services/Learning/LearningOptions.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/L026LearningOptionsTests.cs"
       ],
       "notes": " 主RazorをStage03/L026OptionsPatternPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
