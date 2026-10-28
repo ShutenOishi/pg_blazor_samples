@@ -1379,6 +1379,23 @@ async function waitText(page, selector, expected) {
         await page.locator(".mud-select:not(.mud-input-control):not(.mud-select-input)").first().click();
         await page.getByText("UI", { exact: true }).last().click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月26日");
+        // 学習順033：既定日の表示だけではなく、実MudDatePickerのカレンダーで
+        // 月末→翌月初の別日を選び、DateTime? バインドの表示まで確認する。
+        const dateInput033 = page.getByRole("textbox", { name: "学習予定日" });
+        await dateInput033.click();
+        let calendar033 = page.locator(".mud-picker-calendar:visible");
+        await calendar033.waitFor();
+        await calendar033.locator(".mud-picker-calendar-day:not([disabled])").filter({ hasText: /^31$/ }).click();
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月31日");
+        await page.keyboard.press("Escape");
+        await dateInput033.click();
+        calendar033 = page.locator(".mud-picker-calendar:visible");
+        await calendar033.waitFor();
+        await page.locator(".mud-picker-nav-button-next:visible").click();
+        await calendar033.locator(".mud-picker-calendar-day:not([disabled])").filter({ hasText: /^1$/ }).click();
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年11月1日");
+        await page.keyboard.press("Escape");
+        console.log("学習順033：MudDatePicker実カレンダーの10月31日→11月1日選択とDateTime?反映を検証");
         await page.locator('[data-testid="mud07-compare-23"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step23.png") });
 
