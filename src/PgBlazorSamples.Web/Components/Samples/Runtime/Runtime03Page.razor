@@ -7,10 +7,11 @@
 <p>Interactive Serverの事前レンダリングが有効な場合、最初のHTML生成と対話型コンポーネントの開始は別のインスタンスになります。OnInitializedは合計2回呼び出される場合があります。</p>
 <section class="lesson-details"><h2>現在の対話型インスタンスで数える</h2>
 <p>初期化回数：<strong data-testid="runtime03-init">@initialized</strong></p>
+<p>現在のインスタンス識別子（学習用）：<strong data-testid="runtime03-instance">@instanceId</strong></p>
 <p>初回の描画後処理：<strong data-testid="runtime03-after">@afterFirstRender</strong></p>
 <button type="button" @onclick="Add">状態を変更する</button>
 <p>変更回数：<strong data-testid="runtime03-change">@changes</strong></p>
-<p>表示中の数字は現在のインスタンス内だけの回数です。事前レンダリング時の別インスタンスの初期化を足した値ではありません。</p>
+<p>表示中の数字は現在のインスタンス内だけの回数です。初回DocumentのHTMLにも識別子が含まれます。初回HTMLと対話型表示の識別子を比べると、事前描画と対話開始が別インスタンスか検証できます。</p>
 <p>OnAfterRenderは事前レンダリング時には呼ばれません。外部処理の重複実行を防ぐ設計を考えてください。</p></section>
 <section class="lesson-details">
 <h2>初期化と描画の違い</h2>
@@ -25,6 +26,7 @@ private void Add() =&gt; changes++;</code></pre>
 </section>
 <div class="page-navigation"><a href="/learn/016">前へ：学習順016</a><a href="/learn/018">次へ：学習順018</a></div>
 @code {
+    private readonly string instanceId = Guid.NewGuid().ToString("N");
     private int initialized;
     private int afterFirstRender;
     private int changes;

@@ -233,9 +233,15 @@
       "app_url": "/learn/runtime-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/017"
+      "canonical_url": "/learn/017",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "notes": "初回Documentと対話型描画のインスタンス識別子を比較。新HEAD CI待ち。"
     },
     {
       "sequence": 18,

@@ -318,6 +318,23 @@ async function waitText(page, selector, expected) {
         await page.getByRole("link", { name: "次へ：学習順017" }).click();
         await page.getByRole("heading", { name: "事前レンダリングと初期化の実行回数" }).waitFor();
         await page.getByRole("table").first().getByText("OnInitialized").waitFor();
+        // 学習順017：初回Documentに埋め込まれた事前描画インスタンスと、対話開始後のインスタンスを比較。
+        const prerender17 = await page.goto(base + "/learn/017");
+        if (!prerender17 || prerender17.status() !== 200) throw new Error("017 初回Documentが200ではない");
+        const initial17Html = await prerender17.text();
+        const match17 = initial17Html.match(/data-testid="runtime03-instance"[^>]*>([0-9a-f]{32})/);
+        if (!match17) throw new Error("017 初回HTMLに事前描画の識別子がない");
+        if (!/data-testid="runtime03-after"[^>]*>0</.test(initial17Html))
+            throw new Error("017 事前描画でOnAfterRenderが実行済みとして表示された");
+        const static17Id = match17[1];
+        await page.waitForFunction(initial => {
+            const value = document.querySelector('[data-testid="runtime03-instance"]')?.textContent?.trim();
+            return /^[0-9a-f]{32}$/.test(value || "") && value !== initial;
+        }, static17Id, { timeout: 15000 });
+        const interactive17Id = (await page.getByTestId("runtime03-instance").textContent()).trim();
+        if (interactive17Id === static17Id) throw new Error("017 別インスタンスを確認できない");
+        await waitText(page, '[data-testid="runtime03-after"]', "1");
+        console.log("学習順017：初回Documentの事前描画IDと対話型IDの不一致、OnAfterRender 0→1を確認");
         await page.goto(base + "/learn/runtime-03");
         await waitText(page, '[data-testid="runtime03-init"]', "1");
         await waitText(page, '[data-testid="runtime03-after"]', "1");

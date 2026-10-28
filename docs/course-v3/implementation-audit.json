@@ -146,16 +146,20 @@
       "lesson_path": "docs/course-v3/lessons/runtime-03.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
       "canonical_url": "/learn/017",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "初回Documentの静的描画インスタンスIDと対話型IDの不一致、OnAfterRender 0→1をChromeで比較",
       "missing_behavior": "事前描画と対話描画の別インスタンスを識別する可観測性",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 ランダム識別子は学習用であり、circuitや本人識別子ではない。新HEAD同一CI待ち。"
     },
     {
       "sequence": "019",
