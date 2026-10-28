@@ -1385,14 +1385,14 @@ async function waitText(page, selector, expected) {
         await dateInput033.click();
         let calendar033 = page.locator(".mud-picker-calendar:visible");
         await calendar033.waitFor();
-        await calendar033.locator(".mud-picker-calendar-day:not([disabled])").filter({ hasText: /^31$/ }).click();
+        await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^31$/ }).click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月31日");
         await page.keyboard.press("Escape");
         await dateInput033.click();
         calendar033 = page.locator(".mud-picker-calendar:visible");
         await calendar033.waitFor();
         await page.locator(".mud-picker-nav-button-next:visible").click();
-        await calendar033.locator(".mud-picker-calendar-day:not([disabled])").filter({ hasText: /^1$/ }).click();
+        await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^1$/ }).click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年11月1日");
         await page.keyboard.press("Escape");
         console.log("学習順033：MudDatePicker実カレンダーの10月31日→11月1日選択とDateTime?反映を検証");

@@ -344,7 +344,7 @@
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": true,
         "onsite_accepted": false,
-        "evidence_script_lines": "399-413;1123-1135",
+        "evidence_script_lines": "399-413",
         "evidence_browser_job_id": 123134149793,
         "evidence_browser_run_id": 40778582672,
         "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
@@ -375,7 +375,7 @@
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": true,
         "onsite_accepted": false,
-        "evidence_script_lines": "415-421;1080-1095",
+        "evidence_script_lines": "415-421;1058-1073",
         "evidence_browser_job_id": 123134149793,
         "evidence_browser_run_id": 40778582672,
         "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
@@ -406,7 +406,7 @@
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": true,
         "onsite_accepted": false,
-        "evidence_script_lines": "421-427;1096-1102",
+        "evidence_script_lines": "421-427;1075-1084",
         "evidence_browser_job_id": 123134149793,
         "evidence_browser_run_id": 40778582672,
         "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
@@ -439,7 +439,7 @@
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": true,
         "onsite_accepted": false,
-        "evidence_script_lines": "427-431;1103-1108",
+        "evidence_script_lines": "427-431;1087-1099",
         "evidence_browser_job_id": 123134149793,
         "evidence_browser_run_id": 40778582672,
         "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
@@ -472,7 +472,7 @@
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": true,
         "onsite_accepted": false,
-        "evidence_script_lines": "431-435;1104-1109",
+        "evidence_script_lines": "431-435;1101-1109",
         "evidence_browser_job_id": 123134149793,
         "evidence_browser_run_id": 40778582672,
         "evidence_browser_ci_head": "c6117271ce94db9c7a0ed40bfc054a0ad28d4321"
@@ -707,14 +707,14 @@
         "razor_path_present_at_base": true,
         "dependency_paths_missing_at_base": [],
         "classification": "追加検証必要（不足する操作条件が特定済み）",
-        "scope_and_next_action": "既定日/選択肢の正常系はc611原本確認。9cd3711で10月31日→11月1日の実カレンダー選択とバインド境界を新規追加。新HEAD CI原本SUCCESSまでは未受入。",
+        "scope_and_next_action": "既定日/選択肢はc611原本確認。9cd3711の実カレンダー10/31→11/1試験は隣接月の同名日ボタンとのlocator二重一致で失敗（Run40779739812）。見える当月日ボタンのみに限定する原因修正を実施。新HEADのChrome原本成功までは未受入。",
         "evidence_script": "scripts/browser-smoke.cjs",
         "evidence_main_application_run": 40776976708,
         "evidence_main_pdf_run": 40776976727,
         "isolated_pg18_proven_for_this_lesson": false,
         "same_head_new_pr_ci_accepted": false,
         "onsite_accepted": false,
-        "new_head_calendar_test": "scripts/browser-smoke.cjs（9cd3711、CI未受入）"
+        "new_head_calendar_test": "scripts/browser-smoke.cjs（当月の見える日ボタンに限定した新HEAD、CI未受入）"
       }
     },
     {
@@ -1077,8 +1077,8 @@
       32,
       38
     ],
-    "current_033_calendar_case": "NEW_HEAD_CI_PENDING",
+    "current_033_calendar_case": "NEW_HEAD_CI_PENDING_AFTER_CALENDAR_DAY_SELECTOR_FIX",
     "current_045_real_zoom_and_screenreader": "NOT_TESTED",
-    "note": "個別証跡確認はc6117271の既存Chrome成功ログを再利用。今回の9cd3711以後のMudDatePicker変更は新HEAD成功まで未受入。実200%拡大やスクリーンリーダーは未実施。"
+    "note": "元HEAD c6117271の既存成功Chromeを再利用。9cd3711の日付ピッカー試験は1日ボタン二重一致で失敗。新HEADで当月のみ選択する原因限定修正を検証待ち。実200%ブラウザー拡大・支援技術はNOT_TESTED。"
   }
 }
