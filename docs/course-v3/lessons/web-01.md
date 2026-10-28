@@ -1,6 +1,6 @@
 # 学習順001：WinFormsとWebの処理場所を比較する
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor)。画面の正規URLは `/learn/001` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L001WebExecutionPage.razor)。画面の正規URLは `/learn/001` です。
 
 ## 到達目標
 
@@ -26,7 +26,7 @@ WinFormsでC#のイベント処理に慣れている人は、Blazorでも同じ`
 
 ## 2. ソースコード全体を読む
 
-実際の画面の実装は`Web01Page.razor`です。以下は、この画面で使っているRazorの主要部分をそのまま抜粋したものです。
+実際の画面の実装は`L001WebExecutionPage.razor`です。以下は、この画面で使っているRazorの主要部分をそのまま抜粋したものです。
 
 ```razor
 @page "/learn/001"
@@ -99,7 +99,7 @@ private void button1_Click(object sender, EventArgs e)
 2. 初期表示「0回」を確認します。
 3. ボタンを1回押し、「1回」になることを確かめます。
 4. もう1回押し、「2回」になることを確かめます。同時に、学習用履歴が「クリック1回目 → クリック2回目」の順で増えていることを確認します。
-5. `Web01Page.razor`の`Increment()`にブレークポイントを置けるなら、クリック時にC#がサーバー側で停止することを確認します。
+5. `L001WebExecutionPage.razor`の`Increment()`にブレークポイントを置けるなら、クリック時にC#がサーバー側で停止することを確認します。
 6. ブラウザーを再読み込みした場合、コンポーネントが再作成され、カウントが初期値に戻り、履歴も「まだ処理していません」に戻ることを確認します。これはDB保存ではありません。
 
 **観察結果：** ボタンを2回押した直後は2回、ページを新規に開き直したときの初期値は0回です。画面の状態と永続化された業務データは別のものだと分かります。

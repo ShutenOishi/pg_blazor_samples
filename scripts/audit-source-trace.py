@@ -72,6 +72,13 @@ def main():
             matched = sorted({symbol for _, symbol in references if contains_symbol(body, symbol)})
             if matched:
                 related_tests.append({'path': test_path.relative_to(ROOT).as_posix(), 'matched_symbols': matched})
+        declared_related = entry.get('related_sources', [])
+        if not isinstance(declared_related, list):
+            problems.append(f'{name}: related_sourcesが配列ではありません')
+            declared_related = []
+        for related in declared_related:
+            if not isinstance(related, str) or not (ROOT / related).is_file():
+                problems.append(f'{name}: 登録済み依存先が存在しません: {related}')
         rows.append({
             'sequence': name,
             'stage': entry.get('stage'),
@@ -82,6 +89,8 @@ def main():
             'declared_injections': re.findall(r'^\s*@inject\s+(.+)$', source, re.MULTILINE),
             'code_symbol_references': [p.relative_to(ROOT).as_posix() for p, _ in references],
             'test_symbol_candidates': related_tests,
+            'declared_related_sources': declared_related,
+            'declared_related_sources_status': 'FILE_EXISTS_ONLY_NOT_EXECUTION_PROOF',
             'js_filename_references': [p.relative_to(ROOT).as_posix() for p in scripts if p.name in source],
             'sql_filename_references': [p.relative_to(ROOT).as_posix() for p in sql if p.name in source],
             'evidence_level': 'STATIC_TEXT_MATCH_ONLY',
@@ -132,6 +141,7 @@ def main():
             'js_files_scanned': len(scripts),
             'sql_files_scanned': len(sql),
             'lessons_with_code_symbol_references': sum(bool(r['code_symbol_references']) for r in rows),
+            'lessons_with_declared_related_sources': sum(bool(r['declared_related_sources']) for r in rows),
             'lessons_with_test_symbol_candidates': sum(bool(r['test_symbol_candidates']) for r in rows),
             'end_to_end_verified': 0,
             'legacy_label_candidates': len(legacy_label_candidates),

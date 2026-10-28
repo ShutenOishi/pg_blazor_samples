@@ -11,7 +11,7 @@
 | 現行の場所 | 内容 | 学習者にとっての課題と改善候補 |
 | --- | --- | --- |
 | [Samples/Step01](../../src/PgBlazorSamples.Web/Components/Samples/Step01/FirstPage.razor) から Samples/Step80 | 既存80画面の格納 | 物理ディレクトリの番号が現在の学習順と一致しない。例：FirstPage.razorは学習順006。学習順のファイル名・段階分類へ段階的に移行する |
-| [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加30画面 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
+| [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web02Page.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加30画面 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
 | [docs/samples](../samples/step01.md) と [course-v3/lessons](lessons/web-01.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
 | [Services/Learning](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[Data](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs) | 複数教材で共用する処理 | 何を共用し、どの画面から呼ぶかが教材の索引だけでは分からない。依存先を追加し、必要な責務分離を検討する |
 | [UnitTests](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)、[database](../../database/schema/001_learning_task.sql)、[JS](../../src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js) | 単体・結合・SQL・ブラウザー処理 | 画面から正常系・拒否系の試験と実装を一緒に見つけられるようにする |
@@ -69,6 +69,12 @@ database/
 **学習順052**：現在の[教材](lessons/db-bridge-02.md)から[DbBridge02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
 
 **学習順107**：現在の[教材](lessons/capstone-02.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
+
+## 段階的な移行記録
+
+- **学習順001の第1段階への配置変更（CI検証待ち）**：主Razorを`Components/Lessons/Stage01/L001WebExecutionPage.razor`へ移動。`/learn/001`および`/learn/web-01`を新しいファイルで保持し、教材・source-map・監査JSON・直接索引・静的検査の参照を同期した。共有サービスは変更していない。
+- **依存索引（今回の変更時点）**：001〜005は既存のChrome操作、CSS、App.razor等の実在する参照先を登録。041はJSモジュール・C#補助・xUnit・Chromeの参照を登録し直した。静的登録は個別試験の新しい合格を意味しない。
+- 移行済みは学習順001のみ。残る109件の主Razor、教材Markdownの物理配置、段階フォルダーの整備、全110件の意味的な依存追跡は引き続き未完了。構造移行後のCI成功を確認するまでは本移行を正式受入としない。
 
 ## 移行順と合格条件
 

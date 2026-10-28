@@ -11,12 +11,15 @@
       "stage": 1,
       "lesson_path": "docs/course-v3/lessons/web-01.md",
       "app_url": "/learn/web-01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L001WebExecutionPage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/001",
-      "notes": "サーバーC#イベント履歴の2回操作と再読込初期化をChromeで検証予定。 前HEAD 499d646のアプリ全3ジョブとPDF成功CIで受入済み。"
+      "notes": "サーバーC#イベント履歴の2回操作と再読込初期化をChromeで検証予定。 前HEAD 499d646のアプリ全3ジョブとPDF成功CIで受入済み。",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 2,
@@ -30,7 +33,10 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/002",
-      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
+      "notes": "Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 3,
@@ -44,7 +50,11 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/003",
-      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。"
+      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor.css",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 4,
@@ -58,7 +68,10 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/004",
-      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。"
+      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 5,
@@ -72,7 +85,11 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/005",
-      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。 受入HEAD 150bcd6511073b04737d4c0c70aff6f7b98f3f6d、アプリ40610990968・PDF40610990849 SUCCESS。"
+      "notes": "C#更新前後の2クリックと再読込初期化のChrome試験を追加。ブレークポイント停止は手動。新HEAD CI待ち。 受入HEAD 150bcd6511073b04737d4c0c70aff6f7b98f3f6d、アプリ40610990968・PDF40610990849 SUCCESS。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/App.razor",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 6,
@@ -561,16 +578,19 @@
       "app_url": "/learn/browser-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
       "audit_state": "interactive",
-      "test_state": "awaiting-independent-real-disconnect-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/041",
-      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。 041専用隔離WebSocket切断→C#捕捉ログを新HEAD CIで確認する。未成立はNOT_TESTED維持。 Run40637853498の041対話開始待ち失敗を補修。新HEAD全CI成功・独立切断ログ成立までNOT_TESTED。 041実WS切断だけでは例外捕捉を証明せず、Run40638392110の捕捉ログ欠落を記録。新HEADの診断でも捕捉なしはNOT_TESTED。 Run40638970262は041 JSInvoke完了・切断例外未発生。WS切断だけでは捕捉なし。BrowserContext offlineも試す。 Run40639521177成功だが041の実C# catchはNOT_TESTED。専用Developmentプロセスのみcircuit保持6秒に変更し、破棄時の実例外を独立検証。",
+      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。 041専用隔離WebSocket切断→C#捕捉ログを新HEAD CIで確認する。未成立はNOT_TESTED維持。 Run40637853498の041対話開始待ち失敗を補修。新HEAD全CI成功・独立切断ログ成立までNOT_TESTED。 041実WS切断だけでは例外捕捉を証明せず、Run40638392110の捕捉ログ欠落を記録。新HEADの診断でも捕捉なしはNOT_TESTED。 Run40638970262は041 JSInvoke完了・切断例外未発生。WS切断だけでは捕捉なし。BrowserContext offlineも試す。 Run40639521177成功だが041の実C# catchはNOT_TESTED。専用Developmentプロセスのみcircuit保持6秒に変更し、破棄時の実例外を独立検証。 正式受入 #6462399870：HEAD fbfbdf18abeed9364a8e529fd1663bf140ba98c1、アプリ40644033931/PDF40644033930全成功。041自身の切断後DisposeAsyncでC#実捕捉（invoke=false、dispose=true）。InvokeAsync自身の実捕捉は未実証。",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
         "scripts/browser-circuit-smoke.cjs",
         "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
         "docs/course-v3/lessons/browser-01.md",
-        "src/PgBlazorSamples.Web/Program.cs"
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
+        "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs",
+        "scripts/browser-smoke.cjs"
       ]
     },
     {
@@ -1546,7 +1566,7 @@
       "app_url": "/learn/capstone-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
       "audit_state": "interactive",
-      "test_state": "awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/108",
       "related_sources": [
@@ -1561,7 +1581,7 @@
         "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "Razor→保存中ガード→共有サービス→台帳/PG18実DB→xUnit/Chromeの依存対応。新HEAD同一CI待ち。実AD/IIS未実証。"
+      "notes": "Razor→保存中ガード→共有サービス→台帳/PG18実DB→xUnit/Chromeの依存対応。新HEAD同一CI待ち。実AD/IIS未実証。 正式受入 #6461326670：HEAD 00c26f704cb16096c5c7e5997691d33d9cd3ad7c、アプリ40636769489/PDF40636769499全SUCCESS。固定架空PrincipalとPG18の証拠であり実AD/IIS/SITEは未実証。"
     },
     {
       "sequence": 109,
