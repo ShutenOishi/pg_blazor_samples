@@ -69,6 +69,21 @@ async function waitText(page, selector, expected) {
         const page = await browser.newPage({ locale: "ja-JP", viewport: { width: 1280, height: 850 } });
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
+        // 学習順006〜008：単なるHTTP 200ではなく、静的な教材画面の遷移と
+        // Razor文字列のHTMLエンコードを実Chromeで確認する。C#イベント/xUnitは不要。
+        await page.goto(base + "/learn/006");
+        await page.getByRole("heading", { name: "はじめてのBlazor画面" }).waitFor();
+        await page.getByRole("link", { name: "次へ：学習順007" }).click();
+        if (!new URL(page.url()).pathname.endsWith("/learn/007"))
+            throw new Error("学習順007：学習順006から正規URLへ移動しません");
+        await page.getByRole("heading", { name: "URLとルーティング" }).waitFor();
+        await page.getByRole("link", { name: "学習順008へ進む" }).click();
+        await page.getByRole("heading", { name: "C#の値を画面へ表示する" }).waitFor();
+        await page.getByText("<重要>これは文字列です</重要>", { exact: true }).waitFor();
+        if (await page.locator("重要").count() !== 0)
+            throw new Error("学習順008：文字列をHTML要素として解釈しました");
+        console.log("学習順006〜008：最初の画面、NavLinkの正規遷移、Razor文字列のHTMLエンコードを確認");
+
         // 学習順011〜020：移行後も正規・互換Documentが両方HTTP 200を返すか確認する。
         // 既存のC#イベント、親子、履歴、ブラウザー保存、circuit切断の実操作試験は別に継続。
         for (const [sequence, compatibility] of [["011","/learn/05"],["012","/learn/06"],["013","/learn/07"],["014","/learn/08"],["015","/learn/runtime-02"],["016","/learn/09"],["017","/learn/runtime-03"],["018","/learn/10"],["019","/learn/runtime-04"],["020","/learn/runtime-05"]]) {
