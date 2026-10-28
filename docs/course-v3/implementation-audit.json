@@ -262,11 +262,11 @@
       "implemented_behavior": "固定架空CSVのUTF-8 BOM/CRLF/引用/式記号の単一引用符処理、1ページPDFの実バイト・xref生成、xUnitとChrome実ダウンロードバイト照合",
       "missing_behavior": "CSV/PDF実ダウンロードバイト、文字コード、悪意ある表計算入力の対策",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L043DownloadFileFactoryTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "同一HEADのCI最終SUCCESS未確認。Excel等の実ソフトにおけるCSV式解釈はNOT_TESTED。PDFの外部パーサー互換性・業務認可・実DBは未検証。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "5a8ea3834682f97e218519719fd6aa5337fd3a86",
+      "ci_run": 40622793752,
+      "notes": "PR #39 コメント #6459330682。同一HEADアプリ 40622793752 Windows/Ubuntu Chrome/PostgreSQL18全3ジョブSUCCESS、PDF 40622793674 SUCCESS。同一HEADのCI最終SUCCESS未確認。Excel等の実ソフトにおけるCSV式解釈はNOT_TESTED。PDFの外部パーサー互換性・業務認可・実DBは未検証。 "
     },
     {
       "sequence": "044",
@@ -284,11 +284,11 @@
       "implemented_behavior": "ErrorBoundary復旧、非同期取消、処理側/画面側の二重開始拒否、再試行と正常完了、Disposeでの取消通知を実装。xUnit/Chrome試験追加",
       "missing_behavior": "ErrorBoundary復帰、取消/再試行と多重操作",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L044OperationRunnerTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "同一HEAD CI未確認。実ブラウザー離脱時のサーバー側の中断証跡、業務DB取消/ロールバックはNOT_TESTED。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "56259dda4b705ec3ed2b45862a0e2ba4fe58e2cb",
+      "ci_run": 40622984093,
+      "notes": "PR #39 コメント #6459359038。同一HEADアプリ 40622984093 Windows/Ubuntu Chrome/PostgreSQL18全3ジョブSUCCESS、PDF 40622984193 SUCCESS。同一HEAD CI未確認。実ブラウザー離脱時のサーバー側の中断証跡、業務DB取消/ロールバックはNOT_TESTED。 "
     },
     {
       "sequence": "045",
@@ -313,16 +313,21 @@
       "lesson_path": "docs/course-v3/lessons/db-bridge-01.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor",
       "canonical_url": "/learn/046",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L046OrmComparisonService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/L046OrmComparisonTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "Dapperのパラメーター化SQLとEF Core LINQで学習用PostgreSQLの同一条件・最大10件を実検索して比較。未設定・Windows認証有効時拒否、境界入力とSQL注入を模した値の負例を追加",
       "missing_behavior": "用途選択に加え、隔離した学習DBの同一データをDapperとEFで読み比べる",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L046OrmComparisonTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 機能は新HEAD CI未確定。実DB比較はPostgreSQL18専用ジョブでのみ受入。Chromeは未設定時拒否を検証し実DB接続成功とはみなさない。"
     },
     {
       "sequence": "052",

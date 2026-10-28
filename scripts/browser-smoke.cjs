@@ -549,6 +549,11 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "一般的なCRUD" }).click();
         await waitText(page, '[data-testid="dbbridge01-result"]', "一般的なCRUD");
+        await page.getByRole("button", { name: "両方式で学習DBを検索する" }).click();
+        await waitText(page, '[data-testid="l046-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l046-dapper-rows").count() !== 0)
+            throw new Error("学習順046：DB未設定なのに行を表示しました");
+        console.log("学習順046：Chromeで未設定時の実DB拒否と選定操作を確認。実DB比較はPostgreSQL18ジョブのみ");
         await page.goto(base + "/learn/db-bridge-02");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "LINQからSQLを生成する" }).click();

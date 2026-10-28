@@ -1,5 +1,7 @@
 @page "/learn/046"
 @page "/learn/db-bridge-01"
+@using PgBlazorSamples.Web.Services.Learning
+@inject L046OrmComparisonService Comparison
 <PageTitle>学習順046：DapperとEF Coreの役割・選定を比較する｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第5段階 / 学習順046</p><h1>DapperとEF Coreの役割・選定を比較する</h1>
 <p>WinForms＋DapperのSQL・Executeと、EF Core 10のLINQ・変更追跡・SaveChangesを比較します。</p>
@@ -14,6 +16,39 @@
 <tr><td>一覧</td><td colspan="2">DBで条件・件数を制限し、本人認可はサーバーで強制</td></tr>
 </tbody></table>
 <p>EF Coreを中心に学びますが、既存SQLを無理に捨てる必要はありません。</p></section>
+<section class="lesson-details">
+    <h2>同じ学習用DBでDapperとEF Coreの実検索を比べる</h2>
+    <label for="l046-keyword">課題名の一部（1〜60文字）</label>
+    <input id="l046-keyword" @bind="keyword" maxlength="60" />
+    <button type="button" @onclick="CompareAsync" disabled="@loading">両方式で学習DBを検索する</button>
+    <p role="status" data-testid="l046-status">@comparisonStatus</p>
+    @if (comparison is { Queried: true })
+    {
+        <p data-testid="l046-matches">一致：@(comparison.Matches ? "はい" : "いいえ")</p>
+        <table data-testid="l046-dapper-rows">
+            <caption>Dapperで取得した最大10件</caption>
+            <thead><tr><th scope="col">ID</th><th scope="col">課題名</th></tr></thead>
+            <tbody>
+                @foreach (var row in comparison.DapperRows)
+                {
+                    <tr><td>@row.Id</td><td>@row.Title</td></tr>
+                }
+            </tbody>
+        </table>
+        <table data-testid="l046-ef-rows">
+            <caption>EF Coreで取得した最大10件</caption>
+            <thead><tr><th scope="col">ID</th><th scope="col">課題名</th></tr></thead>
+            <tbody>
+                @foreach (var row in comparison.EfRows)
+                {
+                    <tr><td>@row.Id</td><td>@row.Title</td></tr>
+                }
+            </tbody>
+        </table>
+    }
+    <p>学習用DBが未設定、またはWindows認証が有効な場合は検索しません。
+       読み取り専用の架空課題を対象とし、業務台帳の認可を代用しません。</p>
+</section>
 <section class="lesson-details">
     <h2>学習順046：WinForms＋Dapperとの比較と操作確認</h2>
     <table data-testid="dbbridge10-compare-046">
@@ -32,6 +67,23 @@
 <div class="page-navigation"><a href="/learn/column/browser-45">前へ</a><a href="/learn/047">次へ</a></div>
 @code {
     private string result = "未選択";
+    private string keyword = "架空";
+    private string comparisonStatus = "実DB検索は未実行です。";
+    private bool loading;
+    private L046ComparisonResult? comparison;
+    private async Task CompareAsync()
+    {
+        if (loading) return;
+        loading = true;
+        comparison = null;
+        comparisonStatus = "学習DBを照会しています。";
+        try
+        {
+            comparison = await Comparison.CompareAsync(keyword);
+            comparisonStatus = comparison.Status;
+        }
+        finally { loading = false; }
+    }
     private void Choose(string kind) => result = kind switch
     {
         "一般的なCRUD" => "一般的なCRUD：EF Coreの短命DbContextが候補です。",

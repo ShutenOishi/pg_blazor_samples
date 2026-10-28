@@ -589,10 +589,10 @@
       "app_url": "/learn/browser-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor",
       "audit_state": "interactive",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/043",
-      "notes": "Chromeの実ダウンロードバイトをCSV BOM/式記号引用/PDF xrefまで検査予定。Excel/LibreOffice上の動作は未検証。"
+      "notes": "PR #39 コメント #6459330682、受入HEAD 5a8ea3834682f97e218519719fd6aa5337fd3a86、アプリ 40622793752 / PDF 40622793674 SUCCESS。Chromeの実ダウンロードバイトをCSV BOM/式記号引用/PDF xrefまで検査予定。Excel/LibreOffice上の動作は未検証。"
     },
     {
       "sequence": 44,
@@ -603,10 +603,10 @@
       "app_url": "/learn/browser-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor",
       "audit_state": "interactive",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/044",
-      "notes": "xUnitでDispose取消、Chromeで正常/取消/再試行/二重UI制御とErrorBoundary復旧を検証予定。DBや離脱実測は未実証。"
+      "notes": "PR #39 コメント #6459359038、受入HEAD 56259dda4b705ec3ed2b45862a0e2ba4fe58e2cb、アプリ 40622984093 / PDF 40622984193 SUCCESS。xUnitでDispose取消、Chromeで正常/取消/再試行/二重UI制御とErrorBoundary復旧を検証予定。DBや離脱実測は未実証。"
     },
     {
       "sequence": 45,
@@ -631,9 +631,18 @@
       "app_url": "/learn/db-bridge-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/046"
+      "canonical_url": "/learn/046",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L046OrmComparisonService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/L046OrmComparisonTests.cs",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj"
+      ],
+      "notes": "Dapper/EF Coreの同条件学習DB検索と拒否を実装。新HEAD Windows/Chrome/PG18/PDF成功待ち。業務認可・FDWは実施しない。"
     },
     {
       "sequence": 47,

@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="10.0.13" />
     <!-- EF Core 10 + PostgreSQLはWebプロジェクトだけへ追加する。 -->
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../PgBlazorSamples.Application/PgBlazorSamples.Application.csproj" />

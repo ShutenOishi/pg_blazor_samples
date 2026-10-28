@@ -4,7 +4,7 @@
 
 ## 到達目標・前提知識
 DapperのQuery/ExecuteとEF CoreのLINQ/SaveChangesを、読み書きの要件から比較します。DapperはSQLの構造と実行を明示しやすく、EF Coreはモデルのマッピング、変更追跡、SaveChanges、競合検出を一貫して扱えます。どちらもPostgreSQLがSQLを実行する点は同じです。EF Coreなら自動で速くなる、SQLの知識が要らなくなる、認可が自動で成立するといった考え方は正しくありません。
-Webプロジェクト内のDataとServicesを使い、学習目的でDomain/Infrastructureなどを増設しません。学習画面では「一般的なCRUD」「既存の複雑なSQL」「大量一覧」を押すと、採用を検討する方式が文字で表示されます。この画面のボタンは実際のDB検索ではありません。選定の理由を言葉で説明する練習です。
+Webプロジェクト内のDataとServicesを使い、学習目的でDomain/Infrastructureなどを増設しません。学習画面では「一般的なCRUD」「既存の複雑なSQL」「大量一覧」を押すと、採用を検討する方式が文字で表示されます。方式選定の3つのボタンはDB検索ではなく、選定の理由を言葉で説明する練習です。別の「両方式で学習DBを検索する」ボタンは、設定済みの専用PostgreSQL 18から実際に同一条件の最大10件を読み比べます。
 前提は第4段階で学んだRazorイベント、DI、MudBlazorの日本語UIです。この章は既存80ステップのURLを維持したまま、全110本の学習順に従って読みます。必要に応じて開発用PostgreSQL 18を使用します。
 
 ## 仕組み・処理の流れ
@@ -20,7 +20,7 @@ Webプロジェクト内のDataとServicesを使い、学習目的でDomain/Infr
 
 ## 実装に対応するコード例1
 ```csharp
-// Dapperで書く場合の比較用参考例（この画面はDB実行しない）
+// L046OrmComparisonServiceの実行SQLと対応するDapperの参考例
 const string sql = "SELECT id, title FROM learning_task WHERE title ILIKE @Term ORDER BY id LIMIT 20";
 var records = await connection.QueryAsync<TaskSummary>(
     sql, new { Term = "%練習%" });
@@ -68,3 +68,11 @@ var rows = await query.OrderBy(t => t.Id).Take(20)
 
 ## 次のステップへの接続
 次の047では、EF CoreのEntityと画面に渡すDTOを区別します。DapperでSELECT結果をPOCOへ変換していた経験を使い、列の取得範囲と追跡対象を確認します。
+
+## 学習順046の実DB比較と試験範囲
+
+新しい `L046OrmComparisonService` は同じ学習用PostgreSQLに対して、Dapperの固定SQL（`strpos(title, @Term) > 0 ORDER BY id LIMIT 10`）とEF Coreの`Contains/OrderBy/Take`を順に実行します。IDと課題名の取得結果を照合し、最大10行をそれぞれ表示します。値はDapperのパラメーターおよびEF Coreの式で渡し、SQLの文字列連結は使いません。更新を伴わず、実データが並行変更された場合は不一致となる可能性があります。
+
+実装は[比較サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L046OrmComparisonService.cs)、DIは[Program.cs](../../../src/PgBlazorSamples.Web/Program.cs)、DB定義は[LearningDbContext](../../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)、正常・拒否・パラメーター負例のテストは[L046OrmComparisonTests](../../../tests/PgBlazorSamples.UnitTests/L046OrmComparisonTests.cs)を確認してください。専用PostgreSQL18 CIでは架空課題を2件登録して両方式で読み取り、SQL注入を模した値が検索条件に留まることを検査し、最後にその2件を削除します。
+
+画面操作では、まず開発用DBが未設定の状態で検索し「未設定」を確認します。専用DBを設定してWindows認証を無効化した開発環境では、既存の架空課題名で検索し、一致表示と各10件上限を確認します。空欄・60文字超・Windows認証有効時は実DB操作を拒否します。GitHub Actionsの通常ChromeジョブはDB未設定での拒否を検証し、実DBの照合はPostgreSQL18専用ジョブで行います。画面の検索成功だけでは本人・行単位の業務認可や現地実機を受入済みにしません。
