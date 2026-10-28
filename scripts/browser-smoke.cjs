@@ -79,11 +79,10 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="web01-count"]', "1");
         await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
         await waitText(page, '[data-testid="web01-count"]', "2");
-        await page.getByTestId("web01-trace").getByText("クリック2回目を処理", { exact: false }).waitFor().catch(async () => {
-            await page.getByTestId("web01-trace").waitFor();
-            const text = await page.getByTestId("web01-trace").innerText();
-            if (!text.includes("クリック1回目を処理") || !text.includes("クリック2回目を処理")) throw new Error("学習順001のサーバーC#処理履歴が不足しています: " + text);
-        });
+        await page.waitForFunction(() => {
+            const text = document.querySelector('[data-testid="web01-trace"]')?.textContent ?? "";
+            return text.includes("クリック1回目を処理") && text.includes("クリック2回目を処理");
+        }, null, { timeout: 15000 });
         await page.reload();
         await waitText(page, '[data-testid="web01-count"]', "0");
         await waitText(page, '[data-testid="web01-trace"]', "まだ処理していません");
