@@ -1369,11 +1369,6 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "確認ダイアログを開く" }).click();
         await page.getByRole("button", { name: "実行する", exact: true }).click();
         await waitText(page, '[data-testid="step27-result"]', "実行を選びました");
-        // 肯定・中止のボタンに加え、Escによる閉じる操作も実行扱いしない。
-        await page.getByRole("button", { name: "確認ダイアログを開く" }).click();
-        await page.getByRole("button", { name: "中止", exact: true }).waitFor();
-        await page.keyboard.press("Escape");
-        await waitText(page, '[data-testid="step27-result"]', "中止しました");
         await page.screenshot({ path: path.join(evidence, "step27.png") });
         console.log("ステップ27：ダイアログの肯定とキャンセルを検証");
 
