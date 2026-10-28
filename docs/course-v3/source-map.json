@@ -561,10 +561,16 @@
       "app_url": "/learn/browser-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
       "audit_state": "interactive",
-      "test_state": "implemented-awaiting-same-head-ci-js-disconnect-not-tested",
+      "test_state": "awaiting-independent-real-disconnect-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/041",
-      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。"
+      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。 041専用隔離WebSocket切断→C#捕捉ログを新HEAD CIで確認する。未成立はNOT_TESTED維持。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
+        "scripts/browser-circuit-smoke.cjs",
+        "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
+        "docs/course-v3/lessons/browser-01.md"
+      ]
     },
     {
       "sequence": 42,
@@ -1565,7 +1571,7 @@
       "app_url": "/learn/capstone-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
       "audit_state": "interactive",
-      "test_state": "awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/109",
       "related_sources": [
@@ -1577,7 +1583,7 @@
         "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "Razorの閲覧/編集権限→共有サービス一覧/集計→既存台帳→永続監査→PG18試験/Chrome拒否を追跡。新HEAD全CI待ち。"
+      "notes": "Razorの閲覧/編集権限→共有サービス一覧/集計→既存台帳→永続監査→PG18試験/Chrome拒否を追跡。新HEAD全CI待ち。 正式受入PRコメント #6461366678、同一HEAD dd5687089325d3e5f2adecc13acfcc412eec2665、アプリRun40637135284/PDF Run40637135398 全成功。"
     },
     {
       "sequence": 110,
@@ -1588,7 +1594,7 @@
       "app_url": "/learn/capstone-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
       "audit_state": "simulation",
-      "test_state": "awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/110",
       "related_sources": [
@@ -1598,7 +1604,7 @@
         "scripts/browser-smoke.cjs",
         "docs/course-v3/on-site-acceptance-plan.md"
       ],
-      "notes": "Razor→L110AcceptanceLedgerの読み取り専用CI/PRE/SITE状態→xUnit/Chrome。実現地証拠未実施。新HEAD CI待ち。"
+      "notes": "Razor→L110AcceptanceLedgerの読み取り専用CI/PRE/SITE状態→xUnit/Chrome。実現地証拠未実施。新HEAD CI待ち。 正式受入PRコメント #6461381661、同一HEAD 5ec6c62249f64831cdbe791cf405ff6682ce4333、アプリRun40637295362/PDF Run40637295450 全成功。"
     }
   ]
 }

@@ -2,6 +2,7 @@
 @using Microsoft.JSInterop
 @using PgBlazorSamples.Web.Services.Learning
 @inject IJSRuntime JS
+@inject ILogger<Browser01Page> Logger
 @implements IAsyncDisposable
 @page "/learn/browser-01"
 <PageTitle>学習順041：JavaScript interopの利用判断｜Blazor ステップアップ学習</PageTitle>
@@ -22,6 +23,10 @@
     <button type="button" @onclick="TriggerLearningJsError">学習用JS例外を発生させる</button>
     <button type="button" @onclick="ReleaseModule">JSモジュール参照を解放する</button>
     <p data-testid="browser01-module-state" role="status">@moduleState</p>
+    <h3>切断後のJS呼び出しを隔離環境で検証する</h3>
+    <button type="button" @onclick="ProbeActualDisconnectAsync">切断捕捉の待機処理を開始する</button>
+    <p role="status" data-testid="browser01-disconnect-probe">@disconnectProbeState</p>
+    <p>この操作は回線を切りません。隔離Chrome試験だけが学習順041自身のWebSocketを実切断し、C#捕捉ログを独立して確認します。</p>
     <p>例外内容は表示せず一般的な案内だけを出します。参照のDisposeAsyncはJavaScriptモジュールそのものをアンロードする保証ではありません。切断後の解放要求は届かない場合があります。</p>
 </section>
 <section class="lesson-details">
@@ -50,6 +55,7 @@
     private int count;
     private string message = "まだ取得していません。";
     private string moduleState = "参照なし";
+    private string disconnectProbeState = "未実施";
     private IJSObjectReference? module;
 
     private void Increase() => count++;
@@ -87,6 +93,31 @@
         catch (JSException exception)
         {
             message = L041InteropMessages.Describe(exception);
+        }
+    }
+
+    private async Task ProbeActualDisconnectAsync()
+    {
+        try
+        {
+            // DOMモジュールを接続中に取得する。隔離Chromeは待機表示を確認後、
+            // 041自身のWebSocketを閉じ、切断中にこのC#呼出しが走るようにする。
+            var current = await ImportModule();
+            disconnectProbeState = "実切断試験の待機中";
+            StateHasChanged();
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            await current.InvokeAsync<string>("readLanguage");
+            disconnectProbeState = "JS呼出しに成功しました。切断捕捉の証明ではありません。";
+        }
+        catch (JSDisconnectedException)
+        {
+            // 実切断でこの捕捉に達したことを、Chromeから独立したサーバーログで検証する。
+            Logger.LogWarning("L041_REAL_DISCONNECT_CAUGHT");
+            disconnectProbeState = "切断をC#で捕捉しました。再接続してください。";
+        }
+        catch (JSException)
+        {
+            disconnectProbeState = "ブラウザーの処理に失敗しました。切断捕捉の証明ではありません。";
         }
     }
 

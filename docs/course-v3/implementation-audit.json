@@ -213,17 +213,20 @@
         "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
         "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
         "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
+        "scripts/browser-circuit-smoke.cjs",
+        "docs/course-v3/lessons/browser-01.md"
       ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": "JS DOM実呼び出し、学習用JSExceptionの安全な拒否表示、IJSObjectReferenceのDisposeAsyncと再import、例外区分のxUnitとChrome。実切断でのJSDisconnectedException捕捉は未実証",
+      "implemented_behavior": "RazorのJSモジュール/JSException/Dispose実例に加え、041自身の独立BrowserContext/circuitの実WebSocketを切り、C# JSDisconnectedException catchのみが記すサーバーログ識別子を照合する隔離Chrome試験を追加。実捕捉は新HEAD CI確認待ち。",
       "missing_behavior": "JS連携、モジュール破棄、例外・切断の負例",
-      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs; scripts/browser-smoke.cjs; scripts/browser-circuit-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_REAL_DISCONNECT_CI",
+      "docs_status": "REVISED_AWAITING_REAL_DISCONNECT_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。"
+      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。 015とは独立した041の切断試験を追加。実捕捉ログ成立と全CI成功まで正式受入禁止。成功しなければNOT_TESTEDを維持。"
     },
     {
       "sequence": "042",
@@ -633,11 +636,11 @@
       "implemented_behavior": "本人検査と台帳閲覧/編集権限を都度呼び、共有サービスLoadPageAsyncの部署別一覧・CountByDoneAsyncの永続監査付き集計を独立操作。PG18架空Negotiate主体で閲覧可/編集不可、失効、無効、台帳不在、集計監査を検証対象とし、Chrome匿名4経路を安全拒否。",
       "missing_behavior": "認証済み本人/既存DB台帳/業務操作/行権限の都度確認の証跡を表示",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 この機能変更HEADの全CI待ち。実AD/Kerberos/IISは未実証。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "dd5687089325d3e5f2adecc13acfcc412eec2665",
+      "ci_run": "40637135284; PDF 40637135398",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 この機能変更HEADの全CI待ち。実AD/Kerberos/IISは未実証。 同一HEAD Windows/Ubuntu Chrome/PG18/PDFすべてSUCCESS、正式受入PRコメント #6461366678 を今回の機能コミットで後追い反映。実AD/IIS/SITE未証明。"
     },
     {
       "sequence": "110",
@@ -656,11 +659,11 @@
       "implemented_behavior": "CIのHEAD/Run証拠とPRE-01〜07・SITE-01〜15の未実施状態を独立表示。自己点検の全チェックでも本番受入を禁止。xUnitで台帳7+15件とNOT_RUNを固定検証、Chromeで同一の安全拒否を確認対象とする。",
       "missing_behavior": "現状は自己点検。CI証跡と現地PRE/SITEを自動的に合格へ変更しない受入台帳への導線",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L110AcceptanceLedgerTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 CIはアプリで自動取得しないためNOT_VERIFIED。PRE 7件未承認、SITE 0/15 PASS・15/15 NOT_RUNを固定維持。全CI成功後でもSITE受入に変更しない。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "5ec6c62249f64831cdbe791cf405ff6682ce4333",
+      "ci_run": "40637295362; PDF 40637295450",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 CIはアプリで自動取得しないためNOT_VERIFIED。PRE 7件未承認、SITE 0/15 PASS・15/15 NOT_RUNを固定維持。全CI成功後でもSITE受入に変更しない。 同一HEAD Windows/Ubuntu Chrome/PG18/PDFすべてSUCCESS、正式受入PRコメント #6461381661 を今回の機能コミットで後追い反映。実AD/IIS/SITE未証明。"
     }
   ]
 }

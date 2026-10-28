@@ -123,6 +123,50 @@ async function getToken(page) {
             throw new Error("学習順015：新Documentの状態が0に初期化されません");
         console.log("学習順015：再読込は別インスタンスで回数0。保持期限切れ・認可失効はNOT_TESTED");
         await context.close();
+
+        // 学習順041：015と独立したBrowserContext/circuitを作成し、JS例外の
+        // 人工生成ではなく、実WebSocketを切断してC# catchのログを検証する。
+        const context041 = await browser.newContext({ locale: "ja-JP" });
+        let socket041 = null;
+        let block041 = false;
+        let socket041Attempts = 0;
+        await context041.routeWebSocket("**/_blazor?*", async socket => {
+            socket041Attempts++;
+            if (block041) {
+                await socket.close({ code: 1012, reason: "isolated-041-disconnect" });
+                return;
+            }
+            socket041 = socket;
+            await socket.connectToServer();
+        });
+        const page041 = await context041.newPage();
+        const response041 = await page041.goto(base + "/learn/041");
+        if (!response041 || response041.status() !== 200)
+            throw new Error("学習順041：独立Document HTTP200なし");
+        await page041.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
+        await page041.waitForFunction(() =>
+            document.querySelector('[data-testid="browser01-language"]')?.textContent?.includes("HTMLの言語設定："),
+            null, { timeout: 15000 });
+        if (!socket041 || socket041Attempts < 1)
+            throw new Error("学習順041：独立WebSocketの捕捉なし");
+        await page041.getByRole("button", { name: "切断捕捉の待機処理を開始する" }).click();
+        await page041.waitForFunction(() =>
+            document.querySelector('[data-testid="browser01-disconnect-probe"]')?.textContent?.includes("実切断試験の待機中"),
+            null, { timeout: 15000 });
+        block041 = true;
+        await socket041.close({ code: 1012, reason: "isolated-041-disconnect" });
+        await page041.waitForFunction(() => {
+            const el = document.getElementById("components-reconnect-modal");
+            return !!el && ["components-reconnect-show", "components-reconnect-retrying",
+                "components-reconnect-failed", "components-reconnect-rejected"]
+                .some(name => el.classList.contains(name));
+        }, null, { timeout: 25000 });
+        for (let attempt = 0; attempt < 40 && !serverLog.includes("L041_REAL_DISCONNECT_CAUGHT"); attempt++)
+            await delay(500);
+        if (!serverLog.includes("L041_REAL_DISCONNECT_CAUGHT"))
+            throw new Error("学習順041：実WebSocketを切断したがC# JSDisconnectedException捕捉ログは未成立。受入禁止");
+        console.log("学習順041：041独立circuit実WebSocket切断後、C# JSDisconnectedException catchのサーバーログ識別子を検証");
+        await context041.close();
     } catch (error) {
         console.error(error);
         console.error(serverLog.slice(-8000));
