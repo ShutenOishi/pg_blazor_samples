@@ -563,6 +563,11 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "追跡状態を再現する" }).click();
         await waitText(page, '[data-testid="dbbridge03-state"]', "Added");
+        await page.getByRole("button", { name: "DapperとEF Coreの取引を試す" }).click();
+        await waitText(page, '[data-testid="l053-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l053-results").count() !== 0)
+            throw new Error("学習順053：DB未設定なのに取引結果を表示しました");
+        console.log("学習順053：ChromeでDB未設定時の安全拒否を確認。実DB取引は専用PostgreSQL18ジョブのみ");
         await page.goto(base + "/learn/db-bridge-04");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "キーなしモデル定義を確認する" }).click();

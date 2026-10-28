@@ -323,11 +323,11 @@
       "implemented_behavior": "Dapperのパラメーター化SQLとEF Core LINQで学習用PostgreSQLの同一条件・最大10件を実検索して比較。未設定・Windows認証有効時拒否、境界入力とSQL注入を模した値の負例を追加",
       "missing_behavior": "用途選択に加え、隔離した学習DBの同一データをDapperとEFで読み比べる",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L046OrmComparisonTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 機能は新HEAD CI未確定。実DB比較はPostgreSQL18専用ジョブでのみ受入。Chromeは未設定時拒否を検証し実DB接続成功とはみなさない。"
+      "behavior_status": "DB18_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "10c475d8c1c6e9f4463ad64f0cdca558403d9230",
+      "ci_run": 40624865887,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 機能は新HEAD CI未確定。実DB比較はPostgreSQL18専用ジョブでのみ受入。Chromeは未設定時拒否を検証し実DB接続成功とはみなさない。 正式受入PRコメント#6459661832。同一HEAD Windows/Ubuntu Chrome/PostgreSQL18全3 SUCCESS、PDF40624866109 SUCCESS。Ubuntu 73 PASS、PG18 22 PASS。"
     },
     {
       "sequence": "052",
@@ -352,16 +352,21 @@
       "lesson_path": "docs/course-v3/lessons/db-bridge-03.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor",
       "canonical_url": "/learn/053",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L053PersistenceComparisonService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/L053PersistenceComparisonTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "Dapper ExecuteとSELECT、EF Core Add/SaveChangesを学習用PostgreSQL18の各取引内で実行し、ロールバックで不永続化を確認する",
       "missing_behavior": "Dapper Query/ExecuteとEF追跡/SaveChangesを学習用データで比較",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L053PersistenceComparisonTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADの同一CI未確定。Chromeは未設定時の拒否、PostgreSQL18専用ジョブは実取引/ロールバックを検証。業務更新ではない。"
     },
     {
       "sequence": "058",

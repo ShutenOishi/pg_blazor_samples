@@ -80,3 +80,9 @@ ADからは本人認証とドメイン付きユーザー名だけを取得する
 
 ## 次へ進む前の確認
 本教材だけを読んでも、入力、処理場所、戻り値、保存の有無、失敗時の対応を説明できるようにしてください。次は `/learn/054` に進みます。現在はPDFの生成・再生成・Preview/正式Release更新を停止しており、このMarkdownとRazor、索引ソースだけが更新対象です。
+
+## 実DBでのDapper ExecuteとEF Core SaveChanges比較
+
+[比較サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L053PersistenceComparisonService.cs)を追加しました。元のDB未接続の追跡観察とは別に、専用PostgreSQL18でDapperのパラメーター化INSERT（Execute）、取引内SELECT、EF CoreのAdd→SaveChangesとAdded→Unchangedを実行します。架空のタイトルは内部で生成し、どちらの取引もロールバックします。新しいDbContextでレコードが残っていないことを確認します。これは書込み方法の学習用試験であり、永続化や業務認可を確認するものではありません。
+
+[単体・結合テスト](../../../tests/PgBlazorSamples.UnitTests/L053PersistenceComparisonTests.cs)では未設定・Windows認証有効時の拒否と、PostgreSQL18専用ジョブでの取引内件数・変更追跡・ロールバックを検証します。通常のChromeではDB未設定時の拒否のみを確認します。学習画面での成功表示から実AD/IIS/FDWや業務台帳の認可・監査が成立したと推定しません。

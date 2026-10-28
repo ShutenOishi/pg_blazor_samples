@@ -631,7 +631,7 @@
       "app_url": "/learn/db-bridge-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor",
       "audit_state": "simulation",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/046",
       "related_sources": [
@@ -642,7 +642,7 @@
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/PgBlazorSamples.Web.csproj"
       ],
-      "notes": "Dapper/EF Coreの同条件学習DB検索と拒否を実装。新HEAD Windows/Chrome/PG18/PDF成功待ち。業務認可・FDWは実施しない。"
+      "notes": "PRコメント#6459661832、アプリ40624865887・PDF40624866109 SUCCESS。Dapper/EF Coreの同条件学習DB検索と拒否を実装。新HEAD Windows/Chrome/PG18/PDF成功待ち。業務認可・FDWは実施しない。"
     },
     {
       "sequence": 47,
@@ -732,9 +732,17 @@
       "app_url": "/learn/db-bridge-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/053"
+      "canonical_url": "/learn/053",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L053PersistenceComparisonService.cs",
+        "tests/PgBlazorSamples.UnitTests/L053PersistenceComparisonTests.cs",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs"
+      ],
+      "notes": "学習DBのDapper Execute/SELECTとEF Core SaveChangesのロールバック比較。CI待ち。"
     },
     {
       "sequence": 54,
