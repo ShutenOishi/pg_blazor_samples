@@ -216,17 +216,18 @@
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
         "scripts/browser-circuit-smoke.cjs",
-        "docs/course-v3/lessons/browser-01.md"
+        "docs/course-v3/lessons/browser-01.md",
+        "src/PgBlazorSamples.Web/Program.cs"
       ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": "RazorのJSモジュール/JSException/Dispose実例に加え、041自身の独立BrowserContext/circuitの実WebSocketを切り、C# JSDisconnectedException catchのみが記すサーバーログ識別子を照合する隔離Chrome試験を追加。実捕捉は新HEAD CI確認待ち。",
+      "implemented_behavior": "RazorのDOM JS呼出し/JSException/Disposeに加え、041独立隔離WebSocketを実切断・BrowserContext offline化し、C# InvokeAsyncまたは実circuit破棄時DisposeAsyncのJSDisconnectedException実捕捉ログを照合。専用Developmentプロセスに限りcircuit保持を短縮し、実例外の人工生成なし。",
       "missing_behavior": "JS連携、モジュール破棄、例外・切断の負例",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs; scripts/browser-smoke.cjs; scripts/browser-circuit-smoke.cjs",
       "behavior_status": "IMPLEMENTED_AWAITING_REAL_DISCONNECT_CI",
       "docs_status": "REVISED_AWAITING_REAL_DISCONNECT_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。 015とは独立した041の切断試験を追加。実捕捉ログ成立と全CI成功まで正式受入禁止。成功しなければNOT_TESTEDを維持。 直前試験HEAD 79de862 のアプリRun40637853498は、041独立Document表示直後の対話開始前に言語ボタンをクリックして待機15秒でタイムアウト。015の隔離WSは成功。041実切断/C#捕捉まで未到達。対話開始をC#カウンター1回で確認後に実切断試験する補修差分を追加。 HEAD90b4f13 アプリRun40638392110：041独立ChromeのC#対話・JS読取・実WS切断と再接続案内は成立。ただし20秒内C# JSDisconnectedException catchログ0件、未受入。JS呼出し開始/完了/別例外を診断し、捕捉未成立はNOT_TESTED出力の非合格区分へ修復。 HEADfc17ec87 Run40638970262全アプリCI・PDF40638970270 SUCCESS。ただし041専用Chromeは実WS切断後もC# JS呼出しがinvokeStarted=true/completed=trueとなりJSDisconnectedException未発生。041受入禁止。次の機能差分で同一BrowserContext offlineも加えてHTTP代替接続を遮断し再検証。"
+      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。 015とは独立した041の切断試験を追加。実捕捉ログ成立と全CI成功まで正式受入禁止。成功しなければNOT_TESTEDを維持。 直前試験HEAD 79de862 のアプリRun40637853498は、041独立Document表示直後の対話開始前に言語ボタンをクリックして待機15秒でタイムアウト。015の隔離WSは成功。041実切断/C#捕捉まで未到達。対話開始をC#カウンター1回で確認後に実切断試験する補修差分を追加。 HEAD90b4f13 アプリRun40638392110：041独立ChromeのC#対話・JS読取・実WS切断と再接続案内は成立。ただし20秒内C# JSDisconnectedException catchログ0件、未受入。JS呼出し開始/完了/別例外を診断し、捕捉未成立はNOT_TESTED出力の非合格区分へ修復。 HEADfc17ec87 Run40638970262全アプリCI・PDF40638970270 SUCCESS。ただし041専用Chromeは実WS切断後もC# JS呼出しがinvokeStarted=true/completed=trueとなりJSDisconnectedException未発生。041受入禁止。次の機能差分で同一BrowserContext offlineも加えてHTTP代替接続を遮断し再検証。 HEAD188653762 app Run40639521177とPDF40639521183はいずれもSUCCESS。041独立WS切断・BrowserContext offlineの実切断は成立、C#側invokeStarted=true/invokeCompleted=false、捕捉なしNOT_TESTED。原因候補は切断circuit保持中のJS call待機。Development専用隔離プロセスだけ保持6秒・JS timeout15秒に短縮し、コンポーネント破棄時のJSDisconnectedException捕捉ログを追加。新HEAD CI待ち。"
     },
     {
       "sequence": "042",

@@ -169,7 +169,12 @@
         module = null;
         if (current is null) return;
         try { await current.DisposeAsync(); }
-        catch (JSDisconnectedException) { /* 切断後の解放要求は到達しない場合がある。 */ }
+        catch (JSDisconnectedException)
+        {
+            // 学習順041の隔離CIでは、実circuit破棄後の捕捉を独立に検証する。
+            // 通常運用でも内部例外の詳細や本人情報は記録しない。
+            Logger.LogWarning("L041_REAL_DISCONNECT_CAUGHT_DISPOSE");
+        }
         catch (JSException) { /* Dispose後の画面へ内部例外を公開しない。 */ }
     }
 }

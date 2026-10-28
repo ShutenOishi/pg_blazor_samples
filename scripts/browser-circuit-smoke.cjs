@@ -22,7 +22,12 @@ const server = spawn("dotnet", [
     "--configuration", "Release", "--no-build", "--no-launch-profile", "--urls", base
 ], {
     cwd: root,
-    env: { ...process.env, ASPNETCORE_ENVIRONMENT: "Development" },
+    env: {
+        ...process.env,
+        ASPNETCORE_ENVIRONMENT: "Development",
+        // 041専用の隔離試験アプリプロセスのみ。通常起動・本番には適用しない。
+        LearningTests__L041ShortCircuitRetention: "true"
+    },
     stdio: ["ignore", "pipe", "pipe"]
 });
 let serverLog = "";
@@ -171,9 +176,15 @@ async function getToken(page) {
                 "components-reconnect-failed", "components-reconnect-rejected"]
                 .some(name => el.classList.contains(name));
         }, null, { timeout: 25000 });
-        for (let attempt = 0; attempt < 40 && !serverLog.includes("L041_REAL_DISCONNECT_CAUGHT"); attempt++)
+        // 短縮した保持期間が終了して実circuitが破棄される場合、
+        // C#のDisposeAsync内の本物のJSDisconnectedException捕捉も証拠とする。
+        for (let attempt = 0; attempt < 100 &&
+            !serverLog.includes("L041_REAL_DISCONNECT_CAUGHT_DISPOSE") &&
+            !serverLog.includes("L041_REAL_DISCONNECT_CAUGHT\n"); attempt++)
             await delay(500);
-        if (!serverLog.includes("L041_REAL_DISCONNECT_CAUGHT")) {
+        const caughtDuringDispose = serverLog.includes("L041_REAL_DISCONNECT_CAUGHT_DISPOSE");
+        const caughtDuringInvoke = /L041_REAL_DISCONNECT_CAUGHT(?:\\r?\\n|$)/m.test(serverLog);
+        if (!caughtDuringDispose && !caughtDuringInvoke) {
             // 実切断の事実とC#側の例外型を推測で結び付けない。
             const invoked = serverLog.includes("L041_PROBE_JS_INVOKE_START");
             const completed = serverLog.includes("L041_PROBE_JS_INVOKE_COMPLETED");
@@ -183,7 +194,8 @@ async function getToken(page) {
                 " invokeStarted=" + invoked + " invokeCompleted=" + completed +
                 " jsError=" + jsError + " otherError=" + otherError + "。捕捉ログ未成立につき正式受入禁止");
         } else {
-            console.log("学習順041：041独立circuit実WebSocket切断・BrowserContext offline後、C# JSDisconnectedException catchのサーバーログ識別子を検証");
+            console.log("学習順041：041独立circuit実WebSocket切断・BrowserContext offline後、C# JSDisconnectedExceptionを実捕捉。invoke=" +
+                caughtDuringInvoke + " dispose=" + caughtDuringDispose + "。サーバーログ原本を照合");
         }
         await context041.close();
     } catch (error) {

@@ -92,9 +92,19 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddMudTranslations();
 
 // Step18でUnitTests、Step19でApplicationを段階的に追加する。
-// Step11からDIコンテナーへ時計サービスを登録する。
+// 学習順041：隔離CIの専用Developmentプロセスだけcircuit保持期間を短くする。
+// 通常Development/本番の挙動を変更せず、設定値が誤って本番で有効になっても適用しない。
+var isolatedL041CircuitTest = builder.Environment.IsDevelopment() &&
+    builder.Configuration.GetValue<bool>("LearningTests:L041ShortCircuitRetention");
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents(options =>
+    {
+        if (isolatedL041CircuitTest)
+        {
+            options.DisconnectedCircuitRetentionPeriod = TimeSpan.FromSeconds(6);
+            options.JSInteropDefaultCallTimeout = TimeSpan.FromSeconds(15);
+        }
+    });
 
 // Step11〜12：時計の約束と差し替え可能な具象実装を登録する。
 builder.Services.AddSingleton<IClock, PgBlazorSamples.Web.Services.Clock.SystemClock>();
