@@ -690,10 +690,26 @@ async function waitText(page, selector, expected) {
 
         await page.goto(base + "/learn/browser-05");
         await page.waitForTimeout(950);
-        await page.getByLabel("練習用の表示内容").fill("読み上げを確認");
+        const accessibilityInput = page.getByLabel("練習用の表示内容");
+        await accessibilityInput.fill("読み上げを確認");
         await waitText(page, '[data-testid="browser05-preview"]', "読み上げを確認");
+        if (await page.getByTestId("browser05-preview").getAttribute("aria-live") !== "polite")
+            throw new Error("学習順045：入力結果に読み上げ通知の指定がありません");
+        await accessibilityInput.focus();
+        await page.keyboard.press("Tab");
+        if (!(await page.getByRole("button", { name: "文字の大きさを切り替える" }).evaluate(el => document.activeElement === el)))
+            throw new Error("学習順045：Tabキーで次の操作ボタンへ移動できません");
+        await page.keyboard.press("Shift+Tab");
+        if (!(await accessibilityInput.evaluate(el => document.activeElement === el)))
+            throw new Error("学習順045：Shift+Tabキーで入力欄へ戻れません");
+        const originalFontSize = await page.locator(".browser-accessibility").evaluate(el => parseFloat(getComputedStyle(el).fontSize));
         await page.getByRole("button", { name: "文字の大きさを切り替える" }).click();
+        await page.waitForFunction(original => {
+            const el = document.querySelector(".browser-accessibility");
+            return el && parseFloat(getComputedStyle(el).fontSize) >= original * 1.3;
+        }, originalFontSize, { timeout: 5000 });
         await page.getByRole("button", { name: "表示のコントラストを切り替える" }).click();
+        await page.locator(".browser-accessibility.high-contrast").waitFor();
         await waitText(page, '[data-testid="browser05-settings"]', "高コントラスト");
         await page.getByRole("button", { name: "入力欄へフォーカスを移す" }).click();
         await page.waitForFunction(() => document.activeElement?.id === "browser05-note");
@@ -1326,6 +1342,10 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(1000);
         await page.getByRole("textbox", { name: "練習用の氏名" }).fill("練習太郎");
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎");
+        // 学習順033：文字入力に加え、MudSelectの実選択と既定の日付バインドを確認する。
+        await page.locator(".mud-select:not(.mud-input-control):not(.mud-select-input)").first().click();
+        await page.getByText("UI", { exact: true }).last().click();
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月26日");
         await page.locator('[data-testid="mud07-compare-23"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step23.png") });
 
