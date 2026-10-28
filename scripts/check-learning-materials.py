@@ -733,7 +733,7 @@ for seq, (filename, url, symbol, razor_name) in enumerate(mud_eighth, start=36):
         missing.append(filename + "：実装・演習・操作の対応不足")
     if any(token in learner_text(content) for token in ("src/PgBlazorSamples.Web", "github.com", "レポジトリ")):
         missing.append(filename + "：学習者本文へ管理情報を持ち込まない")
-    razor = (LESSONS / "Stage03" / razor_name).read_text(encoding="utf-8")
+    razor = (SAMPLES / razor_name).read_text(encoding="utf-8")
     if f'@page "{url}"' not in razor or f"学習順{seq}" not in razor or f'data-testid="mud08-compare-{seq}"' not in razor:
         missing.append(razor_name + "：Razor学習順・表・URLの不一致")
     if f'"{filename}"' not in PDF_SCRIPT or f"学習順{seq:03d}を開く" not in home:
