@@ -77,6 +77,17 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(1000);
         await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
         await waitText(page, '[data-testid="web01-count"]', "1");
+        await page.getByRole("button", { name: "サーバー側で1増やす" }).click();
+        await waitText(page, '[data-testid="web01-count"]', "2");
+        await page.getByTestId("web01-trace").getByText("クリック2回目を処理", { exact: false }).waitFor().catch(async () => {
+            await page.getByTestId("web01-trace").waitFor();
+            const text = await page.getByTestId("web01-trace").innerText();
+            if (!text.includes("クリック1回目を処理") || !text.includes("クリック2回目を処理")) throw new Error("学習順001のサーバーC#処理履歴が不足しています: " + text);
+        });
+        await page.reload();
+        await waitText(page, '[data-testid="web01-count"]', "0");
+        await waitText(page, '[data-testid="web01-trace"]', "まだ処理していません");
+        console.log("学習順001：C#イベント2回・履歴・再読込による一時状態初期化を確認");
         await page.goto(base + "/learn/web-02");
         await waitText(page, '[data-testid="web02-path"]', "/learn/web-02");
         // 学習順002：存在するページと未登録パスへ実際にGETし、HTML描画とHTTP応答を区別する。
@@ -262,15 +273,30 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "状態を変更する" }).click();
         await waitText(page, '[data-testid="runtime03-change"]', "1");
-        await page.goto(base + "/learn/runtime-04");
+        // 学習順019：正規URL、戻る/進む、強制再読込と不正な公開クエリ値の境界を区別する。
+        await page.goto(base + "/learn/019");
         await page.waitForTimeout(900);
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await waitText(page, '[data-testid="runtime04-count"]', "0");
         await page.getByRole("button", { name: "履歴をURLで選ぶ" }).click();
         await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        if (!page.url().includes("tab=history")) throw new Error("学習順019：履歴クエリがURLに反映されません");
         await page.getByRole("button", { name: "操作回数を1増やす" }).click();
         await waitText(page, '[data-testid="runtime04-count"]', "1");
-        await page.reload();
+        await page.getByRole("button", { name: "一覧をURLで選ぶ" }).click();
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await page.goBack();
         await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        await page.goForward();
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await page.reload();
         await waitText(page, '[data-testid="runtime04-count"]', "0");
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        await page.goto(base + "/learn/019?tab=history");
+        await waitText(page, '[data-testid="runtime04-tab"]', "履歴");
+        await page.goto(base + "/learn/019?tab=admin");
+        await waitText(page, '[data-testid="runtime04-tab"]', "一覧");
+        console.log("学習順019：正規URL、履歴往復、再読込、未知クエリの安全な一覧表示を確認");
         await page.goto(base + "/learn/runtime-05");
         await page.waitForTimeout(900);
         await page.getByRole("button", { name: "業務の永続データ" }).click();

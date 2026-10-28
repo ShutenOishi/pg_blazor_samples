@@ -12,16 +12,18 @@
       "lesson_path": "docs/course-v3/lessons/web-01.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor",
       "canonical_url": "/learn/001",
-      "related_sources": [],
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "C#イベントでのみ追加する学習用履歴、2クリックと再読込での破棄を実装・Chrome試験を追加",
       "missing_behavior": "サーバー実行位置とデスクトップイベントの差を安全なトレースで観察",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新しいHEADのCI全件SUCCESSとChrome実操作結果まで受入保留。"
     },
     {
       "sequence": "002",
@@ -54,11 +56,11 @@
       "implemented_behavior": "labelクリックによる入力フォーカス、双方向反映とHTMLエンコード。C#の未入力・30文字超拒否、入力後の検証結果リセットと保存しない正常受入を追加",
       "missing_behavior": "フォーム/ラベル/入力の検証、CSSとフォーカスの操作試験",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 maxlength属性を開発者ツール相当の処理で除去し、31文字のC#側拒否をChromeで検査する。CSSの視覚・ズームは個別実機受入ではない。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
+      "ci_head": "7d7206e5c79225d9b1924730ff936c30f2a47128",
+      "ci_run": 40606815694,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 maxlength属性を開発者ツール相当の処理で除去し、31文字のC#側拒否をChromeで検査する。CSSの視覚・ズームは個別実機受入ではない。 HEAD 7d7206e5... のWindows/Chrome/PG18・PDF成功はPRコメント6457036055で確認済み。"
     },
     {
       "sequence": "004",
@@ -73,11 +75,11 @@
       "implemented_behavior": "Document GET 200と、Interactive Serverのボタン操作によるDOM追加・削除、追加Documentナビゲーションなし・未処理ブラウザーページ例外なしのChrome試験",
       "missing_behavior": "DOM変化に加え、Network/Consoleでの再現手順と期待結果",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 Network/Console/サーバーログの全エラーの不在やWebSocket詳細は証明していない。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
+      "ci_head": "7d7206e5c79225d9b1924730ff936c30f2a47128",
+      "ci_run": 40606815694,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 Network/Console/サーバーログの全エラーの不在やWebSocket詳細は証明していない。 HEAD 7d7206e5... のWindows/Chrome/PG18・PDF成功はPRコメント6457036055で確認済み。"
     },
     {
       "sequence": "005",
@@ -153,16 +155,18 @@
       "lesson_path": "docs/course-v3/lessons/runtime-04.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor",
       "canonical_url": "/learn/019",
-      "related_sources": [],
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "正規URL/戻る/進む/再読込/未知tab値のChrome操作試験を追加",
       "missing_behavior": "直URL/戻る/進む/強制再読込時の状態変化を再現",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 一時カウントが履歴で巻き戻るとは判定しない。CIの同一HEAD成功まで受入保留。"
     },
     {
       "sequence": "020",

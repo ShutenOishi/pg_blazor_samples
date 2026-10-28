@@ -1,3 +1,14 @@
+## 2026-10-28 教材v3 PR #39：学習順001・019のギャップ補強（新HEAD CI受入待ち）
+
+- 変更直前の認証済みGET受入HEAD：`7d7206e5c79225d9b1924730ff936c30f2a47128`。アプリ Run40606815694 のWindows/Ubuntu Chrome/PG18全3ジョブとPDF Run40606815676は同一HEADでSUCCESS。main=`3c3286016dd4bfbf5bad4f68e72b236c9e90abb9`、PR #39 Draft/open。
+- 学習順001：RazorのC#クリックごとに非機密の処理履歴を追加し、Chromeで2回操作と再読込の初期化を確認する試験・本文を更新。学習順019：正規URLの直接読込、履歴の戻る/進む、再読込、未知のtab値を区別するChrome試験・教材手順を追加。
+- 既受入003・004のJSON/source-mapに前HEADの同一HEAD CI受入を同期。001・019は**新コミットのアプリ3ジョブ・PDF検証SUCCESSが確認できるまで受入未確定**。6/30既受入、今回の候補2件、その他22/30の個別監査待ち（001・019が成功して初めて8/30）。
+- 110/110全面改稿、22/22復習、9/9段階概要は維持。110件の意味的なRazor→DI/サービス/SQL/JS/試験の追跡、物理配置移行、旧番号残存最終確認は未完了。
+- 安全：Draft PR #39をマージしない。正式PDF Release/Assetは更新しない。現地SITE PASS 0/15・NOT_RUN 15/15。実AD/IIS/FDW/負荷試験を無許可で行わず、既存認可・監査・失効・xmin安全拒否を変更しない。
+- **次回は最新PR HEAD・本節・Issue #38・監査JSON/source-map・最新PRコメント・同一HEAD CIをGETし、失敗した新規箇所のみ直す。成功した旧CIは手動再実行しない。**
+
+---
+
 ## 2026-10-28 教材v3・Draft PR #39継続開発（最新の引き継ぎ・先頭が優先）
 
 **対象**：https://github.com/ShutenOishi/pg_blazor_samples ・[Issue #38](https://github.com/ShutenOishi/pg_blazor_samples/issues/38)・[Draft PR #39](https://github.com/ShutenOishi/pg_blazor_samples/pull/39)。GitHub認証済みGETを唯一の正本とし、最初にPR最新HEAD、Issue、`docs/course-v3/implementation-audit.json`、`source-map.json`、`source-layout-and-migration.md`、PR最新コメント、**最新HEADと一致するアプリ3ジョブおよびPDF検証CI**を取得する。本節の追記によりHEADが変わるので、下記のコミットを現在HEADと決めつけない。

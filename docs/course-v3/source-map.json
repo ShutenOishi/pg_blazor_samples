@@ -13,9 +13,10 @@
       "app_url": "/learn/web-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web01Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/001"
+      "canonical_url": "/learn/001",
+      "notes": "サーバーC#イベント履歴の2回操作と再読込初期化をChromeで検証予定。"
     },
     {
       "sequence": 2,
@@ -40,10 +41,10 @@
       "app_url": "/learn/web-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web03Page.razor",
       "audit_state": "interactive",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/003",
-      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。"
+      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。"
     },
     {
       "sequence": 4,
@@ -54,10 +55,10 @@
       "app_url": "/learn/web-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor",
       "audit_state": "partial",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/004",
-      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。"
+      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。"
     },
     {
       "sequence": 5,
@@ -250,9 +251,10 @@
       "app_url": "/learn/runtime-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime04Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/019"
+      "canonical_url": "/learn/019",
+      "notes": "正規URL、戻る/進む、再読込、未知クエリ値をChromeで検証予定。"
     },
     {
       "sequence": 20,

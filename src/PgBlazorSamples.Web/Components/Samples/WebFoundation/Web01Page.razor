@@ -9,6 +9,8 @@
     <h2>サーバーのC#イベントを確認する</h2>
     <p>サーバー側で数えた操作回数：<strong data-testid="web01-count">@count</strong> 回</p>
     <button type="button" @onclick="Increment">サーバー側で1増やす</button>
+    <p role="status" data-testid="web01-trace">@(trace.Count == 0 ? "まだ処理していません" : string.Join(" → ", trace))</p>
+    <p>上の履歴はサーバー側のC#イベント処理で追加した学習用の文字列です。ブラウザーには描画結果だけを返し、ホスト名や認証情報は含めません。</p>
     <p>画面はブラウザーに表示されますが、カウントを増やすC#はサーバーで動きます。</p>
 </section>
 <section class="lesson-details">
@@ -24,6 +26,11 @@
 <div class="page-navigation"><a href="/learn/002">次へ：HTTPの仕組み</a></div>
 @code {
     private int count;
-    // サーバー上のC#で値を変更する。ブラウザー側のJavaScriptは自作しない。
-    private void Increment() => count++;
+    private readonly List<string> trace = new();
+    // サーバーの学習用イベントだけを記録し、ホスト・ユーザー・接続識別子は残さない。
+    private void Increment()
+    {
+        count++;
+        trace.Add($"サーバーC#：クリック{count}回目を処理");
+    }
 }
