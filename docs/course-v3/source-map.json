@@ -533,7 +533,8 @@
         "src/PgBlazorSamples.Application/IStepSummaryService.cs",
         "src/PgBlazorSamples.Application/StepSummaryService.cs",
         "src/PgBlazorSamples.Web/Program.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/GreetingServiceTests.cs"
       ],
       "notes": " 主RazorをStage03/L029ApplicationLayerPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
@@ -893,7 +894,8 @@
       "related_sources": [
         "src/PgBlazorSamples.Web/Data/LearningTask.cs",
         "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs"
       ]
     },
     {
@@ -911,7 +913,8 @@
       "related_sources": [
         "database/schema/001_learning_task.sql",
         "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs"
       ]
     },
     {
@@ -930,7 +933,8 @@
         "src/PgBlazorSamples.Web/Program.cs",
         "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
         "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs"
       ]
     },
     {
@@ -949,7 +953,8 @@
         "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
         "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
         "src/PgBlazorSamples.Web/Program.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs"
       ]
     },
     {
@@ -1051,7 +1056,8 @@
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/055",
       "related_sources": [
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningDbIntegrationTests.cs"
       ]
     },
     {
@@ -1499,7 +1505,8 @@
       "canonical_url": "/learn/077",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/LearningCacheLessonService.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningFinalIntegrationTests.cs"
       ]
     },
     {
