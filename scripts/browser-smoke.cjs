@@ -501,7 +501,15 @@ async function waitText(page, selector, expected) {
         const interactive17Id = (await page.getByTestId("runtime03-instance").textContent()).trim();
         if (interactive17Id === static17Id) throw new Error("017 別インスタンスを確認できない");
         await waitText(page, '[data-testid="runtime03-after"]', "1");
-        console.log("学習順017：初回Documentの事前描画IDと対話型IDの不一致、OnAfterRender 0→1を確認");
+        // 学習順017：再描画のたびに初期化・初回描画・インスタンスが作り直されないことも実操作で確かめる。
+        await page.getByRole("button", { name: "状態を変更する" }).click();
+        await page.getByRole("button", { name: "状態を変更する" }).click();
+        await waitText(page, '[data-testid="runtime03-change"]', "2");
+        await waitText(page, '[data-testid="runtime03-init"]', "1");
+        await waitText(page, '[data-testid="runtime03-after"]', "1");
+        if ((await page.getByTestId("runtime03-instance").textContent()).trim() !== interactive17Id)
+            throw new Error("学習順017：状態更新で対話型インスタンスが変わりました");
+        console.log("学習順017：事前描画と対話型IDの差、描画後処理0→1、2回更新後の初期化/インスタンス維持を確認");
         await page.goto(base + "/learn/runtime-03");
         await waitText(page, '[data-testid="runtime03-init"]', "1");
         await waitText(page, '[data-testid="runtime03-after"]', "1");
@@ -1326,6 +1334,8 @@ async function waitText(page, selector, expected) {
         await page.waitForTimeout(1200);
         await page.getByRole("button", { name: "日本語の通知を表示する" }).click();
         await waitText(page, '[data-testid="step21-state"]', "通知サービスを使いました");
+        // 学習順031：C#の状態更新だけでなく、共有Snackbar Providerが実際にDOMを描画することを確認。
+        await page.locator(".mud-snackbar").filter({ hasText: "日本語の通知が表示されました。" }).first().waitFor();
         await page.locator('[data-testid="mud07-compare-21"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step21.png") });
 
@@ -1357,6 +1367,14 @@ async function waitText(page, selector, expected) {
         await page.getByText("学習内容を入力してください。").waitFor();
         await page.getByRole("textbox", { name: "課題名（必須）" }).fill("架空の課題");
         await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("UIを学ぶ");
+        await page.getByRole("button", { name: "入力を検証する" }).click();
+        await waitText(page, '[data-testid="step24-result"]', "入力検証に合格しました");
+        // 学習順034：一度合格したフォームでも、必須項目を消せば再検証で失敗へ戻る。
+        await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("");
+        await page.getByRole("button", { name: "入力を検証する" }).click();
+        await waitText(page, '[data-testid="step24-result"]', "入力内容に不備があります");
+        await page.getByText("学習内容を入力してください。").waitFor();
+        await page.getByRole("textbox", { name: "学習内容（必須）" }).fill("UIを学び直す");
         await page.getByRole("button", { name: "入力を検証する" }).click();
         await waitText(page, '[data-testid="step24-result"]', "入力検証に合格しました");
         await page.locator('[data-testid="mud07-compare-24"]').waitFor();
