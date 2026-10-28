@@ -21,6 +21,14 @@ _STAGE01_MOVED_PAGES = {
     5: "L005VisualStudioDebugPage.razor",
 }
 
+_STAGE02_MOVED_PAGES = {
+    6: "L006FirstBlazorPage.razor",
+    7: "L007NavigationPage.razor",
+    8: "L008RazorSyntaxPage.razor",
+    9: "L009StaticSsrInteractivePage.razor",
+    10: "L010EventPage.razor",
+}
+
 
 def web_foundation_page(number: int) -> Path:
     """第1段階の主Razorを一か所の配置定義から解決する。"""
@@ -29,7 +37,11 @@ def web_foundation_page(number: int) -> Path:
     return SAMPLES / "WebFoundation" / f"Web{number:02d}Page.razor"
 PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8")
 
-steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
+# 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
+# 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
+disk_steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
+moved_steps = {1: 6, 2: 7, 3: 8, 4: 10}
+steps = sorted(set(disk_steps) | set(moved_steps))
 if not steps:
     raise SystemExit("教材検査エラー：実装済みのステップがありません。")
 if steps != list(range(1, max(steps) + 1)):
@@ -37,9 +49,14 @@ if steps != list(range(1, max(steps) + 1)):
 
 missing = []
 for number in steps:
-    source_dir = SAMPLES / f"Step{number:02d}"
-    if not list(source_dir.glob("*.razor")):
-        missing.append(f"{source_dir.relative_to(ROOT)}：Razor画面なし")
+    if number in moved_steps:
+        source = LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[moved_steps[number]]
+        if not source.is_file():
+            missing.append(f"{source.relative_to(ROOT)}：移行済みRazor画面なし")
+    else:
+        source_dir = SAMPLES / f"Step{number:02d}"
+        if not list(source_dir.glob("*.razor")):
+            missing.append(f"{source_dir.relative_to(ROOT)}：Razor画面なし")
     doc = f"docs/samples/step{number:02d}.md"
     if not (ROOT / doc).is_file():
         missing.append(doc)
@@ -387,13 +404,6 @@ second_urls = {item["url"]: f'/learn/{item["sequence"]:03d}' for item in ordered
 if not all(f'href="{second_urls.get(url, url)}"' in home_for_second_group for _, _, url, _ in second_group):
     missing.append("学習順006〜010のWeb目次が不足")
 # 移行済み主Razorは学習順に対応する配置定義から参照する。
-_STAGE02_MOVED_PAGES = {
-    6: "L006FirstBlazorPage.razor",
-    7: "L007NavigationPage.razor",
-    8: "L008RazorSyntaxPage.razor",
-    9: "L009StaticSsrInteractivePage.razor",
-    10: "L010EventPage.razor",
-}
 for number, target in [
     (6, 'href="/learn/007"'),
     (7, 'href="/learn/008"'),
