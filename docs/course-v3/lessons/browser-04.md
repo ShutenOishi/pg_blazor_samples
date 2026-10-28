@@ -7,6 +7,12 @@
 
 この教材の画面には2つの独立した練習があります。1つ目はBrowserFaultDemo内で意図的にInvalidOperationExceptionを投げ、ErrorBoundaryが一般的な案内へ切り替わる動作です。2つ目はTask.Delayを使う学習用の非同期処理を開始し、CancellationTokenSourceから取消を通知します。実DB接続、外部サービスの呼出し、再試行による重複更新は含みません。この範囲を守って確認します。
 
+## 追加実習：二重開始、再試行と離脱時の取消
+
+画面の非同期処理は [L044OperationRunner](../../../src/PgBlazorSamples.Web/Services/Learning/L044OperationRunner.cs) に分離しました。実行中は `Busy` と開始回数を公開し、`TryStartAsync` は既に実行中またはDispose済みなら新たな実行を拒否します。処理を取り消すと、次の開始を別の試行として受け付け、正常完了時には「処理が完了しました。」を表示します。[xUnit](../../../tests/PgBlazorSamples.UnitTests/L044OperationRunnerTests.cs)で二重開始拒否、取消後の再試行、正常完了、Dispose後の取消通知と再実行拒否を個別に検査します。[Chrome](../../../scripts/browser-smoke.cjs)ではErrorBoundaryの表示から復旧、取消、二重開始防止のUI、再試行と正常完了を操作します。
+
+ページ離脱時は `IDisposable` から取消を通知します。この仕組みはテスト用の`Task.Delay`に対する協調的取消であり、実外部API・DBトランザクション・既存監査を中断しても安全かどうかを証明しません。ページ離脱そのものを実ブラウザーで停止追跡した証跡は未取得であり、xUnitのDispose試験と区別します。取消とErrorBoundary.Recoverは確定済みDBのロールバックを行いません。
+
 ## WinForms＋Dapperとの対応
 | 既知の構成 | 今回の画面 | 違いと注意点 |
 | --- | --- | --- |

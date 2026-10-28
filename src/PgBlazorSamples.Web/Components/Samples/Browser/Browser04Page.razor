@@ -1,4 +1,5 @@
 @page "/learn/044"
+@using PgBlazorSamples.Web.Services.Learning
 @implements IDisposable
 @page "/learn/browser-04"
 <PageTitle>学習順044：ErrorBoundary・取消・再試行｜Blazor ステップアップ学習</PageTitle>
@@ -16,10 +17,11 @@
 </section>
 <section class="lesson-details">
     <h2>非同期処理を取り消す</h2>
-    <button type="button" @onclick="RunAsync" disabled="@busy">学習用の処理を開始する</button>
-    <button type="button" @onclick="Cancel" disabled="@(!busy)">進行中の処理を取り消す</button>
-    <p role="status" data-testid="browser04-state">@state</p>
-    <p>取り消しはCancellationTokenで処理へ通知します。取り消せる処理と、既に確定したDB更新の取り消しは別です。</p>
+    <button type="button" @onclick="RunAsync" disabled="@runner.Busy">学習用の処理を開始する</button>
+    <button type="button" @onclick="Cancel" disabled="@(!runner.Busy)">進行中の処理を取り消す</button>
+    <p role="status" data-testid="browser04-state">@runner.State</p>
+    <p>開始回数：<strong data-testid="browser04-start-count">@runner.StartCount</strong></p>
+    <p>取消後に開始ボタンで再試行し、正常完了を確認できます。二重開始は画面と処理側で拒否します。取消はCancellationTokenの協調的な通知であり、確定したDB更新のロールバックではありません。</p>
 </section>
 <section class="lesson-details">
     <h2>学習順044：WinForms＋Dapperとの比較と操作確認</h2>
@@ -28,7 +30,7 @@
         <tbody><tr><td>try/catchで失敗を扱う</td><td>ErrorBoundaryで子UIを切り替える</td><td>RecoverはDBロールバックではなく、取消は協調的な通知である。</td></tr></tbody>
     </table>
     <h2>操作・障害の切り分け</h2>
-    <p>意図した例外をRecoverし、別の非同期処理で取消と正常完了を比べる。</p>
+    <p>意図した例外をRecoverし、非同期処理の取消、二重開始拒否、再試行、正常完了を順に比べる。</p>
     <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
        サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
     <details><summary>演習の確認ポイント</summary><p>RecoverはDBロールバックではなく、取消は協調的な通知である。</p></details>
@@ -36,45 +38,10 @@
 <div class="page-navigation"><a href="/learn/043">前へ</a><a href="/learn/045">次へ</a></div>
 @code {
     private ErrorBoundary? boundary;
-    private CancellationTokenSource? pending;
-    private bool busy;
-    private string state = "未開始";
+    private readonly L044OperationRunner runner = new();
 
     private void Recover() => boundary?.Recover();
-
-    private async Task RunAsync()
-    {
-        if (busy) return;
-        var current = new CancellationTokenSource();
-        pending = current;
-        busy = true;
-        state = "処理中";
-        try
-        {
-            // 実業務ではDBや外部APIへこのトークンを渡す。
-            await Task.Delay(2500, current.Token);
-            state = "処理が完了しました。";
-        }
-        catch (OperationCanceledException)
-        {
-            state = "処理を取り消しました。";
-        }
-        finally
-        {
-            if (ReferenceEquals(pending, current))
-            {
-                pending = null;
-                busy = false;
-            }
-            current.Dispose();
-        }
-    }
-
-    private void Cancel() => pending?.Cancel();
-
-    public void Dispose()
-    {
-        // ページを離れた場合の処理も中断する。
-        pending?.Cancel();
-    }
+    private async Task RunAsync() => await runner.TryStartAsync();
+    private void Cancel() => runner.Cancel();
+    public void Dispose() => runner.Dispose();
 }

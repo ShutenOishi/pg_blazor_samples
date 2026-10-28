@@ -498,6 +498,18 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="browser04-state"]', "処理中");
         await page.getByRole("button", { name: "進行中の処理を取り消す" }).click();
         await waitText(page, '[data-testid="browser04-state"]', "取り消しました");
+        await waitText(page, '[data-testid="browser04-start-count"]', "1");
+        // Cancel後は同じページで安全に再試行できることと、実行中の多重開始不可を確認。
+        const start044 = page.getByRole("button", { name: "学習用の処理を開始する" });
+        await start044.click({ noWaitAfter: true });
+        await waitText(page, '[data-testid="browser04-state"]', "処理中");
+        await waitText(page, '[data-testid="browser04-start-count"]', "2");
+        if (!(await start044.isDisabled()))
+            throw new Error("学習順044：処理中に開始ボタンが有効です");
+        await waitText(page, '[data-testid="browser04-state"]', "処理が完了しました");
+        if (await start044.isDisabled())
+            throw new Error("学習順044：完了後の再試行ボタンが無効のままです");
+        console.log("学習順044：ErrorBoundary復帰・実取消・二重開始UI拒否・再試行正常完了をChromeで確認。離脱取消はxUnitモデル試験");
 
         await page.goto(base + "/learn/browser-05");
         await page.waitForTimeout(950);

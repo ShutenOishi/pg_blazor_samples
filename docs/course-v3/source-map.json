@@ -603,9 +603,10 @@
       "app_url": "/learn/browser-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/044"
+      "canonical_url": "/learn/044",
+      "notes": "xUnitでDispose取消、Chromeで正常/取消/再試行/二重UI制御とErrorBoundary復旧を検証予定。DBや離脱実測は未実証。"
     },
     {
       "sequence": 45,

@@ -274,16 +274,21 @@
       "lesson_path": "docs/course-v3/lessons/browser-04.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor",
       "canonical_url": "/learn/044",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Browser/BrowserFaultDemo.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L044OperationRunner.cs",
+        "tests/PgBlazorSamples.UnitTests/L044OperationRunnerTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": null,
+      "implemented_behavior": "ErrorBoundary復旧、非同期取消、処理側/画面側の二重開始拒否、再試行と正常完了、Disposeでの取消通知を実装。xUnit/Chrome試験追加",
       "missing_behavior": "ErrorBoundary復帰、取消/再試行と多重操作",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L044OperationRunnerTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "同一HEAD CI未確認。実ブラウザー離脱時のサーバー側の中断証跡、業務DB取消/ロールバックはNOT_TESTED。"
     },
     {
       "sequence": "045",
