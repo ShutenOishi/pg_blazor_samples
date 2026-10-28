@@ -96,4 +96,4 @@ private void Decrement()
 - [ ] 増減ボタンを操作し、表示側とサーバー側の条件を確認できた。
 - [ ] DB保存・認証・監査をこの5本で実装したと誤解していない。
 
-次は[学習順011：双方向入力](../../samples/step05.md)です。
+次は[学習順011：双方向入力](../lessons/Stage02/L011TwoWayBindingPage.md)です。

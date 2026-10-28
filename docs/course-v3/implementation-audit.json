@@ -109,7 +109,7 @@
     {
       "sequence": "009",
       "lesson_id": "runtime-01",
-      "lesson_path": "docs/course-v3/lessons/runtime-01.md",
+      "lesson_path": "docs/course-v3/lessons/Stage02/L009StaticSsrInteractivePage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L009StaticSsrInteractivePage.razor",
       "canonical_url": "/learn/009",
       "related_sources": [
@@ -131,7 +131,7 @@
     {
       "sequence": "015",
       "lesson_id": "runtime-02",
-      "lesson_path": "docs/course-v3/lessons/runtime-02.md",
+      "lesson_path": "docs/course-v3/lessons/Stage02/L015CircuitReconnectPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L015CircuitReconnectPage.razor",
       "canonical_url": "/learn/015",
       "related_sources": [
@@ -153,7 +153,7 @@
     {
       "sequence": "017",
       "lesson_id": "runtime-03",
-      "lesson_path": "docs/course-v3/lessons/runtime-03.md",
+      "lesson_path": "docs/course-v3/lessons/Stage02/L017PrerenderInitializationPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L017PrerenderInitializationPage.razor",
       "canonical_url": "/learn/017",
       "related_sources": [
@@ -173,7 +173,7 @@
     {
       "sequence": "019",
       "lesson_id": "runtime-04",
-      "lesson_path": "docs/course-v3/lessons/runtime-04.md",
+      "lesson_path": "docs/course-v3/lessons/Stage02/L019UrlHistoryStatePage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L019UrlHistoryStatePage.razor",
       "canonical_url": "/learn/019",
       "related_sources": [
@@ -192,7 +192,7 @@
     {
       "sequence": "020",
       "lesson_id": "runtime-05",
-      "lesson_path": "docs/course-v3/lessons/runtime-05.md",
+      "lesson_path": "docs/course-v3/lessons/Stage02/L020StatePersistenceChoicePage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage02/L020StatePersistenceChoicePage.razor",
       "canonical_url": "/learn/020",
       "related_sources": [
@@ -211,7 +211,7 @@
     {
       "sequence": "041",
       "lesson_id": "browser-01",
-      "lesson_path": "docs/course-v3/lessons/browser-01.md",
+      "lesson_path": "docs/course-v3/lessons/Stage04/L041JsInteropPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
       "canonical_url": "/learn/041",
       "related_sources": [
@@ -237,7 +237,7 @@
     {
       "sequence": "042",
       "lesson_id": "browser-02",
-      "lesson_path": "docs/course-v3/lessons/browser-02.md",
+      "lesson_path": "docs/course-v3/lessons/Stage04/L042FileUploadPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L042FileUploadPage.razor",
       "canonical_url": "/learn/042",
       "related_sources": [
@@ -258,7 +258,7 @@
     {
       "sequence": "043",
       "lesson_id": "browser-03",
-      "lesson_path": "docs/course-v3/lessons/browser-03.md",
+      "lesson_path": "docs/course-v3/lessons/Stage04/L043DownloadPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L043DownloadPage.razor",
       "canonical_url": "/learn/043",
       "related_sources": [
@@ -280,7 +280,7 @@
     {
       "sequence": "044",
       "lesson_id": "browser-04",
-      "lesson_path": "docs/course-v3/lessons/browser-04.md",
+      "lesson_path": "docs/course-v3/lessons/Stage04/L044ErrorRecoveryPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L044ErrorRecoveryPage.razor",
       "canonical_url": "/learn/044",
       "related_sources": [
@@ -302,7 +302,7 @@
     {
       "sequence": "045",
       "lesson_id": "browser-05",
-      "lesson_path": "docs/course-v3/lessons/browser-05.md",
+      "lesson_path": "docs/course-v3/lessons/Stage04/L045AccessibilityReviewPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor",
       "canonical_url": "/learn/045",
       "related_sources": [
@@ -322,7 +322,7 @@
     {
       "sequence": "046",
       "lesson_id": "db-bridge-01",
-      "lesson_path": "docs/course-v3/lessons/db-bridge-01.md",
+      "lesson_path": "docs/course-v3/lessons/Stage05/L046OrmComparisonPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L046OrmComparisonPage.razor",
       "canonical_url": "/learn/046",
       "related_sources": [
@@ -344,7 +344,7 @@
     {
       "sequence": "052",
       "lesson_id": "db-bridge-02",
-      "lesson_path": "docs/course-v3/lessons/db-bridge-02.md",
+      "lesson_path": "docs/course-v3/lessons/Stage05/L052SqlAndLinqPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor",
       "canonical_url": "/learn/052",
       "related_sources": [],
@@ -361,7 +361,7 @@
     {
       "sequence": "053",
       "lesson_id": "db-bridge-03",
-      "lesson_path": "docs/course-v3/lessons/db-bridge-03.md",
+      "lesson_path": "docs/course-v3/lessons/Stage05/L053PersistenceComparisonPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L053PersistenceComparisonPage.razor",
       "canonical_url": "/learn/053",
       "related_sources": [
@@ -383,7 +383,7 @@
     {
       "sequence": "058",
       "lesson_id": "db-bridge-04",
-      "lesson_path": "docs/course-v3/lessons/db-bridge-04.md",
+      "lesson_path": "docs/course-v3/lessons/Stage05/L058KeylessViewPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L058KeylessViewPage.razor",
       "canonical_url": "/learn/058",
       "related_sources": [
@@ -407,7 +407,7 @@
     {
       "sequence": "059",
       "lesson_id": "db-bridge-05",
-      "lesson_path": "docs/course-v3/lessons/db-bridge-05.md",
+      "lesson_path": "docs/course-v3/lessons/Stage05/L059ParameterizedSqlPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L059ParameterizedSqlPage.razor",
       "canonical_url": "/learn/059",
       "related_sources": [
@@ -430,7 +430,7 @@
     {
       "sequence": "081",
       "lesson_id": "security-01",
-      "lesson_path": "docs/course-v3/lessons/security-01.md",
+      "lesson_path": "docs/course-v3/lessons/Stage07/L081WindowsCookieCircuitPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L081WindowsCookieCircuitPage.razor",
       "canonical_url": "/learn/081",
       "related_sources": [
@@ -456,7 +456,7 @@
     {
       "sequence": "082",
       "lesson_id": "security-02",
-      "lesson_path": "docs/course-v3/lessons/security-02.md",
+      "lesson_path": "docs/course-v3/lessons/Stage07/L082MiddlewareHttpsPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L082MiddlewareHttpsPage.razor",
       "canonical_url": "/learn/082",
       "related_sources": [
@@ -478,7 +478,7 @@
     {
       "sequence": "083",
       "lesson_id": "security-03",
-      "lesson_path": "docs/course-v3/lessons/security-03.md",
+      "lesson_path": "docs/course-v3/lessons/Stage07/L083XssCsrfSqlPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L083XssCsrfSqlPage.razor",
       "canonical_url": "/learn/083",
       "related_sources": [
@@ -502,7 +502,7 @@
     {
       "sequence": "084",
       "lesson_id": "security-04",
-      "lesson_path": "docs/course-v3/lessons/security-04.md",
+      "lesson_path": "docs/course-v3/lessons/Stage07/L084SecretsKeysPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L084SecretsKeysPage.razor",
       "canonical_url": "/learn/084",
       "related_sources": [
@@ -524,7 +524,7 @@
     {
       "sequence": "085",
       "lesson_id": "security-05",
-      "lesson_path": "docs/course-v3/lessons/security-05.md",
+      "lesson_path": "docs/course-v3/lessons/Stage07/L085ReauthorizationPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L085ReauthorizationPage.razor",
       "canonical_url": "/learn/085",
       "related_sources": [
@@ -548,7 +548,7 @@
     {
       "sequence": "106",
       "lesson_id": "capstone-01",
-      "lesson_path": "docs/course-v3/lessons/capstone-01.md",
+      "lesson_path": "docs/course-v3/lessons/Stage09/L106RequirementFlowPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
       "canonical_url": "/learn/106",
       "related_sources": [
@@ -575,7 +575,7 @@
     {
       "sequence": "107",
       "lesson_id": "capstone-02",
-      "lesson_path": "docs/course-v3/lessons/capstone-02.md",
+      "lesson_path": "docs/course-v3/lessons/Stage09/L107SearchPagingPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
       "canonical_url": "/learn/107",
       "related_sources": [
@@ -601,7 +601,7 @@
     {
       "sequence": "108",
       "lesson_id": "capstone-03",
-      "lesson_path": "docs/course-v3/lessons/capstone-03.md",
+      "lesson_path": "docs/course-v3/lessons/Stage09/L108DtoEditPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone03Page.razor",
       "canonical_url": "/learn/108",
       "related_sources": [
@@ -629,7 +629,7 @@
     {
       "sequence": "109",
       "lesson_id": "capstone-04",
-      "lesson_path": "docs/course-v3/lessons/capstone-04.md",
+      "lesson_path": "docs/course-v3/lessons/Stage09/L109PermissionAuditPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone04Page.razor",
       "canonical_url": "/learn/109",
       "related_sources": [
@@ -654,7 +654,7 @@
     {
       "sequence": "110",
       "lesson_id": "capstone-05",
-      "lesson_path": "docs/course-v3/lessons/capstone-05.md",
+      "lesson_path": "docs/course-v3/lessons/Stage09/L110AcceptanceLedgerPage.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone05Page.razor",
       "canonical_url": "/learn/110",
       "related_sources": [

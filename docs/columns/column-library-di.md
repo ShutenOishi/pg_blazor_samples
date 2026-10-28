@@ -122,6 +122,6 @@ DI登録の正しさと、セキュリティの保証は異なります。業務
 **解答：** いけません。内容、アクセス権、保存期間などを別に設計する必要があります。
 
 ## 次のステップ
-[学習順031](../samples/step21.md)でMudBlazorの登録と日本語化を学び、以降のフォーム・表・ダイアログを使いながら、**ライブラリの機能・DI登録・Providerの役割**を再確認します。
+[学習順031](../course-v3/lessons/Stage04/L031MudIntroductionPage.md)でMudBlazorの登録と日本語化を学び、以降のフォーム・表・ダイアログを使いながら、**ライブラリの機能・DI登録・Providerの役割**を再確認します。
 
 参考：[Microsoft Learn: BlazorのDI](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-10.0)、[MudBlazor公式Installation](https://mudblazor.com/getting-started/installation)、[Npgsql Basic Usage](https://www.npgsql.org/doc/basic-usage.html)。

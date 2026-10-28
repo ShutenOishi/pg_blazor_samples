@@ -154,4 +154,4 @@ HTTPSは通信経路の保護です。それだけで利用者の本人認証や
 - [ ] 開発用HTTPSと本番用証明書の違いを説明できた。
 - [ ] エラーに応じてVisual Studio・Network・Consoleのどれを開くか説明できた。
 
-次は[第1組の復習](../../reviews/review-01.md)です。復習後は[学習順006：最初のBlazor画面](../../../samples/step01.md)へ進みます。
+次は[第1組の復習](../../reviews/review-01.md)です。復習後は[学習順006：最初のBlazor画面](../Stage02/L006FirstBlazorPage.md)へ進みます。

@@ -30,7 +30,7 @@ dotnet build PgBlazorSamples.slnx -c Release
 dotnet run --project src/PgBlazorSamples.Web
 ```
 
-表示されたアドレスにアクセスし、目次から `/learn/01`、`/learn/02`、`/learn/03` に移動します。対応コードは `src/PgBlazorSamples.Web/Components/Samples/` にあります。実装の説明は[ステップ01](samples/step01.md)、[ステップ02](samples/step02.md)、[ステップ03](samples/step03.md)を参照してください。
+表示されたアドレスにアクセスし、目次から `/learn/01`、`/learn/02`、`/learn/03` に移動します。対応コードは `src/PgBlazorSamples.Web/Components/Samples/` にあります。実装の説明は[ステップ01](course-v3/lessons/Stage02/L006FirstBlazorPage.md)、[ステップ02](course-v3/lessons/Stage02/L007NavigationPage.md)、[ステップ03](course-v3/lessons/Stage02/L008RazorSyntaxPage.md)を参照してください。
 
 `Program.cs`ではサーバーとUIのカルチャーを`ja-JP`に設定します。`App.razor`ではHTMLの`lang="ja"`を使用し、接続エラーも日本語で表示します。
 

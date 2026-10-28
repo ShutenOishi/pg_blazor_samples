@@ -109,4 +109,4 @@ private Task ChooseAsync(string topic) => OnSelected.InvokeAsync(topic);
 - [ ] 再接続・再読込と状態の寿命を説明できる。
 - [ ] 未実装のAD・DB・永続監査を実装済みと誤解していない。
 
-次は[学習順016：初期化・更新・破棄](../../samples/step09.md)です。第4組の学習では初期化がいつ走るか、フォーム検証やURLに残る状態との違いを学びます。
+次は[学習順016：初期化・更新・破棄](../lessons/Stage02/L016ComponentLifecyclePage.md)です。第4組の学習では初期化がいつ走るか、フォーム検証やURLに残る状態との違いを学びます。

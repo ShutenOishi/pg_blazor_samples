@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | [Samples/Step01](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor) から Samples/Step80 | 未移行の既存画面の格納 | 物理ディレクトリの番号が現在の学習順と一致しない。例：L006FirstBlazorPage.razorは学習順006。学習順のファイル名・段階分類へ段階的に移行する |
 | [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加画面のうち未移行分 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
-| [docs/samples](../samples/step01.md) と [course-v3/lessons](lessons/Stage01/L001WebExecutionPage.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
+| [docs/samples](lessons/Stage02/L006FirstBlazorPage.md) と [course-v3/lessons](lessons/Stage01/L001WebExecutionPage.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
 | [Services/Learning](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[Data](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs) | 複数教材で共用する処理 | 何を共用し、どの画面から呼ぶかが教材の索引だけでは分からない。依存先を追加し、必要な責務分離を検討する |
 | [UnitTests](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)、[database](../../database/schema/001_learning_task.sql)、[JS](../../src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js) | 単体・結合・SQL・ブラウザー処理 | 画面から正常系・拒否系の試験と実装を一緒に見つけられるようにする |
 
@@ -68,11 +68,11 @@ database/
 
 ## 学習者がソースを追うための確認例
 
-**学習順006**：[教材](../samples/step01.md)から[L006FirstBlazorPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor)へ移動し、ページのルート、表示のHTML、学習順とファイル名の不一致を観察する。学習順006の名前と実ファイルが一致することを確認する。
+**学習順006**：[教材](lessons/Stage02/L006FirstBlazorPage.md)から[L006FirstBlazorPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor)へ移動し、ページのルート、表示のHTML、学習順とファイル名の不一致を観察する。学習順006の名前と実ファイルが一致することを確認する。
 
-**学習順052**：現在の[教材](lessons/db-bridge-02.md)から[L052SqlAndLinqPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
+**学習順052**：現在の[教材](lessons/Stage05/L052SqlAndLinqPage.md)から[L052SqlAndLinqPage.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L052SqlAndLinqPage.razor)へ進み、[LearningDbContext](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)と[DB統合テスト群](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)を調べる。ページのToQueryStringはSQL生成であってDB実行ではない。テストがどの実処理を証明するかは検証して記録する。
 
-**学習順107**：現在の[教材](lessons/capstone-02.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
+**学習順107**：現在の[教材](lessons/Stage09/L107SearchPagingPage.md)、[Capstone02Page.razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage09/L107SearchPagingPage.razor)、[SecuredLearningService](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[認可付き結合テスト](../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)を開き、匿名拒否・操作/行認可・DB検索の各根拠を独立して確認する。**表示や模擬結果だけで実DB・本番認可をPASSにしない。**
 
 ## 段階的な移行記録
 
@@ -199,3 +199,11 @@ database/
 本文110件に続いてPDFに収録する第18〜21組に対応した旧構成コラム `docs/columns/column61-65.md`、`column66-70.md`、`column71-75.md`、`column76-80.md` も確認した。正規URLを旧URLと誤記した箇所、旧Step列、`学習順101〜80` 等の不正な範囲、第21組の表の番号76〜80を修正し、現在の学習順101〜105に統一した。互換 `/learn/column/*` は変更しない。現行4コラムも旧番号静的検査の対象に追加した。
 
 `docs/columns/README.md` は旧80教材のコラム配置を保存した**履歴用**として明示し、現行の正規導線は `docs/course-v3/learning-sequence.md` の110教材・22組とする。歴史資料の古い番号と現行教材の旧番号混在を区別する。新HEADの全必要CI成功までは本文表記の正式受入を保留し、成功済みCIは再実行しない。機能・DB・認証・監査・現地受入の判定は変更しない。
+
+
+### 2026-10-28 教材Markdownの段階別一括配置（同一HEAD CI判定待ち）
+
+- 学習順006〜110の残り105件は、主Razorの`Stage01`〜`Stage09`と対応する`L001`〜`L110`で命名し、教材本文を段階別に移した。既受入の学習順001〜005と合わせて、**物理配置の変更内容は110件**。正式受入は新しい同一HEADの全必要CI成功を条件とする。
+- 原文の説明・コード・演習・解答は変更しない。Markdownの相対リンク、`curriculum.json`、`source-map.json`、`implementation-audit.json`、教材直接索引、PDF目次ソース、静的検査のパスを同時に整えた。既存Razor URLの正規・互換経路は変更しない。
+- `related_sources`の登録は110件、うちテスト`*.cs`の明示登録は65件、未登録45件。**登録の有無は意味的依存・正常系/異常系・Chrome/PG18の動作試験・現地受入の合否を証明しない**。次に不足45件を優先して実際の処理呼出しとテストコードを精査する。
+- この配置変更は`src/`、`tests/`、`database/`の機能変更を含まず、現地PRE/SITE、正式PDF Release、Draft/マージ条件を変更しない。

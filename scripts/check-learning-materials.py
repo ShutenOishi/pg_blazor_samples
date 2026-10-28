@@ -154,6 +154,8 @@ def web_foundation_page(number: int) -> Path:
         return LESSONS / "Stage01" / _STAGE01_MOVED_PAGES[number]
     return SAMPLES / "WebFoundation" / f"Web{number:02d}Page.razor"
 PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8")
+# 旧Step番号は既存互換検査のために使い、現行教材パスはcurriculumから取得する。
+LEGACY_DOCUMENTS = {int(item["id"][4:]): item["source"] for item in json.loads((ROOT / "docs/course-v3/curriculum.json").read_text(encoding="utf-8"))["steps"] if item["id"].startswith("step") and item["id"][4:].isdigit()}
 
 # 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
 # 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
@@ -182,7 +184,7 @@ for number in steps:
         source_dir = SAMPLES / f"Step{number:02d}"
         if not list(source_dir.glob("*.razor")):
             missing.append(f"{source_dir.relative_to(ROOT)}：Razor画面なし")
-    doc = f"docs/samples/step{number:02d}.md"
+    doc = LEGACY_DOCUMENTS[number]
     if not (ROOT / doc).is_file():
         missing.append(doc)
     if f'"{doc}"' not in PDF_SCRIPT:
@@ -223,7 +225,7 @@ for stage, start in enumerate(stage_starts, start=2):
         continue
     page = f"docs/stages/stage{stage:02d}.md"
     page_marker = f'"{page}"'
-    first_step_marker = f'"docs/samples/step{start:02d}.md"'
+    first_step_marker = f'"{LEGACY_DOCUMENTS[start]}"'
     if not (ROOT / page).is_file():
         missing.append(page + "：段階概要がありません")
     if page_marker not in PDF_SCRIPT:
@@ -395,7 +397,7 @@ if f'"{stage07}"' in PDF_SCRIPT and f'"{expected_sec[0]}"' in PDF_SCRIPT and PDF
     missing.append("第7段階の概要は学習順081より前に配置")
 if f'"{review17}"' in PDF_SCRIPT and f'"{expected_sec[-1]}"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review17}"') < PDF_SCRIPT.index(f'"{expected_sec[-1]}"'):
     missing.append("第17組の復習は学習順085より後に配置")
-if f'"{review17}"' in PDF_SCRIPT and '"docs/samples/step61.md"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review17}"') > PDF_SCRIPT.index('"docs/samples/step61.md"'):
+if f'"{review17}"' in PDF_SCRIPT and '"docs/course-v3/lessons/Stage07/L086NegotiatePage.md"' in PDF_SCRIPT and PDF_SCRIPT.index(f'"{review17}"') > PDF_SCRIPT.index('"docs/course-v3/lessons/Stage07/L086NegotiatePage.md"'):
     missing.append("第17組復習は次の学習順086より前に配置")
 
 
@@ -488,11 +490,11 @@ if not (web01 / "WebFoundationOverviewPage.razor").is_file() or not (web01 / "We
 
 # 学習順006〜010の全面改稿を第1組と同じ基準で受入検査する。
 second_group = [
-    ("step01", "docs/samples/step01.md", "/learn/01", "@page"),
-    ("step02", "docs/samples/step02.md", "/learn/02", "NavLink"),
-    ("step03", "docs/samples/step03.md", "/learn/03", "sampleText"),
-    ("runtime-01", "docs/course-v3/lessons/runtime-01.md", "/learn/runtime-01", "Interactive Server"),
-    ("step04", "docs/samples/step04.md", "/learn/04", "Decrement"),
+    ("step01", "docs/course-v3/lessons/Stage02/L006FirstBlazorPage.md", "/learn/01", "@page"),
+    ("step02", "docs/course-v3/lessons/Stage02/L007NavigationPage.md", "/learn/02", "NavLink"),
+    ("step03", "docs/course-v3/lessons/Stage02/L008RazorSyntaxPage.md", "/learn/03", "sampleText"),
+    ("runtime-01", "docs/course-v3/lessons/Stage02/L009StaticSsrInteractivePage.md", "/learn/runtime-01", "Interactive Server"),
+    ("step04", "docs/course-v3/lessons/Stage02/L010EventPage.md", "/learn/04", "Decrement"),
 ]
 for lesson_id, filename, url, symbol in second_group:
     file = ROOT / filename
@@ -533,7 +535,7 @@ if -1 in pdf_positions or pdf_positions != sorted(pdf_positions):
     missing.append("学習順006〜010のPDF収録順が不正")
 if stage_pos < 0 or stage_pos > pdf_positions[0]:
     missing.append("第2段階概要が006の前にありません")
-if review_pos < pdf_positions[-1] or review_pos > PDF_SCRIPT.find('"docs/samples/step05.md"'):
+if review_pos < pdf_positions[-1] or review_pos > PDF_SCRIPT.find('"docs/course-v3/lessons/Stage02/L011TwoWayBindingPage.md"'):
     missing.append("第2組復習が010と011の間にありません")
 home_for_second_group = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
 second_urls = {item["url"]: f'/learn/{item["sequence"]:03d}' for item in ordered}
@@ -558,11 +560,11 @@ if not review_page.is_file() or 'href="/learn/011"' not in review_page.read_text
 
 # 学習順011〜015と第3組を受入候補として品質検査する。
 third_group = [
-    ("docs/samples/step05.md", "/learn/05", "@bind"),
-    ("docs/samples/step06.md", "/learn/06", "@foreach"),
-    ("docs/samples/step07.md", "/learn/07", "[Parameter]"),
-    ("docs/samples/step08.md", "/learn/08", "EventCallback"),
-    ("docs/course-v3/lessons/runtime-02.md", "/learn/runtime-02", "SignalR"),
+    ("docs/course-v3/lessons/Stage02/L011TwoWayBindingPage.md", "/learn/05", "@bind"),
+    ("docs/course-v3/lessons/Stage02/L012ConditionalRenderingPage.md", "/learn/06", "@foreach"),
+    ("docs/course-v3/lessons/Stage02/L013ComponentParametersPage.md", "/learn/07", "[Parameter]"),
+    ("docs/course-v3/lessons/Stage02/L014EventCallbackPage.md", "/learn/08", "EventCallback"),
+    ("docs/course-v3/lessons/Stage02/L015CircuitReconnectPage.md", "/learn/runtime-02", "SignalR"),
 ]
 for filename, url, required in third_group:
     body = (ROOT / filename).read_text(encoding="utf-8")
@@ -590,7 +592,7 @@ if [ordered[i]["id"] for i in range(10, 15)] != ["step05", "step06", "step07", "
 third_sources = [name for name, _, _ in third_group]
 third_pdf_indices = [PDF_SCRIPT.find(f'"{name}"') for name in third_sources]
 third_review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-03.md"')
-next_group_pos = PDF_SCRIPT.find('"docs/samples/step09.md"')
+next_group_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage02/L016ComponentLifecyclePage.md"')
 if -1 in third_pdf_indices or third_pdf_indices != sorted(third_pdf_indices) or not(third_pdf_indices[-1] < third_review_pos < next_group_pos):
     missing.append("第3組のPDF章順または復習位置が不正")
 # ホームは新学習順の正規URLへ案内する。以前のURLは内部の互換用経路。
@@ -625,11 +627,11 @@ if not review_page.is_file() or 'href="/learn/016"' not in review_page.read_text
 
 # 学習順016〜020・第4組の全面改稿品質とPDF・Web画面の導線を検査する。
 fourth_group = [
-    ("docs/samples/step09.md", "/learn/09", "OnInitializedAsync"),
-    ("docs/course-v3/lessons/runtime-03.md", "/learn/runtime-03", "OnAfterRender"),
-    ("docs/samples/step10.md", "/learn/10", "OnValidSubmit"),
-    ("docs/course-v3/lessons/runtime-04.md", "/learn/runtime-04", "SupplyParameterFromQuery"),
-    ("docs/course-v3/lessons/runtime-05.md", "/learn/runtime-05", "Select"),
+    ("docs/course-v3/lessons/Stage02/L016ComponentLifecyclePage.md", "/learn/09", "OnInitializedAsync"),
+    ("docs/course-v3/lessons/Stage02/L017PrerenderInitializationPage.md", "/learn/runtime-03", "OnAfterRender"),
+    ("docs/course-v3/lessons/Stage02/L018ValidatedFormPage.md", "/learn/10", "OnValidSubmit"),
+    ("docs/course-v3/lessons/Stage02/L019UrlHistoryStatePage.md", "/learn/runtime-04", "SupplyParameterFromQuery"),
+    ("docs/course-v3/lessons/Stage02/L020StatePersistenceChoicePage.md", "/learn/runtime-05", "Select"),
 ]
 for filename, url, symbol in fourth_group:
     body = (ROOT / filename).read_text(encoding="utf-8")
@@ -647,7 +649,7 @@ if [ordered[i]["id"] for i in range(15, 20)] != ["step09", "runtime-03", "step10
     missing.append("第4組の学習順が不一致")
 fourth_positions = [PDF_SCRIPT.find(f'"{name}"') for name, _, _ in fourth_group]
 fourth_review_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-04.md"')
-next_position = PDF_SCRIPT.find('"docs/samples/step11.md"')
+next_position = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage03/L021DependencyInjectionPage.md"')
 if -1 in fourth_positions or fourth_positions != sorted(fourth_positions) or not (fourth_positions[-1] < fourth_review_pos < next_position):
     missing.append("第4組PDF章順・復習位置が不正")
 review_four = (ROOT / "docs/course-v3/reviews/review-04.md").read_text(encoding="utf-8")
@@ -675,11 +677,11 @@ if "016〜020" not in (ROOT / stage2).read_text(encoding="utf-8"):
 
 # 学習順021〜025：第3段階のDI教材は、長文・実コード・診断・画面とPDF順を同時に照合する。
 di_group = [
-    ("docs/samples/step11.md", "/learn/11", "GreetingService", "L021DependencyInjectionPage.razor", 'href="/learn/022"'),
-    ("docs/samples/step12.md", "/learn/12", "IClock", "L022InterfaceClockPage.razor", 'href="/learn/023"'),
-    ("docs/samples/step13.md", "/learn/13", "GetRequiredService", "L023ServiceLifetimesPage.razor", 'href="/learn/024"'),
-    ("docs/samples/step14.md", "/learn/14", "StateHasChanged", "L024CircuitScopedPage.razor", 'href="/learn/025"'),
-    ("docs/samples/step15.md", "/learn/15", "GreetingFormatter", "L025InjectionPatternsPage.razor", 'href="/learn/column/15"'),
+    ("docs/course-v3/lessons/Stage03/L021DependencyInjectionPage.md", "/learn/11", "GreetingService", "L021DependencyInjectionPage.razor", 'href="/learn/022"'),
+    ("docs/course-v3/lessons/Stage03/L022InterfaceClockPage.md", "/learn/12", "IClock", "L022InterfaceClockPage.razor", 'href="/learn/023"'),
+    ("docs/course-v3/lessons/Stage03/L023ServiceLifetimesPage.md", "/learn/13", "GetRequiredService", "L023ServiceLifetimesPage.razor", 'href="/learn/024"'),
+    ("docs/course-v3/lessons/Stage03/L024CircuitScopedPage.md", "/learn/14", "StateHasChanged", "L024CircuitScopedPage.razor", 'href="/learn/025"'),
+    ("docs/course-v3/lessons/Stage03/L025InjectionPatternsPage.md", "/learn/15", "GreetingFormatter", "L025InjectionPatternsPage.razor", 'href="/learn/column/15"'),
 ]
 if [item["id"] for item in ordered[20:25]] != [f"step{n}" for n in range(11, 16)]:
     missing.append("第5組の学習順021〜025の対応に不一致")
@@ -726,7 +728,7 @@ if not di_review_page.is_file() or 'href="/learn/026"' not in di_review_page.rea
 pdf_di = [PDF_SCRIPT.find(f'"{row[0]}"') for row in di_group]
 pdf_stage3 = PDF_SCRIPT.find(f'"{di_stage}"')
 pdf_review5 = PDF_SCRIPT.find(f'"{di_review}"')
-pdf_next = PDF_SCRIPT.find('"docs/samples/step16.md"')
+pdf_next = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage03/L026OptionsPatternPage.md"')
 if -1 in pdf_di or not (0 <= pdf_stage3 < pdf_di[0]) or pdf_di != sorted(pdf_di) or not (pdf_di[-1] < pdf_review5 < pdf_next):
     missing.append("第3段階021〜025の概要・本文・復習とPDF順が不一致")
 if not all(f'学習順{seq:03d}を開く' in home for seq in range(21, 26)) or "/learn/stage/di" not in home or "第5組の復習" not in home:
@@ -740,11 +742,11 @@ if 'href="/learn/column/runtime-20"' not in (LESSONS / "Stage03/L021DependencyIn
 
 # 第6組：学習順026〜030の本文・Razor画面・PDF・復習を検査する。
 sixth_group = [
-    ("docs/samples/step16.md", "/learn/16", "IOptions", "L026OptionsPatternPage.razor"),
-    ("docs/samples/step17.md", "/learn/17", "CancellationToken", "L027AsyncLoggingPage.razor"),
-    ("docs/samples/step18.md", "/learn/18", "IClock", "L028DependencyUnitTestPage.razor"),
-    ("docs/samples/step19.md", "/learn/19", "StepSummaryService", "L029ApplicationLayerPage.razor"),
-    ("docs/samples/step20.md", "/learn/20", "ITodoService", "L030TodoServicePage.razor"),
+    ("docs/course-v3/lessons/Stage03/L026OptionsPatternPage.md", "/learn/16", "IOptions", "L026OptionsPatternPage.razor"),
+    ("docs/course-v3/lessons/Stage03/L027AsyncLoggingPage.md", "/learn/17", "CancellationToken", "L027AsyncLoggingPage.razor"),
+    ("docs/course-v3/lessons/Stage03/L028DependencyUnitTestPage.md", "/learn/18", "IClock", "L028DependencyUnitTestPage.razor"),
+    ("docs/course-v3/lessons/Stage03/L029ApplicationLayerPage.md", "/learn/19", "StepSummaryService", "L029ApplicationLayerPage.razor"),
+    ("docs/course-v3/lessons/Stage03/L030TodoServicePage.md", "/learn/20", "ITodoService", "L030TodoServicePage.razor"),
 ]
 if [item["id"] for item in ordered[25:30]] != [f"step{n}" for n in range(16, 21)]:
     missing.append("第6組学習順026〜030の対応が不一致")
@@ -766,7 +768,7 @@ for seq, (filename, url, symbol, razor_name) in enumerate(sixth_group, start=26)
 pdf_six = [PDF_SCRIPT.find(f'"{filename}"') for filename, _, _, _ in sixth_group]
 pdf_review6 = PDF_SCRIPT.find('"docs/columns/column16-20.md"')
 pdf_library_di = PDF_SCRIPT.find('"docs/columns/column-library-di.md"')
-pdf_step21 = PDF_SCRIPT.find('"docs/samples/step21.md"')
+pdf_step21 = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage04/L031MudIntroductionPage.md"')
 if -1 in pdf_six or pdf_six != sorted(pdf_six) or not (pdf_six[-1] < pdf_review6 < pdf_library_di < pdf_step21):
     missing.append("第6組から復習・ライブラリDI・031へのPDF章順が不正")
 review6 = (ROOT / "docs/columns/column16-20.md").read_text(encoding="utf-8")
@@ -778,11 +780,11 @@ if 'data-testid="di06-review-table"' not in review_page or 'href="/learn/column/
 
 # 第7組031〜035の実装・教材・復習・PDF章順をまとめて受入検査する。
 mud_seventh = [
-    ("docs/samples/step21.md", "/learn/21", "AddMudServices", "L031MudIntroductionPage.razor"),
-    ("docs/samples/step22.md", "/learn/22", "MudDrawer", "L032MudLayoutPage.razor"),
-    ("docs/samples/step23.md", "/learn/23", "MudDatePicker", "L033MudInputsPage.razor"),
-    ("docs/samples/step24.md", "/learn/24", "ValidateAsync", "L034MudValidationPage.razor"),
-    ("docs/samples/step25.md", "/learn/25", "RowsPerPage", "L035MudTablePage.razor"),
+    ("docs/course-v3/lessons/Stage04/L031MudIntroductionPage.md", "/learn/21", "AddMudServices", "L031MudIntroductionPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L032MudLayoutPage.md", "/learn/22", "MudDrawer", "L032MudLayoutPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L033MudInputsPage.md", "/learn/23", "MudDatePicker", "L033MudInputsPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L034MudValidationPage.md", "/learn/24", "ValidateAsync", "L034MudValidationPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L035MudTablePage.md", "/learn/25", "RowsPerPage", "L035MudTablePage.razor"),
 ]
 if [item["id"] for item in ordered[30:35]] != [f"step{n}" for n in range(21, 26)]:
     missing.append("第7組031〜035の学習順が不正")
@@ -810,7 +812,7 @@ if len(stage4) < 2900 or stage4.count("| ---") < 2 or stage4.count("```") < 4 or
 positions = [PDF_SCRIPT.find(f'"{filename}"') for filename, _, _, _ in mud_seventh]
 if -1 in positions or positions != sorted(positions) or not (
     PDF_SCRIPT.find('"docs/course-v3/stages/stage04.md"') < positions[0]
-    and positions[-1] < PDF_SCRIPT.find('"docs/columns/column21-25.md"') < PDF_SCRIPT.find('"docs/samples/step26.md"')
+    and positions[-1] < PDF_SCRIPT.find('"docs/columns/column21-25.md"') < PDF_SCRIPT.find('"docs/course-v3/lessons/Stage04/L036DataGridPage.md"')
 ):
     missing.append("第7組の段階概要・本文・復習・次の章のPDF順が不正")
 for relative, next_link in [
@@ -826,11 +828,11 @@ if not all(f"学習順{i:03d}を開く" in home for i in range(31, 36)) or "学�
 
 # 学習順036〜040：第8組の本文・Razor・Web/PDF目次・復習を同じ条件で検査する。
 mud_eighth = [
-    ("docs/samples/step26.md", "/learn/26", "QuickFilter", "L036DataGridPage.razor"),
-    ("docs/samples/step27.md", "/learn/27", "ShowMessageBoxAsync", "L037DialogPage.razor"),
-    ("docs/samples/step28.md", "/learn/28", "MudProgressLinear", "L038NotificationPage.razor"),
-    ("docs/samples/step29.md", "/learn/29", "ThemePreferenceService", "L039AccessibilityPage.razor"),
-    ("docs/samples/step30.md", "/learn/30", "PracticeUser", "L040UiPracticePage.razor"),
+    ("docs/course-v3/lessons/Stage04/L036DataGridPage.md", "/learn/26", "QuickFilter", "L036DataGridPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L037DialogPage.md", "/learn/27", "ShowMessageBoxAsync", "L037DialogPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L038NotificationPage.md", "/learn/28", "MudProgressLinear", "L038NotificationPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L039AccessibilityPage.md", "/learn/29", "ThemePreferenceService", "L039AccessibilityPage.razor"),
+    ("docs/course-v3/lessons/Stage04/L040UiPracticePage.md", "/learn/30", "PracticeUser", "L040UiPracticePage.razor"),
 ]
 if [item["id"] for item in ordered[35:40]] != [f"step{n}" for n in range(26, 31)]:
     missing.append("第8組の学習順036〜040が不一致")
@@ -862,7 +864,7 @@ if "第8組の復習：036〜040" not in nav_eighth:
     missing.append("第8組のナビゲーション不足")
 pdf_eighth = [PDF_SCRIPT.find(f'"{x[0]}"') for x in mud_eighth]
 pdf_review8 = PDF_SCRIPT.find('"docs/columns/column26-30.md"')
-pdf_browser01 = PDF_SCRIPT.find('"docs/course-v3/lessons/browser-01.md"')
+pdf_browser01 = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage04/L041JsInteropPage.md"')
 if not all(f'学習順{seq:03d}：' in PDF_SCRIPT for seq in range(36, 41)) or "第8組の復習：検索・確認・通知・操作性" not in PDF_SCRIPT:
     missing.append("第8組PDFの学習順・復習見出しが一致しません")
 if -1 in pdf_eighth or pdf_eighth != sorted(pdf_eighth) or not (pdf_eighth[-1] < pdf_review8 < pdf_browser01):
@@ -883,7 +885,7 @@ browser_ninth = [
 if [item["id"] for item in ordered[40:45]] != [x[0] for x in browser_ninth]:
     missing.append("第9組の学習順041〜045がカリキュラムと一致しません")
 for seq, (item_id, page_name, required_symbol) in enumerate(browser_ninth, start=41):
-    relative = f"docs/course-v3/lessons/{item_id}.md"
+    relative = next(item["source"] for item in ordered if item["id"] == item_id)
     content = (ROOT / relative).read_text(encoding="utf-8")
     razor = (LESSONS / "Stage04" / page_name).read_text(encoding="utf-8")
     if len(content) < 3300 or content.count("| ---") < 2 or content.count(" | ") < 8:
@@ -912,9 +914,9 @@ if 'data-testid="stage04-browser-compare"' not in stage04_page:
     missing.append("第4段階概要の041〜045比較表がありません")
 if "学習順041〜045を復習" not in home or "第9組の復習：041〜045" not in nav_eighth:
     missing.append("第9組のWeb目次かNavMenuの復習導線がありません")
-positions09 = [PDF_SCRIPT.find(f'"docs/course-v3/lessons/{item_id}.md"') for item_id, _, _ in browser_ninth]
+positions09 = [PDF_SCRIPT.find(f'"{next(item["source"] for item in ordered if item["id"] == item_id)}"') for item_id, _, _ in browser_ninth]
 review09_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-09.md"')
-bridge_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/db-bridge-01.md"')
+bridge_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage05/L046OrmComparisonPage.md"')
 if -1 in positions09 or positions09 != sorted(positions09) or not (positions09[-1] < review09_pos < bridge_pos):
     missing.append("第9組041〜045→復習→046のPDF順が不正")
 if 'href="/learn/column/browser-45"' not in (LESSONS / "Stage04/L045AccessibilityReviewPage.razor").read_text(encoding="utf-8"):
@@ -925,11 +927,11 @@ if not (LESSONS / "Stage04/L045AccessibilityReviewPage.razor.css").is_file():
 
 # 第10組046〜050：本文、Razor、Web目次、日本語PDF順と復習を一括検査する。
 db_unit_10 = [
-    ("db-bridge-01", "docs/course-v3/lessons/db-bridge-01.md", "L046OrmComparisonPage.razor"),
-    ("step31", "docs/samples/step31.md", "L047EfModelPage.razor"),
-    ("step32", "docs/samples/step32.md", "L048SqlSchemaPage.razor"),
-    ("step33", "docs/samples/step33.md", "L049EfSetupPage.razor"),
-    ("step34", "docs/samples/step34.md", "L050DbContextFactoryPage.razor"),
+    ("db-bridge-01", "docs/course-v3/lessons/Stage05/L046OrmComparisonPage.md", "L046OrmComparisonPage.razor"),
+    ("step31", "docs/course-v3/lessons/Stage05/L047EfModelPage.md", "L047EfModelPage.razor"),
+    ("step32", "docs/course-v3/lessons/Stage05/L048SqlSchemaPage.md", "L048SqlSchemaPage.razor"),
+    ("step33", "docs/course-v3/lessons/Stage05/L049EfSetupPage.md", "L049EfSetupPage.razor"),
+    ("step34", "docs/course-v3/lessons/Stage05/L050DbContextFactoryPage.md", "L050DbContextFactoryPage.razor"),
 ]
 if [item["id"] for item in ordered[45:50]] != [item[0] for item in db_unit_10]:
     missing.append("第10組046〜050のカリキュラム順が不正")
@@ -972,11 +974,11 @@ if -1 in pos or pos != sorted(pos) or not (stage_pos < pos[0] < pos[-1] < review
 
 # 第11組051〜055：PDF生成停止中は索引ソースの順序だけを検査する。
 unit11 = [
-    ("step35", "docs/samples/step35.md", "L051EfSearchPage.razor"),
-    ("db-bridge-02", "docs/course-v3/lessons/db-bridge-02.md", "L052SqlAndLinqPage.razor"),
-    ("db-bridge-03", "docs/course-v3/lessons/db-bridge-03.md", "L053PersistenceComparisonPage.razor"),
-    ("step36", "docs/samples/step36.md", "L054EfCrudPage.razor"),
-    ("step37", "docs/samples/step37.md", "L055EfDateRangePage.razor"),
+    ("step35", "docs/course-v3/lessons/Stage05/L051EfSearchPage.md", "L051EfSearchPage.razor"),
+    ("db-bridge-02", "docs/course-v3/lessons/Stage05/L052SqlAndLinqPage.md", "L052SqlAndLinqPage.razor"),
+    ("db-bridge-03", "docs/course-v3/lessons/Stage05/L053PersistenceComparisonPage.md", "L053PersistenceComparisonPage.razor"),
+    ("step36", "docs/course-v3/lessons/Stage05/L054EfCrudPage.md", "L054EfCrudPage.razor"),
+    ("step37", "docs/course-v3/lessons/Stage05/L055EfDateRangePage.md", "L055EfDateRangePage.razor"),
 ]
 if [item["id"] for item in ordered[50:55]] != [x[0] for x in unit11]:
     missing.append("第11組051〜055の学習順が不正")
@@ -1010,18 +1012,18 @@ if "学習順051〜055を復習" not in home or "第11組の復習：051〜055" 
 positions11 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit11]
 review11_position = PDF_SCRIPT.find(f'"{review11_path}"')
 review10_position = PDF_SCRIPT.find('"docs/course-v3/reviews/review-10.md"')
-step38_position = PDF_SCRIPT.find('"docs/samples/step38.md"')
+step38_position = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage05/L056EfTransactionPage.md"')
 if (-1 in positions11 or positions11 != sorted(positions11)
         or not (review10_position < positions11[0] < positions11[-1] < review11_position < step38_position)):
     missing.append("PDF目次ソースの第10組→051〜055→第11組→056の順が不正")
 
 # 第12組056〜060：PDF停止中も教材原稿と索引ソースのみを検査する。
 unit12 = [
-    ("step38", "docs/samples/step38.md", "L056EfTransactionPage.razor"),
-    ("step39", "docs/samples/step39.md", "L057EfConcurrencyPage.razor"),
-    ("db-bridge-04", "docs/course-v3/lessons/db-bridge-04.md", "L058KeylessViewPage.razor"),
-    ("db-bridge-05", "docs/course-v3/lessons/db-bridge-05.md", "L059ParameterizedSqlPage.razor"),
-    ("step40", "docs/samples/step40.md", "L060EfDbCheckPage.razor"),
+    ("step38", "docs/course-v3/lessons/Stage05/L056EfTransactionPage.md", "L056EfTransactionPage.razor"),
+    ("step39", "docs/course-v3/lessons/Stage05/L057EfConcurrencyPage.md", "L057EfConcurrencyPage.razor"),
+    ("db-bridge-04", "docs/course-v3/lessons/Stage05/L058KeylessViewPage.md", "L058KeylessViewPage.razor"),
+    ("db-bridge-05", "docs/course-v3/lessons/Stage05/L059ParameterizedSqlPage.md", "L059ParameterizedSqlPage.razor"),
+    ("step40", "docs/course-v3/lessons/Stage05/L060EfDbCheckPage.md", "L060EfDbCheckPage.razor"),
 ]
 if [item["id"] for item in ordered[55:60]] != [entry[0] for entry in unit12]:
     missing.append("第12組056〜060の学習順が不正")
@@ -1060,11 +1062,11 @@ if (-1 in positions12 or positions12 != sorted(positions12)
 
 # 第13組061〜065：旧80URLを守り、Markdown・Razor・Web・PDF索引のソースを検証する。
 unit13 = [
-    ("step41", "docs/samples/step41.md", "L061ItemsBoundaryPage.razor"),
-    ("step42", "docs/samples/step42.md", "L062TableServerDataPage.razor"),
-    ("step43", "docs/samples/step43.md", "L063GridServerDataPage.razor"),
-    ("step44", "docs/samples/step44.md", "L064SafeSortPage.razor"),
-    ("step45", "docs/samples/step45.md", "L065FilterSearchPage.razor"),
+    ("step41", "docs/course-v3/lessons/Stage06/L061ItemsBoundaryPage.md", "L061ItemsBoundaryPage.razor"),
+    ("step42", "docs/course-v3/lessons/Stage06/L062TableServerDataPage.md", "L062TableServerDataPage.razor"),
+    ("step43", "docs/course-v3/lessons/Stage06/L063GridServerDataPage.md", "L063GridServerDataPage.razor"),
+    ("step44", "docs/course-v3/lessons/Stage06/L064SafeSortPage.md", "L064SafeSortPage.razor"),
+    ("step45", "docs/course-v3/lessons/Stage06/L065FilterSearchPage.md", "L065FilterSearchPage.razor"),
 ]
 if [item["id"] for item in ordered[60:65]] != [entry[0] for entry in unit13]:
     missing.append("第13組061〜065の学習順が不正")
@@ -1107,18 +1109,18 @@ stage06_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage06.md"')
 positions13 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit13]
 review13_pos = PDF_SCRIPT.find(f'"{review13_path}"')
 review12_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-12.md"')
-step46_pos = PDF_SCRIPT.find('"docs/samples/step46.md"')
+step46_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage06/L066RelatedDtoPage.md"')
 if (-1 in positions13 or positions13 != sorted(positions13)
         or not (review12_pos < stage06_pos < positions13[0] < positions13[-1] < review13_pos < step46_pos)):
     missing.append("PDF目次ソースの第12組→第6段階→061〜065→第13組→066順が不正")
 
 # 第14組066〜070：PDF停止中も教材本文と索引ソースのみを検査する。
 unit14 = [
-    ("step46", "docs/samples/step46.md", "L066RelatedDtoPage.razor"),
-    ("step47", "docs/samples/step47.md", "L067KeysetPage.razor"),
-    ("step48", "docs/samples/step48.md", "L068VirtualizeItemsPage.razor"),
-    ("step49", "docs/samples/step49.md", "L069VirtualizeDatabasePage.razor"),
-    ("step50", "docs/samples/step50.md", "L070SearchUxPage.razor"),
+    ("step46", "docs/course-v3/lessons/Stage06/L066RelatedDtoPage.md", "L066RelatedDtoPage.razor"),
+    ("step47", "docs/course-v3/lessons/Stage06/L067KeysetPage.md", "L067KeysetPage.razor"),
+    ("step48", "docs/course-v3/lessons/Stage06/L068VirtualizeItemsPage.md", "L068VirtualizeItemsPage.razor"),
+    ("step49", "docs/course-v3/lessons/Stage06/L069VirtualizeDatabasePage.md", "L069VirtualizeDatabasePage.razor"),
+    ("step50", "docs/course-v3/lessons/Stage06/L070SearchUxPage.md", "L070SearchUxPage.razor"),
 ]
 if [item["id"] for item in ordered[65:70]] != [entry[0] for entry in unit14]:
     missing.append("第14組066〜070の学習順が不正")
@@ -1152,7 +1154,7 @@ if "学習順066〜070を復習" not in home or "第14組の復習：066〜070" 
 positions14 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit14]
 review14_pos = PDF_SCRIPT.find(f'"{review14_path}"')
 review13_pos = PDF_SCRIPT.find('"docs/columns/column41-45.md"')
-next71_pos = PDF_SCRIPT.find('"docs/samples/step51.md"')
+next71_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage06/L071EditDtoPage.md"')
 if -1 in positions14 or positions14 != sorted(positions14) or not (
     review13_pos < positions14[0] < positions14[-1] < review14_pos < next71_pos
 ):
@@ -1160,11 +1162,11 @@ if -1 in positions14 or positions14 != sorted(positions14) or not (
 
 # 第15組071〜075：本文、Razor、Web/PDF索引のソースのみを検査。PDFは生成しない。
 unit15 = [
-    ("step51", "docs/samples/step51.md", "L071EditDtoPage.razor"),
-    ("step52", "docs/samples/step52.md", "L072EditDialogPage.razor"),
-    ("step53", "docs/samples/step53.md", "L073BulkEditPage.razor"),
-    ("step54", "docs/samples/step54.md", "L074ConflictEditorPage.razor"),
-    ("step55", "docs/samples/step55.md", "L075DetailProjectionPage.razor"),
+    ("step51", "docs/course-v3/lessons/Stage06/L071EditDtoPage.md", "L071EditDtoPage.razor"),
+    ("step52", "docs/course-v3/lessons/Stage06/L072EditDialogPage.md", "L072EditDialogPage.razor"),
+    ("step53", "docs/course-v3/lessons/Stage06/L073BulkEditPage.md", "L073BulkEditPage.razor"),
+    ("step54", "docs/course-v3/lessons/Stage06/L074ConflictEditorPage.md", "L074ConflictEditorPage.razor"),
+    ("step55", "docs/course-v3/lessons/Stage06/L075DetailProjectionPage.md", "L075DetailProjectionPage.razor"),
 ]
 if [item["id"] for item in ordered[70:75]] != [item[0] for item in unit15]:
     missing.append("第15組071〜075の学習順が不正")
@@ -1195,7 +1197,7 @@ if "学習順071〜075を復習" not in home or "第15組の復習：071〜075" 
 positions15 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit15]
 review15_pos = PDF_SCRIPT.find(f'"{review15_path}"')
 review14_pos = PDF_SCRIPT.find('"docs/columns/column46-50.md"')
-step56_pos = PDF_SCRIPT.find('"docs/samples/step56.md"')
+step56_pos = PDF_SCRIPT.find('"docs/course-v3/lessons/Stage06/L076RangeSearchPage.md"')
 if -1 in positions15 or positions15 != sorted(positions15) or not (
     review14_pos < positions15[0] < positions15[-1] < review15_pos < step56_pos
 ):
@@ -1205,11 +1207,11 @@ if -1 in positions15 or positions15 != sorted(positions15) or not (
 
 # 第16組076〜080：PDFを生成せず索引のソースと教材・Razor・Webを照合する。
 unit16 = [
-    ("step56", "docs/samples/step56.md", "L076RangeSearchPage.razor"),
-    ("step57", "docs/samples/step57.md", "L077CacheBoundaryPage.razor"),
-    ("step58", "docs/samples/step58.md", "L078StatisticsExportPage.razor"),
-    ("step59", "docs/samples/step59.md", "L079PerformancePage.razor"),
-    ("step60", "docs/samples/step60.md", "L080PatternChoicePage.razor"),
+    ("step56", "docs/course-v3/lessons/Stage06/L076RangeSearchPage.md", "L076RangeSearchPage.razor"),
+    ("step57", "docs/course-v3/lessons/Stage06/L077CacheBoundaryPage.md", "L077CacheBoundaryPage.razor"),
+    ("step58", "docs/course-v3/lessons/Stage06/L078StatisticsExportPage.md", "L078StatisticsExportPage.razor"),
+    ("step59", "docs/course-v3/lessons/Stage06/L079PerformancePage.md", "L079PerformancePage.razor"),
+    ("step60", "docs/course-v3/lessons/Stage06/L080PatternChoicePage.md", "L080PatternChoicePage.razor"),
 ]
 if [item["id"] for item in ordered[75:80]] != [item[0] for item in unit16]:
     missing.append("第16組076〜080の学習順が不正")
@@ -1243,7 +1245,7 @@ if "学習順076〜080を復習" not in home or "第16組の復習：076〜080" 
 positions16 = [PDF_SCRIPT.find(f'"{relative}"') for _, relative, _ in unit16]
 review16_pos = PDF_SCRIPT.find(f'"{review16_path}"')
 if -1 in positions16 or positions16 != sorted(positions16) or not (
-    review15_pos < positions16[0] < positions16[-1] < review16_pos < PDF_SCRIPT.find('"docs/course-v3/lessons/security-01.md"')
+    review15_pos < positions16[0] < positions16[-1] < review16_pos < PDF_SCRIPT.find('"docs/course-v3/lessons/Stage07/L081WindowsCookieCircuitPage.md"')
 ):
     missing.append("第15組→076〜080→第16組→081のPDF目次ソース順序が不正")
 
@@ -1281,13 +1283,13 @@ if 'data-testid="stage07-overview-table"' not in stage7_view or 'href="/learn/08
     missing.append("第7段階の概要表または081への導線不足")
 if "学習順081〜085を復習する" not in home or "第17組の復習：081〜085" not in nav_eighth:
     missing.append("第17組のHome/NavMenu導線不足")
-positions17 = [PDF_SCRIPT.find(f'"docs/course-v3/lessons/{key}.md"') for _, key in security_unit17]
+positions17 = [PDF_SCRIPT.find(f'"{next(item["source"] for item in ordered if item["id"] == key)}"') for _, key in security_unit17]
 stage7_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage07.md"')
 review17_pos = PDF_SCRIPT.find('"docs/course-v3/reviews/review-17.md"')
 if -1 in positions17 or positions17 != sorted(positions17) or not (
     PDF_SCRIPT.find('"docs/columns/column56-60.md"') < stage7_pos
     < positions17[0] < positions17[-1] < review17_pos
-    < PDF_SCRIPT.find('"docs/samples/step61.md"')
+    < PDF_SCRIPT.find('"docs/course-v3/lessons/Stage07/L086NegotiatePage.md"')
 ):
     missing.append("第16組→第7段階概要→081〜085→第17組→086のPDF目次ソース順が不正")
 
@@ -1300,7 +1302,7 @@ for index, view_rel in enumerate([
 ]):
     seq, old = 86 + index, 61 + index
     item = ordered[seq - 1]
-    source = f"docs/samples/step{old}.md"
+    source = LEGACY_DOCUMENTS[old]
     body = (ROOT / source).read_text(encoding="utf-8")
     view = (LESSONS / "Stage07" / view_rel).read_text(encoding="utf-8")
     if item["sequence"] != seq or item["id"] != f"step{old}" or item["rewrite"] != "final-reviewed-ci-passed":
@@ -1329,7 +1331,7 @@ if 'href="/learn/column/security-85"' not in (LESSONS / "Stage07" / _STAGE07_MOV
     missing.append("学習順086の前リンクがありません")
 if 'href="/learn/column/65"' not in (LESSONS / "Stage07" / _STAGE07_MOVED_PAGES[90]).read_text(encoding="utf-8"):
     missing.append("学習順090の次リンクがありません")
-positions18 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(61, 66)]
+positions18 = [PDF_SCRIPT.find(f'"{LEGACY_DOCUMENTS[x]}"') for x in range(61, 66)]
 review18_pos = PDF_SCRIPT.find('"docs/columns/column61-65.md"')
 if -1 in positions18 or positions18 != sorted(positions18) or not (
     review17_pos < positions18[0] < positions18[-1] < review18_pos < PDF_SCRIPT.find('"docs/columns/column-auth-at-scale.md"')
@@ -1349,7 +1351,7 @@ unit19 = [
 if [item["id"] for item in ordered[90:95]] != [f"step{old}" for _, old, _ in unit19]:
     missing.append("第19組091〜095の学習順が不正")
 for sequence, old, view_path in unit19:
-    source = f"docs/samples/step{old}.md"
+    source = LEGACY_DOCUMENTS[old]
     body = (ROOT / source).read_text(encoding="utf-8")
     view = (LESSONS / "Stage07" / view_path).read_text(encoding="utf-8")
     if ordered[sequence - 1]["rewrite"] != "final-reviewed-ci-passed":
@@ -1379,11 +1381,11 @@ if 'href="/learn/column/auth-at-scale"' not in (LESSONS / "Stage07/L091Authorize
     missing.append("学習順091の前リンクがない")
 if 'href="/learn/column/70"' not in (LESSONS / "Stage07/L095DeploymentGatePage.razor").read_text(encoding="utf-8"):
     missing.append("学習順095の復習リンクがない")
-positions19 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(66, 71)]
+positions19 = [PDF_SCRIPT.find(f'"{LEGACY_DOCUMENTS[x]}"') for x in range(66, 71)]
 review19_pos = PDF_SCRIPT.find('"docs/columns/column66-70.md"')
 if -1 in positions19 or positions19 != sorted(positions19) or not (
     PDF_SCRIPT.find('"docs/columns/column-auth-at-scale.md"') < positions19[0]
-    < positions19[-1] < review19_pos < PDF_SCRIPT.find('"docs/samples/step71.md"')
+    < positions19[-1] < review19_pos < PDF_SCRIPT.find('"docs/course-v3/lessons/Stage08/L096DirectoryNormalizationPage.md"')
 ):
     missing.append("特別コラム→091〜095→第19組復習→096のPDF索引順が不正")
 
@@ -1400,7 +1402,7 @@ unit20 = [
 if [item["id"] for item in ordered[95:100]] != [f"step{old}" for _, old, _ in unit20]:
     missing.append("第20組096〜100の学習順が不正")
 for seq, old, view_rel in unit20:
-    source = f"docs/samples/step{old}.md"
+    source = LEGACY_DOCUMENTS[old]
     body = (ROOT / source).read_text(encoding="utf-8")
     view = (LESSONS / "Stage08" / view_rel).read_text(encoding="utf-8")
     if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
@@ -1438,13 +1440,13 @@ if 'data-testid="stage08-overview-table"' not in stage08_view or 'href="/learn/0
     missing.append("第8段階概要：Razor比較表・096導線不足")
 if "第8段階の概要を先に読む" not in home or 'href="/learn/stage/operations"' not in nav_eighth:
     missing.append("第8段階概要：Web目次・NavMenu不足")
-positions20 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(71, 76)]
+positions20 = [PDF_SCRIPT.find(f'"{LEGACY_DOCUMENTS[x]}"') for x in range(71, 76)]
 review20_pos = PDF_SCRIPT.find('"docs/columns/column71-75.md"')
 stage08_pos = PDF_SCRIPT.find('"docs/course-v3/stages/stage08.md"')
 if -1 in positions20 or positions20 != sorted(positions20) or not (
     PDF_SCRIPT.find('"docs/columns/column66-70.md"') < stage08_pos
     < positions20[0] < positions20[-1] < review20_pos
-    < PDF_SCRIPT.find('"docs/samples/step76.md"')
+    < PDF_SCRIPT.find('"docs/course-v3/lessons/Stage08/L101ConcurrentEditPage.md"')
 ):
     missing.append("第19組復習→第8段階概要→第20組096〜100→復習→101のPDF索引順不正")
 
@@ -1454,7 +1456,7 @@ unit21 = [(seq, seq - 25, f"Stage08/{_STAGE08_MOVED_PAGES[seq]}") for seq in ran
 if [x["id"] for x in ordered[100:105]] != [f"step{old}" for _, old, _ in unit21]:
     missing.append("第21組101〜105の学習順が不正")
 for seq, old, view_rel in unit21:
-    source = f"docs/samples/step{old}.md"
+    source = LEGACY_DOCUMENTS[old]
     text_body = (ROOT / source).read_text(encoding="utf-8")
     view = (LESSONS / view_rel).read_text(encoding="utf-8")
     if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
@@ -1482,7 +1484,7 @@ if 'data-testid="stage08-review21-table"' not in review21_view or 'href="/learn/
     missing.append("第21組復習：Razor比較表と学習順106へのリンク不足")
 if "学習順101〜105を復習する" not in home or "第21組の復習：101〜105" not in nav_eighth:
     missing.append("第21組復習：Home/NavMenu導線不足")
-pdf21 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(76, 81)]
+pdf21 = [PDF_SCRIPT.find(f'"{LEGACY_DOCUMENTS[x]}"') for x in range(76, 81)]
 if -1 in pdf21 or pdf21 != sorted(pdf21) or not (
     review20_pos < pdf21[0] < pdf21[-1]
     < PDF_SCRIPT.find('"docs/columns/column76-80.md"')
@@ -1496,7 +1498,7 @@ final_nav = (ROOT / "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor").r
 final_home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
 for seq in range(106, 111):
     n = seq - 105
-    source = f"docs/course-v3/lessons/capstone-0{n}.md"
+    source = next(item["source"] for item in ordered if item["id"] == f"capstone-0{n}")
     body = (ROOT / source).read_text(encoding="utf-8")
     view = (LESSONS / "Stage09" / _STAGE09_MOVED_PAGES[seq]).read_text(encoding="utf-8")
     if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
@@ -1533,7 +1535,7 @@ if final_curriculum["stages"][-1].get("final_review") != "ci-passed":
     missing.append("第9段階の改稿状態が不一致")
 if final_curriculum["reviews"][-1].get("final_review") != "ci-passed":
     missing.append("第22組の改稿状態が不一致")
-pdf_last = [PDF_SCRIPT.find(f'"docs/course-v3/lessons/capstone-0{n}.md"') for n in range(1, 6)]
+pdf_last = [PDF_SCRIPT.find(f'"{next(item["source"] for item in ordered if item["id"] == f"capstone-0{n}")}"') for n in range(1, 6)]
 pdf_stage = PDF_SCRIPT.find('"docs/course-v3/stages/stage09.md"')
 pdf_review = PDF_SCRIPT.find('"docs/course-v3/reviews/review-22.md"')
 if -1 in pdf_last or pdf_last != sorted(pdf_last) or not (
@@ -1552,6 +1554,12 @@ else:
     source_map = json.loads(source_map_path.read_text(encoding="utf-8"))
     source_index = source_index_path.read_text(encoding="utf-8")
     mapped_lessons = source_map.get("lessons", [])
+    # 全110件の教材物理名が主Razorと段階の命名に一致することを確認する。
+    for step, entry in zip(ordered, mapped_lessons):
+        required = f'docs/course-v3/lessons/Stage{step["stage"]:02d}/' + Path(entry["razor_path"]).stem + ".md"
+        if step["source"] != required or entry["lesson_path"] != required:
+            missing.append(f'学習順{step["sequence"]:03d}：教材Markdownの物理配置が不正')
+
     if len(mapped_lessons) != 110:
         missing.append("実装直接索引が110件ではありません")
     if [entry.get("sequence") for entry in mapped_lessons] != list(range(1, 111)):
@@ -1576,6 +1584,13 @@ else:
             missing.append(f"学習順{seq:03d}：正規URLの対応が不正")
         if f"| {seq:03d} | " not in source_index or f"`/learn/{seq:03d}`" not in source_index:
             missing.append(f"学習順{seq:03d}：直接索引の表示がありません")
+
+    # 現行索引の本文とRazorの直接リンクが実在することを確認する。
+    for entry in mapped_lessons:
+        line = next((x for x in source_index.splitlines() if x.startswith(f'| {entry["sequence"]:03d} | ')), "")
+        destinations = re.findall(r'\[(?:本文|Razor)\]\(([^)]+)\)', line)
+        if len(destinations) != 2 or any(not (source_index_path.parent / p).resolve().is_file() for p in destinations):
+            missing.append(f'学習順{entry["sequence"]:03d}：直接索引の本文/Razorリンクが不正')
     # 実際のメニュー/ホームに110件すべての正規URLが現れることを検証する。
     actual_home = (ROOT / "src/PgBlazorSamples.Web/Components/Pages/Home.razor").read_text(encoding="utf-8")
     actual_nav = (ROOT / "src/PgBlazorSamples.Web/Components/Layout/NavMenu.razor").read_text(encoding="utf-8")
@@ -1672,6 +1687,16 @@ for entry in mapped_lessons:
         missing.append(f'学習順{entry["sequence"]:03d}：教材に正規URLがありません')
     if f'@page "{entry["app_url"]}"' not in view_file.read_text(encoding="utf-8"):
         missing.append(f'学習順{entry["sequence"]:03d}：互換URLの@pageが失われています')
+
+    # 移動したMarkdownからの相対参照を全110件検査する（URL・アンカーは除外）。
+    for address in re.findall(r'\]\(([^)\n]+)\)', doc_text):
+        link = address.split()[0].split('#')[0]
+        if not link or link.startswith(("https://", "http://", "mailto:", "data:", "/", "www.")):
+            continue
+        target = (doc_file.parent / link).resolve()
+        if not target.is_file():
+            missing.append(f'学習順{entry["sequence"]:03d}：教材内リンク先がありません：{address}')
+
 
 # 互換用のページ定義は維持し、画面内の移動先は正規URLへ統一する。
 compatibility = {entry["app_url"] for entry in mapped_lessons}

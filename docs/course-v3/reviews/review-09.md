@@ -105,4 +105,4 @@ await module.InvokeVoidAsync("downloadStream", fileName, mediaType, reference);
 - [ ] ErrorBoundaryとDBトランザクションの違いを説明できる。
 - [ ] 200%拡大とキーボード操作を試した。
 
-準備ができたら[学習順046：DapperとEF Coreの役割・選定を比較する](../lessons/db-bridge-01.md)へ進みます。
+準備ができたら[学習順046：DapperとEF Coreの役割・選定を比較する](../lessons/Stage05/L046OrmComparisonPage.md)へ進みます。
