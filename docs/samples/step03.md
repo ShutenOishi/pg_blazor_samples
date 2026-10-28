@@ -1,6 +1,6 @@
 # 学習順008：RazorでC#の値を表示する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008L008RazorSyntaxPage.razor)。画面の正規URLは `/learn/008` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L008RazorSyntaxPage.razor)。画面の正規URLは `/learn/008` です。
 
 ## 到達目標と前提
 

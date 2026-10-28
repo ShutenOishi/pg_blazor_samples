@@ -154,7 +154,7 @@ if len(newpaths) == 5:
 runtime_ids = ["runtime-01", "runtime-02", "runtime-03", "runtime-04", "runtime-05"]
 for n, lesson_id in enumerate(runtime_ids, 1):
     item = next((item for item in ordered if item["id"] == lesson_id), None)
-    razor = SAMPLES / "Runtime" / f"Runtime{n:02d}Page.razor"
+    razor = (LESSONS / "Stage02" / _STAGE02_MOVED_PAGES[9]) if n == 1 else SAMPLES / "Runtime" / f"Runtime{n:02d}Page.razor"
     if not item or not item["implementation"].startswith("implemented"):
         missing.append(lesson_id + "：学習順の実装状態が不正")
         continue

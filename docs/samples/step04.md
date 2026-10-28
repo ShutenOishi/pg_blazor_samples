@@ -1,6 +1,6 @@
 # 学習順010：ボタンのイベントを扱う
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010L010EventPage.razor)。画面の正規URLは `/learn/010` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L010EventPage.razor)。画面の正規URLは `/learn/010` です。
 
 ## 到達目標と前提
 
