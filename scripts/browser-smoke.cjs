@@ -1273,6 +1273,14 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "非同期処理を開始する" }).click({ noWaitAfter: true });
         await page.getByRole("button", { name: "処理を取り消す" }).click();
         await waitText(page, '[data-testid="step17-state"]', "処理を取り消しました");
+        // 旧Task.Delayの期限が経過しても取消状態が完了表示で上書きされないことを実証する。
+        await page.waitForTimeout(950);
+        if ((await page.getByTestId("step17-state").textContent()).trim() !== "処理を取り消しました。")
+            throw new Error("027 取消後に旧非同期処理が結果を上書きした");
+        if (await page.getByRole("button", { name: "処理を取り消す" }).isEnabled())
+            throw new Error("027 取消後の実行フラグが解除されていない");
+        await page.getByRole("button", { name: "非同期処理を開始する" }).click();
+        await waitText(page, '[data-testid="step17-state"]', "処理が完了しました");
         await page.getByTestId("di06-compare-17").waitFor();
         console.log("学習順027：非同期処理の完了・取消と診断表を確認");
 
