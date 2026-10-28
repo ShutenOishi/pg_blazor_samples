@@ -106,7 +106,9 @@
             disconnectProbeState = "実切断試験の待機中";
             StateHasChanged();
             await Task.Delay(TimeSpan.FromSeconds(3));
+            Logger.LogWarning("L041_PROBE_JS_INVOKE_START");
             await current.InvokeAsync<string>("readLanguage");
+            Logger.LogWarning("L041_PROBE_JS_INVOKE_COMPLETED");
             disconnectProbeState = "JS呼出しに成功しました。切断捕捉の証明ではありません。";
         }
         catch (JSDisconnectedException)
@@ -117,7 +119,13 @@
         }
         catch (JSException)
         {
+            Logger.LogWarning("L041_PROBE_JS_EXCEPTION_NOT_DISCONNECT");
             disconnectProbeState = "ブラウザーの処理に失敗しました。切断捕捉の証明ではありません。";
+        }
+        catch (Exception exception)
+        {
+            Logger.LogWarning("L041_PROBE_OTHER_EXCEPTION_{Type}", exception.GetType().Name);
+            disconnectProbeState = "切断例外の捕捉は未確認です。";
         }
     }
 
