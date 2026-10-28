@@ -1,6 +1,6 @@
 # 学習順024：BlazorのScopedと対話回線
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step14/CircuitPage.razor)。画面の正規URLは `/learn/024` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L024CircuitScopedPage.razor)。画面の正規URLは `/learn/024` です。
 
 ## 学習の目的と対象
 

@@ -1,6 +1,6 @@
 # 学習順022：インターフェイスで部品を交換する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step12/InterfacePage.razor)。画面の正規URLは `/learn/022` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L022InterfaceClockPage.razor)。画面の正規URLは `/learn/022` です。
 
 ## 学習の目的と対象
 

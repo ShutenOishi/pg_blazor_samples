@@ -1,6 +1,6 @@
 # 学習順29：画面からApplicationの計算処理を分離する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step19/ApplicationPage.razor)。画面の正規URLは `/learn/029` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L029ApplicationLayerPage.razor)。画面の正規URLは `/learn/029` です。
 
 対象画面は`/learn/029`です。WinForms＋Dapperの経験と結び付けて理解します。
 

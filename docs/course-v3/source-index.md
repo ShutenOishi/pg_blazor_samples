@@ -45,16 +45,16 @@
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 021 | DI（依存性注入）の基本 | [本文](../samples/step11.md) | `/learn/021` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step11/DiIntroductionPage.razor) |
-| 022 | インターフェイスで部品を交換する | [本文](../samples/step12.md) | `/learn/022` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step12/InterfacePage.razor) |
-| 023 | Singleton・Scoped・Transient | [本文](../samples/step13.md) | `/learn/023` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step13/LifetimePage.razor) |
-| 024 | BlazorのScopedと対話回線 | [本文](../samples/step14.md) | `/learn/024` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step14/CircuitPage.razor) |
-| 025 | injectとコンストラクター注入 | [本文](../samples/step15.md) | `/learn/025` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step15/InjectionPage.razor) |
-| 026 | Optionsで設定を受け取る | [本文](../samples/step16.md) | `/learn/026` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step16/OptionsPage.razor) |
-| 027 | 非同期処理とログ | [本文](../samples/step17.md) | `/learn/027` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step17/AsyncLoggingPage.razor) |
-| 028 | DIによる単体テスト | [本文](../samples/step18.md) | `/learn/028` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step18/UnitTestPage.razor) |
-| 029 | Applicationへ処理を分離 | [本文](../samples/step19.md) | `/learn/029` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step19/ApplicationPage.razor) |
-| 030 | DIで課題管理を作る | [本文](../samples/step20.md) | `/learn/030` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step20/TodoPage.razor) |
+| 021 | DI（依存性注入）の基本 | [本文](../samples/step11.md) | `/learn/021` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L021DependencyInjectionPage.razor) |
+| 022 | インターフェイスで部品を交換する | [本文](../samples/step12.md) | `/learn/022` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L022InterfaceClockPage.razor) |
+| 023 | Singleton・Scoped・Transient | [本文](../samples/step13.md) | `/learn/023` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L023ServiceLifetimesPage.razor) |
+| 024 | BlazorのScopedと対話回線 | [本文](../samples/step14.md) | `/learn/024` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L024CircuitScopedPage.razor) |
+| 025 | injectとコンストラクター注入 | [本文](../samples/step15.md) | `/learn/025` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L025InjectionPatternsPage.razor) |
+| 026 | Optionsで設定を受け取る | [本文](../samples/step16.md) | `/learn/026` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L026OptionsPatternPage.razor) |
+| 027 | 非同期処理とログ | [本文](../samples/step17.md) | `/learn/027` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L027AsyncLoggingPage.razor) |
+| 028 | DIによる単体テスト | [本文](../samples/step18.md) | `/learn/028` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L028DependencyUnitTestPage.razor) |
+| 029 | Applicationへ処理を分離 | [本文](../samples/step19.md) | `/learn/029` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L029ApplicationLayerPage.razor) |
+| 030 | DIで課題管理を作る | [本文](../samples/step20.md) | `/learn/030` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L030TodoServicePage.razor) |
 
 ## 第4段階：MudBlazorとブラウザーの業務UI（学習順031〜045）
 

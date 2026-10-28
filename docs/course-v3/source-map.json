@@ -366,11 +366,20 @@
       "stage": 3,
       "lesson_path": "docs/samples/step11.md",
       "app_url": "/learn/11",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step11/DiIntroductionPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L021DependencyInjectionPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/021"
+      "canonical_url": "/learn/021",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/GreetingService.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/SystemClock.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/IClock.cs",
+        "tests/PgBlazorSamples.UnitTests/GreetingServiceTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L021DependencyInjectionPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 22,
@@ -379,11 +388,19 @@
       "stage": 3,
       "lesson_path": "docs/samples/step12.md",
       "app_url": "/learn/12",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step12/InterfacePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L022InterfaceClockPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/022"
+      "canonical_url": "/learn/022",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Clock/IClock.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/FixedClock.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/SystemClock.cs",
+        "tests/PgBlazorSamples.UnitTests/GreetingServiceTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L022InterfaceClockPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 23,
@@ -392,11 +409,17 @@
       "stage": 3,
       "lesson_path": "docs/samples/step13.md",
       "app_url": "/learn/13",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step13/LifetimePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L023ServiceLifetimesPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/023"
+      "canonical_url": "/learn/023",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Lifetime/LifetimeMarkers.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L023ServiceLifetimesPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 24,
@@ -405,11 +428,18 @@
       "stage": 3,
       "lesson_path": "docs/samples/step14.md",
       "app_url": "/learn/14",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step14/CircuitPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L024CircuitScopedPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/024"
+      "canonical_url": "/learn/024",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Lifetime/ScopedCounter.cs",
+        "src/PgBlazorSamples.Web/Components/Samples/Step14/SharedCounter.razor",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L024CircuitScopedPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 25,
@@ -418,11 +448,18 @@
       "stage": 3,
       "lesson_path": "docs/samples/step15.md",
       "app_url": "/learn/15",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step15/InjectionPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L025InjectionPatternsPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/025"
+      "canonical_url": "/learn/025",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Clock/GreetingFormatter.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/GreetingService.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L025InjectionPatternsPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 26,
@@ -431,11 +468,17 @@
       "stage": 3,
       "lesson_path": "docs/samples/step16.md",
       "app_url": "/learn/16",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step16/OptionsPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L026OptionsPatternPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/026"
+      "canonical_url": "/learn/026",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningOptions.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L026OptionsPatternPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 27,
@@ -444,11 +487,15 @@
       "stage": 3,
       "lesson_path": "docs/samples/step17.md",
       "app_url": "/learn/17",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step17/AsyncLoggingPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L027AsyncLoggingPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/027"
+      "canonical_url": "/learn/027",
+      "related_sources": [
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L027AsyncLoggingPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 28,
@@ -457,11 +504,18 @@
       "stage": 3,
       "lesson_path": "docs/samples/step18.md",
       "app_url": "/learn/18",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step18/UnitTestPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L028DependencyUnitTestPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/028"
+      "canonical_url": "/learn/028",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Clock/FixedClock.cs",
+        "src/PgBlazorSamples.Web/Services/Clock/GreetingService.cs",
+        "tests/PgBlazorSamples.UnitTests/GreetingServiceTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L028DependencyUnitTestPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 29,
@@ -470,11 +524,18 @@
       "stage": 3,
       "lesson_path": "docs/samples/step19.md",
       "app_url": "/learn/19",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step19/ApplicationPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L029ApplicationLayerPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/029"
+      "canonical_url": "/learn/029",
+      "related_sources": [
+        "src/PgBlazorSamples.Application/IStepSummaryService.cs",
+        "src/PgBlazorSamples.Application/StepSummaryService.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L029ApplicationLayerPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 30,
@@ -483,11 +544,19 @@
       "stage": 3,
       "lesson_path": "docs/samples/step20.md",
       "app_url": "/learn/20",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step20/TodoPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage03/L030TodoServicePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/030"
+      "canonical_url": "/learn/030",
+      "related_sources": [
+        "src/PgBlazorSamples.Application/ITodoService.cs",
+        "src/PgBlazorSamples.Application/TodoItem.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/InMemoryTodoService.cs",
+        "tests/PgBlazorSamples.UnitTests/TodoServiceTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": " 主RazorをStage03/L030TodoServicePage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
     {
       "sequence": 31,

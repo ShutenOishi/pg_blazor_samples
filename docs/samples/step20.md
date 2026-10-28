@@ -1,6 +1,6 @@
 # 学習順30：DIで学習課題管理を作る
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step20/TodoPage.razor)。画面の正規URLは `/learn/030` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L030TodoServicePage.razor)。画面の正規URLは `/learn/030` です。
 
 対象画面は`/learn/030`です。WinForms＋Dapperの経験と結び付けて理解します。
 

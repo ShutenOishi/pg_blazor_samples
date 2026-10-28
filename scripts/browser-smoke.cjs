@@ -81,6 +81,18 @@ async function waitText(page, selector, expected) {
             }
         }
         console.log("学習順011〜020：正規・互換Document GET 200を全10件確認");
+        // 学習順021〜030：第3段階の移行後も正規・互換DocumentがHTTP 200を返すか検証。
+        // DIサービス・共有コンポーネント・個別動作試験とは区別する。
+        for (let sequence = 21; sequence <= 30; sequence++) {
+            const canonical = "/learn/" + String(sequence).padStart(3, "0");
+            const compatibility = "/learn/" + String(sequence - 10);
+            const responses = await Promise.all([page.request.get(base + canonical), page.request.get(base + compatibility)]);
+            if (responses.some(response => response.status() !== 200)) {
+                throw new Error("学習順" + sequence + "の正規/互換GETが不正: " + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順021〜030：正規・互換Document GET 200を全10件確認");
+
 
 
         // 新第1段階の概要・Web基礎・復習を実ブラウザーで確認する。

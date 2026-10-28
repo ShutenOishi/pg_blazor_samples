@@ -1,6 +1,6 @@
 # 学習順28：DIと単体テストを理解する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step18/UnitTestPage.razor)。画面の正規URLは `/learn/028` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L028DependencyUnitTestPage.razor)。画面の正規URLは `/learn/028` です。
 
 対象画面は`/learn/028`です。WinForms＋Dapperの経験と結び付けて理解します。
 

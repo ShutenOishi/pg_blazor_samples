@@ -1,6 +1,6 @@
 # 学習順26：Optionsで設定を受け取る
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step16/OptionsPage.razor)。画面の正規URLは `/learn/026` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L026OptionsPatternPage.razor)。画面の正規URLは `/learn/026` です。
 
 対象画面は`/learn/026`です。WinForms＋Dapperの経験と結び付けて理解します。
 

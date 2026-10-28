@@ -1,6 +1,6 @@
 # 学習順021：DI（依存性注入）の基本
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step11/DiIntroductionPage.razor)。画面の正規URLは `/learn/021` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L021DependencyInjectionPage.razor)。画面の正規URLは `/learn/021` です。
 
 ## 学習の目的と対象
 

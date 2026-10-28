@@ -1,6 +1,6 @@
 # 学習順27：非同期処理とログを使う
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step17/AsyncLoggingPage.razor)。画面の正規URLは `/learn/027` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L027AsyncLoggingPage.razor)。画面の正規URLは `/learn/027` です。
 
 対象画面は`/learn/027`です。WinForms＋Dapperの経験と結び付けて理解します。
 

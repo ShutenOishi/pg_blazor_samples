@@ -1,6 +1,6 @@
 # 学習順023：Singleton・Scoped・Transient
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step13/LifetimePage.razor)。画面の正規URLは `/learn/023` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage03/L023ServiceLifetimesPage.razor)。画面の正規URLは `/learn/023` です。
 
 ## 学習の目的と対象
 
