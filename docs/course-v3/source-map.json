@@ -1146,7 +1146,7 @@
       "app_url": "/learn/security-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security02Page.razor",
       "audit_state": "simulation",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/082",
       "related_sources": [
@@ -1155,7 +1155,7 @@
         "tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "学習用隔離実HTTP/Antiforgery GET200、正常POST403、欠落/改変POST400をChromeとxUnitで検証予定。業務認可・AD/IIS・SITE未実証。"
+      "notes": "学習用隔離実HTTP/Antiforgery GET200、正常POST403、欠落/改変POST400をChromeとxUnitで検証予定。業務認可・AD/IIS・SITE未実証。 正式受入HEAD 63e7640c301d9172d738c5cdb122a7b91b9d74e0、PRコメント #6460413996。"
     },
     {
       "sequence": 83,
@@ -1166,9 +1166,18 @@
       "app_url": "/learn/security-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/083"
+      "canonical_url": "/learn/083",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs",
+        "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "実Razorエンコード、082実Antiforgery、059共有の値パラメーター実SQLを独立追跡。Chrome拒否＋既存PG18 SQL注入模擬試験。新HEAD CI待ち。"
     },
     {
       "sequence": 84,

@@ -1,15 +1,20 @@
 # 学習順083：XSS・CSRF・SQL注入の防御境界
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor)。画面の正規URLは `/learn/083` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor)、[実SQLサービス（059と共有）](../../../src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs)、[入力安全判定](../../../src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs)、[SQL実DB試験](../../../tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs)、[安全表示の単体試験](../../../tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs)、[Chrome試験](../../../scripts/browser-smoke.cjs)。正規URLは `/learn/083` です。
 
 ## 到達目標
 XSSはHTMLやスクリプトの実行、CSRFは利用者のCookieを使った別サイトからの要求、SQL注入は入力値がSQLの構文として解釈される問題です。原因と対策は異なるため、それぞれの層で防御する必要があります。
 
 ## 前提条件と学習環境
-第6段階のデータ検索・一覧表示と、第5段階のEF Coreの操作単位のDbContextを理解している想定です。Visual Studio 2026・.NET 10・Blazor Interactive Serverで実行します。このページ自体はADやPostgreSQLの実接続を必要としません。
+第6段階のデータ検索・一覧表示と、第5段階のEF Coreの操作単位のDbContextを理解している想定です。Visual Studio 2026・.NET 10・Blazor Interactive Serverで実行します。XSS表示の試験は実AD・DBに接続しません。学習用PostgreSQLが設定されている場合だけ、共有サービスによるSQL実検索を行います。未設定またはWindows認証有効時は安全に拒否します。
 
 ## 画面で確認すること
 アプリの `/learn/083` を開き、架空の条件を変えてボタンを押してください。**表示される許可・拒否は学習用の模擬判定です。** Windows本人認証や実際の既存台帳認可を代行せず、DBにデータを書き込みません。
+
+## 3つの境界を実装から確認する
+XSSはRazorの通常の文字列表示と `HtmlEncoder.Default.Encode`、CSRFは学習順082の隔離HTTP `ValidateRequestAsync`、SQL注入は学習順059と共有する `L059ParameterizedSqlService.QueryAsync` のパラメーター化によって別々に扱います。学習順083の画面からはSQL注入を模した `' OR 1=1 --` を**SQL文字列へ連結せず値として**送ります。PG18結合試験は学習用の架空課題を登録・後片付けして0件に絞られることを検証済みです。通常ChromeはDB未設定の安全拒否だけを検証し、実DB検索を成功扱いしません。
+
+いずれも万能な防御や業務認可を意味しません。HTMLの属性/URL/JS文脈、異なるCSRF経路、実AD/IIS/業務DBの権限検証は別です。
 
 ## コードを追いかける
 ```csharp
@@ -86,7 +91,7 @@ WinFormsのボタンが無効なときに操作を防ぐ仕組みを、Webの最
 6. ブラウザーの開発者ツールでDOMやネットワークを観察します。架空の画面操作でADや既存台帳を更新したと考えてはいけません。
 7. 前後のリンクで次の教材へ移動し、学習順085のあとには第17組復習へ進みます。
 
-この操作は模擬条件だけで行います。実IISへの配備、SPN、証明書、Kerberos、Data Protection鍵の保存時保護、実FDW、監査の原子性は現地の別の手順と受入記録が必要です。
+文字列のRazor描画は実DOMで、学習用DBの検索は設定時だけ実行します。実IISへの配備、SPN、証明書、Kerberos、Data Protection鍵の保存時保護、実FDW、監査の原子性は現地の別の手順と受入記録が必要です。
 
 ## 障害の切り分け
 | 兆候 | 原因を調べる場所 | 安全な扱い |

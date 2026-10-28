@@ -457,11 +457,11 @@
       "implemented_behavior": "学習専用の実HTTP GETでAntiforgeryトークンを発行、POST実検証で正常トークン403安全拒否、欠落/改変400。模擬チェックとは独立。",
       "missing_behavior": "ミドルウェア順序、HTTPS、IIS逆プロキシ構成を隔離環境の試験として区分",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L082HttpProbeTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 実Chrome GET/POSTと単体試験は新HEAD CI待ち。403は固定拒否で実IIS/AD/業務台帳認可の実証ではない。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "63e7640c301d9172d738c5cdb122a7b91b9d74e0",
+      "ci_run": "40630153133; PDF 40630153129",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 実Chrome GET/POSTと単体試験は新HEAD CI待ち。403は固定拒否で実IIS/AD/業務台帳認可の実証ではない。 正式受入はPRコメント #6460413996、HEAD 63e7640 のアプリ全3ジョブ・PDF成功。"
     },
     {
       "sequence": "083",
@@ -469,16 +469,23 @@
       "lesson_path": "docs/course-v3/lessons/security-03.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
       "canonical_url": "/learn/083",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Security/Security03Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecurityLessonPolicy.cs",
+        "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "実Razor文字列描画でXSSをエンコード、学習順082実Antiforgery、共有059サービスのDB値パラメーター照会を学習順083から実行。Chrome未設定拒否とPG18架空DB注入模擬値0件試験を独立区分。",
       "missing_behavior": "XSS/CSRF/SQL注入を学習専用入力で拒否できる負例と責任境界",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/SecurityLessonPolicyTests.cs; tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 DB実検索は既存059共有サービスのPG18専用試験、Chromeでは未設定拒否のみ。新HEADのWindows/Ubuntu Chrome/PG18/PDF成功待ち。XSS万能保証・実AD/IIS/業務台帳は未実証。"
     },
     {
       "sequence": "084",

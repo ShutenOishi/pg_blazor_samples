@@ -742,6 +742,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="security03-result"]', "HTMLは実行していません");
         await waitText(page, '[data-testid="security03-encoded"]', "&lt;img");
         if (await page.locator('img[src="x"]').count() !== 0) throw new Error("未信頼文字列がHTMLのimgとして生成されています。");
+        await page.getByLabel("学習専用DBで検索する文字列").fill("' OR 1=1 --");
+        await page.getByRole("button", { name: "学習DBへ安全な値として問い合わせる" }).click();
+        await waitText(page, '[data-testid="l083-db-result"]', "PostgreSQLは未設定");
+        await waitText(page, '[data-testid="l083-db-count"]', "Dapper取得件数：0 件");
+        console.log("学習順083：ChromeでXSS非実行とSQL値入力の未設定安全拒否を確認。学習DB実検索/注入模擬値は既存PG18結合試験");
 
         await page.goto(base + "/learn/security-04");
         await page.waitForTimeout(950);
