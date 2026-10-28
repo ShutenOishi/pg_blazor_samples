@@ -138,6 +138,8 @@ builder.Services.AddScoped<L046OrmComparisonService>();
 builder.Services.AddScoped<L053PersistenceComparisonService>();
 // 学習順058：固定架空値のキーなしビューだけを実読取する。
 builder.Services.AddScoped<L058KeylessViewService>();
+// 学習順059：Dapper、EF Core FromSql、SqlQueryの値パラメーター化を実DB照合する。
+builder.Services.AddScoped<L059ParameterizedSqlService>();
 // Step41〜60：ServerDataのDB側ページングもWeb内の小さなサービスで扱う。
 builder.Services.AddScoped<LearningPageService>();
 // Step46〜49：JOIN・キーセット・仮想化の各パターンを操作単位のDbContextで実装。

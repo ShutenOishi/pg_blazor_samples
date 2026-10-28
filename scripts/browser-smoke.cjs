@@ -583,6 +583,11 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="dbbridge05-state"]', "パラメーター化");
         await waitText(page, '[data-testid="dbbridge05-fromsql"]', "@");
         await waitText(page, '[data-testid="dbbridge05-sqlquery"]', "@");
+        await page.getByRole("button", { name: "学習DBで3方式を実検索する" }).click();
+        await waitText(page, '[data-testid="l059-status"]', "PostgreSQLは未設定");
+        if (await page.getByTestId("l059-results").count() !== 0)
+            throw new Error("学習順059：DB未設定なのに検索結果を表示しました");
+        console.log("学習順059：ChromeでSQL生成・DB未設定時拒否を確認。実検索はPostgreSQL18ジョブのみ");
         for (const end of ["50", "55", "60"]) {
             await page.goto(base + "/learn/column/db-bridge-" + end);
             await page.getByRole("heading", { name: /第1[012]組の復習/ }).waitFor();

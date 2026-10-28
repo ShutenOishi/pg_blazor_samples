@@ -2,8 +2,9 @@
 @using Microsoft.EntityFrameworkCore
 @using PgBlazorSamples.Web.Data
 @inject IDbContextFactory<LearningDbContext> Factory
+@inject PgBlazorSamples.Web.Services.Learning.L059ParameterizedSqlService SqlComparison
 @page "/learn/db-bridge-05"
-<PageTitle>学習順59：FromSql／SqlQueryのパラメーターとDapper併用｜Blazor ステップアップ学習</PageTitle>
+<PageTitle>学習順059：FromSql／SqlQueryのパラメーターとDapper併用｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第5段階 / 学習順59</p><h1>FromSql／SqlQueryのパラメーターとDapper併用</h1>
 <p>FromSqlInterpolatedとSqlQueryで、利用者の値がSQL構文に連結されずパラメーター化される様子を確認します。</p>
 <section class="lesson-details"><label for="dbbridge05-term">検索値</label>
@@ -12,7 +13,20 @@
 <p role="status" data-testid="dbbridge05-state">@state</p>
 <h2>FromSqlの生成SQL</h2><pre data-testid="dbbridge05-fromsql" style="white-space:pre-wrap;overflow-wrap:anywhere">@fromSql</pre>
 <h2>SqlQueryの生成SQL</h2><pre data-testid="dbbridge05-sqlquery" style="white-space:pre-wrap;overflow-wrap:anywhere">@sqlQuery</pre>
-<p>DBへの接続は行いません。実業務でDapperを併用する場合も値をパラメーター化し、認可を共通サービスで強制します。</p></section>
+<p>このボタンはSQL生成のみで、DBへ接続しません。実業務でDapperを併用する場合も認可を共通サービスで強制します。</p>
+<h2>学習用DBの実行結果をDapper・EF Coreで照合する</h2>
+<button type="button" @onclick="QueryAsync" disabled="@querying">学習DBで3方式を実検索する</button>
+<p role="status" data-testid="l059-status">@queryStatus</p>
+@if (queryResult is { Queried: true })
+{
+    <dl data-testid="l059-results">
+        <dt>Dapper取得件数</dt><dd>@queryResult.DapperRows.Count</dd>
+        <dt>FromSql取得件数</dt><dd>@queryResult.EfRows.Count</dd>
+        <dt>SqlQuery集計件数</dt><dd>@queryResult.EfCount</dd>
+        <dt>結果照合</dt><dd>@(queryResult.Matches ? "一致" : "不一致")</dd>
+    </dl>
+}
+<p>実行時も検索値をすべてパラメーター化します。架空の学習DB以外には接続せず、Windows認証有効時の匿名検索は拒否します。</p></section>
 
 <section class="lesson-details" aria-label="学習順059の比較と切り分け">
     <h2>学習順059：WinForms＋Dapperとの比較</h2>
@@ -20,7 +34,7 @@
         <caption>学習順059の操作と実行場所</caption>
         <thead><tr><th scope="col">観点</th><th scope="col">Blazor＋EF Core</th><th scope="col">確認点</th></tr></thead>
         <tbody>
-            <tr><th scope="row">操作</th><td>生成SQLのみ検査（DBへのSQL実行なし）</td><td>ブラウザーとサーバーの責任を分ける</td></tr>
+            <tr><th scope="row">操作</th><td>SQL生成と別に学習用DBの実SELECT/COUNTを検査</td><td>ブラウザーとサーバーの責任を分ける</td></tr>
             <tr><th scope="row">WinForms＋Dapper</th><td>SQLを維持してQueryAsync</td><td>戻り列とEntity型の整合を確認</td></tr>
             <tr><th scope="row">安全条件</th><td>既存台帳の都度認可・監査・安全拒否</td><td>学習操作と実業務の認可を混同しない</td></tr>
         </tbody>
@@ -33,6 +47,22 @@
 </section>
 <div class="page-navigation"><a href="/learn/058">前へ</a><a href="/learn/060">次へ</a></div>
 @code {
+    private string queryStatus = "学習DBは未検索です。";
+    private PgBlazorSamples.Web.Services.Learning.L059SqlResult? queryResult;
+    private bool querying;
+    private async Task QueryAsync()
+    {
+        if (querying) return;
+        querying = true;
+        queryResult = null;
+        queryStatus = "学習用DBの検索結果を照合しています。";
+        try
+        {
+            queryResult = await SqlComparison.QueryAsync(term);
+            queryStatus = queryResult.Status;
+        }
+        finally { querying = false; }
+    }
     private string term = "' OR 1=1 --";
     private string state = "生成前";
     private string fromSql = "生成前";

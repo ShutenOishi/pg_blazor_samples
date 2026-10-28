@@ -30,12 +30,12 @@ var rows = await connection.QueryAsync<LearningTaskDto>(
 // 悪い例："... WHERE title = '" + term + "'" は使わない。
 ```
 
-Dapper比較ではCommandDefinitionの引数としてTermを渡すので、値をSQL構文に連結しません。上のLearningTaskDtoは実システム側で定義する説明用DTOです。DapperのQueryAsyncを呼ぶ場合はDB接続が必要ですが、この教材ページはQueryAsync自体を呼びません。FromSqlInterpolatedでは補間文字列を適切なAPIへそのまま渡すとパラメーター化されます。一度通常のstringへ組み立てたSQLを危険なRaw系APIへ渡しても安全にはなりません。EFとDapperの混在であっても、認可抜けの別経路を増やしてはいけません。
+Dapper比較ではCommandDefinitionの引数としてTermを渡すので、値をSQL構文に連結しません。上のLearningTaskDtoは実システム側で定義する説明用DTOです。DapperのQueryAsyncを呼ぶ場合はDB接続が必要ですが、従来のSQL生成ボタンはQueryAsyncを呼びません。追加した実検索ボタンは専用学習DBだけでDapperのQueryAsyncとEF CoreのFromSqlInterpolated・SqlQuery<int>を実行します。FromSqlInterpolatedでは補間文字列を適切なAPIへそのまま渡すとパラメーター化されます。一度通常のstringへ組み立てたSQLを危険なRaw系APIへ渡しても安全にはなりません。EFとDapperの混在であっても、認可抜けの別経路を増やしてはいけません。
 
 ## 実行場所・安全な前提
 ブラウザーはボタンと表示を扱い、C#の処理とDB接続はBlazor Interactive Serverのサーバー側で実行します。学習用PostgreSQL 18とdatabase/schemaのDDLを用意してください。Visual Studio 2026と.NET 10、EF Core 10、Npgsqlを前提とし、専用DB以外の既存業務データや実利用者の氏名・所属は使いません。接続文字列はサーバー環境変数ConnectionStrings__PostgreSQLなどで渡し、Gitへ書き込みません。
 
-この画面の確認範囲は**生成SQLのみ検査（DBへのSQL実行なし）**です。Razorが表示されたこと、EF Coreのモデル定義が取得できたこと、生成SQLが作れたこと、実SQLがDBで成功したことはそれぞれ異なります。実DBへのアクセスが必要な確認は学習専用環境で別に実施します。障害の種類を混同すると、安全拒否が成功表示へ紛れ込みます。
+この画面では**生成SQLのみを検査するボタン（DB接続なし）と、学習用DBを実検索するボタン**を分けています。Razorが表示されたこと、EF Coreのモデル定義が取得できたこと、生成SQLが作れたこと、実SQLがDBで成功したことはそれぞれ異なります。実DBへのアクセスが必要な確認は学習専用環境で別に実施します。障害の種類を混同すると、安全拒否が成功表示へ紛れ込みます。
 
 ## WinForms＋Dapperとの比較
 | 観点 | Blazor＋EF Core 10 | WinForms＋Dapper | 判断の要点 |
@@ -51,14 +51,14 @@ Dapper比較ではCommandDefinitionの引数としてTermを渡すので、値�
 2. 入力欄の初期値を変えずに「安全なSQLを生成する」を押す。
 3. FromSqlとSqlQueryの2つの生成SQLを見比べ、値がSQL本文に単純に埋め込まれていないことを確認する。
 4. 通常の日本語検索語でも再実行し、パラメーターの表現とSQLの構文が変わらないか調べる。
-5. PostgreSQL18の実DBテストが必要な場合は、別の専用環境で認可済みのSQL実行を検証する。
+5. 「学習DBで3方式を実検索する」を押し、未設定環境では安全拒否を確認する。専用PostgreSQL18ジョブでは実検索とSQL注入を模した値の検証を行う。
 
 操作前後のデータを混同しないよう、ボタンを押した回数、エラー表示、DBの検索条件と確認時刻を記録します。画面で処理を開始したユーザーとDBへ接続した主体は同じとは限りません。業務アプリではサーバーに認証済み本人がいても、業務データの参照・更新には別途その時点の権限照合が必要です。
 
 ## 障害の切り分け
 | 表示・症状 | 疑う原因 | 検証・対処 |
 | --- | --- | --- |
-| クエリ文字列だけ出た | ToQueryStringだけ実行された正常な挙動 | DB接続成功とは扱わない |
+| クエリ文字列だけ出た | ToQueryStringだけ実行された正常な挙動 | 実検索ボタンの成功・拒否と区別する |
 | xmin列不足の例外 | Entityの要求列をSELECTしなかった | SELECT xmin, *の整合を確認 |
 | 値が構文に直結している | Unsafeな文字列連結やRaw系APIの誤使用 | 補間APIとパラメーターを確認 |
 | Dapperで権限漏れ | 別SQLで既存認可条件を忘れた | サーバーの業務認可サービスを共有 |
@@ -81,3 +81,11 @@ ADは本人認証とユーザー名の取得にのみ使います。権限の登
 - [ ] 認可・監査・安全拒否を本番受入から省略しない。
 
 次：学習順060
+
+## 学習順059の学習用PostgreSQL実検索（追加検証）
+
+[比較サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs)は、同じ検索値をDapperの`@Term`、EF Coreの`FromSqlInterpolated`、`SqlQuery<int>`に渡します。Entity読取ではPostgreSQLの`xmin`を明示し、Dapper/EFのID・タイトル、SqlQueryのCOUNT値を照合します。テーブル名は固定で、値をSQL文に連結しません。検索値は1〜60文字、一覧は最大10件とし、接続設定がない場合またはWindows認証が有効な場合、匿名の学習用DB読取を拒否します。
+
+[単体・結合テスト](../../../tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs)では未設定/Windows認証/空欄/61文字の拒否、専用PostgreSQL18での固有架空行の実検索、`' OR 1=1 --`をSQL構文ではなく検索値として扱い0件となることを独立検証します。架空の検査行はテスト終了時に削除します。
+
+通常のChromeジョブはDB未設定時の拒否だけを確認し、実DB接続成功の証拠として扱いません。これは学習用データのSQL検証であり、実在の利用者台帳やFDWの認可・監査、SITE受入の実証ではありません。

@@ -398,16 +398,22 @@
       "lesson_path": "docs/course-v3/lessons/db-bridge-05.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor",
       "canonical_url": "/learn/059",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L059ParameterizedSqlService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "固定SQLと値パラメーターによるDapper Query、EF Core FromSql(xmin含む)、SqlQuery COUNTの学習DB実検索・照合と注入を模した値の安全取扱を実装",
       "missing_behavior": "現状はSQL生成のみ。実DBのパラメーター化結果と安全なDapper対比",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADの全必要CI成功まで未受入。通常Chromeは未設定拒否、実DBはPostgreSQL18ジョブのみ。実認可台帳/FDW/SITEはNOT_TESTED。"
     },
     {
       "sequence": "081",
