@@ -117,11 +117,11 @@
       "implemented_behavior": "隔離Razor Static SSRとInteractive Server、C#クリック不動作、フォームGET、400拒否、2クリック/再読込をブラウザーで比較",
       "missing_behavior": "Static SSRとInteractive Serverの具体的な動作比較",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF受入待ち。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "20176b7590b0904bd29ad5c986c79a559ad9766a",
+      "ci_run": 40611946688,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF受入待ち。 同一HEADのアプリRun40611946688全3ジョブ・PDF Run40611946829 SUCCESSをPRコメント6457815029で確認済み。"
     },
     {
       "sequence": "015",
@@ -129,16 +129,22 @@
       "lesson_path": "docs/course-v3/lessons/runtime-02.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
       "canonical_url": "/learn/015",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs",
+        "scripts/browser-circuit-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
       "sample_kind": "部分的",
-      "implemented_behavior": null,
+      "implemented_behavior": "学習用一時状態と非機密インスタンス値、xUnitの同一/新インスタンス試験、隔離Chrome WebSocketの切断・再接続・再読込試験を追加",
       "missing_behavior": "接続断・再接続・状態保持とセッション失効を区別する隔離試験",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "scripts/browser-circuit-smoke.cjs; tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。circuit保持期限超過、実セッション・業務権限の失効と実回線故障はNOT_TESTED。"
     },
     {
       "sequence": "017",
@@ -155,11 +161,11 @@
       "implemented_behavior": "初回Documentの静的描画インスタンスIDと対話型IDの不一致、OnAfterRender 0→1をChromeで比較",
       "missing_behavior": "事前描画と対話描画の別インスタンスを識別する可観測性",
       "evidence_test_id": "scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 ランダム識別子は学習用であり、circuitや本人識別子ではない。新HEAD同一CI待ち。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "8bccd513d6f75962f0998f3f2bc1bad51c51b13e",
+      "ci_run": 40612243279,
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 ランダム識別子は学習用であり、circuitや本人識別子ではない。新HEAD同一CI待ち。 同一HEADのアプリRun40612243279全3ジョブ・PDF Run40612243285 SUCCESSをPRコメント6457848250で確認済み。"
     },
     {
       "sequence": "019",

@@ -1,11 +1,11 @@
 # 学習順015：SignalR・circuit・再接続
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor)。画面の正規URLは `/learn/015` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor)、[一時状態モデル](../../../src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs)、[隔離Chromeテスト](../../../scripts/browser-circuit-smoke.cjs)、[xUnitテスト](../../../tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs)。画面の正規URLは `/learn/015` です。
 
 ## 学習目標とここまでの接続
 学習順011では入力欄、012では条件付き一覧、013では親から子の値、014では子から親へのイベント通知を確認しました。どれもInteractive ServerではWebサーバーのC#処理とブラウザー表示が連携して動きます。今回の目的は、この対話を支えるSignalRとcircuitの役割、切断・再接続・再読込で何が保証されるかを説明できるようになることです。
 
-実習URLは`/learn/015`。Visual Studio 2026、.NET 10、Chromeを使います。ネットワークの不安定さを確認できる開発環境で行い、本番のネットワーク機器や認証設定を変えません。この画面はDB・AD・外部サービスに触れず、単なる整数`count`をサーバー側コンポーネントで保持します。個別のcircuit識別子、利用者情報、永続セッションを画面に表示する実装ではありません。学習者は「接続できること」と「以前の状態を復元できること」を区別して説明します。
+実習URLは`/learn/015`。Visual Studio 2026、.NET 10、Chromeを使います。ネットワークの不安定さを確認できる開発環境で行い、本番のネットワーク機器や認証設定を変えません。この画面はDB・AD・外部サービスに触れず、`L015CircuitCounter`が学習用の整数`Count`とランダムな`InstanceToken`を保持します。個別のcircuit識別子、利用者情報、永続セッションを画面に表示する実装ではありません。学習者は「接続できること」と「以前の状態を復元できること」を区別して説明します。
 
 ## WinFormsとInteractive Serverを比較する
 | 観点 | WinForms＋Dapper | この教材のInteractive Server |
@@ -23,18 +23,26 @@ SignalRは双方向の対話を提供する仕組みであり、DBトランザ�
 ## 実コード1：カウンター表示と操作
 ```razor
 @page "/learn/015"
-<PageTitle>学習順015：SignalR・circuit・再接続｜Blazor ステップアップ学習</PageTitle>
-<p>対話回数：<strong data-testid="runtime02-count">@count</strong></p>
+@using PgBlazorSamples.Web.Services.Learning
+<p>対話回数：<strong data-testid="runtime02-count">@state.Count</strong></p>
 <button type="button" @onclick="Increase">対話回数を1増やす</button>
+<p>学習用画面インスタンス識別値：<code data-testid="runtime02-instance">@state.InstanceToken</code></p>
+@code {
+    private readonly L015CircuitCounter state = new();
+    private void Increase() => state.Increment();
+}
 ```
 
 ```csharp
-private int count;
-// サーバー上の画面状態を操作する。永続保存はしない。
-private void Increase() => count++;
+public sealed class L015CircuitCounter
+{
+    public string InstanceToken { get; } = Guid.NewGuid().ToString("N");
+    public int Count { get; private set; }
+    public void Increment() => Count++;
+}
 ```
 
-C#の`count`はブラウザーのlocalStorageやDBテーブルではなくサーバーの画面状態です。クリックすると`Increase`が呼ばれ、カウンターは1、2と変わります。ただし回数が増えたことは監査ログの成立を意味しません。サーバー例外・接続断があればイベントの処理が未完了になり得ます。業務操作では通信再試行時の重複更新や冪等性の扱いも考える必要がありますが、このサンプルのボタンは単純なカウントだけで、永続書込みや自動再実行は行いません。
+`Count`と`InstanceToken`はサーバー側コンポーネントの一時状態です。識別値は本人やcircuitを示す実際の識別子ではなく、同一インスタンスかを比べるためだけの学習用の値です。DB・ブラウザー保存・業務監査を使いません。xUnitはモデルの同一インスタンスの値更新と新しいインスタンスの初期化を検証しますが、SignalRの切断を操作する試験ではありません。
 
 ## 実コード2：共通の対話型レンダーモード
 ```razor
@@ -53,13 +61,24 @@ C#の`count`はブラウザーのlocalStorageやDBテーブルではなくサー
 7. ブラウザーを再読込し、初期値0へ戻ることを確認します。URLを開き直す操作は、前のC#フィールドの復元を保証しません。
 8. 画面の操作ログとサーバーログを照合し、何が実際に観察でき、何が推測にすぎないかを分けて書きます。
 
+## 開発用Chromeの隔離WebSocket試験
+
+`scripts/browser-circuit-smoke.cjs`は通常の画面疎通とは別のChrome BrowserContextを作り、学習用アプリを`127.0.0.1:5186`で起動します。PlaywrightのWebSocket経路制御で`/_blazor`の対話通信だけを短時間切断し、画面が切断を検知して日本語の案内を出すことを確認します。実ネットワーク装置、DB、AD、IISを操作しません。
+
+1. C#イベントを2回実行し、回数2と32桁の学習用識別値を確認します。WebSocketを捕捉できなければ試験失敗とします。
+2. 対話WebSocketを閉じ、再接続案内が実際に表示される状態になったこと、切断中に回数が更新されないことを確認します。
+3. 切断操作を解除し、同じDocumentで回数2と識別値を保持したまま再接続したことを確認します。追加クリックで3になるかも確認します。
+4. Documentを再読込し、別の識別値と回数0を確認します。再接続による状態保持と、新しい画面インスタンスの初期化を区別します。
+
+**この試験で実証できない項目：** 長時間切断後のcircuit保持期限切れ、サーバー再起動、ロードバランサー切替、認証Cookieの失効、既存DB台帳の操作権限失効、実回線の不安定さ。すべてNOT_TESTEDであり、再接続が成功しても業務認可が成立した根拠にはなりません。Chromeの切断検知や再接続を観察できなかった場合は試験をPASSにしません。
+
 ## 障害の切り分け
 | 症状 | 初めに調べる対象 | 考え方・対応 |
 | --- | --- | --- |
 | HTMLは出るがボタンが動かない | Networkの対話接続、Console、サーバーログ | 最初の表示だけではSignalR成立を確認できない |
 | 「再接続中」の表示が続く | 接続先、DNS、TLS、プロキシ、サーバーログ | 通信経路・サーバー処理を切り分ける |
 | 接続が戻っても回数が消えた | circuitの保持期間、サーバー再起動 | 状態の復元は保証されない |
-| 再読込で0に戻る | `private int count`の初期値 | 今回の実装では正常 |
+| 再読込で0に戻る | `L015CircuitCounter.Count`の初期値 | 今回の実装では正常 |
 | クリックが重複したように見える | 複数クリックとイベント処理の順番 | 業務処理では二重実行を考慮する |
 | 再接続案内が出ない | 切断のタイミング・検知方法 | 表示を観察できないだけで正常通信と断定しない |
 | DBに記録がない | DB保存処理と監査の実装有無 | このサンプルにはそもそも永続化がない |

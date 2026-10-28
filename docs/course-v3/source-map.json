@@ -122,7 +122,7 @@
       "app_url": "/learn/runtime-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
       "audit_state": "partial",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/009",
       "related_sources": [
@@ -131,7 +131,7 @@
         "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime01Page.razor",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "隔離Static SSRのRazor応答とInteractive Serverを比較する新規Chrome試験。同一HEAD CI待ち。"
+      "notes": "隔離Static SSRのRazor応答とInteractive Serverを比較する新規Chrome試験。同一HEAD CI待ち。 後続受入記録によりHEAD 20176b7590b0904bd29ad5c986c79a559ad9766a、アプリRun40611946688・PDF Run40611946829成功確認済み。"
     },
     {
       "sequence": 10,
@@ -207,9 +207,17 @@
       "app_url": "/learn/runtime-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
       "audit_state": "partial",
-      "test_state": "not-individually-verified",
+      "test_state": "chrome-added-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/015"
+      "canonical_url": "/learn/015",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime02Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L015CircuitCounter.cs",
+        "scripts/browser-circuit-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/L015CircuitCounterTests.cs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ],
+      "notes": "隔離ChromeのWebSocket切断・再接続・保持と再読込初期化、xUnitモデル試験を追加。同一HEAD CI待ち。長時間失効・業務認可は未実証。"
     },
     {
       "sequence": 16,
@@ -233,7 +241,7 @@
       "app_url": "/learn/runtime-03",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Runtime/Runtime03Page.razor",
       "audit_state": "partial",
-      "test_state": "chrome-added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/017",
       "related_sources": [
@@ -241,7 +249,7 @@
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/App.razor"
       ],
-      "notes": "初回Documentと対話型描画のインスタンス識別子を比較。新HEAD CI待ち。"
+      "notes": "初回Documentと対話型描画のインスタンス識別子を比較。新HEAD CI待ち。 後続受入記録によりHEAD 8bccd513d6f75962f0998f3f2bc1bad51c51b13e、アプリRun40612243279・PDF Run40612243285成功確認済み。"
     },
     {
       "sequence": 18,

@@ -1,19 +1,24 @@
 @page "/learn/015"
 @page "/learn/runtime-02"
+@using PgBlazorSamples.Web.Services.Learning
 
 <PageTitle>学習順015：SignalR・circuit・再接続｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第2段階 / 学習順015</p>
 <h1>SignalR・circuit・再接続</h1>
 <p>Interactive ServerはSignalRによってブラウザーとサーバーの対話を維持します。circuitは画面の状態とイベントをサーバー側で管理する単位です。</p>
-<section class="lesson-details"><h2>接続中だけ保持する状態</h2>
-<p>対話回数：<strong data-testid="runtime02-count">@count</strong></p>
+<section class="lesson-details">
+<h2>接続中だけ保持する状態</h2>
+<p>対話回数：<strong data-testid="runtime02-count">@state.Count</strong></p>
 <button type="button" @onclick="Increase">対話回数を1増やす</button>
-<p>回線が一時的に切れても、サーバー側にcircuitが残っていれば再接続できる場合があります。保持期限やサーバー再起動の後は復元を保証しません。</p>
-<h2>操作課題</h2><ol><li>回数を増やす。</li><li>開発者ツールのNetworkから接続を観察する。</li><li>開発環境で一時的な切断を試し、アプリ共通の日本語再接続案内を確認する。</li><li>再読込したとき回数が維持されると期待しない。</li></ol>
-<p>ネットワークを遮断する自動処理は入れていません。</p></section>
+<p>学習用画面インスタンス識別値：<code data-testid="runtime02-instance">@state.InstanceToken</code></p>
+<p>識別値は学習用のランダム文字列です。circuit ID、本人ID、ログイン状態、業務認可の証拠ではありません。</p>
+<p>短時間の切断後、同じcircuitに再接続できれば回数と識別値が残る場合があります。一方、Documentを再読込して別の画面インスタンスを作ると回数は0になります。サーバーの保持期限切れや認証セッション失効をこの画面は再現しません。</p>
+<h2>操作課題</h2>
+<ol><li>回数を2まで増やし、識別値を記録する。</li><li>開発者ツールのNetworkで対話用WebSocketを観察する。</li><li>隔離した開発環境で一時的な切断を試し、日本語の再接続案内と接続復帰後の値を観察する。</li><li>Documentを再読込し、回数0と新しい識別値を確認する。</li></ol>
+<p>本画面は実回線や業務セッションを切断しません。ブラウザー隔離試験は専用Chromeテストで実施します。</p>
+</section>
 <div class="page-navigation"><a href="/learn/014">前へ：学習順014</a><a href="/learn/column/runtime-15">次へ：第3組の復習</a></div>
 @code {
-    private int count;
-    // サーバー上の画面状態を操作する。永続保存はしない。
-    private void Increase() => count++;
+    private readonly L015CircuitCounter state = new();
+    private void Increase() => state.Increment();
 }

@@ -17,6 +17,7 @@ on:
       - "scripts/check-learning-materials.py"
       - "scripts/audit-source-trace.py"
       - "scripts/browser-smoke.cjs"
+      - "scripts/browser-circuit-smoke.cjs"
       - ".github/workflows/build.yml"
   pull_request:
     paths:
@@ -31,6 +32,7 @@ on:
       - "docs/course-v3/**"
       - "scripts/smoke-test.sh"
       - "scripts/browser-smoke.cjs"
+      - "scripts/browser-circuit-smoke.cjs"
       - "scripts/audit-source-trace.py"
       - "scripts/check-learning-materials.py"
       - ".github/workflows/build.yml"
@@ -113,6 +115,11 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: node scripts/browser-smoke.cjs
+
+      - name: 学習順015の隔離WebSocket切断・再接続をChromeで検証
+        if: runner.os == 'Linux'
+        shell: bash
+        run: node scripts/browser-circuit-smoke.cjs
 
       - name: 画面操作の証跡画像を保存
         if: runner.os == 'Linux' && always()
