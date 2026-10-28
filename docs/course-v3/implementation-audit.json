@@ -209,16 +209,21 @@
       "lesson_path": "docs/course-v3/lessons/browser-01.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
       "canonical_url": "/learn/041",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
+        "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
+        "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": null,
+      "implemented_behavior": "JS DOM実呼び出し、学習用JSExceptionの安全な拒否表示、IJSObjectReferenceのDisposeAsyncと再import、例外区分のxUnitとChrome。実切断でのJSDisconnectedException捕捉は未実証",
       "missing_behavior": "JS連携、モジュール破棄、例外・切断の負例",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "実切断時にJSDisconnectedExceptionを捕捉した経路はNOT_TESTED。xUnitの例外生成は切断実証と混同しない。非DBテーマのため実DB成功証跡を割り当てない。"
     },
     {
       "sequence": "042",
@@ -235,11 +240,11 @@
       "implemented_behavior": "上限付きストリーム読取、拡張子/MIME整合、UTF-8/制御文字/実長検査、実バイトSHA-256と拒否後消去のxUnit・Chrome試験",
       "missing_behavior": "上限・ファイル内容・拡張子/MIME不一致・拒否の検証",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L042TextFileInspectorTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのWindows/Ubuntu Chrome/PG18/PDF CI成功までは未受入。業務認可・マルウェア検査・実DB成功は主張しない。"
+      "behavior_status": "CHROME_VERIFIED",
+      "docs_status": "REVISED_PRIOR_ACCEPTANCE",
+      "ci_head": "337217a6749c391fae5e1450775ed8054e846d58",
+      "ci_run": 40620273707,
+      "notes": "PR #39 コメント #6458945926 の同一HEAD 337217a... アプリ全3ジョブSUCCESS / PDF Run40620273693 SUCCESS / Ubuntu xUnit56 PASS、Chrome実バイト検証で正式受入済み。MIME/SHA256は無害性・認可の証明ではない。実DB未使用。"
     },
     {
       "sequence": "043",

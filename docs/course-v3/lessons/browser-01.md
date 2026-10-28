@@ -116,6 +116,11 @@ public async ValueTask DisposeAsync()
 
 **問4：** DOMに表示した「部門A」をJSで読み、それを認可の根拠にできますか。**解答：** できません。DOMやJSの値は利用者が変更できます。サーバーで認証済み本人を確認したうえで、既存台帳を読み、操作対象・部門・有効期限を業務ごとに検査します。
 
+## 追加実習：JS例外・参照解放と実証範囲
+画面の「学習用JS例外を発生させる」は、実際の `browser-learning.js` の `throwLearningError` が例外を投げ、C#の `JSException` 捕捉によって内部の例外文を公開せず一般的な案内を表示します。「JSモジュール参照を解放する」では保持していた `IJSObjectReference` に `DisposeAsync` を呼び、参照の解放に成功したか、切断やJS失敗で完了が確認できないかを表示します。再度言語設定を読むとimportをやり直します。この操作だけでESモジュール本体のアンロードやブラウザーのメモリ回収が証明されたわけではありません。
+
+[JS実装](../../../src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js)、[失敗メッセージの分類](../../../src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs)、[xUnit検査](../../../tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs)、[実Chrome操作試験](../../../scripts/browser-smoke.cjs)をRazorと併せて確認します。xUnitは`JSDisconnectedException`と`JSException`の分類が異なることを確認しますが、テスト内で生成した切断例外は実WebSocket切断の証明にはなりません。実WebSocket切断と切断時の`JSDisconnectedException`捕捉は独立に確認し、未実証の経路をPASS扱いしません。切断からの復帰は本番の業務認可成立を意味しません。ここではDB・AD・IIS・FDW・実利用者権限の試験は行いません。
+
 ## 完了確認と次の学習
 - [ ] C#だけのクリックとJSが必要なクリックをそれぞれ動かした。
 - [ ] NetworkとConsoleでモジュールの読み込み先を調べた。

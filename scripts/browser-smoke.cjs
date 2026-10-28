@@ -413,6 +413,18 @@ async function waitText(page, selector, expected) {
         await waitText(page, '[data-testid="browser01-count"]', "1");
         await page.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
         await waitText(page, '[data-testid="browser01-language"]', "ja");
+        await waitText(page, '[data-testid="browser01-module-state"]', "参照取得済み");
+        // 学習用JS例外をブラウザー内で実発生させ、サーバーが生の内部情報を画面に出さないことを確認する。
+        await page.getByRole("button", { name: "学習用JS例外を発生させる" }).click();
+        await waitText(page, '[data-testid="browser01-language"]', "ブラウザーの処理に失敗しました");
+        if ((await page.getByTestId("browser01-language").textContent()).includes("L041_JS_ERROR_TEST_ONLY"))
+            throw new Error("学習順041：JSの内部例外文を画面に表示しました");
+        await page.getByRole("button", { name: "JSモジュール参照を解放する" }).click();
+        await waitText(page, '[data-testid="browser01-module-state"]', "参照解放済み");
+        await page.getByRole("button", { name: "JavaScriptでHTMLの言語設定を読む" }).click();
+        await waitText(page, '[data-testid="browser01-language"]', "HTMLの言語設定：ja");
+        await waitText(page, '[data-testid="browser01-module-state"]', "参照取得済み");
+        console.log("学習順041：JS成功・実JSExceptionの安全な画面表示・参照DisposeAsync/再importをChromeで確認。実切断時のJSDisconnectedException捕捉は未実証");
 
         // 学習順042：実バイトSHA-256、拒否・境界を独立確認。
         await page.goto(base + "/learn/042");

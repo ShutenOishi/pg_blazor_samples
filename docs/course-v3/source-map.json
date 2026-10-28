@@ -561,9 +561,10 @@
       "app_url": "/learn/browser-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci-js-disconnect-not-tested",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/041"
+      "canonical_url": "/learn/041",
+      "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。"
     },
     {
       "sequence": 42,
@@ -574,10 +575,10 @@
       "app_url": "/learn/browser-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor",
       "audit_state": "interactive",
-      "test_state": "added-awaiting-same-head-ci",
+      "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/042",
-      "notes": "L042TextFileInspectorとxUnit/Chrome実バイト・負例・境界試験を追加。新HEADのCI成功待ち。"
+      "notes": "PR #39 コメント #6458945926、HEAD337217aのRun40620273707全3ジョブ/PDF40620273693 SUCCESS。SHA256やMIME一致は無害性・認可の保証ではない。"
     },
     {
       "sequence": 43,

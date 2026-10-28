@@ -1,5 +1,6 @@
 @page "/learn/041"
 @using Microsoft.JSInterop
+@using PgBlazorSamples.Web.Services.Learning
 @inject IJSRuntime JS
 @implements IAsyncDisposable
 @page "/learn/browser-01"
@@ -17,6 +18,13 @@
     <p>HTMLの言語設定はブラウザーのDOMにあります。この画面のイベントはサーバーで動くため、JSモジュールを経由して読みます。</p>
 </section>
 <section class="lesson-details">
+    <h2>例外とモジュール参照の寿命を確認する</h2>
+    <button type="button" @onclick="TriggerLearningJsError">学習用JS例外を発生させる</button>
+    <button type="button" @onclick="ReleaseModule">JSモジュール参照を解放する</button>
+    <p data-testid="browser01-module-state" role="status">@moduleState</p>
+    <p>例外内容は表示せず一般的な案内だけを出します。参照のDisposeAsyncはJavaScriptモジュールそのものをアンロードする保証ではありません。切断後の解放要求は届かない場合があります。</p>
+</section>
+<section class="lesson-details">
     <h2>選定の目安</h2>
     <table><thead><tr><th scope="col">操作</th><th scope="col">推奨する手段</th></tr></thead><tbody>
     <tr><td>フォーム入力や画面上の計算</td><td>Razor・C#</td></tr>
@@ -32,7 +40,7 @@
         <tbody><tr><td>回数増加：RazorとC#</td><td>DOMの言語設定：JSモジュール</td><td>JS切断時は再接続を促す。DOMの値を業務認可に使わない。</td></tr></tbody>
     </table>
     <h2>操作・障害の切り分け</h2>
-    <p>C#の回数を1増やし、HTMLの言語設定を読み、ConsoleとNetworkでモジュールを確認する。</p>
+    <p>C#の回数を1増やし、HTMLの言語設定を読み、ConsoleとNetworkでモジュールを確認する。次に学習用JS例外を受け止め、モジュール参照を解放し、再取得する。</p>
     <p>操作結果が変わらない場合は、最初にInteractive Serverの接続とブラウザーConsoleを確認します。
        サーバーのログ、通信の失敗、表示上の問題を区別してください。</p>
     <details><summary>演習の確認ポイント</summary><p>JS切断時は再接続を促す。DOMの値を業務認可に使わない。</p></details>
@@ -41,32 +49,88 @@
 @code {
     private int count;
     private string message = "まだ取得していません。";
+    private string moduleState = "参照なし";
     private IJSObjectReference? module;
-    // C#だけで完結する処理にJSは不要。
+
     private void Increase() => count++;
 
     private async Task ReadLanguage()
     {
         try
         {
-            module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/browser-learning.js");
-            var language = await module.InvokeAsync<string>("readLanguage");
+            var current = await ImportModule();
+            var language = await current.InvokeAsync<string>("readLanguage");
             message = "HTMLの言語設定：" + language;
+        }
+        catch (JSDisconnectedException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+        catch (JSException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+    }
+
+    private async Task TriggerLearningJsError()
+    {
+        try
+        {
+            var current = await ImportModule();
+            await current.InvokeVoidAsync("throwLearningError");
+            message = "例外が発生しませんでした。";
+        }
+        catch (JSDisconnectedException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+        catch (JSException exception)
+        {
+            message = L041InteropMessages.Describe(exception);
+        }
+    }
+
+    private async Task<IJSObjectReference> ImportModule()
+    {
+        if (module is null)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/browser-learning.js");
+            moduleState = "参照取得済み";
+        }
+        return module;
+    }
+
+    private async Task ReleaseModule()
+    {
+        var current = module;
+        module = null;
+        if (current is null)
+        {
+            moduleState = "参照なし（解放対象なし）";
+            return;
+        }
+        try
+        {
+            await current.DisposeAsync();
+            moduleState = "参照解放済み（JSモジュール本体のアンロードは未確認）";
         }
         catch (JSDisconnectedException)
         {
-            message = "サーバーとの接続が切れました。再接続してください。";
+            moduleState = "切断中のため解放要求の完了は未確認";
         }
         catch (JSException)
         {
-            message = "ブラウザーの情報を取得できませんでした。";
+            moduleState = "ブラウザー側の解放要求に失敗";
         }
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (module is null) return;
-        try { await module.DisposeAsync(); }
-        catch (JSDisconnectedException) { /* 回線切断後はJSモジュールを解放できない場合がある。 */ }
+        var current = module;
+        module = null;
+        if (current is null) return;
+        try { await current.DisposeAsync(); }
+        catch (JSDisconnectedException) { /* 切断後の解放要求は到達しない場合がある。 */ }
+        catch (JSException) { /* Dispose後の画面へ内部例外を公開しない。 */ }
     }
 }
