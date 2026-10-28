@@ -1222,9 +1222,11 @@ async function waitText(page, selector, expected) {
         await page.getByTestId("di06-compare-16").waitFor();
         await waitText(page, '[data-testid="step16-limit"]', "5");
         await page.getByRole("button", { name: "設定とDIの関係を確認" }).click();
-        if (await page.locator('[data-testid="step16-explain"]').count() !== 0) {
-            throw new Error("学習順026：説明を閉じても要素が残っています。");
-        }
+        // Blazor Serverの描画更新は非同期なので、即時count()ではなく消滅を待つ。
+        await page.locator('[data-testid="step16-explain"]').waitFor({
+            state: "detached",
+            timeout: 15000
+        });
         console.log("学習順026：Learning設定値と説明表示の開閉を確認");
         console.log("学習順026：Options表示と比較表を確認");
 
