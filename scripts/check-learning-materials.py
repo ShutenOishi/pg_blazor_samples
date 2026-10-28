@@ -1447,3 +1447,8 @@ for page_path in ("src/PgBlazorSamples.Web/Components/Pages/Home.razor",
 if missing:
     raise SystemExit("教材の整合性検査失敗：\n" + "\n".join("- " + item for item in missing))
 print(f"教材検査成功：ステップ{len(steps)}件・コラム{max(steps) // 5 + (1 if max(steps) >= 20 else 0) + (1 if max(steps) >= 40 else 0) + (1 if max(steps) >= 65 else 0)}件。")
+
+# 全110件のRazorと明示的なサービス/SQL/JS/テスト参照を静的照合する。
+# この検査のSUCCESSを、実処理や実DB・現地受入の証明には使わない。
+import subprocess
+subprocess.run([sys.executable, str(ROOT / "scripts/audit-source-trace.py")], check=True)
