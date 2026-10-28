@@ -98,6 +98,18 @@ async function snapshot007(page, phase) {
         // Razor文字列のHTMLエンコードを実Chromeで確認する。C#イベント/xUnitは不要。
         await page.goto(base + "/learn/006");
         await page.getByRole("heading", { name: "はじめてのBlazor画面" }).waitFor();
+        // 再現原本：SSRで007へ遷移した直後、旧006の対話ルーターが後から描画され、
+        // URLは007のまま本文だけ006へ戻った。遷移前に006の対話描画完了を確認する。
+        // SSRのNavLinkは単純な<a>、Interactive Server描画後はBlazorコメントを伴う。
+        // URLを直接開き直す代替・force click・単なる時間延長ではない。
+        await page.waitForFunction(() => {
+            const main = document.querySelector("#main-content");
+            const menu = document.querySelector("nav.learn-nav");
+            return location.pathname === "/learn/006"
+                && main?.querySelector("h1")?.textContent?.trim() === "はじめてのBlazor画面"
+                && menu?.innerHTML.includes("<!--!-->") === true;
+        }, null, { timeout: 20000 });
+        console.log("学習順006：SSR後の対話ルーター描画を確認してから正規NavLinkを実クリック");
         await page.getByRole("link", { name: "次へ：学習順007" }).click();
         if (!new URL(page.url()).pathname.endsWith("/learn/007"))
             throw new Error("学習順007：学習順006から正規URLへ移動しません");
