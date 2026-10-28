@@ -51,7 +51,20 @@
       "existing_scope_note": "Razor内のC#クリック履歴・再読込。専用xUnitなし。Chrome web01操作の個別検査は別軸。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 2,
@@ -67,7 +80,20 @@
       "existing_scope_note": "標準NavigationManagerとHTTP 200/404。専用xUnitなし。Chrome web02検査は別軸。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 3,
@@ -83,7 +109,20 @@
       "existing_scope_note": "Razor入力検証とCSS isolation。専用xUnitなし。Chrome web03正常/負例は別軸。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 4,
@@ -99,7 +138,20 @@
       "existing_scope_note": "RazorのDOM表示変更とDocument再取得検出。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 5,
@@ -115,7 +167,20 @@
       "existing_scope_note": "Razor C#イベントとVisual Studioの手動デバッグ。ブレークポイント操作はCIで証明できない。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "手動のみ（Visual Studioの停止操作）",
+        "scope_and_next_action": "ブラウザー操作とVisual Studioのブレークポイント停止の実機確認は別。後者はCIによる自動PASS不可。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 6,
@@ -129,7 +194,20 @@
       "existing_scope_note": "HTMLと@pageのみ。個別サービス/xUnit不要だが、表示とルート検証が必要。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
+        "scope_and_next_action": "初画面の見出しをChromeで検査。新HEAD CI成功前は未受入。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 7,
@@ -143,7 +221,20 @@
       "existing_scope_note": "NavLinkによる画面遷移。個別xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
+        "scope_and_next_action": "NavLinkの006→007→008正規遷移をChromeで検査。新HEAD CI成功前は未受入。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 8,
@@ -157,7 +248,20 @@
       "existing_scope_note": "Razor式とローカル値/CultureInfo。個別xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
+        "scope_and_next_action": "Razorの文字列表示とHTML要素化しない境界をChromeで検査。新HEAD CI成功前は未受入。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 9,
@@ -175,7 +279,20 @@
       "existing_scope_note": "Static SSR用子コンポーネント、Program.cs描画設定。独立のSSR/Interactive差分をChromeで確認する必要がある。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "初期GET、Static SSRイベント不動作、対話C#イベントと再読込を個別確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 10,
@@ -189,7 +306,20 @@
       "existing_scope_note": "Razorローカルカウンタ。個別xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 11,
@@ -203,7 +333,20 @@
       "existing_scope_note": "Razor @bindと空文字判定。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 12,
@@ -217,7 +360,20 @@
       "existing_scope_note": "Razorローカル一覧の条件表示。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 13,
@@ -233,7 +389,20 @@
       "existing_scope_note": "子GreetingCardのParameter。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 14,
@@ -249,7 +418,20 @@
       "existing_scope_note": "子TopicPickerのEventCallback。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 16,
@@ -265,7 +447,20 @@
       "existing_scope_note": "子LifecycleTrackerの初期化/破棄。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 17,
@@ -281,7 +476,20 @@
       "existing_scope_note": "Razor初期化の識別子と事前描画。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "事前描画と対話型の別インスタンス、初期化と状態変更後の識別子維持を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 19,
@@ -295,7 +503,20 @@
       "existing_scope_note": "NavigationManagerとURL履歴。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "URL条件の選択、戻る/進む、再読込時のcount初期化、未知クエリの表示境界を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 20,
@@ -309,7 +530,20 @@
       "existing_scope_note": "IJSRuntime/localStorageの非機密設定保存。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "localStorage保存/読込/再読込、改変値・欠落値の拒否を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 27,
@@ -323,7 +557,20 @@
       "existing_scope_note": "ILogger/Task.Delay/CancellationTokenのイベント。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "開始・取消・再試行・旧処理の遅延結果上書き拒否を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 31,
@@ -341,7 +588,20 @@
       "existing_scope_note": "MudBlazor Provider/ISnackbarとProgram.cs依存。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "共有Snackbar ProviderによるDOM通知を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 32,
@@ -358,7 +618,20 @@
       "existing_scope_note": "MudLayout/DrawerをRazor内で使用。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 33,
@@ -375,7 +648,20 @@
       "existing_scope_note": "Mud入力/日付選択をRazor内で使用。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（不足する操作条件が特定済み）",
+        "scope_and_next_action": "既定日・MudSelect選択は証跡あり。MudDatePickerの別日選択と日付境界は未証明。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 34,
@@ -392,7 +678,20 @@
       "existing_scope_note": "MudForm.ValidateAsyncの入力検証。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "MudFormの必須検証、修正後の合格、再消去時の再拒否を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 35,
@@ -409,7 +708,20 @@
       "existing_scope_note": "MudTableの固定配列とソート。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": "MudTable課題名ソート後に先頭の実行結果行を確認"
+      "new_head_browser_change": "MudTable課題名ソート後に先頭の実行結果行を確認",
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "MudTableの実ソート順序変化を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 36,
@@ -426,7 +738,20 @@
       "existing_scope_note": "MudDataGridでのメモリ内検索。DBアクセスなし。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": "DataGrid検索の2件一致、0件、検索解除6件"
+      "new_head_browser_change": "DataGrid検索の2件一致、0件、検索解除6件",
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "MudDataGrid検索の2件/0件/検索解除6件を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 37,
@@ -444,7 +769,20 @@
       "existing_scope_note": "IDialogService.ShowMessageBoxAsync。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "確認ダイアログの中止/実行分岐を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 38,
@@ -462,7 +800,20 @@
       "existing_scope_note": "ISnackbarとTask.Delay。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（既存Chromeの個別正常/負例範囲を精査）",
+        "scope_and_next_action": "既存スクリプトの局所参照を確認しただけで、テーマ全体の正常/負例の個別合格は認定しない。不要なxUnit新設はしない。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 40,
@@ -480,7 +831,20 @@
       "existing_scope_note": "架空メモリ一覧＋IDialogService/ISnackbar。実DBなし。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": "追加中止後の件数保持、31文字入力拒否、追加後の0件/1件検索"
+      "new_head_browser_change": "追加中止後の件数保持、31文字入力拒否、追加後の0件/1件検索",
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "架空データの入力・検索・確認・追加、取消/文字数/検索境界を確認。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 45,
@@ -497,7 +861,20 @@
       "existing_scope_note": "ElementReference.FocusAsyncとCSS isolation。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（不足する操作条件が特定済み）",
+        "scope_and_next_action": "Tab/Shift+Tab・フォーカス・1.35倍文字・aria-liveは証跡あり。Chromeの実200%ズームと支援技術読み上げは未証明。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 61,
@@ -513,7 +890,20 @@
       "existing_scope_note": "LearningTask型を使用したメモリ内8件のMudTable。DBアクセスなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
+        "scope_and_next_action": "Items固定8件の次頁/前頁、表示行とDB問い合わせ0件を追加。新HEAD CI成功前は未受入。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 68,
@@ -529,7 +919,20 @@
       "existing_scope_note": "LearningTaskの表示型、メモリ内500件の仮想化。DB取得最適化とは別。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "追加検証必要（新PRのChrome実装・CI待ち）",
+        "scope_and_next_action": "取得済み500件を先頭→末尾→先頭へスクロールし、描画行とDB問い合わせ0件を追加。新HEAD CI成功前は未受入。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     },
     {
       "sequence": 80,
@@ -543,7 +946,54 @@
       "existing_scope_note": "Razor内の一覧手法の選択演習。専用xUnitなし。",
       "browser_status": "EXISTING_CI_WHOLE_SUITE_SUCCESS_PER_LESSON_CASE_NOT_AUTOMATICALLY_CERTIFIED",
       "postgres18": "NOT_CLAIMED_FOR_THIS_LESSON",
-      "new_head_browser_change": null
+      "new_head_browser_change": null,
+      "postrelease_review": {
+        "review_base_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+        "razor_path_present_at_base": true,
+        "dependency_paths_missing_at_base": [],
+        "classification": "既証明（記載したChrome操作に限る）",
+        "scope_and_next_action": "一覧方式5要件に対する正答5・誤答5を検証。",
+        "evidence_script": "scripts/browser-smoke.cjs",
+        "evidence_main_application_run": 40776976708,
+        "evidence_main_pdf_run": 40776976727,
+        "isolated_pg18_proven_for_this_lesson": false,
+        "same_head_new_pr_ci_accepted": false,
+        "onsite_accepted": false
+      }
     }
-  ]
+  ],
+  "postrelease_review": {
+    "audit_head": "d2c0720c4c2c94ad0e28d412b926d1dd81af3524",
+    "parent_issue": 38,
+    "remaining_issue": 40,
+    "baseline_main_application_run": 40776976708,
+    "baseline_main_pdf_run": 40776976727,
+    "baseline_ci": "completed/SUCCESS; 4 jobs, 4 checks; prior receipt not rerun",
+    "branch": "test/postrelease-semantic-audit-20261029",
+    "scope": "直接xUnit参照未登録32件の分類であり、未テスト32件ではない。Chrome証跡の個別範囲に限って既証明とし、PG18実DB・PRE/SITE・PDF再発行には拡張しない。",
+    "new_chrome_cases_pending_ci": [
+      6,
+      7,
+      8,
+      61,
+      68
+    ],
+    "gaps_remaining": [
+      33,
+      45
+    ],
+    "manual_only_case": 5,
+    "classification_counts": {
+      "追加検証必要（既存Chromeの個別正常/負例範囲を精査）": 12,
+      "手動のみ（Visual Studioの停止操作）": 1,
+      "追加検証必要（新PRのChrome実装・CI待ち）": 5,
+      "既証明（記載したChrome操作に限る）": 12,
+      "追加検証必要（不足する操作条件が特定済み）": 2
+    },
+    "direct_xunit_references_at_base": 78,
+    "direct_xunit_references_added": 0,
+    "onsite_pre_approved": 0,
+    "onsite_site_pass": 0,
+    "onsite_site_not_run": 15
+  }
 }
