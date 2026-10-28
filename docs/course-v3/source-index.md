@@ -18,7 +18,7 @@
 | 001 | WinFormsとWebの処理場所を比較する | [本文](../course-v3/lessons/web-01.md) | `/learn/001` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L001WebExecutionPage.razor) |
 | 002 | URL・HTTPと要求／応答を理解する | [本文](../course-v3/lessons/web-02.md) | `/learn/002` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L002HttpRequestResponsePage.razor) |
 | 003 | HTML・CSS・フォームの基礎 | [本文](../course-v3/lessons/web-03.md) | `/learn/003` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor) |
-| 004 | 開発者ツールでDOM・Network・Consoleを見る | [本文](../course-v3/lessons/web-04.md) | `/learn/004` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor) |
+| 004 | 開発者ツールでDOM・Network・Consoleを見る | [本文](../course-v3/lessons/web-04.md) | `/learn/004` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor) |
 | 005 | Visual Studio 2026でWebアプリを起動・デバッグする | [本文](../course-v3/lessons/web-05.md) | `/learn/005` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web05Page.razor) |
 
 ## 第2段階：Blazorの基本と実行原理（学習順006〜020）

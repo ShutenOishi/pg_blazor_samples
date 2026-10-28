@@ -64,16 +64,17 @@
       "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
       "ci_head": "7d7206e5c79225d9b1924730ff936c30f2a47128",
       "ci_run": 40606815694,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 maxlength属性を開発者ツール相当の処理で除去し、31文字のC#側拒否をChromeで検査する。CSSの視覚・ズームは個別実機受入ではない。 HEAD 7d7206e5... のWindows/Chrome/PG18・PDF成功はPRコメント6457036055で確認済み。 主RazorとCSS isolationをStage01へ移動。CSS適用・正規と互換URLのChrome試験を追加。既存の行動受入HEAD/CIは維持し、構造移行は新HEADの同一HEAD CI判定待ち。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 maxlength属性を開発者ツール相当の処理で除去し、31文字のC#側拒否をChromeで検査する。CSSの視覚・ズームは個別実機受入ではない。 HEAD 7d7206e5... のWindows/Chrome/PG18・PDF成功はPRコメント6457036055で確認済み。 主RazorとCSS isolationをStage01へ移動。CSS適用・正規と互換URLのChrome試験を追加。既存の行動受入HEAD/CIは維持し、構造移行はHEAD 3cb5ee03f54c6009ecba9441d1ecfcfddebd57c7・アプリRun40657167557・PDF40657167596とPRコメント #6464402707 で正式受入済み。"
     },
     {
       "sequence": "004",
       "lesson_id": "web-04",
       "lesson_path": "docs/course-v3/lessons/web-04.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor",
       "canonical_url": "/learn/004",
       "related_sources": [
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
       ],
       "sample_kind": "部分的",
       "implemented_behavior": "Document GET 200と、Interactive Serverのボタン操作によるDOM追加・削除、追加Documentナビゲーションなし・未処理ブラウザーページ例外なしのChrome試験",
@@ -83,7 +84,7 @@
       "docs_status": "REVISED_SAME_HEAD_CI_VERIFIED",
       "ci_head": "7d7206e5c79225d9b1924730ff936c30f2a47128",
       "ci_run": 40606815694,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 Network/Console/サーバーログの全エラーの不在やWebSocket詳細は証明していない。 HEAD 7d7206e5... のWindows/Chrome/PG18・PDF成功はPRコメント6457036055で確認済み。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 Network/Console/サーバーログの全エラーの不在やWebSocket詳細は証明していない。 HEAD 7d7206e5... のWindows/Chrome/PG18・PDF成功はPRコメント6457036055で確認済み。 学習順004の主RazorをStage01へ移行。正規・互換のDocument HTTP200とDOM追加/削除のChrome試験を維持・補強し、新HEAD CI判定を待つ。"
     },
     {
       "sequence": "005",

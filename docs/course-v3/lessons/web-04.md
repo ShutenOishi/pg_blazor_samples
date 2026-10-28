@@ -1,6 +1,6 @@
 # 学習順004：開発者ツールでDOM・Network・Consoleを見る
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor)。画面の正規URLは `/learn/004` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor)。画面の正規URLは `/learn/004` です。
 
 ## 到達目標
 
@@ -23,7 +23,7 @@ WinFormsでデザイン画面を見ることと、稼働中に`Control.Controls`
 
 ## 2. 実際のRazorコードを読む
 
-`Web04Page.razor`には、次の処理があります。追加表示する段落にはテストやElementsで見つけやすい`id`が付けられています。
+`L004DomNetworkConsolePage.razor`には、次の処理があります。追加表示する段落にはテストやElementsで見つけやすい`id`が付けられています。
 
 ```razor
 <button type="button" @onclick="ToggleDetails">

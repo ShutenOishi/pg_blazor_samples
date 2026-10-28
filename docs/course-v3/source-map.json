@@ -51,7 +51,7 @@
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/003",
-      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。 学習順003の主Razorと同名CSS isolationをStage01へ物理移行。CSS適用と正規・互換URLは新HEADのChrome試験で確認予定。配置・参照先の静的確認は実動作の証拠とは別。移行HEADの同一HEAD CI受入待ち。",
+      "notes": "ラベル、C#入力検証、空欄/上限拒否とHTMLエンコードを検証する。CSS本体とChrome試験を参照。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。 学習順003の主Razorと同名CSS isolationをStage01へ物理移行。CSS適用と正規・互換URLは新HEADのChrome試験で確認予定。配置・参照先の静的確認は実動作の証拠とは別。構造移行はHEAD 3cb5ee03f54c6009ecba9441d1ecfcfddebd57c7・アプリRun40657167557・PDF40657167596とPRコメント #6464402707 で正式受入済み。",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L003HtmlCssFormPage.razor.css",
         "scripts/browser-smoke.cjs"
@@ -64,14 +64,15 @@
       "stage": 1,
       "lesson_path": "docs/course-v3/lessons/web-04.md",
       "app_url": "/learn/web-04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/WebFoundation/Web04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage01/L004DomNetworkConsolePage.razor",
       "audit_state": "partial",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/004",
-      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。",
+      "notes": "Document 200、DOM追加削除、ページ全体の再取得なしを検証する。最終CI受入待ち。 受入HEAD 7d7206e5c79225d9b1924730ff936c30f2a47128 アプリRun40606815694・PDF40606815676全SUCCESS。 学習順004の主RazorをStage01へ移行。標準InteractiveServerとC#イベントを利用。正規・互換Document HTTP200と既存DOM差分試験は新HEADのChrome実証待ち。静的参照登録は実行証拠とは別。",
       "related_sources": [
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
       ]
     },
     {

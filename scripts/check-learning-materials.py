@@ -17,6 +17,7 @@ _STAGE01_MOVED_PAGES = {
     1: "L001WebExecutionPage.razor",
     2: "L002HttpRequestResponsePage.razor",
     3: "L003HtmlCssFormPage.razor",
+    4: "L004DomNetworkConsolePage.razor",
 }
 
 

@@ -178,6 +178,11 @@ async function waitText(page, selector, expected) {
 
         // 学習順004：Document GETと、Documentを再取得せずDOMだけ変更する対話イベントを区別する。
         const web04Document = await page.goto(base + "/learn/004");
+        const web04Compatibility = await page.request.get(base + "/learn/web-04");
+        if (web04Compatibility.status() !== 200) {
+            throw new Error("学習順004：互換Document GET 200を確認できません: " + web04Compatibility.status());
+        }
+        console.log("学習順004：正規・互換Document GET 200を確認");
         if (!web04Document || web04Document.status() !== 200) {
             throw new Error("学習順004：初期DocumentのGET 200を確認できません");
         }
