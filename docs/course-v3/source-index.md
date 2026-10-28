@@ -70,21 +70,21 @@
 | 038 | Snackbarと処理中の状態を表示する | [本文](../samples/step28.md) | `/learn/038` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L038NotificationPage.razor) |
 | 039 | ダークモードとキーボード操作を学ぶ | [本文](../samples/step29.md) | `/learn/039` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L039AccessibilityPage.razor) |
 | 040 | MudBlazor日本語UIを総合演習する | [本文](../samples/step30.md) | `/learn/040` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L040UiPracticePage.razor) |
-| 041 | JavaScript interopの利用判断 | [本文](../course-v3/lessons/browser-01.md) | `/learn/041` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor) |
-| 042 | ファイルアップロードと入力制約 | [本文](../course-v3/lessons/browser-02.md) | `/learn/042` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor) |
-| 043 | CSV・PDFファイルのダウンロード | [本文](../course-v3/lessons/browser-03.md) | `/learn/043` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor) |
-| 044 | ErrorBoundary・取消・再試行 | [本文](../course-v3/lessons/browser-04.md) | `/learn/044` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor) |
-| 045 | HTMLの意味・フォーカス・拡大表示の最終確認 | [本文](../course-v3/lessons/browser-05.md) | `/learn/045` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor) |
+| 041 | JavaScript interopの利用判断 | [本文](../course-v3/lessons/browser-01.md) | `/learn/041` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor) |
+| 042 | ファイルアップロードと入力制約 | [本文](../course-v3/lessons/browser-02.md) | `/learn/042` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L042FileUploadPage.razor) |
+| 043 | CSV・PDFファイルのダウンロード | [本文](../course-v3/lessons/browser-03.md) | `/learn/043` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L043DownloadPage.razor) |
+| 044 | ErrorBoundary・取消・再試行 | [本文](../course-v3/lessons/browser-04.md) | `/learn/044` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L044ErrorRecoveryPage.razor) |
+| 045 | HTMLの意味・フォーカス・拡大表示の最終確認 | [本文](../course-v3/lessons/browser-05.md) | `/learn/045` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor) |
 
 ## 第5段階：DapperからEF Core 10・PostgreSQL 18へ（学習順046〜060）
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 046 | DapperとEF Coreの役割・選定を比較する | [本文](../course-v3/lessons/db-bridge-01.md) | `/learn/046` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor) |
-| 047 | モデルとDTOを理解する | [本文](../samples/step31.md) | `/learn/047` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step31/EfModelPage.razor) |
-| 048 | PostgreSQLで学習テーブルを定義する | [本文](../samples/step32.md) | `/learn/048` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step32/SqlSchemaPage.razor) |
-| 049 | EF Core 10をWebへ登録する | [本文](../samples/step33.md) | `/learn/049` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step33/EfSetupPage.razor) |
-| 050 | DbContextFactoryと接続プール | [本文](../samples/step34.md) | `/learn/050` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step34/DbFactoryPage.razor) |
+| 046 | DapperとEF Coreの役割・選定を比較する | [本文](../course-v3/lessons/db-bridge-01.md) | `/learn/046` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L046OrmComparisonPage.razor) |
+| 047 | モデルとDTOを理解する | [本文](../samples/step31.md) | `/learn/047` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L047EfModelPage.razor) |
+| 048 | PostgreSQLで学習テーブルを定義する | [本文](../samples/step32.md) | `/learn/048` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L048SqlSchemaPage.razor) |
+| 049 | EF Core 10をWebへ登録する | [本文](../samples/step33.md) | `/learn/049` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L049EfSetupPage.razor) |
+| 050 | DbContextFactoryと接続プール | [本文](../samples/step34.md) | `/learn/050` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L050DbContextFactoryPage.razor) |
 | 051 | LINQ検索とAsNoTracking | [本文](../samples/step35.md) | `/learn/051` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step35/EfSearchPage.razor) |
 | 052 | SQLのWHERE／JOIN／ORDER BYとLINQ・生成SQL | [本文](../course-v3/lessons/db-bridge-02.md) | `/learn/052` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge02Page.razor) |
 | 053 | Dapperの接続／ExecuteとDbContext・追跡・SaveChanges | [本文](../course-v3/lessons/db-bridge-03.md) | `/learn/053` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge03Page.razor) |

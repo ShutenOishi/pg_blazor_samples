@@ -1,6 +1,6 @@
 # 学習順049：EF Core 10をWebへ登録する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step33/EfSetupPage.razor)。画面の正規URLは `/learn/049` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L049L049EfSetupPage.razor)。画面の正規URLは `/learn/049` です。
 
 ## 到達目標・前提知識
 WebプロジェクトのProgram.csにNpgsql.EntityFrameworkCore.PostgreSQL 10.0.3を使うDbContextFactoryを登録します。WinFormsのフォームごとに接続文字列を組み立てる構成と異なり、ASP.NET CoreのConfigurationから起動時に設定を取得します。画面ではDB接続先が設定されているかを表示しますが、表示内容は実ネットワーク接続の成功を保証しません。

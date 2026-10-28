@@ -1,6 +1,6 @@
 # 学習順045：HTMLの意味・フォーカス・拡大表示の最終確認
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor)。画面の正規URLは `/learn/045` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor)。画面の正規URLは `/learn/045` です。
 
 ## 到達目標
 第4段階の最終ステップでは、MudBlazorやRazorで画面を作れるだけで終わらず、入力項目・操作・結果が実際に利用者へ伝わることを確認します。文字が小さい、マウスでしか操作できない、色だけで成功を示す、読み上げる順番が不明といった問題は、見た目が整っていても業務画面の利用を難しくします。HTMLの意味、フォーカス、キーボード、拡大表示、通知を確認し、WinFormsの画面設計で培った「利用者が迷わず操作できること」をWebで検証します。
@@ -20,7 +20,7 @@
 このステップではキーボードで確実に対象を選べること、操作結果が文字情報として存在すること、狭い領域でも必要な操作が失われないことを重視します。色の違いは補助とし、文字で「入力内容：…」「大きい文字」「高コントラスト」などを伝えます。視覚的な装飾だけを追加しても、支援技術で適切に読み取れるとは限りません。
 
 ## Razorの実コード：意味のある関連付け
-次はBrowser05Page.razorの中心部分です。for="browser05-note"とid="browser05-note"の一致により、ラベルが入力欄を説明する関係を作ります。@bind:event="oninput"は入力中にRazorのnoteを更新し、条件に応じて文字で結果を表示します。role="status"とaria-live="polite"は、操作結果の通知を支援技術に伝える意図です。
+次はL045AccessibilityReviewPage.razorの中心部分です。for="browser05-note"とid="browser05-note"の一致により、ラベルが入力欄を説明する関係を作ります。@bind:event="oninput"は入力中にRazorのnoteを更新し、条件に応じて文字で結果を表示します。role="status"とaria-live="polite"は、操作結果の通知を支援技術に伝える意図です。
 
 ```razor
 <label for="browser05-note">練習用の表示内容</label>

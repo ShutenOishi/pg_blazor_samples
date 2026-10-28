@@ -761,14 +761,14 @@
       "stage": 4,
       "lesson_path": "docs/course-v3/lessons/browser-01.md",
       "app_url": "/learn/browser-01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/041",
       "notes": "JS DOM、例外、参照解放のChrome/xUnitを追加。実切断でのJSDisconnectedException捕捉はNOT_TESTED。 041専用隔離WebSocket切断→C#捕捉ログを新HEAD CIで確認する。未成立はNOT_TESTED維持。 Run40637853498の041対話開始待ち失敗を補修。新HEAD全CI成功・独立切断ログ成立までNOT_TESTED。 041実WS切断だけでは例外捕捉を証明せず、Run40638392110の捕捉ログ欠落を記録。新HEADの診断でも捕捉なしはNOT_TESTED。 Run40638970262は041 JSInvoke完了・切断例外未発生。WS切断だけでは捕捉なし。BrowserContext offlineも試す。 Run40639521177成功だが041の実C# catchはNOT_TESTED。専用Developmentプロセスのみcircuit保持6秒に変更し、破棄時の実例外を独立検証。 正式受入 #6462399870：HEAD fbfbdf18abeed9364a8e529fd1663bf140ba98c1、アプリ40644033931/PDF40644033930全成功。041自身の切断後DisposeAsyncでC#実捕捉（invoke=false、dispose=true）。InvokeAsync自身の実捕捉は未実証。",
       "related_sources": [
-        "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
         "scripts/browser-circuit-smoke.cjs",
         "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
         "docs/course-v3/lessons/browser-01.md",
@@ -785,12 +785,17 @@
       "stage": 4,
       "lesson_path": "docs/course-v3/lessons/browser-02.md",
       "app_url": "/learn/browser-02",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L042FileUploadPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/042",
-      "notes": "PR #39 コメント #6458945926、HEAD337217aのRun40620273707全3ジョブ/PDF40620273693 SUCCESS。SHA256やMIME一致は無害性・認可の保証ではない。"
+      "notes": "PR #39 コメント #6458945926、HEAD337217aのRun40620273707全3ジョブ/PDF40620273693 SUCCESS。SHA256やMIME一致は無害性・認可の保証ではない。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L042TextFileInspector.cs",
+        "tests/PgBlazorSamples.UnitTests/L042TextFileInspectorTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 43,
@@ -799,12 +804,18 @@
       "stage": 4,
       "lesson_path": "docs/course-v3/lessons/browser-03.md",
       "app_url": "/learn/browser-03",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L043DownloadPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/043",
-      "notes": "PR #39 コメント #6459330682、受入HEAD 5a8ea3834682f97e218519719fd6aa5337fd3a86、アプリ 40622793752 / PDF 40622793674 SUCCESS。Chromeの実ダウンロードバイトをCSV BOM/式記号引用/PDF xrefまで検査予定。Excel/LibreOffice上の動作は未検証。"
+      "notes": "PR #39 コメント #6459330682、受入HEAD 5a8ea3834682f97e218519719fd6aa5337fd3a86、アプリ 40622793752 / PDF 40622793674 SUCCESS。Chromeの実ダウンロードバイトをCSV BOM/式記号引用/PDF xrefまで検査予定。Excel/LibreOffice上の動作は未検証。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/L043DownloadFileFactory.cs",
+        "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
+        "tests/PgBlazorSamples.UnitTests/L043DownloadFileFactoryTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 44,
@@ -813,12 +824,18 @@
       "stage": 4,
       "lesson_path": "docs/course-v3/lessons/browser-04.md",
       "app_url": "/learn/browser-04",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L044ErrorRecoveryPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/044",
-      "notes": "PR #39 コメント #6459359038、受入HEAD 56259dda4b705ec3ed2b45862a0e2ba4fe58e2cb、アプリ 40622984093 / PDF 40622984193 SUCCESS。xUnitでDispose取消、Chromeで正常/取消/再試行/二重UI制御とErrorBoundary復旧を検証予定。DBや離脱実測は未実証。"
+      "notes": "PR #39 コメント #6459359038、受入HEAD 56259dda4b705ec3ed2b45862a0e2ba4fe58e2cb、アプリ 40622984093 / PDF 40622984193 SUCCESS。xUnitでDispose取消、Chromeで正常/取消/再試行/二重UI制御とErrorBoundary復旧を検証予定。DBや離脱実測は未実証。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Browser/BrowserFaultDemo.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L044OperationRunner.cs",
+        "tests/PgBlazorSamples.UnitTests/L044OperationRunnerTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 45,
@@ -827,12 +844,17 @@
       "stage": 4,
       "lesson_path": "docs/course-v3/lessons/browser-05.md",
       "app_url": "/learn/browser-05",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor",
       "audit_state": "interactive",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/045",
-      "notes": "フォーカスを実際に入力欄へ移すElementReference.FocusAsyncとChrome activeElement検証を追加。画面読み上げ・200%ズームは別途実機確認。 Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。"
+      "notes": "フォーカスを実際に入力欄へ移すElementReference.FocusAsyncとChrome activeElement検証を追加。画面読み上げ・200%ズームは別途実機確認。 Chrome実操作を検証済み。検証根拠はdocs/course-v3/implementation-audit.jsonを参照。",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor.css",
+        "scripts/browser-smoke.cjs",
+        "src/PgBlazorSamples.Web/Components/App.razor"
+      ]
     },
     {
       "sequence": 46,
@@ -841,7 +863,7 @@
       "stage": 5,
       "lesson_path": "docs/course-v3/lessons/db-bridge-01.md",
       "app_url": "/learn/db-bridge-01",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L046OrmComparisonPage.razor",
       "audit_state": "simulation",
       "test_state": "same-head-ci-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
@@ -863,11 +885,16 @@
       "stage": 5,
       "lesson_path": "docs/samples/step31.md",
       "app_url": "/learn/31",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step31/EfModelPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L047EfModelPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/047"
+      "canonical_url": "/learn/047",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Data/LearningTask.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 48,
@@ -876,11 +903,16 @@
       "stage": 5,
       "lesson_path": "docs/samples/step32.md",
       "app_url": "/learn/32",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step32/SqlSchemaPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L048SqlSchemaPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/048"
+      "canonical_url": "/learn/048",
+      "related_sources": [
+        "database/schema/001_learning_task.sql",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 49,
@@ -889,11 +921,17 @@
       "stage": 5,
       "lesson_path": "docs/samples/step33.md",
       "app_url": "/learn/33",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step33/EfSetupPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L049EfSetupPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/049"
+      "canonical_url": "/learn/049",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 50,
@@ -902,11 +940,17 @@
       "stage": 5,
       "lesson_path": "docs/samples/step34.md",
       "app_url": "/learn/34",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step34/DbFactoryPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L050DbContextFactoryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/050"
+      "canonical_url": "/learn/050",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/LearningDbService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 51,

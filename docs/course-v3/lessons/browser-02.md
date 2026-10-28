@@ -1,6 +1,6 @@
 # 学習順042：ファイルアップロードと入力制約
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor)。画面の正規URLは `/learn/042` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L042FileUploadPage.razor)。画面の正規URLは `/learn/042` です。
 
 ## 何を学ぶか
 学習順041でサーバーとブラウザーの境界を確認しました。今回はファイル選択と読み取りです。WinFormsのOpenFileDialogで選んだファイルは通常そのPC上のプログラムから読めます。しかしInteractive Serverで利用者がファイルを選ぶと、サーバーはブラウザーから送信された内容をストリームとして読み取ります。ファイル名、拡張子、ContentType、Sizeはいずれも利用者側から提供される情報なので、信頼できる本人確認やファイル内容の証明にはなりません。

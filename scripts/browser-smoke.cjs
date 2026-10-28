@@ -102,6 +102,24 @@ async function waitText(page, selector, expected) {
             }
         }
         console.log("学習順031〜040：正規・互換Document GET 200を全10件確認");
+        // 041〜050移行後の正規URL・互換URLを独立に20件照合する。
+        const compatibility041to050 = [
+            "/learn/browser-01", "/learn/browser-02", "/learn/browser-03",
+            "/learn/browser-04", "/learn/browser-05", "/learn/db-bridge-01",
+            "/learn/31", "/learn/32", "/learn/33", "/learn/34"
+        ];
+        for (let i = 0; i < compatibility041to050.length; i++) {
+            const seq = String(41 + i).padStart(3, "0");
+            const responses = await Promise.all([
+                page.request.get(base + "/learn/" + seq),
+                page.request.get(base + compatibility041to050[i])
+            ]);
+            if (responses.some(r => r.status() !== 200)) {
+                throw new Error("学習順" + seq + "の正規・互換GETが失敗: "
+                    + responses.map(r => r.status()).join("/"));
+            }
+        }
+        console.log("学習順041〜050：正規・互換Document GET 200を全10件確認");
 
 
 

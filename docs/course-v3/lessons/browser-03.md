@@ -1,6 +1,6 @@
 # 学習順043：CSV・PDFファイルのダウンロード
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor)。画面の正規URLは `/learn/043` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L043DownloadPage.razor)。画面の正規URLは `/learn/043` です。
 
 ## 到達目標
 学習順042ではファイルをブラウザーからサーバーへ送りました。ここでは方向を逆にして、サーバーで作った内容をブラウザーへ渡して保存します。Windows FormsならFile.WriteAllBytesなどでアプリを実行しているPC上に書き込めますが、Blazor Interactive ServerのC#はサーバー側で動くため、そのコードだけでは利用者のPCにファイルを保存できません。ブラウザーのダウンロード機能を使います。

@@ -1,6 +1,6 @@
 # 学習順048：PostgreSQLで学習テーブルを定義する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step32/SqlSchemaPage.razor)。画面の正規URLは `/learn/048` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L048L048SqlSchemaPage.razor)。画面の正規URLは `/learn/048` です。
 
 ## 到達目標・前提知識
 PostgreSQL 18の開発専用テーブルlearning_taskを定義し、EF CoreのLearningDbContextと一致させます。学習順048のRazorは代表的な列を表で表示する説明画面で、開いただけでDDLを実行するものではありません。WinForms＋DapperでもDBの物理列を把握しましたが、EF CoreではOnModelCreatingで指定した名前・長さ・型とDDLの対応も確認します。

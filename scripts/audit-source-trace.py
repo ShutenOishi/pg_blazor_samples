@@ -80,7 +80,7 @@ def main():
             if not isinstance(related, str) or not (ROOT / related).is_file():
                 problems.append(f'{name}: 登録済み依存先が存在しません: {related}')
         css_isolation = None
-        if sequence == 3:
+        if sequence in (3, 45):
             css_relative = razor_path + '.css'
             css_path = ROOT / css_relative
             css_isolation = {
@@ -92,7 +92,7 @@ def main():
                 'evidence_level': 'STATIC_FILE_AND_REFERENCE_ONLY',
             }
             if not all((css_isolation['file_exists'], css_isolation['registered'], css_isolation['app_stylesheet_declared'])):
-                problems.append('003: CSS isolationの物理配置・依存登録・バンドル参照に不一致')
+                problems.append(f'{name}: CSS isolationの物理配置・依存登録・バンドル参照に不一致')
         rows.append({
             'sequence': name,
             'stage': entry.get('stage'),

@@ -1,6 +1,6 @@
 # 学習順047：モデルとDTOを理解する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step31/EfModelPage.razor)。画面の正規URLは `/learn/047` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L047L047EfModelPage.razor)。画面の正規URLは `/learn/047` です。
 
 ## 到達目標・前提知識
 DBの行を表すLearningTaskと、画面へ渡すLearningTaskRowを区別します。前者はEF CoreのEntityで、Id、Title、DueDate、StartTime、AvailableDates、IsDone、UnitCode、CategoryId、Category、Versionを持ちます。後者は一覧用のrecordで、Id、Title、DueDate、StartTime、IsDone、Versionに絞っています。WinForms＋DapperでSELECTの列をPOCOへ格納する経験は、そのままDTOの理解に使えます。

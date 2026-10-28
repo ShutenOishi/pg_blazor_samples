@@ -212,14 +212,14 @@
       "sequence": "041",
       "lesson_id": "browser-01",
       "lesson_path": "docs/course-v3/lessons/browser-01.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
       "canonical_url": "/learn/041",
       "related_sources": [
         "src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js",
         "src/PgBlazorSamples.Web/Services/Learning/L041InteropMessages.cs",
         "tests/PgBlazorSamples.UnitTests/L041InteropMessagesTests.cs",
         "scripts/browser-smoke.cjs",
-        "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser01Page.razor",
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L041JsInteropPage.razor",
         "scripts/browser-circuit-smoke.cjs",
         "docs/course-v3/lessons/browser-01.md",
         "src/PgBlazorSamples.Web/Program.cs"
@@ -238,7 +238,7 @@
       "sequence": "042",
       "lesson_id": "browser-02",
       "lesson_path": "docs/course-v3/lessons/browser-02.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser02Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L042FileUploadPage.razor",
       "canonical_url": "/learn/042",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L042TextFileInspector.cs",
@@ -259,7 +259,7 @@
       "sequence": "043",
       "lesson_id": "browser-03",
       "lesson_path": "docs/course-v3/lessons/browser-03.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser03Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L043DownloadPage.razor",
       "canonical_url": "/learn/043",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L043DownloadFileFactory.cs",
@@ -281,7 +281,7 @@
       "sequence": "044",
       "lesson_id": "browser-04",
       "lesson_path": "docs/course-v3/lessons/browser-04.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L044ErrorRecoveryPage.razor",
       "canonical_url": "/learn/044",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/Samples/Browser/BrowserFaultDemo.razor",
@@ -303,9 +303,12 @@
       "sequence": "045",
       "lesson_id": "browser-05",
       "lesson_path": "docs/course-v3/lessons/browser-05.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Browser/Browser05Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor",
       "canonical_url": "/learn/045",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Lessons/Stage04/L045AccessibilityReviewPage.razor.css",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "部分的",
       "implemented_behavior": "FocusAsyncによる実フォーカスとactiveElementをChromeで確認",
       "missing_behavior": "キーボード・フォーカス・ズーム・読み上げ用ステータスの試験",
@@ -320,7 +323,7 @@
       "sequence": "046",
       "lesson_id": "db-bridge-01",
       "lesson_path": "docs/course-v3/lessons/db-bridge-01.md",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage05/L046OrmComparisonPage.razor",
       "canonical_url": "/learn/046",
       "related_sources": [
         "src/PgBlazorSamples.Web/Services/Learning/L046OrmComparisonService.cs",

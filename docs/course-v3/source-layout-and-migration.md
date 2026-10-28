@@ -81,7 +81,7 @@ database/
 - **学習順003の第1段階への配置変更（正式受入済み）**：主Razorと隣接CSS isolationを`Components/Lessons/Stage01/L003HtmlCssFormPage.razor`・`.razor.css`へ一緒に移動。正規`/learn/003`と互換`/learn/web-03`を維持する。`App.razor`で生成CSSバンドルを読み込み、Chromeで両URLのHTTP 200、CSS適用（枠線・入力欄・キーボードフォーカス）と従来の入力検証を個別確認する。教材リンク、source-index、source-map、監査JSON、静的検査を同一差分で同期する。Razorに独自DI、C#サービス/DTO、SQL/独自JS呼出しはなく、`App.razor`のInteractiveServerとBlazorのバインディング/C#イベントを使用。配置・参照先の静的検査とChrome動作を独立に確認し、HEAD `3cb5ee03f54c6009ecba9441d1ecfcfddebd57c7`・アプリRun40657167557・PDF40657167596の全成功をPRコメント #6464402707 で正式受入済み。
 - **学習順004の第1段階への配置変更（正式受入済み、PRコメント #6464528813）**：主Razorを`Components/Lessons/Stage01/L004DomNetworkConsolePage.razor`へ移動。正規`/learn/004`と互換`/learn/web-04`を維持し、教材・索引・監査・静的検査を同期。Chromeで正規/互換のDocument HTTP 200および既存のDOM追加削除・対話イベントのDocument再取得なしを検証する。Razorは標準のInteractiveServerとC#イベントを使用し、個別のDIサービス・DTO・SQL・独自JSは直接呼ばない。静的参照存在、Chrome試験、現地受入を混同しない。
 - **依存索引（今回の変更時点）**：001〜005は既存のChrome操作、CSS、App.razor等の実在する参照先を登録。041はJSモジュール・C#補助・xUnit・Chromeの参照を登録し直した。静的登録は個別試験の新しい合格を意味しない。
-- 物理移行001〜030の30件は正式受入済み（021〜030はHEAD `e8f53fc0f699f6726349e9ac86edf685c6e5cd4d`、PRコメント #6465382248）。今回031〜040の10件を第4段階へ一括移行し、新HEADの全必要CI判定待ち。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
+- 物理移行001〜030の30件は正式受入済み（021〜030はHEAD `e8f53fc0f699f6726349e9ac86edf685c6e5cd4d`、PRコメント #6465382248）。031〜040の第4段階一括移行は正式受入済み（HEAD 5f637d8e5ae731885fadc118ab39769bac414345、PRコメント #6465703916）。教材Markdownの物理配置、残りの段階フォルダー、110件の意味的な依存追跡は引き続き未完了。`related_sources`は実際の参照だけを登録し、ファイル存在を実動作の受入と読み替えない。
 
 
 ### 2026-10-28 学習順005〜010バッチ移行（正式受入済み）
@@ -124,3 +124,11 @@ database/
 - 教材10件・source-index・source-mapの依存参照・静的検査・Chromeの正規/互換Document GETを同期。既存MudBlazor日本語翻訳、共通DI・Provider、ThemePreferenceServiceの実装や共有業務処理を変更・複製しない。
 - 既存Chrome操作（通知、Drawer、入力、検証、Table、DataGrid、ダイアログ、Snackbar、テーマ、架空一覧）と今回追加したGET10件を、新HEAD Windows/Linux/xUnit/PG18/PDFの全必要CI completed/SUCCESS後のみ受入。成功CIは手動再実行しない。
 - 追加30テーマの実装受入30/30と構造移行は別指標。SITE PASS 0/15・NOT_RUN 15/15、実AD/IIS/FDWと10,001人負荷は未受入、PR Draft/未マージ、正式PDF Release未変更。次は041〜050のJSとDB依存を先に監査する。
+
+### 2026-10-28 学習順041〜050の主Razor10件一括構造移行（同一HEADのCI判定待ち）
+
+- 第4段階041〜045は`Components/Lessons/Stage04/L041〜L045*.razor`、第5段階046〜050は`Components/Lessons/Stage05/L046〜L050*.razor`へ主Razorを物理移動。Browser/DbBridge/Step31〜34の旧主Razorのみ削除し、既存`@page`の正規/互換ルートは保持。
+- 041の`ILogger<L041JsInteropPage>`を改名に同期。044は既存共有子`BrowserFaultDemo`のnamespaceを`@using`で明示。045のCSS isolationは新Razorと同名で隣接配置。元のJSモジュール、共用C#サービス/DTO/テスト、学習用PostgreSQL・DDL、Program.cs/DI、認証・認可・監査の安全拒否は変更も複製もしない。
+- 10教材の直接リンク、source-index、source-mapと明示依存、追加30テーマ監査台帳の041〜046、静的検査、Chrome正規/互換10組のGETを同一バッチで同期。静的パス存在と実DB・Chrome・現地受入は別の評価。
+- 現時点は**新コミットの必要CI判定待ち**であり、構造移行50/110の正式受入は未宣言。全必要CIと全ジョブcompleted/SUCCESSを独立GETで確認した場合のみ受入する。
+- 041の実切断後InvokeAsync自身、043のExcel/LibreOffice、044の実離脱取消、実AD/IIS/FDW、10,001人超の負荷・復旧、PRE/SITEは未実証。SITE PASS0/15・NOT_RUN15/15、Draft/未マージ、正式PDF Release未変更、旧成功CIの再実行禁止を維持。

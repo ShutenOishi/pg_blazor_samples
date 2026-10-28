@@ -1,6 +1,6 @@
 # 学習順050：DbContextFactoryと接続プール
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step34/DbFactoryPage.razor)。画面の正規URLは `/learn/050` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L050DbContextFactoryPage.razor)。画面の正規URLは `/learn/050` です。
 
 ## 到達目標・前提知識
 Blazor Interactive ServerでDbContextを安全に利用する単位を学びます。WinForms＋Dapperでクリックごとにusing var connectionとしていた考え方に近いものの、DbContextには変更追跡など独自の状態があります。Interactive ServerのScopedはcircuitの間続くことがあり、DbContextはスレッドセーフではありません。画面に長期間注入したDbContextを複数操作で共有せず、IDbContextFactoryで操作ごとに作ります。
@@ -21,7 +21,7 @@ SearchAsyncはAsNoTrackingを用い、絞り込み条件があればTitle.Contai
 
 ## 実装に対応するコード例1
 ```razor
-// DbFactoryPage.razorの表示とイベント
+// L050DbContextFactoryPage.razorの表示とイベント
 @inject PgBlazorSamples.Web.Services.Learning.LearningDbService Database
 <MudButton Variant="Variant.Filled" Color="Color.Primary"
            OnClick="LoadAsync">接続して一覧を取得</MudButton>

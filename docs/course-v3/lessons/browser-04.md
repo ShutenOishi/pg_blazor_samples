@@ -1,6 +1,6 @@
 # 学習順044：ErrorBoundary・取消・再試行
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Browser/Browser04Page.razor)。画面の正規URLは `/learn/044` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage04/L044ErrorRecoveryPage.razor)。画面の正規URLは `/learn/044` です。
 
 ## 到達目標
 このステップでは、画面がエラーを表示すること、非同期処理を取り消すこと、データの更新を元に戻すことを明確に分けます。WinFormsのtry/catchやCancellationTokenの知識はそのまま役立ちますが、Blazor Interactive Serverではコンポーネント、circuit、ブラウザーとの接続も考慮する必要があります。ErrorBoundaryは子コンポーネントの例外を扱い、代わりのUIを表示する部品です。すでに確定したDB操作を自動で取り消すものではありません。

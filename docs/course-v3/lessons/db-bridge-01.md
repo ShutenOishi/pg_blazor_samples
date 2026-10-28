@@ -1,6 +1,6 @@
 # 学習順046：DapperとEF Coreの役割・選定を比較する
 
-**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge01Page.razor)。画面の正規URLは `/learn/046` です。
+**実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Lessons/Stage05/L046OrmComparisonPage.razor)。画面の正規URLは `/learn/046` です。
 
 ## 到達目標・前提知識
 DapperのQuery/ExecuteとEF CoreのLINQ/SaveChangesを、読み書きの要件から比較します。DapperはSQLの構造と実行を明示しやすく、EF Coreはモデルのマッピング、変更追跡、SaveChanges、競合検出を一貫して扱えます。どちらもPostgreSQLがSQLを実行する点は同じです。EF Coreなら自動で速くなる、SQLの知識が要らなくなる、認可が自動で成立するといった考え方は正しくありません。
