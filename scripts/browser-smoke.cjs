@@ -1390,10 +1390,13 @@ async function waitText(page, selector, expected) {
         await calendar033.waitFor();
         await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^31$/ }).click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月31日");
+        // Escapeによるポップアップ終了は非同期。閉じる途中で入力を再クリックすると
+        // トグルで再び閉じてしまうため、旧カレンダーが消えてから開き直す。
         await page.keyboard.press("Escape");
+        await calendar033.waitFor({ state: "hidden", timeout: 10000 });
         await dateInput033.click();
         calendar033 = page.locator(".mud-picker-calendar:visible");
-        await calendar033.waitFor();
+        await calendar033.waitFor({ state: "visible", timeout: 10000 });
         await page.locator(".mud-picker-nav-button-next:visible").click();
         // MudBlazorの月切替では日付ボタンが再描画される。10月31日が当月表示から消え、
         // 11月1日が現れて遷移が落ち着いてから実際のボタンをクリックする。
