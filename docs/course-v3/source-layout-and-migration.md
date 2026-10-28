@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | [Samples/Step01](../../src/PgBlazorSamples.Web/Components/Lessons/Stage02/L006FirstBlazorPage.razor) から Samples/Step80 | 未移行の既存画面の格納 | 物理ディレクトリの番号が現在の学習順と一致しない。例：L006FirstBlazorPage.razorは学習順006。学習順のファイル名・段階分類へ段階的に移行する |
 | [Samples/WebFoundation](../../src/PgBlazorSamples.Web/Components/Lessons/Stage01/L005VisualStudioDebugPage.razor)、Runtime、Browser、DbBridge、Security、Capstone | 追加画面のうち未移行分 | 学習番号ではなくテーマ内番号で名前が始まる。9段階・学習順でソースを直接探せる一貫した命名へ統一する |
-| [docs/samples](../samples/step01.md) と [course-v3/lessons](lessons/web-01.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
+| [docs/samples](../samples/step01.md) と [course-v3/lessons](lessons/Stage01/L001WebExecutionPage.md) | 80件と30件で分かれた本文 | 入口が二つに分かれている。学習順ごとの本文パスへ整理する。移動時はPDF目次、相対リンクと静的検査も同期する |
 | [Services/Learning](../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[Data](../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs) | 複数教材で共用する処理 | 何を共用し、どの画面から呼ぶかが教材の索引だけでは分からない。依存先を追加し、必要な責務分離を検討する |
 | [UnitTests](../../tests/PgBlazorSamples.UnitTests/DbBridgeIntegrationTests.cs)、[database](../../database/schema/001_learning_task.sql)、[JS](../../src/PgBlazorSamples.Web/wwwroot/js/browser-learning.js) | 単体・結合・SQL・ブラウザー処理 | 画面から正常系・拒否系の試験と実装を一緒に見つけられるようにする |
 
@@ -178,3 +178,10 @@ database/
 - 正規 `/learn/101〜110` と互換 `/learn/76〜80`・`/learn/capstone-01〜05` を維持。教材10件・source-index・source-mapと全110件の明示関連実在ソース、静的検査の新旧主配置と両URL、Chrome正規/互換20経路のDocument GETを同一変更に同期する。
 - 既存 `SecuredLearningService`、`WindowsUserAccessService`、`AuthorizedLessonHintCache`、`L106RequirementFlow`、`L108SubmissionGate`、`L110AcceptanceLedger` などを再利用し、共通C#・学習DB・業務DB・認可・`xmin`・監査・DI/Program.cs・SQL・テストは改変/複製しない。静的ソース存在/画面GETと業務操作・現地受入は別証拠。
 - 110/110の正式受入は同一新HEADのWindows/Ubuntu実Chrome/PostgreSQL18実DB/PDFソース検証の全必要CIと全ジョブが `completed/SUCCESS` となった場合だけ。SITE PASS 0/15・NOT_RUN 15/15、現地PRE未承認、実AD/IIS/Kerberos/FDW、本番鍵、10,001人超負荷/復旧/切戻し未受入を維持。成功CI再実行、Draft解除・マージ、正式PDF Release更新・再発行、無許可現地試験は禁止。
+
+
+## 2026-10-28：教材Markdown 第1段階001〜005の配置変更（新HEAD CI判定待ち）
+
+主Razorの構造移行110/110件はHEAD `8697b4dd55fc308d9463283a0051c9b751fd73d9`・PRコメント #6468926421で正式受入済み。教材Markdownは別工程として、001〜005の正規本文を `docs/course-v3/lessons/Stage01/L001〜L005*.md` へまとめた。元の5つのパスは移動案内だけを残し、カリキュラム、source-map、source-index、PDF目次**ソース**、静的教材検査を同期した。教材本文の学習上の説明・コードと、C#/Razor/JS/DB/認可/監査の動作は変更しない。
+
+今回の移行は新HEADのWindows・Ubuntu/Chrome・PostgreSQL18・PDF**ソース**検証がすべて成功するまでは**正式受入待ち**とし、主Razor 110/110の既存受入とは分ける。残る教材Markdown105件の物理配置、意味的依存・テスト対応の実コード監査、古い番号表示の網羅的確認を未完了として維持する。 `related_sources` 110/110はファイル実在を示すだけで、テストの意味的網羅やE2E、現地PRE/SITEのPASSを示さない。成功CI再実行、Draft解除、マージ、正式PDF Release更新、無許可PRE/SITEは禁止。

@@ -428,10 +428,20 @@ if not (ROOT / "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs").is
     missing.append("総合演習のPostgreSQL18否定試験が不足")
 
 
+# 先行5教材は第1段階の実配置だけを正規参照先とする。
+for n in range(1, 6):
+    expected = f"docs/course-v3/lessons/Stage01/L{n:03d}" + {
+        1: "WebExecutionPage", 2: "HttpRequestResponsePage",
+        3: "HtmlCssFormPage", 4: "DomNetworkConsolePage",
+        5: "VisualStudioDebugPage",
+    }[n] + ".md"
+    if ordered[n - 1]["source"] != expected:
+        missing.append(f"学習順{n:03d}：第1段階の教材物理配置が不一致")
+
 # 学習順001〜005の全面改稿では、読み物としての分量・表・コード・演習・解答を必須にする。
 # この品質基準は次の5件単位の全面改稿にも同様に展開する。
 for n in range(1, 6):
-    item = ROOT / f"docs/course-v3/lessons/web-0{n}.md"
+    item = ROOT / ordered[n - 1]["source"]
     if not item.is_file():
         missing.append(str(item.relative_to(ROOT)) + "：本文不足")
         continue
@@ -463,7 +473,7 @@ for n in range(1, 6):
     page = web_foundation_page(n)
     if not page.is_file() or f'@page "/learn/web-0{n}"' not in page.read_text(encoding="utf-8"):
         missing.append(f"web-0{n}：Razor画面とURLの不一致")
-    marker = f'"docs/course-v3/lessons/web-0{n}.md"'
+    marker = f'"{ordered[n - 1]["source"]}"'
     if marker not in PDF_SCRIPT:
         missing.append(f"web-0{n}：PDF目次へ未収録")
 web03 = web_foundation_page(3)

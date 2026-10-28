@@ -15,7 +15,7 @@
       "unit": 1,
       "id": "web-01",
       "title": "WinFormsとWebの処理場所を比較する",
-      "source": "docs/course-v3/lessons/web-01.md",
+      "source": "docs/course-v3/lessons/Stage01/L001WebExecutionPage.md",
       "url": "/learn/web-01",
       "implementation": "implemented-ci-passed",
       "rewrite": "final-reviewed-ci-passed"
@@ -26,7 +26,7 @@
       "unit": 1,
       "id": "web-02",
       "title": "URL・HTTPと要求／応答を理解する",
-      "source": "docs/course-v3/lessons/web-02.md",
+      "source": "docs/course-v3/lessons/Stage01/L002HttpRequestResponsePage.md",
       "url": "/learn/web-02",
       "implementation": "implemented-ci-passed",
       "rewrite": "final-reviewed-ci-passed"
@@ -37,7 +37,7 @@
       "unit": 1,
       "id": "web-03",
       "title": "HTML・CSS・フォームの基礎",
-      "source": "docs/course-v3/lessons/web-03.md",
+      "source": "docs/course-v3/lessons/Stage01/L003HtmlCssFormPage.md",
       "url": "/learn/web-03",
       "implementation": "implemented-ci-passed",
       "rewrite": "final-reviewed-ci-passed"
@@ -48,7 +48,7 @@
       "unit": 1,
       "id": "web-04",
       "title": "開発者ツールでDOM・Network・Consoleを見る",
-      "source": "docs/course-v3/lessons/web-04.md",
+      "source": "docs/course-v3/lessons/Stage01/L004DomNetworkConsolePage.md",
       "url": "/learn/web-04",
       "implementation": "implemented-ci-passed",
       "rewrite": "final-reviewed-ci-passed"
@@ -59,7 +59,7 @@
       "unit": 1,
       "id": "web-05",
       "title": "Visual Studio 2026でWebアプリを起動・デバッグする",
-      "source": "docs/course-v3/lessons/web-05.md",
+      "source": "docs/course-v3/lessons/Stage01/L005VisualStudioDebugPage.md",
       "url": "/learn/web-05",
       "implementation": "implemented-ci-passed",
       "rewrite": "final-reviewed-ci-passed"
