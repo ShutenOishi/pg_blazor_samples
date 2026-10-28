@@ -386,11 +386,11 @@
       "implemented_behavior": "利用者認可台帳と無関係な固定架空値2件の専用キーなしPostgreSQLビューをEF Coreで実読取。未設定/Windows認証時拒否・通常Chrome拒否・PG18結合検査を追加",
       "missing_behavior": "HasNoKey定義確認に加え、学習用ビュー読取を検証。実FDW接続は現地受入まで行わない",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L058KeylessViewTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのアプリ全3ジョブ、PDFの同一HEAD最終成功までは未受入。既存台帳SELECT/実FDW/SITEはNOT_TESTED。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "90ca41f753a2862a05eff623a00ac8a3c281338f",
+      "ci_run": "40626661167; PDF 40626661219",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADのアプリ全3ジョブ、PDFの同一HEAD最終成功までは未受入。既存台帳SELECT/実FDW/SITEはNOT_TESTED。 正式受入はPR #39コメント #6459933614 と各同一HEAD成功CI。後続コミットでも受入は保持。"
     },
     {
       "sequence": "059",
@@ -409,11 +409,11 @@
       "implemented_behavior": "固定SQLと値パラメーターによるDapper Query、EF Core FromSql(xmin含む)、SqlQuery COUNTの学習DB実検索・照合と注入を模した値の安全取扱を実装",
       "missing_behavior": "現状はSQL生成のみ。実DBのパラメーター化結果と安全なDapper対比",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADの全必要CI成功まで未受入。通常Chromeは未設定拒否、実DBはPostgreSQL18ジョブのみ。実認可台帳/FDW/SITEはNOT_TESTED。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "bee5573e4746ef3b873db26fa462fd54093d25fb",
+      "ci_run": "40626920545; PDF 40626920484",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新HEADの全必要CI成功まで未受入。通常Chromeは未設定拒否、実DBはPostgreSQL18ジョブのみ。実認可台帳/FDW/SITEはNOT_TESTED。 正式受入はPR #39コメント #6459974048 と各同一HEAD成功CI。後続コミットでも受入は保持。"
     },
     {
       "sequence": "081",
@@ -421,16 +421,25 @@
       "lesson_path": "docs/course-v3/lessons/security-01.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
       "canonical_url": "/learn/081",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "implemented_behavior": "実Windows名検証関数を固定の架空Principalから呼び、隔離台帳の現行読み取り権限をサービスで毎操作照合。失効/復帰・不正認証方式・監査不成立の単体試験とChrome操作を追加",
       "missing_behavior": "架空Principal＋架空台帳を使った真正サービスの許可/拒否の試験への導線",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs; tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 架空Principalは認証ハンドラーによる本人認証ではない。隔離台帳は実DBではない。既存のSecuredLearningIntegrationTestsはPG18本物のサービス経路を別途検査。新HEADの全CI最終成功まで081は受入に加算しない。"
     },
     {
       "sequence": "082",

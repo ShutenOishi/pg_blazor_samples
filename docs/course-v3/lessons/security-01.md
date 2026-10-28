@@ -121,3 +121,33 @@ WinFormsのボタンが無効なときに操作を防ぐ仕組みを、Webの最
 - [ ] 操作手順に従い拒否を再現できる。
 - [ ] 障害の切り分けと演習の詳しい解答を確認した。
 - [ ] AD/IIS/Kerberos/FDWと1万人超負荷の未受入を維持する。
+
+## 隔離認可サービスの実装演習
+
+[画面のRazorイベント](../../../src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor) → [DI登録（Program.cs）](../../../src/PgBlazorSamples.Web/Program.cs) → [隔離サービス](../../../src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs) → [信頼名の検証関数](../../../src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs) → [xUnit正常・拒否・失効試験](../../../tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs) → [Chrome操作試験](../../../scripts/browser-smoke.cjs) の順に確認します。
+
+「架空認可サービスで1件を読み取る」で固定の架空課題1件が許可されます。「隔離台帳の読み取り権限を失効」して同じ操作を繰り返すと0件・拒否となります。「隔離台帳を初期化」で元に戻します。単にチェックボックスを判定する処理と違い、別のC#サービスを呼び、毎操作でメモリー内の台帳を照合します。
+
+### コード例3：実装したサービスの一部
+
+```csharp
+var login = WindowsUserAccessService.ReadTrustedLoginName(principal);
+if (login is null)
+    return new(false, 0, "架空主体の認証方式またはログイン名を確認できないため拒否。");
+if (!active || !canRead)
+    return new(false, 0, "架空台帳の有効性または読取権限が失効したため拒否。");
+```
+
+### コード例4：失効後は同じPrincipalでも拒否
+
+```csharp
+var service = new L081AuthorizationExercise();
+var first = service.Read(principal);
+service.RevokeRead();
+var revoked = service.Read(principal);
+Assert.True(first.Allowed);
+Assert.False(revoked.Allowed);
+Assert.Equal(0, revoked.RowCount);
+```
+
+このPrincipalはテストコードが生成したもので、実際のNegotiate認証やCookieの検証を通過していません。隔離台帳は学習サービス内のメモリーであり、実業務の権限正本ではありません。**実業務サービスのDB認可・監査・部署隔離・失効については** [SecuredLearningService](../../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs) と [PostgreSQL18の認可結合試験](../../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs) で独立に検証します。実AD/IIS/Kerberos、実FDW、SITE受入は未実施です。

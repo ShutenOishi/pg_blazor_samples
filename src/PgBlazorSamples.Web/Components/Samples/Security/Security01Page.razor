@@ -1,5 +1,7 @@
 @page "/learn/081"
 @using PgBlazorSamples.Web.Services.Learning
+@using System.Security.Claims
+@inject L081AuthorizationExercise IsolatedExercise
 @page "/learn/security-01"
 <PageTitle>学習順081：Windows認証・Cookie・HTTP・circuit｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第7段階 / 学習順081</p>
@@ -21,8 +23,41 @@
 <tr><td>Cookie</td><td>暗号化・署名したチケットと期限を管理</td></tr>
 <tr><td>circuit</td><td>対話的なUI状態。認証チケットや最新のDB権限の代わりではない</td></tr>
 </tbody></table><h2>WinForms＋Dapperの比較</h2><table data-testid="stage07-compare-81"><thead><tr><th scope="col">デスクトップ</th><th scope="col">Web</th></tr></thead><tbody><tr><td>フォームの表示状態やDapperのSQLを確認</td><td>本人・Cookie・台帳の都度認可を別々に確認</td></tr></tbody></table><h2>障害の切り分け</h2><table><thead><tr><th scope="col">現象</th><th scope="col">対応</th></tr></thead><tbody><tr><td>模擬の拒否</td><td>条件を確認し、実認証と混同しない</td></tr></tbody></table></section>
+<section class="lesson-details">
+    <h2>隔離したサーバー側サービスの許可・失効を実行する</h2>
+    <p>固定の架空Principal（Negotiateという認証方式名を付けた試験用Identity）と、メモリー内の架空台帳だけを使います。信頼名の検証にはWindowsUserAccessService.ReadTrustedLoginNameの実コードを使いますが、認証ハンドラー・実AD・Cookie・既存DB台帳には接続しません。</p>
+    <button type="button" @onclick="ProbeService">架空認可サービスで1件を読み取る</button>
+    <button type="button" @onclick="RevokeService">隔離台帳の読み取り権限を失効</button>
+    <button type="button" @onclick="ResetService">隔離台帳を初期化</button>
+    <p role="status" data-testid="l081-service-result">@serviceResult</p>
+    <p data-testid="l081-service-count">架空課題件数：@serviceRows 件／サービス呼出回数：@IsolatedExercise.Checks 回</p>
+    <p>許可→失効→再実行の順に試すと、同じ架空Principalでも毎操作で最新の台帳状態によって拒否されます。実業務側のPostgreSQL18試験はSecuredLearningIntegrationTestsを参照してください。この操作の成功は実Windows認証の成立を意味しません。</p>
+</section>
 <div class="page-navigation"><a href="/learn/column/60">前へ：第16組の復習</a><a href="/learn/082">次へ：学習順082</a></div>
 @code {
+    private string serviceResult = "隔離サービスは未実行です。";
+    private int serviceRows;
+    private void ProbeService()
+    {
+        // 信頼済み認証ハンドラーは使用せず、固定の架空主体だけで契約を観察する。
+        var principal = new ClaimsPrincipal(new ClaimsIdentity(
+            [new Claim(ClaimTypes.Name, L081AuthorizationExercise.DemoLogin)], "Negotiate"));
+        var response = IsolatedExercise.Read(principal);
+        serviceResult = response.Message;
+        serviceRows = response.RowCount;
+    }
+    private void RevokeService()
+    {
+        IsolatedExercise.RevokeRead();
+        serviceRows = 0;
+        serviceResult = "隔離台帳の読取権限を失効しました。サービスを再実行してください。";
+    }
+    private void ResetService()
+    {
+        IsolatedExercise.Reset();
+        serviceRows = 0;
+        serviceResult = "隔離台帳を初期化しました。サービスを再実行してください。";
+    }
     private bool authenticated;
     private bool ticketValid;
     private bool ledgerActive;

@@ -691,6 +691,19 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "架空の条件を判定する" }).click();
         await waitText(page, '[data-testid="security01-result"]', "拒否");
 
+        // 学習順081：架空Principal→隔離サービス→台帳失効の実C#イベントを確認。
+        await page.getByRole("button", { name: "架空認可サービスで1件を読み取る" }).click();
+        await waitText(page, '[data-testid="l081-service-result"]', "固定の架空課題1件を許可");
+        await waitText(page, '[data-testid="l081-service-count"]', "架空課題件数：1 件");
+        await page.getByRole("button", { name: "隔離台帳の読み取り権限を失効" }).click();
+        await page.getByRole("button", { name: "架空認可サービスで1件を読み取る" }).click();
+        await waitText(page, '[data-testid="l081-service-result"]', "権限が失効");
+        await waitText(page, '[data-testid="l081-service-count"]', "架空課題件数：0 件");
+        await page.getByRole("button", { name: "隔離台帳を初期化" }).click();
+        await page.getByRole("button", { name: "架空認可サービスで1件を読み取る" }).click();
+        await waitText(page, '[data-testid="l081-service-result"]', "固定の架空課題1件を許可");
+        console.log("学習順081：Chromeで隔離認可サービスの許可・失効拒否・初期化を確認。実AD/台帳は未接続");
+
         await page.goto(base + "/learn/security-02");
         await page.waitForTimeout(950);
         await page.getByRole("button", { name: "変更要求の模擬判定" }).click();

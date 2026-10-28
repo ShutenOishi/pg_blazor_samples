@@ -805,7 +805,7 @@
       "app_url": "/learn/db-bridge-04",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge04Page.razor",
       "audit_state": "partial",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/058",
       "related_sources": [
@@ -817,7 +817,7 @@
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Program.cs"
       ],
-      "notes": "固定架空値のみを返すキーなしビューの実SELECT。未設定時Chrome拒否、PG18専用結合検査。新HEAD同一CI待ち。業務台帳・FDW・SITE未実証。"
+      "notes": "固定架空値のみを返すキーなしビューの実SELECT。未設定時Chrome拒否、PG18専用結合検査。業務台帳・FDW・SITE未実証。 正式CI受入 90ca41f753a2862a05eff623a00ac8a3c281338f（PRコメント #6459933614）。"
     },
     {
       "sequence": 59,
@@ -828,7 +828,7 @@
       "app_url": "/learn/db-bridge-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/DbBridge/DbBridge05Page.razor",
       "audit_state": "partial",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/059",
       "related_sources": [
@@ -838,7 +838,7 @@
         "tests/PgBlazorSamples.UnitTests/L059ParameterizedSqlTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "Dapper・FromSqlInterpolated・SqlQueryの同値パラメーター実検索とCOUNT、境界/SQL注入を模した値のPG18検査を追加。新HEAD CI待ち。"
+      "notes": "Dapper・FromSqlInterpolated・SqlQueryの同値パラメーター実検索とCOUNT、境界/SQL注入を模した値のPG18検査を追加。 正式CI受入 bee5573e4746ef3b873db26fa462fd54093d25fb（PRコメント #6459974048）。"
     },
     {
       "sequence": 60,
@@ -1122,9 +1122,20 @@
       "app_url": "/learn/security-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/081"
+      "canonical_url": "/learn/081",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Security/Security01Page.razor",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/L081AuthorizationExercise.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "tests/PgBlazorSamples.UnitTests/L081AuthorizationExerciseTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "架空Principalの契約を実Windows名検証コードで確認し、隔離サービスで許可・拒否・権限失効を観察。実PG18の業務認可は別の既存統合試験。新HEADのCI待ち。AD/IIS/実FDW/SITEはNOT_TESTED。"
     },
     {
       "sequence": 82,
