@@ -10,6 +10,12 @@ import re
 import sys
 from pathlib import Path
 
+# Windows runnerがcp1252等の既定エンコーディングでも日本語の監査結果を出力できるようにする。
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 ROOT = Path(__file__).resolve().parents[1]
 
 # Windowsランナーのシステム既定エンコーディングに依存せず日本語の検査結果を表示する。
