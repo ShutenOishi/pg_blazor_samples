@@ -163,3 +163,11 @@ database/
 - 081〜085は固定の架空Principal/隔離HTTP・安全拒否、086〜090は共通の `WindowsUserAccessService` による認証済みユーザーと既存台帳の照合を再利用する。共通DI/Program.cs・サービス・DB/SQL・監査・xUnit・安全拒否は一切変更・複製しない。
 - 教材10件の直接Razorリンク、source-index、source-map、監査台帳の対象5件、Python静的検査の旧物理パス、Chrome正規・互換のDocument GET検証を同一変更で同期する。静的参照の存在と実AD/IIS/Kerberos/FDW、DB実操作、監査・現地SITEの受入は混同しない。
 - 新HEADでWindows/Ubuntu実Chrome/PostgreSQL18/PDFソース検証の**全必要CI completed/SUCCESS**がそろうまで構造移行の正式受入は80/110のままとする。既存成功CI再実行・Draft解除・マージ・正式PDF Release更新・無許可PRE/SITE試験は禁止。SITE PASS **0/15**・NOT_RUN **15/15** を維持。
+
+
+### 2026-10-28 学習順091〜100：第7・第8段階の主Razor10件一括構造移行（新HEADのCI受入待ち）
+
+- 直前正式受入：PRコメント #6468214581、HEAD `0cb7dd44b8b173d7c194c5d822548d3379946014`、構造移行90/110。091〜095は`Components/Lessons/Stage07/L091〜L095*.razor`、096〜100は`Components/Lessons/Stage08/L096〜L100*.razor`へ主Razorだけを移動。旧`Samples/Step66〜Step75`の該当主画面を削除するが、`Samples/Step71/Stage08OverviewPage.razor`、復習・共通部品は残す。
+- 正規`/learn/091〜100`と互換`/learn/66〜75`を保ち、10教材のRazorリンク、source-index/mapの関連ソース、Python第19/20組と配置検査、Chromeの正規/互換20経路GETを同期する。
+- 091〜095・098〜100は既存`SecuredLearningService`、096〜097は`WindowsUserAccessService`を直接利用。行認可・`xmin`競合・永続監査・権限失効時拒否、LearningAuditService、DB/SQL、Program.cs/DI、既存テストは変更・複製しない。ファイル実在やGET 200だけで意味的依存・実DB・現地SITE合格とは判定しない。
+- 新HEADのWindows/Ubuntu実Chrome/PostgreSQL18/PDF**ソース検証のみ**の全必要CIと全ジョブ`completed/SUCCESS`までは正式構造受入を90/110で維持。既存SUCCESS CIの再実行、Draft解除、mainマージ、正式PDF Release更新、無許可PRE/SITEを禁止。SITE PASS 0/15・NOT_RUN 15/15、実AD/IIS/Kerberos/FDW・本番鍵・10,001人以上負荷の未受入を維持する。

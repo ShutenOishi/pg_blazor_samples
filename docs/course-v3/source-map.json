@@ -1768,11 +1768,22 @@
       "stage": 7,
       "lesson_path": "docs/samples/step66.md",
       "app_url": "/learn/66",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step66/AuthorizedEntryPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L91AuthorizedEntryPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/091"
+      "canonical_url": "/learn/091",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 92,
@@ -1781,11 +1792,22 @@
       "stage": 7,
       "lesson_path": "docs/samples/step67.md",
       "app_url": "/learn/67",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step67/UnitScopedPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L92UnitScopedPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/092"
+      "canonical_url": "/learn/092",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 93,
@@ -1794,11 +1816,22 @@
       "stage": 7,
       "lesson_path": "docs/samples/step68.md",
       "app_url": "/learn/68",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step68/ScopedExportPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L93ScopedExportPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/093"
+      "canonical_url": "/learn/093",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 94,
@@ -1807,11 +1840,23 @@
       "stage": 7,
       "lesson_path": "docs/samples/step69.md",
       "app_url": "/learn/69",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step69/SecuredEditPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L94SecuredEditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/094"
+      "canonical_url": "/learn/094",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/LearningFinalIntegrationTests.cs"
+      ]
     },
     {
       "sequence": 95,
@@ -1820,11 +1865,23 @@
       "stage": 7,
       "lesson_path": "docs/samples/step70.md",
       "app_url": "/learn/70",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step70/DeploymentGatePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage07/L95DeploymentGatePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/095"
+      "canonical_url": "/learn/095",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs",
+        "docs/course-v3/on-site-acceptance-plan.md"
+      ]
     },
     {
       "sequence": 96,
@@ -1833,11 +1890,17 @@
       "stage": 8,
       "lesson_path": "docs/samples/step71.md",
       "app_url": "/learn/71",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step71/DirectoryNormalizationPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L96DirectoryNormalizationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/096"
+      "canonical_url": "/learn/096",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "database/schema/002_app_access.sql",
+        "tests/PgBlazorSamples.UnitTests/WindowsAccessIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 97,
@@ -1846,11 +1909,18 @@
       "stage": 8,
       "lesson_path": "docs/samples/step72.md",
       "app_url": "/learn/72",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step72/ExplicitWindowsLoginPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L97ExplicitWindowsLoginPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/097"
+      "canonical_url": "/learn/097",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Program.cs",
+        "database/schema/002_app_access.sql",
+        "tests/PgBlazorSamples.UnitTests/WindowsAccessIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 98,
@@ -1859,11 +1929,22 @@
       "stage": 8,
       "lesson_path": "docs/samples/step73.md",
       "app_url": "/learn/73",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step73/TransactionalAuthorizationPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L98TransactionalAuthorizationPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/098"
+      "canonical_url": "/learn/098",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 99,
@@ -1872,11 +1953,22 @@
       "stage": 8,
       "lesson_path": "docs/samples/step74.md",
       "app_url": "/learn/74",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step74/DurableAuditPage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L99DurableAuditPage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/099"
+      "canonical_url": "/learn/099",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ]
     },
     {
       "sequence": 100,
@@ -1885,11 +1977,23 @@
       "stage": 8,
       "lesson_path": "docs/samples/step75.md",
       "app_url": "/learn/75",
-      "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Step75/IisAcceptancePage.razor",
+      "razor_path": "src/PgBlazorSamples.Web/Components/Lessons/Stage08/L100IisAcceptancePage.razor",
       "audit_state": "needs-detailed-audit",
       "test_state": "not-individually-verified",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/100"
+      "canonical_url": "/learn/100",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "database/schema/001_learning_task.sql",
+        "database/schema/002_app_access.sql",
+        "database/schema/003_learning_audit.sql",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs",
+        "docs/course-v3/on-site-acceptance-plan.md"
+      ]
     },
     {
       "sequence": 101,

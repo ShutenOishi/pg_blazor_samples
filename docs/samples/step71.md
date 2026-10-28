@@ -1,6 +1,6 @@
 # 学習順96：既存台帳のキー正規化・重複拒否と索引
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step71/DirectoryNormalizationPage.razor)。画面の正規URLは `/learn/096` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L096DirectoryNormalizationPage.razor)。画面の正規URLは `/learn/096` です。
 
 **第8段階・第20組／学習順096・旧URL /learn/096**
 

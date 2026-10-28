@@ -1,6 +1,6 @@
 # 学習順095：Windows Server 2025の実機受入を分ける
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step70/DeploymentGatePage.razor)。画面の正規URLは `/learn/095` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L095DeploymentGatePage.razor)。画面の正規URLは `/learn/095` です。
 
 **第7段階・第19組／学習順095・旧URL /learn/095**
 

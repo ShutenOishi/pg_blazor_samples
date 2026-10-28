@@ -122,6 +122,18 @@ _STAGE07_MOVED_PAGES = {
     88: "L088UserMappingPage.razor",
     89: "L089UserRefusalPage.razor",
     90: "L090RolePermissionPage.razor",
+    91: "L91AuthorizedEntryPage.razor",
+    92: "L92UnitScopedPage.razor",
+    93: "L93ScopedExportPage.razor",
+    94: "L94SecuredEditPage.razor",
+    95: "L95DeploymentGatePage.razor",
+}
+_STAGE08_MOVED_PAGES = {
+    96: "L96DirectoryNormalizationPage.razor",
+    97: "L97ExplicitWindowsLoginPage.razor",
+    98: "L98TransactionalAuthorizationPage.razor",
+    99: "L99DurableAuditPage.razor",
+    100: "L100IisAcceptancePage.razor",
 }
 
 def web_foundation_page(number: int) -> Path:
@@ -134,7 +146,7 @@ PDF_SCRIPT = (ROOT / "scripts" / "build_docs_pdf.py").read_text(encoding="utf-8"
 # 以前の1〜4番相当の主Razorは現行学習順006〜008・010としてStage02へ移行済み。
 # 残りの旧Stepフォルダーと併せ、従来の80教材の欠落を検出する。
 disk_steps = sorted(int(path.name[4:]) for path in SAMPLES.glob("Step[0-9][0-9]") if path.is_dir())
-moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}, 31: 47, 32: 48, 33: 49, 34: 50, 35: 51, 36: 54, 37: 55, 38: 56, 39: 57, 40: 60, **{i: i + 20 for i in range(41, 51)}, **{i: i + 20 for i in range(51, 61)}, **{i: i + 25 for i in range(61, 66)}}
+moved_steps = {1: 6, 2: 7, 3: 8, 4: 10, 5: 11, 6: 12, 7: 13, 8: 14, 9: 16, 10: 18, **{i: i + 10 for i in range(11, 31)}, 31: 47, 32: 48, 33: 49, 34: 50, 35: 51, 36: 54, 37: 55, 38: 56, 39: 57, 40: 60, **{i: i + 20 for i in range(41, 51)}, **{i: i + 20 for i in range(51, 61)}, **{i: i + 25 for i in range(61, 76)}}
 steps = sorted(set(disk_steps) | set(moved_steps))
 if not steps:
     raise SystemExit("教材検査エラー：実装済みのステップがありません。")
@@ -150,7 +162,8 @@ for number in steps:
                   else (LESSONS / "Stage04" / _STAGE04_MOVED_PAGES[sequence]) if sequence <= 40
                   else (LESSONS / "Stage05" / _STAGE05_MOVED_PAGES[sequence]) if sequence <= 60
                   else (LESSONS / "Stage06" / _STAGE06_MOVED_PAGES[sequence]) if sequence <= 80
-                  else (LESSONS / "Stage07" / _STAGE07_MOVED_PAGES[sequence]))
+                  else (LESSONS / "Stage07" / _STAGE07_MOVED_PAGES[sequence]) if sequence <= 95
+                  else (LESSONS / "Stage08" / _STAGE08_MOVED_PAGES[sequence]))
         if not source.is_file():
             missing.append(f"{source.relative_to(ROOT)}：移行済みRazor画面なし")
     else:
@@ -1305,18 +1318,18 @@ if -1 in positions18 or positions18 != sorted(positions18) or not (
 
 # 第19組091〜095：全面改稿・画面比較表・Web/PDF目次を原本ソースで検査。PDFは生成しない。
 unit19 = [
-    (91, 66, "Step66/AuthorizedEntryPage.razor"),
-    (92, 67, "Step67/UnitScopedPage.razor"),
-    (93, 68, "Step68/ScopedExportPage.razor"),
-    (94, 69, "Step69/SecuredEditPage.razor"),
-    (95, 70, "Step70/DeploymentGatePage.razor"),
+    (91, 66, "L91AuthorizedEntryPage.razor"),
+    (92, 67, "L92UnitScopedPage.razor"),
+    (93, 68, "L93ScopedExportPage.razor"),
+    (94, 69, "L94SecuredEditPage.razor"),
+    (95, 70, "L95DeploymentGatePage.razor"),
 ]
 if [item["id"] for item in ordered[90:95]] != [f"step{old}" for _, old, _ in unit19]:
     missing.append("第19組091〜095の学習順が不正")
 for sequence, old, view_path in unit19:
     source = f"docs/samples/step{old}.md"
     body = (ROOT / source).read_text(encoding="utf-8")
-    view = (SAMPLES / view_path).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage07" / view_path).read_text(encoding="utf-8")
     if ordered[sequence - 1]["rewrite"] != "final-reviewed-ci-passed":
         missing.append(source + "：全面改稿の受入状態が不一致")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96) * 3) < 4:
@@ -1340,9 +1353,9 @@ if 'data-testid="stage07-review19-table"' not in review19_view or 'href="/learn/
     missing.append("第19組復習の比較表または096への導線がない")
 if "学習順091〜095を復習する" not in home or "第19組の復習：091〜095" not in nav_eighth:
     missing.append("第19組復習のHome/NavMenu導線がない")
-if 'href="/learn/column/auth-at-scale"' not in (SAMPLES / "Step66/AuthorizedEntryPage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/auth-at-scale"' not in (LESSONS / "Stage07/L91AuthorizedEntryPage.razor").read_text(encoding="utf-8"):
     missing.append("学習順091の前リンクがない")
-if 'href="/learn/column/70"' not in (SAMPLES / "Step70/DeploymentGatePage.razor").read_text(encoding="utf-8"):
+if 'href="/learn/column/70"' not in (LESSONS / "Stage07/L95DeploymentGatePage.razor").read_text(encoding="utf-8"):
     missing.append("学習順095の復習リンクがない")
 positions19 = [PDF_SCRIPT.find(f'"docs/samples/step{x}.md"') for x in range(66, 71)]
 review19_pos = PDF_SCRIPT.find('"docs/columns/column66-70.md"')
@@ -1356,18 +1369,18 @@ if -1 in positions19 or positions19 != sorted(positions19) or not (
 
 # 第20組096〜100：全面改稿・実画面・目次を検査する。PDFの生成はしない。
 unit20 = [
-    (96, 71, "Step71/DirectoryNormalizationPage.razor"),
-    (97, 72, "Step72/ExplicitWindowsLoginPage.razor"),
-    (98, 73, "Step73/TransactionalAuthorizationPage.razor"),
-    (99, 74, "Step74/DurableAuditPage.razor"),
-    (100, 75, "Step75/IisAcceptancePage.razor"),
+    (96, 71, "L96DirectoryNormalizationPage.razor"),
+    (97, 72, "L97ExplicitWindowsLoginPage.razor"),
+    (98, 73, "L98TransactionalAuthorizationPage.razor"),
+    (99, 74, "L99DurableAuditPage.razor"),
+    (100, 75, "L100IisAcceptancePage.razor"),
 ]
 if [item["id"] for item in ordered[95:100]] != [f"step{old}" for _, old, _ in unit20]:
     missing.append("第20組096〜100の学習順が不正")
 for seq, old, view_rel in unit20:
     source = f"docs/samples/step{old}.md"
     body = (ROOT / source).read_text(encoding="utf-8")
-    view = (SAMPLES / view_rel).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage08" / view_rel).read_text(encoding="utf-8")
     if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
         missing.append(source + "：改稿状態の不一致")
     if len(body) < 3300 or body.count("| ---") < 2 or body.count(chr(96) * 3) < 4:
@@ -1425,7 +1438,7 @@ if [x["id"] for x in ordered[100:105]] != [f"step{old}" for _, old, _ in unit21]
 for seq, old, view_rel in unit21:
     source = f"docs/samples/step{old}.md"
     text_body = (ROOT / source).read_text(encoding="utf-8")
-    view = (SAMPLES / view_rel).read_text(encoding="utf-8")
+    view = (LESSONS / "Stage08" / view_rel).read_text(encoding="utf-8")
     if ordered[seq - 1]["rewrite"] != "final-reviewed-ci-passed":
         missing.append(source + "：改稿状態不一致")
     if len(text_body) < 3300 or text_body.count("| ---") < 2 or text_body.count(chr(96) * 3) < 4:
@@ -1586,6 +1599,8 @@ for previous in (
 
 # 081〜090の移行先実在・旧主不在・両@pageルート保持を個別照合する。
 for seq, target_name in _STAGE07_MOVED_PAGES.items():
+    if seq > 90:
+        continue
     target = LESSONS / "Stage07" / target_name
     old = (SAMPLES / "Security" / f"Security0{seq - 80}Page.razor") if seq <= 85 else (SAMPLES / f"Step{seq - 25}" / ({86: "NegotiatePage.razor", 87: "SidPage.razor", 88: "UserMappingPage.razor", 89: "UserRefusalPage.razor", 90: "RolePermissionPage.razor"}[seq]))
     if not target.is_file() or old.exists():
@@ -1595,6 +1610,20 @@ for seq, target_name in _STAGE07_MOVED_PAGES.items():
         compat = f"/learn/security-0{seq - 80}" if seq <= 85 else f"/learn/{seq - 25}"
         if f'@page "/learn/{seq:03d}"' not in body or f'@page "{compat}"' not in body:
             missing.append(f"学習順{seq:03d}：正規または互換URLが不足")
+
+# 学習順091〜100：第7・第8段階の主Razorの配置と正規/互換URLを検査する。
+_MIGRATED_SECURE_PAGES = {91: "AuthorizedEntryPage.razor", 92: "UnitScopedPage.razor", 93: "ScopedExportPage.razor", 94: "SecuredEditPage.razor", 95: "DeploymentGatePage.razor", 96: "DirectoryNormalizationPage.razor", 97: "ExplicitWindowsLoginPage.razor", 98: "TransactionalAuthorizationPage.razor", 99: "DurableAuditPage.razor", 100: "IisAcceptancePage.razor"}
+for seq in range(91, 101):
+    stage = "Stage07" if seq <= 95 else "Stage08"
+    name = (_STAGE07_MOVED_PAGES if seq <= 95 else _STAGE08_MOVED_PAGES)[seq]
+    target = LESSONS / stage / name
+    old = SAMPLES / f"Step{seq - 25}" / _MIGRATED_SECURE_PAGES[seq]
+    if not target.is_file() or old.exists():
+        missing.append(f"学習順{seq:03d}：新旧主Razorの配置不正")
+    else:
+        body = target.read_text(encoding="utf-8")
+        if f'@page "/learn/{seq:03d}"' not in body or f'@page "/learn/{seq - 25}"' not in body:
+            missing.append(f"学習順{seq:03d}：正規・互換URLの不足")
 
 # 現行教材の直接ソースリンク、正規URL、互換URLの残存を検査する。
 for entry in mapped_lessons:

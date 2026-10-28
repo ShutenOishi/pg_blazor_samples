@@ -1,6 +1,6 @@
 # 学習順99：本人・操作・結果を永続監査する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step74/DurableAuditPage.razor)。画面の正規URLは `/learn/099` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L099DurableAuditPage.razor)。画面の正規URLは `/learn/099` です。
 
 **第8段階・第20組／学習順099・旧URL /learn/099**
 

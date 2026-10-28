@@ -1,6 +1,6 @@
 # 学習順100：IIS・Kerberos・負荷・障害の実機受入
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step75/IisAcceptancePage.razor)。画面の正規URLは `/learn/100` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L100IisAcceptancePage.razor)。画面の正規URLは `/learn/100` です。
 
 **第8段階・第20組／学習順100・旧URL /learn/100**
 

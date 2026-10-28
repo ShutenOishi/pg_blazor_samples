@@ -1,6 +1,6 @@
 # 学習順093：集計とCSVにも認可を適用
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step68/ScopedExportPage.razor)。画面の正規URLは `/learn/093` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L093ScopedExportPage.razor)。画面の正規URLは `/learn/093` です。
 
 **第7段階・第19組／学習順093・旧URL /learn/093**
 

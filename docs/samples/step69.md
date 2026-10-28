@@ -1,6 +1,6 @@
 # 学習順094：保存直前の権限とxminを再確認
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step69/SecuredEditPage.razor)。画面の正規URLは `/learn/094` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L094SecuredEditPage.razor)。画面の正規URLは `/learn/094` です。
 
 **第7段階・第19組／学習順094・旧URL /learn/094**
 

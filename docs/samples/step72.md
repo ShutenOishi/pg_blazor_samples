@@ -1,6 +1,6 @@
 # 学習順97：明示Windowsログインと短命Cookie
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step72/ExplicitWindowsLoginPage.razor)。画面の正規URLは `/learn/097` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L097ExplicitWindowsLoginPage.razor)。画面の正規URLは `/learn/097` です。
 
 **第8段階・第20組／学習順097・旧URL /learn/097**
 

@@ -135,21 +135,21 @@
 | 088 | 認証済みユーザー名と既存台帳を結ぶ | [本文](../samples/step63.md) | `/learn/088` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L088UserMappingPage.razor) |
 | 089 | 未登録・無効利用者を拒否する | [本文](../samples/step64.md) | `/learn/089` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L089UserRefusalPage.razor) |
 | 090 | 既存台帳の業務権限を確認する | [本文](../samples/step65.md) | `/learn/090` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L090RolePermissionPage.razor) |
-| 091 | サービス側で認可を強制する | [本文](../samples/step66.md) | `/learn/091` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step66/AuthorizedEntryPage.razor) |
-| 092 | 部署ごとのCountとItems | [本文](../samples/step67.md) | `/learn/092` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step67/UnitScopedPage.razor) |
-| 093 | 集計とCSVにも認可を適用 | [本文](../samples/step68.md) | `/learn/093` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step68/ScopedExportPage.razor) |
-| 094 | 保存直前の権限とxminを再確認 | [本文](../samples/step69.md) | `/learn/094` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step69/SecuredEditPage.razor) |
-| 095 | Windows Server 2025の実機受入を分ける | [本文](../samples/step70.md) | `/learn/095` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step70/DeploymentGatePage.razor) |
+| 091 | サービス側で認可を強制する | [本文](../samples/step66.md) | `/learn/091` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L91AuthorizedEntryPage.razor) |
+| 092 | 部署ごとのCountとItems | [本文](../samples/step67.md) | `/learn/092` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L92UnitScopedPage.razor) |
+| 093 | 集計とCSVにも認可を適用 | [本文](../samples/step68.md) | `/learn/093` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L93ScopedExportPage.razor) |
+| 094 | 保存直前の権限とxminを再確認 | [本文](../samples/step69.md) | `/learn/094` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L94SecuredEditPage.razor) |
+| 095 | Windows Server 2025の実機受入を分ける | [本文](../samples/step70.md) | `/learn/095` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L95DeploymentGatePage.razor) |
 
 ## 第8段階：監査・競合制御・Windows Server運用（学習順096〜105）
 
 | 学習順 | テーマ | 教材 | 正規URL | 画面ソース |
 | --- | --- | --- | --- | --- |
-| 096 | 既存台帳のキー正規化・重複拒否と索引 | [本文](../samples/step71.md) | `/learn/096` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step71/DirectoryNormalizationPage.razor) |
-| 097 | 明示Windowsログインと短命Cookie | [本文](../samples/step72.md) | `/learn/097` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step72/ExplicitWindowsLoginPage.razor) |
-| 098 | 権限行ロックと更新の原子性 | [本文](../samples/step73.md) | `/learn/098` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step73/TransactionalAuthorizationPage.razor) |
-| 099 | 本人・操作・結果を永続監査する | [本文](../samples/step74.md) | `/learn/099` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step74/DurableAuditPage.razor) |
-| 100 | IIS・Kerberos・負荷・障害の実機受入 | [本文](../samples/step75.md) | `/learn/100` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step75/IisAcceptancePage.razor) |
+| 096 | 既存台帳のキー正規化・重複拒否と索引 | [本文](../samples/step71.md) | `/learn/096` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L96DirectoryNormalizationPage.razor) |
+| 097 | 明示Windowsログインと短命Cookie | [本文](../samples/step72.md) | `/learn/097` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L97ExplicitWindowsLoginPage.razor) |
+| 098 | 権限行ロックと更新の原子性 | [本文](../samples/step73.md) | `/learn/098` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L98TransactionalAuthorizationPage.razor) |
+| 099 | 本人・操作・結果を永続監査する | [本文](../samples/step74.md) | `/learn/099` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L99DurableAuditPage.razor) |
+| 100 | IIS・Kerberos・負荷・障害の実機受入 | [本文](../samples/step75.md) | `/learn/100` | [Razor](../../src/PgBlazorSamples.Web/Components/Lessons/Stage08/L100IisAcceptancePage.razor) |
 | 101 | 二人の編集競合とxmin | [本文](../samples/step76.md) | `/learn/101` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step76/ConcurrentEditPage.razor) |
 | 102 | キャッシュの有効期限と権限失効 | [本文](../samples/step77.md) | `/learn/102` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step77/AuthorizedCachePage.razor) |
 | 103 | ヘルスチェック・構造化ログ・運用監視 | [本文](../samples/step78.md) | `/learn/103` | [Razor](../../src/PgBlazorSamples.Web/Components/Samples/Step78/DiagnosticsPage.razor) |

@@ -1,6 +1,6 @@
 # 学習順091：サービス側で認可を強制する
 
-**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Samples/Step66/AuthorizedEntryPage.razor)。画面の正規URLは `/learn/091` です。
+**実装ソース：** [対応するRazor実装](../../src/PgBlazorSamples.Web/Components/Lessons/Stage07/L091AuthorizedEntryPage.razor)。画面の正規URLは `/learn/091` です。
 
 **第7段階・第19組／学習順091・旧URL /learn/091**
 
