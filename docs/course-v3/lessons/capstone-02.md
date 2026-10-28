@@ -3,7 +3,7 @@
 **実装ソース：** [対応するRazor実装](../../../src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor)。画面の正規URLは `/learn/107` です。
 
 ## SQLの変換とDB実行を分ける
-Capstone02Page.razorのSQL表示はFactory.CreateDbContextでLINQ式を組み立て、ToQueryStringで文字列を得る処理です。架空の部署DEMOはSQLの例示にだけ使い、本人の所属部署ではありません。「権限付き一覧を取得する」はBusiness.LoadPageAsyncを呼び、AuthorizeAsyncで実際の本人・台帳・監査を確認してからDBアクセスします。Visible(db, permit.Unit)のqueryへ検索条件を重ね、同じqueryでCountAsyncとID昇順のSkip/Takeを計算します。画面は最大10件、サービスのMaxPageSizeは50件です。WinForms＋Dapperの場合もWHERE句の認可条件を外したCountは情報漏えいになります。EF Coreが自動SQLを生成しても認可が自動で付くわけではありません。
+Capstone02Page.razorのSQL表示はFactory.CreateDbContextでLINQ式を組み立て、ToQueryStringで文字列を得る処理です。架空の部署DEMOはSQLの例示にだけ使い、本人の所属部署ではありません。「権限付き一覧を取得する」はBusiness.LoadPageAsyncを呼び、AuthorizeAsyncで実際の本人・台帳・監査を確認してからDBアクセスします。Visible(db, permit.Unit)のqueryへ検索条件を重ね、同じqueryでCountAsyncとID昇順のSkip/Takeを計算します。画面は1ページ最大10件で前後ページ操作ができ、サービスのMaxPageSizeは50件です。前後ページでは同じSecuredLearningService.LoadPageAsyncへ0始まりのページ番号を渡します。操作ごとに本人・台帳と部署・監査を再評価するため、画面に残るページ番号を認可の代用にしません。WinForms＋Dapperの場合もWHERE句の認可条件を外したCountは情報漏えいになります。EF Coreが自動SQLを生成しても認可が自動で付くわけではありません。
 
 ## 実コード例1
 ```csharp
@@ -14,6 +14,9 @@ _sql = db.Tasks.AsNoTracking()
     .OrderBy(t => t.Id).Take(10)
     .Select(t => new { t.Id, t.Title }).ToQueryString();
 ```
+
+## 実装・試験の直接リンク
+[認可付き一覧の本体](../../../src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs)、[本人と台帳の照合](../../../src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs)、[永続監査](../../../src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs)、[学習用DbContext](../../../src/PgBlazorSamples.Web/Data/LearningDbContext.cs)、[自部署12件/2ページと実監査のPG18試験](../../../tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs)、[SQL生成とxminの別PG18試験](../../../tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs)、[匿名時Chrome拒否](../../../scripts/browser-smoke.cjs)を参照します。
 
 ## 実コード例2
 ```csharp
@@ -68,7 +71,7 @@ Active Directoryから利用するのは本人認証と信頼できるWindowsロ
 実AD、IIS、Kerberos/SPN、HTTPS証明書、Data Protection鍵・監査の保管と復旧、FDWの実際の原子性、1万人超登録・同時circuit・DBプールと切戻し負荷は現地の証跡が未完了です。画面のチェック欄やCIの架空Principalで実ADを受け入れたと扱わないでください。PDFの生成・再生成とPreview Release・正式Releaseの更新はユーザーが明示的に再開指示するまで禁止します。PDF目次のPythonソースは同期しても、PDF自体や旧Previewの生成元SHAは更新しません。
 
 ## 個別の操作手順
-/learn/107で「生成SQLだけを確認する」を押し、SELECTを確認します。続いて認可付き一覧を押し、匿名なら拒否・総件数0・表示0であることを確認します。CapstoneIntegrationTestsで12件中の先頭10件を検査する処理を追います。
+/learn/107で「生成SQLだけを確認する」を押し、SELECTを確認します。続いて認可付き一覧を押し、匿名なら拒否・総件数0・表示0で前後ページが押せないことを確認します。認可された架空利用者の実DB試験はSecuredLearningIntegrationTestsで自部署12件を10件と2件に分け、他部署の行を含まないこと、2ページのCount一致、一覧操作の永続監査記録と失効後の拒否を確認します。CapstoneIntegrationTestsの未認可なDbContext直接クエリはSQL/ページングそのものの別試験であり、権限付きサービスの証拠とは区別します。
 
 ## 演習と詳しい解答
 **問題1：** SQLを表示できたら業務SELECTの許可が得られたことになりますか。

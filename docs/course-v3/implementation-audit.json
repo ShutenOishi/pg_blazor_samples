@@ -554,11 +554,11 @@
       "implemented_behavior": "要件list/edit/exportを既存SecuredLearningServiceのLoadPageAsync、編集事前認可＋GetDetailAsync、ExportCsvAsyncへ実委譲。匿名時の拒否をChrome検証し、未知選択の呼出なしをxUnitで検証する。106自身は更新しない。",
       "missing_behavior": "要件の切替説明から、完成した業務サンプルの検索・編集・監査経路への導線",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L106RequirementFlowTests.cs; tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新実装の同一HEAD Windows/Ubuntu Chrome/PG18/PDF最終成功待ち。匿名Chromeの安全拒否は実AD認可成功ではない。統合試験は共有サービスの別証拠。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "0ff50856d179f6cd5e0905bdbb27e60e6de1a5f4",
+      "ci_run": "40634749134; PDF 40634749209",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新実装の同一HEAD Windows/Ubuntu Chrome/PG18/PDF最終成功待ち。匿名Chromeの安全拒否は実AD認可成功ではない。統合試験は共有サービスの別証拠。 受入コメント #6461034737、HEAD 0ff50856d179f6cd5e0905bdbb27e60e6de1a5f4、全必要CI SUCCESS。匿名Chrome成功は実AD成功ではない。"
     },
     {
       "sequence": "107",
@@ -566,16 +566,25 @@
       "lesson_path": "docs/course-v3/lessons/capstone-02.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
       "canonical_url": "/learn/107",
-      "related_sources": [],
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
       "sample_kind": "既存操作あり",
-      "implemented_behavior": null,
+      "implemented_behavior": "既存SecuredLearningService.LoadPageAsyncへ前後ページを実委譲。自部署架空12件の0/1ページ10+2、Count一致、他部署非混入、操作ごとの実監査永続化、失効拒否をPG18で検証。Chrome匿名拒否とページ送り不能は別試験。",
       "missing_behavior": "`SecuredLearningService`の検索・件数一致・権限外拒否・実DB試験を補強",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 本機能の同一HEAD全CI成功待ち。実AD/IISは未実証。"
     },
     {
       "sequence": "108",

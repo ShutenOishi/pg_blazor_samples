@@ -84,6 +84,37 @@ public sealed class SecuredLearningIntegrationTests
             Assert.Equal(1, listing.TotalCount);
             Assert.Single(listing.Rows);
             Assert.Equal(ownId, listing.Rows[0].Id);
+
+            // 学習順107：共有認可サービスの実DBページング・Count/Items・部署分離と永続監査。
+            // 12行で10行＋2行を返す。SQL生成のみ/匿名画面拒否だけでは、この証拠の代わりにならない。
+            await using (var seedDb = await factory.CreateDbContextAsync())
+            {
+                seedDb.Tasks.AddRange(Enumerable.Range(0, 11).Select(n =>
+                    new LearningTask { Title = prefix + "ページ追加" + n.ToString("D2"), UnitCode = unit }));
+                await seedDb.SaveChangesAsync();
+            }
+            var pageZero = await business.LoadPageAsync(new(0, 10, prefix));
+            var pageOne = await business.LoadPageAsync(new(1, 10, prefix));
+            Assert.Equal(12, pageZero.TotalCount);
+            Assert.Equal(12, pageOne.TotalCount);
+            Assert.Equal(10, pageZero.Rows.Count);
+            Assert.Equal(2, pageOne.Rows.Count);
+            var allPageIds = pageZero.Rows.Concat(pageOne.Rows).Select(row => row.Id).ToArray();
+            Assert.Equal(12, allPageIds.Distinct().Count());
+            Assert.DoesNotContain(otherId, allPageIds);
+            Assert.True(allPageIds.Zip(allPageIds.Skip(1), (a, b) => a < b).All(ordered => ordered));
+            await using (var verifyDb = await factory.CreateDbContextAsync())
+            {
+                Assert.Equal(12, await verifyDb.Tasks.CountAsync(t =>
+                    allPageIds.Contains(t.Id) && t.UnitCode == unit));
+                var listAudits = await verifyDb.Database.SqlQueryRaw<int>(
+                    "SELECT COUNT(*)::integer AS \"Value\" FROM learning_operation_audit_ci WHERE actor_login = {0} AND operation = 'task.list' AND unit_code = {1} AND row_count IN (10, 2)",
+                    login, unit).SingleAsync();
+                Assert.True(listAudits >= 2);
+                await verifyDb.Tasks.Where(t => t.UnitCode == unit &&
+                    t.Title.StartsWith(prefix + "ページ追加")).ExecuteDeleteAsync();
+            }
+            Assert.Equal(1, (await business.LoadPageAsync(new(0, 10, prefix))).TotalCount);
             Assert.NotNull((await business.GetDetailAsync(ownId)).Item);
             Assert.Null((await business.GetDetailAsync(otherId)).Item);
             Assert.Equal(1, (await business.CountByDoneAsync()).Rows.Sum(r => r.Count));

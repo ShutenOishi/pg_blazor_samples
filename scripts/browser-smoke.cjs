@@ -1560,6 +1560,11 @@ async function waitText(page, selector, expected) {
         await page.getByRole("button", { name: "権限付き一覧を取得する" }).click();
         await waitText(page, '[data-testid="capstone02-result"]', "拒否");
         await waitText(page, '[data-testid="capstone02-total"]', "総件数：0 件");
+        await waitText(page, '[data-testid="capstone02-page"]', "ページ：1");
+        if (await page.getByRole("button", { name: "前のページ" }).isEnabled() ||
+            await page.getByRole("button", { name: "次のページ" }).isEnabled())
+            throw new Error("学習順107：匿名拒否の一覧でページ送りを許可してはいけません。");
+        console.log("学習順107：匿名ChromeはSQL表示のみ許可、実一覧は拒否・0件、前後ページ送り不可。実DBの12件/10+2と監査はPG18試験");
 
         await page.goto(base + "/learn/capstone-03");
         await page.waitForTimeout(850);

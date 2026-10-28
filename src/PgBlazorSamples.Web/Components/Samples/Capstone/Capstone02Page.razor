@@ -18,7 +18,10 @@
 <pre data-testid="capstone02-sql" style="white-space:pre-wrap;overflow-wrap:anywhere">@_sql</pre>
 <button type="button" @onclick="LoadAsync">権限付き一覧を取得する</button>
 <p role="status" data-testid="capstone02-result">@_result</p>
-<p data-testid="capstone02-total">総件数：@_total 件 / 表示件数：@_rows.Count 件（最大10件）</p>
+<p data-testid="capstone02-total">総件数：@_total 件 / 表示件数：@_rows.Count 件（1ページ最大10件）</p>
+<p data-testid="capstone02-page">ページ：@(_page + 1)</p>
+<button type="button" @onclick="PreviousPageAsync" disabled="@(_page == 0)">前のページ</button>
+<button type="button" @onclick="NextPageAsync" disabled="@((_page + 1) * 10 >= _total)">次のページ</button>
 @if (_rows.Count > 0)
 {
 <table><thead><tr><th scope="col">番号</th><th scope="col">課題名</th><th scope="col">状態</th></tr></thead><tbody>
@@ -36,6 +39,7 @@
     private string _result = "未検索です。";
     private string _sql = "SQL生成前";
     private int _total;
+    private int _page;
     private IReadOnlyList<LearningTaskRow> _rows = [];
     private void ExplainSql()
     {
@@ -49,9 +53,27 @@
     }
     private async Task LoadAsync()
     {
+        _page = 0;
+        await LoadCurrentPageAsync();
+    }
+    private async Task PreviousPageAsync()
+    {
+        if (_page == 0) return;
+        _page--;
+        await LoadCurrentPageAsync();
+    }
+    private async Task NextPageAsync()
+    {
+        if ((_page + 1) * 10 >= _total) return;
+        _page++;
+        await LoadCurrentPageAsync();
+    }
+    private async Task LoadCurrentPageAsync()
+    {
         _rows = [];
         _total = 0;
-        var result = await Business.LoadPageAsync(new(0, 10, _keyword));
+        // ページ番号は表示側の状態のみ。部署条件・監査・Count/Itemsは共有サービスで強制。
+        var result = await Business.LoadPageAsync(new(_page, 10, _keyword));
         _result = result.Message;
         _rows = result.Rows;
         _total = result.TotalCount;

@@ -1490,7 +1490,7 @@
       "app_url": "/learn/capstone-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
       "audit_state": "simulation",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/106",
       "related_sources": [
@@ -1504,7 +1504,7 @@
         "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "要件から既存認可・監査付き業務サービスへ実委譲。xUnitルート選択、Chrome匿名拒否、共有PG18試験を別証拠として照合。新HEAD全必要CI待ち。実AD/IIS/SITE未受入。"
+      "notes": "要件から既存認可・監査付き業務サービスへ実委譲。xUnitルート選択、Chrome匿名拒否、共有PG18試験を別証拠として照合。新HEAD全必要CI待ち。実AD/IIS/SITE未受入。 受入PRコメント#6461034737、HEAD 0ff50856d179f6cd5e0905bdbb27e60e6de1a5f4、アプリRun40634749134/PDF40634749209全SUCCESS。"
     },
     {
       "sequence": 107,
@@ -1515,9 +1515,20 @@
       "app_url": "/learn/capstone-02",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
       "audit_state": "interactive",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/107"
+      "canonical_url": "/learn/107",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone02Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "tests/PgBlazorSamples.UnitTests/CapstoneIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "認可付き一覧を前後ページに対応。PG18自部署12件10+2、Count/Items一致、他部署遮断、監査保存を既存共有サービスの試験で個別照合。Chrome匿名拒否は別証拠。新HEAD全CI待ち。"
     },
     {
       "sequence": 108,
