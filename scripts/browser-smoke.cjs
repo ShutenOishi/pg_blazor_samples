@@ -1545,6 +1545,13 @@ async function waitText(page, selector, expected) {
         await page.getByLabel("要件を選ぶ").selectOption("edit");
         await page.getByRole("button", { name: "設計の確認" }).click();
         await waitText(page, '[data-testid="capstone01-result"]', "xmin");
+        // 106：説明だけでなく実業務サービスへ到達し、匿名・未設定では安全拒否。
+        for (const requirement of ["list", "edit", "export"]) {
+            await page.getByLabel("要件を選ぶ").selectOption(requirement);
+            await page.getByRole("button", { name: "認可付きサービス入口を実行する" }).click();
+            await waitText(page, '[data-testid="capstone01-service-result"]', "拒否");
+        }
+        console.log("学習順106：要件list/edit/exportから共有業務サービスへ委譲し、匿名時の安全拒否をChrome確認。実ADは未検証");
 
         await page.goto(base + "/learn/capstone-02");
         await page.waitForTimeout(850);

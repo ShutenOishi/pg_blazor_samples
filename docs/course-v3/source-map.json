@@ -1208,7 +1208,7 @@
       "app_url": "/learn/security-05",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Security/Security05Page.razor",
       "audit_state": "simulation",
-      "test_state": "implemented-awaiting-same-head-ci",
+      "test_state": "verified-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/085",
       "related_sources": [
@@ -1219,7 +1219,7 @@
         "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
         "scripts/browser-smoke.cjs"
       ],
-      "notes": "架空サーバー側再認可と失効後再接続、期限/監査拒否を追加。既存SecuredLearningService/PG18統合試験に導線。新HEAD必要CI待ち、実WebSocket/AD/IIS/SITEは未実証。"
+      "notes": "架空サーバー側再認可と失効後再接続、期限/監査拒否を追加。既存SecuredLearningService/PG18統合試験に導線。新HEAD必要CI待ち、実WebSocket/AD/IIS/SITEは未実証。 正式受入PRコメント #6460954899、HEAD 930d4211d7ed7282a824cd42a365f4bf1c9621a9、アプリRun40632815383・PDF40632815350 SUCCESS。実WebSocket/Cookie/AD未実証。"
     },
     {
       "sequence": 86,
@@ -1490,9 +1490,21 @@
       "app_url": "/learn/capstone-01",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
       "audit_state": "simulation",
-      "test_state": "not-individually-verified",
+      "test_state": "implemented-awaiting-same-head-ci",
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
-      "canonical_url": "/learn/106"
+      "canonical_url": "/learn/106",
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L106RequirementFlow.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/L106RequirementFlowTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "notes": "要件から既存認可・監査付き業務サービスへ実委譲。xUnitルート選択、Chrome匿名拒否、共有PG18試験を別証拠として照合。新HEAD全必要CI待ち。実AD/IIS/SITE未受入。"
     },
     {
       "sequence": 107,

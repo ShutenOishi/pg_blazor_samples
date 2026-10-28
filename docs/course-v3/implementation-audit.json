@@ -527,11 +527,11 @@
       "implemented_behavior": "架空Principalとメモリー内台帳を用いたサーバー側都度再認可、権限版失効後の架空再接続拒否、期限境界・監査不可・無効主体のxUnitとChrome演習を追加。既存SecuredLearningServiceのPG18都度認可試験を参照。",
       "missing_behavior": "権限失効、切断、認可再評価がサーバーで拒否となる架空データの統合試験",
       "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L085ReauthorizationExerciseTests.cs; tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
-      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
-      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
-      "ci_head": null,
-      "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 本機能の同一HEAD Windows/Ubuntu Chrome/PG18/PDF CI未受入。画面の架空再接続は実WebSocket/実Cookie再認証でない。PG18実業務試験は既存の共通サービスを再利用。"
+      "behavior_status": "VERIFIED_SAME_HEAD_CI",
+      "docs_status": "REVISED_VERIFIED_SAME_HEAD_CI",
+      "ci_head": "930d4211d7ed7282a824cd42a365f4bf1c9621a9",
+      "ci_run": "40632815383; PDF 40632815350",
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 本機能の同一HEAD Windows/Ubuntu Chrome/PG18/PDF CI未受入。画面の架空再接続は実WebSocket/実Cookie再認証でない。PG18実業務試験は既存の共通サービスを再利用。 正式受入PRコメント #6460954899、同一HEAD Windows/Ubuntu Chrome/PG18/PDF成功。実WebSocket/Cookie/ADは未実証。"
     },
     {
       "sequence": "106",
@@ -539,16 +539,26 @@
       "lesson_path": "docs/course-v3/lessons/capstone-01.md",
       "razor_path": "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
       "canonical_url": "/learn/106",
-      "related_sources": [],
-      "sample_kind": "模擬中心",
-      "implemented_behavior": null,
+      "related_sources": [
+        "src/PgBlazorSamples.Web/Components/Samples/Capstone/Capstone01Page.razor",
+        "src/PgBlazorSamples.Web/Services/Learning/L106RequirementFlow.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/SecuredLearningService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/WindowsUserAccessService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/LearningAuditService.cs",
+        "src/PgBlazorSamples.Web/Data/LearningDbContext.cs",
+        "tests/PgBlazorSamples.UnitTests/L106RequirementFlowTests.cs",
+        "tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs",
+        "scripts/browser-smoke.cjs"
+      ],
+      "sample_kind": "既存操作あり",
+      "implemented_behavior": "要件list/edit/exportを既存SecuredLearningServiceのLoadPageAsync、編集事前認可＋GetDetailAsync、ExportCsvAsyncへ実委譲。匿名時の拒否をChrome検証し、未知選択の呼出なしをxUnitで検証する。106自身は更新しない。",
       "missing_behavior": "要件の切替説明から、完成した業務サンプルの検索・編集・監査経路への導線",
-      "evidence_test_id": null,
-      "behavior_status": "AUDIT_PENDING",
-      "docs_status": "NUMBER_AND_SOURCE_LINK_UPDATED_REVIEW_PENDING",
+      "evidence_test_id": "tests/PgBlazorSamples.UnitTests/L106RequirementFlowTests.cs; tests/PgBlazorSamples.UnitTests/SecuredLearningIntegrationTests.cs; scripts/browser-smoke.cjs",
+      "behavior_status": "IMPLEMENTED_AWAITING_SAME_HEAD_CI",
+      "docs_status": "REVISED_AWAITING_SAME_HEAD_CI",
       "ci_head": null,
       "ci_run": null,
-      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。"
+      "notes": "初期分類・不足方向はIssue #38。画面の存在は実処理・単体試験・実DB受入の証明ではない。 新実装の同一HEAD Windows/Ubuntu Chrome/PG18/PDF最終成功待ち。匿名Chromeの安全拒否は実AD認可成功ではない。統合試験は共有サービスの別証拠。"
     },
     {
       "sequence": "107",

@@ -1,5 +1,7 @@
 @page "/learn/106"
 @page "/learn/capstone-01"
+@using PgBlazorSamples.Web.Services.Learning
+@inject SecuredLearningService Business
 <PageTitle>学習順106：業務要件・画面遷移・WinForms移行の設計｜Blazor ステップアップ学習</PageTitle>
 <p class="eyebrow">第9段階 / 学習順106</p>
 <h1>業務要件・画面遷移・WinForms移行の設計</h1>
@@ -15,6 +17,9 @@
 </select>
 <button type="button" @onclick="Explain">設計の確認</button>
 <p role="status" data-testid="capstone01-result">@_result</p>
+<button type="button" @onclick="RunSelectedAsync">認可付きサービス入口を実行する</button>
+<p role="status" data-testid="capstone01-service-result">@_serviceResult</p>
+<p>一覧は学習順107のLoadPageAsync、編集の事前確認はAuthorizeAsyncとGetDetailAsync、CSVはExportCsvAsyncを利用します。どれも共有のSecuredLearningServiceを呼び、実業務の認可・監査を省略しません。編集の保存は学習順108で別途行います。匿名や設定未完了では安全に拒否します。</p>
 <table><thead><tr><th scope="col">層</th><th scope="col">責任</th></tr></thead><tbody>
 <tr><td>ブラウザー</td><td>入力・選択・表示。本人や権限を証明しない</td></tr>
 <tr><td>Razor</td><td>表示状態を管理し、サービスを呼ぶ</td></tr>
@@ -29,6 +34,27 @@
 @code {
     private string _requirement = "list";
     private string _result = "要件を選んでください。";
+    private string _serviceResult = "未実行です。";
+
+    private async Task RunSelectedAsync()
+    {
+        _serviceResult = await L106RequirementFlow.ExecuteAsync(
+            _requirement,
+            async () =>
+            {
+                var result = await Business.LoadPageAsync(new(0, 10, ""));
+                return result.Rows.Count == 0 ? result.Message
+                    : $"{result.Message} 表示件数：{result.Rows.Count}件、総件数：{result.TotalCount}件。";
+            },
+            async () =>
+            {
+                var permit = await Business.AuthorizeAsync(forEdit: true);
+                if (permit.Unit is null) return permit.Message;
+                var detail = await Business.GetDetailAsync(1);
+                return $"編集の事前認可が成立しました。{detail.Message} 保存操作は学習順108で行います。";
+            },
+            async () => (await Business.ExportCsvAsync()).Message);
+    }
     private void Explain() => _result = _requirement switch
     {
         "list" => "一覧：認証済み本人を既存台帳で認可し、CountとItemsの部署条件を一致させます。",
