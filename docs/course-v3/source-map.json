@@ -321,7 +321,8 @@
       "canonical_url": "/learn/018",
       "related_sources": [
         "src/PgBlazorSamples.Web/Components/Samples/Step10/PracticeEntry.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/PracticeEntryTests.cs"
       ],
       "notes": " 主RazorをStage02/L018ValidatedFormPage.razorへ物理移行（新HEAD CI待ち）。既存の機能受入と構造受入を区別。"
     },
@@ -457,7 +458,8 @@
         "src/PgBlazorSamples.Web/Services/Clock/GreetingFormatter.cs",
         "src/PgBlazorSamples.Web/Services/Clock/GreetingService.cs",
         "src/PgBlazorSamples.Web/Program.cs",
-        "scripts/browser-smoke.cjs"
+        "scripts/browser-smoke.cjs",
+        "tests/PgBlazorSamples.UnitTests/GreetingFormatterTests.cs"
       ],
       "notes": " 主RazorをStage03/L025InjectionPatternsPage.razorに移行。正規・互換URLを維持。参照の静的確認と新HEAD CI受入は別判定。"
     },
@@ -731,7 +733,8 @@
         "src/PgBlazorSamples.Web/Components/_Imports.razor",
         "scripts/browser-smoke.cjs",
         "src/PgBlazorSamples.Web/Components/Layout/MainLayout.razor",
-        "src/PgBlazorSamples.Web/Services/Learning/ThemePreferenceService.cs"
+        "src/PgBlazorSamples.Web/Services/Learning/ThemePreferenceService.cs",
+        "tests/PgBlazorSamples.UnitTests/ThemePreferenceServiceTests.cs"
       ],
       "notes": "主RazorをStage04/L039AccessibilityPage.razorに一括移行。正規・互換URLと共通MudBlazor DI/Providerを維持。静的参照は動作の個別受入ではない。"
     },

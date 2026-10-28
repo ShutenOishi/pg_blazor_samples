@@ -1158,7 +1158,13 @@ async function waitText(page, selector, expected) {
 
         await page.goto(base + "/learn/15");
         await page.waitForTimeout(1100);
-        await page.getByRole("textbox", { name: "練習用の名前" }).fill("練習花子");
+        const injectionNameInput = page.getByRole("textbox", { name: "練習用の名前" });
+        await injectionNameInput.fill("練習花子");
+        await waitText(page, '[data-testid="step15-greeting"]', "練習花子さん");
+        // Formatterは入力検証器ではない。空欄が拒否されると誤認せず実際の動作を確認する。
+        await injectionNameInput.fill("");
+        await waitText(page, '[data-testid="step15-greeting"]', "さん、");
+        await injectionNameInput.fill("練習花子");
         await waitText(page, '[data-testid="step15-greeting"]', "練習花子さん");
         await page.screenshot({ path: path.join(evidence, "step15.png") });
         console.log("ステップ15：RazorとC#クラスのDI注入に成功");
@@ -1332,11 +1338,18 @@ async function waitText(page, selector, expected) {
 
         await page.goto(base + "/learn/29");
         await page.waitForTimeout(900);
-        await page.getByText("ダークモードを有効にする").click();
+        const themeToggle = page.getByText("ダークモードを有効にする");
+        await themeToggle.click();
         await waitText(page, '[data-testid="step29-theme"]', "ダークモード");
-        await page.getByRole("textbox", { name: "操作確認の入力欄" }).fill("練習");
-        await page.getByRole("button", { name: "入力状態を確認する" }).click();
+        const keyboardInput = page.getByRole("textbox", { name: "操作確認の入力欄" });
+        const keyboardCheck = page.getByRole("button", { name: "入力状態を確認する" });
+        await keyboardCheck.click();
+        await waitText(page, '[data-testid="step29-state"]', "入力が空です。");
+        await keyboardInput.fill("練習");
+        await keyboardCheck.click();
         await waitText(page, '[data-testid="step29-state"]', "練習");
+        await themeToggle.click();
+        await waitText(page, '[data-testid="step29-theme"]', "ライトモード");
         await page.screenshot({ path: path.join(evidence, "step29.png") });
         console.log("ステップ29：テーマ変更と入力を検証");
 
