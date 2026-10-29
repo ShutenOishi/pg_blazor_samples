@@ -1,5 +1,5 @@
 using PgBlazorSamples.Web.Services.Clock;
-using PgBlazorSamples.Application;
+using PgBlazorSamples.Web.Services.Learning;
 using Xunit;
 
 namespace PgBlazorSamples.UnitTests;

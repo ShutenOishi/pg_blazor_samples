@@ -19,25 +19,24 @@
 
 ## 2. プロジェクトと参照方向
 
-Step01〜15は `PgBlazorSamples.Web` と `Program.cs`、`Components/`、各`.razor`にソースを追加しました。[Step01](course-v3/lessons/Stage02/L006FirstBlazorPage.md)、[Step02](course-v3/lessons/Stage02/L007NavigationPage.md)、[Step03](course-v3/lessons/Stage02/L008RazorSyntaxPage.md)、[Step04](course-v3/lessons/Stage02/L010EventPage.md)、[Step05](course-v3/lessons/Stage02/L011TwoWayBindingPage.md)、[Step06](course-v3/lessons/Stage02/L012ConditionalRenderingPage.md)、[Step07](course-v3/lessons/Stage02/L013ComponentParametersPage.md)、[Step08](course-v3/lessons/Stage02/L014EventCallbackPage.md)、[Step09](course-v3/lessons/Stage02/L016ComponentLifecyclePage.md)、[Step10](course-v3/lessons/Stage02/L018ValidatedFormPage.md)、[Step11](course-v3/lessons/Stage03/L021DependencyInjectionPage.md)、[Step12](course-v3/lessons/Stage03/L022InterfaceClockPage.md)、[Step13](course-v3/lessons/Stage03/L023ServiceLifetimesPage.md)、[Step14](course-v3/lessons/Stage03/L024CircuitScopedPage.md)、[Step15](course-v3/lessons/Stage03/L025InjectionPatternsPage.md)の資料は実際のファイルを参照しています。復習は[コラム01](columns/column01-05.md)と[コラム02](columns/column06-10.md)、[コラム03](columns/column11-15.md)で確認できます。インターフェイスとDI登録をWeb内で体験したあとで、Step19でApplicationを独立させます。DBを扱う時点で初めてWeb内のDataとServicesを作ります。
+Step01〜15は `PgBlazorSamples.Web` と `Program.cs`、`Components/`、各`.razor`にソースを追加しました。[Step01](course-v3/lessons/Stage02/L006FirstBlazorPage.md)、[Step02](course-v3/lessons/Stage02/L007NavigationPage.md)、[Step03](course-v3/lessons/Stage02/L008RazorSyntaxPage.md)、[Step04](course-v3/lessons/Stage02/L010EventPage.md)、[Step05](course-v3/lessons/Stage02/L011TwoWayBindingPage.md)、[Step06](course-v3/lessons/Stage02/L012ConditionalRenderingPage.md)、[Step07](course-v3/lessons/Stage02/L013ComponentParametersPage.md)、[Step08](course-v3/lessons/Stage02/L014EventCallbackPage.md)、[Step09](course-v3/lessons/Stage02/L016ComponentLifecyclePage.md)、[Step10](course-v3/lessons/Stage02/L018ValidatedFormPage.md)、[Step11](course-v3/lessons/Stage03/L021DependencyInjectionPage.md)、[Step12](course-v3/lessons/Stage03/L022InterfaceClockPage.md)、[Step13](course-v3/lessons/Stage03/L023ServiceLifetimesPage.md)、[Step14](course-v3/lessons/Stage03/L024CircuitScopedPage.md)、[Step15](course-v3/lessons/Stage03/L025InjectionPatternsPage.md)の資料は実際のファイルを参照しています。復習は[コラム01](columns/column01-05.md)と[コラム02](columns/column06-10.md)、[コラム03](columns/column11-15.md)で確認できます。インターフェイスとDI登録をWeb内で体験し、学習順029ではWeb内のServicesへ契約と実装を分離します。DBもWeb内のDataとServicesで扱います。
 
 ```text
 PgBlazorSamples.Web
-  ├── PgBlazorSamples.Application ──> PgBlazorSamples.Domain
-  └── PgBlazorSamples.Infrastructure
-              ├── PgBlazorSamples.Application
-              └── PgBlazorSamples.Domain
+  ├── Components（画面）
+  ├── Services（契約・処理）
+  └── Data（EF Core/DTO）
+PgBlazorSamples.UnitTests（Webのサービスを参照）
 ```
 
 - Web：画面・ルーティング・MudBlazor・起動時のDI構成
-- Application：ユースケース、サービス契約、操作権限のチェック
-- Domain：業務規則、エンティティ、値オブジェクト
-- Infrastructure：EF Core 10、Npgsql、PostgreSQLアクセス、認証情報との対応
+- Web/Services：ユースケース、サービス契約、操作権限のチェック
+- Web/Data：業務データ、EF Core 10、Npgsql、PostgreSQLアクセス、認証情報との対応
 - UnitTests：外部環境のない単体テスト
 - IntegrationTests：隔離したPostgreSQL 18を用いた結合テスト
 - WebTests：Windows認証、IIS、画面、接続切断の受入試験
 
-**ApplicationからInfrastructureを参照しません。** サーバー上のユーザーごとの可変状態やDB接続をSingletonで共有しません。
+**独立したApplication/Infrastructureプロジェクトは追加しません。** サーバー上のユーザーごとの可変状態やDB接続をSingletonで共有しません。
 
 ## 3. DIを初めて学ぶ人の必修項目
 
@@ -81,7 +80,7 @@ public sealed class GreetingService(IClock clock)
 
 初期テーブル案：[データベース設計](database.md)。中心は `app_user`、`app_role`、`app_permission`、`app_user_role`、`app_role_permission`、`audit_event` です。Windows側の検証済みSIDを照合の主キーとして扱い、アカウント名は表示・補助情報に限定します。
 
-業務データを読み書きする際には、認可をUIだけで完結させません。Applicationのユースケース入口でも操作権限を確認します。ユーザー未登録、無効、権限なし、DB照合失敗では**既定拒否**です。
+業務データを読み書きする際には、認可をUIだけで完結させません。Web内の業務サービスの入口でも操作権限を確認します。ユーザー未登録、無効、権限なし、DB照合失敗では**既定拒否**です。
 
 ## 5. MudBlazorとEF Coreの一覧表示の連携
 
@@ -99,7 +98,7 @@ Step41〜60を新設し、[10パターンの選択ガイド](data-grid-patterns.
                          │
                          ├── ASP.NET Core / Blazor Interactive Server
                          ├── AD認証済み主体を取得
-                         ├── Applicationの認可確認
+                         ├── Web内サービスの認可確認
                          └── PostgreSQL 18へTLS接続
 ```
 

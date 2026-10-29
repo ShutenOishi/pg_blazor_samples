@@ -535,8 +535,8 @@
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/029",
       "related_sources": [
-        "src/PgBlazorSamples.Application/IStepSummaryService.cs",
-        "src/PgBlazorSamples.Application/StepSummaryService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/IStepSummaryService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/StepSummaryService.cs",
         "src/PgBlazorSamples.Web/Program.cs",
         "scripts/browser-smoke.cjs",
         "tests/PgBlazorSamples.UnitTests/GreetingServiceTests.cs"
@@ -556,8 +556,8 @@
       "source_commit": "3c3286016dd4bfbf5bad4f68e72b236c9e90abb9",
       "canonical_url": "/learn/030",
       "related_sources": [
-        "src/PgBlazorSamples.Application/ITodoService.cs",
-        "src/PgBlazorSamples.Application/TodoItem.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/ITodoService.cs",
+        "src/PgBlazorSamples.Web/Services/Learning/TodoItem.cs",
         "src/PgBlazorSamples.Web/Services/Learning/InMemoryTodoService.cs",
         "tests/PgBlazorSamples.UnitTests/TodoServiceTests.cs",
         "scripts/browser-smoke.cjs"

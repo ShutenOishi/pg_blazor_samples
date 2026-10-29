@@ -26,9 +26,9 @@
 * { box-sizing: border-box; }
 html { font-size: 18px; }
 body { margin: 0; background: var(--background); color: var(--foreground); line-height: 1.7; }
-a { color: var(--brand); text-underline-offset: 0.22em; }
-a:hover { text-decoration-thickness: 0.14em; }
-a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+a:not([class*="mud-"]):not(:where([class*="mud-"] *)) { color: var(--brand); text-underline-offset: 0.22em; }
+a:not([class*="mud-"]):not(:where([class*="mud-"] *)):hover { text-decoration-thickness: 0.14em; }
+a:not([class*="mud-"]):not(:where([class*="mud-"] *)):focus-visible, button:not([class*="mud-"]):not(:where([class*="mud-"] *)):focus-visible, [tabindex]:not([class*="mud-"]):not(:where([class*="mud-"] *)):focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
 h1, h2 { line-height: 1.4; }
 h1 { font-size: clamp(1.7rem, 4vw, 2.2rem); }
 h2 { font-size: 1.24rem; }
@@ -85,9 +85,9 @@ code { overflow-wrap: anywhere; font-size: 0.88em; }
 
 /* ステップ04〜06でも操作範囲とフォーカスを見やすくする。 */
 .practice-actions { display: flex; gap: .65rem; flex-wrap: wrap; margin: 1rem 0; }
-.practice-actions button, .secondary-button { padding: .55rem 1rem; font: inherit; border: 2px solid var(--brand); border-radius: .45rem; color: var(--surface); background: var(--brand); cursor: pointer; }
+.practice-actions button:not([class*="mud-"]):not(:where([class*="mud-"] *)), .secondary-button:not([class*="mud-"]):not(:where([class*="mud-"] *)) { padding: .55rem 1rem; font: inherit; border: 2px solid var(--brand); border-radius: .45rem; color: var(--surface); background: var(--brand); cursor: pointer; }
 .secondary-button { color: var(--foreground); background: var(--surface); }
-.practice-actions button:disabled, .secondary-button:disabled { opacity: .55; cursor: not-allowed; }
+.practice-actions button:not([class*="mud-"]):not(:where([class*="mud-"] *)):disabled, .secondary-button:not([class*="mud-"]):not(:where([class*="mud-"] *)):disabled { opacity: .55; cursor: not-allowed; }
 .counter-display { font-size: 1.2rem; }
 .counter-display strong { font-size: 1.6rem; }
 .field-label { display: block; font-weight: 700; margin-bottom: .5rem; }
@@ -97,3 +97,55 @@ code { overflow-wrap: anywhere; font-size: 0.88em; }
 .learning-list { padding-left: 1.6rem; }
 .learning-list li { padding: .65rem 0; border-bottom: 1px solid var(--border); }
 .task-status { display: inline-block; margin-left: 1rem; font-weight: 700; }
+
+/* 標準HTML操作要素のみ対象。MudBlazor自身・その子孫には独自の視認性CSSを適用しない。 */
+a[href]:not([class*="mud-"]):not(:where([class*="mud-"] *)) {
+    text-decoration-line: underline;
+    text-decoration-thickness: .09em;
+    text-underline-offset: .2em;
+}
+a[href]:not([class*="mud-"]):not(:where([class*="mud-"] *)):visited { color: var(--brand); }
+button:not([class*="mud-"]):not(:where([class*="mud-"] *)),
+input:is([type="button"],[type="submit"],[type="reset"]):not([class*="mud-"]):not(:where([class*="mud-"] *)) {
+    display: inline-block;
+    padding: .55rem .9rem;
+    font: inherit;
+    font-weight: 650;
+    border: 2px solid var(--brand);
+    border-radius: .45rem;
+    color: var(--surface);
+    background: var(--brand);
+    cursor: pointer;
+}
+input:not([class*="mud-"]):not(:where([class*="mud-"] *)):not([type="hidden"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]),
+textarea:not([class*="mud-"]):not(:where([class*="mud-"] *)),
+select:not([class*="mud-"]):not(:where([class*="mud-"] *)) {
+    padding: .55rem .65rem;
+    font: inherit;
+    border: 2px solid var(--border);
+    border-radius: .4rem;
+    color: var(--foreground);
+    background: var(--surface);
+}
+input:not([class*="mud-"]):not(:where([class*="mud-"] *)):is([type="checkbox"],[type="radio"]) {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    accent-color: var(--brand);
+}
+:is(a,button,input,textarea,select,[role="button"]):not([class*="mud-"]):not(:where([class*="mud-"] *)):focus-visible {
+    outline: 3px solid var(--focus) !important;
+    outline-offset: 3px;
+}
+button:not([class*="mud-"]):not(:where([class*="mud-"] *)):disabled,
+input:not([class*="mud-"]):not(:where([class*="mud-"] *)):disabled,
+select:not([class*="mud-"]):not(:where([class*="mud-"] *)):disabled,
+textarea:not([class*="mud-"]):not(:where([class*="mud-"] *)):disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* 見た目と役割の違いを保持する二次操作ボタン。 */
+button.secondary-button:not([class*="mud-"]):not(:where([class*="mud-"] *)) {
+    color: var(--foreground);
+    background: var(--surface);
+}

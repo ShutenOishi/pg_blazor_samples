@@ -347,11 +347,18 @@ async function snapshot007(page, phase) {
             const input = document.querySelector("#web03-name");
             if (!input || document.activeElement !== input) return false;
             const focus = getComputedStyle(input);
+            const focusToken = getComputedStyle(document.documentElement)
+                .getPropertyValue("--focus").trim();
+            const hex = /^#([0-9a-f]{6})$/i.exec(focusToken);
+            if (!hex) return false;
+            const value = hex[1];
+            const expected = "rgb(" + [0, 2, 4]
+                .map(i => parseInt(value.slice(i, i + 2), 16)).join(", ") + ")";
             return focus.outlineWidth === "3px"
-                && focus.outlineColor === "rgb(39, 92, 132)"
+                && focus.outlineColor === expected
                 && focus.outlineStyle === "solid";
         }, null, { timeout: 5000 });
-        console.log("学習順003：キーボードフォーカスのCSS isolation適用を確認");
+        console.log("学習順003：キーボードフォーカスの全画面共通CSS適用を確認");
         if (await web03Input.getAttribute("maxlength") !== "30") {
             throw new Error("学習順003：ブラウザー側の入力制限が30文字ではありません");
         }
@@ -1319,7 +1326,7 @@ async function snapshot007(page, phase) {
         console.log("コラム03：日本語画面の表示を確認");
 
 
-        // Step16〜20：標準DIサービス、テスト容易性、Application分離と課題管理。
+        // Step16〜20：標準DIサービス、テスト容易性、Web内のサービス分離と課題管理。
         await page.goto(base + "/learn/16");
         await page.waitForTimeout(1100);
         await waitText(page, '[data-testid="step16-title"]', "Blazorステップアップ学習");
@@ -2170,6 +2177,38 @@ async function snapshot007(page, phase) {
         if (!tabMovedToControl || await keyboardStart.evaluate(element => document.activeElement === element)) {
             throw new Error("Tabキーで次の操作要素にフォーカスを移動できません。");
         }
+        // 操作要素が本文と区別できることを、実Chromeの計算済みCSSで確認する。
+        // 005デバッガー停止・045実200%ズームと支援技術音声の代替試験ではない。
+        await page.goto(base + "/learn/030");
+        const controlInput = page.locator("#step20-title");
+        await controlInput.waitFor();
+        const controlStyles = await page.evaluate(() => {
+            const link = document.querySelector('.page-navigation a[href="/learn/029"]');
+            const field = document.querySelector("#step20-title");
+            const button = document.querySelector('main button[type="button"]');
+            if (!link || !field || !button) return null;
+            const a = getComputedStyle(link);
+            const i = getComputedStyle(field);
+            const b = getComputedStyle(button);
+            return {
+                underlined: a.textDecorationLine.includes("underline"),
+                inputBorder: i.borderTopStyle === "solid" && parseFloat(i.borderTopWidth) >= 2,
+                buttonBorder: b.borderTopStyle === "solid" && parseFloat(b.borderTopWidth) >= 2,
+                buttonColor: b.backgroundColor,
+                inputColor: i.backgroundColor
+            };
+        });
+        if (!controlStyles?.underlined || !controlStyles.inputBorder || !controlStyles.buttonBorder ||
+            controlStyles.buttonColor === "rgba(0, 0, 0, 0)" || controlStyles.inputColor === "rgba(0, 0, 0, 0)") {
+            throw new Error("学習順030：リンク下線・入力枠線・ボタン背景の視認性が不足: " + JSON.stringify(controlStyles));
+        }
+        await controlInput.focus();
+        const focus = await controlInput.evaluate(element => {
+            const css = getComputedStyle(element);
+            return css.outlineStyle !== "none" && parseFloat(css.outlineWidth) >= 3;
+        });
+        if (!focus) throw new Error("学習順030：入力欄のフォーカス枠線を確認できません。");
+        console.log("学習順030：実Chromeでリンク・入力・ボタン・フォーカス表示を確認");
         console.log("日本語Blazor画面のキーボード移動とブラウザー操作試験が完了しました。");
     } catch (error) {
         console.error("ブラウザー操作試験が失敗しました：", error);

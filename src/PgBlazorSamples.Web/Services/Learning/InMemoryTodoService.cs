@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using PgBlazorSamples.Application;
 namespace PgBlazorSamples.Web.Services.Learning;
 
 /// <summary>DBを使わない演習用の実装です。Scopedで登録し、利用者間で状態を共有しません。</summary>

@@ -18,7 +18,6 @@ using PgBlazorSamples.Web.Components;
 using PgBlazorSamples.Web.Services.Clock;
 using PgBlazorSamples.Web.Services.Lifetime;
 using PgBlazorSamples.Web.Services.Learning;
-using PgBlazorSamples.Application;
 
 // 日本語専用の教材なので、サーバーのOS設定によらず日本語表示を標準にする。
 // 日時や数値の既定書式、今後導入する入力検証などにも適用する。
@@ -91,7 +90,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddMudTranslations();
 
-// Step18でUnitTests、Step19でApplicationを段階的に追加する。
+// 単体テストとサービスの実装はWeb内で分離し、独立したApplicationプロジェクトは使用しない。
 // 学習順041：隔離CIの専用Developmentプロセスだけcircuit保持期間を短くする。
 // 通常Development/本番の挙動を変更せず、設定値が誤って本番で有効になっても適用しない。
 var isolatedL041CircuitTest = builder.Environment.IsDevelopment() &&
@@ -121,7 +120,7 @@ builder.Services.AddScoped<ScopedCounter>();
 // Step16：標準Optionsライブラリのサービス登録。設定を画面で解析しない。
 builder.Services.Configure<LearningOptions>(builder.Configuration.GetSection("Learning"));
 
-// Step19〜20：Applicationの契約と実装、画面固有の保存方法を分離する。
+// 学習順029〜030：Web内のServicesに置く契約と実装をDIに登録する。
 builder.Services.AddTransient<IStepSummaryService, StepSummaryService>();
 builder.Services.AddScoped<ITodoService, InMemoryTodoService>();
 // Step29：利用者ごとのテーマ設定はcircuitごとに保持する。

@@ -1,12 +1,11 @@
 @page "/learn/029"
 @page "/learn/19"
-@using PgBlazorSamples.Application
 @inject IStepSummaryService Summary
 
-<PageTitle>学習順029：Application分離｜Blazor ステップアップ学習</PageTitle>
-<p class="eyebrow">学習順29 / 学習順029 / クラスライブラリ分離</p>
-<h1>画面とは別のクラスライブラリへ処理を分ける</h1>
-<p>計算と文章化の処理はApplicationに置き、画面はDIから受け取って呼び出します。</p>
+<PageTitle>学習順029：サービス分離｜Blazor ステップアップ学習</PageTitle>
+<p class="eyebrow">学習順29 / 学習順029 / Web内サービス分離</p>
+<h1>画面とサービスの処理をWeb内で分ける</h1>
+<p>計算と文章化の処理はWeb内のServicesに置き、画面はDIから受け取って呼び出します。</p>
 <section class="lesson-details">
   <h2>学習進捗を表示する</h2>
   <p>学習済み：<strong data-testid="step19-count">@completed</strong> ステップ</p>
@@ -18,14 +17,14 @@
 </section>
 <section class="lesson-details">
   <h2>参照の向き</h2>
-  <p>Web → Application の一方向です。Application側はRazorコンポーネントや画面のイベントを知りません。</p>
+  <p>Web内のRazor画面 → Servicesの一方向です。サービスはRazorコンポーネントや画面のイベントを知りません。</p>
   <p><code>IStepSummaryService</code> の実装をDIで差し替えられ、テスト時には画面を必要としません。</p>
 </section>
 <section class="lesson-details" aria-label="学習順29の比較と切り分け">
   <h2>WinForms＋Dapperとの比較</h2>
   <table data-testid="di06-compare-19">
     <thead><tr><th>対象</th><th>従来の設計</th><th>今回の実装</th></tr></thead>
-    <tbody><tr><td>Application分離</td><td>WinFormsではForm内で計算する例がある</td><td>Applicationサービスが残数を説明する</td></tr></tbody>
+    <tbody><tr><td>Application分離</td><td>WinFormsではForm内で計算する例がある</td><td>Web内のサービスが残数を説明する</td></tr></tbody>
   </table>
   <h2>症状から切り分ける</h2>
   <table><thead><tr><th>症状・誤解</th><th>確認方法</th></tr></thead>

@@ -4,7 +4,7 @@
 
 **EF CoreのためにDomain・Infrastructure・Repositoryなどの別プロジェクトを増やしません。** 初めてEF Coreを使う学習者が、Blazor/MudBlazor→サービス→DbContext→PostgreSQLの呼び出しを素直に追えることを優先します。
 
-Step19で既存のApplicationプロジェクトを使ったDIの練習を実装済みですが、**新しいDB教材ではその参照を必須にせず、既存Web内で完結**します。実務で分割が必要になれば、その段階で選択肢として説明します。
+学習順029のDIの練習もWeb内の `Services/Learning` に置きます。**画面とサービスを別のクラスに分けつつ、Webプロジェクト内で完結**します。実務で分割が必要になれば、その段階で選択肢として説明します。
 
 ## 現在の実装
 
