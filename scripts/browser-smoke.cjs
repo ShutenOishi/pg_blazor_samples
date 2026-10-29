@@ -1319,7 +1319,7 @@ async function snapshot007(page, phase) {
         console.log("コラム03：日本語画面の表示を確認");
 
 
-        // Step16〜20：標準DIサービス、テスト容易性、Application分離と課題管理。
+        // Step16〜20：標準DIサービス、テスト容易性、Web内のサービス分離と課題管理。
         await page.goto(base + "/learn/16");
         await page.waitForTimeout(1100);
         await waitText(page, '[data-testid="step16-title"]', "Blazorステップアップ学習");

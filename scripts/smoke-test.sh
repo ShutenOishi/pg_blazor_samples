@@ -73,7 +73,7 @@ check_page "/learn/column/15" "DIを使うと、画面とサービスの何が�
 check_page "/learn/16" "設定ファイルの値を型付きサービスで受け取る"
 check_page "/learn/17" "処理の完了と取り消しを画面で観察する"
 check_page "/learn/18" "固定時計で時間帯に左右されないテストを作る"
-check_page "/learn/19" "画面とは別のクラスライブラリへ処理を分ける"
+check_page "/learn/19" "画面とサービスの処理をWeb内で分ける"
 check_page "/learn/20" "DIサービスで学習課題の一覧を操作する"
 check_page "/learn/column/20" "DIを利用して画面の責任を小さくする"
 check_page "/learn/column/library-di" "ライブラリの機能は、登録して受け取って使う"

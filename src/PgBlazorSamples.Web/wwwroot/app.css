@@ -145,3 +145,9 @@ textarea:disabled:not([class*="mud-"]) {
     opacity: .6;
     cursor: not-allowed;
 }
+
+/* 見た目と役割の違いを保持する二次操作ボタン。 */
+button.secondary-button:not([class*="mud-"]) {
+    color: var(--foreground);
+    background: var(--surface);
+}
