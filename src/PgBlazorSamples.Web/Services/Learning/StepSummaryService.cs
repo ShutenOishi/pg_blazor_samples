@@ -1,4 +1,4 @@
-namespace PgBlazorSamples.Application;
+namespace PgBlazorSamples.Web.Services.Learning;
 
 /// <summary>UIやDBに依存しない、学習進捗の文章化処理です。</summary>
 public sealed class StepSummaryService : IStepSummaryService

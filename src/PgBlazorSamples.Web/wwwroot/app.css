@@ -97,3 +97,51 @@ code { overflow-wrap: anywhere; font-size: 0.88em; }
 .learning-list { padding-left: 1.6rem; }
 .learning-list li { padding: .65rem 0; border-bottom: 1px solid var(--border); }
 .task-status { display: inline-block; margin-left: 1rem; font-weight: 700; }
+
+/* 全学習画面に共通する、標準HTML操作要素の見分けやすさ。MudBlazor内部要素は対象外。 */
+a[href]:not([class*="mud-"]) {
+    text-decoration-line: underline;
+    text-decoration-thickness: .09em;
+    text-underline-offset: .2em;
+}
+a[href]:not([class*="mud-"]):visited { color: var(--brand); }
+button:not([class*="mud-"]),
+input:is([type="button"],[type="submit"],[type="reset"]):not([class*="mud-"]) {
+    display: inline-block;
+    padding: .55rem .9rem;
+    font: inherit;
+    font-weight: 650;
+    border: 2px solid var(--brand);
+    border-radius: .45rem;
+    color: var(--surface);
+    background: var(--brand);
+    cursor: pointer;
+}
+input:not([class*="mud-"]):not([type="hidden"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]),
+textarea:not([class*="mud-"]),
+select:not([class*="mud-"]) {
+    padding: .55rem .65rem;
+    font: inherit;
+    border: 2px solid var(--border);
+    border-radius: .4rem;
+    color: var(--foreground);
+    background: var(--surface);
+}
+input:not([class*="mud-"]):is([type="checkbox"],[type="radio"]) {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    accent-color: var(--brand);
+}
+:is(a,button,input,textarea,select,[role="button"]):focus-visible,
+.mud-input-control:focus-within,
+.mud-button-root:focus-visible {
+    outline: 3px solid var(--focus) !important;
+    outline-offset: 3px;
+}
+button:disabled:not([class*="mud-"]),
+input:disabled:not([class*="mud-"]),
+select:disabled:not([class*="mud-"]),
+textarea:disabled:not([class*="mud-"]) {
+    opacity: .6;
+    cursor: not-allowed;
+}
