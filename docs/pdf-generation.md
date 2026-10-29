@@ -5,17 +5,23 @@
 学習者が読むのは **「Blazor 実践学習テキスト」**（`blazor_learning_textbook_ja.pdf`）です。
 
 - 日本語の学習タイトルを用いた目次
-- ステップ01〜70の日本語解説とコード例
-- 5ステップごとの復習コラム01〜15、DI特別コラムとMudBlazor用途別特別コラム
+- 学習順001〜110の日本語解説とコード例
+- 段階概要9件、復習22件、DI特別コラムとMudBlazor用途別特別コラム
 - 次に学ぶこと、操作手順、よくある間違い、理解度チェック
 
 学習者に不要なリポジトリ、PR、Actions、ソースファイルハッシュなどの管理情報は本文に出しません。目次もファイル名ではなく「ステップ11：DI（依存性注入）の基本」など学習テーマを表示します。
 
+## 2026-10-29の初回公開と次回以降の承認
+
+初回統合PR #39はmain `d2c0720c4c2c94ad0e28d412b926d1dd81af3524` にマージ済みです。mainのアプリRun 40776976708、PDF Run 40776976727は同一HEADで全4ジョブSUCCESSとなり、正式`learning-textbook`のPDF Asset 686490493を一度公開しました。これは教材配布の受入であり、PRE-01〜07やSITE-01〜15の現地実機受入ではありません。
+
+**今後、mainへの通常のpushだけでは正式PDFのRelease/Assetを再発行しません。** 再公開には別途明示承認を得たmainの完全なコミットSHAをGitHub Repository Variable `LEARNING_TEXTBOOK_PUBLISH_HEAD` に設定する必要があります。未設定・不一致では公開ステップをスキップします。PDFソースのCI検証と正式Releaseの更新は区別し、既存正式AssetとPreview Assetを承認なく上書きしません。
+
 ## PDFの作成
 
-[GitHub ActionsのPDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)で最新mainから自動作成します。**mainの成功CIからGitHub ReleaseにPDF単体を公開します。標準Artifact（ZIP）は配布に使用しません。**
+[GitHub ActionsのPDF生成](https://github.com/ShutenOishi/pg_blazor_samples/actions/workflows/build-docs-pdf.yml)でPDFソースを検証します。**正式Releaseへの単体PDF公開には前節のHEAD単位の明示承認を必要とします。標準Artifact（ZIP）は配布に使用しません。**
 
-[Blazor実践学習テキスト（PDF単体ダウンロード）](https://github.com/ShutenOishi/pg_blazor_samples/releases/download/learning-textbook/blazor_learning_textbook_ja.pdf) （mainの配布ジョブ成功後に有効）
+[Blazor実践学習テキスト（PDF単体ダウンロード）](https://github.com/ShutenOishi/pg_blazor_samples/releases/download/learning-textbook/blazor_learning_textbook_ja.pdf) （2026-10-29の初回配布済み。次回更新は別承認）
 
 ローカルではPython 3.12、Noto CJKフォントと必要なネイティブ依存を導入した後、次のように生成します。
 

@@ -229,9 +229,15 @@ jobs:
             --notes "Draft PR #36の学習用プレビュー。Windows/Linux/Chrome/PostgreSQL18/PDF検査成功。生成元コミット: $SOURCE_SHA"
           gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fx blazor_learning_textbook_ja.pdf
       # Actions Artifactは自動でZIPになるため学習者配布に使用しない。
-      # mainの成功ビルドだけを直接PDFのRelease assetとして公開する。
+      # main pushに伴う自動再発行を防ぐ。次回は個別承認したHEADを
+      # Repository Variable LEARNING_TEXTBOOK_PUBLISH_HEAD に明示設定した場合に限る。
+      # 未設定またはSHA不一致ならRelease/既存Assetを一切変更しない。
       - name: PDFをZIP化せずGitHub Releaseで配布
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: >-
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/main' &&
+          vars.LEARNING_TEXTBOOK_PUBLISH_HEAD != '' &&
+          vars.LEARNING_TEXTBOOK_PUBLISH_HEAD == github.sha
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}

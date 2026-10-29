@@ -54,6 +54,31 @@ async function waitText(page, selector, expected) {
     );
 }
 
+ // 学習順007：失敗時にSSRと対話描画後の実DOMを比較するための匿名ページ限定診断。
+ // テストを成功扱いにする再読込・強制クリック・直接URL遷移の代替は行わない。
+async function snapshot007(page, phase) {
+    const snapshot = await page.evaluate(() => {
+        const main = document.querySelector("#main-content");
+        const practice = main?.querySelector("nav.practice-nav");
+        const forward = main?.querySelector('a[href="/learn/008"]');
+        const reconnect = document.querySelector("#components-reconnect-modal");
+        return {
+            url: location.pathname,
+            readyState: document.readyState,
+            heading: main?.querySelector("h1")?.textContent?.trim() ?? null,
+            practiceNav: practice?.outerHTML?.slice(0, 1600) ?? null,
+            forwardLink: forward?.outerHTML?.slice(0, 400) ?? null,
+            mainText: main?.textContent?.trim().slice(0, 700) ?? null,
+            errorPanel: document.querySelector(".error-panel")?.textContent?.trim() ?? null,
+            reconnectClass: reconnect?.className ?? null,
+            blazorObject: typeof window.Blazor,
+            navigationEntries: performance.getEntriesByType("navigation").length
+        };
+    });
+    console.log("学習順007 DOM " + phase + ": " + JSON.stringify(snapshot));
+    return snapshot;
+}
+
 (async () => {
     let browser;
     try {
@@ -69,6 +94,52 @@ async function waitText(page, selector, expected) {
         const page = await browser.newPage({ locale: "ja-JP", viewport: { width: 1280, height: 850 } });
         const evidence = path.resolve(root, "dist", "browser-evidence");
         mkdirSync(evidence, { recursive: true });
+        // 学習順006〜008：単なるHTTP 200ではなく、静的な教材画面の遷移と
+        // Razor文字列のHTMLエンコードを実Chromeで確認する。C#イベント/xUnitは不要。
+        await page.goto(base + "/learn/006");
+        await page.getByRole("heading", { name: "はじめてのBlazor画面" }).waitFor();
+        // 再現原本：SSRで007へ遷移した直後、旧006の対話ルーターが後から描画され、
+        // URLは007のまま本文だけ006へ戻った。遷移前に006の対話描画完了を確認する。
+        // SSRのNavLinkは単純な<a>、Interactive Server描画後はBlazorコメントを伴う。
+        // URLを直接開き直す代替・force click・単なる時間延長ではない。
+        await page.waitForFunction(() => {
+            const main = document.querySelector("#main-content");
+            const menu = document.querySelector("nav.learn-nav");
+            return location.pathname === "/learn/006"
+                && main?.querySelector("h1")?.textContent?.trim() === "はじめてのBlazor画面"
+                && menu?.innerHTML.includes("<!--!-->") === true;
+        }, null, { timeout: 20000 });
+        console.log("学習順006：SSR後の対話ルーター描画を確認してから正規NavLinkを実クリック");
+        await page.getByRole("link", { name: "次へ：学習順007" }).click();
+        if (!new URL(page.url()).pathname.endsWith("/learn/007"))
+            throw new Error("学習順007：学習順006から正規URLへ移動しません");
+        await page.getByRole("heading", { name: "URLとルーティング" }).waitFor();
+        // 学習順007の実DOMを初回SSR/対話描画前後で記録して原因を限定する。
+        // 800ms待機だけでは失敗を解消しなかったため、単なる待機延長はしない。
+        await snapshot007(page, "heading確認直後");
+        await page.waitForTimeout(800);
+        const current007 = await snapshot007(page, "800ms後");
+        if (await page.getByRole("link", { name: "学習順008へ進む" }).count() !== 1) {
+            // 直接GETは「初回遷移の代替」ではなく、SSR原本との差分を記録する対照群。
+            const ssr007 = await page.request.get(base + "/learn/007");
+            const ssrBody007 = await ssr007.text();
+            console.log("学習順007 SSR対照: " + JSON.stringify({
+                status: ssr007.status(),
+                hasLink: ssrBody007.includes('href="/learn/008"'),
+                hasHeading: ssrBody007.includes("URLとルーティング")
+            }));
+            await page.screenshot({ path: path.join(evidence, "step007-dom-missing.png"), fullPage: true });
+            throw new Error("学習順007：実DOMの学習順008 NavLinkが欠落。診断結果とstep007画像を確認してください。" +
+                " 現表示=" + current007.heading + "、URL=" + current007.url);
+        }
+        // DOMが存在する場合も実リンクをクリックし、到達したRazor出力を検証する。
+        await page.getByRole("link", { name: "学習順008へ進む" }).click();
+        await page.getByRole("heading", { name: "C#の値を画面へ表示する" }).waitFor();
+        await page.getByText("<重要>これは文字列です</重要>", { exact: true }).waitFor();
+        if (await page.locator("重要").count() !== 0)
+            throw new Error("学習順008：文字列をHTML要素として解釈しました");
+        console.log("学習順006〜008：最初の画面、NavLinkの正規遷移、Razor文字列のHTMLエンコードを確認");
+
         // 学習順011〜020：移行後も正規・互換Documentが両方HTTP 200を返すか確認する。
         // 既存のC#イベント、親子、履歴、ブラウザー保存、circuit切断の実操作試験は別に継続。
         for (const [sequence, compatibility] of [["011","/learn/05"],["012","/learn/06"],["013","/learn/07"],["014","/learn/08"],["015","/learn/runtime-02"],["016","/learn/09"],["017","/learn/runtime-03"],["018","/learn/10"],["019","/learn/runtime-04"],["020","/learn/runtime-05"]]) {
@@ -1364,6 +1435,60 @@ async function waitText(page, selector, expected) {
         await page.locator(".mud-select:not(.mud-input-control):not(.mud-select-input)").first().click();
         await page.getByText("UI", { exact: true }).last().click();
         await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月26日");
+        // 学習順033：既定日の表示だけではなく、実MudDatePickerのカレンダーで
+        // 月末→翌月初の別日を選び、DateTime? バインドの表示まで確認する。
+        const dateInput033 = page.getByRole("textbox", { name: "学習予定日" });
+        await dateInput033.click();
+        let calendar033 = page.locator(".mud-picker-calendar:visible");
+        await calendar033.waitFor();
+        await calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)").filter({ hasText: /^31$/ }).click();
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年10月31日");
+        // 日付選択後の閉鎖をAutoClose=trueで明示し、非同期閉鎖が完了してから
+        // 入力の実クリックで再度開く。開閉中の次月操作との競合を避ける。
+        await calendar033.waitFor({ state: "hidden", timeout: 10000 });
+        await dateInput033.click();
+        calendar033 = page.locator(".mud-picker-calendar:visible");
+        await calendar033.waitFor({ state: "visible", timeout: 10000 });
+        const calendarMonth033 = async (phase) => {
+            const current = await calendar033.evaluate(node => ({
+                text: node.textContent?.trim().slice(0, 350),
+                activeDays: [...node.querySelectorAll(".mud-picker-calendar-day:not(.mud-hidden)")].map(day => ({
+                    day: day.textContent?.trim(),
+                    disabled: day.hasAttribute("disabled"),
+                    hidden: day.getClientRects().length === 0
+                })).slice(0, 40)
+            }));
+            console.log("学習順033 カレンダー" + phase + ": " + JSON.stringify(current));
+        };
+        await calendarMonth033("10月31日選択後");
+        await page.locator(".mud-picker-nav-button-next:visible").click();
+        await calendarMonth033("次月ボタン直後");
+        // MudBlazorの月切替では日付ボタンが再描画される。10月31日が当月表示から消え、
+        // 11月1日が現れて遷移が落ち着いてから実際のボタンをクリックする。
+        const activeDays033 = calendar033.locator(".mud-picker-calendar-day:not([disabled]):not(.mud-hidden)");
+        await activeDays033.filter({ hasText: /^31$/ }).waitFor({ state: "hidden", timeout: 10000 });
+        const firstOfNovember033 = activeDays033.filter({ hasText: /^1$/ });
+        try {
+            await firstOfNovember033.waitFor({ state: "visible", timeout: 10000 });
+            await firstOfNovember033.click({ timeout: 10000 });
+        } catch (error) {
+            // 再描画でカレンダーが消えた場合も、その場の画面状態を採取する。
+            // 消えたlocatorへのevaluateで元の失敗を上書きしない。
+            const failureState033 = await page.evaluate(() => ({
+                url: location.pathname,
+                preview: document.querySelector('[data-testid="step23-preview"]')?.textContent?.trim(),
+                calendars: [...document.querySelectorAll(".mud-picker-calendar")].map(node => ({
+                    visible: node.getClientRects().length > 0,
+                    text: node.textContent?.trim().slice(0, 350)
+                }))
+            }));
+            console.log("学習順033 11月1日未成立: " + JSON.stringify(failureState033));
+            await page.screenshot({ path: path.join(evidence, "step033-calendar-failure.png"), fullPage: true });
+            throw error;
+        }
+        await waitText(page, '[data-testid="step23-preview"]', "練習太郎／UI／2026年11月1日");
+        await page.keyboard.press("Escape");
+        console.log("学習順033：MudDatePicker実カレンダーの10月31日→11月1日選択とDateTime?反映を検証");
         await page.locator('[data-testid="mud07-compare-23"]').waitFor();
         await page.screenshot({ path: path.join(evidence, "step23.png") });
 
@@ -1550,6 +1675,19 @@ async function waitText(page, selector, expected) {
             throw new Error("学習順061：RowsPerPage=3の画面行数ではありません。");
         }
         await waitText(page, '[data-testid="step41-count"]', "DB問い合わせ：0 件");
+        // 学習順061：表示が3件であるだけでなく、Itemsの次頁・前頁で同じ8件の別行を示す。
+        const pager061 = page.locator(".mud-table-pagination-actions button");
+        const pager061Count = await pager061.count();
+        if (pager061Count < 2) throw new Error("学習順061：ページ操作ボタンがありません");
+        // MudTablePagerの2ボタン構成または先頭/前/次/末尾の4ボタン構成に対応。
+        await pager061.nth(pager061Count === 2 ? 1 : pager061Count - 2).click();
+        await page.getByText("架空の課題04", { exact: true }).waitFor();
+        if (await page.getByText("架空の課題01", { exact: true }).count() !== 0)
+            throw new Error("学習順061：次頁に前頁の課題01が残っています");
+        await pager061.nth(pager061Count === 2 ? 0 : 1).click();
+        await page.getByText("架空の課題01", { exact: true }).waitFor();
+        await waitText(page, '[data-testid="step41-count"]', "DB問い合わせ：0 件");
+        console.log("学習順061：8件を保持したItemsで3件ずつページ移動・前頁復帰、DB問い合わせ0件を確認");
         await page.screenshot({ path: path.join(evidence, "step41.png") });
         await page.goto(base + "/learn/42");
         await page.waitForTimeout(850);
@@ -1599,6 +1737,22 @@ async function waitText(page, selector, expected) {
             return rows.length > 0 && rows.length < 500;
         }, null, { timeout: 15000 });
         await waitText(page, '[data-testid="step48-count"]', "DB問い合わせ：0 件");
+        // 学習順068：初期DOM行数だけで仮想化合格とせず、実スクロールで末尾行を表示する。
+        // この例の500件は初期からメモリにあり、DB取得を分割した証拠ではない。
+        const virtualScroller068 = page.locator(".mud-table-container").first();
+        const scrollSize068 = await virtualScroller068.evaluate(el => ({
+            client: el.clientHeight, total: el.scrollHeight
+        }));
+        if (scrollSize068.total <= scrollSize068.client)
+            throw new Error("学習順068：仮想化一覧にスクロール可能な領域がありません");
+        await virtualScroller068.evaluate(el => { el.scrollTop = el.scrollHeight; });
+        await page.getByText("仮想化の架空課題 500", { exact: true }).waitFor({ timeout: 15000 });
+        if (await page.locator(".mud-table-body tr").count() >= 500)
+            throw new Error("学習順068：末尾へのスクロール後に全500行を一括描画しました");
+        await virtualScroller068.evaluate(el => { el.scrollTop = 0; });
+        await page.getByText("仮想化の架空課題 001", { exact: true }).waitFor({ timeout: 15000 });
+        await waitText(page, '[data-testid="step48-count"]', "DB問い合わせ：0 件");
+        console.log("学習順068：500件のメモリ内仮想化で先頭→末尾→先頭の行描画とDB問い合わせ0件を確認");
         await page.screenshot({ path: path.join(evidence, "step48.png") });
         await page.goto(base + "/learn/49");
         await page.waitForTimeout(850);
