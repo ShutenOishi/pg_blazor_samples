@@ -347,11 +347,18 @@ async function snapshot007(page, phase) {
             const input = document.querySelector("#web03-name");
             if (!input || document.activeElement !== input) return false;
             const focus = getComputedStyle(input);
+            const focusToken = getComputedStyle(document.documentElement)
+                .getPropertyValue("--focus").trim();
+            const hex = /^#([0-9a-f]{6})$/i.exec(focusToken);
+            if (!hex) return false;
+            const value = hex[1];
+            const expected = "rgb(" + [0, 2, 4]
+                .map(i => parseInt(value.slice(i, i + 2), 16)).join(", ") + ")";
             return focus.outlineWidth === "3px"
-                && focus.outlineColor === "rgb(39, 92, 132)"
+                && focus.outlineColor === expected
                 && focus.outlineStyle === "solid";
         }, null, { timeout: 5000 });
-        console.log("学習順003：キーボードフォーカスのCSS isolation適用を確認");
+        console.log("学習順003：キーボードフォーカスの全画面共通CSS適用を確認");
         if (await web03Input.getAttribute("maxlength") !== "30") {
             throw new Error("学習順003：ブラウザー側の入力制限が30文字ではありません");
         }
