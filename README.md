@@ -35,7 +35,7 @@ dotnet run --project src/PgBlazorSamples.Web
 
 ## 技術構成とサンプルの考え方
 
-- 主なアプリは `src/PgBlazorSamples.Web` に置き、学習用の画面、サービス、Data、JavaScriptを分けます。`PgBlazorSamples.Application` と `tests/PgBlazorSamples.UnitTests` も使用します。
+- 主なアプリは `src/PgBlazorSamples.Web` に置き、学習用の画面、サービス、Data、JavaScriptを分けます。計算用の契約と実装もWeb内の `Services/Learning` に配置し、テストは `tests/PgBlazorSamples.UnitTests` で行います。
 - EF Core 10とNpgsqlを標準のDBアクセスに使用します。WinForms＋Dapperとの比較は学習用の専用データで行い、無許可の業務DB接続を行いません。
 - 一覧/検索、データ編集、トランザクション、競合、監査は、画面の表示とサーバー側の業務サービスの責任を区別します。
 - 学習用の模擬チェックやSQL文字列の表示を、DB実行や本番構成の確認が完了した証拠として扱いません。
